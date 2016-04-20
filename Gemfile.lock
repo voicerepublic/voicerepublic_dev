@@ -74,7 +74,7 @@ GEM
     activemerchant (1.46.0)
       activesupport (>= 3.2.14, < 5.0.0)
       builder (>= 2.1.2, < 4.0.0)
-      i18n (>= 0.6.9
+      i18n (>= 0.6.9)
       nokogiri (~> 1.4)
     activemodel (4.2.0)
       activesupport (= 4.2.0)
@@ -153,6 +153,9 @@ GEM
       faraday_middleware
       hashie
       json
+    closure-compiler (1.1.12)
+    closure-sprockets (0.1.0)
+      tilt
     coderay (1.1.0)
     coffee-rails (4.1.0)
       coffee-script (>= 2.2.0)
@@ -575,6 +578,8 @@ DEPENDENCIES
   capybara (= 2.4.4)
   ci_reporter
   closeio
+  closure-compiler
+  closure-sprockets
   coffee-rails (~> 4.1.0)
   daemons
   database_cleaner!

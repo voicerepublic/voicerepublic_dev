@@ -84,6 +84,8 @@ Rails.application.configure do
   config.action_dispatch.rack_cache = true
 
 
+  config.assets.js_compressor = Closure::Compiler.new
+
   # Optionally disable Javascript/CSS compression
   class NoCompression
     def compress(string)
@@ -97,6 +99,7 @@ Rails.application.configure do
     config.assets.js_compressor = NoCompression.new
     #config.assets.css_compressor = NoCompression.new
   end
+
 
   config.middleware.use 'Raindrops::Middleware' unless Settings.no_raindrops
 
