@@ -19,10 +19,24 @@ class FayeAuth < Struct.new(:app, :opts)
     resp = msgs.values.map do |msg|
       # ok, let's see what the user wants to have access to
       case msg['channel']
+
+      # NEWSCHOOL
+      when %r{/down/venue/(\d+)$}
+        if user = env['warden'].user
+          venue = Venue.find($1)
+          if venue and venue.user_id == user.id
+            msg.merge signature: Faye::Authentication.sign(msg, opts[:secret])
+          else
+            msg.merge error: 'Forbidden'
+          end
+        else
+          msg.merge error: 'Forbidden'
+        end
+
+      # OLDSCHOOL
       when %r{/public$} # a public channel
         msg.merge signature: Faye::Authentication.sign(msg, opts[:secret])
-      when %r{/audit$} # another public channel
-        msg.merge signature: Faye::Authentication.sign(msg, opts[:secret])
+
       when /u(\d+)$/ # a private channel
         if user = env['warden'].user # if it's a real user
           if $1.to_i == user.id # and the user is the owner of the channel

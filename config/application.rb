@@ -64,6 +64,8 @@ module VoiceRepublic
 
     config.middleware.use 'Slides'
 
+    config.middleware.use 'IcecastEndpoint'
+
     config.middleware.use 'Rack::Affiliates'
 
     config.assets.initialize_on_precompile = false
@@ -74,6 +76,8 @@ module VoiceRepublic
     config.assets.precompile += %w( sencha.js embed_talk.js )
 
     config.assets.precompile += %w( embed_talk.css )
+
+    config.assets.precompile += %w( venues.js )
 
     # Handling exceptions dynamically using middleware.
     # Here a rack middleware app could be configured, instead we are using the

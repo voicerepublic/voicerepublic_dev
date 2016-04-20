@@ -1,0 +1,1916 @@
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1"
+ width="1440px" height="2038px"
+ viewBox="0 0 1440 2038"
+ xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges"
+ stroke-width="1" text-rendering="geometricPrecision">
+<polygon fill="white" points="10,7 68,7 68,16 10,16"/>
+<text x="40" y="16" textLength="56" font-family="Helvetica" font-size="12" fill="black" text-anchor="middle">
+
+Venue (M)
+</text>
+<polygon fill="white" points="96,7 142,7 142,16 96,16"/>
+<text x="120" y="16" textLength="44" font-family="Helvetica" font-size="12" fill="black" text-anchor="middle">
+
+Talk (M)
+</text>
+<polygon fill="white" points="169,7 229,7 229,16 169,16"/>
+<text x="200" y="16" textLength="58" font-family="Helvetica" font-size="12" fill="black" text-anchor="middle">
+
+Device (M)
+</text>
+<polygon fill="white" points="251,7 307,7 307,16 251,16"/>
+<text x="280" y="16" textLength="55" font-family="Helvetica" font-size="12" fill="black" text-anchor="middle">
+
+Venue (C)
+</text>
+<polygon fill="white" points="337,7 381,7 381,16 337,16"/>
+<text x="360" y="16" textLength="43" font-family="Helvetica" font-size="12" fill="black" text-anchor="middle">
+
+Talk (C)
+</text>
+<polygon fill="white" points="410,7 468,7 468,16 410,16"/>
+<text x="440" y="16" textLength="57" font-family="Helvetica" font-size="12" fill="black" text-anchor="middle">
+
+Device (C)
+</text>
+<polygon fill="white" points="488,7 550,7 550,16 488,16"/>
+<text x="520" y="16" textLength="61" font-family="Helvetica" font-size="12" fill="black" text-anchor="middle">
+
+ICEP (MW)
+</text>
+<polygon fill="white" points="571,7 627,7 627,16 571,16"/>
+<text x="600" y="16" textLength="54" font-family="Helvetica" font-size="12" fill="black" text-anchor="middle">
+
+Venue (V)
+</text>
+<polygon fill="white" points="657,7 701,7 701,16 657,16"/>
+<text x="680" y="16" textLength="42" font-family="Helvetica" font-size="12" fill="black" text-anchor="middle">
+
+Talk (V)
+</text>
+<polygon fill="white" points="730,7 788,7 788,16 730,16"/>
+<text x="760" y="16" textLength="56" font-family="Helvetica" font-size="12" fill="black" text-anchor="middle">
+
+Device (V)
+</text>
+<polygon fill="white" points="811,7 867,7 867,16 811,16"/>
+<text x="840" y="16" textLength="54" font-family="Helvetica" font-size="12" fill="black" text-anchor="middle">
+
+RabbitMQ
+</text>
+<polygon fill="white" points="882,7 956,7 956,16 882,16"/>
+<text x="920" y="16" textLength="72" font-family="Helvetica" font-size="12" fill="black" text-anchor="middle">
+
+BumpyBridge
+</text>
+<polygon fill="white" points="985,7 1013,7 1013,16 985,16"/>
+<text x="1000" y="16" textLength="27" font-family="Helvetica" font-size="12" fill="black" text-anchor="middle">
+
+Faye
+</text>
+<polygon fill="white" points="1047,7 1111,7 1111,16 1047,16"/>
+<text x="1080" y="16" textLength="62" font-family="Helvetica" font-size="12" fill="black" text-anchor="middle">
+
+CC1 (Faye)
+</text>
+<polygon fill="white" points="1126,7 1192,7 1192,16 1126,16"/>
+<text x="1160" y="16" textLength="64" font-family="Helvetica" font-size="12" fill="black" text-anchor="middle">
+
+Streamboxx
+</text>
+<polygon fill="white" points="1211,7 1267,7 1267,16 1211,16"/>
+<text x="1240" y="16" textLength="54" font-family="Helvetica" font-size="12" fill="black" text-anchor="middle">
+
+AWS EC2
+</text>
+<polygon fill="white" points="1293,7 1345,7 1345,16 1293,16"/>
+<text x="1320" y="16" textLength="50" font-family="Helvetica" font-size="12" fill="black" text-anchor="middle">
+
+Publisher
+</text>
+<polygon fill="white" points="1371,7 1427,7 1427,16 1371,16"/>
+<text x="1400" y="16" textLength="55" font-family="Helvetica" font-size="12" fill="black" text-anchor="middle">
+
+Consumer
+</text>
+<line x1="40" y1="22" x2="40" y2="50" stroke="black"/>
+<line x1="120" y1="22" x2="120" y2="50" stroke="black"/>
+<line x1="200" y1="22" x2="200" y2="50" stroke="black"/>
+<line x1="280" y1="22" x2="280" y2="50" stroke="black"/>
+<line x1="360" y1="22" x2="360" y2="50" stroke="black"/>
+<line x1="440" y1="22" x2="440" y2="50" stroke="black"/>
+<line x1="520" y1="22" x2="520" y2="50" stroke="black"/>
+<line x1="600" y1="22" x2="600" y2="50" stroke="black"/>
+<line x1="680" y1="22" x2="680" y2="50" stroke="black"/>
+<line x1="760" y1="22" x2="760" y2="50" stroke="black"/>
+<line x1="840" y1="22" x2="840" y2="50" stroke="black"/>
+<line x1="920" y1="22" x2="920" y2="50" stroke="black"/>
+<line x1="1000" y1="22" x2="1000" y2="50" stroke="black"/>
+<line x1="1080" y1="22" x2="1080" y2="50" stroke="black"/>
+<line x1="1160" y1="22" x2="1160" y2="50" stroke="black"/>
+<line x1="1240" y1="22" x2="1240" y2="50" stroke="black"/>
+<line x1="1320" y1="22" x2="1320" y2="50" stroke="black"/>
+<line x1="1400" y1="22" x2="1400" y2="50" stroke="black"/>
+<polygon fill="white" points="88,22 152,22 152,44 88,44"/>
+<line x1="88" y1="22" x2="152" y2="22" stroke="black"/>
+<line x1="88" y1="44" x2="152" y2="44" stroke="black"/>
+<line x1="88" y1="22" x2="88" y2="44" stroke="black"/>
+<line x1="152" y1="22" x2="152" y2="44" stroke="black"/>
+<polygon fill="white" points="101,29 138,29 138,38 101,38"/>
+<text x="102" y="38" textLength="35" font-family="Helvetica" font-size="12" fill="black">
+prelive
+</text>
+<line x1="40" y1="50" x2="40" y2="78" stroke="black"/>
+<line x1="120" y1="50" x2="120" y2="78" stroke="black"/>
+<line x1="200" y1="50" x2="200" y2="78" stroke="black"/>
+<line x1="280" y1="50" x2="280" y2="78" stroke="black"/>
+<line x1="360" y1="50" x2="360" y2="78" stroke="black"/>
+<line x1="440" y1="50" x2="440" y2="78" stroke="black"/>
+<line x1="520" y1="50" x2="520" y2="78" stroke="black"/>
+<line x1="600" y1="50" x2="600" y2="78" stroke="black"/>
+<line x1="680" y1="50" x2="680" y2="78" stroke="black"/>
+<line x1="760" y1="50" x2="760" y2="78" stroke="black"/>
+<line x1="840" y1="50" x2="840" y2="78" stroke="black"/>
+<line x1="920" y1="50" x2="920" y2="78" stroke="black"/>
+<line x1="1000" y1="50" x2="1000" y2="78" stroke="black"/>
+<line x1="1080" y1="50" x2="1080" y2="78" stroke="black"/>
+<line x1="1160" y1="50" x2="1160" y2="78" stroke="black"/>
+<line x1="1240" y1="50" x2="1240" y2="78" stroke="black"/>
+<line x1="1320" y1="50" x2="1320" y2="78" stroke="black"/>
+<line x1="1400" y1="50" x2="1400" y2="78" stroke="black"/>
+<line x1="1400" y1="61" x2="680" y2="61" stroke="black"/>
+<line x1="680" y1="61" x2="690" y2="67" stroke="black"/>
+<polygon fill="white" points="998,51 1081,51 1081,60 998,60"/>
+<text x="999" y="60" textLength="81" font-family="Helvetica" font-size="12" fill="black">
+visit /talks/:slug
+</text>
+<line x1="40" y1="78" x2="40" y2="106" stroke="black"/>
+<line x1="120" y1="78" x2="120" y2="106" stroke="black"/>
+<line x1="200" y1="78" x2="200" y2="106" stroke="black"/>
+<line x1="280" y1="78" x2="280" y2="106" stroke="black"/>
+<line x1="360" y1="78" x2="360" y2="106" stroke="black"/>
+<line x1="440" y1="78" x2="440" y2="106" stroke="black"/>
+<line x1="520" y1="78" x2="520" y2="106" stroke="black"/>
+<line x1="600" y1="78" x2="600" y2="106" stroke="black"/>
+<line x1="680" y1="78" x2="680" y2="106" stroke="black"/>
+<line x1="760" y1="78" x2="760" y2="106" stroke="black"/>
+<line x1="840" y1="78" x2="840" y2="106" stroke="black"/>
+<line x1="920" y1="78" x2="920" y2="106" stroke="black"/>
+<line x1="1000" y1="78" x2="1000" y2="106" stroke="black"/>
+<line x1="1080" y1="78" x2="1080" y2="106" stroke="black"/>
+<line x1="1160" y1="78" x2="1160" y2="106" stroke="black"/>
+<line x1="1240" y1="78" x2="1240" y2="106" stroke="black"/>
+<line x1="1320" y1="78" x2="1320" y2="106" stroke="black"/>
+<line x1="1400" y1="78" x2="1400" y2="106" stroke="black"/>
+<polygon fill="white" points="168,78 232,78 232,100 168,100"/>
+<line x1="168" y1="78" x2="232" y2="78" stroke="black"/>
+<line x1="168" y1="100" x2="232" y2="100" stroke="black"/>
+<line x1="168" y1="78" x2="168" y2="100" stroke="black"/>
+<line x1="232" y1="78" x2="232" y2="100" stroke="black"/>
+<polygon fill="white" points="175,85 224,85 224,94 175,94"/>
+<text x="176" y="94" textLength="47" font-family="Helvetica" font-size="12" fill="black">
+unpaired
+</text>
+<line x1="40" y1="106" x2="40" y2="134" stroke="black"/>
+<line x1="120" y1="106" x2="120" y2="134" stroke="black"/>
+<line x1="200" y1="106" x2="200" y2="134" stroke="black"/>
+<line x1="280" y1="106" x2="280" y2="134" stroke="black"/>
+<line x1="360" y1="106" x2="360" y2="134" stroke="black"/>
+<line x1="440" y1="106" x2="440" y2="134" stroke="black"/>
+<line x1="520" y1="106" x2="520" y2="134" stroke="black"/>
+<line x1="600" y1="106" x2="600" y2="134" stroke="black"/>
+<line x1="680" y1="106" x2="680" y2="134" stroke="black"/>
+<line x1="760" y1="106" x2="760" y2="134" stroke="black"/>
+<line x1="840" y1="106" x2="840" y2="134" stroke="black"/>
+<line x1="920" y1="106" x2="920" y2="134" stroke="black"/>
+<line x1="1000" y1="106" x2="1000" y2="134" stroke="black"/>
+<line x1="1080" y1="106" x2="1080" y2="134" stroke="black"/>
+<line x1="1160" y1="106" x2="1160" y2="134" stroke="black"/>
+<line x1="1240" y1="106" x2="1240" y2="134" stroke="black"/>
+<line x1="1320" y1="106" x2="1320" y2="134" stroke="black"/>
+<line x1="1400" y1="106" x2="1400" y2="134" stroke="black"/>
+<line x1="1320" y1="117" x2="1160" y2="117" stroke="black"/>
+<line x1="1160" y1="117" x2="1170" y2="123" stroke="black"/>
+<polygon fill="white" points="1213,107 1265,107 1265,116 1213,116"/>
+<text x="1214" y="116" textLength="50" font-family="Helvetica" font-size="12" fill="black">
+switch on
+</text>
+<line x1="40" y1="134" x2="40" y2="162" stroke="black"/>
+<line x1="120" y1="134" x2="120" y2="162" stroke="black"/>
+<line x1="200" y1="134" x2="200" y2="162" stroke="black"/>
+<line x1="280" y1="134" x2="280" y2="162" stroke="black"/>
+<line x1="360" y1="134" x2="360" y2="162" stroke="black"/>
+<line x1="440" y1="134" x2="440" y2="162" stroke="black"/>
+<line x1="520" y1="134" x2="520" y2="162" stroke="black"/>
+<line x1="600" y1="134" x2="600" y2="162" stroke="black"/>
+<line x1="680" y1="134" x2="680" y2="162" stroke="black"/>
+<line x1="760" y1="134" x2="760" y2="162" stroke="black"/>
+<line x1="840" y1="134" x2="840" y2="162" stroke="black"/>
+<line x1="920" y1="134" x2="920" y2="162" stroke="black"/>
+<line x1="1000" y1="134" x2="1000" y2="162" stroke="black"/>
+<line x1="1080" y1="134" x2="1080" y2="162" stroke="black"/>
+<line x1="1160" y1="134" x2="1160" y2="162" stroke="black"/>
+<line x1="1240" y1="134" x2="1240" y2="162" stroke="black"/>
+<line x1="1320" y1="134" x2="1320" y2="162" stroke="black"/>
+<line x1="1400" y1="134" x2="1400" y2="162" stroke="black"/>
+<polygon fill="white" points="1128,134 1192,134 1192,156 1128,156"/>
+<line x1="1128" y1="134" x2="1192" y2="134" stroke="black"/>
+<line x1="1128" y1="156" x2="1192" y2="156" stroke="black"/>
+<line x1="1128" y1="134" x2="1128" y2="156" stroke="black"/>
+<line x1="1192" y1="134" x2="1192" y2="156" stroke="black"/>
+<polygon fill="white" points="1152,141 1167,141 1167,150 1152,150"/>
+<text x="1153" y="150" textLength="13" font-family="Helvetica" font-size="12" fill="black">
+on
+</text>
+<line x1="40" y1="162" x2="40" y2="190" stroke="black"/>
+<line x1="120" y1="162" x2="120" y2="190" stroke="black"/>
+<line x1="200" y1="162" x2="200" y2="190" stroke="black"/>
+<line x1="280" y1="162" x2="280" y2="190" stroke="black"/>
+<line x1="360" y1="162" x2="360" y2="190" stroke="black"/>
+<line x1="440" y1="162" x2="440" y2="190" stroke="black"/>
+<line x1="520" y1="162" x2="520" y2="190" stroke="black"/>
+<line x1="600" y1="162" x2="600" y2="190" stroke="black"/>
+<line x1="680" y1="162" x2="680" y2="190" stroke="black"/>
+<line x1="760" y1="162" x2="760" y2="190" stroke="black"/>
+<line x1="840" y1="162" x2="840" y2="190" stroke="black"/>
+<line x1="920" y1="162" x2="920" y2="190" stroke="black"/>
+<line x1="1000" y1="162" x2="1000" y2="190" stroke="black"/>
+<line x1="1080" y1="162" x2="1080" y2="190" stroke="black"/>
+<line x1="1160" y1="162" x2="1160" y2="190" stroke="black"/>
+<line x1="1240" y1="162" x2="1240" y2="190" stroke="black"/>
+<line x1="1320" y1="162" x2="1320" y2="190" stroke="black"/>
+<line x1="1400" y1="162" x2="1400" y2="190" stroke="black"/>
+<line x1="1160" y1="173" x2="440" y2="173" stroke="black"/>
+<line x1="440" y1="173" x2="450" y2="179" stroke="black"/>
+<polygon fill="white" points="708,163 891,163 891,172 708,172"/>
+<text x="709" y="172" textLength="181" font-family="Helvetica" font-size="12" fill="black">
+knocking: GET /api/devices/:serial
+</text>
+<line x1="40" y1="190" x2="40" y2="218" stroke="black"/>
+<line x1="120" y1="190" x2="120" y2="218" stroke="black"/>
+<line x1="200" y1="190" x2="200" y2="218" stroke="black"/>
+<line x1="280" y1="190" x2="280" y2="218" stroke="black"/>
+<line x1="360" y1="190" x2="360" y2="218" stroke="black"/>
+<line x1="440" y1="190" x2="440" y2="218" stroke="black"/>
+<line x1="520" y1="190" x2="520" y2="218" stroke="black"/>
+<line x1="600" y1="190" x2="600" y2="218" stroke="black"/>
+<line x1="680" y1="190" x2="680" y2="218" stroke="black"/>
+<line x1="760" y1="190" x2="760" y2="218" stroke="black"/>
+<line x1="840" y1="190" x2="840" y2="218" stroke="black"/>
+<line x1="920" y1="190" x2="920" y2="218" stroke="black"/>
+<line x1="1000" y1="190" x2="1000" y2="218" stroke="black"/>
+<line x1="1080" y1="190" x2="1080" y2="218" stroke="black"/>
+<line x1="1160" y1="190" x2="1160" y2="218" stroke="black"/>
+<line x1="1240" y1="190" x2="1240" y2="218" stroke="black"/>
+<line x1="1320" y1="190" x2="1320" y2="218" stroke="black"/>
+<line x1="1400" y1="190" x2="1400" y2="218" stroke="black"/>
+<line x1="440" y1="201" x2="1160" y2="201" stroke="black" stroke-dasharray="2,2"/>
+<polygon fill="black" points="1160,201 1150,207 1150,195"/>
+<polygon fill="white" points="714,191 885,191 885,200 714,200"/>
+<text x="715" y="200" textLength="169" font-family="Helvetica" font-size="12" fill="black">
+resp.: endpoint (target), loglevel
+</text>
+<line x1="40" y1="218" x2="40" y2="246" stroke="black"/>
+<line x1="120" y1="218" x2="120" y2="246" stroke="black"/>
+<line x1="200" y1="218" x2="200" y2="246" stroke="black"/>
+<line x1="280" y1="218" x2="280" y2="246" stroke="black"/>
+<line x1="360" y1="218" x2="360" y2="246" stroke="black"/>
+<line x1="440" y1="218" x2="440" y2="246" stroke="black"/>
+<line x1="520" y1="218" x2="520" y2="246" stroke="black"/>
+<line x1="600" y1="218" x2="600" y2="246" stroke="black"/>
+<line x1="680" y1="218" x2="680" y2="246" stroke="black"/>
+<line x1="760" y1="218" x2="760" y2="246" stroke="black"/>
+<line x1="840" y1="218" x2="840" y2="246" stroke="black"/>
+<line x1="920" y1="218" x2="920" y2="246" stroke="black"/>
+<line x1="1000" y1="218" x2="1000" y2="246" stroke="black"/>
+<line x1="1080" y1="218" x2="1080" y2="246" stroke="black"/>
+<line x1="1160" y1="218" x2="1160" y2="246" stroke="black"/>
+<line x1="1240" y1="218" x2="1240" y2="246" stroke="black"/>
+<line x1="1320" y1="218" x2="1320" y2="246" stroke="black"/>
+<line x1="1400" y1="218" x2="1400" y2="246" stroke="black"/>
+<line x1="1160" y1="229" x2="440" y2="229" stroke="black"/>
+<line x1="440" y1="229" x2="450" y2="235" stroke="black"/>
+<polygon fill="white" points="717,219 881,219 881,228 717,228"/>
+<text x="718" y="228" textLength="162" font-family="Helvetica" font-size="12" fill="black">
+registering: POST /api/devices
+</text>
+<line x1="40" y1="246" x2="40" y2="274" stroke="black"/>
+<line x1="120" y1="246" x2="120" y2="274" stroke="black"/>
+<line x1="200" y1="246" x2="200" y2="274" stroke="black"/>
+<line x1="280" y1="246" x2="280" y2="274" stroke="black"/>
+<line x1="360" y1="246" x2="360" y2="274" stroke="black"/>
+<line x1="440" y1="246" x2="440" y2="274" stroke="black"/>
+<line x1="520" y1="246" x2="520" y2="274" stroke="black"/>
+<line x1="600" y1="246" x2="600" y2="274" stroke="black"/>
+<line x1="680" y1="246" x2="680" y2="274" stroke="black"/>
+<line x1="760" y1="246" x2="760" y2="274" stroke="black"/>
+<line x1="840" y1="246" x2="840" y2="274" stroke="black"/>
+<line x1="920" y1="246" x2="920" y2="274" stroke="black"/>
+<line x1="1000" y1="246" x2="1000" y2="274" stroke="black"/>
+<line x1="1080" y1="246" x2="1080" y2="274" stroke="black"/>
+<line x1="1160" y1="246" x2="1160" y2="274" stroke="black"/>
+<line x1="1240" y1="246" x2="1240" y2="274" stroke="black"/>
+<line x1="1320" y1="246" x2="1320" y2="274" stroke="black"/>
+<line x1="1400" y1="246" x2="1400" y2="274" stroke="black"/>
+<line x1="440" y1="257" x2="1160" y2="257" stroke="black" stroke-dasharray="2,2"/>
+<polygon fill="black" points="1160,257 1150,263 1150,251"/>
+<polygon fill="white" points="741,247 857,247 857,256 741,256"/>
+<text x="742" y="256" textLength="114" font-family="Helvetica" font-size="12" fill="black">
+resp.: all other details
+</text>
+<line x1="40" y1="274" x2="40" y2="302" stroke="black"/>
+<line x1="120" y1="274" x2="120" y2="302" stroke="black"/>
+<line x1="200" y1="274" x2="200" y2="302" stroke="black"/>
+<line x1="280" y1="274" x2="280" y2="302" stroke="black"/>
+<line x1="360" y1="274" x2="360" y2="302" stroke="black"/>
+<line x1="440" y1="274" x2="440" y2="302" stroke="black"/>
+<line x1="520" y1="274" x2="520" y2="302" stroke="black"/>
+<line x1="600" y1="274" x2="600" y2="302" stroke="black"/>
+<line x1="680" y1="274" x2="680" y2="302" stroke="black"/>
+<line x1="760" y1="274" x2="760" y2="302" stroke="black"/>
+<line x1="840" y1="274" x2="840" y2="302" stroke="black"/>
+<line x1="920" y1="274" x2="920" y2="302" stroke="black"/>
+<line x1="1000" y1="274" x2="1000" y2="302" stroke="black"/>
+<line x1="1080" y1="274" x2="1080" y2="302" stroke="black"/>
+<line x1="1160" y1="274" x2="1160" y2="302" stroke="black"/>
+<line x1="1240" y1="274" x2="1240" y2="302" stroke="black"/>
+<line x1="1320" y1="274" x2="1320" y2="302" stroke="black"/>
+<line x1="1400" y1="274" x2="1400" y2="302" stroke="black"/>
+<line x1="1160" y1="285" x2="1000" y2="285" stroke="black"/>
+<line x1="1000" y1="285" x2="1010" y2="291" stroke="black"/>
+<polygon fill="white" points="1017,275 1141,275 1141,284 1017,284"/>
+<text x="1018" y="284" textLength="122" font-family="Helvetica" font-size="12" fill="black">
+heartbeat (continously)
+</text>
+<line x1="40" y1="302" x2="40" y2="330" stroke="black"/>
+<line x1="120" y1="302" x2="120" y2="330" stroke="black"/>
+<line x1="200" y1="302" x2="200" y2="330" stroke="black"/>
+<line x1="280" y1="302" x2="280" y2="330" stroke="black"/>
+<line x1="360" y1="302" x2="360" y2="330" stroke="black"/>
+<line x1="440" y1="302" x2="440" y2="330" stroke="black"/>
+<line x1="520" y1="302" x2="520" y2="330" stroke="black"/>
+<line x1="600" y1="302" x2="600" y2="330" stroke="black"/>
+<line x1="680" y1="302" x2="680" y2="330" stroke="black"/>
+<line x1="760" y1="302" x2="760" y2="330" stroke="black"/>
+<line x1="840" y1="302" x2="840" y2="330" stroke="black"/>
+<line x1="920" y1="302" x2="920" y2="330" stroke="black"/>
+<line x1="1000" y1="302" x2="1000" y2="330" stroke="black"/>
+<line x1="1080" y1="302" x2="1080" y2="330" stroke="black"/>
+<line x1="1160" y1="302" x2="1160" y2="330" stroke="black"/>
+<line x1="1240" y1="302" x2="1240" y2="330" stroke="black"/>
+<line x1="1320" y1="302" x2="1320" y2="330" stroke="black"/>
+<line x1="1400" y1="302" x2="1400" y2="330" stroke="black"/>
+<line x1="1000" y1="313" x2="1080" y2="313" stroke="black"/>
+<line x1="1080" y1="313" x2="1070" y2="319" stroke="black"/>
+<polygon fill="white" points="977,303 1101,303 1101,312 977,312"/>
+<text x="978" y="312" textLength="122" font-family="Helvetica" font-size="12" fill="black">
+heartbeat (continously)
+</text>
+<line x1="40" y1="330" x2="40" y2="358" stroke="black"/>
+<line x1="120" y1="330" x2="120" y2="358" stroke="black"/>
+<line x1="200" y1="330" x2="200" y2="358" stroke="black"/>
+<line x1="280" y1="330" x2="280" y2="358" stroke="black"/>
+<line x1="360" y1="330" x2="360" y2="358" stroke="black"/>
+<line x1="440" y1="330" x2="440" y2="358" stroke="black"/>
+<line x1="520" y1="330" x2="520" y2="358" stroke="black"/>
+<line x1="600" y1="330" x2="600" y2="358" stroke="black"/>
+<line x1="680" y1="330" x2="680" y2="358" stroke="black"/>
+<line x1="760" y1="330" x2="760" y2="358" stroke="black"/>
+<line x1="840" y1="330" x2="840" y2="358" stroke="black"/>
+<line x1="920" y1="330" x2="920" y2="358" stroke="black"/>
+<line x1="1000" y1="330" x2="1000" y2="358" stroke="black"/>
+<line x1="1080" y1="330" x2="1080" y2="358" stroke="black"/>
+<line x1="1160" y1="330" x2="1160" y2="358" stroke="black"/>
+<line x1="1240" y1="330" x2="1240" y2="358" stroke="black"/>
+<line x1="1320" y1="330" x2="1320" y2="358" stroke="black"/>
+<line x1="1400" y1="330" x2="1400" y2="358" stroke="black"/>
+<line x1="440" y1="341" x2="200" y2="341" stroke="black"/>
+<polygon fill="black" points="200,341 210,347 210,335"/>
+<polygon fill="white" points="276,331 362,331 362,340 276,340"/>
+<text x="277" y="340" textLength="84" font-family="Helvetica" font-size="12" fill="black">
+register! (event)
+</text>
+<line x1="40" y1="358" x2="40" y2="386" stroke="black"/>
+<line x1="120" y1="358" x2="120" y2="386" stroke="black"/>
+<line x1="200" y1="358" x2="200" y2="386" stroke="black"/>
+<line x1="280" y1="358" x2="280" y2="386" stroke="black"/>
+<line x1="360" y1="358" x2="360" y2="386" stroke="black"/>
+<line x1="440" y1="358" x2="440" y2="386" stroke="black"/>
+<line x1="520" y1="358" x2="520" y2="386" stroke="black"/>
+<line x1="600" y1="358" x2="600" y2="386" stroke="black"/>
+<line x1="680" y1="358" x2="680" y2="386" stroke="black"/>
+<line x1="760" y1="358" x2="760" y2="386" stroke="black"/>
+<line x1="840" y1="358" x2="840" y2="386" stroke="black"/>
+<line x1="920" y1="358" x2="920" y2="386" stroke="black"/>
+<line x1="1000" y1="358" x2="1000" y2="386" stroke="black"/>
+<line x1="1080" y1="358" x2="1080" y2="386" stroke="black"/>
+<line x1="1160" y1="358" x2="1160" y2="386" stroke="black"/>
+<line x1="1240" y1="358" x2="1240" y2="386" stroke="black"/>
+<line x1="1320" y1="358" x2="1320" y2="386" stroke="black"/>
+<line x1="1400" y1="358" x2="1400" y2="386" stroke="black"/>
+<polygon fill="white" points="168,358 232,358 232,380 168,380"/>
+<line x1="168" y1="358" x2="232" y2="358" stroke="black"/>
+<line x1="168" y1="380" x2="232" y2="380" stroke="black"/>
+<line x1="168" y1="358" x2="168" y2="380" stroke="black"/>
+<line x1="232" y1="358" x2="232" y2="380" stroke="black"/>
+<polygon fill="white" points="180,365 218,365 218,374 180,374"/>
+<text x="181" y="374" textLength="36" font-family="Helvetica" font-size="12" fill="black">
+pairing
+</text>
+<line x1="40" y1="386" x2="40" y2="414" stroke="black"/>
+<line x1="120" y1="386" x2="120" y2="414" stroke="black"/>
+<line x1="200" y1="386" x2="200" y2="414" stroke="black"/>
+<line x1="280" y1="386" x2="280" y2="414" stroke="black"/>
+<line x1="360" y1="386" x2="360" y2="414" stroke="black"/>
+<line x1="440" y1="386" x2="440" y2="414" stroke="black"/>
+<line x1="520" y1="386" x2="520" y2="414" stroke="black"/>
+<line x1="600" y1="386" x2="600" y2="414" stroke="black"/>
+<line x1="680" y1="386" x2="680" y2="414" stroke="black"/>
+<line x1="760" y1="386" x2="760" y2="414" stroke="black"/>
+<line x1="840" y1="386" x2="840" y2="414" stroke="black"/>
+<line x1="920" y1="386" x2="920" y2="414" stroke="black"/>
+<line x1="1000" y1="386" x2="1000" y2="414" stroke="black"/>
+<line x1="1080" y1="386" x2="1080" y2="414" stroke="black"/>
+<line x1="1160" y1="386" x2="1160" y2="414" stroke="black"/>
+<line x1="1240" y1="386" x2="1240" y2="414" stroke="black"/>
+<line x1="1320" y1="386" x2="1320" y2="414" stroke="black"/>
+<line x1="1400" y1="386" x2="1400" y2="414" stroke="black"/>
+<line x1="1320" y1="397" x2="760" y2="397" stroke="black"/>
+<line x1="760" y1="397" x2="770" y2="403" stroke="black"/>
+<polygon fill="white" points="1004,387 1074,387 1074,396 1004,396"/>
+<text x="1005" y="396" textLength="68" font-family="Helvetica" font-size="12" fill="black">
+visit /devices
+</text>
+<line x1="40" y1="414" x2="40" y2="442" stroke="black"/>
+<line x1="120" y1="414" x2="120" y2="442" stroke="black"/>
+<line x1="200" y1="414" x2="200" y2="442" stroke="black"/>
+<line x1="280" y1="414" x2="280" y2="442" stroke="black"/>
+<line x1="360" y1="414" x2="360" y2="442" stroke="black"/>
+<line x1="440" y1="414" x2="440" y2="442" stroke="black"/>
+<line x1="520" y1="414" x2="520" y2="442" stroke="black"/>
+<line x1="600" y1="414" x2="600" y2="442" stroke="black"/>
+<line x1="680" y1="414" x2="680" y2="442" stroke="black"/>
+<line x1="760" y1="414" x2="760" y2="442" stroke="black"/>
+<line x1="840" y1="414" x2="840" y2="442" stroke="black"/>
+<line x1="920" y1="414" x2="920" y2="442" stroke="black"/>
+<line x1="1000" y1="414" x2="1000" y2="442" stroke="black"/>
+<line x1="1080" y1="414" x2="1080" y2="442" stroke="black"/>
+<line x1="1160" y1="414" x2="1160" y2="442" stroke="black"/>
+<line x1="1240" y1="414" x2="1240" y2="442" stroke="black"/>
+<line x1="1320" y1="414" x2="1320" y2="442" stroke="black"/>
+<line x1="1400" y1="414" x2="1400" y2="442" stroke="black"/>
+<line x1="760" y1="425" x2="440" y2="425" stroke="black"/>
+<line x1="440" y1="425" x2="450" y2="431" stroke="black"/>
+<polygon fill="white" points="506,415 693,415 693,424 506,424"/>
+<text x="507" y="424" textLength="185" font-family="Helvetica" font-size="12" fill="black">
+complete_pairing: PUT /devices/:id
+</text>
+<line x1="40" y1="442" x2="40" y2="470" stroke="black"/>
+<line x1="120" y1="442" x2="120" y2="470" stroke="black"/>
+<line x1="200" y1="442" x2="200" y2="470" stroke="black"/>
+<line x1="280" y1="442" x2="280" y2="470" stroke="black"/>
+<line x1="360" y1="442" x2="360" y2="470" stroke="black"/>
+<line x1="440" y1="442" x2="440" y2="470" stroke="black"/>
+<line x1="520" y1="442" x2="520" y2="470" stroke="black"/>
+<line x1="600" y1="442" x2="600" y2="470" stroke="black"/>
+<line x1="680" y1="442" x2="680" y2="470" stroke="black"/>
+<line x1="760" y1="442" x2="760" y2="470" stroke="black"/>
+<line x1="840" y1="442" x2="840" y2="470" stroke="black"/>
+<line x1="920" y1="442" x2="920" y2="470" stroke="black"/>
+<line x1="1000" y1="442" x2="1000" y2="470" stroke="black"/>
+<line x1="1080" y1="442" x2="1080" y2="470" stroke="black"/>
+<line x1="1160" y1="442" x2="1160" y2="470" stroke="black"/>
+<line x1="1240" y1="442" x2="1240" y2="470" stroke="black"/>
+<line x1="1320" y1="442" x2="1320" y2="470" stroke="black"/>
+<line x1="1400" y1="442" x2="1400" y2="470" stroke="black"/>
+<line x1="440" y1="453" x2="200" y2="453" stroke="black"/>
+<polygon fill="black" points="200,453 210,459 210,447"/>
+<polygon fill="white" points="251,443 388,443 388,452 251,452"/>
+<text x="252" y="452" textLength="135" font-family="Helvetica" font-size="12" fill="black">
+complete_pairing! (event)
+</text>
+<line x1="40" y1="470" x2="40" y2="498" stroke="black"/>
+<line x1="120" y1="470" x2="120" y2="498" stroke="black"/>
+<line x1="200" y1="470" x2="200" y2="498" stroke="black"/>
+<line x1="280" y1="470" x2="280" y2="498" stroke="black"/>
+<line x1="360" y1="470" x2="360" y2="498" stroke="black"/>
+<line x1="440" y1="470" x2="440" y2="498" stroke="black"/>
+<line x1="520" y1="470" x2="520" y2="498" stroke="black"/>
+<line x1="600" y1="470" x2="600" y2="498" stroke="black"/>
+<line x1="680" y1="470" x2="680" y2="498" stroke="black"/>
+<line x1="760" y1="470" x2="760" y2="498" stroke="black"/>
+<line x1="840" y1="470" x2="840" y2="498" stroke="black"/>
+<line x1="920" y1="470" x2="920" y2="498" stroke="black"/>
+<line x1="1000" y1="470" x2="1000" y2="498" stroke="black"/>
+<line x1="1080" y1="470" x2="1080" y2="498" stroke="black"/>
+<line x1="1160" y1="470" x2="1160" y2="498" stroke="black"/>
+<line x1="1240" y1="470" x2="1240" y2="498" stroke="black"/>
+<line x1="1320" y1="470" x2="1320" y2="498" stroke="black"/>
+<line x1="1400" y1="470" x2="1400" y2="498" stroke="black"/>
+<polygon fill="white" points="168,470 232,470 232,492 168,492"/>
+<line x1="168" y1="470" x2="232" y2="470" stroke="black"/>
+<line x1="168" y1="492" x2="232" y2="492" stroke="black"/>
+<line x1="168" y1="470" x2="168" y2="492" stroke="black"/>
+<line x1="232" y1="470" x2="232" y2="492" stroke="black"/>
+<polygon fill="white" points="189,477 210,477 210,486 189,486"/>
+<text x="190" y="486" textLength="19" font-family="Helvetica" font-size="12" fill="black">
+idle
+</text>
+<line x1="40" y1="498" x2="40" y2="526" stroke="black"/>
+<line x1="120" y1="498" x2="120" y2="526" stroke="black"/>
+<line x1="200" y1="498" x2="200" y2="526" stroke="black"/>
+<line x1="280" y1="498" x2="280" y2="526" stroke="black"/>
+<line x1="360" y1="498" x2="360" y2="526" stroke="black"/>
+<line x1="440" y1="498" x2="440" y2="526" stroke="black"/>
+<line x1="520" y1="498" x2="520" y2="526" stroke="black"/>
+<line x1="600" y1="498" x2="600" y2="526" stroke="black"/>
+<line x1="680" y1="498" x2="680" y2="526" stroke="black"/>
+<line x1="760" y1="498" x2="760" y2="526" stroke="black"/>
+<line x1="840" y1="498" x2="840" y2="526" stroke="black"/>
+<line x1="920" y1="498" x2="920" y2="526" stroke="black"/>
+<line x1="1000" y1="498" x2="1000" y2="526" stroke="black"/>
+<line x1="1080" y1="498" x2="1080" y2="526" stroke="black"/>
+<line x1="1160" y1="498" x2="1160" y2="526" stroke="black"/>
+<line x1="1240" y1="498" x2="1240" y2="526" stroke="black"/>
+<line x1="1320" y1="498" x2="1320" y2="526" stroke="black"/>
+<line x1="1400" y1="498" x2="1400" y2="526" stroke="black"/>
+<line x1="1320" y1="509" x2="1160" y2="509" stroke="black"/>
+<line x1="1160" y1="509" x2="1170" y2="515" stroke="black"/>
+<polygon fill="white" points="1213,499 1265,499 1265,508 1213,508"/>
+<text x="1214" y="508" textLength="50" font-family="Helvetica" font-size="12" fill="black">
+switch off
+</text>
+<line x1="40" y1="526" x2="40" y2="554" stroke="black"/>
+<line x1="120" y1="526" x2="120" y2="554" stroke="black"/>
+<line x1="200" y1="526" x2="200" y2="554" stroke="black"/>
+<line x1="280" y1="526" x2="280" y2="554" stroke="black"/>
+<line x1="360" y1="526" x2="360" y2="554" stroke="black"/>
+<line x1="440" y1="526" x2="440" y2="554" stroke="black"/>
+<line x1="520" y1="526" x2="520" y2="554" stroke="black"/>
+<line x1="600" y1="526" x2="600" y2="554" stroke="black"/>
+<line x1="680" y1="526" x2="680" y2="554" stroke="black"/>
+<line x1="760" y1="526" x2="760" y2="554" stroke="black"/>
+<line x1="840" y1="526" x2="840" y2="554" stroke="black"/>
+<line x1="920" y1="526" x2="920" y2="554" stroke="black"/>
+<line x1="1000" y1="526" x2="1000" y2="554" stroke="black"/>
+<line x1="1080" y1="526" x2="1080" y2="554" stroke="black"/>
+<line x1="1160" y1="526" x2="1160" y2="554" stroke="black"/>
+<line x1="1240" y1="526" x2="1240" y2="554" stroke="black"/>
+<line x1="1320" y1="526" x2="1320" y2="554" stroke="black"/>
+<line x1="1400" y1="526" x2="1400" y2="554" stroke="black"/>
+<polygon fill="white" points="1128,526 1192,526 1192,548 1128,548"/>
+<line x1="1128" y1="526" x2="1192" y2="526" stroke="black"/>
+<line x1="1128" y1="548" x2="1192" y2="548" stroke="black"/>
+<line x1="1128" y1="526" x2="1128" y2="548" stroke="black"/>
+<line x1="1192" y1="526" x2="1192" y2="548" stroke="black"/>
+<polygon fill="white" points="1152,533 1167,533 1167,542 1152,542"/>
+<text x="1153" y="542" textLength="13" font-family="Helvetica" font-size="12" fill="black">
+off
+</text>
+<line x1="40" y1="554" x2="40" y2="582" stroke="black"/>
+<line x1="120" y1="554" x2="120" y2="582" stroke="black"/>
+<line x1="200" y1="554" x2="200" y2="582" stroke="black"/>
+<line x1="280" y1="554" x2="280" y2="582" stroke="black"/>
+<line x1="360" y1="554" x2="360" y2="582" stroke="black"/>
+<line x1="440" y1="554" x2="440" y2="582" stroke="black"/>
+<line x1="520" y1="554" x2="520" y2="582" stroke="black"/>
+<line x1="600" y1="554" x2="600" y2="582" stroke="black"/>
+<line x1="680" y1="554" x2="680" y2="582" stroke="black"/>
+<line x1="760" y1="554" x2="760" y2="582" stroke="black"/>
+<line x1="840" y1="554" x2="840" y2="582" stroke="black"/>
+<line x1="920" y1="554" x2="920" y2="582" stroke="black"/>
+<line x1="1000" y1="554" x2="1000" y2="582" stroke="black"/>
+<line x1="1080" y1="554" x2="1080" y2="582" stroke="black"/>
+<line x1="1160" y1="554" x2="1160" y2="582" stroke="black"/>
+<line x1="1240" y1="554" x2="1240" y2="582" stroke="black"/>
+<line x1="1320" y1="554" x2="1320" y2="582" stroke="black"/>
+<line x1="1400" y1="554" x2="1400" y2="582" stroke="black"/>
+<line x1="1080" y1="565" x2="200" y2="565" stroke="black"/>
+<polygon fill="black" points="200,565 210,571 210,559"/>
+<polygon fill="white" points="590,555 689,555 689,564 590,564"/>
+<text x="591" y="564" textLength="97" font-family="Helvetica" font-size="12" fill="black">
+disappear! (event)
+</text>
+<line x1="40" y1="582" x2="40" y2="610" stroke="black"/>
+<line x1="120" y1="582" x2="120" y2="610" stroke="black"/>
+<line x1="200" y1="582" x2="200" y2="610" stroke="black"/>
+<line x1="280" y1="582" x2="280" y2="610" stroke="black"/>
+<line x1="360" y1="582" x2="360" y2="610" stroke="black"/>
+<line x1="440" y1="582" x2="440" y2="610" stroke="black"/>
+<line x1="520" y1="582" x2="520" y2="610" stroke="black"/>
+<line x1="600" y1="582" x2="600" y2="610" stroke="black"/>
+<line x1="680" y1="582" x2="680" y2="610" stroke="black"/>
+<line x1="760" y1="582" x2="760" y2="610" stroke="black"/>
+<line x1="840" y1="582" x2="840" y2="610" stroke="black"/>
+<line x1="920" y1="582" x2="920" y2="610" stroke="black"/>
+<line x1="1000" y1="582" x2="1000" y2="610" stroke="black"/>
+<line x1="1080" y1="582" x2="1080" y2="610" stroke="black"/>
+<line x1="1160" y1="582" x2="1160" y2="610" stroke="black"/>
+<line x1="1240" y1="582" x2="1240" y2="610" stroke="black"/>
+<line x1="1320" y1="582" x2="1320" y2="610" stroke="black"/>
+<line x1="1400" y1="582" x2="1400" y2="610" stroke="black"/>
+<polygon fill="white" points="168,582 232,582 232,604 168,604"/>
+<line x1="168" y1="582" x2="232" y2="582" stroke="black"/>
+<line x1="168" y1="604" x2="232" y2="604" stroke="black"/>
+<line x1="168" y1="582" x2="168" y2="604" stroke="black"/>
+<line x1="232" y1="582" x2="232" y2="604" stroke="black"/>
+<polygon fill="white" points="177,583 222,583 222,592 177,592"/>
+<text x="178" y="592" textLength="43" font-family="Helvetica" font-size="12" fill="black">
+(disapp-
+</text>
+<polygon fill="white" points="181,594 218,594 218,603 181,603"/>
+<text x="182" y="603" textLength="35" font-family="Helvetica" font-size="12" fill="black">
+eared)
+</text>
+<line x1="40" y1="610" x2="40" y2="638" stroke="black"/>
+<line x1="120" y1="610" x2="120" y2="638" stroke="black"/>
+<line x1="200" y1="610" x2="200" y2="638" stroke="black"/>
+<line x1="280" y1="610" x2="280" y2="638" stroke="black"/>
+<line x1="360" y1="610" x2="360" y2="638" stroke="black"/>
+<line x1="440" y1="610" x2="440" y2="638" stroke="black"/>
+<line x1="520" y1="610" x2="520" y2="638" stroke="black"/>
+<line x1="600" y1="610" x2="600" y2="638" stroke="black"/>
+<line x1="680" y1="610" x2="680" y2="638" stroke="black"/>
+<line x1="760" y1="610" x2="760" y2="638" stroke="black"/>
+<line x1="840" y1="610" x2="840" y2="638" stroke="black"/>
+<line x1="920" y1="610" x2="920" y2="638" stroke="black"/>
+<line x1="1000" y1="610" x2="1000" y2="638" stroke="black"/>
+<line x1="1080" y1="610" x2="1080" y2="638" stroke="black"/>
+<line x1="1160" y1="610" x2="1160" y2="638" stroke="black"/>
+<line x1="1240" y1="610" x2="1240" y2="638" stroke="black"/>
+<line x1="1320" y1="610" x2="1320" y2="638" stroke="black"/>
+<line x1="1400" y1="610" x2="1400" y2="638" stroke="black"/>
+<line x1="1320" y1="621" x2="1160" y2="621" stroke="black"/>
+<line x1="1160" y1="621" x2="1170" y2="627" stroke="black"/>
+<polygon fill="white" points="1213,611 1265,611 1265,620 1213,620"/>
+<text x="1214" y="620" textLength="50" font-family="Helvetica" font-size="12" fill="black">
+switch on
+</text>
+<line x1="40" y1="638" x2="40" y2="666" stroke="black"/>
+<line x1="120" y1="638" x2="120" y2="666" stroke="black"/>
+<line x1="200" y1="638" x2="200" y2="666" stroke="black"/>
+<line x1="280" y1="638" x2="280" y2="666" stroke="black"/>
+<line x1="360" y1="638" x2="360" y2="666" stroke="black"/>
+<line x1="440" y1="638" x2="440" y2="666" stroke="black"/>
+<line x1="520" y1="638" x2="520" y2="666" stroke="black"/>
+<line x1="600" y1="638" x2="600" y2="666" stroke="black"/>
+<line x1="680" y1="638" x2="680" y2="666" stroke="black"/>
+<line x1="760" y1="638" x2="760" y2="666" stroke="black"/>
+<line x1="840" y1="638" x2="840" y2="666" stroke="black"/>
+<line x1="920" y1="638" x2="920" y2="666" stroke="black"/>
+<line x1="1000" y1="638" x2="1000" y2="666" stroke="black"/>
+<line x1="1080" y1="638" x2="1080" y2="666" stroke="black"/>
+<line x1="1160" y1="638" x2="1160" y2="666" stroke="black"/>
+<line x1="1240" y1="638" x2="1240" y2="666" stroke="black"/>
+<line x1="1320" y1="638" x2="1320" y2="666" stroke="black"/>
+<line x1="1400" y1="638" x2="1400" y2="666" stroke="black"/>
+<polygon fill="white" points="1128,638 1192,638 1192,660 1128,660"/>
+<line x1="1128" y1="638" x2="1192" y2="638" stroke="black"/>
+<line x1="1128" y1="660" x2="1192" y2="660" stroke="black"/>
+<line x1="1128" y1="638" x2="1128" y2="660" stroke="black"/>
+<line x1="1192" y1="638" x2="1192" y2="660" stroke="black"/>
+<polygon fill="white" points="1152,645 1167,645 1167,654 1152,654"/>
+<text x="1153" y="654" textLength="13" font-family="Helvetica" font-size="12" fill="black">
+on
+</text>
+<line x1="40" y1="666" x2="40" y2="694" stroke="black"/>
+<line x1="120" y1="666" x2="120" y2="694" stroke="black"/>
+<line x1="200" y1="666" x2="200" y2="694" stroke="black"/>
+<line x1="280" y1="666" x2="280" y2="694" stroke="black"/>
+<line x1="360" y1="666" x2="360" y2="694" stroke="black"/>
+<line x1="440" y1="666" x2="440" y2="694" stroke="black"/>
+<line x1="520" y1="666" x2="520" y2="694" stroke="black"/>
+<line x1="600" y1="666" x2="600" y2="694" stroke="black"/>
+<line x1="680" y1="666" x2="680" y2="694" stroke="black"/>
+<line x1="760" y1="666" x2="760" y2="694" stroke="black"/>
+<line x1="840" y1="666" x2="840" y2="694" stroke="black"/>
+<line x1="920" y1="666" x2="920" y2="694" stroke="black"/>
+<line x1="1000" y1="666" x2="1000" y2="694" stroke="black"/>
+<line x1="1080" y1="666" x2="1080" y2="694" stroke="black"/>
+<line x1="1160" y1="666" x2="1160" y2="694" stroke="black"/>
+<line x1="1240" y1="666" x2="1240" y2="694" stroke="black"/>
+<line x1="1320" y1="666" x2="1320" y2="694" stroke="black"/>
+<line x1="1400" y1="666" x2="1400" y2="694" stroke="black"/>
+<line x1="1160" y1="677" x2="440" y2="677" stroke="black"/>
+<line x1="440" y1="677" x2="450" y2="683" stroke="black"/>
+<polygon fill="white" points="708,667 891,667 891,676 708,676"/>
+<text x="709" y="676" textLength="181" font-family="Helvetica" font-size="12" fill="black">
+knocking: GET /api/devices/:serial
+</text>
+<line x1="40" y1="694" x2="40" y2="722" stroke="black"/>
+<line x1="120" y1="694" x2="120" y2="722" stroke="black"/>
+<line x1="200" y1="694" x2="200" y2="722" stroke="black"/>
+<line x1="280" y1="694" x2="280" y2="722" stroke="black"/>
+<line x1="360" y1="694" x2="360" y2="722" stroke="black"/>
+<line x1="440" y1="694" x2="440" y2="722" stroke="black"/>
+<line x1="520" y1="694" x2="520" y2="722" stroke="black"/>
+<line x1="600" y1="694" x2="600" y2="722" stroke="black"/>
+<line x1="680" y1="694" x2="680" y2="722" stroke="black"/>
+<line x1="760" y1="694" x2="760" y2="722" stroke="black"/>
+<line x1="840" y1="694" x2="840" y2="722" stroke="black"/>
+<line x1="920" y1="694" x2="920" y2="722" stroke="black"/>
+<line x1="1000" y1="694" x2="1000" y2="722" stroke="black"/>
+<line x1="1080" y1="694" x2="1080" y2="722" stroke="black"/>
+<line x1="1160" y1="694" x2="1160" y2="722" stroke="black"/>
+<line x1="1240" y1="694" x2="1240" y2="722" stroke="black"/>
+<line x1="1320" y1="694" x2="1320" y2="722" stroke="black"/>
+<line x1="1400" y1="694" x2="1400" y2="722" stroke="black"/>
+<line x1="440" y1="705" x2="1160" y2="705" stroke="black" stroke-dasharray="2,2"/>
+<polygon fill="black" points="1160,705 1150,711 1150,699"/>
+<polygon fill="white" points="735,695 864,695 864,704 735,704"/>
+<text x="736" y="704" textLength="127" font-family="Helvetica" font-size="12" fill="black">
+resp.: endpoint, loglevel
+</text>
+<line x1="40" y1="722" x2="40" y2="750" stroke="black"/>
+<line x1="120" y1="722" x2="120" y2="750" stroke="black"/>
+<line x1="200" y1="722" x2="200" y2="750" stroke="black"/>
+<line x1="280" y1="722" x2="280" y2="750" stroke="black"/>
+<line x1="360" y1="722" x2="360" y2="750" stroke="black"/>
+<line x1="440" y1="722" x2="440" y2="750" stroke="black"/>
+<line x1="520" y1="722" x2="520" y2="750" stroke="black"/>
+<line x1="600" y1="722" x2="600" y2="750" stroke="black"/>
+<line x1="680" y1="722" x2="680" y2="750" stroke="black"/>
+<line x1="760" y1="722" x2="760" y2="750" stroke="black"/>
+<line x1="840" y1="722" x2="840" y2="750" stroke="black"/>
+<line x1="920" y1="722" x2="920" y2="750" stroke="black"/>
+<line x1="1000" y1="722" x2="1000" y2="750" stroke="black"/>
+<line x1="1080" y1="722" x2="1080" y2="750" stroke="black"/>
+<line x1="1160" y1="722" x2="1160" y2="750" stroke="black"/>
+<line x1="1240" y1="722" x2="1240" y2="750" stroke="black"/>
+<line x1="1320" y1="722" x2="1320" y2="750" stroke="black"/>
+<line x1="1400" y1="722" x2="1400" y2="750" stroke="black"/>
+<line x1="1160" y1="733" x2="440" y2="733" stroke="black"/>
+<line x1="440" y1="733" x2="450" y2="739" stroke="black"/>
+<polygon fill="white" points="717,723 881,723 881,732 717,732"/>
+<text x="718" y="732" textLength="162" font-family="Helvetica" font-size="12" fill="black">
+registering: POST /api/devices
+</text>
+<line x1="40" y1="750" x2="40" y2="778" stroke="black"/>
+<line x1="120" y1="750" x2="120" y2="778" stroke="black"/>
+<line x1="200" y1="750" x2="200" y2="778" stroke="black"/>
+<line x1="280" y1="750" x2="280" y2="778" stroke="black"/>
+<line x1="360" y1="750" x2="360" y2="778" stroke="black"/>
+<line x1="440" y1="750" x2="440" y2="778" stroke="black"/>
+<line x1="520" y1="750" x2="520" y2="778" stroke="black"/>
+<line x1="600" y1="750" x2="600" y2="778" stroke="black"/>
+<line x1="680" y1="750" x2="680" y2="778" stroke="black"/>
+<line x1="760" y1="750" x2="760" y2="778" stroke="black"/>
+<line x1="840" y1="750" x2="840" y2="778" stroke="black"/>
+<line x1="920" y1="750" x2="920" y2="778" stroke="black"/>
+<line x1="1000" y1="750" x2="1000" y2="778" stroke="black"/>
+<line x1="1080" y1="750" x2="1080" y2="778" stroke="black"/>
+<line x1="1160" y1="750" x2="1160" y2="778" stroke="black"/>
+<line x1="1240" y1="750" x2="1240" y2="778" stroke="black"/>
+<line x1="1320" y1="750" x2="1320" y2="778" stroke="black"/>
+<line x1="1400" y1="750" x2="1400" y2="778" stroke="black"/>
+<line x1="440" y1="761" x2="1160" y2="761" stroke="black" stroke-dasharray="2,2"/>
+<polygon fill="black" points="1160,761 1150,767 1150,755"/>
+<polygon fill="white" points="741,751 857,751 857,760 741,760"/>
+<text x="742" y="760" textLength="114" font-family="Helvetica" font-size="12" fill="black">
+resp.: all other details
+</text>
+<line x1="40" y1="778" x2="40" y2="806" stroke="black"/>
+<line x1="120" y1="778" x2="120" y2="806" stroke="black"/>
+<line x1="200" y1="778" x2="200" y2="806" stroke="black"/>
+<line x1="280" y1="778" x2="280" y2="806" stroke="black"/>
+<line x1="360" y1="778" x2="360" y2="806" stroke="black"/>
+<line x1="440" y1="778" x2="440" y2="806" stroke="black"/>
+<line x1="520" y1="778" x2="520" y2="806" stroke="black"/>
+<line x1="600" y1="778" x2="600" y2="806" stroke="black"/>
+<line x1="680" y1="778" x2="680" y2="806" stroke="black"/>
+<line x1="760" y1="778" x2="760" y2="806" stroke="black"/>
+<line x1="840" y1="778" x2="840" y2="806" stroke="black"/>
+<line x1="920" y1="778" x2="920" y2="806" stroke="black"/>
+<line x1="1000" y1="778" x2="1000" y2="806" stroke="black"/>
+<line x1="1080" y1="778" x2="1080" y2="806" stroke="black"/>
+<line x1="1160" y1="778" x2="1160" y2="806" stroke="black"/>
+<line x1="1240" y1="778" x2="1240" y2="806" stroke="black"/>
+<line x1="1320" y1="778" x2="1320" y2="806" stroke="black"/>
+<line x1="1400" y1="778" x2="1400" y2="806" stroke="black"/>
+<line x1="440" y1="789" x2="200" y2="789" stroke="black"/>
+<polygon fill="black" points="200,789 210,795 210,783"/>
+<polygon fill="white" points="276,779 362,779 362,788 276,788"/>
+<text x="277" y="788" textLength="84" font-family="Helvetica" font-size="12" fill="black">
+register! (event)
+</text>
+<line x1="40" y1="806" x2="40" y2="834" stroke="black"/>
+<line x1="120" y1="806" x2="120" y2="834" stroke="black"/>
+<line x1="200" y1="806" x2="200" y2="834" stroke="black"/>
+<line x1="280" y1="806" x2="280" y2="834" stroke="black"/>
+<line x1="360" y1="806" x2="360" y2="834" stroke="black"/>
+<line x1="440" y1="806" x2="440" y2="834" stroke="black"/>
+<line x1="520" y1="806" x2="520" y2="834" stroke="black"/>
+<line x1="600" y1="806" x2="600" y2="834" stroke="black"/>
+<line x1="680" y1="806" x2="680" y2="834" stroke="black"/>
+<line x1="760" y1="806" x2="760" y2="834" stroke="black"/>
+<line x1="840" y1="806" x2="840" y2="834" stroke="black"/>
+<line x1="920" y1="806" x2="920" y2="834" stroke="black"/>
+<line x1="1000" y1="806" x2="1000" y2="834" stroke="black"/>
+<line x1="1080" y1="806" x2="1080" y2="834" stroke="black"/>
+<line x1="1160" y1="806" x2="1160" y2="834" stroke="black"/>
+<line x1="1240" y1="806" x2="1240" y2="834" stroke="black"/>
+<line x1="1320" y1="806" x2="1320" y2="834" stroke="black"/>
+<line x1="1400" y1="806" x2="1400" y2="834" stroke="black"/>
+<polygon fill="white" points="168,806 232,806 232,828 168,828"/>
+<line x1="168" y1="806" x2="232" y2="806" stroke="black"/>
+<line x1="168" y1="828" x2="232" y2="828" stroke="black"/>
+<line x1="168" y1="806" x2="168" y2="828" stroke="black"/>
+<line x1="232" y1="806" x2="232" y2="828" stroke="black"/>
+<polygon fill="white" points="189,813 210,813 210,822 189,822"/>
+<text x="190" y="822" textLength="19" font-family="Helvetica" font-size="12" fill="black">
+idle
+</text>
+<line x1="40" y1="834" x2="40" y2="862" stroke="black"/>
+<line x1="120" y1="834" x2="120" y2="862" stroke="black"/>
+<line x1="200" y1="834" x2="200" y2="862" stroke="black"/>
+<line x1="280" y1="834" x2="280" y2="862" stroke="black"/>
+<line x1="360" y1="834" x2="360" y2="862" stroke="black"/>
+<line x1="440" y1="834" x2="440" y2="862" stroke="black"/>
+<line x1="520" y1="834" x2="520" y2="862" stroke="black"/>
+<line x1="600" y1="834" x2="600" y2="862" stroke="black"/>
+<line x1="680" y1="834" x2="680" y2="862" stroke="black"/>
+<line x1="760" y1="834" x2="760" y2="862" stroke="black"/>
+<line x1="840" y1="834" x2="840" y2="862" stroke="black"/>
+<line x1="920" y1="834" x2="920" y2="862" stroke="black"/>
+<line x1="1000" y1="834" x2="1000" y2="862" stroke="black"/>
+<line x1="1080" y1="834" x2="1080" y2="862" stroke="black"/>
+<line x1="1160" y1="834" x2="1160" y2="862" stroke="black"/>
+<line x1="1240" y1="834" x2="1240" y2="862" stroke="black"/>
+<line x1="1320" y1="834" x2="1320" y2="862" stroke="black"/>
+<line x1="1400" y1="834" x2="1400" y2="862" stroke="black"/>
+<polygon fill="white" points="8,834 72,834 72,856 8,856"/>
+<line x1="8" y1="834" x2="72" y2="834" stroke="black"/>
+<line x1="8" y1="856" x2="72" y2="856" stroke="black"/>
+<line x1="8" y1="834" x2="8" y2="856" stroke="black"/>
+<line x1="72" y1="834" x2="72" y2="856" stroke="black"/>
+<polygon fill="white" points="22,841 56,841 56,850 22,850"/>
+<text x="23" y="850" textLength="32" font-family="Helvetica" font-size="12" fill="black">
+offline
+</text>
+<line x1="40" y1="862" x2="40" y2="890" stroke="black"/>
+<line x1="120" y1="862" x2="120" y2="890" stroke="black"/>
+<line x1="200" y1="862" x2="200" y2="890" stroke="black"/>
+<line x1="280" y1="862" x2="280" y2="890" stroke="black"/>
+<line x1="360" y1="862" x2="360" y2="890" stroke="black"/>
+<line x1="440" y1="862" x2="440" y2="890" stroke="black"/>
+<line x1="520" y1="862" x2="520" y2="890" stroke="black"/>
+<line x1="600" y1="862" x2="600" y2="890" stroke="black"/>
+<line x1="680" y1="862" x2="680" y2="890" stroke="black"/>
+<line x1="760" y1="862" x2="760" y2="890" stroke="black"/>
+<line x1="840" y1="862" x2="840" y2="890" stroke="black"/>
+<line x1="920" y1="862" x2="920" y2="890" stroke="black"/>
+<line x1="1000" y1="862" x2="1000" y2="890" stroke="black"/>
+<line x1="1080" y1="862" x2="1080" y2="890" stroke="black"/>
+<line x1="1160" y1="862" x2="1160" y2="890" stroke="black"/>
+<line x1="1240" y1="862" x2="1240" y2="890" stroke="black"/>
+<line x1="1320" y1="862" x2="1320" y2="890" stroke="black"/>
+<line x1="1400" y1="862" x2="1400" y2="890" stroke="black"/>
+<line x1="1320" y1="873" x2="600" y2="873" stroke="black"/>
+<line x1="600" y1="873" x2="610" y2="879" stroke="black"/>
+<polygon fill="white" points="911,863 1008,863 1008,872 911,872"/>
+<text x="912" y="872" textLength="95" font-family="Helvetica" font-size="12" fill="black">
+visit /venues/:slug
+</text>
+<line x1="40" y1="890" x2="40" y2="918" stroke="black"/>
+<line x1="120" y1="890" x2="120" y2="918" stroke="black"/>
+<line x1="200" y1="890" x2="200" y2="918" stroke="black"/>
+<line x1="280" y1="890" x2="280" y2="918" stroke="black"/>
+<line x1="360" y1="890" x2="360" y2="918" stroke="black"/>
+<line x1="440" y1="890" x2="440" y2="918" stroke="black"/>
+<line x1="520" y1="890" x2="520" y2="918" stroke="black"/>
+<line x1="600" y1="890" x2="600" y2="918" stroke="black"/>
+<line x1="680" y1="890" x2="680" y2="918" stroke="black"/>
+<line x1="760" y1="890" x2="760" y2="918" stroke="black"/>
+<line x1="840" y1="890" x2="840" y2="918" stroke="black"/>
+<line x1="920" y1="890" x2="920" y2="918" stroke="black"/>
+<line x1="1000" y1="890" x2="1000" y2="918" stroke="black"/>
+<line x1="1080" y1="890" x2="1080" y2="918" stroke="black"/>
+<line x1="1160" y1="890" x2="1160" y2="918" stroke="black"/>
+<line x1="1240" y1="890" x2="1240" y2="918" stroke="black"/>
+<line x1="1320" y1="890" x2="1320" y2="918" stroke="black"/>
+<line x1="1400" y1="890" x2="1400" y2="918" stroke="black"/>
+<line x1="600" y1="901" x2="280" y2="901" stroke="black"/>
+<line x1="280" y1="901" x2="290" y2="907" stroke="black"/>
+<polygon fill="white" points="373,891 506,891 506,900 373,900"/>
+<text x="374" y="900" textLength="131" font-family="Helvetica" font-size="12" fill="black">
+start_provisioning! (ajax)
+</text>
+<line x1="40" y1="918" x2="40" y2="946" stroke="black"/>
+<line x1="120" y1="918" x2="120" y2="946" stroke="black"/>
+<line x1="200" y1="918" x2="200" y2="946" stroke="black"/>
+<line x1="280" y1="918" x2="280" y2="946" stroke="black"/>
+<line x1="360" y1="918" x2="360" y2="946" stroke="black"/>
+<line x1="440" y1="918" x2="440" y2="946" stroke="black"/>
+<line x1="520" y1="918" x2="520" y2="946" stroke="black"/>
+<line x1="600" y1="918" x2="600" y2="946" stroke="black"/>
+<line x1="680" y1="918" x2="680" y2="946" stroke="black"/>
+<line x1="760" y1="918" x2="760" y2="946" stroke="black"/>
+<line x1="840" y1="918" x2="840" y2="946" stroke="black"/>
+<line x1="920" y1="918" x2="920" y2="946" stroke="black"/>
+<line x1="1000" y1="918" x2="1000" y2="946" stroke="black"/>
+<line x1="1080" y1="918" x2="1080" y2="946" stroke="black"/>
+<line x1="1160" y1="918" x2="1160" y2="946" stroke="black"/>
+<line x1="1240" y1="918" x2="1240" y2="946" stroke="black"/>
+<line x1="1320" y1="918" x2="1320" y2="946" stroke="black"/>
+<line x1="1400" y1="918" x2="1400" y2="946" stroke="black"/>
+<line x1="280" y1="929" x2="40" y2="929" stroke="black"/>
+<polygon fill="black" points="40,929 50,935 50,923"/>
+<polygon fill="white" points="110,919 209,919 209,928 110,928"/>
+<text x="111" y="928" textLength="97" font-family="Helvetica" font-size="12" fill="black">
+start_provisioning!
+</text>
+<line x1="40" y1="946" x2="40" y2="974" stroke="black"/>
+<line x1="120" y1="946" x2="120" y2="974" stroke="black"/>
+<line x1="200" y1="946" x2="200" y2="974" stroke="black"/>
+<line x1="280" y1="946" x2="280" y2="974" stroke="black"/>
+<line x1="360" y1="946" x2="360" y2="974" stroke="black"/>
+<line x1="440" y1="946" x2="440" y2="974" stroke="black"/>
+<line x1="520" y1="946" x2="520" y2="974" stroke="black"/>
+<line x1="600" y1="946" x2="600" y2="974" stroke="black"/>
+<line x1="680" y1="946" x2="680" y2="974" stroke="black"/>
+<line x1="760" y1="946" x2="760" y2="974" stroke="black"/>
+<line x1="840" y1="946" x2="840" y2="974" stroke="black"/>
+<line x1="920" y1="946" x2="920" y2="974" stroke="black"/>
+<line x1="1000" y1="946" x2="1000" y2="974" stroke="black"/>
+<line x1="1080" y1="946" x2="1080" y2="974" stroke="black"/>
+<line x1="1160" y1="946" x2="1160" y2="974" stroke="black"/>
+<line x1="1240" y1="946" x2="1240" y2="974" stroke="black"/>
+<line x1="1320" y1="946" x2="1320" y2="974" stroke="black"/>
+<line x1="1400" y1="946" x2="1400" y2="974" stroke="black"/>
+<polygon fill="white" points="8,946 72,946 72,968 8,968"/>
+<line x1="8" y1="946" x2="72" y2="946" stroke="black"/>
+<line x1="8" y1="968" x2="72" y2="968" stroke="black"/>
+<line x1="8" y1="946" x2="8" y2="968" stroke="black"/>
+<line x1="72" y1="946" x2="72" y2="968" stroke="black"/>
+<polygon fill="white" points="12,947 66,947 66,956 12,956"/>
+<text x="13" y="956" textLength="52" font-family="Helvetica" font-size="12" fill="black">
+provision-
+</text>
+<polygon fill="white" points="30,958 48,958 48,967 30,967"/>
+<text x="31" y="967" textLength="16" font-family="Helvetica" font-size="12" fill="black">
+ing
+</text>
+<line x1="40" y1="974" x2="40" y2="1002" stroke="black"/>
+<line x1="120" y1="974" x2="120" y2="1002" stroke="black"/>
+<line x1="200" y1="974" x2="200" y2="1002" stroke="black"/>
+<line x1="280" y1="974" x2="280" y2="1002" stroke="black"/>
+<line x1="360" y1="974" x2="360" y2="1002" stroke="black"/>
+<line x1="440" y1="974" x2="440" y2="1002" stroke="black"/>
+<line x1="520" y1="974" x2="520" y2="1002" stroke="black"/>
+<line x1="600" y1="974" x2="600" y2="1002" stroke="black"/>
+<line x1="680" y1="974" x2="680" y2="1002" stroke="black"/>
+<line x1="760" y1="974" x2="760" y2="1002" stroke="black"/>
+<line x1="840" y1="974" x2="840" y2="1002" stroke="black"/>
+<line x1="920" y1="974" x2="920" y2="1002" stroke="black"/>
+<line x1="1000" y1="974" x2="1000" y2="1002" stroke="black"/>
+<line x1="1080" y1="974" x2="1080" y2="1002" stroke="black"/>
+<line x1="1160" y1="974" x2="1160" y2="1002" stroke="black"/>
+<line x1="1240" y1="974" x2="1240" y2="1002" stroke="black"/>
+<line x1="1320" y1="974" x2="1320" y2="1002" stroke="black"/>
+<line x1="1400" y1="974" x2="1400" y2="1002" stroke="black"/>
+<line x1="40" y1="985" x2="840" y2="985" stroke="black"/>
+<line x1="840" y1="985" x2="830" y2="991" stroke="black"/>
+<polygon fill="white" points="361,975 518,975 518,984 361,984"/>
+<text x="362" y="984" textLength="155" font-family="Helvetica" font-size="12" fill="black">
+venue_transition provisioning
+</text>
+<line x1="40" y1="1002" x2="40" y2="1030" stroke="black"/>
+<line x1="120" y1="1002" x2="120" y2="1030" stroke="black"/>
+<line x1="200" y1="1002" x2="200" y2="1030" stroke="black"/>
+<line x1="280" y1="1002" x2="280" y2="1030" stroke="black"/>
+<line x1="360" y1="1002" x2="360" y2="1030" stroke="black"/>
+<line x1="440" y1="1002" x2="440" y2="1030" stroke="black"/>
+<line x1="520" y1="1002" x2="520" y2="1030" stroke="black"/>
+<line x1="600" y1="1002" x2="600" y2="1030" stroke="black"/>
+<line x1="680" y1="1002" x2="680" y2="1030" stroke="black"/>
+<line x1="760" y1="1002" x2="760" y2="1030" stroke="black"/>
+<line x1="840" y1="1002" x2="840" y2="1030" stroke="black"/>
+<line x1="920" y1="1002" x2="920" y2="1030" stroke="black"/>
+<line x1="1000" y1="1002" x2="1000" y2="1030" stroke="black"/>
+<line x1="1080" y1="1002" x2="1080" y2="1030" stroke="black"/>
+<line x1="1160" y1="1002" x2="1160" y2="1030" stroke="black"/>
+<line x1="1240" y1="1002" x2="1240" y2="1030" stroke="black"/>
+<line x1="1320" y1="1002" x2="1320" y2="1030" stroke="black"/>
+<line x1="1400" y1="1002" x2="1400" y2="1030" stroke="black"/>
+<line x1="840" y1="1013" x2="920" y2="1013" stroke="black"/>
+<line x1="920" y1="1013" x2="910" y2="1019" stroke="black"/>
+<polygon fill="white" points="801,1003 958,1003 958,1012 801,1012"/>
+<text x="802" y="1012" textLength="155" font-family="Helvetica" font-size="12" fill="black">
+venue_transition provisioning
+</text>
+<line x1="40" y1="1030" x2="40" y2="1058" stroke="black"/>
+<line x1="120" y1="1030" x2="120" y2="1058" stroke="black"/>
+<line x1="200" y1="1030" x2="200" y2="1058" stroke="black"/>
+<line x1="280" y1="1030" x2="280" y2="1058" stroke="black"/>
+<line x1="360" y1="1030" x2="360" y2="1058" stroke="black"/>
+<line x1="440" y1="1030" x2="440" y2="1058" stroke="black"/>
+<line x1="520" y1="1030" x2="520" y2="1058" stroke="black"/>
+<line x1="600" y1="1030" x2="600" y2="1058" stroke="black"/>
+<line x1="680" y1="1030" x2="680" y2="1058" stroke="black"/>
+<line x1="760" y1="1030" x2="760" y2="1058" stroke="black"/>
+<line x1="840" y1="1030" x2="840" y2="1058" stroke="black"/>
+<line x1="920" y1="1030" x2="920" y2="1058" stroke="black"/>
+<line x1="1000" y1="1030" x2="1000" y2="1058" stroke="black"/>
+<line x1="1080" y1="1030" x2="1080" y2="1058" stroke="black"/>
+<line x1="1160" y1="1030" x2="1160" y2="1058" stroke="black"/>
+<line x1="1240" y1="1030" x2="1240" y2="1058" stroke="black"/>
+<line x1="1320" y1="1030" x2="1320" y2="1058" stroke="black"/>
+<line x1="1400" y1="1030" x2="1400" y2="1058" stroke="black"/>
+<line x1="920" y1="1041" x2="1000" y2="1041" stroke="black"/>
+<line x1="1000" y1="1041" x2="990" y2="1047" stroke="black"/>
+<polygon fill="white" points="881,1031 1038,1031 1038,1040 881,1040"/>
+<text x="882" y="1040" textLength="155" font-family="Helvetica" font-size="12" fill="black">
+venue_transition provisioning
+</text>
+<line x1="40" y1="1058" x2="40" y2="1086" stroke="black"/>
+<line x1="120" y1="1058" x2="120" y2="1086" stroke="black"/>
+<line x1="200" y1="1058" x2="200" y2="1086" stroke="black"/>
+<line x1="280" y1="1058" x2="280" y2="1086" stroke="black"/>
+<line x1="360" y1="1058" x2="360" y2="1086" stroke="black"/>
+<line x1="440" y1="1058" x2="440" y2="1086" stroke="black"/>
+<line x1="520" y1="1058" x2="520" y2="1086" stroke="black"/>
+<line x1="600" y1="1058" x2="600" y2="1086" stroke="black"/>
+<line x1="680" y1="1058" x2="680" y2="1086" stroke="black"/>
+<line x1="760" y1="1058" x2="760" y2="1086" stroke="black"/>
+<line x1="840" y1="1058" x2="840" y2="1086" stroke="black"/>
+<line x1="920" y1="1058" x2="920" y2="1086" stroke="black"/>
+<line x1="1000" y1="1058" x2="1000" y2="1086" stroke="black"/>
+<line x1="1080" y1="1058" x2="1080" y2="1086" stroke="black"/>
+<line x1="1160" y1="1058" x2="1160" y2="1086" stroke="black"/>
+<line x1="1240" y1="1058" x2="1240" y2="1086" stroke="black"/>
+<line x1="1320" y1="1058" x2="1320" y2="1086" stroke="black"/>
+<line x1="1400" y1="1058" x2="1400" y2="1086" stroke="black"/>
+<line x1="1000" y1="1069" x2="600" y2="1069" stroke="black"/>
+<line x1="600" y1="1069" x2="610" y2="1075" stroke="black"/>
+<polygon fill="white" points="721,1059 878,1059 878,1068 721,1068"/>
+<text x="722" y="1068" textLength="155" font-family="Helvetica" font-size="12" fill="black">
+venue_transition provisioning
+</text>
+<line x1="40" y1="1086" x2="40" y2="1114" stroke="black"/>
+<line x1="120" y1="1086" x2="120" y2="1114" stroke="black"/>
+<line x1="200" y1="1086" x2="200" y2="1114" stroke="black"/>
+<line x1="280" y1="1086" x2="280" y2="1114" stroke="black"/>
+<line x1="360" y1="1086" x2="360" y2="1114" stroke="black"/>
+<line x1="440" y1="1086" x2="440" y2="1114" stroke="black"/>
+<line x1="520" y1="1086" x2="520" y2="1114" stroke="black"/>
+<line x1="600" y1="1086" x2="600" y2="1114" stroke="black"/>
+<line x1="680" y1="1086" x2="680" y2="1114" stroke="black"/>
+<line x1="760" y1="1086" x2="760" y2="1114" stroke="black"/>
+<line x1="840" y1="1086" x2="840" y2="1114" stroke="black"/>
+<line x1="920" y1="1086" x2="920" y2="1114" stroke="black"/>
+<line x1="1000" y1="1086" x2="1000" y2="1114" stroke="black"/>
+<line x1="1080" y1="1086" x2="1080" y2="1114" stroke="black"/>
+<line x1="1160" y1="1086" x2="1160" y2="1114" stroke="black"/>
+<line x1="1240" y1="1086" x2="1240" y2="1114" stroke="black"/>
+<line x1="1320" y1="1086" x2="1320" y2="1114" stroke="black"/>
+<line x1="1400" y1="1086" x2="1400" y2="1114" stroke="black"/>
+<polygon fill="white" points="568,1086 632,1086 632,1108 568,1108"/>
+<line x1="568" y1="1086" x2="632" y2="1086" stroke="black"/>
+<line x1="568" y1="1108" x2="632" y2="1108" stroke="black"/>
+<line x1="568" y1="1086" x2="568" y2="1108" stroke="black"/>
+<line x1="632" y1="1086" x2="632" y2="1108" stroke="black"/>
+<polygon fill="white" points="580,1093 619,1093 619,1102 580,1102"/>
+<text x="581" y="1102" textLength="37" font-family="Helvetica" font-size="12" fill="black">
+update
+</text>
+<line x1="40" y1="1114" x2="40" y2="1142" stroke="black"/>
+<line x1="120" y1="1114" x2="120" y2="1142" stroke="black"/>
+<line x1="200" y1="1114" x2="200" y2="1142" stroke="black"/>
+<line x1="280" y1="1114" x2="280" y2="1142" stroke="black"/>
+<line x1="360" y1="1114" x2="360" y2="1142" stroke="black"/>
+<line x1="440" y1="1114" x2="440" y2="1142" stroke="black"/>
+<line x1="520" y1="1114" x2="520" y2="1142" stroke="black"/>
+<line x1="600" y1="1114" x2="600" y2="1142" stroke="black"/>
+<line x1="680" y1="1114" x2="680" y2="1142" stroke="black"/>
+<line x1="760" y1="1114" x2="760" y2="1142" stroke="black"/>
+<line x1="840" y1="1114" x2="840" y2="1142" stroke="black"/>
+<line x1="920" y1="1114" x2="920" y2="1142" stroke="black"/>
+<line x1="1000" y1="1114" x2="1000" y2="1142" stroke="black"/>
+<line x1="1080" y1="1114" x2="1080" y2="1142" stroke="black"/>
+<line x1="1160" y1="1114" x2="1160" y2="1142" stroke="black"/>
+<line x1="1240" y1="1114" x2="1240" y2="1142" stroke="black"/>
+<line x1="1320" y1="1114" x2="1320" y2="1142" stroke="black"/>
+<line x1="1400" y1="1114" x2="1400" y2="1142" stroke="black"/>
+<line x1="40" y1="1125" x2="1240" y2="1125" stroke="black"/>
+<line x1="1240" y1="1125" x2="1230" y2="1131" stroke="black"/>
+<polygon fill="white" points="588,1115 690,1115 690,1124 588,1124"/>
+<text x="589" y="1124" textLength="100" font-family="Helvetica" font-size="12" fill="black">
+run_instance (rest)
+</text>
+<line x1="40" y1="1142" x2="40" y2="1170" stroke="black"/>
+<line x1="120" y1="1142" x2="120" y2="1170" stroke="black"/>
+<line x1="200" y1="1142" x2="200" y2="1170" stroke="black"/>
+<line x1="280" y1="1142" x2="280" y2="1170" stroke="black"/>
+<line x1="360" y1="1142" x2="360" y2="1170" stroke="black"/>
+<line x1="440" y1="1142" x2="440" y2="1170" stroke="black"/>
+<line x1="520" y1="1142" x2="520" y2="1170" stroke="black"/>
+<line x1="600" y1="1142" x2="600" y2="1170" stroke="black"/>
+<line x1="680" y1="1142" x2="680" y2="1170" stroke="black"/>
+<line x1="760" y1="1142" x2="760" y2="1170" stroke="black"/>
+<line x1="840" y1="1142" x2="840" y2="1170" stroke="black"/>
+<line x1="920" y1="1142" x2="920" y2="1170" stroke="black"/>
+<line x1="1000" y1="1142" x2="1000" y2="1170" stroke="black"/>
+<line x1="1080" y1="1142" x2="1080" y2="1170" stroke="black"/>
+<line x1="1160" y1="1142" x2="1160" y2="1170" stroke="black"/>
+<line x1="1240" y1="1142" x2="1240" y2="1170" stroke="black"/>
+<line x1="1320" y1="1142" x2="1320" y2="1170" stroke="black"/>
+<line x1="1400" y1="1142" x2="1400" y2="1170" stroke="black"/>
+<line x1="1240" y1="1153" x2="520" y2="1153" stroke="black"/>
+<line x1="520" y1="1153" x2="530" y2="1159" stroke="black"/>
+<polygon fill="white" points="816,1143 942,1143 942,1152 816,1152"/>
+<text x="817" y="1152" textLength="124" font-family="Helvetica" font-size="12" fill="black">
+/icecast/complete (rest)
+</text>
+<line x1="40" y1="1170" x2="40" y2="1198" stroke="black"/>
+<line x1="120" y1="1170" x2="120" y2="1198" stroke="black"/>
+<line x1="200" y1="1170" x2="200" y2="1198" stroke="black"/>
+<line x1="280" y1="1170" x2="280" y2="1198" stroke="black"/>
+<line x1="360" y1="1170" x2="360" y2="1198" stroke="black"/>
+<line x1="440" y1="1170" x2="440" y2="1198" stroke="black"/>
+<line x1="520" y1="1170" x2="520" y2="1198" stroke="black"/>
+<line x1="600" y1="1170" x2="600" y2="1198" stroke="black"/>
+<line x1="680" y1="1170" x2="680" y2="1198" stroke="black"/>
+<line x1="760" y1="1170" x2="760" y2="1198" stroke="black"/>
+<line x1="840" y1="1170" x2="840" y2="1198" stroke="black"/>
+<line x1="920" y1="1170" x2="920" y2="1198" stroke="black"/>
+<line x1="1000" y1="1170" x2="1000" y2="1198" stroke="black"/>
+<line x1="1080" y1="1170" x2="1080" y2="1198" stroke="black"/>
+<line x1="1160" y1="1170" x2="1160" y2="1198" stroke="black"/>
+<line x1="1240" y1="1170" x2="1240" y2="1198" stroke="black"/>
+<line x1="1320" y1="1170" x2="1320" y2="1198" stroke="black"/>
+<line x1="1400" y1="1170" x2="1400" y2="1198" stroke="black"/>
+<line x1="520" y1="1181" x2="40" y2="1181" stroke="black"/>
+<polygon fill="black" points="40,1181 50,1187 50,1175"/>
+<polygon fill="white" points="217,1171 342,1171 342,1180 217,1180"/>
+<text x="218" y="1180" textLength="123" font-family="Helvetica" font-size="12" fill="black">
+complete_provisioning!
+</text>
+<line x1="40" y1="1198" x2="40" y2="1226" stroke="black"/>
+<line x1="120" y1="1198" x2="120" y2="1226" stroke="black"/>
+<line x1="200" y1="1198" x2="200" y2="1226" stroke="black"/>
+<line x1="280" y1="1198" x2="280" y2="1226" stroke="black"/>
+<line x1="360" y1="1198" x2="360" y2="1226" stroke="black"/>
+<line x1="440" y1="1198" x2="440" y2="1226" stroke="black"/>
+<line x1="520" y1="1198" x2="520" y2="1226" stroke="black"/>
+<line x1="600" y1="1198" x2="600" y2="1226" stroke="black"/>
+<line x1="680" y1="1198" x2="680" y2="1226" stroke="black"/>
+<line x1="760" y1="1198" x2="760" y2="1226" stroke="black"/>
+<line x1="840" y1="1198" x2="840" y2="1226" stroke="black"/>
+<line x1="920" y1="1198" x2="920" y2="1226" stroke="black"/>
+<line x1="1000" y1="1198" x2="1000" y2="1226" stroke="black"/>
+<line x1="1080" y1="1198" x2="1080" y2="1226" stroke="black"/>
+<line x1="1160" y1="1198" x2="1160" y2="1226" stroke="black"/>
+<line x1="1240" y1="1198" x2="1240" y2="1226" stroke="black"/>
+<line x1="1320" y1="1198" x2="1320" y2="1226" stroke="black"/>
+<line x1="1400" y1="1198" x2="1400" y2="1226" stroke="black"/>
+<polygon fill="white" points="8,1198 72,1198 72,1220 8,1220"/>
+<line x1="8" y1="1198" x2="72" y2="1198" stroke="black"/>
+<line x1="8" y1="1220" x2="72" y2="1220" stroke="black"/>
+<line x1="8" y1="1198" x2="8" y2="1220" stroke="black"/>
+<line x1="72" y1="1198" x2="72" y2="1220" stroke="black"/>
+<polygon fill="white" points="14,1199 65,1199 65,1208 14,1208"/>
+<text x="15" y="1208" textLength="49" font-family="Helvetica" font-size="12" fill="black">
+select_d-
+</text>
+<polygon fill="white" points="24,1210 54,1210 54,1219 24,1219"/>
+<text x="25" y="1219" textLength="28" font-family="Helvetica" font-size="12" fill="black">
+evice
+</text>
+<line x1="40" y1="1226" x2="40" y2="1254" stroke="black"/>
+<line x1="120" y1="1226" x2="120" y2="1254" stroke="black"/>
+<line x1="200" y1="1226" x2="200" y2="1254" stroke="black"/>
+<line x1="280" y1="1226" x2="280" y2="1254" stroke="black"/>
+<line x1="360" y1="1226" x2="360" y2="1254" stroke="black"/>
+<line x1="440" y1="1226" x2="440" y2="1254" stroke="black"/>
+<line x1="520" y1="1226" x2="520" y2="1254" stroke="black"/>
+<line x1="600" y1="1226" x2="600" y2="1254" stroke="black"/>
+<line x1="680" y1="1226" x2="680" y2="1254" stroke="black"/>
+<line x1="760" y1="1226" x2="760" y2="1254" stroke="black"/>
+<line x1="840" y1="1226" x2="840" y2="1254" stroke="black"/>
+<line x1="920" y1="1226" x2="920" y2="1254" stroke="black"/>
+<line x1="1000" y1="1226" x2="1000" y2="1254" stroke="black"/>
+<line x1="1080" y1="1226" x2="1080" y2="1254" stroke="black"/>
+<line x1="1160" y1="1226" x2="1160" y2="1254" stroke="black"/>
+<line x1="1240" y1="1226" x2="1240" y2="1254" stroke="black"/>
+<line x1="1320" y1="1226" x2="1320" y2="1254" stroke="black"/>
+<line x1="1400" y1="1226" x2="1400" y2="1254" stroke="black"/>
+<line x1="40" y1="1237" x2="840" y2="1237" stroke="black"/>
+<line x1="840" y1="1237" x2="830" y2="1243" stroke="black"/>
+<polygon fill="white" points="356,1227 522,1227 522,1236 356,1236"/>
+<text x="357" y="1236" textLength="164" font-family="Helvetica" font-size="12" fill="black">
+venue_transition select_device
+</text>
+<line x1="40" y1="1254" x2="40" y2="1282" stroke="black"/>
+<line x1="120" y1="1254" x2="120" y2="1282" stroke="black"/>
+<line x1="200" y1="1254" x2="200" y2="1282" stroke="black"/>
+<line x1="280" y1="1254" x2="280" y2="1282" stroke="black"/>
+<line x1="360" y1="1254" x2="360" y2="1282" stroke="black"/>
+<line x1="440" y1="1254" x2="440" y2="1282" stroke="black"/>
+<line x1="520" y1="1254" x2="520" y2="1282" stroke="black"/>
+<line x1="600" y1="1254" x2="600" y2="1282" stroke="black"/>
+<line x1="680" y1="1254" x2="680" y2="1282" stroke="black"/>
+<line x1="760" y1="1254" x2="760" y2="1282" stroke="black"/>
+<line x1="840" y1="1254" x2="840" y2="1282" stroke="black"/>
+<line x1="920" y1="1254" x2="920" y2="1282" stroke="black"/>
+<line x1="1000" y1="1254" x2="1000" y2="1282" stroke="black"/>
+<line x1="1080" y1="1254" x2="1080" y2="1282" stroke="black"/>
+<line x1="1160" y1="1254" x2="1160" y2="1282" stroke="black"/>
+<line x1="1240" y1="1254" x2="1240" y2="1282" stroke="black"/>
+<line x1="1320" y1="1254" x2="1320" y2="1282" stroke="black"/>
+<line x1="1400" y1="1254" x2="1400" y2="1282" stroke="black"/>
+<line x1="840" y1="1265" x2="920" y2="1265" stroke="black"/>
+<line x1="920" y1="1265" x2="910" y2="1271" stroke="black"/>
+<polygon fill="white" points="796,1255 962,1255 962,1264 796,1264"/>
+<text x="797" y="1264" textLength="164" font-family="Helvetica" font-size="12" fill="black">
+venue_transition select_device
+</text>
+<line x1="40" y1="1282" x2="40" y2="1310" stroke="black"/>
+<line x1="120" y1="1282" x2="120" y2="1310" stroke="black"/>
+<line x1="200" y1="1282" x2="200" y2="1310" stroke="black"/>
+<line x1="280" y1="1282" x2="280" y2="1310" stroke="black"/>
+<line x1="360" y1="1282" x2="360" y2="1310" stroke="black"/>
+<line x1="440" y1="1282" x2="440" y2="1310" stroke="black"/>
+<line x1="520" y1="1282" x2="520" y2="1310" stroke="black"/>
+<line x1="600" y1="1282" x2="600" y2="1310" stroke="black"/>
+<line x1="680" y1="1282" x2="680" y2="1310" stroke="black"/>
+<line x1="760" y1="1282" x2="760" y2="1310" stroke="black"/>
+<line x1="840" y1="1282" x2="840" y2="1310" stroke="black"/>
+<line x1="920" y1="1282" x2="920" y2="1310" stroke="black"/>
+<line x1="1000" y1="1282" x2="1000" y2="1310" stroke="black"/>
+<line x1="1080" y1="1282" x2="1080" y2="1310" stroke="black"/>
+<line x1="1160" y1="1282" x2="1160" y2="1310" stroke="black"/>
+<line x1="1240" y1="1282" x2="1240" y2="1310" stroke="black"/>
+<line x1="1320" y1="1282" x2="1320" y2="1310" stroke="black"/>
+<line x1="1400" y1="1282" x2="1400" y2="1310" stroke="black"/>
+<line x1="920" y1="1293" x2="1000" y2="1293" stroke="black"/>
+<line x1="1000" y1="1293" x2="990" y2="1299" stroke="black"/>
+<polygon fill="white" points="876,1283 1042,1283 1042,1292 876,1292"/>
+<text x="877" y="1292" textLength="164" font-family="Helvetica" font-size="12" fill="black">
+venue_transition select_device
+</text>
+<line x1="40" y1="1310" x2="40" y2="1338" stroke="black"/>
+<line x1="120" y1="1310" x2="120" y2="1338" stroke="black"/>
+<line x1="200" y1="1310" x2="200" y2="1338" stroke="black"/>
+<line x1="280" y1="1310" x2="280" y2="1338" stroke="black"/>
+<line x1="360" y1="1310" x2="360" y2="1338" stroke="black"/>
+<line x1="440" y1="1310" x2="440" y2="1338" stroke="black"/>
+<line x1="520" y1="1310" x2="520" y2="1338" stroke="black"/>
+<line x1="600" y1="1310" x2="600" y2="1338" stroke="black"/>
+<line x1="680" y1="1310" x2="680" y2="1338" stroke="black"/>
+<line x1="760" y1="1310" x2="760" y2="1338" stroke="black"/>
+<line x1="840" y1="1310" x2="840" y2="1338" stroke="black"/>
+<line x1="920" y1="1310" x2="920" y2="1338" stroke="black"/>
+<line x1="1000" y1="1310" x2="1000" y2="1338" stroke="black"/>
+<line x1="1080" y1="1310" x2="1080" y2="1338" stroke="black"/>
+<line x1="1160" y1="1310" x2="1160" y2="1338" stroke="black"/>
+<line x1="1240" y1="1310" x2="1240" y2="1338" stroke="black"/>
+<line x1="1320" y1="1310" x2="1320" y2="1338" stroke="black"/>
+<line x1="1400" y1="1310" x2="1400" y2="1338" stroke="black"/>
+<line x1="1000" y1="1321" x2="600" y2="1321" stroke="black"/>
+<line x1="600" y1="1321" x2="610" y2="1327" stroke="black"/>
+<polygon fill="white" points="716,1311 882,1311 882,1320 716,1320"/>
+<text x="717" y="1320" textLength="164" font-family="Helvetica" font-size="12" fill="black">
+venue_transition select_device
+</text>
+<line x1="40" y1="1338" x2="40" y2="1366" stroke="black"/>
+<line x1="120" y1="1338" x2="120" y2="1366" stroke="black"/>
+<line x1="200" y1="1338" x2="200" y2="1366" stroke="black"/>
+<line x1="280" y1="1338" x2="280" y2="1366" stroke="black"/>
+<line x1="360" y1="1338" x2="360" y2="1366" stroke="black"/>
+<line x1="440" y1="1338" x2="440" y2="1366" stroke="black"/>
+<line x1="520" y1="1338" x2="520" y2="1366" stroke="black"/>
+<line x1="600" y1="1338" x2="600" y2="1366" stroke="black"/>
+<line x1="680" y1="1338" x2="680" y2="1366" stroke="black"/>
+<line x1="760" y1="1338" x2="760" y2="1366" stroke="black"/>
+<line x1="840" y1="1338" x2="840" y2="1366" stroke="black"/>
+<line x1="920" y1="1338" x2="920" y2="1366" stroke="black"/>
+<line x1="1000" y1="1338" x2="1000" y2="1366" stroke="black"/>
+<line x1="1080" y1="1338" x2="1080" y2="1366" stroke="black"/>
+<line x1="1160" y1="1338" x2="1160" y2="1366" stroke="black"/>
+<line x1="1240" y1="1338" x2="1240" y2="1366" stroke="black"/>
+<line x1="1320" y1="1338" x2="1320" y2="1366" stroke="black"/>
+<line x1="1400" y1="1338" x2="1400" y2="1366" stroke="black"/>
+<polygon fill="white" points="568,1338 632,1338 632,1360 568,1360"/>
+<line x1="568" y1="1338" x2="632" y2="1338" stroke="black"/>
+<line x1="568" y1="1360" x2="632" y2="1360" stroke="black"/>
+<line x1="568" y1="1338" x2="568" y2="1360" stroke="black"/>
+<line x1="632" y1="1338" x2="632" y2="1360" stroke="black"/>
+<polygon fill="white" points="580,1345 619,1345 619,1354 580,1354"/>
+<text x="581" y="1354" textLength="37" font-family="Helvetica" font-size="12" fill="black">
+update
+</text>
+<line x1="40" y1="1366" x2="40" y2="1394" stroke="black"/>
+<line x1="120" y1="1366" x2="120" y2="1394" stroke="black"/>
+<line x1="200" y1="1366" x2="200" y2="1394" stroke="black"/>
+<line x1="280" y1="1366" x2="280" y2="1394" stroke="black"/>
+<line x1="360" y1="1366" x2="360" y2="1394" stroke="black"/>
+<line x1="440" y1="1366" x2="440" y2="1394" stroke="black"/>
+<line x1="520" y1="1366" x2="520" y2="1394" stroke="black"/>
+<line x1="600" y1="1366" x2="600" y2="1394" stroke="black"/>
+<line x1="680" y1="1366" x2="680" y2="1394" stroke="black"/>
+<line x1="760" y1="1366" x2="760" y2="1394" stroke="black"/>
+<line x1="840" y1="1366" x2="840" y2="1394" stroke="black"/>
+<line x1="920" y1="1366" x2="920" y2="1394" stroke="black"/>
+<line x1="1000" y1="1366" x2="1000" y2="1394" stroke="black"/>
+<line x1="1080" y1="1366" x2="1080" y2="1394" stroke="black"/>
+<line x1="1160" y1="1366" x2="1160" y2="1394" stroke="black"/>
+<line x1="1240" y1="1366" x2="1240" y2="1394" stroke="black"/>
+<line x1="1320" y1="1366" x2="1320" y2="1394" stroke="black"/>
+<line x1="1400" y1="1366" x2="1400" y2="1394" stroke="black"/>
+<line x1="600" y1="1377" x2="280" y2="1377" stroke="black"/>
+<line x1="280" y1="1377" x2="290" y2="1383" stroke="black"/>
+<polygon fill="white" points="377,1367 502,1367 502,1376 377,1376"/>
+<text x="378" y="1376" textLength="123" font-family="Helvetica" font-size="12" fill="black">
+device_selected! (ajax)
+</text>
+<line x1="40" y1="1394" x2="40" y2="1422" stroke="black"/>
+<line x1="120" y1="1394" x2="120" y2="1422" stroke="black"/>
+<line x1="200" y1="1394" x2="200" y2="1422" stroke="black"/>
+<line x1="280" y1="1394" x2="280" y2="1422" stroke="black"/>
+<line x1="360" y1="1394" x2="360" y2="1422" stroke="black"/>
+<line x1="440" y1="1394" x2="440" y2="1422" stroke="black"/>
+<line x1="520" y1="1394" x2="520" y2="1422" stroke="black"/>
+<line x1="600" y1="1394" x2="600" y2="1422" stroke="black"/>
+<line x1="680" y1="1394" x2="680" y2="1422" stroke="black"/>
+<line x1="760" y1="1394" x2="760" y2="1422" stroke="black"/>
+<line x1="840" y1="1394" x2="840" y2="1422" stroke="black"/>
+<line x1="920" y1="1394" x2="920" y2="1422" stroke="black"/>
+<line x1="1000" y1="1394" x2="1000" y2="1422" stroke="black"/>
+<line x1="1080" y1="1394" x2="1080" y2="1422" stroke="black"/>
+<line x1="1160" y1="1394" x2="1160" y2="1422" stroke="black"/>
+<line x1="1240" y1="1394" x2="1240" y2="1422" stroke="black"/>
+<line x1="1320" y1="1394" x2="1320" y2="1422" stroke="black"/>
+<line x1="1400" y1="1394" x2="1400" y2="1422" stroke="black"/>
+<line x1="280" y1="1405" x2="40" y2="1405" stroke="black"/>
+<polygon fill="black" points="40,1405 50,1411 50,1399"/>
+<polygon fill="white" points="114,1395 205,1395 205,1404 114,1404"/>
+<text x="115" y="1404" textLength="89" font-family="Helvetica" font-size="12" fill="black">
+device_selected!
+</text>
+<line x1="40" y1="1422" x2="40" y2="1450" stroke="black"/>
+<line x1="120" y1="1422" x2="120" y2="1450" stroke="black"/>
+<line x1="200" y1="1422" x2="200" y2="1450" stroke="black"/>
+<line x1="280" y1="1422" x2="280" y2="1450" stroke="black"/>
+<line x1="360" y1="1422" x2="360" y2="1450" stroke="black"/>
+<line x1="440" y1="1422" x2="440" y2="1450" stroke="black"/>
+<line x1="520" y1="1422" x2="520" y2="1450" stroke="black"/>
+<line x1="600" y1="1422" x2="600" y2="1450" stroke="black"/>
+<line x1="680" y1="1422" x2="680" y2="1450" stroke="black"/>
+<line x1="760" y1="1422" x2="760" y2="1450" stroke="black"/>
+<line x1="840" y1="1422" x2="840" y2="1450" stroke="black"/>
+<line x1="920" y1="1422" x2="920" y2="1450" stroke="black"/>
+<line x1="1000" y1="1422" x2="1000" y2="1450" stroke="black"/>
+<line x1="1080" y1="1422" x2="1080" y2="1450" stroke="black"/>
+<line x1="1160" y1="1422" x2="1160" y2="1450" stroke="black"/>
+<line x1="1240" y1="1422" x2="1240" y2="1450" stroke="black"/>
+<line x1="1320" y1="1422" x2="1320" y2="1450" stroke="black"/>
+<line x1="1400" y1="1422" x2="1400" y2="1450" stroke="black"/>
+<polygon fill="white" points="8,1422 72,1422 72,1444 8,1444"/>
+<line x1="8" y1="1422" x2="72" y2="1422" stroke="black"/>
+<line x1="8" y1="1444" x2="72" y2="1444" stroke="black"/>
+<line x1="8" y1="1422" x2="8" y2="1444" stroke="black"/>
+<line x1="72" y1="1422" x2="72" y2="1444" stroke="black"/>
+<polygon fill="white" points="16,1429 62,1429 62,1438 16,1438"/>
+<text x="17" y="1438" textLength="44" font-family="Helvetica" font-size="12" fill="black">
+awaiting
+</text>
+<line x1="40" y1="1450" x2="40" y2="1478" stroke="black"/>
+<line x1="120" y1="1450" x2="120" y2="1478" stroke="black"/>
+<line x1="200" y1="1450" x2="200" y2="1478" stroke="black"/>
+<line x1="280" y1="1450" x2="280" y2="1478" stroke="black"/>
+<line x1="360" y1="1450" x2="360" y2="1478" stroke="black"/>
+<line x1="440" y1="1450" x2="440" y2="1478" stroke="black"/>
+<line x1="520" y1="1450" x2="520" y2="1478" stroke="black"/>
+<line x1="600" y1="1450" x2="600" y2="1478" stroke="black"/>
+<line x1="680" y1="1450" x2="680" y2="1478" stroke="black"/>
+<line x1="760" y1="1450" x2="760" y2="1478" stroke="black"/>
+<line x1="840" y1="1450" x2="840" y2="1478" stroke="black"/>
+<line x1="920" y1="1450" x2="920" y2="1478" stroke="black"/>
+<line x1="1000" y1="1450" x2="1000" y2="1478" stroke="black"/>
+<line x1="1080" y1="1450" x2="1080" y2="1478" stroke="black"/>
+<line x1="1160" y1="1450" x2="1160" y2="1478" stroke="black"/>
+<line x1="1240" y1="1450" x2="1240" y2="1478" stroke="black"/>
+<line x1="1320" y1="1450" x2="1320" y2="1478" stroke="black"/>
+<line x1="1400" y1="1450" x2="1400" y2="1478" stroke="black"/>
+<line x1="40" y1="1461" x2="200" y2="1461" stroke="black"/>
+<polygon fill="black" points="200,1461 190,1467 190,1455"/>
+<polygon fill="white" points="63,1451 176,1451 176,1460 63,1460"/>
+<text x="64" y="1460" textLength="111" font-family="Helvetica" font-size="12" fill="black">
+start_stream! (event)
+</text>
+<line x1="40" y1="1478" x2="40" y2="1506" stroke="black"/>
+<line x1="120" y1="1478" x2="120" y2="1506" stroke="black"/>
+<line x1="200" y1="1478" x2="200" y2="1506" stroke="black"/>
+<line x1="280" y1="1478" x2="280" y2="1506" stroke="black"/>
+<line x1="360" y1="1478" x2="360" y2="1506" stroke="black"/>
+<line x1="440" y1="1478" x2="440" y2="1506" stroke="black"/>
+<line x1="520" y1="1478" x2="520" y2="1506" stroke="black"/>
+<line x1="600" y1="1478" x2="600" y2="1506" stroke="black"/>
+<line x1="680" y1="1478" x2="680" y2="1506" stroke="black"/>
+<line x1="760" y1="1478" x2="760" y2="1506" stroke="black"/>
+<line x1="840" y1="1478" x2="840" y2="1506" stroke="black"/>
+<line x1="920" y1="1478" x2="920" y2="1506" stroke="black"/>
+<line x1="1000" y1="1478" x2="1000" y2="1506" stroke="black"/>
+<line x1="1080" y1="1478" x2="1080" y2="1506" stroke="black"/>
+<line x1="1160" y1="1478" x2="1160" y2="1506" stroke="black"/>
+<line x1="1240" y1="1478" x2="1240" y2="1506" stroke="black"/>
+<line x1="1320" y1="1478" x2="1320" y2="1506" stroke="black"/>
+<line x1="1400" y1="1478" x2="1400" y2="1506" stroke="black"/>
+<polygon fill="white" points="168,1478 232,1478 232,1500 168,1500"/>
+<line x1="168" y1="1478" x2="232" y2="1478" stroke="black"/>
+<line x1="168" y1="1500" x2="232" y2="1500" stroke="black"/>
+<line x1="168" y1="1478" x2="168" y2="1500" stroke="black"/>
+<line x1="232" y1="1478" x2="232" y2="1500" stroke="black"/>
+<polygon fill="white" points="172,1485 227,1485 227,1494 172,1494"/>
+<text x="173" y="1494" textLength="53" font-family="Helvetica" font-size="12" fill="black">
+streaming
+</text>
+<line x1="40" y1="1506" x2="40" y2="1534" stroke="black"/>
+<line x1="120" y1="1506" x2="120" y2="1534" stroke="black"/>
+<line x1="200" y1="1506" x2="200" y2="1534" stroke="black"/>
+<line x1="280" y1="1506" x2="280" y2="1534" stroke="black"/>
+<line x1="360" y1="1506" x2="360" y2="1534" stroke="black"/>
+<line x1="440" y1="1506" x2="440" y2="1534" stroke="black"/>
+<line x1="520" y1="1506" x2="520" y2="1534" stroke="black"/>
+<line x1="600" y1="1506" x2="600" y2="1534" stroke="black"/>
+<line x1="680" y1="1506" x2="680" y2="1534" stroke="black"/>
+<line x1="760" y1="1506" x2="760" y2="1534" stroke="black"/>
+<line x1="840" y1="1506" x2="840" y2="1534" stroke="black"/>
+<line x1="920" y1="1506" x2="920" y2="1534" stroke="black"/>
+<line x1="1000" y1="1506" x2="1000" y2="1534" stroke="black"/>
+<line x1="1080" y1="1506" x2="1080" y2="1534" stroke="black"/>
+<line x1="1160" y1="1506" x2="1160" y2="1534" stroke="black"/>
+<line x1="1240" y1="1506" x2="1240" y2="1534" stroke="black"/>
+<line x1="1320" y1="1506" x2="1320" y2="1534" stroke="black"/>
+<line x1="1400" y1="1506" x2="1400" y2="1534" stroke="black"/>
+<line x1="200" y1="1517" x2="1000" y2="1517" stroke="black"/>
+<line x1="1000" y1="1517" x2="990" y2="1523" stroke="black"/>
+<polygon fill="white" points="540,1507 659,1507 659,1516 540,1516"/>
+<text x="541" y="1516" textLength="117" font-family="Helvetica" font-size="12" fill="black">
+start_stream! (direct?)
+</text>
+<line x1="40" y1="1534" x2="40" y2="1562" stroke="black"/>
+<line x1="120" y1="1534" x2="120" y2="1562" stroke="black"/>
+<line x1="200" y1="1534" x2="200" y2="1562" stroke="black"/>
+<line x1="280" y1="1534" x2="280" y2="1562" stroke="black"/>
+<line x1="360" y1="1534" x2="360" y2="1562" stroke="black"/>
+<line x1="440" y1="1534" x2="440" y2="1562" stroke="black"/>
+<line x1="520" y1="1534" x2="520" y2="1562" stroke="black"/>
+<line x1="600" y1="1534" x2="600" y2="1562" stroke="black"/>
+<line x1="680" y1="1534" x2="680" y2="1562" stroke="black"/>
+<line x1="760" y1="1534" x2="760" y2="1562" stroke="black"/>
+<line x1="840" y1="1534" x2="840" y2="1562" stroke="black"/>
+<line x1="920" y1="1534" x2="920" y2="1562" stroke="black"/>
+<line x1="1000" y1="1534" x2="1000" y2="1562" stroke="black"/>
+<line x1="1080" y1="1534" x2="1080" y2="1562" stroke="black"/>
+<line x1="1160" y1="1534" x2="1160" y2="1562" stroke="black"/>
+<line x1="1240" y1="1534" x2="1240" y2="1562" stroke="black"/>
+<line x1="1320" y1="1534" x2="1320" y2="1562" stroke="black"/>
+<line x1="1400" y1="1534" x2="1400" y2="1562" stroke="black"/>
+<line x1="1000" y1="1545" x2="1160" y2="1545" stroke="black"/>
+<line x1="1160" y1="1545" x2="1150" y2="1551" stroke="black"/>
+<polygon fill="white" points="1043,1535 1115,1535 1115,1544 1043,1544"/>
+<text x="1044" y="1544" textLength="70" font-family="Helvetica" font-size="12" fill="black">
+start_stream!
+</text>
+<line x1="40" y1="1562" x2="40" y2="1590" stroke="black"/>
+<line x1="120" y1="1562" x2="120" y2="1590" stroke="black"/>
+<line x1="200" y1="1562" x2="200" y2="1590" stroke="black"/>
+<line x1="280" y1="1562" x2="280" y2="1590" stroke="black"/>
+<line x1="360" y1="1562" x2="360" y2="1590" stroke="black"/>
+<line x1="440" y1="1562" x2="440" y2="1590" stroke="black"/>
+<line x1="520" y1="1562" x2="520" y2="1590" stroke="black"/>
+<line x1="600" y1="1562" x2="600" y2="1590" stroke="black"/>
+<line x1="680" y1="1562" x2="680" y2="1590" stroke="black"/>
+<line x1="760" y1="1562" x2="760" y2="1590" stroke="black"/>
+<line x1="840" y1="1562" x2="840" y2="1590" stroke="black"/>
+<line x1="920" y1="1562" x2="920" y2="1590" stroke="black"/>
+<line x1="1000" y1="1562" x2="1000" y2="1590" stroke="black"/>
+<line x1="1080" y1="1562" x2="1080" y2="1590" stroke="black"/>
+<line x1="1160" y1="1562" x2="1160" y2="1590" stroke="black"/>
+<line x1="1240" y1="1562" x2="1240" y2="1590" stroke="black"/>
+<line x1="1320" y1="1562" x2="1320" y2="1590" stroke="black"/>
+<line x1="1400" y1="1562" x2="1400" y2="1590" stroke="black"/>
+<line x1="1160" y1="1573" x2="1240" y2="1573" stroke="black"/>
+<line x1="1240" y1="1573" x2="1230" y2="1579" stroke="black"/>
+<polygon fill="white" points="1160,1563 1239,1563 1239,1572 1160,1572"/>
+<text x="1161" y="1572" textLength="77" font-family="Helvetica" font-size="12" fill="black">
+icecast stream
+</text>
+<line x1="40" y1="1590" x2="40" y2="1618" stroke="black"/>
+<line x1="120" y1="1590" x2="120" y2="1618" stroke="black"/>
+<line x1="200" y1="1590" x2="200" y2="1618" stroke="black"/>
+<line x1="280" y1="1590" x2="280" y2="1618" stroke="black"/>
+<line x1="360" y1="1590" x2="360" y2="1618" stroke="black"/>
+<line x1="440" y1="1590" x2="440" y2="1618" stroke="black"/>
+<line x1="520" y1="1590" x2="520" y2="1618" stroke="black"/>
+<line x1="600" y1="1590" x2="600" y2="1618" stroke="black"/>
+<line x1="680" y1="1590" x2="680" y2="1618" stroke="black"/>
+<line x1="760" y1="1590" x2="760" y2="1618" stroke="black"/>
+<line x1="840" y1="1590" x2="840" y2="1618" stroke="black"/>
+<line x1="920" y1="1590" x2="920" y2="1618" stroke="black"/>
+<line x1="1000" y1="1590" x2="1000" y2="1618" stroke="black"/>
+<line x1="1080" y1="1590" x2="1080" y2="1618" stroke="black"/>
+<line x1="1160" y1="1590" x2="1160" y2="1618" stroke="black"/>
+<line x1="1240" y1="1590" x2="1240" y2="1618" stroke="black"/>
+<line x1="1320" y1="1590" x2="1320" y2="1618" stroke="black"/>
+<line x1="1400" y1="1590" x2="1400" y2="1618" stroke="black"/>
+<line x1="1240" y1="1601" x2="520" y2="1601" stroke="black"/>
+<line x1="520" y1="1601" x2="530" y2="1607" stroke="black"/>
+<polygon fill="white" points="835,1591 923,1591 923,1600 835,1600"/>
+<text x="836" y="1600" textLength="86" font-family="Helvetica" font-size="12" fill="black">
+/icecast/connect
+</text>
+<line x1="40" y1="1618" x2="40" y2="1646" stroke="black"/>
+<line x1="120" y1="1618" x2="120" y2="1646" stroke="black"/>
+<line x1="200" y1="1618" x2="200" y2="1646" stroke="black"/>
+<line x1="280" y1="1618" x2="280" y2="1646" stroke="black"/>
+<line x1="360" y1="1618" x2="360" y2="1646" stroke="black"/>
+<line x1="440" y1="1618" x2="440" y2="1646" stroke="black"/>
+<line x1="520" y1="1618" x2="520" y2="1646" stroke="black"/>
+<line x1="600" y1="1618" x2="600" y2="1646" stroke="black"/>
+<line x1="680" y1="1618" x2="680" y2="1646" stroke="black"/>
+<line x1="760" y1="1618" x2="760" y2="1646" stroke="black"/>
+<line x1="840" y1="1618" x2="840" y2="1646" stroke="black"/>
+<line x1="920" y1="1618" x2="920" y2="1646" stroke="black"/>
+<line x1="1000" y1="1618" x2="1000" y2="1646" stroke="black"/>
+<line x1="1080" y1="1618" x2="1080" y2="1646" stroke="black"/>
+<line x1="1160" y1="1618" x2="1160" y2="1646" stroke="black"/>
+<line x1="1240" y1="1618" x2="1240" y2="1646" stroke="black"/>
+<line x1="1320" y1="1618" x2="1320" y2="1646" stroke="black"/>
+<line x1="1400" y1="1618" x2="1400" y2="1646" stroke="black"/>
+<line x1="520" y1="1629" x2="40" y2="1629" stroke="black"/>
+<polygon fill="black" points="40,1629 50,1635 50,1623"/>
+<polygon fill="white" points="235,1619 323,1619 323,1628 235,1628"/>
+<text x="236" y="1628" textLength="86" font-family="Helvetica" font-size="12" fill="black">
+connect! (event)
+</text>
+<line x1="40" y1="1646" x2="40" y2="1674" stroke="black"/>
+<line x1="120" y1="1646" x2="120" y2="1674" stroke="black"/>
+<line x1="200" y1="1646" x2="200" y2="1674" stroke="black"/>
+<line x1="280" y1="1646" x2="280" y2="1674" stroke="black"/>
+<line x1="360" y1="1646" x2="360" y2="1674" stroke="black"/>
+<line x1="440" y1="1646" x2="440" y2="1674" stroke="black"/>
+<line x1="520" y1="1646" x2="520" y2="1674" stroke="black"/>
+<line x1="600" y1="1646" x2="600" y2="1674" stroke="black"/>
+<line x1="680" y1="1646" x2="680" y2="1674" stroke="black"/>
+<line x1="760" y1="1646" x2="760" y2="1674" stroke="black"/>
+<line x1="840" y1="1646" x2="840" y2="1674" stroke="black"/>
+<line x1="920" y1="1646" x2="920" y2="1674" stroke="black"/>
+<line x1="1000" y1="1646" x2="1000" y2="1674" stroke="black"/>
+<line x1="1080" y1="1646" x2="1080" y2="1674" stroke="black"/>
+<line x1="1160" y1="1646" x2="1160" y2="1674" stroke="black"/>
+<line x1="1240" y1="1646" x2="1240" y2="1674" stroke="black"/>
+<line x1="1320" y1="1646" x2="1320" y2="1674" stroke="black"/>
+<line x1="1400" y1="1646" x2="1400" y2="1674" stroke="black"/>
+<polygon fill="white" points="8,1646 72,1646 72,1668 8,1668"/>
+<line x1="8" y1="1646" x2="72" y2="1646" stroke="black"/>
+<line x1="8" y1="1668" x2="72" y2="1668" stroke="black"/>
+<line x1="8" y1="1646" x2="8" y2="1668" stroke="black"/>
+<line x1="72" y1="1646" x2="72" y2="1668" stroke="black"/>
+<polygon fill="white" points="11,1653 68,1653 68,1662 11,1662"/>
+<text x="12" y="1662" textLength="55" font-family="Helvetica" font-size="12" fill="black">
+connected
+</text>
+<line x1="40" y1="1674" x2="40" y2="1702" stroke="black"/>
+<line x1="120" y1="1674" x2="120" y2="1702" stroke="black"/>
+<line x1="200" y1="1674" x2="200" y2="1702" stroke="black"/>
+<line x1="280" y1="1674" x2="280" y2="1702" stroke="black"/>
+<line x1="360" y1="1674" x2="360" y2="1702" stroke="black"/>
+<line x1="440" y1="1674" x2="440" y2="1702" stroke="black"/>
+<line x1="520" y1="1674" x2="520" y2="1702" stroke="black"/>
+<line x1="600" y1="1674" x2="600" y2="1702" stroke="black"/>
+<line x1="680" y1="1674" x2="680" y2="1702" stroke="black"/>
+<line x1="760" y1="1674" x2="760" y2="1702" stroke="black"/>
+<line x1="840" y1="1674" x2="840" y2="1702" stroke="black"/>
+<line x1="920" y1="1674" x2="920" y2="1702" stroke="black"/>
+<line x1="1000" y1="1674" x2="1000" y2="1702" stroke="black"/>
+<line x1="1080" y1="1674" x2="1080" y2="1702" stroke="black"/>
+<line x1="1160" y1="1674" x2="1160" y2="1702" stroke="black"/>
+<line x1="1240" y1="1674" x2="1240" y2="1702" stroke="black"/>
+<line x1="1320" y1="1674" x2="1320" y2="1702" stroke="black"/>
+<line x1="1400" y1="1674" x2="1400" y2="1702" stroke="black"/>
+<line x1="40" y1="1685" x2="840" y2="1685" stroke="black"/>
+<line x1="840" y1="1685" x2="830" y2="1691" stroke="black"/>
+<polygon fill="white" points="365,1675 514,1675 514,1684 365,1684"/>
+<text x="366" y="1684" textLength="147" font-family="Helvetica" font-size="12" fill="black">
+venue_transition connected
+</text>
+<line x1="40" y1="1702" x2="40" y2="1730" stroke="black"/>
+<line x1="120" y1="1702" x2="120" y2="1730" stroke="black"/>
+<line x1="200" y1="1702" x2="200" y2="1730" stroke="black"/>
+<line x1="280" y1="1702" x2="280" y2="1730" stroke="black"/>
+<line x1="360" y1="1702" x2="360" y2="1730" stroke="black"/>
+<line x1="440" y1="1702" x2="440" y2="1730" stroke="black"/>
+<line x1="520" y1="1702" x2="520" y2="1730" stroke="black"/>
+<line x1="600" y1="1702" x2="600" y2="1730" stroke="black"/>
+<line x1="680" y1="1702" x2="680" y2="1730" stroke="black"/>
+<line x1="760" y1="1702" x2="760" y2="1730" stroke="black"/>
+<line x1="840" y1="1702" x2="840" y2="1730" stroke="black"/>
+<line x1="920" y1="1702" x2="920" y2="1730" stroke="black"/>
+<line x1="1000" y1="1702" x2="1000" y2="1730" stroke="black"/>
+<line x1="1080" y1="1702" x2="1080" y2="1730" stroke="black"/>
+<line x1="1160" y1="1702" x2="1160" y2="1730" stroke="black"/>
+<line x1="1240" y1="1702" x2="1240" y2="1730" stroke="black"/>
+<line x1="1320" y1="1702" x2="1320" y2="1730" stroke="black"/>
+<line x1="1400" y1="1702" x2="1400" y2="1730" stroke="black"/>
+<line x1="840" y1="1713" x2="920" y2="1713" stroke="black"/>
+<line x1="920" y1="1713" x2="910" y2="1719" stroke="black"/>
+<polygon fill="white" points="805,1703 954,1703 954,1712 805,1712"/>
+<text x="806" y="1712" textLength="147" font-family="Helvetica" font-size="12" fill="black">
+venue_transition connected
+</text>
+<line x1="40" y1="1730" x2="40" y2="1758" stroke="black"/>
+<line x1="120" y1="1730" x2="120" y2="1758" stroke="black"/>
+<line x1="200" y1="1730" x2="200" y2="1758" stroke="black"/>
+<line x1="280" y1="1730" x2="280" y2="1758" stroke="black"/>
+<line x1="360" y1="1730" x2="360" y2="1758" stroke="black"/>
+<line x1="440" y1="1730" x2="440" y2="1758" stroke="black"/>
+<line x1="520" y1="1730" x2="520" y2="1758" stroke="black"/>
+<line x1="600" y1="1730" x2="600" y2="1758" stroke="black"/>
+<line x1="680" y1="1730" x2="680" y2="1758" stroke="black"/>
+<line x1="760" y1="1730" x2="760" y2="1758" stroke="black"/>
+<line x1="840" y1="1730" x2="840" y2="1758" stroke="black"/>
+<line x1="920" y1="1730" x2="920" y2="1758" stroke="black"/>
+<line x1="1000" y1="1730" x2="1000" y2="1758" stroke="black"/>
+<line x1="1080" y1="1730" x2="1080" y2="1758" stroke="black"/>
+<line x1="1160" y1="1730" x2="1160" y2="1758" stroke="black"/>
+<line x1="1240" y1="1730" x2="1240" y2="1758" stroke="black"/>
+<line x1="1320" y1="1730" x2="1320" y2="1758" stroke="black"/>
+<line x1="1400" y1="1730" x2="1400" y2="1758" stroke="black"/>
+<line x1="920" y1="1741" x2="1000" y2="1741" stroke="black"/>
+<line x1="1000" y1="1741" x2="990" y2="1747" stroke="black"/>
+<polygon fill="white" points="885,1731 1034,1731 1034,1740 885,1740"/>
+<text x="886" y="1740" textLength="147" font-family="Helvetica" font-size="12" fill="black">
+venue_transition connected
+</text>
+<line x1="40" y1="1758" x2="40" y2="1786" stroke="black"/>
+<line x1="120" y1="1758" x2="120" y2="1786" stroke="black"/>
+<line x1="200" y1="1758" x2="200" y2="1786" stroke="black"/>
+<line x1="280" y1="1758" x2="280" y2="1786" stroke="black"/>
+<line x1="360" y1="1758" x2="360" y2="1786" stroke="black"/>
+<line x1="440" y1="1758" x2="440" y2="1786" stroke="black"/>
+<line x1="520" y1="1758" x2="520" y2="1786" stroke="black"/>
+<line x1="600" y1="1758" x2="600" y2="1786" stroke="black"/>
+<line x1="680" y1="1758" x2="680" y2="1786" stroke="black"/>
+<line x1="760" y1="1758" x2="760" y2="1786" stroke="black"/>
+<line x1="840" y1="1758" x2="840" y2="1786" stroke="black"/>
+<line x1="920" y1="1758" x2="920" y2="1786" stroke="black"/>
+<line x1="1000" y1="1758" x2="1000" y2="1786" stroke="black"/>
+<line x1="1080" y1="1758" x2="1080" y2="1786" stroke="black"/>
+<line x1="1160" y1="1758" x2="1160" y2="1786" stroke="black"/>
+<line x1="1240" y1="1758" x2="1240" y2="1786" stroke="black"/>
+<line x1="1320" y1="1758" x2="1320" y2="1786" stroke="black"/>
+<line x1="1400" y1="1758" x2="1400" y2="1786" stroke="black"/>
+<line x1="1000" y1="1769" x2="600" y2="1769" stroke="black"/>
+<line x1="600" y1="1769" x2="610" y2="1775" stroke="black"/>
+<polygon fill="white" points="725,1759 874,1759 874,1768 725,1768"/>
+<text x="726" y="1768" textLength="147" font-family="Helvetica" font-size="12" fill="black">
+venue_transition connected
+</text>
+<line x1="40" y1="1786" x2="40" y2="1814" stroke="black"/>
+<line x1="120" y1="1786" x2="120" y2="1814" stroke="black"/>
+<line x1="200" y1="1786" x2="200" y2="1814" stroke="black"/>
+<line x1="280" y1="1786" x2="280" y2="1814" stroke="black"/>
+<line x1="360" y1="1786" x2="360" y2="1814" stroke="black"/>
+<line x1="440" y1="1786" x2="440" y2="1814" stroke="black"/>
+<line x1="520" y1="1786" x2="520" y2="1814" stroke="black"/>
+<line x1="600" y1="1786" x2="600" y2="1814" stroke="black"/>
+<line x1="680" y1="1786" x2="680" y2="1814" stroke="black"/>
+<line x1="760" y1="1786" x2="760" y2="1814" stroke="black"/>
+<line x1="840" y1="1786" x2="840" y2="1814" stroke="black"/>
+<line x1="920" y1="1786" x2="920" y2="1814" stroke="black"/>
+<line x1="1000" y1="1786" x2="1000" y2="1814" stroke="black"/>
+<line x1="1080" y1="1786" x2="1080" y2="1814" stroke="black"/>
+<line x1="1160" y1="1786" x2="1160" y2="1814" stroke="black"/>
+<line x1="1240" y1="1786" x2="1240" y2="1814" stroke="black"/>
+<line x1="1320" y1="1786" x2="1320" y2="1814" stroke="black"/>
+<line x1="1400" y1="1786" x2="1400" y2="1814" stroke="black"/>
+<polygon fill="white" points="568,1786 632,1786 632,1808 568,1808"/>
+<line x1="568" y1="1786" x2="632" y2="1786" stroke="black"/>
+<line x1="568" y1="1808" x2="632" y2="1808" stroke="black"/>
+<line x1="568" y1="1786" x2="568" y2="1808" stroke="black"/>
+<line x1="632" y1="1786" x2="632" y2="1808" stroke="black"/>
+<polygon fill="white" points="580,1793 619,1793 619,1802 580,1802"/>
+<text x="581" y="1802" textLength="37" font-family="Helvetica" font-size="12" fill="black">
+update
+</text>
+<line x1="40" y1="1814" x2="40" y2="1842" stroke="black"/>
+<line x1="120" y1="1814" x2="120" y2="1842" stroke="black"/>
+<line x1="200" y1="1814" x2="200" y2="1842" stroke="black"/>
+<line x1="280" y1="1814" x2="280" y2="1842" stroke="black"/>
+<line x1="360" y1="1814" x2="360" y2="1842" stroke="black"/>
+<line x1="440" y1="1814" x2="440" y2="1842" stroke="black"/>
+<line x1="520" y1="1814" x2="520" y2="1842" stroke="black"/>
+<line x1="600" y1="1814" x2="600" y2="1842" stroke="black"/>
+<line x1="680" y1="1814" x2="680" y2="1842" stroke="black"/>
+<line x1="760" y1="1814" x2="760" y2="1842" stroke="black"/>
+<line x1="840" y1="1814" x2="840" y2="1842" stroke="black"/>
+<line x1="920" y1="1814" x2="920" y2="1842" stroke="black"/>
+<line x1="1000" y1="1814" x2="1000" y2="1842" stroke="black"/>
+<line x1="1080" y1="1814" x2="1080" y2="1842" stroke="black"/>
+<line x1="1160" y1="1814" x2="1160" y2="1842" stroke="black"/>
+<line x1="1240" y1="1814" x2="1240" y2="1842" stroke="black"/>
+<line x1="1320" y1="1814" x2="1320" y2="1842" stroke="black"/>
+<line x1="1400" y1="1814" x2="1400" y2="1842" stroke="black"/>
+<line x1="600" y1="1825" x2="360" y2="1825" stroke="black"/>
+<line x1="360" y1="1825" x2="370" y2="1831" stroke="black"/>
+<polygon fill="white" points="436,1815 523,1815 523,1824 436,1824"/>
+<text x="437" y="1824" textLength="85" font-family="Helvetica" font-size="12" fill="black">
+start_talk! (ajax)
+</text>
+<line x1="40" y1="1842" x2="40" y2="1870" stroke="black"/>
+<line x1="120" y1="1842" x2="120" y2="1870" stroke="black"/>
+<line x1="200" y1="1842" x2="200" y2="1870" stroke="black"/>
+<line x1="280" y1="1842" x2="280" y2="1870" stroke="black"/>
+<line x1="360" y1="1842" x2="360" y2="1870" stroke="black"/>
+<line x1="440" y1="1842" x2="440" y2="1870" stroke="black"/>
+<line x1="520" y1="1842" x2="520" y2="1870" stroke="black"/>
+<line x1="600" y1="1842" x2="600" y2="1870" stroke="black"/>
+<line x1="680" y1="1842" x2="680" y2="1870" stroke="black"/>
+<line x1="760" y1="1842" x2="760" y2="1870" stroke="black"/>
+<line x1="840" y1="1842" x2="840" y2="1870" stroke="black"/>
+<line x1="920" y1="1842" x2="920" y2="1870" stroke="black"/>
+<line x1="1000" y1="1842" x2="1000" y2="1870" stroke="black"/>
+<line x1="1080" y1="1842" x2="1080" y2="1870" stroke="black"/>
+<line x1="1160" y1="1842" x2="1160" y2="1870" stroke="black"/>
+<line x1="1240" y1="1842" x2="1240" y2="1870" stroke="black"/>
+<line x1="1320" y1="1842" x2="1320" y2="1870" stroke="black"/>
+<line x1="1400" y1="1842" x2="1400" y2="1870" stroke="black"/>
+<line x1="360" y1="1853" x2="120" y2="1853" stroke="black"/>
+<polygon fill="black" points="120,1853 130,1859 130,1847"/>
+<polygon fill="white" points="192,1843 287,1843 287,1852 192,1852"/>
+<text x="193" y="1852" textLength="93" font-family="Helvetica" font-size="12" fill="black">
+start_talk! (event)
+</text>
+<line x1="40" y1="1870" x2="40" y2="1898" stroke="black"/>
+<line x1="120" y1="1870" x2="120" y2="1898" stroke="black"/>
+<line x1="200" y1="1870" x2="200" y2="1898" stroke="black"/>
+<line x1="280" y1="1870" x2="280" y2="1898" stroke="black"/>
+<line x1="360" y1="1870" x2="360" y2="1898" stroke="black"/>
+<line x1="440" y1="1870" x2="440" y2="1898" stroke="black"/>
+<line x1="520" y1="1870" x2="520" y2="1898" stroke="black"/>
+<line x1="600" y1="1870" x2="600" y2="1898" stroke="black"/>
+<line x1="680" y1="1870" x2="680" y2="1898" stroke="black"/>
+<line x1="760" y1="1870" x2="760" y2="1898" stroke="black"/>
+<line x1="840" y1="1870" x2="840" y2="1898" stroke="black"/>
+<line x1="920" y1="1870" x2="920" y2="1898" stroke="black"/>
+<line x1="1000" y1="1870" x2="1000" y2="1898" stroke="black"/>
+<line x1="1080" y1="1870" x2="1080" y2="1898" stroke="black"/>
+<line x1="1160" y1="1870" x2="1160" y2="1898" stroke="black"/>
+<line x1="1240" y1="1870" x2="1240" y2="1898" stroke="black"/>
+<line x1="1320" y1="1870" x2="1320" y2="1898" stroke="black"/>
+<line x1="1400" y1="1870" x2="1400" y2="1898" stroke="black"/>
+<polygon fill="white" points="88,1870 152,1870 152,1892 88,1892"/>
+<line x1="88" y1="1870" x2="152" y2="1870" stroke="black"/>
+<line x1="88" y1="1892" x2="152" y2="1892" stroke="black"/>
+<line x1="88" y1="1870" x2="88" y2="1892" stroke="black"/>
+<line x1="152" y1="1870" x2="152" y2="1892" stroke="black"/>
+<polygon fill="white" points="109,1877 129,1877 129,1886 109,1886"/>
+<text x="110" y="1886" textLength="18" font-family="Helvetica" font-size="12" fill="black">
+live
+</text>
+<line x1="40" y1="1898" x2="40" y2="1926" stroke="black"/>
+<line x1="120" y1="1898" x2="120" y2="1926" stroke="black"/>
+<line x1="200" y1="1898" x2="200" y2="1926" stroke="black"/>
+<line x1="280" y1="1898" x2="280" y2="1926" stroke="black"/>
+<line x1="360" y1="1898" x2="360" y2="1926" stroke="black"/>
+<line x1="440" y1="1898" x2="440" y2="1926" stroke="black"/>
+<line x1="520" y1="1898" x2="520" y2="1926" stroke="black"/>
+<line x1="600" y1="1898" x2="600" y2="1926" stroke="black"/>
+<line x1="680" y1="1898" x2="680" y2="1926" stroke="black"/>
+<line x1="760" y1="1898" x2="760" y2="1926" stroke="black"/>
+<line x1="840" y1="1898" x2="840" y2="1926" stroke="black"/>
+<line x1="920" y1="1898" x2="920" y2="1926" stroke="black"/>
+<line x1="1000" y1="1898" x2="1000" y2="1926" stroke="black"/>
+<line x1="1080" y1="1898" x2="1080" y2="1926" stroke="black"/>
+<line x1="1160" y1="1898" x2="1160" y2="1926" stroke="black"/>
+<line x1="1240" y1="1898" x2="1240" y2="1926" stroke="black"/>
+<line x1="1320" y1="1898" x2="1320" y2="1926" stroke="black"/>
+<line x1="1400" y1="1898" x2="1400" y2="1926" stroke="black"/>
+<line x1="120" y1="1909" x2="840" y2="1909" stroke="black"/>
+<line x1="840" y1="1909" x2="830" y2="1915" stroke="black"/>
+<polygon fill="white" points="431,1899 528,1899 528,1908 431,1908"/>
+<text x="432" y="1908" textLength="95" font-family="Helvetica" font-size="12" fill="black">
+talk_transition live
+</text>
+<line x1="40" y1="1926" x2="40" y2="1954" stroke="black"/>
+<line x1="120" y1="1926" x2="120" y2="1954" stroke="black"/>
+<line x1="200" y1="1926" x2="200" y2="1954" stroke="black"/>
+<line x1="280" y1="1926" x2="280" y2="1954" stroke="black"/>
+<line x1="360" y1="1926" x2="360" y2="1954" stroke="black"/>
+<line x1="440" y1="1926" x2="440" y2="1954" stroke="black"/>
+<line x1="520" y1="1926" x2="520" y2="1954" stroke="black"/>
+<line x1="600" y1="1926" x2="600" y2="1954" stroke="black"/>
+<line x1="680" y1="1926" x2="680" y2="1954" stroke="black"/>
+<line x1="760" y1="1926" x2="760" y2="1954" stroke="black"/>
+<line x1="840" y1="1926" x2="840" y2="1954" stroke="black"/>
+<line x1="920" y1="1926" x2="920" y2="1954" stroke="black"/>
+<line x1="1000" y1="1926" x2="1000" y2="1954" stroke="black"/>
+<line x1="1080" y1="1926" x2="1080" y2="1954" stroke="black"/>
+<line x1="1160" y1="1926" x2="1160" y2="1954" stroke="black"/>
+<line x1="1240" y1="1926" x2="1240" y2="1954" stroke="black"/>
+<line x1="1320" y1="1926" x2="1320" y2="1954" stroke="black"/>
+<line x1="1400" y1="1926" x2="1400" y2="1954" stroke="black"/>
+<line x1="840" y1="1937" x2="920" y2="1937" stroke="black"/>
+<line x1="920" y1="1937" x2="910" y2="1943" stroke="black"/>
+<polygon fill="white" points="831,1927 928,1927 928,1936 831,1936"/>
+<text x="832" y="1936" textLength="95" font-family="Helvetica" font-size="12" fill="black">
+talk_transition live
+</text>
+<line x1="40" y1="1954" x2="40" y2="1982" stroke="black"/>
+<line x1="120" y1="1954" x2="120" y2="1982" stroke="black"/>
+<line x1="200" y1="1954" x2="200" y2="1982" stroke="black"/>
+<line x1="280" y1="1954" x2="280" y2="1982" stroke="black"/>
+<line x1="360" y1="1954" x2="360" y2="1982" stroke="black"/>
+<line x1="440" y1="1954" x2="440" y2="1982" stroke="black"/>
+<line x1="520" y1="1954" x2="520" y2="1982" stroke="black"/>
+<line x1="600" y1="1954" x2="600" y2="1982" stroke="black"/>
+<line x1="680" y1="1954" x2="680" y2="1982" stroke="black"/>
+<line x1="760" y1="1954" x2="760" y2="1982" stroke="black"/>
+<line x1="840" y1="1954" x2="840" y2="1982" stroke="black"/>
+<line x1="920" y1="1954" x2="920" y2="1982" stroke="black"/>
+<line x1="1000" y1="1954" x2="1000" y2="1982" stroke="black"/>
+<line x1="1080" y1="1954" x2="1080" y2="1982" stroke="black"/>
+<line x1="1160" y1="1954" x2="1160" y2="1982" stroke="black"/>
+<line x1="1240" y1="1954" x2="1240" y2="1982" stroke="black"/>
+<line x1="1320" y1="1954" x2="1320" y2="1982" stroke="black"/>
+<line x1="1400" y1="1954" x2="1400" y2="1982" stroke="black"/>
+<line x1="920" y1="1965" x2="1000" y2="1965" stroke="black"/>
+<line x1="1000" y1="1965" x2="990" y2="1971" stroke="black"/>
+<polygon fill="white" points="911,1955 1008,1955 1008,1964 911,1964"/>
+<text x="912" y="1964" textLength="95" font-family="Helvetica" font-size="12" fill="black">
+talk_transition live
+</text>
+<line x1="40" y1="1982" x2="40" y2="2010" stroke="black"/>
+<line x1="120" y1="1982" x2="120" y2="2010" stroke="black"/>
+<line x1="200" y1="1982" x2="200" y2="2010" stroke="black"/>
+<line x1="280" y1="1982" x2="280" y2="2010" stroke="black"/>
+<line x1="360" y1="1982" x2="360" y2="2010" stroke="black"/>
+<line x1="440" y1="1982" x2="440" y2="2010" stroke="black"/>
+<line x1="520" y1="1982" x2="520" y2="2010" stroke="black"/>
+<line x1="600" y1="1982" x2="600" y2="2010" stroke="black"/>
+<line x1="680" y1="1982" x2="680" y2="2010" stroke="black"/>
+<line x1="760" y1="1982" x2="760" y2="2010" stroke="black"/>
+<line x1="840" y1="1982" x2="840" y2="2010" stroke="black"/>
+<line x1="920" y1="1982" x2="920" y2="2010" stroke="black"/>
+<line x1="1000" y1="1982" x2="1000" y2="2010" stroke="black"/>
+<line x1="1080" y1="1982" x2="1080" y2="2010" stroke="black"/>
+<line x1="1160" y1="1982" x2="1160" y2="2010" stroke="black"/>
+<line x1="1240" y1="1982" x2="1240" y2="2010" stroke="black"/>
+<line x1="1320" y1="1982" x2="1320" y2="2010" stroke="black"/>
+<line x1="1400" y1="1982" x2="1400" y2="2010" stroke="black"/>
+<line x1="1000" y1="1993" x2="680" y2="1993" stroke="black"/>
+<line x1="680" y1="1993" x2="690" y2="1999" stroke="black"/>
+<polygon fill="white" points="791,1983 888,1983 888,1992 791,1992"/>
+<text x="792" y="1992" textLength="95" font-family="Helvetica" font-size="12" fill="black">
+talk_transition live
+</text>
+<line x1="40" y1="2010" x2="40" y2="2038" stroke="black"/>
+<line x1="120" y1="2010" x2="120" y2="2038" stroke="black"/>
+<line x1="200" y1="2010" x2="200" y2="2038" stroke="black"/>
+<line x1="280" y1="2010" x2="280" y2="2038" stroke="black"/>
+<line x1="360" y1="2010" x2="360" y2="2038" stroke="black"/>
+<line x1="440" y1="2010" x2="440" y2="2038" stroke="black"/>
+<line x1="520" y1="2010" x2="520" y2="2038" stroke="black"/>
+<line x1="600" y1="2010" x2="600" y2="2038" stroke="black"/>
+<line x1="680" y1="2010" x2="680" y2="2038" stroke="black"/>
+<line x1="760" y1="2010" x2="760" y2="2038" stroke="black"/>
+<line x1="840" y1="2010" x2="840" y2="2038" stroke="black"/>
+<line x1="920" y1="2010" x2="920" y2="2038" stroke="black"/>
+<line x1="1000" y1="2010" x2="1000" y2="2038" stroke="black"/>
+<line x1="1080" y1="2010" x2="1080" y2="2038" stroke="black"/>
+<line x1="1160" y1="2010" x2="1160" y2="2038" stroke="black"/>
+<line x1="1240" y1="2010" x2="1240" y2="2038" stroke="black"/>
+<line x1="1320" y1="2010" x2="1320" y2="2038" stroke="black"/>
+<line x1="1400" y1="2010" x2="1400" y2="2038" stroke="black"/>
+<polygon fill="white" points="648,2010 712,2010 712,2032 648,2032"/>
+<line x1="648" y1="2010" x2="712" y2="2010" stroke="black"/>
+<line x1="648" y1="2032" x2="712" y2="2032" stroke="black"/>
+<line x1="648" y1="2010" x2="648" y2="2032" stroke="black"/>
+<line x1="712" y1="2010" x2="712" y2="2032" stroke="black"/>
+<polygon fill="white" points="660,2017 699,2017 699,2026 660,2026"/>
+<text x="661" y="2026" textLength="37" font-family="Helvetica" font-size="12" fill="black">
+update
+</text>
+<line x1="40" y1="2032" x2="40" y2="2038" stroke="black"/>
+<line x1="120" y1="2032" x2="120" y2="2038" stroke="black"/>
+<line x1="200" y1="2032" x2="200" y2="2038" stroke="black"/>
+<line x1="280" y1="2032" x2="280" y2="2038" stroke="black"/>
+<line x1="360" y1="2032" x2="360" y2="2038" stroke="black"/>
+<line x1="440" y1="2032" x2="440" y2="2038" stroke="black"/>
+<line x1="520" y1="2032" x2="520" y2="2038" stroke="black"/>
+<line x1="600" y1="2032" x2="600" y2="2038" stroke="black"/>
+<line x1="680" y1="2032" x2="680" y2="2038" stroke="black"/>
+<line x1="760" y1="2032" x2="760" y2="2038" stroke="black"/>
+<line x1="840" y1="2032" x2="840" y2="2038" stroke="black"/>
+<line x1="920" y1="2032" x2="920" y2="2038" stroke="black"/>
+<line x1="1000" y1="2032" x2="1000" y2="2038" stroke="black"/>
+<line x1="1080" y1="2032" x2="1080" y2="2038" stroke="black"/>
+<line x1="1160" y1="2032" x2="1160" y2="2038" stroke="black"/>
+<line x1="1240" y1="2032" x2="1240" y2="2038" stroke="black"/>
+<line x1="1320" y1="2032" x2="1320" y2="2038" stroke="black"/>
+<line x1="1400" y1="2032" x2="1400" y2="2038" stroke="black"/>
+</svg>

@@ -38,6 +38,7 @@ rtmp:
 # read the value directly from there.
 faye:
   server: http://localhost:9292/faye
+  #server: http://192.168.178.21:9292/faye
   secret_token: supersecret
 
 default_pins:
@@ -132,7 +133,32 @@ developers:
   - spam@dispatched.ch
 sitemap: http://localhost:3000/landing_page/index.xml
 
-# this needs to be overridden by `app/shared/config/settings.local.yml`
 icecast:
+  ec2:
+    #image: ami-421cf82d
+    image: ami-5a806335
+    default_instance_type: t2.micro
+    security_group: Icecast Servers
+    key_name: phil-ffm
+  url:
+    protocol: http
+    port: 80
+
+  # TODO remove
+  # this needs to be overridden by `app/shared/config/settings.local.yml`
   host: localhost
   port: 8000
+
+fog:
+  compute:
+    provider: AWS
+    aws_access_key_id: needs to be set
+    aws_secret_access_key: needs to be set
+    region: eu-central-1
+
+devices:
+  endpoint:
+    live: https://voicerepublic.com/api/devices
+    staging: https://staging.voicerepublic.com/api/devices
+    # actually you need to set this in your local file
+    dev: http://needs.to.be.set.locally/api/devices

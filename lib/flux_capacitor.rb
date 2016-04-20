@@ -13,10 +13,12 @@ class FluxCapacitor
 
   NO_CHANNEL = "no channel info for message %s"
 
-  attr_accessor :client
+  attr_accessor :client, :heartbeats
 
   def run
     logger.info 'FluxCapacitor started.'
+    start_heart_monitor
+
     extension = Faye::Authentication::ClientExtension.new(Settings.faye.secret_token)
     EM.run {
 
@@ -47,6 +49,21 @@ class FluxCapacitor
             print 'l'
           end
         end
+
+        logger.info "Subscribing to /heartbeat..."
+        client.subscribe('/heartbeat') do |msg|
+          identifier = msg['identifier']
+          if heartbeats[identifier].nil?
+            logger.debug("#{identifier} appeared")
+            Device.find_by(identifier: identifier).appear!
+          end
+          logger.debug("#{identifier} heartbeat")
+          heartbeats[identifier] = {
+            interval: msg['interval'],
+            last: Time.now
+          }
+        end
+
       rescue => e
         logger.fatal 'E1 '+error(e)
       end
@@ -55,6 +72,23 @@ class FluxCapacitor
     logger.info 'FluxCapacitor terminated. (This should never happen!)'
   rescue => e
     logger.fatal 'E0 '+error(e)
+  end
+
+  def start_heart_monitor
+    self.heartbeats = {}
+    grace_factor = 2
+    Thread.new do
+      loop do
+        sleep 1
+        heartbeats.each do |identifier, values|
+          if values[:last] + values[:interval] * grace_factor < Time.now
+            logger.debug("#{identifier} disappeared")
+            Device.find_by(identifier: identifier).disappear!
+            heartbeats.delete(identifier)
+          end
+        end
+      end
+    end
   end
 
   def process(msg)

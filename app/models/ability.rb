@@ -9,6 +9,7 @@ class Ability
 
     can    :read, :all
     cannot :read, Purchase
+    cannot :read, Venue
 
     # anonymous does not have any more abilities
     return if user.nil?
@@ -38,5 +39,6 @@ class Ability
 
     can    :manage, Series, user_id: user.id
 
+    can    :manage, Venue, user_id: user.id
   end
 end

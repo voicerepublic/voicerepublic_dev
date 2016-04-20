@@ -39,6 +39,7 @@ Rails.application.routes.draw do
 
   namespace 'api' do
     get 'oembed(.:format)' => 'oembed#show'
+    resources :devices, only: [:show, :create]
     resources :talks, only: [:index]
     resources :uploads, only: [ :create ]
     resources :bookmarks, only: [ :index ]
@@ -78,7 +79,11 @@ Rails.application.routes.draw do
     resources :comments, only: [:create]
     resources :participations, only: [:index, :create, :destroy]
   end
-  get '/venues/:id', to: redirect(->(params, req) { '/series/'+params[:id] })
+  # TODO remove
+  # get '/venues/:id', to: redirect(->(params, req) { '/series/'+params[:id] })
+
+  resources :venues, only: [:index, :show, :update]
+  resources :devices, only: [:index, :edit, :update]
 
   resources :reminders, only: [:show, :destroy]
 

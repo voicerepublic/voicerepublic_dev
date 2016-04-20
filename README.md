@@ -250,6 +250,15 @@ For general platform and development documentation please refer to the
     railroady -C | dot -Tsvg > doc/controllers_complete.svg
     railroady -b -C | dot -Tsvg > doc/controllers_brief.svg
 
+    mscgen -T svg -o doc/streaming.svg doc/streaming.msc
+    mscgen -T png -o doc/streaming.png doc/streaming.msc
+
+    dot -Tsvg doc/fsm_venue.dot > doc/fsm_venue.svg
+    dot -Tpng doc/fsm_venue.dot > doc/fsm_venue.png
+
+    dot -Tsvg doc/fsm_device.dot > doc/fsm_device.svg
+    dot -Tpng doc/fsm_device.dot > doc/fsm_device.png
+
 
 ### Working with Settings/Config
 
@@ -585,3 +594,16 @@ How To Update Icons
 * `cp fonts/* app/assets/fonts`
 * update `app/assets/stylesheets/grids_variables_mixins/style.css` with content of `style.css` (only the lower part, keep the top part!)
 * done
+
+
+ClojureScript
+-------------
+
+    cd lib/vrng
+    lein figwheel
+
+
+Icecast Dev
+-----------
+
+    docker exec -it icecast bash

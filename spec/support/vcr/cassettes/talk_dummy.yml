@@ -39,7 +39,7 @@ http_interactions:
       Connection:
       - close
       Server:
-      - thin 1.6.1 codename Death Proof
+      - thin
     body:
       encoding: UTF-8
       base64_string: |

@@ -636,3 +636,11 @@ en:
     Produced by Voice Republic
 
     For more podcasts visit http://voicerepublic.com
+
+
+  devices:
+    index:
+      devices_found:
+        zero: "No devices found connected via %{ip}"
+        one: "Redirecting... (you should actually never see this!)"
+        other: "Multiple devices found, please unplug all but one. Then reload."

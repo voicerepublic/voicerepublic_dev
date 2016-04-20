@@ -219,20 +219,6 @@ describe "Talks as logged in user" do
       @talk = FactoryGirl.create(:talk)
     end
 
-    describe 'flash dependency' do
-      it "live talk requires flash", js: true do
-        @talk.update_attribute :state, :live
-        visit talk_path(@talk)
-        expect(page).to have_css('#flash_error_for_listener')
-      end
-
-      it 'archived talk requires no flash', js: true do
-        @talk.update_attribute :state, :archive
-        visit talk_path(@talk)
-        expect(page).not_to have_css('#flash_error_for_listener')
-      end
-    end
-
     describe "as user on all pages" do
       it 'shows explore in talk_path' do
         visit talk_path(@talk)
