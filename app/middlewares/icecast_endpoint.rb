@@ -30,9 +30,10 @@ class IcecastEndpoint < Struct.new(:app, :opts)
 
     [ 200, {}, [] ]
 
-  rescue => e
-    # TODO log an error
-    [ 722, {}, ['722 - Unknown Unknowns', e.message] ]
+  # for now remove the catch all errors here
+  #rescue => e
+  #  # TODO log an error
+  #  [ 722, {}, ['722 - Unknown Unknowns', e.message] ]
   end
 
 end
