@@ -26,12 +26,14 @@ FactoryGirl.define do
     end
     trait :awaiting_stream do
       state :awaiting_stream
+      client_token
       public_ip_address '0.0.0.0'
       mount_point 'random-mountpoint'
       source_password 'some-password'
     end
     trait :connected do
       state :connected
+      client_token
     end
   end
 
