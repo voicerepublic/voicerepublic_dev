@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: post
-    uri: http://192.168.178.21:9292/faye
+    uri: http://localhost:9292/faye
     body:
       encoding: US-ASCII
       base64_string: |
