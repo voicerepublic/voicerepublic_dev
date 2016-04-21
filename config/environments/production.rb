@@ -83,14 +83,18 @@ Rails.application.configure do
   # http://markevans.github.io/dragonfly/rails/
   config.action_dispatch.rack_cache = true
 
-  NO_COMPRESSION_LIST = %w( venue.js )
+  class SkipCompressor < Struct.new(:fallback, :list)
+    def call(input)
+      p list, input[:name]
+      return { data: input[:data] } if list.include?(input[:name])
 
-  original_compressor = config.assets.js_compressor
-  config.assets.js_compressor = ->(input) do
-    p NO_COMPRESSION_LIST, input[:name]
-    return { data: input[:data] } if NO_COMPRESSION_LIST.include?(input[:name])
-    original_compressor.call(input)
+      original.call(input)
+    end
   end
+
+  config.assets.js_compressor =
+    SkipCompressor.new(config.assets.js_compressor,
+                       %w( venues.js ))
 
   # Optionally disable Javascript/CSS compression
   class NoCompression
