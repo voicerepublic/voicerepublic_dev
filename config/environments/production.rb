@@ -84,26 +84,26 @@ Rails.application.configure do
   config.action_dispatch.rack_cache = true
 
 
-  class BypassableUglifier
-
-    # list the assets which should bypass the uglifier here
-    LIST = %w( venues.js )
-
-    attr_accessor :pathname, :result
-
-    def initialize(pathname, &result)
-      self.pathname = pathname
-      self.result = result
-    end
-
-    def render(context, options)
-      return result.call if LIST.include?(File.basename(pathname))
-
-      Uglifier.new.compile(result.call)
-    end
-  end
-
-  config.assets.js_compressor = BypassableUglifier
+  # class BypassableUglifier
+  #
+  #   # list the assets which should bypass the uglifier here
+  #   LIST = %w( venues.js )
+  #
+  #   attr_accessor :pathname, :result
+  #
+  #   def initialize(pathname, &result)
+  #     self.pathname = pathname
+  #     self.result = result
+  #   end
+  #
+  #   def render(context, options)
+  #     return result.call if LIST.include?(File.basename(pathname))
+  #
+  #     Uglifier.new.compile(result.call)
+  #   end
+  # end
+  #
+  # config.assets.js_compressor = BypassableUglifier
 
 
   # Optionally disable Javascript/CSS compression
