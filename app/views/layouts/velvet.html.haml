@@ -27,6 +27,8 @@
     %link{href: "//cloud.webtype.com/css/fa41b746-9201-4f1c-ab4a-a330eb0afb96.css", rel: "stylesheet", type: "text/css"}/
 
     = favicon_link_tag '/favicon.ico'
+    :javascript
+      var CLOSURE_NO_DEPS = true;
     = javascript_include_tag "vendor/modernizr"
     = yield :head
 
