@@ -1,7 +1,7 @@
 -# TODO the 3 lines of faye setup could move to cljs
 - content_for :javascripts do
-  %script{ src: '/assets/javascripts/moment-with-locales.min.js' }
-  %script{ src: '/assets/javascripts/faye-authentication.js' }
+  %script{ src: '/javascripts/moment-with-locales.min.js' }
+  %script{ src: '/javascripts/faye-authentication.js' }
   %script{ src: Settings.faye.server + '/client.js' }
   :javascript
     CLOSURE_NO_DEPS = true;
