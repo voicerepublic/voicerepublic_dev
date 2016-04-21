@@ -64,7 +64,7 @@ class Venue < ActiveRecord::Base
 
     # for emergencies only, may leave running instances behind!
     event :reset do
-      transitions from: [:provisioning, :select_device,
+      transitions from: [:available, :provisioning, :select_device,
                          :awaiting_stream, :connected, :disconnected],
                   to: :offline, on_transition: :unprovision
     end

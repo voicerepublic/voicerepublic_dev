@@ -1,6 +1,8 @@
 class VenuesController < ApplicationController
 
-  ALLOWED_EVENTS = %w( start_provisioning device_selected )
+  ALLOWED_EVENTS = %w( become_available
+                       start_provisioning
+                       device_selected )
 
   layout 'velvet'
 

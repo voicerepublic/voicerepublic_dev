@@ -16,7 +16,8 @@ en:
         suspended: Suspended for Inspection
         archived: Archived
       state:
-        offline: Offline
+        offline: Unavailable
+        available: Available
         ready_to_provision: Ready to provision
         provisioning: Spawning A Streaming Server Just For You
         select_device: Please Select Your Streaming Device
