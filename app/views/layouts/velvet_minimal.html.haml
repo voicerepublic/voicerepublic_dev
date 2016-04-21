@@ -16,9 +16,9 @@
     -# from Nicks project vr-mother. They need to be replaced as soon
     -# as we can compile Foundation 6 ourselves.
     -# Same goes for (libraries|foundation|app).min.js
-    %link{href: "/assets/stylesheets/animate.min.css", rel: "stylesheet", type: "text/css"}/
-    %link{href: "/assets/stylesheets/app.css", rel: "stylesheet", type: "text/css"}/
-    %link{href: "/assets/stylesheets/app_override.css", rel: "stylesheet", type: "text/css"}/
+    %link{href: "/stylesheets/animate.min.css", rel: "stylesheet", type: "text/css"}/
+    %link{href: "/stylesheets/app.css", rel: "stylesheet", type: "text/css"}/
+    %link{href: "/stylesheets/app_override.css", rel: "stylesheet", type: "text/css"}/
 
     %link{href: "/images/apple-touch-icon.png", rel: "apple-touch-icon"}/
     %link{href: "/images/apple-touch-icon-72x72.png", rel: "apple-touch-icon", sizes: "72x72"}/
@@ -40,10 +40,10 @@
 
 
     #scripts
-      %script{:src => "/assets/javascripts/libraries.min.js"}
-      %script{:src => "/assets/javascripts/rails.js"}
-      %script{:src => "/assets/javascripts/foundation.min.js"}
-      %script{:src => "/assets/javascripts/app.js"}
+      %script{:src => "/javascripts/libraries.min.js"}
+      %script{:src => "/javascripts/rails.js"}
+      %script{:src => "/javascripts/foundation.min.js"}
+      %script{:src => "/javascripts/app.js"}
 
 
       - if Rails.env.production?

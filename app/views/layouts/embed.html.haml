@@ -6,7 +6,7 @@
     %meta{content: "width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0", name: "viewport"}/
     = csrf_meta_tags
     %link{href: "//cloud.webtype.com/css/fa41b746-9201-4f1c-ab4a-a330eb0afb96.css", rel: "stylesheet", type: "text/css"}/
-    %link{href: "/assets/stylesheets/embed.css", rel: "stylesheet", type: "text/css"}/
+    %link{href: "/stylesheets/embed.css", rel: "stylesheet", type: "text/css"}/
     -#= stylesheet_link_tag "embed", media: "all"
     = favicon_link_tag '/favicon.ico'
     %link{href: "images/apple-touch-icon.png", rel: "apple-touch-icon"}/
@@ -22,6 +22,6 @@
 
       %script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.js')
       %script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery-ujs/1.2.1/rails.min.js')
-      %script(src='/assets/javascripts/jquery.jplayer.min.js')
-      %script(src='/assets/javascripts/embed.js')
+      %script(src='/javascripts/jquery.jplayer.min.js')
+      %script(src='/javascripts/embed.js')
       = render 'shared/google_analytics'
