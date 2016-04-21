@@ -83,18 +83,28 @@ Rails.application.configure do
   # http://markevans.github.io/dragonfly/rails/
   config.action_dispatch.rack_cache = true
 
-  class SkipCompressor < Struct.new(:fallback, :list)
-    def call(input)
-      p list, input[:name]
-      return { data: input[:data] } if list.include?(input[:name])
 
-      original.call(input)
+  class BypassableUglifier
+
+    # list the assets which should bypass the uglifier here
+    LIST = %w( venues.js )
+
+    attr_accessor :pathname, :result
+
+    def initialize(pathname, &result)
+      self.pathname = pathname
+      self.result = result
+    end
+
+    def render(context, options)
+      return result.call if LIST.include?(File.basename(pathname))
+
+      Uglifier.new.compile(result.call)
     end
   end
 
-  config.assets.js_compressor =
-    SkipCompressor.new(config.assets.js_compressor,
-                       %w( venues.js ))
+  config.assets.js_compressor = BypassableUglifier
+
 
   # Optionally disable Javascript/CSS compression
   class NoCompression
