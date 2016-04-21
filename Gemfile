@@ -119,7 +119,4 @@ end
 group :production do
   gem 'rack-cache', require: 'rack/cache'
   gem 'airbrake', '~> 5.0'
-
-  gem 'closure-sprockets'
-  gem 'closure-compiler'
 end

@@ -153,9 +153,6 @@ GEM
       faraday_middleware
       hashie
       json
-    closure-compiler (1.1.12)
-    closure-sprockets (0.1.0)
-      tilt
     coderay (1.1.0)
     coffee-rails (4.1.0)
       coffee-script (>= 2.2.0)
@@ -578,8 +575,6 @@ DEPENDENCIES
   capybara (= 2.4.4)
   ci_reporter
   closeio
-  closure-compiler
-  closure-sprockets
   coffee-rails (~> 4.1.0)
   daemons
   database_cleaner!
