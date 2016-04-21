@@ -133,7 +133,7 @@ class Venue < ActiveRecord::Base
   end
 
   def icecast_callback_url
-    [ Settings.root_url, :icecast ] * '/'
+    Settings.icecast.callback_url
   end
 
   def icecast_params

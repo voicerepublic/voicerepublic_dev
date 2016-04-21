@@ -143,6 +143,7 @@ icecast:
   url:
     protocol: http
     port: 80
+  callback_url: http://change.in.your.local.settings.file/icecast
 
   # TODO remove
   # this needs to be overridden by `app/shared/config/settings.local.yml`
