@@ -4,6 +4,8 @@
   %script{ src: '/assets/javascripts/faye-authentication.js' }
   %script{ src: Settings.faye.server + '/client.js' }
   :javascript
+    CLOSURE_NO_DEPS = true;
+
     fayeUrl = #{Settings.faye.server.to_json};
 
     fayeClient = new Faye.Client(fayeUrl);
