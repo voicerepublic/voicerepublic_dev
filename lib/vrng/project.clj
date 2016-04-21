@@ -36,7 +36,7 @@
                        :min {:source-paths ["src"] ;; min -> prod
                              :compiler {:main vrng.core
                                         :output-to "public/js/app.js"
-                                        :optimizations :whitespace}}}}
+                                        :optimizations :advanced}}}}
 
   :figwheel { :http-server-root "public"
               :server-port 3449 ;; default
