@@ -51,6 +51,7 @@ RSpec.describe Venue, type: :model do
       end
 
       it 'generates client tokens' do
+        @venue.slug = 'hello'
         token = @venue.generate_client_token
         # slug - timestamp (10 digits) - password (4 chars)
         expect(token).to match(/\A.*-\d{10}-\w{4}\z/)

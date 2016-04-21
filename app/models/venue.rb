@@ -1,6 +1,7 @@
 class Venue < ActiveRecord::Base
 
   PROVISIONING_WINDOW = 90.minutes
+  # PROVISIONING_WINDOW = 12.hours
   PROVISIONING_TIME = 210.seconds
 
   extend FriendlyId
@@ -22,7 +23,8 @@ class Venue < ActiveRecord::Base
 
   state_machine auto_scopes: true do
 
-    state :offline, enter: :reset_ephemeral_details
+    state :offline, enter: :reset_ephemeral_details # aka. unavailable
+    state :available
     state :provisioning, enter: :provision, exit: :complete_details
     state :select_device
     state :awaiting_stream, enter: :start_streaming
@@ -30,8 +32,11 @@ class Venue < ActiveRecord::Base
     state :disconnected # aka. lost connection
 
     # issued by the venues controller
+    event :become_available do
+      transitions from: :offline, to: :available, guard: :in_provisioning_window?
+    end
     event :start_provisioning, timestamp: :started_provisioning_at do
-      transitions from: :offline, to: :provisioning
+      transitions from: :available, to: :provisioning
     end
     event :device_selected do
       transitions from: :select_device, to: :awaiting_stream
@@ -164,11 +169,24 @@ class Venue < ActiveRecord::Base
       now: Time.now.to_i,
       channel: channel,
       # TODO limit to the user/org's devices
-      devices: Device.idle.map(&:attributes)
+      devices: Device.idle.map(&:attributes),
+      availability_countdown: availability_countdown
     }
   end
 
+  def availability_countdown
+    return false if talks.prelive.empty?
+
+    talks.prelive.ordered.first.starts_at - PROVISIONING_WINDOW.from_now
+  end
+
   # --- state machine callbacks
+
+  def in_provisioning_window?
+    return false if talks.prelive.empty?
+
+    availability_countdown <= 0
+  end
 
   def reset_ephemeral_details
     self.client_token = nil
@@ -240,8 +258,8 @@ class Venue < ActiveRecord::Base
     f.close
 
     # for debugging
-    puts userdata
-    FileUtils.cp f.path, 'userdata.sh'
+    # puts userdata
+    # FileUtils.cp f.path, 'userdata.sh'
 
     puts 'Running provisioning file...'
     spawn provisioning_file
