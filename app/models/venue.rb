@@ -72,7 +72,7 @@ class Venue < ActiveRecord::Base
   end
 
   def generate_client_token
-    [ slug, Time.now.to_i, generate_password(4) ] * '-'
+    [ slug[0, 64-16], Time.now.to_i, generate_password(4) ] * '-'
   end
 
   def generate_mount_point
