@@ -83,8 +83,14 @@ Rails.application.configure do
   # http://markevans.github.io/dragonfly/rails/
   config.action_dispatch.rack_cache = true
 
+  NO_COMPRESSION_LIST = %w( venue.js )
 
-  config.assets.js_compressor = Closure::Compiler.new
+  original_compressor = config.assets.js_compressor
+  config.assets.js_compressor = ->(input) do
+    p NO_COMPRESSION_LIST, input[:name]
+    return { data: input[:data] } if NO_COMPRESSION_LIST.include?(input[:name])
+    original_compressor.call(input)
+  end
 
   # Optionally disable Javascript/CSS compression
   class NoCompression
