@@ -74,8 +74,8 @@ class Device < ActiveRecord::Base
       report_interval: report_interval,
       heartbeat_interval: heartbeat_interval,
 
-      faye_url: Settings.faye.server,
-      faye_secret: Settings.faye.secret_token
+      faye_url: Settings.devices.faye.server,
+      faye_secret: Settings.devices.faye.secret_token
     }
   end
 

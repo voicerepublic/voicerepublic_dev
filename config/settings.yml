@@ -162,3 +162,6 @@ devices:
     staging: https://staging.voicerepublic.com/api/devices
     # actually you need to set this in your local file
     dev: http://needs.to.be.set.locally/api/devices
+  faye:
+    server: http://needs.to.be.set.locally/
+    secret_token: supersecret
