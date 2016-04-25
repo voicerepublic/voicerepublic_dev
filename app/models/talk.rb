@@ -47,14 +47,14 @@ class Talk < ActiveRecord::Base
   # colors according to ci style guide
   COLORS = %w( #182847 #2c46b0 #54c6c6 #a339cd )
 
-  attr_accessor :venue_name
+  attr_accessor :venue_name, :event
 
   # https://github.com/troessner/transitions
   state_machine auto_scopes: true do
     state :created # initial
     state :pending
     state :prelive
-    state :live
+    state :live, enter: :reconnect
     state :postlive
     state :processing
     state :archived
@@ -234,8 +234,14 @@ class Talk < ActiveRecord::Base
     tend - Time.now.to_i
   end
 
+  # oldschool public channel
   def public_channel
     "/t#{id}/public"
+  end
+
+  # newschool public channel
+  def channel
+    "/down/talk/#{id}"
   end
 
   def media_links(variant='', formats=%w(mp3 m4a ogg))
@@ -396,6 +402,18 @@ class Talk < ActiveRecord::Base
       # make it a hash with nices names as well
       prevalent.inject({}) { |r, k| r.merge k => all_languages[k] }
     end
+  end
+
+  def atom
+    {
+      talk: attributes,
+      venue: venue.attributes,
+      channel: channel
+    }
+  end
+
+  def reconnect
+    Faye.publish_to channel, event: 'reconnect', stream_url: venue.stream_url
   end
 
   private
@@ -741,6 +759,11 @@ class Talk < ActiveRecord::Base
 
   def event_fired(*args)
     Emitter.talk_transition(self, args)
+
+    Faye.publish_to channel,
+                    event: 'talk-transition',
+                    args: args,
+                    atom: atom
   end
 
   def slug_candidates

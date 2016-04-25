@@ -35,6 +35,7 @@ Rails.application.routes.draw do
   namespace 'xhr' do
     resources :social_shares, only: [:create]
     resources :tags, only: [:index]
+    resources :talks, only: [:update]
   end
 
   namespace 'api' do

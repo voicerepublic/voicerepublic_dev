@@ -14,6 +14,23 @@
   = t('.title', title: @talk.title)
 
 
+
+- content_for :javascript do
+  %script{ src: '/javascripts/faye-authentication.js' }
+  %script{ src: Settings.faye.server + '/client.js' }
+  :javascript
+    fayeUrl = #{Settings.faye.server.to_json};
+
+    fayeClient = new Faye.Client(fayeUrl);
+    fayeExtension = new FayeAuthentication(fayeClient);
+    fayeClient.addExtension(fayeExtension);
+
+    initialState = #{@talk.atom.to_json};
+    translations = #{t('frontend.talks').to_json};
+  = javascript_include_tag :venues
+
+#mount-audio Initializing...
+
 %p#notice(style='display: none;')= notice
 
 .row(style='padding: 200px' ng-hide='true')

@@ -219,9 +219,7 @@ class Venue < ActiveRecord::Base
   end
 
   def propagate_reconnect
-    talks.live.each do |talk|
-      Faye.publish talk.public_channel, event: 'reconnect', stream_url: stream_url
-    end
+    talks.live.each(&:reconnect)
   end
 
   def device_present?
