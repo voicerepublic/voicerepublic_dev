@@ -160,7 +160,7 @@ fog:
 devices:
   endpoint:
     live: https://voicerepublic.com/api/devices
-    staging: https://staging.voicerepublic.com/api/devices
+    staging: https://staging:oph5lohb@staging.voicerepublic.com/api/devices
     # actually you need to set this in your local file
     dev: http://needs.to.be.set.locally/api/devices
   faye:
