@@ -28,7 +28,7 @@ class Venue < ActiveRecord::Base
     state :provisioning, enter: :provision, exit: :complete_details
     state :select_device
     state :awaiting_stream, enter: :start_streaming
-    state :connected # aka. streaming
+    state :connected, enter: :propagate_reconnect # aka. streaming
     state :disconnected # aka. lost connection
 
     # issued by the venues controller
@@ -133,6 +133,11 @@ class Venue < ActiveRecord::Base
     ERB.new(darkice_config_template).result(binding)
   end
 
+  def butt_config
+    raise "Not available in state #{state}" if offline? or provisioning?
+    ERB.new(butt_config_template).result(binding)
+  end
+
   def env_list
     ERB.new(env_list_template).result(binding)
   end
@@ -211,6 +216,12 @@ class Venue < ActiveRecord::Base
 
   def start_streaming
     device.start_stream!
+  end
+
+  def propagate_reconnect
+    talks.live.each do |talk|
+      Faye.publish talk.public_channel, event: 'reconnect', stream_url: stream_url
+    end
   end
 
   def device_present?
@@ -296,6 +307,10 @@ class Venue < ActiveRecord::Base
 
   def darkice_config_template
     File.read(Rails.root.join('lib/templates/darkice.cfg.erb'))
+  end
+
+  def butt_config_template
+    File.read(Rails.root.join('lib/templates/butt.cfg.erb'))
   end
 
   def env_list_template

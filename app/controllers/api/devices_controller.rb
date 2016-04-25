@@ -15,7 +15,8 @@ class Api::DevicesController < ApplicationController
     target = @device.try(:target) || 'live' # fallback to live
     raise "Unknown target: #{target}" unless TARGETS.include?(target.to_sym)
 
-    endpoint = Settings.devices.endpoint[target]
+    endpoint = @device.opts.endpoint if @device
+    endpoint ||= Settings.devices.endpoint[target]
 
     loglevel = @device.try(:loglevel) || Logger::INFO
 

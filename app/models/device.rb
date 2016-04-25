@@ -14,6 +14,8 @@ class Device < ActiveRecord::Base
 
   validates :identifier, presence: true
 
+  serialize :options
+
   ONLINE = %w( pairing idle streaming )
 
   scope :online, -> { where(disappeared_at: nil).where('state IN (?)', ONLINE) }
@@ -74,24 +76,28 @@ class Device < ActiveRecord::Base
       report_interval: report_interval,
       heartbeat_interval: heartbeat_interval,
 
-      faye_url: Settings.devices.faye.server,
-      faye_secret: Settings.devices.faye.secret_token
+      faye_url: opts.faye_url || Settings.devices.faye.server,
+      faye_secret: opts.faye_secret || Settings.devices.faye.secret_token
     }
   end
 
-   def to_param
-     identifier
-   end
+  def to_param
+    identifier
+  end
 
-   def channel
-     [nil, :device, identifier] * '/'
-   end
+  def channel
+    [nil, :device, identifier] * '/'
+  end
 
-   # state machine callbacks
+  # state machine callbacks
 
-   def signal_start_stream
-     Faye.publish_to(channel, event: 'start_stream', icecast: venue.icecast_params)
-     Rails.logger.info "Started Stream from device '#{name}' to '#{venue.stream_url}'"
-   end
+  def signal_start_stream
+    Faye.publish_to(channel, event: 'start_stream', icecast: venue.icecast_params)
+    Rails.logger.info "Started Stream from device '#{name}' to '#{venue.stream_url}'"
+  end
+
+  def opts
+    OpenStruct.new(options)
+  end
 
 end
