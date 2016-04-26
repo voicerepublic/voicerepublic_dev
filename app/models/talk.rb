@@ -138,7 +138,8 @@ class Talk < ActiveRecord::Base
   before_create :inherit_penalty
   after_create :notify_participants
   after_create :set_uri!, unless: :uri?
-  after_create :create_and_process_debit_transaction!, unless: :dryrun?
+  # NOTE everything is free ATM
+  #after_create :create_and_process_debit_transaction!, unless: :dryrun?
   after_create :set_auto_destruct_mode, if: :dryrun?
   # TODO: important, these will be triggered after each PUT, optimize
   after_save :set_guests
