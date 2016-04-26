@@ -72,7 +72,10 @@ module Sync
 
       uris = []
 
+      uri_prefix = 'rp16-'
+
       @observed_languages = Hash.new { |h, k| h[k] = 0 }
+      @observed_durations = Hash.new { |h, k| h[k] = 0 }
 
       sessions.map do |session|
         #pp session.to_h; gets
@@ -117,13 +120,19 @@ module Sync
                            session.event_date_start_iso
           end_time_iso = rep_string(session.end_iso)
 
-          start_time = Time.strptime(start_time_iso, '%F')
-          end_time   = Time.strptime(end_time_iso, '%F') if end_time_iso
-          duration ||= (end_time - start_time) / 60
+          start_time = Time.strptime(start_time_iso, '%FT%T%:z')
+          end_time   = Time.strptime(end_time_iso, '%FT%T%:z') if end_time_iso
+          duration ||= (end_time - start_time) / 60 # in minutes
+
+          @observed_durations[duration] += 1
+
+          if duration < 0
+            self.warnings << "% 4s: Negative duration: %s minutes." % [nid, duration]
+          end
 
           # --- update series ---
 
-          series_uri = "rp16-#{category.tr_s(' &', '-').downcase}"
+          series_uri = "#{uri_prefix}#{category.tr_s(' &', '-').downcase}"
           series = Series.find_or_initialize_by(uri: series_uri)
           series.title = category
           series.teaser = session.event_description.to_s.strip.truncate(STRING_LIMIT)
@@ -137,7 +146,7 @@ module Sync
 
           # --- update talk ---
 
-          talk_uri = "rp16-#{nid}"
+          talk_uri = "#{uri_prefix}#{nid}"
           uris << talk_uri
           talk = Talk.find_or_initialize_by(uri: talk_uri)
           next unless talk.prelive? or talk.created?
@@ -187,12 +196,14 @@ module Sync
 
       # --- remove the talks which didn't show up ---
 
-      user.talks.where("talks.uri NOT IN (?)", uris).destroy_all
+      user.talks.where("talks.uri LIKE '#{uri_prefix}%' "+
+                       "AND talks.uri NOT IN (?)", uris).destroy_all
 
 
       if opts[:dryrun]
         puts report_summary
         puts report_langs
+        puts report_durations
         puts report_errors
         puts report_warnings
         #puts report_changes
@@ -232,9 +243,17 @@ module Sync
     end
 
     def report_langs
+      "LANGUAGES\n\n" +
       @observed_languages.map do |lang, count|
         "%-20s %-20s" % [lang, count]
-      end * "\n"
+      end * "\n" + "\n\n"
+    end
+
+    def report_durations
+      "DURATIONS\n\n" +
+      @observed_durations.map do |lang, count|
+        "%-20s %-20s" % [lang, count]
+      end * "\n" + "\n\n"
     end
 
     def report_changes
