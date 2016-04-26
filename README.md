@@ -140,9 +140,9 @@ Run App
 
 ### voicerepublic_dev
 
-* `rails s`
+* `rails s -b 0.0.0.0`
 * `rake rtmp:start` (will daemonize)
-* `rackup -E production faye.ru`
+* `rackup -E production faye.ru -o 0.0.0.0`
 * `lib/flux_capacitor.rb run`
 * `lib/rtmp_watcher.rb run`
 * `rake jobs:work`
