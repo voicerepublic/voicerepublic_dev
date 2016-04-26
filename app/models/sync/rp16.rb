@@ -43,9 +43,10 @@ module Sync
     }
 
     LANGCODE = {
-      'Deutsch'          => 'de',
-      'Englisch'         => 'en',
-      'Deutsch/Englisch' => 'en'
+      'Deutsch'           => 'de',
+      'Englisch'          => 'en',
+      'Deutsch/Englisch'  => 'en',
+      'Live Dolmetschung' => 'de'
     }
 
     TEXT_LIMIT   = Settings.limit.text
@@ -70,6 +71,8 @@ module Sync
       raise 'No rep16.user_id' unless Settings.try(:rep16).try(:user_id)
 
       uris = []
+
+      @observed_languages = Hash.new { |h, k| h[k] = 0 }
 
       sessions.map do |session|
         #pp session.to_h; gets
@@ -146,6 +149,7 @@ module Sync
                                 session.description.to_s.strip ] * '<br><br>' ).
                              truncate(TEXT_LIMIT)
           talk.tag_list = TAGS[category]
+          @observed_languages[session.language] += 1
           talk.language = LANGCODE[session.language]
           talk.speakers = (session.speaker_names.map(&:strip) * ', ').
                           truncate(STRING_LIMIT)
@@ -188,17 +192,20 @@ module Sync
 
       if opts[:dryrun]
         puts report_summary
+        puts report_langs
         puts report_errors
         puts report_warnings
-        puts report_changes
+        #puts report_changes
       else
         attachments = []
         attachments << { color: 'danger',  text: report_errors } if errors.size > 0
         attachments << { color: 'warning', text: report_warnings } if warnings.size > 0
-        attachments << { color: 'good',    text: report_changes } if changes.size > 0
+        #attachments << { color: 'good',    text: report_changes } if changes.size > 0
         slack.send report_summary, attachments: attachments
       end
     end
+
+
 
     def report_summary
       tmpl=<<-EOF.strip_heredoc
@@ -222,6 +229,12 @@ module Sync
         metrics[:talks_updated],
         user.talks.count
       ]
+    end
+
+    def report_langs
+      @observed_languages.map do |lang, count|
+        "%-20s %-20s" % [lang, count]
+      end * "\n"
     end
 
     def report_changes

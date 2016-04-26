@@ -50,10 +50,6 @@ end
 
 
 
-every 24.hours, at: '4pm', roles: [:app] do
+every 1.hour, roles: [:app] do
   runner 'Sync::Rp16.new.sync'
 end
-
-#every 1.hour, roles: [:app] do
-#  runner 'Sync::Rp16.new.sync'
-#end
