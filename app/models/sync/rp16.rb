@@ -166,14 +166,15 @@ module Sync
           talk.starts_at_time = start_time.strftime('%H:%M')
           talk.duration = duration
           talk.venue_name = rep_string(session.room)
-          talk.social_links = session.speaker_uids.map do |uid|
+
+          talk.social_links = session.speaker_uids.flat_map do |uid|
             #p uid
             if sp3aker = speaker(uid)
-              sp3aker.link_uris#.grep(/twitter|facebook/)
+              sp3aker.links.map { |l| l['url'] }
             else
               self.errors << "% 4s No speaker found for uid: #{uid}" % nid
             end
-          end.flatten
+          end
 
           self.changes << "#{talk_uri}: #{talk.changed * ', '}" if talk.changed?
           metric = talk.persisted? ? :talks_updated : :talks_created
