@@ -90,8 +90,8 @@
                 %li= link_to t('.test_talk'), test_talk_path
                 %li= link_to t('.schedule_talk'), new_talk_path
                 %li= link_to t('.upload_talk'), new_upload_path
-                - if !current_user.is_pro?
-                  %li= link_to t('.pricing'), purchases_path
+                -#- if !current_user.is_pro?
+                -#  %li= link_to t('.pricing'), purchases_path
                 %li
                   = link_to(destroy_user_session_path, method: :delete) do
                     = t('.logout')
@@ -116,7 +116,7 @@
           %li= link_to t('.sign_up'), new_user_registration_path
 
         %li= link_to t('.create_a_talk'), new_talk_path
-        %li= link_to t('.pricing'), purchases_path
+        -#%li= link_to t('.pricing'), purchases_path
         %li
           - if current_user
             = link_to(destroy_user_session_path, method: :delete) do

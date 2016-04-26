@@ -1,5 +1,42 @@
 # this file contains default content for sections (formatted in markdown)
 en:
+  talks:
+    dryrun:
+      text: >-
+
+        You’re about to create a test talk.
+
+
+        Test talks have all the same features as regular talks, but
+        they will only be saved on your profile for 24 hours. After
+        that the talk will automatically be deleted.
+
+
+        Happy testing!
+
+  shared:
+    footer_velvet:
+      copyright: '©2016 Voice Republic Media AG'
+      headline: What Is Voice Republic
+      text: >-
+
+        Voice Republic is the platform for the spoken word. We offer
+        you a simple tool to stream your event, your presentation,
+        your discussion or lecture live or make it accessible for
+        everyone by uploading it to the audio archive. The live stream
+        gives listeners who can not personally be at an event or live
+        performance the opportunity to listenin and to get involved –
+        using the comment function, they can actively take part in the
+        discussion. After the live broadcast, the talk will
+        automatically be saved in our [audio archive](/explore) and
+        can be heard at any time or downloaded as a podcast. You can
+        also easily upload existing recordings. Starting at [12 euros
+        per talk](/pricing) you can boost your reach and position your
+        content from the fields of politics,science, arts and culture,
+        technology and business in a guaranteed high-quality
+        environment. Listening to the live streams and downloading the
+        podcasts is free for all users.
+
   root:
     index:
       title: '# Home to the spoken word'
@@ -63,7 +100,7 @@ en:
         daily with high-class lectures, discussions
         and readings from the fields of culture, sciences, politics
         and business. Expand your reach beyond the venue walls to interested listeners around the world.
-        Thanks to our browser-based technology, you'll need no extra gear. 
+        Thanks to our browser-based technology, you'll need no extra gear.
         [Starting at 12€ per Talk](/pricing)
         your own audio channel is only a few clicks away...
 
@@ -83,7 +120,7 @@ en:
         a computer with internet access and an audio source. The
         comment feature gives you the opportunity to interact with
         your online audience. Listeners can comment and ask questions
-        in real time. 
+        in real time.
 
 
         After your event, your audio content is
