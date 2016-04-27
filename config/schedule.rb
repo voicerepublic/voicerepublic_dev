@@ -53,5 +53,5 @@ every 1.hour, roles: [:app] do
 end
 
 every 5.minutes, roles: [:app] do
-  runner 'Sync::Ftp.poll("log/rp16.yml")'
+  runner "Sync::Ftp.poll \"log/rp16.yml\""
 end
