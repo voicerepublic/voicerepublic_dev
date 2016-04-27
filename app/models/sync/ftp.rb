@@ -52,8 +52,8 @@ module Sync
           _, size, name = line.match(LINE_REGEX).to_a
           next if %w(. ..).include?(name)
           if index[name]
-            next if index[name]['state'] == 'dispatched'
-            if index[name]['size'] == size
+            if index[name]['size'] == size and
+              index[name]['state'] != 'dispatched'
               index[name]['state'] = 'complete'
             else
               index[name]['size'] = size
