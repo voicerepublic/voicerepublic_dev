@@ -388,14 +388,15 @@ describe Talk do
 
   end
 
-  describe 'debit' do
-    it 'reduces the owners credits by one' do
-      user = FactoryGirl.create(:user)
-      user_credits = user.reload.credits
-      FactoryGirl.create(:talk, series: user.default_series)
-      expect(user.reload.credits).to eq(user_credits - 1)
-    end
-  end
+  # NOTE everything is free ATM
+  # describe 'debit' do
+  #   it 'reduces the owners credits by one' do
+  #     user = FactoryGirl.create(:user)
+  #     user_credits = user.reload.credits
+  #     FactoryGirl.create(:talk, series: user.default_series)
+  #     expect(user.reload.credits).to eq(user_credits - 1)
+  #   end
+  # end
 
   describe 'dryrun' do
     it 'automatically destroys the talk after a while' do

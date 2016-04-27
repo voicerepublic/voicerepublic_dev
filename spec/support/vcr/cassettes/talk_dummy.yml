@@ -6,6 +6,53 @@ http_interactions:
     body:
       encoding: US-ASCII
       base64_string: |
+        bWVzc2FnZT0lN0IlMjJjaGFubmVsJTIyJTNBJTIyJTJGZG93biUyRnRhbGsl
+        MkYxJTIyJTJDJTIyY2xpZW50SWQlMjIlM0ElMjJodHRwJTIyJTJDJTIyc2ln
+        bmF0dXJlJTIyJTNBJTIyZXlKMGVYQWlPaUpLVjFRaUxDSmhiR2NpT2lKSVV6
+        STFOaUo5LmV5SmphR0Z1Ym1Wc0lqb2lMMlJ2ZDI0dmRHRnNheTh4SWl3aVky
+        eHBaVzUwU1dRaU9pSm9kSFJ3SWl3aVpYaHdJam95TURneU56azRNREF3ZlEu
+        V0x2OFMtMmVHZF84OTR2aGxaWkg0cGtNLTloajU3QlFmdlNfOFNVOUNRZyUy
+        MiUyQyUyMmRhdGElMjIlM0ElN0IlMjJldmVudCUyMiUzQSUyMnJlY29ubmVj
+        dCUyMiUyQyUyMnN0cmVhbV91cmwlMjIlM0FudWxsJTdEJTdE
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Cache-Control:
+      - no-cache, no-store
+      X-Content-Type-Options:
+      - nosniff
+      Content-Length:
+      - '64'
+      Connection:
+      - close
+      Server:
+      - thin
+    body:
+      encoding: UTF-8
+      base64_string: |
+        W3siY2xpZW50SWQiOiJodHRwIiwiY2hhbm5lbCI6Ii9kb3duL3RhbGsvMSIs
+        InN1Y2Nlc3NmdWwiOnRydWV9XQ==
+    http_version: 
+  recorded_at: Mon, 31 Dec 2035 23:00:00 GMT
+- request:
+    method: post
+    uri: http://localhost:9292/faye
+    body:
+      encoding: US-ASCII
+      base64_string: |
         bWVzc2FnZT0lN0IlMjJjaGFubmVsJTIyJTNBJTIyJTJGdDElMkZwdWJsaWMl
         MjIlMkMlMjJjbGllbnRJZCUyMiUzQSUyMmh0dHAlMjIlMkMlMjJzaWduYXR1
         cmUlMjIlM0ElMjJleUowZVhBaU9pSktWMVFpTENKaGJHY2lPaUpJVXpJMU5p
