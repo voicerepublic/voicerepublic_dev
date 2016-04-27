@@ -180,3 +180,16 @@ span[class^="icon-"]{
     margin-top: 100px;
     z-index: 999;
 }
+
+/*banner- migrate later!*/
+.banner {
+  display: inline-block;
+  margin-bottom: 24px;
+}
+
+.banner a:hover  {
+  text-decoration: underline;
+}
+.banner .label-new {
+  color: #ffed00;
+}
