@@ -52,9 +52,10 @@ module Sync
           _, size, name = line.match(LINE_REGEX).to_a
           next if %w(. ..).include?(name)
           if index[name]
-            if index[name]['size'] == size and
-              index[name]['state'] != 'dispatched'
-              index[name]['state'] = 'complete'
+            if index[name]['size'] == size
+              if index[name]['state'] != 'dispatched'
+                index[name]['state'] = 'complete'
+              end
             else
               index[name]['size'] = size
               index[name]['state'] = 'growing'
