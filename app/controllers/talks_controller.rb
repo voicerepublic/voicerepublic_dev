@@ -2,7 +2,7 @@ class TalksController < BaseController
 
   before_action :set_talk, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, except: [:show]
-  before_action :redirect_if_low_on_credits, only: :new
+  #before_action :redirect_if_low_on_credits, only: :new
 
   # GET /talks/1
   def show
