@@ -20,9 +20,9 @@ module Sync
 
       DEFAULTS = {
         'prefix' => 'rp16',
-        'user' => 'blogava',
-        'pass' => 'pJGcW8Y4Yj6qKLGF',
-        'url' => 'ftp://www368.your-server.de/test_data/',
+        'user' => 'ftpuser',
+        'pass' => 'realpubic',
+        'url' => 'ftp://52.58.158.181/',
         'command' => 'wget %{options} %{url} && cat .listing',
         'options' => '--quiet --no-remove-listing --spider '+
                      '--user=%{user} --password=%{pass}'
