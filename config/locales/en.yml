@@ -356,7 +356,7 @@ en:
       schedule_talk: Schedule A Live Talk
       upload_talk: Upload A Recording
       pricing: Pricing
-      test_talk: 'Test A Talk (Free)'
+      test_talk: 'Test A Talk'
       logout: Log Out
     check_flash:
       no_flash_version_notice: Your current version of Flash-Plugin is not sufficient. Install Version 10.3 or higher. to use Video call.
@@ -441,7 +441,7 @@ en:
       schedule_talk: Schedule A Live Talk
       upload_talk: Upload A Recording
       pricing: Pricing
-      test_talk: 'Test A Talk (Free)'
+      test_talk: 'Test A Talk'
       logout: Log Out
     velvet_minimal:
       title: Voice Republic
