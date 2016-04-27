@@ -379,4 +379,8 @@ namespace :sync do
     Sync::Rp15.new.sync
   end
 
+  task ftp: :environment do
+    Sync::Ftp.poll('log/rp16.yml')
+  end
+
 end

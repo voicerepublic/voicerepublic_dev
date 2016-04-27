@@ -52,6 +52,6 @@ every 1.hour, roles: [:app] do
   runner 'Sync::Rp16.new.sync'
 end
 
-every 5.minutes, roles: [:app] do
-  runner "Sync::Ftp.poll \"log/rp16.yml\""
+every 1.minute, roles: [:app] do
+  rake 'sync:ftp'
 end

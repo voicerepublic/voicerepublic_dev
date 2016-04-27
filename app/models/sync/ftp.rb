@@ -98,6 +98,7 @@ module Sync
 
         # save
         config['index'] = index
+        config['touch'] = Time.now
         File.open(index_file, 'w') { |f| f.puts(YAML.dump(config)) }
       end
     end
