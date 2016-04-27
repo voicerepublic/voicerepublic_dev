@@ -775,6 +775,7 @@ class Talk < ActiveRecord::Base
   def event_fired(*args)
     Emitter.talk_transition(self, args)
 
+    return if Rails.env.test?
     Faye.publish_to channel,
                     event: 'talk-transition',
                     args: args,
