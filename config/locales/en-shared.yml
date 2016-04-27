@@ -1,5 +1,8 @@
 en:
   shared:
+    free_pricing_banner:
+      new: "New:"
+      free_pricing: "Upload and stream your content for free!"
     player:
       loading: Loading...
       live_in: "Live In "
