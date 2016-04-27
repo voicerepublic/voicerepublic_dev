@@ -581,11 +581,24 @@ class Talk < ActiveRecord::Base
         # download
         tmp = "t#{id}"
         url = recording_override
+
         # cp local files
         cmd = "cp #{url} #{tmp}"
+
         # use wget for real urls
-        cmd = "wget --no-check-certificate " +
-              "-q '#{url}' -O #{tmp}" if url =~ /^https?:\/\//
+        if url =~ /^https?:\/\//
+          cmd = "wget --no-check-certificate " +
+                "-q '#{url}' -O #{tmp}"
+        end
+
+        # use wget for ftp urls
+        if url =~ /^ftp:\/\//
+          uri = URI.parse(url)
+          user, pass = uri.user, uri.password
+          cmd = "wget --user=%s --password='%s' -q '%s' -O %s" %
+                [user, pass, url, tmp]
+        end
+
         # fetch files from s3
         if url =~ /^s3:\/\//
           puts "Downloading %s to %s..." % [url, tmp]
@@ -595,6 +608,7 @@ class Talk < ActiveRecord::Base
           File.open(tmp, 'wb') { |f| f.write(file.body) }
           puts "Downloading %s to %s complete." % [url, tmp]
         end
+
         logfile.puts cmd
         %x[ #{cmd} ]
         # guard against 0-byte overrides

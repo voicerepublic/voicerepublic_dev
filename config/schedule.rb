@@ -48,8 +48,10 @@ every 24.hours, at: '11:00 pm', roles: [:app] do
   rake 'build:sitemap'
 end
 
-
-
 every 1.hour, roles: [:app] do
   runner 'Sync::Rp16.new.sync'
+end
+
+every 5.minutes, roles: [:app] do
+  runner 'Sync::Ftp.poll("rp16.yml")'
 end
