@@ -1,3 +1,15 @@
+/*banner- migrate later!*/
+.banner {
+  display: inline-block;
+  margin-bottom: 24px;
+}
+
+.banner a:hover  {
+  text-decoration: underline;
+}
+.banner .label-new {
+  color: #ffed00;
+}
 /*buttons - REMOVE LATER*/
 .button.hollow {
   border-color:#54c6c6;
