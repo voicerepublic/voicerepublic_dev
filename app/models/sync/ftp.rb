@@ -58,11 +58,12 @@ module Sync
                 puts "not yet dispatched" if opts[:dryrun]
 
                 # build uri
-                uri = file.url(2.days.from_now)
+                uri = index[name]['uri'] = file.url(2.days.from_now)
 
                 # find talk
                 _, nid = name.match(NAME_REGEX).to_a
                 talk_uri = '%s-%s' % [config['prefix'], nid]
+                index[name]['uri'] = talk_uri
                 talk = Talk.find_by(uri: talk_uri)
                 if talk.nil?
                   msg = "Could not find talk with uri #{talk_uri} for ftp file '#{name}'"
@@ -70,6 +71,7 @@ module Sync
                   puts msg
                   next
                 end
+                index[name]['id'] = talk.id
 
                 if opts[:dryrun]
                   puts "dispatch override for %s with %s" % [talk.id, uri]

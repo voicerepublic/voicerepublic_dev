@@ -591,13 +591,13 @@ class Talk < ActiveRecord::Base
                 "-q '#{url}' -O #{tmp}"
         end
 
-        # use wget for ftp urls
-        if url =~ /^ftp:\/\//
-          uri = URI.parse(url)
-          user, pass = uri.user, uri.password
-          cmd = "wget --user=%s --password='%s' -q '%s' -O %s" %
-                [user, pass, url, tmp]
-        end
+        # # use wget for ftp urls
+        # if url =~ /^ftp:\/\//
+        #   uri = URI.parse(url)
+        #   user, pass = uri.user, uri.password
+        #   cmd = "wget --user=%s --password='%s' -q '%s' -O %s" %
+        #         [user, pass, url, tmp]
+        # end
 
         # fetch files from s3
         if url =~ /^s3:\/\//
