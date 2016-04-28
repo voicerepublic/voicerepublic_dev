@@ -1,8 +1,8 @@
-# A generic solution for polling ftps and dispatching overrides. It's
+# A generic solution for polling s3ftp and dispatching overrides. It's
 # supposed to be run via cron. From `config/schedule.rb`:
 #
-#   every 5.minutes, roles: [:app] do
-#     runner 'Sync::Ftp.poll("rp16.yml")'
+#   every 1.minute, roles: [:app] do
+#     runner 'Sync::Ftp.poll("log/rp16.yml")'
 #   end
 #
 # On rails console test with
@@ -13,93 +13,89 @@ module Sync
   class Ftp
     class << self
 
-      # http://rubular.com/r/KbbUu4v5h0
-      LINE_REGEX = /^[drwx-]+\s+\d+\s+\w+\s+\w+\s+(\d+)\s+\w+\s+\d+\s+[\d:]+\s+(.+)$/
-
       NAME_REGEX = /^(\d+)\.mp3$/
 
       DEFAULTS = {
-        'prefix' => 'rp16',
-        'user' => 'ftpuser',
-        'pass' => 'realpubic',
-        'url' => 'ftp://52.58.158.181/',
-        'command' => 'wget %{options} %{url} && cat .listing',
-        'options' => '--quiet --no-remove-listing --spider '+
-                     '--user=%{user} --password=%{pass}'
+        'bucket' => 'vr-ftp-files',
+        'prefix' => 'rp16'
       }
 
       def poll(index_file, opts={})
         # init
         unless File.exist?(index_file)
+          puts "create #{index_file}" if opts[:dryrun]
           File.open(index_file, 'w') { |f| f.puts YAML.dump(DEFAULTS) }
         end
 
         # load
+        puts "read #{index_file}" if opts[:dryrun]
         config = YAML.load(File.read(index_file))
         pp config if opts[:dryrun]
         index = config['index'] || {}
 
         # query
-        options = config['options'] % { user: config['user'], pass: config['pass'] }
-        command = config['command'] % { options: options, url: config['url'] }
-        puts command if opts[:dryrun]
-        output = %x[#{command}]
-        puts output if opts[:dryrun]
-        lines = output.split("\r\n")
+        options = {
+          provider: 'AWS',
+          aws_access_key_id: 'AKIAIGKSA6ESEFZV4DQA',
+          aws_secret_access_key: '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',
+          region: 'eu-central-1'
+        }
+        storage = Fog::Storage.new(options)
+        bucket = storage.directories.new(key: config['bucket'])
 
         # analyze
-        lines.each do |line|
-          _, size, name = line.match(LINE_REGEX).to_a
-          next if %w(. ..).include?(name)
+        bucket.files.each do |file|
+          name = file.key
+          size = file.content_length
+
+          puts '%-20s %-20s' % [name, size] if opts[:dryrun]
+
           if index[name]
+            puts "known" if opts[:dryrun]
             if index[name]['size'] == size
+              puts "same size" if opts[:dryrun]
               if index[name]['state'] != 'dispatched'
-                index[name]['state'] = 'complete'
+                puts "not yet dispatched" if opts[:dryrun]
+
+                # build uri
+                uri = file.url(2.days.from_now)
+
+                # find talk
+                _, nid = name.match(NAME_REGEX).to_a
+                talk_uri = '%s-%s' % [config['prefix'], nid]
+                talk = Talk.find_by(uri: talk_uri)
+                if talk.nil?
+                  msg = "Could not find talk with uri #{talk_uri} for ftp file '#{name}'"
+                  Rails.logger.fatal msg
+                  puts msg if opts[:dryrun]
+                  next
+                end
+
+                if opts[:dryrun]
+                  puts "dispatch override for %s with %s" % [talk.id, uri]
+                  next
+                end
+
+                # dispatch override
+                talk.update_attribute :recording_override, uri.to_s
+                Delayed::Job.enqueue ProcessOverride.new(id: talk.id), queue: 'audio'
+                details['state'] = 'dispatched'
               end
             else
+              puts "size differs" if opts[:dryrun]
               index[name]['size'] = size
               index[name]['state'] = 'growing'
             end
           else
+            puts "new" if opts[:dryrun]
             index[name] ||= { 'state' => 'new', 'size' => size }
           end
-        end
-
-        pp index if opts[:dryrun]
-
-        # dispatch override
-        index.each do |name, details|
-          next unless details['state'] == 'complete'
-
-          # build uri
-          uri = URI.parse(config['url']+URI.encode(name))
-          uri.user = config['user']
-          uri.password = config['pass']
-
-          # find talk
-          _, nid = name.match(NAME_REGEX).to_a
-          talk_uri = '%s-%s' % [config['prefix'], nid]
-          talk = Talk.find_by(uri: talk_uri)
-          if talk.nil?
-            Rails.logger.fatal "Could not find talk with uri #{talk_uri} "+
-                               "for ftp file '#{name}'"
-            next
-          end
-
-          if opts[:dryrun]
-            puts "dispatch override for %s with %s" % [talk.id, uri]
-            next
-          end
-
-          # dispatch override
-          talk.update_attribute :recording_override, uri.to_s
-          Delayed::Job.enqueue ProcessOverride.new(id: talk.id), queue: 'audio'
-          details['state'] = 'dispatched'
         end
 
         # save
         config['index'] = index
         config['touch'] = Time.now
+        pp config if opts[:dryrun]
         File.open(index_file, 'w') { |f| f.puts(YAML.dump(config)) }
       end
     end
