@@ -67,7 +67,7 @@ module Sync
                 if talk.nil?
                   msg = "Could not find talk with uri #{talk_uri} for ftp file '#{name}'"
                   Rails.logger.fatal msg
-                  puts msg if opts[:dryrun]
+                  puts msg
                   next
                 end
 
@@ -79,7 +79,7 @@ module Sync
                 # dispatch override
                 talk.update_attribute :recording_override, uri.to_s
                 Delayed::Job.enqueue ProcessOverride.new(id: talk.id), queue: 'audio'
-                details['state'] = 'dispatched'
+                index[name]['state'] = 'dispatched'
               end
             else
               puts "size differs" if opts[:dryrun]
