@@ -80,11 +80,12 @@ describe TalksController do
         get 'new'
         expect(response).to be_a_success
       end
-      it 'redirects if out of credits' do
-        @user.update_attribute(:credits, 0)
-        get 'new'
-        expect(response).to be_a_redirect
-      end
+      # NOTE everhting is for free ATM
+      # it 'redirects if out of credits' do
+      #   @user.update_attribute(:credits, 0)
+      #   get 'new'
+      #   expect(response).to be_a_redirect
+      # end
     end
 
     describe "Talk#destroy" do
