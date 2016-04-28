@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ -f /sys/hypervisor/uuid ] && [ `head -c 3 /sys/hypervisor/uuid` == ec2 ]; then
-  PUBLIC_IP=$(curl http://instance-data.ec2.internal/latest/meta-data/public-ipv4)
+  PUBLIC_IP=$(curl http://169.254.169.254/latest/meta-data/public-ipv4)
 else
   PUBLIC_IP=`hostname -I | cut -d ' ' -f 1`
 fi
