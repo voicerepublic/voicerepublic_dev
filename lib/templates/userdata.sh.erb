@@ -1,7 +1,14 @@
-#!/bin/bash
+#!/bin/bash -x
+
+# on ec2 this file can be found in
+# /var/lib/cloud/instance/scripts/part-001
+
+# this redirect everything to a log
+exec > /tmp/part-001.log 2>&1
 
 BUCKET=<%= recordings_bucket %>
 STORAGE=<%= recordings_path %>
+PREFIX=<%= slug %>
 AWS_CREDENTIALS=<%= aws_credentials %>
 
 mkdir -p $STORAGE
@@ -36,7 +43,7 @@ docker run \
        --expose=8000 \
        --publish=<%= port %>:8000 \
        --restart=unless-stopped \
-       --volume=$STORAGE:/share \
+       --volume=$STORAGE/$PREFIX:/share \
        branch14/icecast2
 
 

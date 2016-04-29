@@ -210,10 +210,8 @@ class Venue < ActiveRecord::Base
   # For development this should probably be `/tmp/recordings` or an
   # absolute path to a local folder, which is not tracked by git.
   #
-  # + a a prefix for the venue based on its slug.
-  #
   def recordings_path
-    Settings.paths.recordings + '/' + slug
+    Settings.paths.recordings
   end
 
   # This is used in userdata to mount the s3 bucket with s3fs.
