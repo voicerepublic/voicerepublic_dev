@@ -29,6 +29,8 @@ namespace :fog do
     bucket_names = AWS.directories.all.map(&:key)
 
     buckets = [
+      # common
+      { key: 'vr-tfp-files' },
       # dev
       { key: 'vr-audio-uploads-dev', acl: 'public-read-write' },
       { key: 'vr-slide-uploads-dev', acl: 'public-read-write' },
@@ -40,14 +42,16 @@ namespace :fog do
       { key: 'vr-slide-uploads-staging', acl: 'public-read-write' },
       { key: 'vr-staging-import' },
       { key: 'vr-staging-logs' },
-      { key: 'vr-staging-media' }
+      { key: 'vr-staging-media' },
+      { key: 'vr-staging-recordings' }
       # TODO if all turns out to be fine, uncomment these
       # live
       # { key: 'vr-audio-uploads-live', acl: 'public-read-write' },
       # { key: 'vr-slide-uploads-live', acl: 'public-read-write' },
       # { key: 'vr-live-import' },
       # { key: 'vr-live-logs' },
-      # { key: 'vr-live-media' }
+      # { key: 'vr-live-media' },
+      # { key: 'vr-live-recordings' }
     ]
 
     buckets.each do |bucket|

@@ -136,7 +136,8 @@ sitemap: http://localhost:3000/landing_page/index.xml
 icecast:
   ec2:
     #image: ami-421cf82d
-    image: ami-5a806335
+    #image: ami-5a806335
+    image: ami-b39173dc
     default_instance_type: t2.micro
     security_group: Icecast Servers
     key_name: phil-ffm
