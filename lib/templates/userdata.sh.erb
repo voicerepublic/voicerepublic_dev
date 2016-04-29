@@ -45,7 +45,7 @@ docker run \
        --expose=8000 \
        --publish=<%= port %>:8000 \
        --restart=unless-stopped \
-       --volume=$STORAGE/$PREFIX:/share \
+       #--volume=$STORAGE/$PREFIX:/share \
        branch14/icecast2
 
 
