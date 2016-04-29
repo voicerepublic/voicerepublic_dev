@@ -11,25 +11,27 @@ STORAGE=<%= recordings_path %>
 PREFIX=<%= slug %>
 AWS_CREDENTIALS=<%= aws_credentials %>
 
+HOME=/root
+
 mkdir -p $STORAGE
-chmod 2777 $STORAGE
+chmod 755 $STORAGE
 
 if [ -f /sys/hypervisor/uuid ] && [ `head -c 3 /sys/hypervisor/uuid` == ec2 ]; then
 
   PUBLIC_IP=$(curl http://169.254.169.254/latest/meta-data/public-ipv4)
 
   # mount the bucket
-  echo $AWS_CREDENTIALS > ~/.passwd-s3fs
-  chmod 600 ~/.passwd-s3fs
+  echo $AWS_CREDENTIALS > /etc/passwd-s3fs
+  chmod 600 /etc/passwd-s3fs
   /usr/local/bin/s3fs $BUCKET $STORAGE -o allow_other
 else
 
   PUBLIC_IP=`hostname -I | cut -d ' ' -f 1`
 fi
 
-function realpath { echo $(cd $(dirname $1); pwd)/$(basename $1); }
+mkdir -p $STORAGE/$PREFIX
 
-ENV_LIST=`realpath env.list`
+ENV_LIST=/etc/env.list
 
 cat >$ENV_LIST <<EOF
 <%= env_list %>
@@ -54,3 +56,11 @@ JSON='{"channel":"@phil","text":"'$TEXT'","icon_emoji":":mushroom:","username":"
 
 curl -X POST -H 'Content-type: application/json' --data "$JSON" \
      https://hooks.slack.com/services/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
+
+
+# --- cleanup when creating a new image
+# docker stop icecast
+# docker rm icecast
+# rm /etc/passwd-s3fs
+# rm /etc/env.list
+# rm /tmp/part-001.log
