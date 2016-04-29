@@ -1,11 +1,5 @@
 #!/bin/sh
 
-# check: are these required?
-USERID=icecast2
-GROUPID=icecast
-NAME=icecast
-
-
 DEFAULT=hackem
 
 ICECAST_SOURCE_PASSWORD="${ICECAST_SOURCE_PASSWORD:-$DEFAULT}"

@@ -14,7 +14,6 @@ AWS_CREDENTIALS=<%= aws_credentials %>
 HOME=/root
 
 mkdir -p $STORAGE
-chmod 755 $STORAGE
 
 if [ -f /sys/hypervisor/uuid ] && [ `head -c 3 /sys/hypervisor/uuid` == ec2 ]; then
 
@@ -30,6 +29,7 @@ else
 fi
 
 mkdir -p $STORAGE/$PREFIX
+chmod 777 $STORAGE/$PREFIX
 
 ENV_LIST=/etc/env.list
 
