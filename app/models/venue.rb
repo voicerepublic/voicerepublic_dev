@@ -138,6 +138,8 @@ class Venue < ActiveRecord::Base
     ERB.new(butt_config_template).result(binding)
   end
 
+  # This is used in userdata.
+  #
   def env_list
     ERB.new(env_list_template).result(binding)
   end
@@ -165,6 +167,7 @@ class Venue < ActiveRecord::Base
     "/down/venue/#{id}"
   end
 
+  # TODO rename to context or snapshot
   # current single page app state
   def atom
     {
@@ -179,10 +182,45 @@ class Venue < ActiveRecord::Base
     }
   end
 
+  # Returns the remaining seconds until the provisioning window opens.
+  #
   def availability_countdown
     return false if talks.prelive.empty?
 
     talks.prelive.ordered.first.starts_at - PROVISIONING_WINDOW.from_now
+  end
+
+  # This is used in userdata.
+  #
+  # This names the bucket which will be mounted on the ec2 instance
+  # running the icecast server.
+  #
+  # This is only used on ec2 instances.
+  #
+  def recordings_bucket
+    Settings.storage.recordings
+  end
+
+  # This is used in userdata.
+  #
+  # It is used as the `host-src` of the docker volume.
+  #
+  # For production this is '/data' (the mountpoint of the bucket).
+  #
+  # For development this should probably be `/tmp/recordings` or an
+  # absolute path to a local folder, which is not tracked by git.
+  #
+  # + a a prefix for the venue based on its slug.
+  #
+  def recordings_path
+    Settings.paths.recordings + '/' + slug
+  end
+
+  # This is used in userdata to mount the s3 bucket with s3fs.
+  #
+  def aws_credentials
+    [ Settings.fog.storage.aws_access_key_id,
+      Settings.fog.storage.aws_secret_access_key ] * ':'
   end
 
   # --- state machine callbacks

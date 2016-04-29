@@ -1,8 +1,22 @@
 #!/bin/bash
 
+BUCKET=<%= recordings_bucket %>
+STORAGE=<%= recordings_path %>
+AWS_CREDENTIALS=<%= aws_credentials %>
+
+mkdir -p $STORAGE
+chmod 2777 $STORAGE
+
 if [ -f /sys/hypervisor/uuid ] && [ `head -c 3 /sys/hypervisor/uuid` == ec2 ]; then
+
   PUBLIC_IP=$(curl http://169.254.169.254/latest/meta-data/public-ipv4)
+
+  # mount the bucket
+  echo $AWS_CREDENTIALS > ~/.passwd-s3fs
+  chmod 600 ~/.passwd-s3fs
+  /usr/local/bin/s3fs $BUCKET $STORAGE -o allow_other
 else
+
   PUBLIC_IP=`hostname -I | cut -d ' ' -f 1`
 fi
 
@@ -22,31 +36,12 @@ docker run \
        --expose=8000 \
        --publish=<%= port %>:8000 \
        --restart=unless-stopped \
+       --volume=$STORAGE:/share \
        branch14/icecast2
-
-# --- move into image
-
-command -v curl >/dev/null 2>&1 || \
-  apt-get -y install curl
-
-
-
-# --- move into docker
-
-# CALLBACK_URL=<%= icecast_callback_url %>
-CLIENT_TOKEN=<%= client_token %>
-
-#if [ -f /sys/hypervisor/uuid ] && [ `head -c 3 /sys/hypervisor/uuid` == ec2 ]; then
-#    true
-#else
-#    sleep 5
-#fi
-
-#JSON='{"public_ip_address":"'$PUBLIC_IP'","client_token":"'$CLIENT_TOKEN'"}'
-#curl -X POST --data "$JSON" $CALLBACK_URL/complete
 
 
 # callback to slack -- for debugging only
+CLIENT_TOKEN=<%= client_token %>
 TEXT="Started Icebox on $PUBLIC_IP with client token $CLIENT_TOKEN"
 JSON='{"channel":"@phil","text":"'$TEXT'","icon_emoji":":mushroom:","username":"icecast"}'
 
