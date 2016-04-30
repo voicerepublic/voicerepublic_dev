@@ -28,6 +28,7 @@ module Sync
                                  'Gesellschaft',
       'Media'                 => 'republica, Media, Medien',
       'GIG'                   => 'republica, GIG',
+      'Global Innovation Gathering (GIG)' => 'republica, GIG',
       'Research & Education'  => 'republica, Research, Forschung, Education, '+
                                  'Bildung',
       'Business & Innovation' => 'republica, Business, Innovation, Wirtschaft',
@@ -60,6 +61,12 @@ module Sync
 
     attr_accessor :metrics, :warnings, :errors, :changes, :opts
 
+    def self.update
+      %x[ curl 'https://re-publica.de/rest/sessions.json?args\\[0\\]=6553' > tmp/rp16_sessions.json ]
+      %x[ curl 'https://re-publica.de/rest/speakers.json?args\\[0\\]=6553' > tmp/rp16_speakers.json ]
+      %x[ curl 'https://re-publica.de/rest/rooms.json?args\\[0\\]=6553' > tmp/rp16_rooms.json ]
+    end
+
     def initialize(opts={})
       self.opts = opts
       self.metrics = Hash.new { |h, k| h[k] = 0 }
@@ -74,8 +81,16 @@ module Sync
 
       uri_prefix = 'rp16-'
 
+      all_talks = Talk.where("uri LIKE '#{uri_prefix}%'")
+      all_talks = all_talks.reduce({}) { |r, t| r.merge t.uri => t }
+      puts 'Loaded %s existing talks.' % all_talks.count
+      all_series = Series.where("uri LIKE '#{uri_prefix}%'")
+      all_series = all_series.reduce({}) { |r, s| r.merge s.uri => s }
+      puts 'Loaded %s existing series.' % all_series.count
+
       @observed_languages = Hash.new { |h, k| h[k] = 0 }
       @observed_durations = Hash.new { |h, k| h[k] = 0 }
+      @observed_categories = Hash.new { |h, k| h[k] = 0 }
 
       sessions.map do |session|
         #pp session.to_h; gets
@@ -108,6 +123,7 @@ module Sync
               self.errors << "% 4s: No tags defined for category: %s" % [nid, category]
             end
           end
+          @observed_categories[category] += 1
 
           # --- sanity check: time ---
 
@@ -133,7 +149,7 @@ module Sync
           # --- update series ---
 
           series_uri = "#{uri_prefix}#{category.tr_s(' &', '-').downcase}"
-          series = Series.find_or_initialize_by(uri: series_uri)
+          series = all_series[series_uri] || Series.new(uri: series_uri)
           series.title = category
           series.teaser = session.event_description.to_s.strip.truncate(STRING_LIMIT)
           series.description = session.event_description.to_s.strip.truncate(TEXT_LIMIT)
@@ -143,12 +159,13 @@ module Sync
           self.changes << "#{series_uri}: #{series.changed * ', '}" if series.changed?
           metric = series.persisted? ? :series_updated : :series_created
           self.metrics[metric] += 1 if opts[:dryrun] || series.save!
+          all_series[series_uri] = series
 
           # --- update talk ---
 
           talk_uri = "#{uri_prefix}#{nid}"
           uris << talk_uri
-          talk = Talk.find_or_initialize_by(uri: talk_uri)
+          talk = all_talks[talk_uri] || Talk.new(uri: talk_uri)
           next unless talk.prelive? or talk.created?
           talk.series = series
           talk.title = unescape(session.title.strip).truncate(STRING_LIMIT)
@@ -179,24 +196,34 @@ module Sync
           self.changes << "#{talk_uri}: #{talk.changed * ', '}" if talk.changed?
           metric = talk.persisted? ? :talks_updated : :talks_created
           self.metrics[metric] += 1 if opts[:dryrun] || talk.save!
+          all_talks[talk_uri] = talk
 
           #if talk.persisted? && talk.ends_at.strftime('%H:%M') != session.end
           #  self.warnings << '% 4s: Bogus times: %s %s' %
           #    [nid, session.datetime, session.duration]
           #end
 
+          print '.'
+
         rescue Exception => e
           self.errors << '% 4s: %s' % [nid, e.message.tr("\n", '; ')]
+          print 'x'
           #puts nid
           #puts talk.attributes.to_yaml
           #puts e.message
           #puts category
           #return
         end
+
       end
+
+      puts
 
       # --- remove the talks which didn't show up ---
 
+      p perishable = all_talks.keys - uris
+
+      # TODO change to delete perishable
       user.talks.where("talks.uri LIKE '#{uri_prefix}%' "+
                        "AND talks.uri NOT IN (?)", uris).destroy_all
 
@@ -205,6 +232,7 @@ module Sync
         puts report_summary
         puts report_langs
         puts report_durations
+        puts report_categories
         puts report_errors
         puts report_warnings
         #puts report_changes
@@ -212,7 +240,9 @@ module Sync
         attachments = []
         attachments << { color: 'danger',  text: report_errors } if errors.size > 0
         attachments << { color: 'warning', text: report_warnings } if warnings.size > 0
-        #attachments << { color: 'good',    text: report_changes } if changes.size > 0
+        attachments << { color: 'good',    text: report_langs +
+                                                 report_categories +
+                                                 report_durations }
         slack.send report_summary, attachments: attachments
       end
     end
@@ -246,14 +276,21 @@ module Sync
     def report_langs
       "LANGUAGES\n\n" +
       @observed_languages.map do |lang, count|
-        "%-20s %-20s" % [lang, count]
+        "%-40s % 4s" % [lang, count]
+      end * "\n" + "\n\n"
+    end
+
+    def report_categories
+      "CATEGORIES\n\n" +
+      @observed_categories.map do |lang, count|
+        "%-40s % 4s" % [lang, count]
       end * "\n" + "\n\n"
     end
 
     def report_durations
       "DURATIONS\n\n" +
       @observed_durations.map do |lang, count|
-        "%-20s %-20s" % [lang, count]
+        "%-40s % 4s" % [lang, count]
       end * "\n" + "\n\n"
     end
 
