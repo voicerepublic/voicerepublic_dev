@@ -422,14 +422,37 @@ class Talk < ActiveRecord::Base
   end
 
   def archive_from_dump!
-    # TODO start_processing!
-    # TODO venue.update_metadata!
-    # TODO files = venue.relevant_files(started_at, ended_at)
-    # TODO make tmp dir
-    # TODO files.each(&:download)
-    # TODO run chain
-    # TODO upload
-    # TODO archive!
+    begin
+      process!
+      # move operations to tmp dir
+      tmp_dir = FileUtils.mkdir_p("/tmp/archive_from_dump/#{id}").first
+      FileUtils.fileutils_output = logfile
+      FileUtils.chdir(tmp_dir, verbose: true) do
+        # download
+        filenames = venue.relevant_files(started_at, ended_at)
+        filenames.each do |filename|
+          file = venue.stored_file(filename)
+          File.open(filename, 'wb') { |f| f.write(file.body) }
+        end
+
+        # prepare manifest
+        chain = venue.opts.archive_chain
+        chain ||= Settings.audio.archive_chain
+        chain = chain.split(/\s+/)
+
+        run_ic_chain! chain # ic as in icecast
+
+        archive!
+      end
+    rescue => e
+      message = ([e.message] + e.backtrace) * "\n"
+      Rails.logger.error message
+      self.processing_error = message
+      suspend!
+      LiveServerMessage.call public_channel, event: 'Suspend', error: e.message
+    ensure
+      FileUtils.remove_entry tmp_dir
+    end
   end
 
   private
@@ -682,6 +705,18 @@ class Talk < ActiveRecord::Base
     end
   end
 
+  def run_ic_chain!(chain)
+    write_manifest_file!(chain)
+    worker = IcProcessor.new # see lib/audio_processor.rb
+    worker.talk = self
+    logfile = File.expand_path("process-#{id}.log")
+
+    ActiveSupport::Notifications.instrument "run_chain.ic_process.vr",
+                                            chain: chain do
+      worker.run(Logger.new(logfile))
+    end
+  end
+
   # move flvs to fog storage whil removing empty files
   def upload_flvs!
     base = File.expand_path(Settings.rtmp.recordings_path, Rails.root)
@@ -722,6 +757,15 @@ class Talk < ActiveRecord::Base
     save! # save `storage` field
   end
 
+  def upload_ic_results!
+    Dir.new('.').entries.each do |file|
+      cache_storage_metadata(file)
+      key = "#{uri}/#{File.basename(file)}"
+      upload_file(key, file)
+      FileUtils.rm(file, verbose: true)
+    end
+  end
+
   def manifest(chain=nil)
     chain ||= venue.opts.process_chain || Setting.get('audio.process_chain')
     data = {
@@ -743,6 +787,11 @@ class Talk < ActiveRecord::Base
     File.open(path, 'w') { |f| f.puts(manifest(chain).to_yaml) }
     upload_file(key, path)
     path
+  end
+
+  def write_manifest_file!(chain=nil)
+    # since archive_from_dump did a chdir this is easy...
+    File.open('manifest.yml', 'w') { |f| f.puts(manifest(chain).to_yaml) }
   end
 
   # collect information about what's stored via fog
