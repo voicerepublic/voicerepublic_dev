@@ -1,0 +1,46 @@
+digraph G {
+
+  // basic settings
+
+  fontname = "Bitstream Vera Sans"
+  fontsize = 8
+
+  edge [
+    fontname = "Bitstream Vera Sans"
+    fontsize = 8
+  ]
+
+  node [
+    fontname = "Bitstream Vera Sans"
+    fontsize = 8
+  ]
+
+
+  // normal transitions
+
+  edge [
+    arrowtail = "none"
+    arrowhead = "open"
+  ]
+
+  node [
+    shape = "oval"
+  ]
+
+  offline -> provisioning [label="start_provisioning"]
+  provisioning -> awaiting_stream [label="complete_provisioning"]
+  provisioning -> select_device [label="complete_provisioning"]
+  awaiting_stream -> connected [label="connect"]
+  disconnected -> connected [label="connect"]
+  connected -> disconnected [label="disconnect"]
+  select_device -> awaiting_stream [label="device_selected"]
+
+  select_device -> offline [label="shutdown"]
+  awaiting_stream -> offline [label="shutdown"]
+  connected -> offline [label="shutdown"]
+  disconnected -> offline [label="shutdown"]
+
+  provisioning -> offline [label="reset"]
+  select_device -> offline [label="reset"]
+
+}

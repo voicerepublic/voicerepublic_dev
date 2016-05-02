@@ -10,7 +10,7 @@
         .footer-section.large-6.columns
           %ul.menu.vertical
             %li= link_to t('.about'), blog_url('/')
-            %li= link_to t('.pricing'), pricing_path
+            -#%li= link_to t('.pricing'), pricing_path
             %li= link_to t('.support_and_faq'), blog_url('/support')
             %li= link_to t('.blog'), blog_url('/blog')
             %li= link_to t('.terms_and_privacy'), blog_url('/terms-of-use')
@@ -29,14 +29,7 @@
             %img{:src => "/images/logos/facebook-circle-beige.svg", :width => "36"}/
     .footer-section.text-left.about
       %p.lead
-        %strong What Is Voice Republic
-        %br/
-        Voice Republic is the platform for the spoken word. We offer you a simple tool to stream your event, your presentation, your discussion or lecture live or make it accessible for everyone by uploading it to the audio archive. The live stream gives listeners who can not personally be at an event or live performance the opportunity to listen in and to get involved – using the comment function, they can actively take part in the discussion. After the live broadcast, the talk will automatically be saved in our 
-        = succeed "" do
-          %a{:href => explore_path } audio archive 
-        and can be heard at any time or downloaded as a podcast. You can also easily upload existing recordings. Starting at 
-        = succeed "," do
-          %a{:href => pricing_path } 12 euros per talk
-        you can boost your reach and position your content from the fields of politics, science, arts and culture, technology and business in a guaranteed high-quality environment. Listening to the live streams and downloading the podcasts is free for all users.
+        %strong= s('.headline')
+        = s('.text')
   .row
-    %p.text-center.copyright ©2016 Voice Republic Media AG
+    %p.text-center.copyright= s('.copyright')

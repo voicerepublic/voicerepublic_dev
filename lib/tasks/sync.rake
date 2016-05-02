@@ -379,4 +379,9 @@ namespace :sync do
     Sync::Rp15.new.sync
   end
 
+  task ftp: :environment do
+    # TODO make a path like `ftp` run poll for all `.yml` files in there
+    Sync::Ftp.poll('log/rp16.yml')
+  end
+
 end

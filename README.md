@@ -140,9 +140,9 @@ Run App
 
 ### voicerepublic_dev
 
-* `rails s`
+* `rails s -b 0.0.0.0`
 * `rake rtmp:start` (will daemonize)
-* `rackup -E production faye.ru`
+* `rackup -E production faye.ru -o 0.0.0.0`
 * `lib/flux_capacitor.rb run`
 * `lib/rtmp_watcher.rb run`
 * `rake jobs:work`
@@ -249,6 +249,15 @@ For general platform and development documentation please refer to the
     railroady -b -M | dot -Tsvg > doc/models_brief.svg
     railroady -C | dot -Tsvg > doc/controllers_complete.svg
     railroady -b -C | dot -Tsvg > doc/controllers_brief.svg
+
+    mscgen -T svg -o doc/streaming.svg doc/streaming.msc
+    mscgen -T png -o doc/streaming.png doc/streaming.msc
+
+    dot -Tsvg doc/fsm_venue.dot > doc/fsm_venue.svg
+    dot -Tpng doc/fsm_venue.dot > doc/fsm_venue.png
+
+    dot -Tsvg doc/fsm_device.dot > doc/fsm_device.svg
+    dot -Tpng doc/fsm_device.dot > doc/fsm_device.png
 
 
 ### Working with Settings/Config
@@ -605,3 +614,16 @@ Select
 Click BUILD
 
 Download to vendor/assets/modernizr.js
+
+
+ClojureScript
+-------------
+
+    cd lib/vrng
+    lein figwheel
+
+
+Icecast Dev
+-----------
+
+    docker exec -it icecast bash

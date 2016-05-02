@@ -8,13 +8,14 @@
 
 #main.clearfix{:role => "main"}
   #left-column
-    - if current_user && current_user == @user
-      #credits.clearfix
-        .float-left
-          %p
-            = t('.you_have_x_credits_left', count: @user.credits).html_safe
-        .float-right
-          = link_to t('.purchase_more_credits'), :purchases, class: 'button hollow tiny btn-yellow btn-hover-blue'
+    -# NOTE everyting for free ATM
+    -# - if current_user && current_user == @user
+    -#   #credits.clearfix
+    -#     .float-left
+    -#       %p
+    -#         = t('.you_have_x_credits_left', count: @user.credits).html_safe
+    -#     .float-right
+    -#       = link_to t('.purchase_more_credits'), :purchases, class: 'button hollow warning tiny'
     #user-block
 
 

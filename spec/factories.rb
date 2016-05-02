@@ -13,9 +13,28 @@ FactoryGirl.define do
     user
   end
 
+  sequence :client_token do |n|
+    "client-token-#{n}"
+  end
+
   factory :venue do
     name "Some venue"
     user
+    trait :provisioning do
+      state :provisioning
+      client_token
+    end
+    trait :awaiting_stream do
+      state :awaiting_stream
+      client_token
+      public_ip_address '0.0.0.0'
+      mount_point 'random-mountpoint'
+      source_password 'some-password'
+    end
+    trait :connected do
+      state :connected
+      client_token
+    end
   end
 
   sequence :email do |n|
@@ -132,6 +151,23 @@ FactoryGirl.define do
   factory :tag_bundle do
     title_en "MyString"
     title_de "MyString"
+  end
+
+
+  factory :device do
+    identifier "some-identifier"
+  end
+
+
+  factory :organization do
+    name "My Organization"
+    slug "my-organization"
+  end
+
+
+  factory :membership do
+    user
+    organization
   end
 
 end

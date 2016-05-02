@@ -1,5 +1,42 @@
 # this file contains default content for sections (formatted in markdown)
 en:
+  talks:
+    dryrun:
+      text: >-
+
+        You’re about to create a test talk.
+
+
+        Test talks have all the same features as regular talks, but
+        they will only be saved on your profile for 24 hours. After
+        that the talk will automatically be deleted.
+
+
+        Happy testing!
+
+  shared:
+    footer_velvet:
+      copyright: '©2016 Voice Republic Media AG'
+      headline: What Is Voice Republic
+      text: >-
+
+        Voice Republic is the platform for the spoken word. We offer
+        you a simple tool to stream your event, your presentation,
+        your discussion or lecture live or make it accessible for
+        everyone by uploading it to the audio archive. The live stream
+        gives listeners who can not personally be at an event or live
+        performance the opportunity to listenin and to get involved –
+        using the comment function, they can actively take part in the
+        discussion. After the live broadcast, the talk will
+        automatically be saved in our [audio archive](/explore) and
+        can be heard at any time or downloaded as a podcast. You can
+        also easily upload existing recordings. Starting at [12 euros
+        per talk](/pricing) you can boost your reach and position your
+        content from the fields of politics,science, arts and culture,
+        technology and business in a guaranteed high-quality
+        environment. Listening to the live streams and downloading the
+        podcasts is free for all users.
+
   root:
     index:
       title: '# Home to the spoken word'
@@ -53,5 +90,53 @@ en:
           get a newer version of Safari. It is easier to use Chrome or
           Firefox.)
 
-        * [Download Internet Explorer](http://windows.microsoft.com/en-us/internet-explorer/download-ie) 
+        * [Download Internet Explorer](http://windows.microsoft.com/en-us/internet-explorer/download-ie)
           (If you have an older version of Windows, you need to upgrade to get a newer version of Internet explorer. It's easier to use Chrome or Firefox.)
+    publish:
+      head_1: "# Publish your own content online"
+      text_1: >-
+
+        At Voice Republic, your content is in good company. Our archive is growing
+        daily with high-class lectures, discussions
+        and readings from the fields of culture, sciences, politics
+        and business. Expand your reach beyond the venue walls to interested listeners around the world.
+        Thanks to our browser-based technology, you'll need no extra gear.
+        [Starting at 12€ per Talk](/pricing)
+        your own audio channel is only a few clicks away...
+
+      head_2: "## The Voice Republic live stream"
+      text_2: >-
+
+        Are you organizing a conference, discussion panel, or
+        holding lectures and workshops yourself? With Voice Republic
+        you can publish your content to the whole world and reach a
+        large audience.
+
+
+        Broadcasting your own live stream is easy with Voice Republic's
+        browser-based technology. You configure a talk
+        in your Voice Republic account and simply click
+        "Start" and "Stop" during the event. The technology you need on site is only
+        a computer with internet access and an audio source. The
+        comment feature gives you the opportunity to interact with
+        your online audience. Listeners can comment and ask questions
+        in real time.
+
+
+        After your event, your audio content is
+        in good hands with us. All Talks are stored on the Voice
+        Republic servers and are searchable in the archive immediately
+        after the live broadcast.
+
+
+
+      head_3: "## The Voice Republic audio upload"
+      text_3: >-
+
+        Already have existing
+        recordings? You can also use our audio archive. Just upload
+        your audio files and add your own photos, descriptive texts
+        and—if you want to—presentation slides. Everyone can now
+        listen to your content online or download it as a podcast. You
+        can easily embed the Voice Republic Player into your own web
+        page and share the Talks on social networks.

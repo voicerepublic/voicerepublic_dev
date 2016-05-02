@@ -647,6 +647,7 @@ DEPENDENCIES
   delayed_job_active_record
   devise (~> 3.4.0)
   dragonfly (= 1.0.12)
+  excon (~> 0.45.4)
   factory_girl_rails (~> 4.0)
   faker
   faye-authentication!
@@ -677,7 +678,7 @@ DEPENDENCIES
   redcarpet
   rspec-rails (= 3.2.1)
   rspec_junit_formatter!
-  sass-rails (~> 5.0)
+  sass-rails
   sdoc (~> 0.4.0)
   select2-rails
   selenium-webdriver

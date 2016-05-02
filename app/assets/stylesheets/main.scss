@@ -174,3 +174,9 @@ span[class^="icon-"]{
 .hint {
     font-size: 0.875rem;
 }
+
+#mount-audio {
+    position: absolute;
+    margin-top: 100px;
+    z-index: 999;
+}

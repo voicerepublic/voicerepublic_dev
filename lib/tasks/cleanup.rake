@@ -42,6 +42,12 @@ namespace :cleanup do
     end
   end
 
+  desc 'stops disused streaming servers'
+  task stop_disused_streaming_servers: :environment do
+    # TODO
+    # Venues.disconnected...
+  end
+
   desc 'Remove listener that has not visited during the Live phase'
   task :remove_listener_non_live => :environment do
     puts "Starting to remove listeners during the non-Live phase of talks"

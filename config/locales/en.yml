@@ -6,6 +6,10 @@ en:
   pages:
     outdated_browser:
       oops: Oops!
+    publish:
+      pricing: Pricing
+      start_live_stream: "Start A Live Stream &raquo;"
+      upload_a_recording: "Upload A Recording &raquo;"
   all_categories: All Categories
   validation:
     bad_chars_in_slug: |
@@ -348,7 +352,7 @@ en:
       schedule_talk: Schedule A Live Talk
       upload_talk: Upload A Recording
       pricing: Pricing
-      test_talk: 'Test A Talk (Free)'
+      test_talk: 'Test A Talk'
       logout: Log Out
     check_flash:
       no_flash_version_notice: Your current version of Flash-Plugin is not sufficient. Install Version 10.3 or higher. to use Video call.
@@ -433,7 +437,7 @@ en:
       schedule_talk: Schedule A Live Talk
       upload_talk: Upload A Recording
       pricing: Pricing
-      test_talk: 'Test A Talk (Free)'
+      test_talk: 'Test A Talk'
       logout: Log Out
     velvet_minimal:
       title: Voice Republic
@@ -632,6 +636,14 @@ en:
     For more podcasts visit http://voicerepublic.com
 
 
+
   frontend:
     talks:
       any_time_now: Any time now...
+
+  devices:
+    index:
+      devices_found:
+        zero: "No devices found connected via %{ip}"
+        one: "Redirecting... (you should actually never see this!)"
+        other: "Multiple devices found, please unplug all but one. Then reload."

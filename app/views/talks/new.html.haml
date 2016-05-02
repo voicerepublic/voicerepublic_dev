@@ -15,7 +15,8 @@
                           'ng-disabled' => '!valid()',
                           'ng-click' => 'deactivateSafetynet()'
 
-      - unless @talk.dryrun?
-        .eagle.right(style='margin: 9px')
-          %i.icon-info
-          = t('.billing_notice')
+      -# NOTE everything for free ATM
+      -# - unless @talk.dryrun?
+      -#   .eagle.right(style='margin: 9px')
+      -#     %i.icon-info
+      -#     = t('.billing_notice')

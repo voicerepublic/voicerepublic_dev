@@ -16,11 +16,35 @@ class Handyman
 
   class Tasks
 
+    def venue_set_missing_state
+      log '-> Check for venues without state...'
+      sql = "UPDATE venues SET state='offline' WHERE state IS NULL"
+      ActiveRecord::Base.connection.execute(sql)
+    end
+
+    def set_default_pins_for_users_with_no_pins
+      log '-> Check for users with no pins...'
+      nice = Reminder.distinct(:user_id).pluck(:user_id)
+      naughty = User.where('id NOT IN (?)', nice).pluck(:id).sort
+      total = naughty.count
+
+      slugs = Settings.default_pins || []
+      talks = slugs.map { |slug| Talk.find_by(slug: slug) }.compact
+      return if talks.empty?
+
+      naughty.each_with_index do |id, index|
+        log '%s/%s Add default pins for User %s' % [index, total, id]
+        talks.each do |talk|
+          Reminder.create user_id: id, rememberable: talk
+        end
+      end
+    end
+
     def set_alt_fields(resource=nil, prop=nil)
       if resource.nil?
         set_alt_fields Talk, :image_alt
         set_alt_fields Series, :image_alt
-        set_alt_fields User, :avatar_alt
+        set_alt_fields User, :image_alt
       else
         log '-> Check %s for empty alt fields...' % resource.name
         query = resource.where(prop => nil)

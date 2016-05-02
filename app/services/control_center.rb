@@ -1,57 +1,66 @@
 require File.expand_path(File.join(%w(.. .. .. lib services)), __FILE__)
 
-puts 'booting rails...'
+puts 'Booting rails... (sigh)'
 require File.expand_path(File.join(%w(.. .. .. config environment)), __FILE__)
 
 # The ControlCenter ties all other services together.
+#
+#
+# NOTE `venue_event_down` will be forwarded by BumpyBridge and
+# modified by FayeEigenfan hence you need to provide a `channel` to
+# publish eventually to.
 #
 class ControlCenter
 
   include Services::Subscriber
   include Services::Publisher
 
-  subscribe q: 'streamer_transition'
-  subscribe x: 'sites_observed'
-  subscribe x: 'server_ready'
+  subscribe x: 'venue_event_up'
+  subscribe x: 'venue_transition'
   subscribe x: 'talk_transition'
-  subscribe x: 'transaction_transition'
 
-  def streamer_transition(*args)
-    # body, prop, info, opts = *args
-    # if state now 'ready'
-    # if talk.starts_at - now <= 30 min
-    # details = { tpye: t2.micro, password: password, ami: ami }
-    # publish q: 'spawn_server', details: details
+  # messages from browsers on venues#show, e.g.
+  #
+  #   {"event"=>"start", "talk_id"=>4147, "channel"=>"/up/user/7/venue/124"}
+  #
+  def venue_event_up(*args)
+    body = JSON.parse(args.shift)
+    event = body['event']
+    case event
+    when 'start'
+      talk_id = body['talk_id']
+      talk = Talk.find(talk_id)
+      talk.start_talk! if talk.can_start_talk?
+    else
+      puts "Unhandled message on venue_event_up: #{body.inspect}"
+      publish x: 'unhandled_messages',
+              original_x: 'venue_event_up',
+              original_body: body
+    end
   end
 
-  def sites_observed(*args)
-    # body, prop, info, opts = *args
-    # TODO do some number chrunching and pass message on to clients, use routing key
-  end
-
-  def server_ready(*args)
-    # body, prop, info, opts = *args
-    # TODO a icecast server is ready, pass message on to clients, use routing key
-    # publish x: 'set_streaming_server'
-    # TODO publish url to icecast_observer to receive status via icecast_status
-    # publish q: 'new_icecast_server', url: 'http://admin:hackem@136.243.209.123:8000/admin/stats.xml'
+  def venue_transition(*args)
+    pp body = args.shift
+    #publish x: 'venue_event_down',
+    #        channel: "/down/venues/#{venue.id}"
   end
 
   def talk_transition(*args)
-    # body, prop, info, opts = *args
-    # if talk ended
-    # talk = Talk.find(id)
-    # publish q: 'reap_server', id: talk.streaming_server_id
+    pp body = args.shift
+
+    talk_id = body['details']['talk']['id']
+    venue_id = body['details']['venue']['id']
+    event = body['details']['event'].last
+
+    publish x: 'venue_event_down',
+            event: event,
+            talk_id: talk_id,
+            channel: "/down/venue/#{venue_id}"
   end
 
 end
 
 # SERVICE ControlCenter
-# streamer_transition ->
-# sites_observed ->
-# server_ready ->
-# talk_transition ->
-# transaction_transition ->
-# -> spawn_server
-# -> new_icecast_server
-# -> reap_server
+# venue_transition ->
+# venue_event_up ->
+# -> venue_event_down

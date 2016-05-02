@@ -201,4 +201,13 @@ describe User do
     expect(talk.user.venues.pluck(:name)).to include('Mr B')
   end
 
+  it 'newly created user has default pins' do
+    talk = FactoryGirl.create(:talk, title: 'Willkommen bei Voice Republic')
+    expect(talk.slug).to eq(Settings.default_pins.first)
+
+    user = FactoryGirl.create(:user)
+    slugs = Talk.remembered_by(user).pluck(:slug)
+    expect(slugs).to eq(Settings.default_pins)
+  end
+
 end

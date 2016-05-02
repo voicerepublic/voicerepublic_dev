@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160331165104) do
+ActiveRecord::Schema.define(version: 20160425084227) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -99,14 +99,15 @@ ActiveRecord::Schema.define(version: 20160331165104) do
     t.datetime "last_heartbeat_at"
     t.integer  "organization_id"
     t.datetime "paired_at"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
     t.datetime "disappeared_at"
     t.string   "target",             default: "live"
     t.string   "public_ip_address"
     t.integer  "loglevel",           default: 1
     t.integer  "report_interval",    default: 60
     t.integer  "heartbeat_interval", default: 5
+    t.text     "options",            default: "--- {}"
   end
 
   add_index "devices", ["organization_id"], name: "index_devices_on_organization_id", using: :btree
@@ -232,7 +233,6 @@ ActiveRecord::Schema.define(version: 20160331165104) do
     t.string   "slug",                limit: 255
     t.float    "penalty",                         default: 1.0
     t.text     "description_as_html",             default: ""
-    t.boolean  "is_hidden",                       default: false
     t.string   "image_alt",                       default: ""
     t.text     "description_as_text",             default: ""
   end
@@ -336,7 +336,6 @@ ActiveRecord::Schema.define(version: 20160331165104) do
     t.text     "description_as_html",              default: ""
     t.string   "slides_uuid",         limit: 1024
     t.integer  "venue_id"
-    t.boolean  "is_hidden",                        default: false
     t.string   "icon",                             default: "default"
     t.string   "image_alt"
     t.text     "description_as_text",              default: ""
@@ -404,7 +403,6 @@ ActiveRecord::Schema.define(version: 20160331165104) do
     t.string   "referrer"
     t.text     "about_as_html",                      default: ""
     t.boolean  "paying",                             default: false
-    t.boolean  "is_hidden",                          default: false
     t.datetime "featured_from"
     t.datetime "featured_until"
     t.string   "image_alt",                          default: ""
@@ -444,8 +442,10 @@ ActiveRecord::Schema.define(version: 20160331165104) do
     t.integer  "estimated_number_of_listeners"
     t.datetime "started_provisioning_at"
     t.datetime "completed_provisioning_at"
+    t.integer  "device_id"
   end
 
+  add_index "venues", ["device_id"], name: "index_venues_on_device_id", using: :btree
   add_index "venues", ["slug"], name: "index_venues_on_slug", using: :btree
   add_index "venues", ["user_id"], name: "index_venues_on_user_id", using: :btree
 
@@ -453,5 +453,6 @@ ActiveRecord::Schema.define(version: 20160331165104) do
   add_foreign_key "memberships", "organizations"
   add_foreign_key "memberships", "users"
   add_foreign_key "talks", "venues"
+  add_foreign_key "venues", "devices"
   add_foreign_key "venues", "users"
 end

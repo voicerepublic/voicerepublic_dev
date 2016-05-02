@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     get 'terms',    to: redirect(blog_url('/terms-of-use'))
   end
 
-  get 'pages/:action' => 'pages'
+  get 'pages/:action' => 'pages', as: 'page'
 
   get "/pricing", to: 'purchases#index', as: 'pricing'
   resources :purchases, only: [ :index, :new, :create, :show ] do
@@ -35,10 +35,12 @@ Rails.application.routes.draw do
   namespace 'xhr' do
     resources :social_shares, only: [:create]
     resources :tags, only: [:index]
+    resources :talks, only: [:update]
   end
 
   namespace 'api' do
     get 'oembed(.:format)' => 'oembed#show'
+    resources :devices, only: [:show, :create]
     resources :talks, only: [:index]
     resources :uploads, only: [ :create ]
     resources :bookmarks, only: [ :index ]
@@ -78,7 +80,11 @@ Rails.application.routes.draw do
     resources :comments, only: [:create]
     resources :participations, only: [:index, :create, :destroy]
   end
-  get '/venues/:id', to: redirect(->(params, req) { '/series/'+params[:id] })
+  # TODO remove
+  # get '/venues/:id', to: redirect(->(params, req) { '/series/'+params[:id] })
+
+  resources :venues, only: [:index, :show, :update]
+  resources :devices, only: [:index, :edit, :update]
 
   resources :reminders, only: [:show, :destroy]
 

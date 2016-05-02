@@ -47,14 +47,14 @@ class Talk < ActiveRecord::Base
   # colors according to ci style guide
   COLORS = %w( #182847 #2c46b0 #54c6c6 #a339cd )
 
-  attr_accessor :venue_name
+  attr_accessor :venue_name, :event
 
   # https://github.com/troessner/transitions
   state_machine auto_scopes: true do
     state :created # initial
     state :pending
     state :prelive
-    state :live
+    state :live, enter: :reconnect
     state :postlive
     state :processing
     state :archived
@@ -138,7 +138,8 @@ class Talk < ActiveRecord::Base
   before_create :inherit_penalty
   after_create :notify_participants
   after_create :set_uri!, unless: :uri?
-  after_create :create_and_process_debit_transaction!, unless: :dryrun?
+  # NOTE everything is free ATM
+  #after_create :create_and_process_debit_transaction!, unless: :dryrun?
   after_create :set_auto_destruct_mode, if: :dryrun?
   # TODO: important, these will be triggered after each PUT, optimize
   after_save :set_guests
@@ -234,8 +235,14 @@ class Talk < ActiveRecord::Base
     tend - Time.now.to_i
   end
 
+  # oldschool public channel
   def public_channel
     "/t#{id}/public"
+  end
+
+  # newschool public channel
+  def channel
+    "/down/talk/#{id}"
   end
 
   def media_links(variant='', formats=%w(mp3 m4a ogg))
@@ -424,8 +431,14 @@ class Talk < ActiveRecord::Base
       stream: {
         mp3: 'http://listen.radionomy.com/abc-jazz'
         #mp3: venue.stream_url
-      }
+      },
+      venue: venue.attributes,
+      channel: channel
     }
+  end
+
+  def reconnect
+    Faye.publish_to channel, event: 'reconnect', stream_url: venue.stream_url
   end
 
   private
@@ -592,11 +605,24 @@ class Talk < ActiveRecord::Base
         # download
         tmp = "t#{id}"
         url = recording_override
+
         # cp local files
         cmd = "cp #{url} #{tmp}"
+
         # use wget for real urls
-        cmd = "wget --no-check-certificate " +
-              "-q '#{url}' -O #{tmp}" if url =~ /^https?:\/\//
+        if url =~ /^https?:\/\//
+          cmd = "wget --no-check-certificate " +
+                "-q '#{url}' -O #{tmp}"
+        end
+
+        # # use wget for ftp urls
+        # if url =~ /^ftp:\/\//
+        #   uri = URI.parse(url)
+        #   user, pass = uri.user, uri.password
+        #   cmd = "wget --user=%s --password='%s' -q '%s' -O %s" %
+        #         [user, pass, url, tmp]
+        # end
+
         # fetch files from s3
         if url =~ /^s3:\/\//
           puts "Downloading %s to %s..." % [url, tmp]
@@ -606,6 +632,7 @@ class Talk < ActiveRecord::Base
           File.open(tmp, 'wb') { |f| f.write(file.body) }
           puts "Downloading %s to %s complete." % [url, tmp]
         end
+
         logfile.puts cmd
         %x[ #{cmd} ]
         # guard against 0-byte overrides
@@ -771,6 +798,12 @@ class Talk < ActiveRecord::Base
 
   def event_fired(*args)
     Emitter.talk_transition(self, args)
+
+    return if Rails.env.test?
+    Faye.publish_to channel,
+                    event: 'talk-transition',
+                    args: args,
+                    atom: atom
   end
 
   def slug_candidates

@@ -11,7 +11,7 @@ gem "daemons"
 gem 'delayed_job'
 gem 'delayed_job_active_record'
 
-gem 'sass-rails', '~> 5.0'
+gem 'sass-rails'
 gem 'coffee-rails', '~> 4.1.0'
 gem 'uglifier'#, '>= 1.0.3'
 
@@ -51,6 +51,7 @@ gem 'browser'
 gem 'fog'
 #gem 'fog-aws'
 #gem 'fog-local'
+gem 'excon', '~> 0.45.4'
 gem 'slick_rails'
 gem 'mailgun_rails'
 gem 'activemerchant'
