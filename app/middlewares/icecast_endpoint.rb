@@ -23,6 +23,9 @@ class IcecastEndpoint < Struct.new(:app, :opts)
     when '/icecast/disconnect'
       venue.disconnect!
 
+    when '/icecast/synced'
+      venue.synced!
+
     else
       # TODO log an error
       return [ 721, {}, ['721 - Known Unknowns', env['PATH_INFO']] ]

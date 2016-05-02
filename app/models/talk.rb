@@ -417,6 +417,21 @@ class Talk < ActiveRecord::Base
     Faye.publish_to channel, event: 'reconnect', stream_url: venue.stream_url
   end
 
+  def schedule_archiving!
+    Delayed::Job.enqueue(ArchiveJob.new(id: id), queue: 'audio')
+  end
+
+  def archive_from_dump!
+    # TODO start_processing!
+    # TODO venue.update_metadata!
+    # TODO files = venue.relevant_files(started_at, ended_at)
+    # TODO make tmp dir
+    # TODO files.each(&:download)
+    # TODO run chain
+    # TODO upload
+    # TODO archive!
+  end
+
   private
 
   def process_description
@@ -521,6 +536,11 @@ class Talk < ActiveRecord::Base
   def after_end
     # TODO oldschool, find a way to do it newschool
     LiveServerMessage.call public_channel, { event: 'EndTalk', origin: 'server' }
+
+    # to make the dump file of icecast appear on s3, we need to disconnect
+    # TODO remove the condition after flash is gone
+    venue.require_disconnect! if venue.can_require_disconnect?
+
     Delayed::Job.enqueue(Postprocess.new(id: id), queue: 'audio')
   end
 

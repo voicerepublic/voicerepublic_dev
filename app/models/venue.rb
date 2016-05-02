@@ -29,6 +29,7 @@ class Venue < ActiveRecord::Base
     state :select_device
     state :awaiting_stream, enter: :start_streaming
     state :connected, enter: :propagate_reconnect # aka. streaming
+    state :disconnect_required
     state :disconnected # aka. lost connection
 
     # issued by the venues controller
@@ -51,10 +52,15 @@ class Venue < ActiveRecord::Base
       transitions from: [:awaiting_stream, :disconnected], to: :connected
     end
     event :disconnect do
-      transitions from: :connected, to: :disconnected
+      transitions from: [:connected, :disconnect_required], to: :disconnected
     end
 
-    # issued by?
+    # issues by ended talks
+    event :require_disconnect, success: :restart_streaming do
+      transitions from: :connected, to: :disconnect_required
+    end
+
+    # issued by cron'ed rake task
     event :shutdown do
       transitions from: [:select_device, :awaiting_stream,
                          :connected, :disconnected],
@@ -62,7 +68,7 @@ class Venue < ActiveRecord::Base
                   guard: :shutdown?
     end
 
-    # for emergencies only, may leave running instances behind!
+    # issued from the rails console, for emergencies & testing only
     event :reset do
       transitions from: [:available, :provisioning, :select_device,
                          :awaiting_stream, :connected, :disconnected],
@@ -221,6 +227,44 @@ class Venue < ActiveRecord::Base
       Settings.fog.storage.aws_secret_access_key ] * ':'
   end
 
+  # called by icecast middleware
+  def synced!
+    # trigger archive of postlive talks on this venue
+    talks.postlive.each(&:schedule_archiving!)
+
+    # TODO also shutdown if venue is disused
+  end
+
+  # tricky shit
+  #
+  # returns an array of `[['key', 'timestamp']]` pairs
+  #
+  def relevant_files(started_at, ended_at, names=stored_files)
+    files = names.select { |name| name.include?('dump_') }
+    files = files.map { |name| name.match(/^dump_(\d+)/).to_a }
+    files = files.sort_by(&:last)
+
+    during = files.select { |file| file.last.to_i >= started_at }
+    during = during.select { |file| file.last.to_i <= ended_at }
+
+    before = files.select { |file| file.last.to_i < started_at }
+
+    [ before.last ] + during
+  end
+
+  # returns an array of filenames
+  #
+  def stored_files
+    recordings_storage.files.map do |file|
+      file.key.sub("#{slug}/", '')
+    end.reject(&:blank?)
+  end
+
+  def recordings_storage
+    @recordings_storage ||=
+      Storage.directories.get(recordings_bucket, prefix: slug)
+  end
+
   # --- state machine callbacks
 
   def in_provisioning_window?
@@ -252,6 +296,10 @@ class Venue < ActiveRecord::Base
 
   def start_streaming
     device.start_stream!
+  end
+
+  def restart_streaming
+    device.restart_stream!
   end
 
   def propagate_reconnect

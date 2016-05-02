@@ -44,6 +44,24 @@ RSpec.describe Venue, type: :model do
     end
   end
 
+  describe 'storage related' do
+    it 'provides a method to infer relevant files' do
+      talk = FactoryGirl.build(:venue)
+      names = [
+        "dump_#{2.days.ago.to_i}",
+        "dump_#{2.hours.ago.to_i}",
+        "dump_#{61.minutes.ago.to_i}",
+        "dump_#{60.minutes.ago.to_i}",
+        "dump_#{59.minutes.ago.to_i}",
+        "dump_#{1.minute.ago.to_i}"
+      ]
+      started_at = 60.minutes.ago.to_i
+      ended_at = 30.minutes.ago.to_i
+      result = talk.relevant_files(started_at, ended_at, names)
+      expect(result.map(&:first).sort).to eq(names[2,3])
+    end
+  end
+
   describe 'streaming related' do
     describe 'built' do
       before do

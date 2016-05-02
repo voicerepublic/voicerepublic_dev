@@ -50,6 +50,11 @@ class Device < ActiveRecord::Base
       transitions from: :streaming, to: :idle
     end
 
+    event :restart_stream do
+      transitions from: :streaming, to: :streaming,
+                  on_transition: :signal_restart_stream
+    end
+
     event :deregister do # remote
       transitions from: [:idle, :streaming], to: :offline
     end
@@ -89,6 +94,10 @@ class Device < ActiveRecord::Base
     [nil, :device, identifier] * '/'
   end
 
+  def opts
+    OpenStruct.new(options)
+  end
+
   # state machine callbacks
 
   def signal_start_stream
@@ -96,8 +105,9 @@ class Device < ActiveRecord::Base
     Rails.logger.info "Started Stream from device '#{name}' to '#{venue.stream_url}'"
   end
 
-  def opts
-    OpenStruct.new(options)
+  def signal_restart_stream
+    Faye.publish_to(channel, event: 'restart_stream')
+    Rails.logger.info "Restarted Stream from device '#{name}' to '#{venue.stream_url}'"
   end
 
 end
