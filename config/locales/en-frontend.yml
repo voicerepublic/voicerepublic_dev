@@ -1,6 +1,9 @@
 en:
   frontend:
     venues:
+      streaming_server: Streaming Server
+      audio_source: Audio Source
+      broadcast: Broadcast
       select: Select
       setup: Setup
       start: Start

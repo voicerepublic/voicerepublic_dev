@@ -178,16 +178,16 @@ class Venue < ActiveRecord::Base
       channel: channel,
       # TODO limit to the user/org's devices
       devices: Device.idle.map(&:attributes),
-      availability_countdown: availability_countdown
+      availability: availability
     }
   end
 
-  # Returns the remaining seconds until the provisioning window opens.
+  # Returns the time the provisioning window will open.
   #
-  def availability_countdown
+  def availability
     return false if talks.prelive.empty?
 
-    talks.prelive.ordered.first.starts_at - PROVISIONING_WINDOW.from_now
+    talks.prelive.ordered.first.starts_at.to_i - PROVISIONING_WINDOW
   end
 
   # This is used in userdata.
@@ -226,7 +226,7 @@ class Venue < ActiveRecord::Base
   def in_provisioning_window?
     return false if talks.prelive.empty?
 
-    availability_countdown <= 0
+    availability <= Time.now.to_i
   end
 
   def reset_ephemeral_details
