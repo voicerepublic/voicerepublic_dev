@@ -6,12 +6,8 @@
 # this redirect everything to a log
 exec > /tmp/part-001.log 2>&1
 
-BUCKET=<%= recordings_bucket %>
 STORAGE=<%= recordings_path %>
 PREFIX=<%= slug %>
-AWS_CREDENTIALS=<%= aws_credentials %>
-
-HOME=/root
 
 mkdir -p $STORAGE
 
@@ -19,7 +15,12 @@ if [ -f /sys/hypervisor/uuid ] && [ `head -c 3 /sys/hypervisor/uuid` == ec2 ]; t
 
   PUBLIC_IP=$(curl http://169.254.169.254/latest/meta-data/public-ipv4)
 
+  HOME=/root
+
   # mount the bucket
+  BUCKET=<%= recordings_bucket %>
+  AWS_CREDENTIALS=<%= aws_credentials %>
+
   echo $AWS_CREDENTIALS > /etc/passwd-s3fs
   chmod 600 /etc/passwd-s3fs
   /usr/local/bin/s3fs $BUCKET $STORAGE -o allow_other
@@ -31,7 +32,7 @@ fi
 mkdir -p $STORAGE/$PREFIX
 chmod 777 $STORAGE/$PREFIX
 
-ENV_LIST=/etc/env.list
+ENV_LIST=$HOME/env.list
 
 cat >$ENV_LIST <<EOF
 <%= env_list %>
