@@ -177,7 +177,7 @@ class Venue < ActiveRecord::Base
       now: Time.now.to_i,
       channel: channel,
       # TODO limit to the user/org's devices
-      devices: Device.idle.map(&:attributes),
+      devices: Device.all.map(&:attributes),
       availability: availability
     }
   end

@@ -629,3 +629,13 @@ Icecast Dev
     docker build -t branch14/icecast2 lib/icecast
 
     docker exec -it icecast bash
+
+
+Helpful
+-------
+
+    slug = ''
+
+    reload!; Venue.find(slug).reset!
+
+    reload!; Venue.find(slug).talks.prelive.first.make_it_start_soon! 91.minutes
