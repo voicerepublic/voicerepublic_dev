@@ -597,7 +597,7 @@ GEM
     tilt (2.0.2)
     timecop (0.8.0)
     tins (1.8.2)
-    trickery (0.0.7)
+    trickery (0.0.8)
       systemu
     trollop (2.1.2)
     tzinfo (1.2.2)
