@@ -1,7 +1,7 @@
 -# TODO the 3 lines of faye setup could move to cljs
 - content_for :javascripts do
-  %script{ src: '/javascripts/moment-with-locales.min.js' }
-  %script{ src: '/javascripts/faye-authentication.js' }
+  = javascript_include_tag 'faye-authentication'
+  -#%script{ src: '/javascripts/moment-with-locales.min.js' }
   %script{ src: Settings.faye.server + '/client.js' }
   :javascript
     fayeUrl = #{Settings.faye.server.to_json};
