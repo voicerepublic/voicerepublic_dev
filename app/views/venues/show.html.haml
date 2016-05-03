@@ -14,4 +14,10 @@
     translations = #{t('frontend.venues').to_json};
 
 
-#app Initializing...
+#app
+  .title-bar 
+    #working
+      = render partial: 'explore/loading'
+    %h1= t('.loading')
+
+    %p= t('.loading_msg')
