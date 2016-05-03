@@ -626,4 +626,6 @@ ClojureScript
 Icecast Dev
 -----------
 
+    docker build -t branch14/icecast2 lib/icecast
+
     docker exec -it icecast bash
