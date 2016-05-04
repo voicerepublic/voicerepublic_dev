@@ -19,6 +19,7 @@ module ApplicationHelper
   def render_footer?
     return false if controller_action == 'explore-index'
     return false if controller_action == 'users-edit'
+    return false if controller_action == 'venues-show'
     true
   end
 

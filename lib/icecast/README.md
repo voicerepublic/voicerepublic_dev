@@ -29,7 +29,7 @@ Setup development
 -----------------
 
 ```
-docker build -t branch14/icecast2 .
+docker build -t branch14/icecast2 lib/icecast
 ```
 
 
