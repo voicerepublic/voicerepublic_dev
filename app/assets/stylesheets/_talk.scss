@@ -3,6 +3,18 @@ body {
     height: auto;
 }
 
+.label {
+  background:$vr-purple;
+  &.live {
+    background: $vr-red;
+  }
+  &.processing {
+    background:$vr-yellow;
+    color: $talk-dark;
+  }
+}
+
+
     .talks svg {
         fill: currentColor;
         width: 16px;
@@ -339,6 +351,7 @@ button,
 }
 
 .talk-title {
+    padding-bottom:0;
     h1 {
         color: $vr-light-blue;
         font-size: rem-calc(36);
@@ -365,7 +378,8 @@ button,
             margin-bottom: 18px;
         }
     }
-    .lead {
+}
+    .teaser {
         font-size: rem-calc(16);
         line-height: rem-calc(24);
         font-weight: normal;
@@ -377,9 +391,6 @@ button,
             line-height: rem-calc(24);
         }
 
-        .alt &,.alt3 & {
-            margin-bottom: 48px;
-        }
         .inline-speaker {
             color: white;
             font-weight: bold;
@@ -390,7 +401,6 @@ button,
             }
         }
     }
-}
 
 #date-playcount {
     padding: 12px;

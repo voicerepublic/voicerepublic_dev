@@ -65,12 +65,11 @@
     -# Talk stuff
     -#publisher info
     .top-container
-      
       -# title
       .row.collapse.talk-title
         -# COUNTDOWN LABEL
         #mount-countdown
-          %p.label.state-msg= t('.initializing')
+          %p.label.processing= t('.initializing')
         %h1= @talk.title
       .row.collapse
         .medium-7.columns
@@ -86,7 +85,7 @@
                   %span.speaker-names= @talk.speakers
         .medium-5.columns
           .media-object.float-right
-            .media-object-section.pub-meta.text-right
+            .media-object-section.pub-meta.text-right.middle
               %p.meta-publisher
                 = link_to @talk.series.user.name, user_path(@talk.series.user)
                 -# TODO: add an icon per "publisher type" when we have them
@@ -292,9 +291,5 @@
 
   .small-6.columns
     = image_tag @talk.flyer.path, class: 'flyer'
-    %a.button.small.btn-hover-yellow.send-card
-      %span.icon-uniE909
-        = naked_icon 'airplane'
-        = t('.send_card')
   %button.close-button{"aria-label" => "Close modal", "data-close" => "", :type => "button"}
     %span{"aria-hidden" => "true"} ×
