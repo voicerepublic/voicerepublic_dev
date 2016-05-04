@@ -59,43 +59,57 @@
 
 -# Begin Left
 #main-column.clearfix
+  
   .left-side.medium-9.columns
+    
     -# Talk stuff
     -#publisher info
     .top-container
-      .row.collapse.pub-block
-        .meta-left.large-8.columns
-          .pub-avatar.float-left.img-circle
-            = link_to user_path(@talk.series.user) do
-              = render partial: "shared/avatar_image_velvet", locals: { user: @talk.series.user, size: 40 }
-          .pub-meta.left
-            %p.meta-publisher
-              = link_to @talk.series.user.name, user_path(@talk.series.user)
-              -# TODO: add an icon per "publisher type" when we have them
-                \/
-                %span.icon-uniE731
-            %p.meta-series
-              From the Series:
-              = link_to @talk.series do
-                = @talk.series.title
-        -# TODO: Eventually link each individual speaker to his/her page?
-        - unless @talk.speakers.blank?
-          .meta-right.large-4.columns
-            .pub-meta
-              %p.meta-speaker
-                = t('.sprecherin')
-                %span.speaker-names= @talk.speakers
-        %hr
-
-      -# COUNTDOWN LABEL
-      #mount-countdown Initializing...
-
+      
       -# title
       .row.collapse.talk-title
-        %h3= @talk.title
-        - unless @talk.teaser.blank?
-          %p.lead
-            = @talk.teaser
+        -# COUNTDOWN LABEL
+        #mount-countdown
+          %p.label.state-msg= t('.initializing')
+        %h1= @talk.title
+      .row.collapse
+        .medium-7.columns
+          - unless @talk.teaser.blank?
+            %p.lead.teaser
+              = @talk.teaser
+          - unless @talk.speakers.blank?
+            .meta-right.large-4.columns
+              .pub-meta
+                -# TODO: Eventually link each individual speaker to his/her page?
+                %p.meta-speaker
+                  = t('.sprecherin')
+                  %span.speaker-names= @talk.speakers
+        .medium-5.columns
+          .media-object.float-right
+            .media-object-section.pub-meta.text-right
+              %p.meta-publisher
+                = link_to @talk.series.user.name, user_path(@talk.series.user)
+                -# TODO: add an icon per "publisher type" when we have them
+              %p.meta-series
+                From the Series:
+                = link_to @talk.series do
+                  = @talk.series.title
+              %p.meta-info
+                %span
+                  = time_ago_in_words(@talk.starts_at)
+                  &#8226;
+                %span
+                  = human_count(@talk.play_count) + t('.plays')
+            .media-object-section
+              .img-circle
+                = link_to user_path(@talk.series.user) do
+                  = render partial: "shared/avatar_image_velvet", locals: { user: @talk.series.user, size: 60 }
+
+
+
+      
+
+     
 
       -# Player
       #player
@@ -119,13 +133,7 @@
             -#%span.icon-uniE8A2
 
 
-      -# date and play count
-      .row.collapse
-        #date-playcount.clearfix
-          %span.float-left
-            = time_ago_in_words(@talk.starts_at)
-          %span.float-right
-            = human_count(@talk.play_count) + t('.plays')
+
       -# Picture
       .row.collapse
         .talk-picture

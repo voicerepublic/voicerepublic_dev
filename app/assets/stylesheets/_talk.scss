@@ -101,14 +101,7 @@ button,
     }
 }
 
-.pub-block {
-    .alt & {
-        padding: 12px;
-        padding-bottom: 12px;
-        background: rgba($almost-black, 0.3);
-        margin-bottom: 24px;
-    }
-}
+
 
 .pub-meta {
     font-size: rem-calc(10);
@@ -144,7 +137,7 @@ button,
     .meta-info,
     .meta-series {
         color: rgba($info-color, 0.5);
-        margin-bottom: 24px;
+        margin-bottom: 4px;
         a {
             font-weight: bold;
             color: rgba($info-color, 0.5);
@@ -346,7 +339,7 @@ button,
 }
 
 .talk-title {
-    h3 {
+    h1 {
         color: $vr-light-blue;
         font-size: rem-calc(36);
         margin: 0;
@@ -365,6 +358,7 @@ button,
         hyphens: auto;
         -ms-word-break: break-all;
         word-break: break-word;
+        letter-spacing: 0;
         @include breakpoint(medium) {
             font-size: rem-calc(48);
             line-height: rem-calc(48);
