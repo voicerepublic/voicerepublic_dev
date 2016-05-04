@@ -58,7 +58,7 @@ $('.flash-msg').delay(3000).fadeOut(1000);
 
 $('#mobile-logo').on('click', function() {
     console.log('opening the mobile nav');
-    $('#mobile-nav').toggle();
+    $('#mobile-nav').toggleClass('hide');
 });
 
 $('.button-play-pause').on('click', function() {
@@ -215,4 +215,9 @@ $('#search-close').on('click', function() {
     });
 
 
+});
+
+
+$(document).ready(function(){
+    $('.top-bar').removeClass('transparent')
 });
