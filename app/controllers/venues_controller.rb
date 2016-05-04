@@ -24,6 +24,7 @@ class VenuesController < ApplicationController
   # Accepts and performs regular updates like setting...
   #
   #  * device_id
+  #  * device_name
   #
   # as well as optional information...
   #
@@ -50,11 +51,24 @@ class VenuesController < ApplicationController
     render status: 409, text: e.message
   end
 
+  def butt
+    send_data(@venue.butt_config,
+              filename: "butt-#{@venue.slug}.cfg",
+              type: 'text/plain')
+  end
+
+  def darkice
+    send_data(@venue.darkice_config,
+              filename: "darkice-#{@venue.slug}.cfg",
+              type: 'text/plain')
+  end
+
   private
 
   def venue_params
     params.required(:venue).permit(:event,
                                    :device_id,
+                                   :device_name,
                                    :emergency_phone_number,
                                    :street_address,
                                    :estimated_number_of_listeners)
