@@ -417,6 +417,7 @@ class Talk < ActiveRecord::Base
     end
   end
 
+  # TODO remove
   def atom
     {
       talk: attributes,
@@ -434,6 +435,18 @@ class Talk < ActiveRecord::Base
       },
       venue: venue.attributes,
       channel: channel
+    }
+  end
+
+  def snapshot
+    {
+      talk: attributes.merge(
+        channel: channel,
+        venue: {
+          stream_url: venue.stream_url
+        }
+      ),
+      now: Time.now.to_i
     }
   end
 
@@ -798,12 +811,17 @@ class Talk < ActiveRecord::Base
 
   def event_fired(*args)
     Emitter.talk_transition(self, args)
+  end
 
+  def event_succeeded(*args)
     return if Rails.env.test?
-    Faye.publish_to channel,
-                    event: 'talk-transition',
-                    args: args,
-                    atom: atom
+    venue.push_snapshot
+    push_snapshot
+  end
+
+  def push_snapshot
+    message = { event: 'snapshot', snapshot: snapshot }
+    Faye.publish_to channel, message
   end
 
   def slug_candidates

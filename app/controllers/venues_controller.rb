@@ -2,7 +2,7 @@ class VenuesController < ApplicationController
 
   ALLOWED_EVENTS = %w( become_available
                        start_provisioning
-                       device_selected )
+                       select_device )
 
   layout 'velvet'
 
@@ -36,10 +36,14 @@ class VenuesController < ApplicationController
   def update
     @venue.assign_attributes(venue_params)
 
-    method = :save
-    method = @venue.event+'!' if ALLOWED_EVENTS.include?(@venue.event)
+    # TODO move to model with `before_save :apply_event`
+    if ALLOWED_EVENTS.include?(@venue.event)
+      @venue.send(@venue.event)
+    else
+      logger.warn "Disallowed event: #{@venue.event}"
+    end
 
-    @venue.send(method)
+    @venue.save!
     head :ok
 
   rescue => e

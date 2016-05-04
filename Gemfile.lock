@@ -30,10 +30,10 @@ GIT
       rspec-core (>= 2, < 4, != 2.12.0)
 
 GIT
-  remote: git://github.com/troessner/transitions.git
-  revision: 951d266f0dc5bd4c1a7cda265235ff9cf6bb164e
+  remote: git://github.com/voicerepublic/transitions.git
+  revision: 25e57d905b7f21463d9f48a24a22bd9d6ebab283
   specs:
-    transitions (1.0.0)
+    transitions (1.1.1)
 
 GIT
   remote: git@github.com:munen/fidelity.git

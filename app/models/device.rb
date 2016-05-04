@@ -43,7 +43,7 @@ class Device < ActiveRecord::Base
     end
 
     event :start_stream do # local
-      transitions from: :idle, to: :streaming
+      transitions from: [:idle, :streaming], to: :streaming
     end
 
     event :stop_stream do # local

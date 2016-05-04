@@ -26,7 +26,7 @@ class Venue < ActiveRecord::Base
     state :offline, enter: :reset_ephemeral_details # aka. unavailable
     state :available
     state :provisioning, enter: :provision, exit: :complete_details
-    state :select_device
+    state :device_required
     state :awaiting_stream, enter: :start_streaming
     state :connected, enter: :propagate_reconnect # aka. streaming
     state :disconnected # aka. lost connection
@@ -38,14 +38,16 @@ class Venue < ActiveRecord::Base
     event :start_provisioning, timestamp: :started_provisioning_at do
       transitions from: :available, to: :provisioning
     end
-    event :device_selected do
-      transitions from: :select_device, to: :awaiting_stream
+    event :select_device do
+      transitions from: [:device_required, :awaiting_stream,
+                         :connected, :disconnected],
+                  to: :awaiting_stream
     end
 
     # issued by the icecast endpoint middleware
     event :complete_provisioning, timestamp: :completed_provisioning_at do
       transitions from: :provisioning, to: :awaiting_stream, guard: :device_present?
-      transitions from: :provisioning, to: :select_device
+      transitions from: :provisioning, to: :device_required
     end
     event :connect do
       transitions from: [:awaiting_stream, :disconnected], to: :connected
@@ -54,9 +56,9 @@ class Venue < ActiveRecord::Base
       transitions from: :connected, to: :disconnected
     end
 
-    # issued by?
+    # issued by ?
     event :shutdown do
-      transitions from: [:select_device, :awaiting_stream,
+      transitions from: [:device_required, :awaiting_stream,
                          :connected, :disconnected],
                   to: :offline, on_transition: :unprovision,
                   guard: :shutdown?
@@ -64,7 +66,7 @@ class Venue < ActiveRecord::Base
 
     # for emergencies only, may leave running instances behind!
     event :reset do
-      transitions from: [:available, :provisioning, :select_device,
+      transitions from: [:available, :provisioning, :device_required,
                          :awaiting_stream, :connected, :disconnected],
                   to: :offline, on_transition: :unprovision
     end
@@ -167,19 +169,35 @@ class Venue < ActiveRecord::Base
     "/down/venue/#{id}"
   end
 
-  # TODO rename to context or snapshot
   # current single page app state
-  def atom
+  def snapshot
     {
-      venue: attributes,
-      user: user.attributes,
-      talks: talks.inject({}) { |r, t| r.merge t.id => t.attributes },
-      now: Time.now.to_i,
-      channel: channel,
-      # TODO limit to the user/org's devices
+      venue: attributes.merge(
+        channel: channel,
+        talks: talks_as_hash,
+        user: user.attributes,
+        availability: availability
+      ),
       devices: Device.all.map(&:attributes),
-      availability: availability
+      now: Time.now.to_i
     }
+  end
+
+  # private
+  def talks_as_hash
+    talks.inject({}) do |r, talk|
+      attrs = talk.attributes
+      attrs.delete('storage')
+      attrs.delete('listeners')
+      attrs.delete('session')
+      r.merge talk.id => attrs
+    end
+  end
+
+  def push_snapshot(overrides={})
+    default = { event: 'snapshot', snapshot: snapshot }
+    message = default.deep_merge(overrides)
+    Faye.publish_to channel, message
   end
 
   # Returns the time the provisioning window will open.
@@ -324,11 +342,11 @@ class Venue < ActiveRecord::Base
 
   def event_fired(*args)
     Emitter.venue_transition(self, args)
+  end
 
-    Faye.publish_to channel,
-                    event: 'venue-transition',
-                    args: args,
-                    atom: atom
+  def event_succeeded(*args)
+    return if Rails.env.test?
+    push_snapshot
   end
 
   def slug_candidates
