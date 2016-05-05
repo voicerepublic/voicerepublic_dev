@@ -257,7 +257,7 @@ table.lineup-list {
         margin: 0;
 
         // width: 100%;
-   
+
     }
 
     tbody {
@@ -426,7 +426,7 @@ select {
             // max-height: 46px;
             // font-size: .8rem;
             // padding-top: 16px;
-       
+
         }
 
         .label {
@@ -467,6 +467,12 @@ select {
                 border-bottom-left-radius: 0;
             }
         }
+
+        /* NOTE phil: I couldn't read it */
+        option {
+            background-color: $talk-dark;
+        }
+
     }
 
     .server-panel .actionbar .button {
@@ -476,7 +482,7 @@ select {
 
     .talk-panel .actionbar .button {
         // border-bottom-right-radius: 4px;
-   
+
     }
 
     .talk-start-button {
@@ -530,7 +536,7 @@ table.venue-control-panel {
         border-bottom: 2px solid $vr-light-blue;
 
         // border-right: 1px solid black;
-   
+
     }
 
     td.blank, th.blank {
@@ -812,7 +818,7 @@ table.venue-control-panel {
         margin: 0;
 
         // color: white;
-   
+
     }
 
     &.alert {

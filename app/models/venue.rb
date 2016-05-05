@@ -270,6 +270,8 @@ class Venue < ActiveRecord::Base
   end
 
   def start_streaming
+    return unless device.present?
+
     device.start_stream!
   end
 
@@ -278,7 +280,7 @@ class Venue < ActiveRecord::Base
   end
 
   def device_present?
-    device.present?
+    device.present? || device_name.present?
   end
 
   # called on event shutdown

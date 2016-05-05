@@ -83,7 +83,12 @@ Rails.application.routes.draw do
   # TODO remove
   # get '/venues/:id', to: redirect(->(params, req) { '/series/'+params[:id] })
 
-  resources :venues, only: [:index, :show, :update]
+  resources :venues, only: [:index, :show, :update] do
+    member do
+      get 'butt'
+      get 'darkice'
+    end
+  end
   resources :devices, only: [:index, :edit, :update]
 
   resources :reminders, only: [:show, :destroy]
