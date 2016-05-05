@@ -173,6 +173,7 @@ class Venue < ActiveRecord::Base
   def snapshot
     {
       venue: attributes.merge(
+        provisioning_time: PROVISIONING_TIME,
         channel: channel,
         talks: talks_as_hash,
         user: user.attributes,
