@@ -2,6 +2,9 @@
 
 .venues-show {
     background: $talk-dark;
+    .button, p {
+        margin:0;
+    }
 }
 
 #main {
