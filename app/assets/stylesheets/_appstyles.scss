@@ -1,4 +1,10 @@
-/* all app scss styles here */
+.venues .top-bar {
+    transition: opacity .3s ease;
+    box-shadow: 0 1px 10px rgba(0,0,0,.2)
+;}
+.transparent {
+    opacity: 0;
+}
 
 // Overwrite the float-right behavior of the last element in grid:
 .column:last-child:not(:first-child), .columns:last-child:not(:first-child) {

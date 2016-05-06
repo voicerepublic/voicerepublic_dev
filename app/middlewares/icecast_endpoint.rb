@@ -12,11 +12,12 @@ class IcecastEndpoint < Struct.new(:app, :opts)
     venue = Venue.find_by(client_token: client_token)
     return [ 404, {}, [] ] unless venue.present?
 
-    #pp env
+    # pp env
 
     case env['PATH_INFO']
     when '/icecast/complete'
-      venue.public_ip_address = payload['public_ip_address']
+      # raise "wtf" if env['REMOTE_ADDR'] != payload['public_ip_address']
+      venue.public_ip_address = Settings.icecast.url.host || env['REMOTE_ADDR']
       venue.complete_provisioning!
 
     when '/icecast/connect'
@@ -26,17 +27,16 @@ class IcecastEndpoint < Struct.new(:app, :opts)
       venue.disconnect!
 
     else
-      Rails.logger.error(([e.message]+e.backtrace) * "\n")
       return [ 721, {}, ['721 - Known Unknowns', env['PATH_INFO']] ]
     end
 
     Rails.logger.info '200 OK'
     [ 200, {}, [] ]
 
-  # for now remove the catch all errors here
-  #rescue => e
-  #  # TODO log an error
-  #  [ 722, {}, ['722 - Unknown Unknowns', e.message] ]
+    #for now remove the catch all errors here
+    # rescue => e
+    # Rails.logger.error(([e.message]+e.backtrace) * "\n")
+    #  [ 722, {}, ['722 - Unknown Unknowns', e.message] ]
   end
 
 end

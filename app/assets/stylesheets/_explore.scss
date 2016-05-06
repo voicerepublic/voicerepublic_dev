@@ -1,13 +1,4 @@
-@keyframes dash {
-    50% {
-        stroke-dasharray: 20,19;
-        stroke: #ffed00;
-        transform: scaleX(0.9) scaleY(0.9);
-    }
-    100% {
-        stroke-dashoffset: -234;
-    }
-}
+
 
 
 #results {
@@ -276,27 +267,3 @@
     }
 }
 
-#spy, #working {
-    // @extend .row;
-  //@extend .clearfix;
-    margin-top: 12px;
-    height: 56px;
-    & svg {
-        display: block;
-        height: 36px;
-        margin: 0 auto;
-    }
-    path {
-        stroke-dasharray: 36,3;
-        stroke-dashoffset: 0;
-        animation: dash 3s linear infinite;
-        transform-origin: center center;
-    }
-}
-
-#working {
-    margin: 0;
-    * {
-        display: inline-block;
-    }
-}
