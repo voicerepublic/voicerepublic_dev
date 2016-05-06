@@ -12,6 +12,8 @@ class IcecastEndpoint < Struct.new(:app, :opts)
     venue = Venue.find_by(client_token: client_token)
     return [ 404, {}, [] ] unless venue.present?
 
+    #pp env
+
     case env['PATH_INFO']
     when '/icecast/complete'
       venue.public_ip_address = payload['public_ip_address']
@@ -24,10 +26,11 @@ class IcecastEndpoint < Struct.new(:app, :opts)
       venue.disconnect!
 
     else
-      # TODO log an error
+      Rails.logger.error(([e.message]+e.backtrace) * "\n")
       return [ 721, {}, ['721 - Known Unknowns', env['PATH_INFO']] ]
     end
 
+    Rails.logger.info '200 OK'
     [ 200, {}, [] ]
 
   # for now remove the catch all errors here
