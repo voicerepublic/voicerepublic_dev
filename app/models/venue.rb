@@ -2,7 +2,7 @@ class Venue < ActiveRecord::Base
 
   PROVISIONING_WINDOW = 90.minutes
   # PROVISIONING_WINDOW = 12.hours
-  PROVISIONING_TIME = 210.seconds
+  PROVISIONING_DURATION = 4.minutes
 
   extend FriendlyId
   friendly_id :slug_candidates, use: [:slugged, :finders]
@@ -173,7 +173,7 @@ class Venue < ActiveRecord::Base
   def snapshot
     {
       venue: attributes.merge(
-        provisioning_time: PROVISIONING_TIME,
+        provisioning_duration: PROVISIONING_DURATION,
         channel: channel,
         talks: talks_as_hash,
         user: user.attributes,
