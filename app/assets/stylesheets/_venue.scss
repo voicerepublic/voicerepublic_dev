@@ -750,6 +750,7 @@ table.venue-control-panel {
     animation: flickerAnimation 1.5s infinite;
 }
 
+/* NOTE phil: removed to make it work over reloads
 .server-progress .progress-meter {
     -webkit-animation: move-progress-bar 240s infinite;
     -moz-animation: move-progress-bar 240s infinite;
@@ -796,7 +797,7 @@ table.venue-control-panel {
         width: 100%;
     }
 }
-
+*/
 .callout {
     border: 0;
     position: absolute;
