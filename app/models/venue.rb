@@ -12,10 +12,11 @@ class Venue < ActiveRecord::Base
   has_many :talks
 
   validates :name, :user_id, presence: true
-
   validates :client_token, uniqueness: true, allow_blank: true
 
   serialize :options
+
+  after_save :propagate_changes
 
   attr_accessor :event
 
@@ -186,7 +187,7 @@ class Venue < ActiveRecord::Base
 
   # private
   def talks_as_hash
-    talks.inject({}) do |r, talk|
+    talks.reload.inject({}) do |r, talk|
       attrs = talk.attributes
       attrs.delete('storage')
       attrs.delete('listeners')
@@ -195,9 +196,13 @@ class Venue < ActiveRecord::Base
     end
   end
 
-  def push_snapshot(overrides={})
-    default = { event: 'snapshot', snapshot: snapshot }
-    message = default.deep_merge(overrides)
+  def propagate_changes
+    return if Rails.env.test?
+    push_snapshot
+  end
+
+  def push_snapshot
+    message = { event: 'snapshot', snapshot: snapshot }
     Faye.publish_to channel, message
   end
 
@@ -345,11 +350,6 @@ class Venue < ActiveRecord::Base
 
   def event_fired(*args)
     Emitter.venue_transition(self, args)
-  end
-
-  def event_succeeded(*args)
-    return if Rails.env.test?
-    push_snapshot
   end
 
   def slug_candidates

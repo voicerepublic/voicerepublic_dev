@@ -146,6 +146,7 @@ class Talk < ActiveRecord::Base
   after_save :generate_flyer!, if: :generate_flyer?
   after_save :process_slides!, if: :process_slides?
   after_save :schedule_user_override, if: :schedule_user_override?
+  after_save :propagate_changes
 
   validates_each :starts_at_date, :starts_at_time do |record, attr, value|
     # guard against submissions where no upload occured or no starts_at
@@ -813,10 +814,12 @@ class Talk < ActiveRecord::Base
     Emitter.talk_transition(self, args)
   end
 
-  def event_succeeded(*args)
+  def propagate_changes
     return if Rails.env.test?
-    venue.push_snapshot
     push_snapshot
+
+    # bubble up
+    venue.push_snapshot
   end
 
   def push_snapshot
