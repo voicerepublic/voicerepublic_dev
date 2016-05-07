@@ -639,3 +639,9 @@ Helpful
     reload!; Venue.find(slug).reset!
 
     reload!; Venue.find(slug).talks.prelive.first.make_it_start_soon! 91.minutes
+
+
+
+    reload!; Venue.find(124).reset!
+
+    reload!; Talk.find(4147).make_it_start_soon! 91.minutes; nil

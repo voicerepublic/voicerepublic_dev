@@ -176,7 +176,7 @@ class Venue < ActiveRecord::Base
       venue: attributes.merge(
         provisioning_duration: PROVISIONING_DURATION,
         channel: channel,
-        talks: talks_as_hash,
+        talks: talks_as_array,
         user: user.attributes,
         availability: availability
       ),
@@ -186,13 +186,13 @@ class Venue < ActiveRecord::Base
   end
 
   # private
-  def talks_as_hash
-    talks.reload.inject({}) do |r, talk|
+  def talks_as_array
+    talks.map do |talk|
       attrs = talk.attributes
       attrs.delete('storage')
       attrs.delete('listeners')
       attrs.delete('session')
-      r.merge talk.id => attrs
+      attrs
     end
   end
 
