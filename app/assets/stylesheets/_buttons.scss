@@ -10,7 +10,11 @@ button, .button {
     background-color: $vr-blue;
     &.secondary {
         background-color: $vr-light-blue;
+        &:hover {
+            background-color:$vr-blue;
+        }
     }
+
     &.hollow {
         border-width: 2px;
         border-color: $vr-light-blue;
@@ -24,6 +28,10 @@ button, .button {
             border-color: $vr-blue;
             color: $vr-blue;
         }
+        &.btn-light-blue {
+            border-color: $vr-light-blue;
+            color: $vr-light-blue;
+        }
         &.btn-yellow {
           border-color:$vr-yellow;
           color: $vr-yellow;
@@ -32,13 +40,17 @@ button, .button {
             border-color: $charcoal;
             color: $charcoal;
         }
+        &.btn-red {
+            border-color:$vr-red;
+            color:$vr-red;
+        }
         
     }
     &.btn-hover-yellow {
             &:hover {
                 border-color: $vr-yellow;
                 background: $vr-yellow;
-                color: white;
+                color: $talk-dark;
             }
         }
         &.btn-hover-red {
