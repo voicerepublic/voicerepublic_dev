@@ -1,5 +1,12 @@
 en:
   frontend:
+    talks:
+      state:
+        live: Live
+        postlive: Queued for processing...
+        processing: Processing...
+        suspended: This talk is currently not available.
+        pending: Processing...
     venues:
       streaming_server: Streaming Server
       audio_source: Audio Source
