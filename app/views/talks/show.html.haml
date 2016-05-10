@@ -18,7 +18,7 @@
 
     insider = #{!!current_user.try(:insider?)};
     console.off = #{!!(Settings.disable_js_debugging && !current_user.try(:insider?))};
-    initialState = #{@talk.atom.to_json};
+    initialSnapshot = #{@talk.snapshot.to_json};
     translations = #{t('frontend.talks').to_json};
 
     playMedia = function(media) {
@@ -56,6 +56,11 @@
     });
 
     player = $("#player");
+
+
+#app
+
+#mount-audio
 
 -# Begin Left
 #main-column.clearfix

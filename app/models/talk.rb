@@ -418,37 +418,30 @@ class Talk < ActiveRecord::Base
     end
   end
 
-  # TODO remove
-  def atom
-    {
-      talk: attributes,
-      # user: user.attributes,
-      now: Time.now.to_i,
-      # media_links: media_links,
-      # slides_url: slides_url,
-      # lined_up_talk: lined_up,
-      # featured_talk: featured_talk.try(:attributes),
-      # related_talk: related_talk.try(:attributes),
-      # related_talks: related_talks.map(&:attributes)
-      stream: {
-        mp3: 'http://listen.radionomy.com/abc-jazz'
-        #mp3: venue.stream_url
-      },
-      venue: venue.attributes,
-      channel: channel
-    }
-  end
-
   def snapshot
     {
       talk: attributes.merge(
+        image_url: image.url,
         channel: channel,
         venue: {
+          user: venue_user_attributes,
           stream_url: venue.stream_url
-        }
+        },
+        series: series.attributes.merge(
+          url: series.self_url
+        ),
+        messages: messages.map(&:attributes)
       ),
       now: Time.now.to_i
     }
+  end
+
+  def venue_user_attributes
+    venue.user.attributes.tap do |attrs|
+      attrs[:image_url] = venue.user.avatar.url
+      attrs[:name] = venue.user.name
+      attrs[:url] = venue.user.self_url
+    end
   end
 
   def reconnect
