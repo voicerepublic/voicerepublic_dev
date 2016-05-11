@@ -51,19 +51,27 @@ class VenuesController < ApplicationController
     render status: 409, text: e.message
   end
 
+
   def butt
-    send_data(@venue.butt_config,
-              filename: "butt-#{@venue.slug}.cfg",
-              type: 'text/plain')
+    send_config 'butt'
   end
 
   def darkice
-    send_data(@venue.darkice_config,
-              filename: "darkice-#{@venue.slug}.cfg",
-              type: 'text/plain')
+    send_config 'darkice'
   end
 
   private
+
+  def send_config(client, extension=nil)
+    send_data(@venue.send("#{client}_config"),
+              filename: config_name(client, extension),
+              type: 'text/plain')
+  end
+
+  def config_name(prefix, extension=nil)
+    ([prefix, Time.now.strftime('%Y%m%d-%H%M'), @venue.slug] * '-') +
+      extension || '.cfg'
+  end
 
   def venue_params
     params.required(:venue).permit(:event,

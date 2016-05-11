@@ -54,7 +54,7 @@ class Talk < ActiveRecord::Base
     state :created # initial
     state :pending
     state :prelive
-    state :live, enter: :reconnect
+    state :live
     state :postlive
     state :processing
     state :archived
@@ -447,10 +447,6 @@ class Talk < ActiveRecord::Base
       attrs[:name] = venue.user.name
       attrs[:url] = venue.user.self_url
     end
-  end
-
-  def reconnect
-    Faye.publish_to channel, event: 'reconnect', stream_url: venue.stream_url
   end
 
   private
