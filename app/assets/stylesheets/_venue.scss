@@ -7,21 +7,45 @@
     }
     .button svg {
         fill: currentColor;
-        width: 16px;
-        height: 16px;
+        width: 12px;
+        height: 12px;
         margin-right: 12px;
     }
 
 }
+#modals {
+    height: 0;
+}
 
     #instructions {
-        display: block;
+        max-width: 26em;
+        // display: block;
         background:$vr-purple;
         padding: 24px;
         box-shadow:0 1px 10px rgba(0,0,0,.3);
+        color: white;
         h4 {
             color: white;
+            font-size: rem-calc(18);
+            text-transform: uppercase;
+            letter-spacing: rem-calc(1);
         }
+        code {
+            background-color: #eee;
+            padding:12px;
+            margin:0 0 12px 0;
+            display: inline-block;
+            color: $vr-purple;
+        }
+        p.lead {
+            font-size: rem-calc(14);
+            font-weight: 300;
+            color: white;
+            margin-bottom: 12px;
+        }
+
+
+
         &:before {
             content: "";
             background:rgba(0,0,0,.5);
@@ -148,6 +172,10 @@ nav.top-bar {
 #venue-header, #start-header {
     background: $talk-dark;
     padding: 24px 12px 36px 12px;
+    text-align: center;
+    @include breakpoint(medium){
+        text-align:left;
+    }
 
     // border-bottom: 1px solid #;
 
@@ -155,6 +183,14 @@ nav.top-bar {
         font-weight: 500;
         margin: 0;
         color: $vr-light-blue;
+        line-height: 1;
+        margin-bottom: 12px;
+        letter-spacing: .1em;
+        font-size: rem-calc(28);
+
+        @include breakpoint(medium){
+            font-size: rem-calc(36);
+        }
     }
 
     p.countdown-text {
@@ -170,9 +206,6 @@ nav.top-bar {
 }
 
 #venue-header {
-    h1 {
-        font-size: rem-calc(36);
-    }
 
     .talk-title {
         color: $vr-beige;

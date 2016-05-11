@@ -19,6 +19,10 @@ button, .button {
         border-width: 2px;
         border-color: $vr-light-blue;
         color: $vr-light-blue;
+        &.btn-white {
+            border-color:white;
+            color: white;
+        }
         &:hover {
             color: white;
             background: $vr-blue;

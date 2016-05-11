@@ -684,7 +684,7 @@ button,
             
             -webkit-line-clamp: auto;
             -webkit-box-orient: vertical;
-            overflow: auto;
+            // overflow: auto;
             text-overflow: ellipsis;
             margin-bottom: 0;
             transition: text-decoration .2s ease;
