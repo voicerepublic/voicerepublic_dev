@@ -466,11 +466,16 @@ select {
         padding: 0;
         color: $vr-beige;
         background: rgba(black, 0.1);
-        height: 46px;
-        max-height: 46px;
+        height: 84px;
+        max-height: 84px;
         font-size: .8rem;
         .holder {
-            padding: 12px;
+            padding: 0;
+        }
+        .status-bar {
+            height: 36px;
+            background: rgba(black,.1);
+            padding:8px;
         }
         a.button {
             // // width: 100%;
@@ -527,7 +532,9 @@ select {
    
     }
     .talk-start-button {
-        margin-top: -3px;
+        height: 48px;
+        padding-top:14px;
+        border-bottom-right-radius:4px;
     }
     .talk-stop-button {
         position: absolute;
@@ -587,36 +594,38 @@ table.venue-control-panel {
 
 .soundbars {
     position: relative;
-    height: 44px;
-    margin: 24px 0 0 0;
+    height: 36px;
+    margin: 0;
     float: none;
-    @include breakpoint(medium) {
-        margin: 0;
-        float: right;
-        margin-right: 12px;
-    }
+    width: 100%;
+    // @include breakpoint(medium) {
+    //     margin: 0;
+    //     float: right;
+    //     margin-right: 12px;
+    // }
 
     // margin-right: 60px;
 }
 
 #bars {
     display: inline-block;
+    width: 100%;
+    height: 36px;
 }
 
 .bar-holder {
-    width: 8px;
-    height: 28px;
-    background: rgba(black, 0.1);
+    width: 6.25%;
+    height: 36px;
+    background: none;
     position: relative;
-    float: right;
-    margin-right: 4px;
-    @include breakpoint(medium) {
-        height: 44px;
-    }
+    float: left;
+    margin-right: 0;
+ 
+
 }
 
 .bar {
-    background: $oil;
+    background: $success-color;
     bottom: 0;
     height: 0px;
     position: absolute;
