@@ -17,10 +17,9 @@
 -#%audio#dev-audio{autoplay: true}
 -#  %source{src: 'http://listen.radionomy.com/abc-jazz'}
 
-#app
-  .title-bar
-    #working
-      = render partial: 'explore/loading'
-    %h1= t('.loading')
+#modals
 
-    %p= t('.loading_msg')
+#app
+  .loading-message
+    = render partial: 'explore/loading'
+    %h1= t('.loading')
