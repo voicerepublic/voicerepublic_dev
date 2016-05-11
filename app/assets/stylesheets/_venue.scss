@@ -475,6 +475,7 @@ select {
         .status-bar {
             height: 36px;
             background: rgba(black,.1);
+            padding:8px;
         }
         a.button {
             // // width: 100%;
@@ -531,7 +532,9 @@ select {
    
     }
     .talk-start-button {
-        margin-top: -3px;
+        height: 48px;
+        padding-top:14px;
+        border-bottom-right-radius:4px;
     }
     .talk-stop-button {
         position: absolute;
@@ -594,6 +597,7 @@ table.venue-control-panel {
     height: 36px;
     margin: 0;
     float: none;
+    width: 100%;
     // @include breakpoint(medium) {
     //     margin: 0;
     //     float: right;
@@ -605,20 +609,23 @@ table.venue-control-panel {
 
 #bars {
     display: inline-block;
+    width: 100%;
+    height: 36px;
 }
 
 .bar-holder {
-    width: 8%;
+    width: 6.25%;
     height: 36px;
-    background: rgba(black, 0.1);
+    background: none;
     position: relative;
-    float: right;
-    margin-right: 2%;
+    float: left;
+    margin-right: 0;
+ 
 
 }
 
 .bar {
-    background: $oil;
+    background: $success-color;
     bottom: 0;
     height: 0px;
     position: absolute;
