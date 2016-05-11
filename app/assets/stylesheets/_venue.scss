@@ -1,7 +1,15 @@
 //venue page
-#page div {
-    padding: 0 24px;
-}
+
+// debug:
+// * *:hover { border:2px solid #89A81E }                   /* Solid Green */
+// * * *:hover { border:2px solid #F34607 }                 /* Solid Orange */
+// * * * *:hover { border:2px solid #5984C3 }               /* Solid Blue */
+// * * * * *:hover { border:2px solid #CD1821 }             /* Solid Red */
+// * * * * * *:hover { border:2px dotted #89A81E }          /* Dotted Green */
+// * * * * * * *:hover { border:2px dotted #F34607 }        /* Dotted Orange */
+// * * * * * * * *:hover { border:2px dotted #5984C3 }      /* Dotted Blue */
+// * * * * * * * * *:hover { border:2px dotted #CD1821 }    /* Dotted Red */
+
 
 .venues-show {
     background: $talk-dark;
@@ -14,6 +22,20 @@
         height: 12px;
         margin-right: 12px;
     }
+    .loading-message {
+        svg {
+            margin-bottom: 24px;
+        }
+    h1 {
+        font-size: rem-calc(18);
+        text-transform: uppercase;
+        text-align: center;
+    }
+}
+}
+
+#venue-header, .control-panels {
+    padding: 0 12px;
 }
 
 #modals {
@@ -166,7 +188,7 @@ nav.top-bar {
 }
 
 #venue-header, #start-header {
-    background: $talk-dark;
+    // background: $talk-dark;
     padding: 24px 12px 36px 12px;
     text-align: center;
     @include breakpoint(medium) {
@@ -404,8 +426,14 @@ select {
             border-right: 3px solid $talk-dark;
             margin: 0;
         padding: 0;
+        &:first-child {
+                  border-top-left-radius: 4px;
+            border-bottom-left-radius: 4px;
+        }
         &:last-child {
             border-right: none;
+            border-top-right-radius: 4px;
+            border-bottom-right-radius: 4px;
         }
         }
         
@@ -590,7 +618,7 @@ table.venue-control-panel {
 .bar {
     background: $oil;
     bottom: 0;
-    height: 1px;
+    height: 0px;
     position: absolute;
     width: 100%;
     .signal & {

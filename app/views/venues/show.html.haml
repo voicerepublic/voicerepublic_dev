@@ -16,9 +16,6 @@
 
 #modals
 #app
-  .title-bar 
-    #working
-      = render partial: 'explore/loading'
+  .loading-message 
+    = render partial: 'explore/loading'
     %h1= t('.loading')
-
-    %p= t('.loading_msg')

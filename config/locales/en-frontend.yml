@@ -1,4 +1,7 @@
 en:
+  venues: 
+    show: 
+      loading: loading venue
   frontend:
     talks:
       state:
