@@ -2,8 +2,37 @@
 
 .venues-show {
     background: $talk-dark;
+    .button, p {
+        margin:0;
+    }
+    .button svg {
+        fill: currentColor;
+        width: 16px;
+        height: 16px;
+        margin-right: 12px;
+    }
+
 }
 
+    #instructions {
+        display: block;
+        background:$vr-purple;
+        padding: 24px;
+        box-shadow:0 1px 10px rgba(0,0,0,.3);
+        h4 {
+            color: white;
+        }
+        &:before {
+            content: "";
+            background:rgba(0,0,0,.5);
+            position:fixed;
+            top:0;
+            bottom:0;
+            left:0;
+            right:0;
+            z-index: -1;
+        }
+    }
 #main {
     padding: 24px 0 0 0;
 }
