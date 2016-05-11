@@ -466,11 +466,15 @@ select {
         padding: 0;
         color: $vr-beige;
         background: rgba(black, 0.1);
-        height: 46px;
-        max-height: 46px;
+        height: 84px;
+        max-height: 84px;
         font-size: .8rem;
         .holder {
-            padding: 12px;
+            padding: 0;
+        }
+        .status-bar {
+            height: 36px;
+            background: rgba(black,.1);
         }
         a.button {
             // // width: 100%;
@@ -587,14 +591,14 @@ table.venue-control-panel {
 
 .soundbars {
     position: relative;
-    height: 44px;
-    margin: 24px 0 0 0;
+    height: 36px;
+    margin: 0;
     float: none;
-    @include breakpoint(medium) {
-        margin: 0;
-        float: right;
-        margin-right: 12px;
-    }
+    // @include breakpoint(medium) {
+    //     margin: 0;
+    //     float: right;
+    //     margin-right: 12px;
+    // }
 
     // margin-right: 60px;
 }
@@ -604,15 +608,13 @@ table.venue-control-panel {
 }
 
 .bar-holder {
-    width: 8px;
-    height: 28px;
+    width: 8%;
+    height: 36px;
     background: rgba(black, 0.1);
     position: relative;
     float: right;
-    margin-right: 4px;
-    @include breakpoint(medium) {
-        height: 44px;
-    }
+    margin-right: 2%;
+
 }
 
 .bar {
