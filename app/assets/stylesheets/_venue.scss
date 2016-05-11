@@ -1,9 +1,12 @@
 //venue page
+#page div {
+    padding: 0 24px;
+}
 
 .venues-show {
     background: $talk-dark;
     .button, p {
-        margin:0;
+        margin: 0;
     }
     .button svg {
         fill: currentColor;
@@ -11,52 +14,50 @@
         height: 12px;
         margin-right: 12px;
     }
-
 }
+
 #modals {
     height: 0;
 }
 
-    #instructions {
-        max-width: 26em;
-        // display: block;
-        background:$vr-purple;
-        padding: 24px;
-        box-shadow:0 1px 10px rgba(0,0,0,.3);
+#instructions {
+    max-width: 26em;
+    // display: block;
+    background: $vr-purple;
+    padding: 24px;
+    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.3);
+    color: white;
+    h4 {
         color: white;
-        h4 {
-            color: white;
-            font-size: rem-calc(18);
-            text-transform: uppercase;
-            letter-spacing: rem-calc(1);
-        }
-        code {
-            background-color: #eee;
-            padding:12px;
-            margin:0 0 12px 0;
-            display: inline-block;
-            color: $vr-purple;
-        }
-        p.lead {
-            font-size: rem-calc(14);
-            font-weight: 300;
-            color: white;
-            margin-bottom: 12px;
-        }
-
-
-
-        &:before {
-            content: "";
-            background:rgba(0,0,0,.5);
-            position:fixed;
-            top:0;
-            bottom:0;
-            left:0;
-            right:0;
-            z-index: -1;
-        }
+        font-size: rem-calc(18);
+        text-transform: uppercase;
+        letter-spacing: rem-calc(1);
     }
+    code {
+        background-color: #eee;
+        padding: 12px;
+        margin: 0 0 12px 0;
+        display: inline-block;
+        color: $vr-purple;
+    }
+    p.lead {
+        font-size: rem-calc(14);
+        font-weight: 300;
+        color: white;
+        margin-bottom: 12px;
+    }
+    &:before {
+        content: "";
+        background: rgba(0, 0, 0, 0.5);
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: -1;
+    }
+}
+
 #main {
     padding: 24px 0 0 0;
 }
@@ -78,7 +79,6 @@ nav.top-bar {
     color: white;
     padding: 6px;
     font-size: rem-calc(12);
-
     a {
         margin-left: 12px;
     }
@@ -113,7 +113,6 @@ nav.top-bar {
 .title-bar {
     background: none;
     padding-bottom: 12px;
-
     h5 {
         font-size: .8rem;
         color: $oil;
@@ -143,7 +142,6 @@ nav.top-bar {
     border-color: #ccc;
     color: #333;
     margin: 0;
-
     &:hover {
         background: white;
     }
@@ -151,7 +149,6 @@ nav.top-bar {
 
 .date-btn {
     color: #eee;
-
     svg {
         fill: currentColor;
     }
@@ -159,7 +156,6 @@ nav.top-bar {
 
 .badge {
     color: $talk-dark;
-
     &.warning {
         color: $talk-dark;
     }
@@ -173,12 +169,11 @@ nav.top-bar {
     background: $talk-dark;
     padding: 24px 12px 36px 12px;
     text-align: center;
-    @include breakpoint(medium){
-        text-align:left;
+    @include breakpoint(medium) {
+        text-align: left;
     }
 
     // border-bottom: 1px solid #;
-
     h1 {
         font-weight: 500;
         margin: 0;
@@ -187,29 +182,24 @@ nav.top-bar {
         margin-bottom: 12px;
         letter-spacing: .1em;
         font-size: rem-calc(28);
-
-        @include breakpoint(medium){
+        @include breakpoint(medium) {
             font-size: rem-calc(36);
         }
     }
-
     p.countdown-text {
         font-size: rem-calc(24);
         font-weight: 300;
         margin: 0;
         line-height: 1.4;
     }
-
     .button {
         margin: 0;
     }
 }
 
 #venue-header {
-
     .talk-title {
         color: $vr-beige;
-
         .talk-label {
             font-size: .8rem;
             color: $oil;
@@ -219,11 +209,12 @@ nav.top-bar {
             font-weight: 300;
         }
     }
-
     .dashboard {
-        padding-top: 12px;
+        padding-top: 36px;
+        @include breakpoint(medium) {
+            padding-top: 12px;
+        }
     }
-
     .label {
         font-family: $body-font-family;
         padding: 12px;
@@ -232,6 +223,10 @@ nav.top-bar {
         color: $oil;
         font-size: rem-calc(16);
         font-weight: 500;
+        float: none;
+        @include breakpoint(medium) {
+            float: right;
+        }
 
         &.success {
             border-color: $success-color;
@@ -247,47 +242,37 @@ nav.top-bar {
         fill: currentColor;
         vertical-align: middle;
     }
-
     h3 {
         font-size: rem-calc(14);
         width: 100%;
         text-align: center;
-
         // text-transform: uppercase;
         margin: 0;
     }
-
     .button {
         margin: 0;
         margin-left: 12px;
     }
-
     .launchable-in {
         opacity: .5;
     }
-
     &.provisioning {
         background: lemonchiffon;
     }
-
     &.provisionable {
         // background: coral;
         cursor: pointer;
-
         .status {
             margin-left: 12px;
             opacity: 1;
-
             .button {
                 margin: 0;
             }
         }
     }
-
     &.online {
         background: $success-color;
         color: white;
-
         h3 {
             font-weight: 500;
         }
@@ -301,7 +286,6 @@ nav.top-bar {
 
 .tooltip {
     background: $vr-red;
-
     &.top:before {
         border-color: $vr-red transparent transparent;
     }
@@ -314,92 +298,71 @@ table.lineup-list {
     width: 100%;
     color: rgba(white, 0.5);
     font-size: rem-calc(14);
-
     .button {
         margin: 0;
-
         // width: 100%;
-
+   
     }
-
     tbody {
         border: none;
     }
-
     tbody tr:nth-child(even) {
         background: rgba(black, 0.1);
     }
-
     th {
         padding: 12px 0;
         color: $silver;
     }
-
     tr {
         border: none;
         border-bottom: 1px solid $topbar-dark;
         background: rgba(black, 0.1);
-
         &:hover {
             background: rgba(black, 0.1);
         }
-
         &:nth-child(even) {
             background: none;
-
             &:hover {
                 background: rgba(black, 0.1);
             }
         }
-
         td {
             padding: 12px 0;
-
             &.soundbars-cell {
                 vertical-align: bottom;
                 min-width: 36px;
             }
         }
-
         td.blank {
             width: 24px;
         }
-
         th:first-child {
             padding-left: 0;
         }
-
         td:first-child {
             padding-left: 0;
         }
-
         &.next-talk {
             background: lemonchiffon;
-
             &:hover {
                 background: lemonchiffon;
             }
         }
-
         &.streaming {
             background: $success-color;
             color: white;
-
             &:hover {
                 background: $success-color;
             }
         }
-
         &.interrupted {
             background: $warning-color;
             color: white;
-
             &:hover {
                 background: $warning-color;
             }
         }
     }
-
     &.previous-talks {
         color: #999;
     }
@@ -427,24 +390,29 @@ select {
 }
 
 #venue-control-panel {
-    background: $topbar-dark;
+    background: none;
     border-radius: 4px;
-    box-shadow: 0 1px 15px rgba(0, 0, 0, 0.2);
     color: rgba(white, 0.4);
-
     .columns {
-        border-right: 3px solid $talk-dark;
+        background-color: $topbar-dark;
+        margin-bottom: 12px;
+        border-radius:4px;
         padding: 0;
-
+        box-shadow: 0 1px 10px rgba(0,0,0,.1);
+        @include breakpoint(medium) {
+            border-radius:0;
+            border-right: 3px solid $talk-dark;
+            margin: 0;
+        padding: 0;
         &:last-child {
             border-right: none;
         }
+        }
+        
     }
-
     .titlebar {
         padding: 12px;
         max-height: 46px;
-
         h4 {
             font-size: rem-calc(12);
             margin: 0;
@@ -453,23 +421,19 @@ select {
             color: $oil;
             text-transform: uppercase;
         }
-
         .neutral {
             background: currentColor;
         }
-
         .server-bitrate-wrapper {
             font-size: rem-calc(12);
             color: $oil;
             margin-right: 12px;
         }
     }
-
     .divider {
         height: 1px;
         background: $talk-dark;
     }
-
     .actionbar {
         padding: 0;
         color: $vr-beige;
@@ -477,38 +441,32 @@ select {
         height: 46px;
         max-height: 46px;
         font-size: .8rem;
-
         .holder {
             padding: 12px;
         }
-
         a.button {
             // // width: 100%;
             // // height: 46px;
             // max-height: 46px;
             // font-size: .8rem;
             // padding-top: 16px;
-
+       
         }
-
         .label {
             background: none;
             margin: 0;
             color: $vr-beige;
             padding: 0;
         }
-
         .server-progress, .talk-progress {
             background: rgba(black, 0.1);
             height: 46px;
             max-height: 46px;
             margin: 0;
             border-bottom-left-radius: 4px;
-
             .progress-meter {
                 background: rgba($vr-blue, 1);
                 border-bottom-left-radius: 4px;
-
                 .progress-meter-text {
                     left: 12px;
                     transform: none;
@@ -519,38 +477,30 @@ select {
                 }
             }
         }
-
         .talk-progress {
             border-bottom-right-radius: 4px;
             border-bottom-left-radius: 0;
             overflow-x: hidden;
-
             .progress-meter {
                 border-bottom-left-radius: 0;
             }
         }
-
         /* NOTE phil: I couldn't read it */
         option {
             background-color: $talk-dark;
         }
-
     }
-
     .server-panel .actionbar .button {
         // border-bottom-left-radius: 4px;
         margin-top: -3px;
     }
-
     .talk-panel .actionbar .button {
         // border-bottom-right-radius: 4px;
-
+   
     }
-
     .talk-start-button {
         margin-top: -3px;
     }
-
     .talk-stop-button {
         position: absolute;
         margin-top: -37px;
@@ -563,44 +513,36 @@ table.venue-control-panel {
     width: 100%;
     vertical-align: middle;
     box-shadow: 0 1px 15px rgba(0, 0, 0, 0.2);
-
     p, .button {
         margin: 0;
         vertical-align: middle;
     }
-
     tbody tr:nth-child(even) {
         background: none;
     }
-
     tbody {
         border: none;
         background: $topbar-dark;
     }
-
     th, td {
         // border: 1px solid green;
         width: 33%;
         background: none;
         border-right: 1px solid $talk-dark;
         padding: 12px 24px;
-
         &:last-child {
             border-right: none;
         }
     }
-
     th {
         font-size: rem-calc(14);
         font-weight: 300;
         background: none;
         color: $vr-beige;
         border-bottom: 2px solid $vr-light-blue;
-
         // border-right: 1px solid black;
-
+   
     }
-
     td.blank, th.blank {
         width: 2px;
         max-width: 2px;
@@ -618,23 +560,31 @@ table.venue-control-panel {
 .soundbars {
     position: relative;
     height: 44px;
+    margin: 24px 0 0 0;
+    float: none;
+    @include breakpoint(medium) {
+        margin: 0;
+        float: right;
+        margin-right: 12px;
+    }
 
     // margin-right: 60px;
 }
 
 #bars {
-    margin-top: 44px;
-    margin-right: 20px;
+    display: inline-block;
 }
 
 .bar-holder {
     width: 8px;
-    height: 44px;
+    height: 28px;
     background: rgba(black, 0.1);
     position: relative;
     float: right;
     margin-right: 4px;
-    top: -44px;
+    @include breakpoint(medium) {
+        height: 44px;
+    }
 }
 
 .bar {
@@ -643,7 +593,6 @@ table.venue-control-panel {
     height: 1px;
     position: absolute;
     width: 100%;
-
     .signal & {
         animation: sound 0ms -800ms linear infinite alternate;
     }
@@ -654,12 +603,15 @@ table.venue-control-panel {
         opacity: .35;
         height: 1px;
     }
-
     100% {
         opacity: 1;
-        height: 44px;
+        height: 28px;
+        @include breakpoint(medium) {
+            height: 44px;
+        }
     }
 }
+
 
 .bar-holder:nth-child(1) .bar {
     // left: 1px;
@@ -742,7 +694,6 @@ table.venue-control-panel {
     h3 {
         margin-bottom: 48px;
     }
-
     a.button.hollow {
         min-height: 100px;
         border-radius: 4px;
@@ -753,57 +704,53 @@ table.venue-control-panel {
     0% {
         opacity: 1;
     }
-
     50% {
         opacity: .2;
     }
-
     100% {
         opacity: 1;
     }
 }
+
 
 @-o-keyframes flickerAnimation {
     0% {
         opacity: 1;
     }
-
     50% {
         opacity: .2;
     }
-
     100% {
         opacity: 1;
     }
 }
+
 
 @-moz-keyframes flickerAnimation {
     0% {
         opacity: 1;
     }
-
     50% {
         opacity: .2;
     }
-
     100% {
         opacity: 1;
     }
 }
+
 
 @-webkit-keyframes flickerAnimation {
     0% {
         opacity: 1;
     }
-
     50% {
         opacity: .2;
     }
-
     100% {
         opacity: 1;
     }
 }
+
 
 .animate-flicker {
     -webkit-animation: flickerAnimation 1.5s infinite;
@@ -866,44 +813,47 @@ table.venue-control-panel {
     top: 0;
     left: 0;
     right: 0;
-
     button {
         // color: white;
         margin: 0;
-
         span {
             margin: 0;
         }
     }
-
     h5 {
         font-family: $body-font-family;
         margin: 0;
-
         // color: white;
-
+   
     }
-
     &.alert {
         background: $vr-red;
     }
-
     &.warning {
         background: $vr-yellow;
     }
 }
 
 .listeners {
-    margin-right: 24px;
-
-    .listener-count {
-        color: $oil;
-        font-size: rem-calc(36);
+    margin-right: 0;
+    color: $oil;
+    svg {
+        width: 18px;
+        height: 18px;
+        fill: currentColor;
+        margin-left: 12px;
+        vertical-align: baseline;
     }
-
+    .listener-count {
+        // color: $oil;
+        font-size: rem-calc(24);
+    }
     .listener-label {
-        color: $oil;
+        // color: $oil;
         font-size: rem-calc(12);
         margin: 0;
+    }
+    @include breakpoint(medium) {
+        margin-right: 24px;
     }
 }
