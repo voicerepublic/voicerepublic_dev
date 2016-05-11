@@ -392,6 +392,10 @@ class Talk < ActiveRecord::Base
     Rails.application.routes.url_helpers.talk_url(self)
   end
 
+  def create_message_url
+    Rails.application.routes.url_helpers.create_message_url(self)
+  end
+
   def lined_up
     #raise 'lined_up DEPRECATED!'
     return nil unless venue.present?
@@ -421,6 +425,7 @@ class Talk < ActiveRecord::Base
   def snapshot
     {
       talk: attributes.merge(
+        create_message_url: create_message_url,
         image_url: image.url,
         channel: channel,
         venue: {
@@ -430,7 +435,7 @@ class Talk < ActiveRecord::Base
         series: series.attributes.merge(
           url: series.self_url
         ),
-        messages: messages.map(&:attributes)
+        messages: messages.map(&:extended_attributes)
       ),
       now: Time.now.to_i
     }
