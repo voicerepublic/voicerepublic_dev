@@ -29,7 +29,7 @@ Rails.application.routes.draw do
 
   resources :uploads, only: [ :new, :create ]
 
-  post '/xhr/talk/:id/messages', to: 'xhr/messages#create'
+  post '/xhr/talk/:id/messages', to: 'xhr/messages#create', as: 'create_message'
   get  '/xhr/users',             to: 'xhr/users#index'
 
   namespace 'xhr' do

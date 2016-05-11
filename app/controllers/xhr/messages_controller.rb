@@ -11,12 +11,6 @@ class Xhr::MessagesController < Xhr::BaseController
     authorize! :create, message
     message.save!
 
-    params[:message].merge! user_id: user.id
-    # TODO: This will localise the message for the user sending the message.
-    # It will not always correspond to the time.zone of the user reading the
-    # messsage. This needs a better solution.
-    params[:message].merge! created_at: I18n.l(message.created_at, format: :short)
-    publish message: params[:message].to_hash
     head :ok
   end
 
@@ -24,10 +18,6 @@ class Xhr::MessagesController < Xhr::BaseController
 
   def set_talk
     @talk = Talk.find(params[:id])
-  end
-
-  def publish(message)
-    LiveClientMessage.call(@talk.public_channel, message)
   end
 
   # protect_from_forgery for angular ajax requests (overwrite CSRF check)
