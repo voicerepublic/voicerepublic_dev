@@ -88,10 +88,22 @@ class Handyman
         next if talk_ids.empty?
         log '%s/%s Creating default venue for user %s and apply to %s talks' %
             [ uidx+1, utot, user.id, talk_ids.size ]
-        venue = user.venues.create name: 'Default venue' # TODO centralize name
+        venue = user.venues.create name: user.venue_default_name
         sql = 'UPDATE talks SET venue_id=%s WHERE id IN (%s)' %
               [ venue.id, talk_ids * ',' ]
         ActiveRecord::Base.connection.execute(sql)
+      end
+    end
+
+    def improve_venues_names
+      log 'Check for venues whose name needs improvement...'
+      query = Venue.where("name LIKE 'Default venue%'")
+      total = query.count
+
+      query.joins(:user).each_with_index do |venue, index|
+        name = venue.user.venue_default_name
+        log '%s/%s Renaming venue to %s' % [index+1, total, name]
+        venue.update_attributes name: name, slug: nil
       end
     end
 

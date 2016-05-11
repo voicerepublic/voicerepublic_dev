@@ -13,9 +13,13 @@
     initialSnapshot = #{@venue.snapshot.to_json};
     translations = #{t('frontend.venues').to_json};
 
+-# for testing only
+-#%audio#dev-audio{autoplay: true}
+-#  %source{src: 'http://listen.radionomy.com/abc-jazz'}
 
 #modals
+
 #app
-  .loading-message 
+  .loading-message
     = render partial: 'explore/loading'
     %h1= t('.loading')
