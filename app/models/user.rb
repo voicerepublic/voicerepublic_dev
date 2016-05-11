@@ -232,6 +232,10 @@ class User < ActiveRecord::Base
     Rails.application.routes.url_helpers.user_url(self)
   end
 
+  def venue_default_name
+    "Venue of %s" % name
+  end
+
   private
 
   def process_about
