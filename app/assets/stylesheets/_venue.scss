@@ -23,6 +23,10 @@
         margin-right: 12px;
     }
     .loading-message {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         svg {
             margin-bottom: 24px;
         }
@@ -30,6 +34,9 @@
         font-size: rem-calc(18);
         text-transform: uppercase;
         text-align: center;
+    }
+    .loading-graphic {
+        margin-top: -60px;
     }
 }
 .top-bar {
@@ -44,7 +51,7 @@
     svg {
         width: 50px;
         height: 38px;
-        fill: white;
+        fill: $vr-red;
     }
 
     .dropdown.menu > li.is-dropdown-submenu-parent > a::after {
@@ -53,7 +60,7 @@
 
     }
     .top-bar-left #mobile-logo a:after {
-        border-color: white transparent transparent;
+        border-color: $vr-red transparent transparent;
     }
     @include breakpoint(medium){
         padding: 0;
@@ -69,7 +76,34 @@
     &.alert {
         background: $vr-red;
         color: white;
+        svg {
+            fill: white;
+        }
+            .top-bar-left #mobile-logo a:after {
+        border-color: white transparent transparent;
+    }
+    }
 
+    &.warning {
+            background: $vr-yellow;
+        color: $talk-dark;
+        svg {
+            fill: $vr-red;
+        }
+            .top-bar-left #mobile-logo a:after {
+        border-color: $vr-red transparent transparent;
+    }
+    }
+
+        &.success {
+            background: $success-color;
+        color: white;
+        svg {
+            fill: white;
+        }
+            .top-bar-left #mobile-logo a:after {
+        border-color: white transparent transparent;
+    }
     }
 }
 }
@@ -79,12 +113,26 @@
 }
 
 #modals {
+    // position: fixed;
+    // top: 0;
+    // left: 0;
+    // bottom: 0;
+    // right: 0;
     height: 0;
+}
+
+.instruction-container {
+        position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 9999;
 }
 
 #instructions {
     max-width: 26em;
-    // display: block;
+    display: block;
     background: $vr-purple;
     padding: 24px;
     box-shadow: 0 1px 10px rgba(0, 0, 0, 0.3);
@@ -301,49 +349,49 @@ nav.top-bar {
     }
 }
 
-.server-status {
-    svg {
-        width: 18px;
-        height: 18px;
-        fill: currentColor;
-        vertical-align: middle;
-    }
-    h3 {
-        font-size: rem-calc(14);
-        width: 100%;
-        text-align: center;
-        // text-transform: uppercase;
-        margin: 0;
-    }
-    .button {
-        margin: 0;
-        margin-left: 12px;
-    }
-    .launchable-in {
-        opacity: .5;
-    }
-    &.provisioning {
-        background: lemonchiffon;
-    }
-    &.provisionable {
-        // background: coral;
-        cursor: pointer;
-        .status {
-            margin-left: 12px;
-            opacity: 1;
-            .button {
-                margin: 0;
-            }
-        }
-    }
-    &.online {
-        background: $success-color;
-        color: white;
-        h3 {
-            font-weight: 500;
-        }
-    }
-}
+// .server-status {
+//     svg {
+//         width: 18px;
+//         height: 18px;
+//         fill: currentColor;
+//         vertical-align: middle;
+//     }
+//     h3 {
+//         font-size: rem-calc(14);
+//         width: 100%;
+//         text-align: center;
+//         // text-transform: uppercase;
+//         margin: 0;
+//     }
+//     .button {
+//         margin: 0;
+//         margin-left: 12px;
+//     }
+//     .launchable-in {
+//         opacity: .5;
+//     }
+//     &.provisioning {
+//         background: lemonchiffon;
+//     }
+//     &.provisionable {
+//         // background: coral;
+//         cursor: pointer;
+//         .status {
+//             margin-left: 12px;
+//             opacity: 1;
+//             .button {
+//                 margin: 0;
+//             }
+//         }
+//     }
+//     &.online {
+//         background: $success-color;
+//         color: white;
+//         h3 {
+//             font-weight: 500;
+//         }
+//     }
+// }
 
 .has-tip {
     cursor: pointer;
@@ -452,8 +500,9 @@ select {
     background-size: 9px 6px;
     background-position: right 12px center;
     background-repeat: no-repeat;
-    height: 46px;
+    height: 36px;
     font-size: .8rem;
+    border-top: 1px solid #29292b;
 }
 
 #venue-control-panel {
@@ -519,8 +568,9 @@ select {
         }
         .status-bar {
             height: 36px;
-            background: rgba(black,.1);
+            //background: rgba(black,.1);
             padding:8px;
+            text-align: center;
         }
         a.button {
             // // width: 100%;
@@ -544,7 +594,7 @@ select {
             border-bottom-left-radius: 4px;
             .progress-meter {
                 background: rgba($vr-blue, 1);
-                border-bottom-left-radius: 4px;
+                // border-bottom-left-radius: 4px;
                 .progress-meter-text {
                     left: 12px;
                     transform: none;
@@ -556,9 +606,10 @@ select {
             }
         }
         .talk-progress {
-            border-bottom-right-radius: 4px;
+            // border-bottom-right-radius: 4px;
             border-bottom-left-radius: 0;
             overflow-x: hidden;
+            padding:0;
             .progress-meter {
                 border-bottom-left-radius: 0;
             }
@@ -566,6 +617,22 @@ select {
         /* NOTE phil: I couldn't read it */
         option {
             background-color: $talk-dark;
+        }
+        .server-start-button {
+            border-bottom-right-radius: 4px;
+            border-bottom-left-radius:4px;
+            @include breakpoint(medium){
+                border-bottom-right-radius:0;
+            }
+        }
+
+        .talk-start-button {
+            border-bottom-right-radius: 4px;
+            border-bottom-left-radius:4px;
+            @include breakpoint(medium){
+                border-radius:0;
+                border-bottom-left-radius:0;
+            }
         }
     }
 
@@ -584,7 +651,7 @@ select {
     //}
 }
 
-.device-panel .status-bar {
+#venue-control-panel .device-panel .status-bar {
     padding: 0;
 }
 

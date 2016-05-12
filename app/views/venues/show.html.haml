@@ -21,5 +21,6 @@
 
 #app
   .loading-message
-    = render partial: 'explore/loading'
-    %h1= t('.loading')
+    .loading-graphic
+      = render partial: 'explore/loading'
+      %h1= t('.loading')

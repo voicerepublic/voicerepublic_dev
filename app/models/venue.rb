@@ -330,7 +330,7 @@ class Venue < ActiveRecord::Base
 
     # for debugging
     # puts userdata
-    # FileUtils.cp f.path, 'userdata.sh'
+    FileUtils.cp f.path, 'userdata.sh'
 
     puts 'Running provisioning file...'
     spawn provisioning_file
