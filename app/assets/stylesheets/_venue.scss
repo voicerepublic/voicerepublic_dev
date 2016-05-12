@@ -268,7 +268,11 @@ nav.top-bar {
 .badge {
     color: $talk-dark;
     &.warning {
+        background: $vr-yellow;
         color: $talk-dark;
+    }
+    &.alert {
+        background: $vr-red;
     }
 }
 
@@ -338,6 +342,7 @@ nav.top-bar {
         font-weight: 500;
         float: none;
         width: 90px;
+        text-align: center;
         @include breakpoint(medium) {
             float: right;
         }
@@ -598,7 +603,7 @@ select {
                 .progress-meter-text {
                     left: 12px;
                     transform: none;
-                    top: 12px;
+                    top: 8px;
                     color: $vr-beige;
                     font-weight: 300;
                     font-size: .8rem;
@@ -623,6 +628,16 @@ select {
             border-bottom-left-radius:4px;
             @include breakpoint(medium){
                 border-bottom-right-radius:0;
+            }
+        }
+        .button-holder {
+            padding: 8px 12px 0 0;
+            a {
+                color: $vr-red;
+                &:hover {
+                    color: $vr-red;
+                    text-decoration: underline;
+                }
             }
         }
 
