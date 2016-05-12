@@ -635,12 +635,6 @@ en:
 
     For more podcasts visit http://voicerepublic.com
 
-
-
-  frontend:
-    talks:
-      any_time_now: Any time now...
-
   devices:
     index:
       devices_found:
