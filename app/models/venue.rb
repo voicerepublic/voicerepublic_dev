@@ -177,7 +177,9 @@ class Venue < ActiveRecord::Base
         provisioning_duration: PROVISIONING_DURATION,
         channel: channel,
         talks: talks_as_array,
-        user: user.attributes,
+        user: user.attributes.merge(
+          image_url: user.avatar.thumb('36x36').url
+        ),
         availability: availability
       ),
       devices: Device.all.map(&:attributes),

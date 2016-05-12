@@ -166,6 +166,15 @@
         right: 0;
         z-index: -1;
     }
+    table {
+        tbody {
+            border: none;
+            background: none;
+            tr {
+                background: rgba(0, 0, 0, 0.1);
+            }
+        }
+    }
 }
 
 #main {
@@ -420,7 +429,7 @@ nav.top-bar {
     .button {
         margin: 0;
         // width: 100%;
-   
+
     }
     tbody {
         border: none;
@@ -535,7 +544,7 @@ select {
             border-bottom-right-radius: 4px;
         }
         }
-        
+
     }
     .titlebar {
         padding: 12px;
@@ -583,7 +592,7 @@ select {
             // max-height: 46px;
             // font-size: .8rem;
             // padding-top: 16px;
-       
+
         }
         .label {
             background: none;
@@ -653,7 +662,7 @@ select {
 
     .talk-panel .actionbar .button {
         border-bottom-right-radius: 4px;
-   
+
     }
     .talk-start-button {
         height: 36px;
@@ -703,7 +712,7 @@ select {
 //         color: $vr-beige;
 //         border-bottom: 2px solid $vr-light-blue;
 //         // border-right: 1px solid black;
-   
+
 //     }
 //     td.blank, th.blank {
 //         width: 2px;
@@ -747,7 +756,7 @@ select {
     position: relative;
     float: left;
     margin-right: 0;
- 
+
 
 }
 
@@ -988,7 +997,7 @@ select {
         font-family: $body-font-family;
         margin: 0;
         // color: white;
-   
+
     }
     &.alert {
         background: $vr-red;
