@@ -70,7 +70,7 @@ class VenuesController < ApplicationController
 
   def config_name(prefix, extension=nil)
     ([prefix, Time.now.strftime('%Y%m%d-%H%M'), @venue.slug] * '-') +
-      extension || '.cfg'
+      (extension || '.cfg')
   end
 
   def venue_params
