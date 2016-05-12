@@ -29,7 +29,7 @@ class Venue < ActiveRecord::Base
     state :provisioning, enter: :provision, exit: :complete_details
     state :device_required
     state :awaiting_stream, enter: :start_streaming
-    state :connected, enter: :propagate_reconnect # aka. streaming
+    state :connected # aka. streaming
     state :disconnected # aka. lost connection
 
     # issued by the venues controller
@@ -278,10 +278,6 @@ class Venue < ActiveRecord::Base
     return unless device.present?
 
     device.start_stream!
-  end
-
-  def propagate_reconnect
-    talks.live.each(&:reconnect)
   end
 
   def device_present?

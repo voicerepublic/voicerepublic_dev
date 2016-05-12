@@ -17,7 +17,7 @@ class IcecastEndpoint < Struct.new(:app, :opts)
     case env['PATH_INFO']
     when '/icecast/complete'
       # raise "wtf" if env['REMOTE_ADDR'] != payload['public_ip_address']
-      venue.public_ip_address = Settings.icecast.url.host || env['REMOTE_ADDR']
+      venue.public_ip_address = Settings.icecast.url.host || payload['public_ip_address']
       venue.complete_provisioning!
 
     when '/icecast/connect'
