@@ -4,7 +4,7 @@ class VenuesController < ApplicationController
                        start_provisioning
                        select_device )
 
-  layout 'velvet'
+  layout 'velvet_minimal'
 
   load_and_authorize_resource
 

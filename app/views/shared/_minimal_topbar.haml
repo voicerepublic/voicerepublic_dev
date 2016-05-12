@@ -1,0 +1,43 @@
+#main-menu.top-bar.transparent
+  .top-bar-left
+    %ul#branding.menu{"data-dropdown-menu" => ""}
+      %li.logo.show-for-medium
+        = link_to '/' do
+          %img{:src => "/images/logos/vr_red.svg", :width => "50"}/
+      %li#mobile-logo.logo.show-for-small-only
+        %a
+          %img{:src => "/images/logos/vr_red.svg", :width => "50"}/
+  .top-bar-right.show-for-medium
+    %ul.dropdown.menu{"data-dropdown-menu" => "", "data-disable-hover" => "true", "data-click-open" => "true"}
+      %li.has-submenu.avatar.hide-for-small-only
+        %a{:href => "#"}
+          = render partial: "shared/avatar_image_velvet", locals: { user: current_user, size: 36 }
+        %ul.submenu.menu.vertical{"data-submenu" => ""}
+          %li= link_to t('.my_profile'), current_user
+          -#%li= link_to t('.stream_now'), venues_path
+          %li= link_to t('.test_talk'), test_talk_path
+          %li= link_to t('.schedule_talk'), new_talk_path
+          %li= link_to t('.upload_talk'), new_upload_path
+          -#- if !current_user.is_pro?
+          -#  %li= link_to t('.pricing'), purchases_path
+          %li
+            = link_to(destroy_user_session_path, method: :delete) do
+              = t('.logout')
+
+#mobile-nav.show-for-small-only.hide
+  .menu.vertical
+    - if !current_page?(root_path)
+      %li= link_to t('.home'), root_path
+    - if !current_page?(explore_path)
+      %li= link_to t('.explore_the_archive'), explore_path
+    - if current_user
+      %li= link_to t('.my_profile'), current_user
+    - if !current_user
+      %li= link_to t('.login'), new_user_session_path
+      %li= link_to t('.sign_up'), new_user_registration_path
+    %li= link_to t('.create_a_talk'), new_talk_path
+    -#%li= link_to t('.pricing'), purchases_path
+    %li
+      - if current_user
+        = link_to(destroy_user_session_path, method: :delete) do
+          = t('.logout')
