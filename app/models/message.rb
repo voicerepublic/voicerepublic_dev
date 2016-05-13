@@ -14,7 +14,7 @@ class Message < ActiveRecord::Base
 
   validates :talk, presence: true
 
-  after_create :publish_to_talk
+  after_create :publish_to_talk, unless: Rails.env.test?
 
   def as_text
     attrs = {

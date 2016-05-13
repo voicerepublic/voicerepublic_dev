@@ -3,7 +3,7 @@
 
   = render 'layouts/head'
 
-  %body{ class: "#{controller_name} #{[controller_name, action_name] * '-'}" }
+  %body{ class: body_classes }
     = render 'shared/svg_defs'
     = render 'shared/notice_or_error_velvet'
     #working.hide

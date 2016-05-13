@@ -434,24 +434,25 @@ describe "Talks as logged in user" do
     it 'routes via id' do
       talk = FactoryGirl.create(:talk)
       visit "/talk/#{talk.id}"
-      expect(page).to have_content(talk.title)
+      expect(page).to have_css('.qa.talks-show', text: talk.id)
     end
     it 'routes via uri' do
       talk = FactoryGirl.create(:talk)
       visit "/talk/#{talk.uri}"
-      expect(page).to have_content(talk.title)
+      expect(page).to have_css('.qa.talks-show', text: talk.id)
     end
     skip 'reroutes old nested urls' do
       talk = FactoryGirl.create(:talk)
       visit series_talk_path(talk.series, talk)
       save_and_open_page
-      expect(page).to have_content(talk.title)
+      expect(page).to have_css('.qa.talks-show', text: talk.id)
     end
   end
 end
 
 describe 'slides' do
   it 'shows a pdf-viewer when there are slides attached' do
+    pending 'not pdf viewer atm'
     talk = FactoryGirl.create(:talk)
     talk.update_attribute :slides_uuid, "some_url.pdf"
     visit talk_path(talk)
