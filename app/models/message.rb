@@ -14,7 +14,7 @@ class Message < ActiveRecord::Base
 
   validates :talk, presence: true
 
-  after_create :publish_to_talk, unless: Rails.env.test?
+  after_create :publish_to_talk
 
   def as_text
     attrs = {
@@ -38,6 +38,8 @@ class Message < ActiveRecord::Base
   end
 
   def publish_to_talk
+    return if Rails.env.test?
+
     Faye.publish_to talk.channel, event: 'message', message: extended_attributes
   end
 
