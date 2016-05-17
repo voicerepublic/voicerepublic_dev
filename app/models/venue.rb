@@ -216,19 +216,15 @@ class Venue < ActiveRecord::Base
 
   # Returns the time the provisioning window will open.
   #
+  # TODO rename to available_at
   def availability
     return false if talks.prelive.empty?
 
     talks.prelive.ordered.first.starts_at.to_i - PROVISIONING_WINDOW
   end
 
-  # This is used in userdata.
-  #
   # This names the bucket which will be mounted on the ec2 instance
   # running the icecast server.
-  #
-  # This is only used on ec2 instances.
-  #
   def recordings_bucket
     Settings.storage.recordings
   end
@@ -258,7 +254,7 @@ class Venue < ActiveRecord::Base
     # trigger archive of postlive talks on this venue
     talks.postlive.each(&:schedule_archiving!)
 
-    # TODO also shutdown if venue is disused
+    shutdown!
   end
 
   # tricky shit
@@ -321,17 +317,16 @@ class Venue < ActiveRecord::Base
   end
 
   def start_streaming
-    return unless device.present?
-    device.start_stream!
+    device.present? and device.start_stream!
   end
 
   def restart_streaming
-    return unless device.present?
-    device.restart_stream!
+    device.present? and device.restart_stream!
   end
 
+  # either a controlled device or a generic client set?
   def device_present?
-    device.present? || device_name.present?
+    device.present? or device_name.present?
   end
 
   # called on event shutdown
@@ -387,9 +382,7 @@ class Venue < ActiveRecord::Base
   end
 
   def shutdown?
-    # TODO check if all data is save!
-    # TODO check if there is no other talk within PROVISIONING_WINDOW on this venue
-    true
+    !(availability and in_provisioning_window?)
   end
 
   private

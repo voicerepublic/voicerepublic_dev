@@ -1,6 +1,6 @@
 #!/bin/sh
 
-echo `date` connect >> /share/actions.log
+echo `date` connected >> /share/actions.log
 
 JSON='{"client_token":"'$CLIENT_TOKEN'"}'
 

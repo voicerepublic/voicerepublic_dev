@@ -593,10 +593,7 @@ class Talk < ActiveRecord::Base
     LiveServerMessage.call public_channel, { event: 'EndTalk', origin: 'server' }
 
     # to make the dump file of icecast appear on s3, we need to disconnect
-    # TODO remove the condition after flash is gone
-    venue.require_disconnect! if venue.can_require_disconnect?
-
-    Delayed::Job.enqueue(Postprocess.new(id: id), queue: 'audio')
+    venue.require_disconnect!
   end
 
   def postprocess!(uat=false)
@@ -739,7 +736,7 @@ class Talk < ActiveRecord::Base
 
   def run_ic_chain!(chain)
     write_manifest_file!(chain)
-    worker = IcProcessor.new # see lib/audio_processor.rb
+    worker = IcProcessor.new # see lib/ic_processor.rb
     worker.talk = self
     logfile = File.expand_path("process-#{id}.log")
 

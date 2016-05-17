@@ -1,6 +1,6 @@
 #!/bin/sh
 
-echo `date` disconnect >> /share/actions.log
+echo `date` disconnected >> /share/actions.log
 
 JSON='{"client_token":"'$CLIENT_TOKEN'"}'
 
