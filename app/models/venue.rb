@@ -29,12 +29,8 @@ class Venue < ActiveRecord::Base
     state :provisioning, enter: :provision, exit: :complete_details
     state :device_required
     state :awaiting_stream, enter: :start_streaming
-<<<<<<< HEAD
-    state :connected, enter: :propagate_reconnect # aka. streaming
-    state :disconnect_required
-=======
     state :connected # aka. streaming
->>>>>>> integration
+    state :disconnect_required
     state :disconnected # aka. lost connection
 
     # issued by the venues controller
@@ -62,16 +58,12 @@ class Venue < ActiveRecord::Base
       transitions from: [:connected, :disconnect_required], to: :disconnected
     end
 
-<<<<<<< HEAD
     # issues by ended talks
     event :require_disconnect, success: :restart_streaming do
       transitions from: :connected, to: :disconnect_required
     end
 
-    # issued by cron'ed rake task
-=======
-    # issued by ?
->>>>>>> integration
+    # maybe issued by cron'ed rake task
     event :shutdown do
       transitions from: [:device_required, :awaiting_stream,
                          :connected, :disconnected],
