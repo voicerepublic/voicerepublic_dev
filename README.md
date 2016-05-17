@@ -596,6 +596,26 @@ How To Update Icons
 * done
 
 
+How To Update Modernizr
+-----------------------
+
+https://modernizr.com/download
+
+Unselect
+
+* minify (on the left)
+
+Select
+
+* Touch Events
+
+(Add anything else we need, and add it to this list.)
+
+Click BUILD
+
+Download to vendor/assets/modernizr.js
+
+
 ClojureScript
 -------------
 
@@ -606,4 +626,22 @@ ClojureScript
 Icecast Dev
 -----------
 
+    docker build -t branch14/icecast2 lib/icecast
+
     docker exec -it icecast bash
+
+
+Helpful
+-------
+
+    slug = ''
+
+    reload!; Venue.find(slug).reset!
+
+    reload!; Venue.find(slug).talks.prelive.first.make_it_start_soon! 91.minutes
+
+
+
+    reload!; Venue.find(124).reset!
+
+    reload!; Talk.find(4147).make_it_start_soon! 91.minutes; nil

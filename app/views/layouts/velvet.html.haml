@@ -1,42 +1,15 @@
 !!!
-%html.no-js{lang: I18n.locale.to_s, 'xmlns:fb' => "http://ogp.me/ns/fb#"}
-  %head
-    %meta{charset: "utf-8"}/
-    %meta{content: "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
-    %meta{content: "width=device-width, initial-scale=1.0", name: "viewport"}/
+%html.no-js{ lang: I18n.locale.to_s, 'xmlns:fb' => "http://ogp.me/ns/fb#" }
 
-    %title
-      = content_for?(:title) ? yield(:title) : t(".title")
-    = csrf_meta_tags
-    / Le HTML5 shim, for IE6-8 support of HTML elements
-    /[if lt IE 9]
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+  = render 'layouts/head'
 
-    -# XXX: (animate|landing).min.css are manually compiled CSS files
-    -# from Nicks project vr-mother. They need to be replaced as soon
-    -# as we can compile Foundation 6 ourselves.
-    -# Same goes for (libraries|foundation|app).min.js
-    %link{href: "/stylesheets/animate.min.css", rel: "stylesheet", type: "text/css"}/
-    %link{href: "/stylesheets/app.css", rel: "stylesheet", type: "text/css"}/
-    %link{href: "/stylesheets/publish.css", rel: "stylesheet", type: "text/css"}/
-    %link{href: "/stylesheets/app_override.css", rel: "stylesheet", type: "text/css"}/
-
-    %link{href: "/images/apple-touch-icon.png", rel: "apple-touch-icon"}/
-    %link{href: "/images/apple-touch-icon-72x72.png", rel: "apple-touch-icon", sizes: "72x72"}/
-    %link{href: "/images/apple-touch-icon-114x114.png", rel: "apple-touch-icon", sizes: "114x114"}/
-    %link{href: "//cloud.webtype.com/css/fa41b746-9201-4f1c-ab4a-a330eb0afb96.css", rel: "stylesheet", type: "text/css"}/
-
-    = favicon_link_tag '/favicon.ico'
-    = javascript_include_tag "vendor/modernizr"
-    = yield :head
-
-  %body{class: "#{controller_name} #{[controller_name, action_name] * '-'}"}
+  %body{ class: body_classes }
     = render 'shared/svg_defs'
     = render 'shared/notice_or_error_velvet'
     #working.hide
       -#= t('.working_on_it')
       = render 'explore/loading'
-    #main-menu.top-bar
+    #main-menu.top-bar.transparent
       .top-bar-left
         %ul#branding.menu{"data-dropdown-menu" => ""}
           %li.logo.show-for-medium
@@ -103,7 +76,7 @@
                 = icon_tag('search')
           %button#search-close.close-button{type: "button"}
             %span{"aria-hidden" => "true"} ×
-    #mobile-nav.show-for-small-only{style:'display:none;'}
+    #mobile-nav.show-for-small-only.hide
       .menu.vertical
         - if !current_page?(root_path)
           %li= link_to t('.home'), root_path
@@ -122,25 +95,8 @@
             = link_to(destroy_user_session_path, method: :delete) do
               = t('.logout')
 
-
-
     = yield
+
     = render 'shared/footer_velvet' if render_footer?
 
-
-    #scripts
-      %script{:src => "/javascripts/libraries.min.js"}
-      %script{:src => "/javascripts/rails.js"}
-      %script{:src => "/javascripts/foundation.min.js"}
-      %script{:src => "/javascripts/app.js"}
-      %script{:src => "/javascripts/explore.js"}
-      %script{:src => "/javascripts/topbar.js"}
-      %script{:src => "/javascripts/purchases.js"}
-      %script{:src => "/javascripts/share_social.js"}
-      = content_for :javascripts
-
-      - if Rails.env.production?
-        - unless @current_user.try(:insider?)
-          = render 'shared/google_analytics'
-        = render 'shared/tawk'
-      = yield :javascript
+    = render 'layouts/scripts'

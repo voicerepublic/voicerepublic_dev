@@ -1,0 +1,787 @@
+body {
+    background: $talk-dark;
+    height: auto;
+}
+
+.label {
+  background:$vr-purple;
+  &.live {
+    background: $vr-red;
+  }
+  &.processing {
+    background:$vr-yellow;
+    color: $talk-dark;
+  }
+}
+
+
+    .talks svg {
+        fill: currentColor;
+        width: 16px;
+        height: 16px;
+        max-height: 16px;
+        max-width: 16px;
+        
+    }
+
+.breakpoint-viewer {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: white;
+    color: black;
+    padding: 10px;
+
+}
+
+
+body.talks {
+    padding: 0;
+    @include breakpoint(medium) {
+        padding: 0;
+    }
+}
+
+.row {
+    max-width: 68rem;
+    @media #{$xlarge-up} {
+        max-width: 88rem;
+    }
+}
+
+.left-side {
+    padding: 0;
+    @include breakpoint(medium) {
+        padding-top: 24px;
+        padding-bottom: 48px;
+    }
+
+    &.alt, &.alt3 {
+        padding-top: 78px;
+        @include breakpoint(medium) {
+            padding-top: 103px;
+        }
+    }
+    hr {
+        border-color: rgba(255,255,255,.08);
+    }
+}
+
+.top-container {
+    max-width: 1024px;
+    margin: 0 auto;
+    padding: 0;
+    @include breakpoint(medium){
+        padding: 0 24px;
+    }
+}
+
+
+
+button,
+.button {
+    outline: none;
+}
+
+.img-circle {
+    border-radius: 50%;
+}
+
+.blue {
+    background: $vr-blue;
+}
+
+.pub-avatar {
+    margin-right: 12px;
+}
+
+.meta-speaker {
+    font-size: rem-calc(12);
+    font-weight: bold;
+    color: $info-color;
+    margin-top: 12px;
+    .speaker-names {
+        font-weight: normal;
+        color: $vr-light-blue;
+        line-height: rem-calc(16);
+        // &:hover {
+        //     text-decoration: underline;
+        // }
+    }
+    @include breakpoint(large) {
+        margin-top: 0;
+    }
+}
+
+
+
+.pub-meta {
+    font-size: rem-calc(10);
+    color: $vr-light-blue;
+    line-height: rem-calc(10);
+    margin: 0;
+    margin-left: 12px;
+    font-family: $system-font-family;
+    margin-top: 6px;
+    @include breakpoint(medium) {
+        margin-bottom: 24px;
+        .alt & {
+            margin-bottom: 0;
+        }
+    }
+
+    & p {
+        margin: 0;
+        line-height: rem-calc(14);
+        font-size: rem-calc(12);
+    }
+    .meta-publisher {
+        font-weight: bold;
+        color: white;
+        margin-bottom: 4px;
+        a {
+            color: $vr-light-blue;
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+    .meta-info,
+    .meta-series {
+        color: rgba($info-color, 0.5);
+        margin-bottom: 4px;
+        a {
+            font-weight: bold;
+            color: rgba($info-color, 0.5);
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+}
+
+.talk-picture {
+    padding: 0;
+    margin-bottom: 12px;
+    @include breakpoint(medium) {
+        margin-bottom: 24px;
+    }
+
+    img {
+        width: 100vw;
+    }
+    button {
+        position: absolute;
+        width: 60px;
+        height: 60px;
+        margin-top: -72px;
+        margin-left: 12px;
+        background: rgba($almost-black, 0.5);
+    }
+}
+
+#talk-description {
+    font-family: $system-font-family;
+    font-size: rem-calc(14);
+    line-height: rem-calc(21);
+    color: $tuatara;
+    font-weight: 300;
+    padding-right: 24px;
+    p {
+        font-size: rem-calc(14);
+        line-height: rem-calc(20);
+        color: rgba($info-color, 0.8);
+        @include breakpoint(medium) {
+            padding-right: 24px;
+        }
+    }
+    .lead {
+        font-size: rem-calc(18);
+        line-height: rem-calc(24);
+        color: white;
+        @include breakpoint(medium) {
+            padding-right: 24px;
+        }
+    }
+    .speaker {
+        color: $info-color;
+        a {
+            color: $vr-light-blue;
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+    .format-box {
+        padding: 12px;
+        margin-bottom: 6px;
+        margin-right: 6px;
+        font-size: rem-calc(12);
+        background: rgba($almost-black, 0.2);
+        color: rgba($light-gray, 0.4);
+        width: auto;
+    }
+    @include breakpoint(medium) {
+        font-size: rem-calc(18);
+        line-height: rem-calc(24);
+        padding-right: 24px;
+    }
+}
+
+.player-container {
+    padding: 0 12px;
+    svg {
+        fill: currentColor;
+        width: 16px;
+        max-width: 16px;
+        height: 16px;
+        max-height:16px;
+    }
+}
+
+#talk-playbar {
+    max-width: 100vw;
+    min-height: 70px;
+    max-height: 70px;
+    overflow: hidden;
+    background: $almost-black;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 2000;
+    padding: 0;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    align-content: center;
+    align-self: flex-end;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    @include breakpoint(large) {
+        position: relative;
+        box-shadow: none;
+        margin-bottom: 12px;
+    }
+
+    .alt & {
+        margin-top: 12px;
+    }
+    .alt3 & {
+        margin-bottom: 24px;
+    }
+}
+
+.button-playbar {
+    flex: 0 0 70px;
+    margin: 0;
+    border-radius: 0;
+    background: rgba($oil, 0.2);
+    height: 70px;
+    font-size: 1.4em;
+    outline: none;
+    padding: 0;
+    span {
+        width: 100%;
+    }
+}
+
+.button-play-pause {
+    // animation: pulse 2s infinite;
+    background: $vr-blue;
+}
+
+.muted {
+    background: $alert-color;
+    &:hover, &:focus {
+        background: $alert-color;
+    }
+}
+
+#meter, .playbar-divider {
+    flex: 0 0 12px;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-end;
+    //width: 12px;
+    height: 70px;
+    background: black;
+    #indicator {
+        flex: 1 1 12px;
+        width: 12px;
+        height: 1px;
+        max-height: 0px;
+        background: $warning-color;
+        align-self: flex-end;
+    }
+}
+
+.playbar-divider {
+    max-width: 1px;
+}
+
+.timecode {
+    flex: 0 0 auto;
+    line-height: 68px;
+    margin: 0 0 0 12px;
+    padding: 0;
+    color: $oil;
+    font-family: $system-font-family;
+    font-size: rem-calc(12);
+}
+
+.timecode.right {
+    margin: 0 12px 0 0;
+}
+
+.timeline {
+    align-self: center;
+    flex: 1 1 auto;
+    height: 12px;
+    background: rgba($jet, 0.4);
+    border-radius: 2px;
+    margin: 0 12px;
+}
+
+.track-playing {
+    height: 12px;
+    background: $vr-light-blue;
+    width: 10%;
+    border-radius: 2px;
+}
+
+.talk-title {
+    padding-bottom:0;
+    h1 {
+        color: $vr-light-blue;
+        font-size: rem-calc(36);
+        margin: 0;
+        margin-bottom: 18px;
+        line-height: rem-calc(36);
+        // font-weight: 700;
+        display: inline-block;
+        // margin-right: 12px;
+        font-family: $header-font-family;
+        //wrapping and hyphenating:
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+        -webkit-hyphens: auto;
+        -ms-hyphens: auto;
+        -moz-hyphens: auto;
+        hyphens: auto;
+        -ms-word-break: break-all;
+        word-break: break-word;
+        letter-spacing: 0;
+        @include breakpoint(medium) {
+            font-size: rem-calc(48);
+            line-height: rem-calc(48);
+            margin-bottom: 18px;
+        }
+    }
+}
+    .teaser {
+        font-size: rem-calc(16);
+        line-height: rem-calc(24);
+        font-weight: normal;
+        color: $info-color;
+        // max-width: 540px;
+        margin-bottom: 24px;
+        @include breakpoint(medium) {
+            font-size: rem-calc(18);
+            line-height: rem-calc(24);
+        }
+
+        .inline-speaker {
+            color: white;
+            font-weight: bold;
+            font-size: rem-calc(14);
+            a {
+                font-weight: normal;
+                color: $vr-light-blue;
+            }
+        }
+    }
+
+#date-playcount {
+    padding: 12px;
+    margin-bottom: 12px;
+    // margin-right: 6px;
+    font-size: rem-calc(12);
+    background: rgba($almost-black, 0.2);
+    color: rgba($light-gray, 0.4);
+    p {
+        font-size: rem-calc(12);
+    }
+}
+
+#talk-actions {
+    padding: 0;
+    @include breakpoint(medium) {
+        text-align: right;
+    }
+
+
+
+    .button-group {
+        width: 100%;
+        text-align: center;
+        margin-bottom: 24px;
+        @include breakpoint(medium) {
+            text-align: right;
+        }
+
+        @include breakpoint(large) {
+            width: 180px;
+        }
+
+        li {
+            width: 33.33%;
+            padding: 1px;
+            float: left;
+            display: inline-block;
+            .button {
+                border: 0;
+            }
+            @include breakpoint(medium) {
+                margin: 0;
+                width: 100%;
+            }
+
+            @include breakpoint(large) {
+                width: 180px;
+            }
+
+            a {
+                width: 100%;
+                height: 60px;
+                background: rgba($oil, 0.2);
+                border: none;
+                border-width: 0;
+                border-left-color: transparent;
+                color: rgba($vr-light-blue, 0.8);
+                font-size: rem-calc(18);
+                padding-top: 16px;
+                @include breakpoint(medium) {
+                    margin: 0;
+                    text-align: left;
+                }
+
+                @media #{$medium-only} {
+                    padding-left: 16px;
+                }
+                &:hover {
+                    background: $vr-blue;
+                }
+                .comment-count {
+                    font-size: rem-calc(10);
+                }
+                .action-name, .pin-msg {
+                    font-size: rem-calc(11);
+                    margin-left: 6px;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                    @include breakpoint(720px){
+                        font-size: rem-calc(12);
+                    margin-left: 12px;
+                    }
+                    @include breakpoint(small only) {
+                        display: none;
+                    }
+                }
+
+                svg {
+                    margin-top: 6px;
+        vertical-align: text-bottom;
+                }
+            }
+
+            .unpin-btn {
+                background: $vr-blue;
+            }
+        }
+    }
+}
+
+#slide-counter {
+    font-size: 1.5rem;
+    color: $ghost;
+}
+
+#slides-holder {
+    z-index: 4000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    padding: 0px 0 0px 0;
+    background: rgba($white, 0.9);
+    .slide-close,
+    #right-slide,
+    #left-slide {
+        position: fixed;
+        right: 24px;
+        top: 24px;
+        z-index: 3000;
+        background: rgba($almost-black, 0.4);
+        color: $white;
+        width: 44px;
+        height: 44px;
+        max-width: 44px;
+        max-height: 44px;
+        border-radius: 22px;
+        padding: 0;
+        padding-top: 4px;
+        &:hover {
+            background: rgba($almost-black, 0.9);
+        }
+    }
+    #right-slide,
+    #left-slide {
+        width: 60px;
+        min-width: 60px;
+        height: 60px;
+        min-height: 60px;
+        border-radius: 30px;
+        font-size: 24px;
+        top: 50vh;
+        margin-top: -95px;
+        padding-left: 6px;
+    }
+    #left-slide {
+        left: 24px;
+        padding-right: 6px;
+    }
+    .talk-slide-counter {
+        position: fixed;
+        top: 24px;
+        left: 24px;
+        color: $white;
+        background: $oil;
+        padding: 12px;
+        z-index: 9999r;
+    }
+    .slick-slide img {
+        margin: 0 auto;
+    }
+}
+
+.bottom-container {
+    background: $light-gray;
+    padding: 12px;
+    margin-top: 48px;
+    width: 100%;
+    max-width:100%;
+    @include breakpoint(medium) {
+        padding: 24px;
+    }
+
+    #comment-container {
+        max-width:1024px;
+        margin:0 auto;
+        padding: 24px 0;
+    }
+
+    .comment-avatar {
+        width: 42px;
+        height: 42px;
+    }
+    .previous-comments {
+        margin-top: 48px;
+    }
+    .cancel {
+        margin-right: 6px;
+    }
+    .panel {
+        background: rgba($dark-gray, 0.1);
+        height: 120px;
+        border: none;
+        padding: 12px;
+        margin-bottom: 6px;
+    }
+    .comment-block {
+        padding: 12px;
+        @include breakpoint(medium) {
+            padding: 24px;
+        }
+
+        p {
+            font-size: rem-calc(14);
+            line-height: rem-calc(20);
+        }
+        &:nth-child(odd) {
+            background: rgba(white, 0.2);
+        }
+    }
+    .comment-meta {
+        width: 25%;
+        max-width: 25%;
+        img {
+            margin-bottom: 6px;
+        }
+        p {
+            margin: 0;
+            font-size: rem-calc(10);
+            line-height: rem-calc(12);
+        }
+        .post-time {
+            color: rgba($dark-gray, 0.6);
+        }
+    }
+    .comment-content {
+        p {
+            color: rgba($dark-gray, 0.8);
+        }
+    }
+}
+
+#right-sidebar {
+    background: rgba($almost-black, 0.5);
+    height: auto;
+    padding: 12px 6px 200px 6px;
+    @include breakpoint(medium) {
+        padding: 12px 6px 48px 6px;
+        // max-width: 300px;
+    }
+
+    @include breakpoint(large) {
+        position: absolute;
+        right: 0;
+    }
+
+    .talk-card {
+        width: 100%;
+        margin:0;
+    }
+
+    h3 {
+        color: $vr-beige;
+        font-family: $body-font-family;
+        font-weight: bold;
+        font-size: rem-calc(16);
+        margin-bottom: 6px;
+    }
+    .talk-card-inside {
+        background: rgba(#3d404d, 0.5);
+        padding: 0;
+        &:hover {
+            background: rgba(#3d404d, 0.8);
+            .reco-title {
+                color: $light-gray;
+            }
+        }
+        .reco-publisher {
+            color: rgba($light-gray, 0.5);
+            font-size: rem-calc(12);
+            line-height: rem-calc(12);
+            margin-bottom: 6px;
+        }
+        .title {
+            
+            display: inline-block;
+            height: auto;
+            margin: 0 auto;
+            
+            -webkit-line-clamp: auto;
+            -webkit-box-orient: vertical;
+            // overflow: auto;
+            text-overflow: ellipsis;
+            margin-bottom: 0;
+            transition: text-decoration .2s ease;
+            padding: 12px;
+            padding-bottom: 0;
+            min-height: 0;
+
+
+
+            color: rgba($light-gray, 0.4);
+            font-family: $body-font-family;
+            font-weight: bold;
+            font-size: rem-calc(16);
+            line-height: rem-calc(19);
+            margin-top: 8px;
+            margin-bottom: 2px;
+
+
+
+
+
+        }
+        // &:after {
+        //     content: "333";
+        //     font-size: rem-calc(36);
+        //     color: white;
+        //     position: absolute;
+        //     display: block;
+        //     width: 100px;
+        //     height: 100px;
+        //     top: -100px;
+        //     z-index: 6000;
+        // }
+        .reco-play {
+            color: white;
+            font-size: 36px;
+            position: absolute;
+            margin-top: -48px;
+            width: 100%;
+        }
+
+        .svg-icon {
+            color: rgba($light-gray, 0.4);
+        }
+
+        .bottom-info .pin-btn {
+            border-color: transparent;
+            color: rgba($light-gray, 0.4);
+            &:hover {
+                color: white;
+                border-color:rgba($light-gray, 0.4);
+            }
+        }
+    }
+}
+
+.reveal {
+    background-color: $vr-blue;
+    border:none;
+
+    ul li a {
+        height: 60px;
+    }
+
+    svg {
+        vertical-align: middle;
+    }
+    .flyer {
+        max-height: 50vh;
+        box-shadow:0 1px 10px rgba(0,0,0,.3);
+    }
+    h2 {
+        color: white;
+        font-size: rem-calc(24);
+        margin-bottom: 0;
+    }
+    code {
+        background: $info-color;
+        padding: 6px;
+        border: none;
+    }
+    p.lead {
+        color: $info-color;
+    }
+    button {
+        background: $vr-light-blue;
+    }
+    .close-button {
+        color: white;
+        width: 24px;
+        height: 24px;
+        display: block;
+        background:none;
+    }
+    .send-card {
+            position: absolute;
+    bottom: 20px;
+    right: 68px;
+    }
+}

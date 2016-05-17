@@ -2,7 +2,7 @@
 en:
   root:
     index:
-      lead: "Take part in the most up-to-date conversations happening today. Exclusive lectures and discussions with thought-leaders in the fields of"
+      lead: "Take part in the most up-to-date conversations happening today. Exclusive lectures and discussions with thought leaders in the fields of"
       feed_title: Featured talks of Voice Republic
       publish: Publish
       listen: Listen
@@ -13,4 +13,5 @@ en:
       more_talks: "More Talks »"
       more: "More »"
       coming_up_live: "Coming Up Live"
+      start_now: "Start Now »"
       more_publishers: "More Publishers »"

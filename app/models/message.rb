@@ -14,6 +14,8 @@ class Message < ActiveRecord::Base
 
   validates :talk, presence: true
 
+  after_create :publish_to_talk
+
   def as_text
     attrs = {
       user_name: user.name,
@@ -21,6 +23,24 @@ class Message < ActiveRecord::Base
       content: content
     }
     I18n.t('messages.as_text', attrs)
+  end
+
+  def extended_attributes
+    {
+      # regular
+      id: id,
+      content: content,
+      created_at: created_at,
+      # extended
+      user_name: user.name,
+      user_image_url: user.avatar.thumb('42x42').url
+    }
+  end
+
+  def publish_to_talk
+    return if Rails.env.test?
+
+    Faye.publish_to talk.channel, event: 'message', message: extended_attributes
   end
 
 end

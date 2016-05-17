@@ -54,7 +54,7 @@ class Talk < ActiveRecord::Base
     state :created # initial
     state :pending
     state :prelive
-    state :live, enter: :reconnect
+    state :live
     state :postlive
     state :processing
     state :archived
@@ -146,6 +146,7 @@ class Talk < ActiveRecord::Base
   after_save :generate_flyer!, if: :generate_flyer?
   after_save :process_slides!, if: :process_slides?
   after_save :schedule_user_override, if: :schedule_user_override?
+  after_save :propagate_changes
 
   validates_each :starts_at_date, :starts_at_time do |record, attr, value|
     # guard against submissions where no upload occured or no starts_at
@@ -319,6 +320,7 @@ class Talk < ActiveRecord::Base
 
   # returns the next talk (coming up next) talk in the series
   def next_talk
+    #raise "next_talk DEPRECATED!"
     begin
       talks = series.talks.order(:starts_at)
       talk_index = talks.find_index(self)
@@ -337,15 +339,25 @@ class Talk < ActiveRecord::Base
   end
 
   def related_talks
-    talks = series.talks.where.not(id: id).ordered.limit(9)
-    if talks.empty?
-      talks = Talk.joins(:series).
-        where(series: { user_id: series.user_id }).
-        where.not(id: id).ordered.limit(9)
-    end
-    if talks.empty?
-      talks = Talk.popular.where.not(id: id).limit(9)
-    end
+    talks, goal = [], 3
+
+    talks << related_talk if related_talk.present?
+
+    limit = goal - talks.size
+    talks += series.talks.where.not(id: id).ordered.limit(limit)
+
+    return talks if talks.size == goal
+
+    limit = goal - talks.size
+    talks += Talk.joins(:series).
+            where(series: { user_id: series.user_id }).
+            where.not(id: id).ordered.limit(limit)
+
+    return talks if talks.size == goal
+
+    limit = goal - talks.size
+    talks += Talk.popular.where.not(id: id).limit(limit)
+
     talks
   end
 
@@ -380,7 +392,12 @@ class Talk < ActiveRecord::Base
     Rails.application.routes.url_helpers.talk_url(self)
   end
 
+  def create_message_url
+    Rails.application.routes.url_helpers.create_message_url(self)
+  end
+
   def lined_up
+    #raise 'lined_up DEPRECATED!'
     return nil unless venue.present?
     venue.talks.where('starts_at > ?', starts_at).ordered.first
   end
@@ -405,16 +422,31 @@ class Talk < ActiveRecord::Base
     end
   end
 
-  def atom
+  def snapshot
     {
-      talk: attributes,
-      venue: venue.attributes,
-      channel: channel
+      talk: attributes.merge(
+        create_message_url: create_message_url,
+        image_url: image.url,
+        channel: channel,
+        venue: {
+          user: venue_user_attributes,
+          stream_url: venue.stream_url
+        },
+        series: series.attributes.merge(
+          url: series.self_url
+        ),
+        messages: messages.map(&:extended_attributes)
+      ),
+      now: Time.now.to_i
     }
   end
 
-  def reconnect
-    Faye.publish_to channel, event: 'reconnect', stream_url: venue.stream_url
+  def venue_user_attributes
+    venue.user.attributes.tap do |attrs|
+      attrs[:image_url] = venue.user.avatar.thumb("60x60").url
+      attrs[:name] = venue.user.name
+      attrs[:url] = venue.user.self_url
+    end
   end
 
   def schedule_archiving!
@@ -510,7 +542,7 @@ class Talk < ActiveRecord::Base
   def set_venue
     self.venue_name = venue_name.to_s.strip
     return if venue_name.blank? and venue.present?
-    self.venue_name = 'Default venue' if venue_name.blank?
+    self.venue_name = user.venue_default_name if venue_name.blank?
     self.venue = user.venues.find_or_create_by(name: venue_name)
   end
 
@@ -843,12 +875,19 @@ class Talk < ActiveRecord::Base
 
   def event_fired(*args)
     Emitter.talk_transition(self, args)
+  end
 
+  def propagate_changes
     return if Rails.env.test?
-    Faye.publish_to channel,
-                    event: 'talk-transition',
-                    args: args,
-                    atom: atom
+    push_snapshot
+
+    # bubble up
+    venue.push_snapshot
+  end
+
+  def push_snapshot
+    message = { event: 'snapshot', snapshot: snapshot }
+    Faye.publish_to channel, message
   end
 
   def slug_candidates

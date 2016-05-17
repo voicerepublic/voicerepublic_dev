@@ -20,6 +20,9 @@ class FayeAuth < Struct.new(:app, :opts)
       # ok, let's see what the user wants to have access to
       case msg['channel']
 
+      when %r{^/down/talk} # a public channel
+        msg.merge signature: Faye::Authentication.sign(msg, opts[:secret])
+
       # NEWSCHOOL
       when %r{/down/venue/(\d+)$}
         if user = env['warden'].user

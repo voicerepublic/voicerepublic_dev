@@ -193,7 +193,7 @@ describe User do
 
   it 'first talk should create a default venue if no venue_name is given' do
     talk = FactoryGirl.create(:talk)
-    expect(talk.user.venues.pluck(:name)).to eq(['Default venue'])
+    expect(talk.user.venues.pluck(:name)).to eq([talk.user.venue_default_name])
   end
 
   it 'should have a named venue if a venue_name is provided' do

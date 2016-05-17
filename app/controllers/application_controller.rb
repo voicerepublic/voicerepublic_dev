@@ -1,5 +1,7 @@
 class ApplicationController < ActionController::Base
 
+  layout 'velvet'
+
   RSS_GONE = '410 - Sorry, this RSS feed is gone for good.'
 
   class OutdatedBrowser < RuntimeError

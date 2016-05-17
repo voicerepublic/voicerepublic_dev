@@ -166,9 +166,8 @@ en:
     format: ! '%{attribute} %{message}'
     messages:
       accepted: must be accepted
-      blank: can't be blank
-      confirmation: doesn't match confirmation
-      empty: can't be empty
+      blank: "can't be blank"
+      empty: "can't be empty"
       equal_to: must be equal to %{count}
       even: must be even
       exclusion: is reserved
@@ -282,9 +281,6 @@ en:
       time_only: ! '%k:%M'
       timeonly: ! '%H:%M:%S'
     pm: pm
-  will_paginate:
-    next_label: ! '>>'
-    previous_label: <<
 
   devise:
     registrations:
@@ -419,8 +415,8 @@ en:
       archived_talks: '%{count} Archived Talks'
 
   layouts:
-    application:
-      landing_title: Voice Republic - Home To The Spoken Word
+    head:
+      title: Voice Republic - Home To The Spoken Word
     velvet_minimal:
       title: Voice Republic
     support:
@@ -533,9 +529,11 @@ en:
 
   reminders:
     pin:
-      pin: Pin This Talk
+      pin_this_talk: Pin This Talk
+      pin: Pin
     unpin:
-      unpin: Un-Pin This Talk
+      unpin: Un-Pin
+      unpin_this_talk: Un-Pin This Talk
     favorite:
       favorite: Favorite
     unfavorite:
@@ -636,7 +634,6 @@ en:
     Produced by Voice Republic
 
     For more podcasts visit http://voicerepublic.com
-
 
   devices:
     index:

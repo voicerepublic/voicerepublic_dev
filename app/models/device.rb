@@ -43,7 +43,7 @@ class Device < ActiveRecord::Base
     end
 
     event :start_stream do # local
-      transitions from: :idle, to: :streaming
+      transitions from: [:idle, :streaming], to: :streaming
     end
 
     event :stop_stream do # local
@@ -60,7 +60,8 @@ class Device < ActiveRecord::Base
     end
 
     event :reset do
-      transitions from: [:streaming, :idle], to: :idle
+      transitions from: [:streaming, :idle], to: :idle,
+                  on_transition: :signal_stop_stream
     end
   end
 
@@ -103,6 +104,11 @@ class Device < ActiveRecord::Base
   def signal_start_stream
     Faye.publish_to(channel, event: 'start_stream', icecast: venue.icecast_params)
     Rails.logger.info "Started Stream from device '#{name}' to '#{venue.stream_url}'"
+  end
+
+  def signal_stop_stream
+    Faye.publish_to(channel, event: 'stop_stream')
+    Rails.logger.info "Stopped Stream from device '#{name}' to '#{venue.stream_url}'"
   end
 
   def signal_restart_stream

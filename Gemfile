@@ -11,7 +11,7 @@ gem "daemons"
 gem 'delayed_job'
 gem 'delayed_job_active_record'
 
-gem 'sass-rails', '~> 5.0'
+gem 'sass-rails'
 gem 'coffee-rails', '~> 4.1.0'
 gem 'uglifier'#, '>= 1.0.3'
 
@@ -23,8 +23,8 @@ gem 'bunny'
 gem 'bumpy_bridge', '~> 0.0.4'
 gem 'faker'
 gem 'rack-affiliates'
-gem 'rails_config'
-gem 'foundation-rails'
+gem 'config'
+gem 'foundation-rails', '6.2.0.1'
 gem 'jquery-rails'
 gem 'devise', '~> 3.4.0'
 gem 'simple_token_authentication', github: 'branch14/simple_token_authentication'
@@ -42,7 +42,8 @@ gem 'haml-rails'
 gem 'simple_form'
 gem 'unicorn'
 gem "select2-rails"
-gem "transitions", require: ["transitions", "active_model/transitions"], github: 'troessner/transitions'
+gem "transitions", github: 'troessner/transitions',
+    require: ["transitions", "active_model/transitions"]
 gem 'fidelity', git: 'git@github.com:munen/fidelity.git'
 #gem 'fidelity', path: '../fidelity'
 gem 'pg_search'
@@ -81,7 +82,6 @@ group :development do
   gem 'capistrano-bundler', '~> 1.1.1'
   gem 'capistrano-rails',   '~> 1.1.1'
   gem 'capistrano-rbenv', '~> 2.0'
-  gem 'disable_assets_logger'
   gem 'meta_request'
   gem 'pry-rails'
   gem 'rspec-rails', '3.2.1'

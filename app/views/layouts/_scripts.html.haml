@@ -1,0 +1,8 @@
+#scripts
+  = content_for :javascripts
+  = javascript_include_tag :application
+
+  - if Rails.env.production?
+    = render 'shared/tawk'
+    - unless @current_user.try(:insider?)
+      = render 'shared/google_analytics'

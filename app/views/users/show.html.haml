@@ -25,7 +25,7 @@
       %h3.user-name=@user.name
       - if can? :manage, @user
         %p
-          = link_to [:edit, @user], class: 'button tiny hollow secondary' do
+          = link_to [:edit, @user], class: 'button tiny hollow' do
             -#= icon_tag 'pencil'
             = t('.edit_profile')
         %p#user-description

@@ -1,16 +1,17 @@
 class Xhr::TalksController < Xhr::BaseController
 
-  ALLOWED_EVENTS = %w( start_talk! )
+  ALLOWED_EVENTS = %w( start_talk
+                       end_talk )
 
   load_and_authorize_resource
 
   def update
     @talk.assign_attributes(talk_params)
 
-    method = :save
-    method = @talk.event if ALLOWED_EVENTS.include?(@talk.event)
+    # TODO move to model
+    @talk.send(@talk.event) if ALLOWED_EVENTS.include?(@talk.event)
 
-    @talk.send(method)
+    @talk.save
     head :ok
 
   rescue => e

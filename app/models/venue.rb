@@ -2,7 +2,7 @@ class Venue < ActiveRecord::Base
 
   PROVISIONING_WINDOW = 90.minutes
   # PROVISIONING_WINDOW = 12.hours
-  PROVISIONING_TIME = 210.seconds
+  PROVISIONING_DURATION = 4.minutes
 
   extend FriendlyId
   friendly_id :slug_candidates, use: [:slugged, :finders]
@@ -12,10 +12,11 @@ class Venue < ActiveRecord::Base
   has_many :talks
 
   validates :name, :user_id, presence: true
-
   validates :client_token, uniqueness: true, allow_blank: true
 
   serialize :options
+
+  after_save :propagate_changes
 
   attr_accessor :event
 
@@ -26,10 +27,14 @@ class Venue < ActiveRecord::Base
     state :offline, enter: :reset_ephemeral_details # aka. unavailable
     state :available
     state :provisioning, enter: :provision, exit: :complete_details
-    state :select_device
+    state :device_required
     state :awaiting_stream, enter: :start_streaming
+<<<<<<< HEAD
     state :connected, enter: :propagate_reconnect # aka. streaming
     state :disconnect_required
+=======
+    state :connected # aka. streaming
+>>>>>>> integration
     state :disconnected # aka. lost connection
 
     # issued by the venues controller
@@ -39,14 +44,16 @@ class Venue < ActiveRecord::Base
     event :start_provisioning, timestamp: :started_provisioning_at do
       transitions from: :available, to: :provisioning
     end
-    event :device_selected do
-      transitions from: :select_device, to: :awaiting_stream
+    event :select_device do
+      transitions from: [:device_required, :awaiting_stream,
+                         :connected, :disconnected],
+                  to: :awaiting_stream
     end
 
     # issued by the icecast endpoint middleware
     event :complete_provisioning, timestamp: :completed_provisioning_at do
       transitions from: :provisioning, to: :awaiting_stream, guard: :device_present?
-      transitions from: :provisioning, to: :select_device
+      transitions from: :provisioning, to: :device_required
     end
     event :connect do
       transitions from: [:awaiting_stream, :disconnected], to: :connected
@@ -55,14 +62,18 @@ class Venue < ActiveRecord::Base
       transitions from: [:connected, :disconnect_required], to: :disconnected
     end
 
+<<<<<<< HEAD
     # issues by ended talks
     event :require_disconnect, success: :restart_streaming do
       transitions from: :connected, to: :disconnect_required
     end
 
     # issued by cron'ed rake task
+=======
+    # issued by ?
+>>>>>>> integration
     event :shutdown do
-      transitions from: [:select_device, :awaiting_stream,
+      transitions from: [:device_required, :awaiting_stream,
                          :connected, :disconnected],
                   to: :offline, on_transition: :unprovision,
                   guard: :shutdown?
@@ -70,7 +81,7 @@ class Venue < ActiveRecord::Base
 
     # issued from the rails console, for emergencies & testing only
     event :reset do
-      transitions from: [:available, :provisioning, :select_device,
+      transitions from: [:available, :provisioning, :device_required,
                          :awaiting_stream, :connected, :disconnected],
                   to: :offline, on_transition: :unprovision
     end
@@ -173,27 +184,50 @@ class Venue < ActiveRecord::Base
     "/down/venue/#{id}"
   end
 
-  # TODO rename to context or snapshot
   # current single page app state
-  def atom
+  def snapshot
     {
-      venue: attributes,
-      user: user.attributes,
-      talks: talks.inject({}) { |r, t| r.merge t.id => t.attributes },
-      now: Time.now.to_i,
-      channel: channel,
-      # TODO limit to the user/org's devices
-      devices: Device.idle.map(&:attributes),
-      availability_countdown: availability_countdown
+      venue: attributes.merge(
+        provisioning_duration: PROVISIONING_DURATION,
+        channel: channel,
+        talks: talks_as_array,
+        user: user.attributes.merge(
+          image_url: user.avatar.thumb('36x36').url
+        ),
+        availability: availability
+      ),
+      devices: Device.all.map(&:attributes),
+      now: Time.now.to_i
     }
   end
 
-  # Returns the remaining seconds until the provisioning window opens.
+  # private
+  def talks_as_array
+    talks.map do |talk|
+      attrs = talk.attributes
+      attrs.delete('storage')
+      attrs.delete('listeners')
+      attrs.delete('session')
+      attrs
+    end
+  end
+
+  def propagate_changes
+    return if Rails.env.test?
+    push_snapshot
+  end
+
+  def push_snapshot
+    message = { event: 'snapshot', snapshot: snapshot }
+    Faye.publish_to channel, message
+  end
+
+  # Returns the time the provisioning window will open.
   #
-  def availability_countdown
+  def availability
     return false if talks.prelive.empty?
 
-    talks.prelive.ordered.first.starts_at - PROVISIONING_WINDOW.from_now
+    talks.prelive.ordered.first.starts_at.to_i - PROVISIONING_WINDOW
   end
 
   # This is used in userdata.
@@ -270,7 +304,7 @@ class Venue < ActiveRecord::Base
   def in_provisioning_window?
     return false if talks.prelive.empty?
 
-    availability_countdown <= 0
+    availability <= Time.now.to_i
   end
 
   def reset_ephemeral_details
@@ -295,19 +329,22 @@ class Venue < ActiveRecord::Base
   end
 
   def start_streaming
-    device.start_stream!
-  end
+    return unless device.present?
 
+<<<<<<< HEAD
   def restart_streaming
     device.restart_stream!
   end
 
   def propagate_reconnect
     talks.live.each(&:reconnect)
+=======
+    device.start_stream!
+>>>>>>> integration
   end
 
   def device_present?
-    device.present?
+    device.present? || device_name.present?
   end
 
   # called on event shutdown
@@ -352,7 +389,7 @@ class Venue < ActiveRecord::Base
 
     # for debugging
     # puts userdata
-    # FileUtils.cp f.path, 'userdata.sh'
+    FileUtils.cp f.path, 'userdata.sh'
 
     puts 'Running provisioning file...'
     spawn provisioning_file
@@ -372,11 +409,6 @@ class Venue < ActiveRecord::Base
 
   def event_fired(*args)
     Emitter.venue_transition(self, args)
-
-    Faye.publish_to channel,
-                    event: 'venue-transition',
-                    args: args,
-                    atom: atom
   end
 
   def slug_candidates

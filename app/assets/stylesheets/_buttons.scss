@@ -1,0 +1,104 @@
+//buttons
+button, .button {
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: rem-calc(1);
+    border-width: 2px;
+    transition: border-color .2s ease;
+    transition: border .2s ease;
+    transition: all .2s ease;
+    background-color: $vr-blue;
+    &.secondary {
+        background-color: $vr-light-blue;
+        &:hover {
+            background-color:$vr-blue;
+        }
+    }
+
+    &.hollow {
+        border-width: 2px;
+        border-color: $vr-light-blue;
+        color: $vr-light-blue;
+        &.btn-white {
+            border-color:white;
+            color: white;
+        }
+        &:hover {
+            color: white;
+            background: $vr-blue;
+            border-color: $vr-blue;
+        }
+        &.btn-blue {
+            border-color: $vr-blue;
+            color: $vr-blue;
+        }
+        &.btn-light-blue {
+            border-color: $vr-light-blue;
+            color: $vr-light-blue;
+        }
+        &.btn-yellow {
+          border-color:$vr-yellow;
+          color: $vr-yellow;
+        }
+        &.btn-gray {
+            border-color: $charcoal;
+            color: $charcoal;
+        }
+        &.btn-red {
+            border-color:$vr-red;
+            color:$vr-red;
+        }
+        
+    }
+    &.btn-hover-yellow {
+            &:hover {
+                border-color: $vr-yellow;
+                background: $vr-yellow;
+                color: $talk-dark;
+            }
+        }
+        &.btn-hover-red {
+            &:hover {
+                border-color: $vr-red;
+                background: $vr-red;
+                color: white;
+            }
+        }
+        &.btn-hover-light-blue {
+            &:hover {
+                border-color: $vr-light-blue;
+                background: $vr-light-blue;
+                color: white;
+            }
+        }
+        &.btn-hover-blue {
+          &:hover {
+          border-color:$vr-blue;
+          background: $vr-blue;
+          color: white;
+            
+          }
+        }
+    &.alert.hollow {
+        border-width: 2px;
+    }
+    &.small {
+        border-width: 2px;
+    }
+    &.large {
+        border-width: 3px;
+    }
+    .info {
+        background: $topbar-link-color;
+        & .hollow {
+            border-color: $topbar-link-color;
+        }
+    }
+    &:hover, &:active {
+        background: $vr-light-blue;
+    }
+    &.muted.hollow {
+        border-color: $charcoal;
+        color: $charcoal;
+    }
+}

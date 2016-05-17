@@ -1,6 +1,20 @@
 en:
+  venues:
+    show:
+      loading: loading venue
   frontend:
+    talks:
+      state:
+        live: Live
+        postlive: Queued for processing...
+        processing: Processing...
+        suspended: This talk is currently not available.
+        pending: Processing...
+      any_time_now: any time now...
     venues:
+      streaming_server: Streaming Server
+      audio_source: Audio Source
+      broadcast: Broadcast
       select: Select
       setup: Setup
       start: Start

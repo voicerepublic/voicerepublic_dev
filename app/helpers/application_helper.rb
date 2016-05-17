@@ -1,5 +1,9 @@
 module ApplicationHelper
 
+  def body_classes
+   [ controller_name, [controller_name, action_name] * '-' ] * ' '
+  end
+
   def itunes_image_url(image)
     image.thumb('1400x1400#', format: 'png').url(name: 'image.png')
   end
@@ -19,6 +23,7 @@ module ApplicationHelper
   def render_footer?
     return false if controller_action == 'explore-index'
     return false if controller_action == 'users-edit'
+    return false if controller_action == 'venues-show'
     true
   end
 
@@ -63,7 +68,7 @@ module ApplicationHelper
   def icon_tag(topic, opts={})
     title = opts[:title] || topic
     "<div class='svg-icon' title='#{title}'><svg><use xlink:href='#icon-#{topic}'></use></svg></div>".html_safe
-  end  
+  end
 
   def naked_icon(topic, opts={})
     "<svg><use xlink:href='#icon-#{topic}'></use></svg>".html_safe

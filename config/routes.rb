@@ -29,7 +29,7 @@ Rails.application.routes.draw do
 
   resources :uploads, only: [ :new, :create ]
 
-  post '/xhr/talk/:id/messages', to: 'xhr/messages#create'
+  post '/xhr/talk/:id/messages', to: 'xhr/messages#create', as: 'create_message'
   get  '/xhr/users',             to: 'xhr/users#index'
 
   namespace 'xhr' do
@@ -83,7 +83,12 @@ Rails.application.routes.draw do
   # TODO remove
   # get '/venues/:id', to: redirect(->(params, req) { '/series/'+params[:id] })
 
-  resources :venues, only: [:index, :show, :update]
+  resources :venues, only: [:index, :show, :update] do
+    member do
+      get 'butt'
+      get 'darkice'
+    end
+  end
   resources :devices, only: [:index, :edit, :update]
 
   resources :reminders, only: [:show, :destroy]

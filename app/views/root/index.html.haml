@@ -21,7 +21,6 @@
             = succeed delim do
               = link_to cat.title, explore_path(filter: {category: cat.id})
         .claim-cta-half.medium-6.columns
-          -# TODO: Link to pages in CMS
           = link_to page_path action: 'publish' do
             %button.button.hollow.btn-light-blue.btn-hover-yellow
               = t('.publish')
@@ -37,7 +36,7 @@
     .row
 
       %h2= t('.listen_now')
-      #talk-teasers
+      .talk-teasers.clearfix
         = render partial: 'shared/talk_card', collection: @talks_listen_now
 
       .listen-interstitial
@@ -50,24 +49,24 @@
             = link_to icon_tag(cat.icon) + cat.title,
                 explore_path(filter: {category: cat.id}), class: 'button'
 
-      #talk-collection
+      .talk-collection.clearfix
         = render partial: 'shared/talk_card', collection: @talks_popular
-      .row
-        = link_to explore_path do
-          %button.button.hollow.large= t('.more_talks')
+      .row.clearfix
+        = link_to explore_path, class: 'button hollow large' do
+          = t('.more_talks')
 
 
   -# UPCOMING
   - unless @talks_upcoming.empty?
     %section#coming-up.blue
-      .row
+      .row.clearfix
         .container
           %h2= t('.coming_up_live')
-        #talk-collection
+        .talk-collection.clearfix
           = render partial: 'shared/talk_card', collection: @talks_upcoming
-      .row
-        = link_to explore_path do
-          %button.button.hollow.large.btn-hover-yellow= t('.more')
+      .row.clearfix
+        = link_to explore_path, class: 'button hollow large btn-hover-yellow' do
+          = t('.more')
 
 
   -# CATEGORIES
@@ -75,7 +74,7 @@
     .row
       .container
         %h2 Categories
-      #talk-collection{"data-equalizer" => ""}
+      .talk-collection.clearfix{"data-equalizer" => ""}
         = render partial: 'category', collection: @categories
 
 
@@ -92,8 +91,9 @@
         = render partial: 'publisher', collection: @publishers
 
     .row.clearfix
-      = link_to blog_url('/publishers-on-voice-republic') do
-        %button.button.hollow.large= t('.more_publishers')
+      = link_to blog_url('/publishers-on-voice-republic'),
+        class: 'button hollow large' do
+        = t('.more_publishers')
 
 
   -# CONTACT
@@ -101,8 +101,7 @@
     .row
       .medium-6.medium-offset-3.columns
         %h1 Are you planning a conference or event?
-        = link_to new_user_registration_path, class: 'button large hollow btn-yellow btn-hover-red' do
+        = link_to new_user_registration_path, class: 'button hollow large btn-yellow btn-hover-blue' do
           = t('.start_now')
         %br/
-        = link_to blog_url('/contact'), class: 'text-link' do 
-          = t('.or_contact_us')
+        = link_to t('.or_contact_us'), blog_url('/contact'), class: 'link-yellow text-link'
