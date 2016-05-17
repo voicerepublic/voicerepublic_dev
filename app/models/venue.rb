@@ -330,17 +330,12 @@ class Venue < ActiveRecord::Base
 
   def start_streaming
     return unless device.present?
-
-<<<<<<< HEAD
-  def restart_streaming
-    device.restart_stream!
+    device.start_stream!
   end
 
-  def propagate_reconnect
-    talks.live.each(&:reconnect)
-=======
-    device.start_stream!
->>>>>>> integration
+  def restart_streaming
+    return unless device.present?
+    device.restart_stream!
   end
 
   def device_present?
