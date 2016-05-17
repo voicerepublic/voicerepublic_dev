@@ -72,6 +72,8 @@ class Venue < ActiveRecord::Base
     end
 
     # issued from the rails console, for emergencies & testing only
+    # you may lose data, since it does not wait for the sync between
+    # the ec2 instances and s3
     event :reset do
       transitions from: [:available, :provisioning, :device_required,
                          :awaiting_stream, :connected, :disconnected],

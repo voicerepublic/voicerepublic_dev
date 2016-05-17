@@ -57,11 +57,3 @@ JSON='{"channel":"@phil","text":"'$TEXT'","icon_emoji":":mushroom:","username":"
 
 curl -X POST -H 'Content-type: application/json' --data "$JSON" \
      https://hooks.slack.com/services/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
-
-
-# --- cleanup when creating a new image
-# docker stop icecast
-# docker rm icecast
-# rm /etc/passwd-s3fs
-# rm /etc/env.list
-# rm /tmp/part-001.log

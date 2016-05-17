@@ -13,9 +13,17 @@ ICECAST_ADMIN_USER="${ICECAST_ADMIN_USER:-admin}"
 # apply to template
 . ./icecast.xml-template.sh > /etc/icecast2/icecast.xml
 
-# technically this should come after starting icecast, but for now
-# this is good enough
+# start icecast
+/usr/bin/icecast2 -c /etc/icecast2/icecast.xml &
+ICECAST_PID=$!
+echo Icecast start with pid $ICECAST_PID
+
+# send ready signal
 ./ready.sh
 
-# start icecast
-/usr/bin/icecast2 -c /etc/icecast2/icecast.xml
+# enter stats loop, check if icecast has come to end
+while kill -0 $ICECAST_PID
+do
+    ./stats.sh
+    sleep $STATS_INTERVAL
+done

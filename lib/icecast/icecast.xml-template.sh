@@ -134,7 +134,7 @@ cat <<EOF
       <public>0</public>
     </mount>
 
-    <fileserve>0</fileserve>
+    <fileserve>1</fileserve>
 
     <paths>
 		<!-- basedir is only used if chroot is enabled -->
@@ -143,8 +143,8 @@ cat <<EOF
         <!-- Note that if <chroot> is turned on below, these paths must both
              be relative to the new root, not the original root -->
         <logdir>/share</logdir>
-        <webroot>/share/web</webroot>
-        <adminroot>/share/admin</adminroot>
+        <webroot>/usr/share/icecast2/web</webroot>
+        <adminroot>/usr/share/icecast2/admin</adminroot>
         <!-- <pidfile>/usr/share/icecast2/icecast.pid</pidfile> -->
 
         <!-- Aliases: treat requests for 'source' path as being for 'dest' path
@@ -158,7 +158,8 @@ cat <<EOF
              this example will redirect all requests for http://server:port/ to
              the status page
           -->
-        <alias source="/" dest="/status.xsl"/>
+        <!--<alias source="/" dest="/status.xsl"/>-->
+        <alias source="/" dest="/redirect.html"/>
     </paths>
 
     <logging>

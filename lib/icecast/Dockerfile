@@ -17,6 +17,8 @@ VOLUME /share
 
 ADD ./*.sh /
 
+ADD redirect.html /usr/share/icecast2/web/
+
 RUN chown -R icecast2 /etc/icecast2
 
 USER icecast2
