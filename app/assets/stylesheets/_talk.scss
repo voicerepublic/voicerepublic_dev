@@ -827,6 +827,16 @@ button,
     .input {
         margin-bottom: 48px;
     }
+    h3 {
+        font-size: 16px;
+    font-family: sans-serif;
+    text-transform: uppercase;
+    font-weight: 700;
+    text-align: center;
+    letter-spacing: 1px;
+    color: $vr-light-blue;
+    margin-bottom: 24px;
+    }
     label {
         font-weight: 700;
         abbr {
@@ -834,5 +844,61 @@ button,
             border:none;
             cursor: auto;
         }
+    }
+}
+
+#ui-datepicker-div {
+    background: $vr-purple;
+    color: white;
+    padding: 12px;
+    box-shadow:0 1px 20px rgba(0,0,0,.3);
+    .ui-datepicker-header {
+        margin-bottom: 12px;
+    }
+    .ui-datepicker-prev, .ui-datepicker-next {
+        font-weight: 700;
+        font-size: 24px;
+        color: white;
+    }
+    .ui-datepicker-prev {
+        float:left;
+    }
+    .ui-datepicker-next {
+        float: right;
+    }
+    .ui-datepicker-title {
+        text-align: center;
+        font-weight: 500;
+        line-height: 34px;
+    }
+    table {
+        background: none;
+        margin-bottom: 0;
+        & * {
+            background: none;
+        }
+        thead {
+            color: white;
+        }
+        tbody {
+            font-weight: 500;
+        }
+    }
+    .ui_tpicker_unit_hide {
+        display: none;
+    }
+    button {
+        @include button(true, $vr-yellow, $vr-light-blue, $talk-dark, solid);
+    }
+    .ui-slider {
+        background:$vr-yellow;
+    }
+    .ui-slider-handle {
+        display: block;
+        width: 24px;
+        height: 24px;
+        background: $vr-yellow;
+        border-radius:50%;
+        box-shadow:0 1px 2px rgba(0,0,0,.3);
     }
 }
