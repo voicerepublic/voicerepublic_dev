@@ -1,9 +1,42 @@
 body {
     background: $talk-dark;
     height: auto;
+    &.talks-new, &.talks-create {
+        background:$silver;
+    }
 }
 
+
+// TODO: This is a hack to get Foundation 6 styles on simple_form 
+// elements with errors.
+.input.error {
+  label {
+    color:$vr-red;
+   //@extend .is-invalid-label;
+   //@include form-error;
+  }
+
+  input,
+  textarea,
+  select {
+    // @extend .is-invalid-input;
+    @include form-input-error($vr-red, .1);
+
+  }
+
+  small.error {
+    @include form-error;
+    @extend .is-visible;
+  }
+}
+//end todo
+
+// .input.error {
+//     @include form-input-error($vr-purple, .1);
+// }
+
 .label {
+
   background:$vr-purple;
   &.live {
     background: $vr-red;
@@ -46,6 +79,9 @@ body.talks {
     max-width: 68rem;
     @media #{$xlarge-up} {
         max-width: 88rem;
+    }
+    &.talk-form {
+        max-width: rem-calc(800)
     }
 }
 
@@ -783,5 +819,20 @@ button,
             position: absolute;
     bottom: 20px;
     right: 68px;
+    }
+}
+
+//forms
+.talks-create, .talks-new {
+    .input {
+        margin-bottom: 48px;
+    }
+    label {
+        font-weight: 700;
+        abbr {
+            color: inherit;
+            border:none;
+            cursor: auto;
+        }
     }
 }
