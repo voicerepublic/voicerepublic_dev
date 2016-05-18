@@ -31,16 +31,20 @@
 //     font-style: normal;
 // }
 
-html,body {
-    min-height: 100%;
-}
+
 html {
     -webkit-font-smoothing: antialiased;
-    height: 100%;
+    height: auto;
+    overflow: auto;
     font-weight: 300;
     color: $almost-black;
-    background: $silver;
     background:$vr-blue;
+}
+
+body {
+      position: relative;
+  height: auto;
+  min-height: 100% !important;
 }
 
 a {
