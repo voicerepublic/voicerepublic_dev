@@ -1,7 +1,7 @@
 class ArchiveJob < MonitoredJob
 
   def perform
-    Talk.find(opts[:id]).send(:archiv_from_dump!)
+    Talk.find(opts[:id]).send(:archive_from_dump!)
   end
 
 end
