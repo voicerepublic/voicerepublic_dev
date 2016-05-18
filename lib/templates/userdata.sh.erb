@@ -24,6 +24,15 @@ if [ -f /sys/hypervisor/uuid ] && [ `head -c 3 /sys/hypervisor/uuid` == ec2 ]; t
   echo $AWS_CREDENTIALS > /etc/passwd-s3fs
   chmod 600 /etc/passwd-s3fs
   /usr/local/bin/s3fs $BUCKET $STORAGE -o allow_other
+
+  # FYI
+  # ssh admin@<ip> cat INFO.txt
+  # maybe this script could also set a tag/name of the ec2 instance
+  cat > /home/admin/INFO.txt <<EOF
+Host:  <%= %x[hostname].chomp %>
+Venue: <%= %x[name] %>
+User:  <%= %x[user.name] %>
+EOF
 else
 
   PUBLIC_IP=`hostname -I | cut -d ' ' -f 1`
