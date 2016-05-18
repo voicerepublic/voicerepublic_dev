@@ -845,6 +845,15 @@ button,
             cursor: auto;
         }
     }
+    .image-box {
+        width: 300px;
+        height: 200px;
+        background-size: cover;
+        margin: 0 auto;
+    }
+    [type='file'] {
+    width: auto;
+}
 }
 
 #ui-datepicker-div {

@@ -681,6 +681,7 @@
         }
     }
     .slug-warning, .slug-explanation {
+        position:relative;
         background: $vr-red;
         color: white;
         font-weight: 500;
