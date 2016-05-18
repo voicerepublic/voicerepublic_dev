@@ -1,7 +1,7 @@
 body {
     background: $talk-dark;
     height: auto;
-    &.talks-new, &.talks-create {
+    &.talks-new, &.talks-create, &.uploads, &.uploads-new {
         background:$silver;
     }
 }
@@ -80,7 +80,7 @@ body.talks {
     @media #{$xlarge-up} {
         max-width: 88rem;
     }
-    &.talk-form {
+    &.talk-form, &.uploads-form {
         max-width: rem-calc(800)
     }
 }
@@ -823,7 +823,7 @@ button,
 }
 
 //forms
-.talks-create, .talks-new {
+.talks-create, .talks-new, .uploads-create, .uploads-new {
     .input {
         margin-bottom: 48px;
     }
