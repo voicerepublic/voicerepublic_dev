@@ -147,7 +147,7 @@ en:
       delete_talk: Delete talk
       select_image: Background image
     fields:
-      upload_a_recording: Upload A Recording
+      upload_a_recording: Upload To Voice Republic
       describe_your_talk: Describe Your Talk
       unprocessed_upload: |
         Please click 'Save' to start processing your uploaded audio file.

@@ -14,8 +14,7 @@
     .title-box.clearfix
       .help-text.text-center= t('.upload_done')
   - else
-    = render partial: 'shared/upload',
-             locals: { f: f, ns: 'audio', init: init_audio_uploader }
+    = render partial: 'shared/upload', locals: { f: f, ns: 'audio', init: init_audio_uploader }
 
   .title-box.clearfix
     %h3.form-title= t('.describe_your_talk')
@@ -49,9 +48,8 @@
     .help-text.text-center= t('.ill_and_desc_text')
   .row
     .text-center
-      .image-box(style="background-image: url(#{f.object.image.url})" data-show-upload="#talk_image,#series_talks_attributes_0_image")
-      -#.image-box(style="background-image: url(#{f.object.image.url})" data-show-upload="#talk_image,#series_talks_attributes_0_image")
-      = f.file_field :image, as: :file, class: 'soft-hide'
+      .image-box(style="background-image: url(#{f.object.image.url})")
+      = f.input :image, as: :file, wrapper_html: { class: 'inputfile' }, label: icon_tag("photo") + t('.change_photo').html_safe, input_html: {'data-instant-image' => '.image-box | .image-label'}, label_html: {class: 'image-label button hollow tiny btn-hover-yellow'}
 
   .row
     .medium-12.columns

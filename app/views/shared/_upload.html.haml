@@ -1,32 +1,4 @@
-.row.upload-init(ng-hide='true')
-  .large-12= t(".initializing")
-.row.upload-full{ 'ng-controller' => 'UploadController',
-                  'ng-cloak' => true,
-                  'ng-init' => init }
-  .medium-12.columns
-    %div(ng-show="!uploader.isHTML5")= t(".drop_file_not_supported")
-    .button-progress-box
-      %button.button-select-file.button-standard(type="button" data-trigger-file-input="##{ns}-file-input" ng-show="state == 'ready'")= t('.choose_file')
-      %button.fake-button-uploading.button-standard(type="button" ng-show="state == 'uploading'")= t('.uploading')
-      %button.fake-button-finished.button-standard(type="button" ng-show="state == 'finished'")= t('.finished')
-      %input(id="#{ns}-file-input"
-             nv-file-select=""
-             type="file"
-             uploader="uploader")/
-      %ul.progress-list.list-style-type-none
-        -# The queue for us is only '1', but iteration is still
-        -# needed, since it's a multi file uploader
-        %li(ng-repeat="item in uploader.queue")
-          .file-name-cancel-box.clearfix
-            .file-name {{ item.file.name }}
-            .button-cancel-upload(ng-click="item.remove()"
-                                  ng-hide="!item.isUploading"
-                                  href="#")= raw t('.cancel')
-          .progress-bar-box
-            %span.meter(ng-style="{ 'width': item.progress + '%' }")
-    %div(ng-show="uploader.isHTML5")
-      .file-types(ng-class="{'highlight-supported-files': addingFailed}")
-        = t(".#{ns}.supported_filetypes")
-      -#.well.my-drop-zone{"nv-file-over" => "", :uploader => "uploader"}
-        -#= t('.drop_files_here')
-    #upload_error(ng-show="uploadFailed")= t('.upload_failed')
+.text-center
+  = f.input :avatar, as: :file, wrapper_html: { class: 'inputfile' }, label: t('.choose_file').html_safe, label_html: {class: 'button large hollow btn-purple btn-hover-yellow', id: 'avatar-label'}
+  %p.help-text= t('.upload_advice')
+%hr

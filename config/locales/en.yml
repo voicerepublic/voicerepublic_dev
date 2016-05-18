@@ -318,9 +318,10 @@ en:
       no_results: Sorry, no results.
   shared:
     upload:
+      choose_file: Choose A File To Upload
+      upload_advice: You can upload MP3, M4A, OGG, WAV files
       initializing: Initializing Uploader...
       audio_upload: "Upload your audio file"
-      choose_file: Choose file
       uploading: Uploading...
       drop_files_here: "Drop files here"
       upload: Upload
@@ -350,7 +351,7 @@ en:
       explore: Explore
       my_profile: My Profile
       schedule_talk: Schedule A Live Talk
-      upload_talk: Upload A Recording
+      upload_talk: Upload A Recording To Voice Republic
       pricing: Pricing
       test_talk: 'Test A Talk'
       logout: Log Out
