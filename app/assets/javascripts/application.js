@@ -17,7 +17,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require foundation
-//= require select2
+//= require selectize
 //= require slick
 //= require jquery-ui/datepicker
 //= require jquery-ui/slider
@@ -36,6 +36,7 @@
 //= require components/picker
 //= require components/persisted_log
 //= require components/language_select
+//= require components/instant_image
 //
 // --- VIEWS
 //= require views/explore
@@ -104,61 +105,8 @@ $('.category-buttons .button').on('click', function() {
     $(this).toggleClass('active');
 });
 
-//$( '.inputfile' ).each( function()
-
-function changeLabelName(input) {
-    var $input = $(this),
-        $label = $input.next('label'),
-        labelVal = $label.html();
-
-    //console.log('should change label name')
-
-    // $input.on( 'change', function( e )
-    // {
-    var fileName = '';
-
-    // if( this.files && this.files.length > 1 )
-    //     fileName = ( this.getAttribute( 'data-multiple-caption' ) || '' ).replace( '{count}', this.files.length );
-    if ($input.target.value)
-        fileName = e.target.value.split('\\').pop();
-
-    if (fileName)
-        $label.find('span').html(fileName);
-    else
-        $label.html(labelVal);
-    // });
-
-    // Firefox bug fix
-    $input
-        .on('focus', function() {
-            $input.addClass('has-focus');
-        })
-        .on('blur', function() {
-            $input.removeClass('has-focus');
-        });
-}
-
-function readURL(input) {
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
 
 
-        reader.onload = function(e) {
-            var fileName = $('input[type=file]').val().split('\\').pop();
-            $('.preview-img').css('background-image', 'url(' + e.target.result) + ')';
-            console.log('filename:' + fileName);
-            $('.preview-img').next().find('span').html(fileName);
-        }
-
-        reader.readAsDataURL(input.files[0]);
-    }
-}
-
-$("#user_avatar, #series_image").change(function() {
-    console.log('should change the image');
-    readURL(this);
-    // changeLabelName($('.inputfile'));
-});
 
 $("input#user_slug").focus(function() {
     //console.log('tryign to schange slug');
