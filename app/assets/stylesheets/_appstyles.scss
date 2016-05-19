@@ -6,6 +6,10 @@
     opacity: 0;
 }
 
+.top-24 {
+    padding-top:24px;
+}
+
 // Overwrite the float-right behavior of the last element in grid:
 .column:last-child:not(:first-child), .columns:last-child:not(:first-child) {
     float:left;
@@ -31,16 +35,20 @@
 //     font-style: normal;
 // }
 
-html,body {
-    min-height: 100%;
-}
+
 html {
     -webkit-font-smoothing: antialiased;
-    height: 100%;
+    height: auto;
+    overflow: auto;
     font-weight: 300;
     color: $almost-black;
-    background: $silver;
     background:$vr-blue;
+}
+
+body {
+      position: relative;
+  height: auto;
+  min-height: 100% !important;
 }
 
 a {

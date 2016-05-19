@@ -615,28 +615,30 @@
         }
 
         label.button {
-            max-width: 180px;
+            width: 180px;
             cursor: pointer;
-            &:hover {
-                color: $vr-light-blue;
-                border-color: $vr-light-blue;
+            text-align: center;
+            overflow: hidden;
+            // &:hover {
+            //     color: $vr-light-blue;
+            //     border-color: $vr-light-blue;
+            // }
+        }
+        #avatar-img {
+            margin-bottom: 6px;
+            display: block;
+            // border: 1px solid $light-gray;
+            background: #f2f2f2;
+            width: 180px;
+            height: 180px;
+            background-size: cover;
+            border-radius: 50%;
+            margin: 0 auto;
+            margin-bottom: 12px;
+            @include breakpoint(medium) {
+                float: left;
             }
         }
-        // #avatar-img {
-        //     margin-bottom: 6px;
-        //     display: block;
-        //     // border: 1px solid $light-gray;
-        //     background: #f2f2f2;
-        //     width: 180px;
-        //     height: 180px;
-        //     background-size: cover;
-        //     border-radius: 50%;
-        //     margin: 0 auto;
-        //     margin-bottom: 12px;
-        //     @include breakpoint(medium) {
-        //         float: left;
-        //     }
-        // }
         input, textarea, select {
             border: 1px solid $vr-light-blue;
         }
@@ -679,6 +681,7 @@
         }
     }
     .slug-warning, .slug-explanation {
+        position:relative;
         background: $vr-red;
         color: white;
         font-weight: 500;

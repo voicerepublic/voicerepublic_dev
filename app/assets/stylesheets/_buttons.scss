@@ -23,6 +23,14 @@ button, .button {
             border-color:white;
             color: white;
         }
+        &.btn-purple {
+            border-color:$vr-purple;
+            color: $vr-purple;
+        }
+        &.muted {
+            border-color:$charcoal;
+            color: $charcoal;
+        }
         &:hover {
             color: white;
             background: $vr-blue;
@@ -97,8 +105,8 @@ button, .button {
     &:hover, &:active {
         background: $vr-light-blue;
     }
-    &.muted.hollow {
-        border-color: $charcoal;
-        color: $charcoal;
-    }
+    // &.muted.hollow {
+    //     border-color: $charcoal;
+    //     color: $charcoal;
+    // }
 }

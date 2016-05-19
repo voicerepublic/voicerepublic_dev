@@ -1,5 +1,5 @@
 !!!
-%html.no-js{ lang: I18n.locale.to_s, 'xmlns:fb' => "http://ogp.me/ns/fb#" }
+%html.no-js{ lang: I18n.locale.to_s, 'xmlns:fb' => "http://ogp.me/ns/fb#", 'ng-app' => 'sencha' }
 
   = render 'layouts/head'
 
@@ -22,7 +22,7 @@
 
 
       .top-bar-right
-        %ul.dropdown.menu{"data-dropdown-menu" => ""}
+        %ul.dropdown.menu{"data-dropdown-menu" => "", "data-disable-hover" => "true", "data-click-open" => "true"}
           %li.can-hide.hide-for-small-only
             = link_to explore_path do
               = t('.explore')

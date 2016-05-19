@@ -6,9 +6,10 @@
 
   -# CLAIM
   %section#claim.dark
-    .row
-      %header
-        = render 'shared/free_pricing_banner'
+    .row.clearfix
+      %header.small-12.small-push-12.columns
+        .hide-for-small-only
+          = render 'shared/free_pricing_banner'
         = s('.title')
       .container.medium-10.medium-offset-1.large-8.large-offset-2.columns
         - if !current_user
@@ -20,15 +21,19 @@
             - delim = (cat == @categories.last) ? '.' : ','
             = succeed delim do
               = link_to cat.title, explore_path(filter: {category: cat.id})
-        .claim-cta-half.medium-6.columns
+        .claim-cta-half.small-6.columns
           = link_to page_path action: 'publish' do
-            %button.button.hollow.btn-light-blue.btn-hover-yellow
+            %button.button.hollow.btn-white.btn-hover-yellow
               = t('.publish')
-        .claim-cta-half.medium-6.columns
+        .claim-cta-half.small-6.columns
           = link_to explore_path action: 'publish' do
             -#= icon_tag 'megaphone'
-            %button.button.hollow.btn-light-blue.btn-hover-yellow
+            %button.button.hollow.btn-white.btn-hover-yellow
               = t('.listen')
+    .row.clearfix  
+      .show-for-small-only
+        %p.top-24
+          = render 'shared/free_pricing_banner'
 
 
   -# LISTEN NOW
@@ -44,7 +49,7 @@
           .medium-6.medium-offset-3.columns.clearfix
             %h4= t('.categories')
             %p= t('.lead_interstitial').html_safe
-        .category-buttons
+        .category-buttons.clearfix
           - @categories.each do |cat|
             = link_to icon_tag(cat.icon) + cat.title,
                 explore_path(filter: {category: cat.id}), class: 'button'
@@ -100,7 +105,7 @@
   %section#cta.turquoise
     .row
       .medium-6.medium-offset-3.columns
-        %h1 Are you planning a conference or event?
+        %h2 Are you planning a conference or event?
         = link_to new_user_registration_path, class: 'button hollow large btn-yellow btn-hover-blue' do
           = t('.start_now')
         %br/
