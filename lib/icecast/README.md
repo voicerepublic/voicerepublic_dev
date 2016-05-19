@@ -132,9 +132,11 @@ Other helpful commands
 docker stop icecast
 docker rm icecast
 rm /etc/passwd-s3fs
-rm /etc/env.list
+rm /root/env.list
 rm /tmp/part-001.log
 ```
+
+
 
 Notes
 -----
