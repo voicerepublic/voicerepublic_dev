@@ -9,8 +9,13 @@ class IcecastEndpoint < Struct.new(:app, :opts)
 
     if env['PATH_INFO'].match(%r{^/icecast/stats/([\w-]+)$})
       venue = Venue.find_by(client_token: $1)
-      # TODO do something with it
-      Rails.logger.info payload
+      source = payload['icestats']['source']
+      stats = {
+        bitrate: source['audio_bitrate'],
+        listener_count: source['listeners'],
+        listener_peak: source['listener_peak']
+      }
+      Faye.publish_to venue.channel, event: 'stats', stats: stats
       return [ 200, {}, [] ]
     end
 
