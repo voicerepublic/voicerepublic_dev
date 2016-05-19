@@ -1,3 +1,15 @@
+.banner {
+  display: inline-block;
+  margin-bottom: 24px;
+}
+
+.banner a:hover  {
+  text-decoration: underline;
+}
+.banner .label-new {
+  color: #ffed00;
+}
+
 //Loading Triangle Animation
 @keyframes dash {
     50% {
@@ -416,3 +428,46 @@ h1, h2 {
         }
     }
 }
+
+            .claim-cta-half {
+                // @extend .medium-6;
+
+                // @extend .columns;
+                button {
+                    margin: 6px;
+                }
+                padding: 0;
+                padding-top: 12px;
+
+                &:last-child {
+                    padding-top: 6px;
+                }
+
+                .icon {
+                    display: inline-block;
+                    vertical-align: middle;
+                    margin-bottom: 0;
+                    background-color: $secondary-color;
+                    margin-right: 12px;
+                }
+
+                a:hover .icon {
+                    background-color: $primary-color;
+                }
+
+                @include breakpoint(medium) {
+                    text-align: right;
+                    padding-top: 24px;
+
+                    &:last-child {
+                        text-align: left;
+                        padding-top: 24px;
+                    }
+                }
+
+
+                // button {
+                //     height: 60px;
+                // }
+           
+            }
