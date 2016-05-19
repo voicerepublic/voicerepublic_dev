@@ -43,6 +43,7 @@
 //= require views/purchases
 //
 // --- MISC
+//= require sencha
 //= require cljs
 //= require topbar
 //= require shame
