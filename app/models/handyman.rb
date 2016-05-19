@@ -107,7 +107,7 @@ class Handyman
 
     def appearances_nonextistent_speakers
       log "-> Check appearances for nonexistent speakers..."
-      condition = "user_id NOT IN (?)"
+      condition = "speaker_id NOT IN (?)"
       ids = Speaker.pluck(:id)
       Appearance.where(condition, ids).each do |a|
         log "Destroy invalid appearance %s" % a.id
