@@ -102,6 +102,8 @@ Working on the image
 --------------------
 
 
+
+
 ```
 scp -r lib/icecast root@icebox:
 ```
@@ -131,9 +133,11 @@ Other helpful commands
 ```
 docker stop icecast
 docker rm icecast
+docker build -t branch14/icecast2 icecast/.
 rm /etc/passwd-s3fs
 rm /root/env.list
 rm /tmp/part-001.log
+rm /var/lib/cloud/instance/scripts/part-001
 ```
 
 
