@@ -46,7 +46,6 @@ class LivepageConfig < Struct.new(:talk, :user)
       stream: stream,
       streaming_server: Settings.rtmp.record,
       discussion: discussion,
-      guests: talk.guests.map { |g| g.details_for(talk) },
       participants: talk.series.users.map { |g| g.details_for(talk) },
       blackbox: Settings.blackbox,
       safetynet_warning: I18n.t('safetynet_warning'),

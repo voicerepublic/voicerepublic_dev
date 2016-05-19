@@ -113,7 +113,7 @@ FactoryGirl.define do
   end
 
   factory :appearance do
-    user
+    speaker
     talk
   end
 
@@ -168,6 +168,11 @@ FactoryGirl.define do
   factory :membership do
     user
     organization
+  end
+
+  factory :speaker do
+    fullname "Hans Hanebambel"
+    profession "Nimrod"
   end
 
 end

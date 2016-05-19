@@ -162,7 +162,6 @@ class User < ActiveRecord::Base
 
   def role_for(talk)
     return :host if self == talk.user
-    return :guest if talk.guests.include?(self)
     # TODO: check resulting db queries, maybe use eager loading
     # TODO: Returning :participant is a temporary implementation. It is not yet
     # dediced how to proceed since we removed the explicit participantion.

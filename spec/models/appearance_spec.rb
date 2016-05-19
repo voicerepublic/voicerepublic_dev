@@ -2,8 +2,8 @@ require 'rails_helper'
 
 describe Appearance do
 
-  it 'validates presence of user' do
-    expect(FactoryGirl.build(:appearance, user: nil)).to_not be_valid
+  it 'validates presence of speaker' do
+    expect(FactoryGirl.build(:appearance, speaker: nil)).to_not be_valid
   end
 
   it 'validates presence of talk' do

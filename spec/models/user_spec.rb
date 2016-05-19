@@ -30,11 +30,6 @@ describe User do
       talk = FactoryGirl.create(:talk, series: series)
       expect(user.role_for(talk)).to be(:host)
     end
-    it 'detects being a guest' do
-      talk = FactoryGirl.create(:talk)
-      FactoryGirl.create(:appearance, user: user, talk: talk)
-      expect(user.role_for(talk)).to be(:guest)
-    end
     it 'detects being a participant' do
       talk = FactoryGirl.create(:talk)
       FactoryGirl.create(:participation, user: user, series: talk.series)
