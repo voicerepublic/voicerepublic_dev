@@ -1,35 +1,38 @@
-%footer.clearfix
+%section#what-is-vr
   .row
-    %a{:href => "/"}
-      %h3.text-center
-        %img{:src => "/images/logos/logo_text_beige.svg", :width => "120"}
-    %hr
+    .medium-6.medium-offset-3.columns
+      = naked_icon "logo"
+      %h3= t('.headline')
+      %p.lead.text-left
+        = t('.text')
+      = link_to t('.join_for_free'), new_user_registration_path, class: 'button hollow btn-white btn-hover-yellow'
 
-    .footer-section.medium-6.columns.text-left
-      .row
-        .footer-section.large-6.columns
-          %ul.menu.vertical
-            %li= link_to t('.about'), blog_url('/')
-            -#%li= link_to t('.pricing'), pricing_path
-            %li= link_to t('.support_and_faq'), blog_url('/support')
-            %li= link_to t('.blog'), blog_url('/blog')
-            %li= link_to t('.terms_and_privacy'), blog_url('/terms-of-use')
-        .footer-section.large-6.columns
-          %ul.menu.vertical
-            %li= link_to t('.press'), blog_url('/press')
-            %li= link_to t('.service_status'), 'http://status.voicerepublic.com'
-            %li= link_to t('.contact'), blog_url('/contact')
-            %li= link_to t('.careers'), blog_url('/jobs')
-            %li= link_to t('.imprint'), blog_url('/imprint')
-      #footer-social-links
-        .footer-section.large-6-.columns
-          %a{:href => "http://twitter.com/_voicerepublic"}
-            %img{:src => "/images/logos/twitter-circle-beige.svg", :width => "36"}/
-          %a{:href => "http://facebook.com/voicerepublic"}
-            %img{:src => "/images/logos/facebook-circle-beige.svg", :width => "36"}/
-    .footer-section.text-left.about
-      %p.lead
-        %strong= s('.headline')
-        = s('.text')
-  .row
-    %p.text-center.copyright= s('.copyright')
+-# ------------------------
+
+%footer.clearfix
+  .row.clearfix
+    .medium-3.columns
+      = naked_icon "logo"
+      %p.copyright= s('.copyright')
+    .medium-3.columns
+      %ul.menu.vertical
+        %li= link_to t('.about'), blog_url('/')
+        -#%li= link_to t('.pricing'), pricing_path
+        %li= link_to t('.support_and_faq'), blog_url('/support')
+        %li= link_to t('.blog'), blog_url('/blog')
+        %li= link_to t('.terms_and_privacy'), blog_url('/terms-of-use')
+    .medium-3.columns
+      %ul.menu.vertical
+        %li= link_to t('.press'), blog_url('/press')
+        %li= link_to t('.service_status'), 'http://status.voicerepublic.com'
+        %li= link_to t('.contact'), blog_url('/contact')
+        %li= link_to t('.careers'), blog_url('/jobs')
+        %li= link_to t('.imprint'), blog_url('/imprint')
+    .medium-3.columns
+      %a{:href => "http://twitter.com/_voicerepublic"}
+        %img{:src => "/images/logos/twitter-circle-beige.svg", :width => "36"}/
+      %a{:href => "http://facebook.com/voicerepublic"}
+        %img{:src => "/images/logos/facebook-circle-beige.svg", :width => "36"}/
+  .row.clearfix
+    %h4.text-center= @talks_total
+
