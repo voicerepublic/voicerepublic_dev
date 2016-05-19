@@ -278,10 +278,15 @@ class Venue < ActiveRecord::Base
 
   # returns an array of filenames
   #
+  # TODO rename to stored_filenames
   def stored_files
     recordings_storage.files.map do |file|
       file.key.sub("#{slug}/", '')
     end.reject(&:blank?)
+  end
+
+  def stored_file(key)
+    recordings_storage.files.new(key: key)
   end
 
   def recordings_storage

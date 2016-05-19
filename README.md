@@ -645,3 +645,14 @@ Helpful
     reload!; Venue.find(124).reset!
 
     reload!; Talk.find(4147).make_it_start_soon! 91.minutes; nil
+
+
+
+```
+venue = Venue.find('venue-of-senior-hofmann')
+talk = venue.talks.suspended.last
+talk.title
+talk.update_attribute :state, 'postlive'
+talk.reload
+talk.archive_from_dump!
+```
