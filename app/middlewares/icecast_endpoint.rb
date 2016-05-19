@@ -4,8 +4,10 @@ class IcecastEndpoint < Struct.new(:app, :opts)
     return app.call(env) unless env['REQUEST_METHOD'] == 'POST'
     return app.call(env) unless env['PATH_INFO'].match(%r{\A/icecast/})
 
-    payload = JSON.parse(env['rack.input'].read)
-
+    json = env['rack.input'].read
+    # workaround malformed json posted by icecast
+    json = json.sub('",}', '"}')
+    payload = JSON.parse(json)
 
     if env['PATH_INFO'].match(%r{^/icecast/stats/([\w-]+)$})
       venue = Venue.find_by(client_token: $1)

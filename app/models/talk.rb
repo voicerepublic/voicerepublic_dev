@@ -453,17 +453,23 @@ class Talk < ActiveRecord::Base
     Delayed::Job.enqueue(ArchiveJob.new(id: id), queue: 'audio')
   end
 
+  def relevant_files
+    venue.relevant_files(started_at, ended_at)
+  end
+
   def archive_from_dump!
     begin
       process!
       # move operations to tmp dir
       tmp_dir = FileUtils.mkdir_p("/tmp/archive_from_dump/#{id}").first
       FileUtils.fileutils_output = logfile
+      Rails.logger.info "--> Changeing to tmp dir #{tmp_dir}"
       FileUtils.chdir(tmp_dir, verbose: true) do
         # download
-        filenames = venue.relevant_files(started_at, ended_at)
-        filenames.each do |filename|
+        relevant_files.map(&:first).each do |filename|
+          Rails.logger.info "--> Downloading #{filename}"
           file = venue.stored_file(filename)
+          Rails.logger.info file.inspect
           File.open(filename, 'wb') { |f| f.write(file.body) }
         end
 
@@ -483,7 +489,7 @@ class Talk < ActiveRecord::Base
       suspend!
       LiveServerMessage.call public_channel, event: 'Suspend', error: e.message
     ensure
-      FileUtils.remove_entry tmp_dir
+      #FileUtils.remove_entry tmp_dir
     end
   end
 

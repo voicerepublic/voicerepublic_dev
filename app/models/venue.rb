@@ -286,7 +286,7 @@ class Venue < ActiveRecord::Base
   end
 
   def stored_file(key)
-    recordings_storage.files.new(key: key)
+    recordings_storage.files.get([slug, key] * '/')
   end
 
   def recordings_storage
