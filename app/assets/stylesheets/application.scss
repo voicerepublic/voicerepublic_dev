@@ -11,6 +11,8 @@
  * appear at the top of the compiled file, but it's generally better
  * to create a new file per style scope.
  *
+ *= require selectize
+ *= require selectize.default
  *= require_self
  *= require foundation
 
@@ -21,9 +23,8 @@
 @import "settings";
 @import "foundation_and_overrides";
 @import "animate.min.css";
-/* 
- 
- @import "select2";
+/*
+
  @import "nprogress";
 
 // SHARED
