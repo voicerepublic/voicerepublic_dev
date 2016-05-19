@@ -6,6 +6,6 @@ RSpec.describe Speaker, type: :model do
   end
 
   it 'does not validate presence of profession' do
-    expect(FactoryGirl.build(:speaker, profession: nil)).to_not be_valid
+    expect(FactoryGirl.build(:speaker, profession: nil)).to be_valid
   end
 end
