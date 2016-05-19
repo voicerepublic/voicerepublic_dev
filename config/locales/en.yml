@@ -325,7 +325,7 @@ en:
       uploading: Uploading...
       drop_files_here: "Drop files here"
       upload: Upload
-      cancel: "&times;"
+      cancel: Cancel Upload
       remove: Remove
       upload_failed: Upload failed. Please try reloading the page and try again.
       drop_file_not_supported: "HTML5 Drop File is not supported!"

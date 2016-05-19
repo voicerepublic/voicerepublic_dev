@@ -6,6 +6,10 @@ body {
     }
 }
 
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
+
 .test-talk-msg {
     background:$vr-yellow;
     padding:24px;
@@ -21,7 +25,7 @@ body {
    //@include form-error;
   }
 
-  input,
+  input
   textarea,
   select {
     // @extend .is-invalid-input;
@@ -831,6 +835,14 @@ button,
 
 //forms
 .talks-create, .talks-new, .uploads-create, .uploads-new {
+    .progress {
+        height: 2px;
+        border-radius:2px;
+        background:#ddd;
+        .progress-meter {
+            background:$vr-purple;
+        }
+    }
     .input {
         margin-bottom: 48px;
     }
