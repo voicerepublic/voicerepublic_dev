@@ -268,10 +268,10 @@ class Venue < ActiveRecord::Base
     files = files.map { |name| name.match(/^dump_(\d+)/).to_a }
     files = files.sort_by(&:last)
 
-    during = files.select { |file| file.last.to_i >= started_at }
-    during = during.select { |file| file.last.to_i <= ended_at }
+    during = files.select { |file| file.last.to_i >= started_at.to_i }
+    during = during.select { |file| file.last.to_i <= ended_at.to_i }
 
-    before = files.select { |file| file.last.to_i < started_at }
+    before = files.select { |file| file.last.to_i < started_at.to_i }
 
     [ before.last ] + during
   end
