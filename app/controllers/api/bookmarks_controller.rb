@@ -13,7 +13,7 @@ class Api::BookmarksController < Api::BaseController
             processed_at
             play_count
             language
-            speakers
+            speaker_list
             popularity
             description_as_html
           ),

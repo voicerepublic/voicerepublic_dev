@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160425084227) do
+ActiveRecord::Schema.define(version: 20160519124743) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,14 +52,14 @@ ActiveRecord::Schema.define(version: 20160425084227) do
   add_index "admin_users", ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true, using: :btree
 
   create_table "appearances", force: :cascade do |t|
-    t.integer  "user_id"
+    t.integer  "speaker_id"
     t.integer  "talk_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
+  add_index "appearances", ["speaker_id"], name: "index_appearances_on_speaker_id", using: :btree
   add_index "appearances", ["talk_id"], name: "index_appearances_on_talk_id", using: :btree
-  add_index "appearances", ["user_id"], name: "index_appearances_on_user_id", using: :btree
 
   create_table "comments", force: :cascade do |t|
     t.text     "content"
@@ -263,6 +263,13 @@ ActiveRecord::Schema.define(version: 20160425084227) do
 
   add_index "social_shares", ["shareable_id", "shareable_type"], name: "index_social_shares_on_shareable_id_and_shareable_type", using: :btree
 
+  create_table "speakers", force: :cascade do |t|
+    t.string   "fullname"
+    t.string   "profession"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "tag_bundles", force: :cascade do |t|
     t.string   "title_en"
     t.string   "title_de"
@@ -325,7 +332,7 @@ ActiveRecord::Schema.define(version: 20160425084227) do
     t.text     "storage",                          default: "--- {}\n"
     t.string   "language",            limit: 255,  default: "en"
     t.string   "slug",                limit: 255
-    t.string   "speakers",            limit: 255
+    t.string   "speaker_list",        limit: 255
     t.string   "user_override_uuid",  limit: 255
     t.text     "edit_config"
     t.float    "popularity",                       default: 1.0

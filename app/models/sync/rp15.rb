@@ -133,7 +133,7 @@ module Sync
                              truncate(TEXT_LIMIT)
           talk.tag_list = TAGS[category]
           talk.language = LANGCODE[session.language]
-          talk.speakers = (session.speaker_names.map(&:strip) * ', ').
+          talk.speaker_list = (session.speaker_names.map(&:strip) * ', ').
                           truncate(STRING_LIMIT)
           talk.starts_at_date = [y, m, d] * '-'
           talk.starts_at_time = start_time

@@ -2,7 +2,7 @@ module TalksHelper
 
   def social_meta_tags_talk
     author = @talk.series.user.name
-    author = @talk.speakers unless @talk.speakers.blank?
+    author = @talk.speaker_list unless @talk.speaker_list.blank?
     opts = {
       description: @talk.description_as_text.empty? ?
         @talk.teaser : @talk.description_as_text,

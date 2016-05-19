@@ -120,7 +120,7 @@ An array of talk objects:
   language: "en",
   slug: "some-title",
   format: null,
-  speakers: null
+  speaker_list: null
 }
 ```
 
@@ -181,7 +181,7 @@ JSON representation of the created talk:
   "grade":null,
   "language":"en",
   "slug":"some-awesome-title",
-  "speakers":null,
+  "speaker_list":null,
   "user_override_uuid":"http://s3.amazon.com/fake_bucket/nothing_here",
   "edit_config":null,
   "popularity":1.0,
@@ -232,7 +232,7 @@ curl https://voicerepublic.com/api/bookmarks?user_email=hans1@example.com&user_t
         "processed_at": "2015-02-08T15:38:22.865+01:00",
         "self_url": "http://voicerepublic.com/talks/all-is-good",
         "slides_url": null,
-        "speakers": null,
+        "speaker_list": null,
         "teaser": "Moldovia Break Core",
         "title": "All is good"
     },
@@ -252,7 +252,7 @@ curl https://voicerepublic.com/api/bookmarks?user_email=hans1@example.com&user_t
         "processed_at": "2015-02-05T19:53:26.171+01:00",
         "self_url": "http://voicerepublic.com/talks/cvvc-c9c04346-9a06-4b2f-b27f-d9a6c4e6e4ee",
         "slides_url": null,
-        "speakers": null,
+        "speaker_list": null,
         "teaser": "live ",
         "title": "Pilz Rock"
     },
@@ -272,7 +272,7 @@ curl https://voicerepublic.com/api/bookmarks?user_email=hans1@example.com&user_t
         "processed_at": "2015-06-25T10:19:53.913+02:00",
         "self_url": "http://voicerepublic.com/talks/in-the-meantime-690a150d-0593-45aa-bf05-78ac8597cc05",
         "slides_url": null,
-        "speakers": null,
+        "speaker_list": null,
         "teaser": "In The Meantime",
         "title": "In The Meantime"
     }
