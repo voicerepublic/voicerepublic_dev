@@ -6,6 +6,10 @@
     opacity: 0;
 }
 
+.top-24 {
+    padding-top:24px;
+}
+
 // Overwrite the float-right behavior of the last element in grid:
 .column:last-child:not(:first-child), .columns:last-child:not(:first-child) {
     float:left;

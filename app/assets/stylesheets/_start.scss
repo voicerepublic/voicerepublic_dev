@@ -7,7 +7,7 @@
   text-decoration: underline;
 }
 .banner .label-new {
-  color: #ffed00;
+  color: $vr-yellow;
 }
 
 //Loading Triangle Animation
@@ -115,7 +115,7 @@ button {
     }
     background: $talk-dark;
     section {
-        padding: 96px 0;
+        padding: 24px 0;
         &.light {
             background: $silver;
         }
@@ -130,7 +130,7 @@ button {
         }
         &.dark {
             background: $talk-dark;
-            color: $vr-beige;
+            color: white;
         }
         &.yellow {
             background: $vr-yellow;
@@ -145,6 +145,9 @@ button {
                     @include hollow-button($vr-red);
                 }
             }
+        }
+        @include breakpoint(medium) {
+            padding: 96px 0;
         }
     }
 }
@@ -164,7 +167,11 @@ button {
 h1, h2 {
     color: white;
     letter-spacing: rem-calc(6);
+    margin-bottom: 12px;
+    @include breakpoint(medium){
+
     margin-bottom: $h1-bottom-margin;
+    }
 }
 
 .talk-collection, .talk-teasers {
@@ -200,19 +207,21 @@ h1, h2 {
         }
     }
     .lead {
-        font-size: rem-calc(18);
-        letter-spacing: rem-calc(0.5);
+        font-size: rem-calc(16);
+        // letter-spacing: rem-calc(0.5);
         margin-bottom: 0;
+        line-height: rem-calc(24);
+        font-weight: 300;
         a {
             font-weight: 500;
-            color: $vr-beige;
+            color: white;
             &:hover {
                 text-decoration: underline;
             }
         }
     }
     a {
-        color: $vr-light-blue;
+        color: $vr-yellow;
     }
     .container {
         float: left;
@@ -338,7 +347,7 @@ h1, h2 {
             img {
                 max-width: 50vw;
                 @include breakpoint(medium) {
-                    max-width: 300px;
+                    max-width: 220px;
                 }
             }
             hr {
@@ -437,11 +446,18 @@ h1, h2 {
                     margin: 6px;
                 }
                 padding: 0;
-                padding-top: 12px;
+                // padding-top: 12px;
 
-                &:last-child {
-                    padding-top: 6px;
-                }
+                // &:last-child {
+                //     padding-top: 6px;
+                // }
+                text-align: right;
+                padding-top: 24px;
+
+                    &:last-child {
+                        text-align: left;
+                        padding-top: 24px;
+                    }
 
                 .icon {
                     display: inline-block;
@@ -455,19 +471,19 @@ h1, h2 {
                     background-color: $primary-color;
                 }
 
-                @include breakpoint(medium) {
-                    text-align: right;
-                    padding-top: 24px;
+                // @include breakpoint(medium) {
+                //     text-align: right;
+                //     padding-top: 24px;
 
-                    &:last-child {
-                        text-align: left;
-                        padding-top: 24px;
-                    }
-                }
+                //     &:last-child {
+                //         text-align: left;
+                //         padding-top: 24px;
+                //     }
+                // }
 
 
                 // button {
                 //     height: 60px;
                 // }
-           
+
             }
