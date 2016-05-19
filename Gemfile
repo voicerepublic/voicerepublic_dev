@@ -41,7 +41,7 @@ gem 'whenever'
 gem 'haml-rails'
 gem 'simple_form'
 gem 'unicorn'
-gem "select2-rails"
+gem 'selectize-rails'
 gem "transitions", github: 'troessner/transitions',
     require: ["transitions", "active_model/transitions"]
 gem 'fidelity', git: 'git@github.com:munen/fidelity.git'

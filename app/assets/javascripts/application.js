@@ -17,7 +17,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require foundation
-//= require select2
+//= require selectize
 //= require slick
 //= require jquery-ui/datepicker
 //= require jquery-ui/slider

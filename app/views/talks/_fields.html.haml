@@ -22,7 +22,7 @@
     -#.medium-5.columns
     = f.input :language, as: :grouped_select, collection: Talk::LANGUAGES,
       group_method: :last, label_method: :last, value_method: :first
-    = f.input :tag_list, input_html: { class: 'tagList', 'data-pre' => @talk.tag_list.join(',') }
+    = f.input :tag_list, input_html: { class: 'tagList', value: @talk.tag_list.join(',') }
     = f.input :speakers, placeholder: t('.speakers')
 
   .row
