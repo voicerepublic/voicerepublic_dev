@@ -23,6 +23,10 @@ button, .button {
             border-color:white;
             color: white;
         }
+        &.btn-purple {
+            border-color:$vr-purple;
+            color: $vr-purple;
+        }
         &.muted {
             border-color:$charcoal;
             color: $charcoal;

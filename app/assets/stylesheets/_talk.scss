@@ -1,7 +1,7 @@
 body {
     background: $talk-dark;
     height: auto;
-    &.talks-new, &.talks-create {
+    &.talks-new, &.talks-create, &.uploads, &.uploads-new {
         background:$silver;
     }
 }
@@ -80,7 +80,7 @@ body.talks {
     @media #{$xlarge-up} {
         max-width: 88rem;
     }
-    &.talk-form {
+    &.talk-form, &.uploads-form {
         max-width: rem-calc(800)
     }
 }
@@ -823,7 +823,7 @@ button,
 }
 
 //forms
-.talks-create, .talks-new {
+.talks-create, .talks-new, .uploads-create, .uploads-new {
     .input {
         margin-bottom: 48px;
     }
@@ -909,5 +909,14 @@ button,
         background: $vr-yellow;
         border-radius:50%;
         box-shadow:0 1px 2px rgba(0,0,0,.3);
+    }
+}
+
+.audio-uploader {
+    background:$vr-purple;
+    padding:24px;
+    margin-bottom: 48px;
+    h3 {
+        color: white;
     }
 }

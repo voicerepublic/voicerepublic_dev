@@ -10,7 +10,7 @@
       .large-3.columns.profile-avatar.text-left
         - avatar_url = @user.avatar.thumb('180x180#nw').url
         #avatar-img.preview-img(style="background-image:url(#{avatar_url})")
-        = f.input :avatar, as: :file, wrapper_html: { class: 'inputfile' }, label: icon_tag("photo") + t('.change_photo').html_safe, label_html: {class: 'button hollow tiny btn-hover-yellow'}
+        = f.input :avatar, as: :file, wrapper_html: { class: 'inputfile' }, label: icon_tag("photo") + t('.change_photo').html_safe, label_html: {class: 'button hollow tiny btn-hover-yellow', id: 'avatar-label'}, input_html: {'data-instant-image'=> '#avatar-img | #avatar-label'}
       .large-9.columns
         .medium-6.columns
           = f.input :firstname, placeholder: 'First Name'
