@@ -6,6 +6,11 @@ body {
     }
 }
 
+.test-talk-msg {
+    background:$vr-yellow;
+    padding:24px;
+}
+
 
 // TODO: This is a hack to get Foundation 6 styles on simple_form 
 // elements with errors.
@@ -81,7 +86,9 @@ body.talks {
         max-width: 88rem;
     }
     &.talk-form, &.uploads-form {
-        max-width: rem-calc(800)
+        max-width: rem-calc(800);
+                padding-top:48px;
+
     }
 }
 

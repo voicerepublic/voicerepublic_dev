@@ -25,6 +25,7 @@
       group_method: :last, label_method: :last, value_method: :first
     = f.input :tag_list, input_html: { class: 'tagList' }
     = f.input :speakers
+  %hr
 
   %h3.form-title= t('.choose_date_and_time')
   .date-time-picker-row.row
@@ -32,9 +33,10 @@
       = f.input :starts_at_date, opts.merge(input_html: {'data-picker' => 'date'})
     .medium-6.columns
       = f.input :starts_at_time, opts.merge(input_html: {'data-picker' => 'time'})
+  %hr
 
   %h3.form-title.left= t('.add_to_series')
-  .help-text.left= t('.series_help_text')
+  .help-text.text-center= t('.series_help_text')
   .row
     .medium-6.columns
       = f.association :series, collection: current_user.series,
@@ -42,6 +44,7 @@
         input_html: { 'data-on-blank-show' => '#wrapper_new_series_title' }
     .medium-6.columns
       = f.input :new_series_title, wrapper_html: { id: 'wrapper_new_series_title' }
+  %hr
 
   .title-box.clearfix
     %h3.form-title.left= t('.illustrate_and_describe')
@@ -54,6 +57,7 @@
   .row
     .medium-12.columns
       = f.input :description, input_html: { rows: 10 }
+  %hr
 
   -#.title-box.clearfix
   -#  %h3.form-title.left= t('.upload_slides')

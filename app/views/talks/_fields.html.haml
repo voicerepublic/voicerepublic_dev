@@ -5,6 +5,8 @@
 
 .row.talk-form
   %h2.text-center.form-title= form_title
+  = render "dryrun" if @talk.dryrun?
+
 
   -#= f.error_messages
 
@@ -16,14 +18,13 @@
              locals: { f: f, ns: 'audio', init: init_audio_uploader }
 
   .row
-    -#.medium-7.columns
     = f.input :title, placeholder: t('.title')
     = f.input :teaser, placeholder: t('.teaser'), as: "text", input_html: {maxlength: 140}
-    -#.medium-5.columns
     = f.input :language, as: :grouped_select, collection: Talk::LANGUAGES,
       group_method: :last, label_method: :last, value_method: :first
     = f.input :tag_list, input_html: { class: 'tagList', 'data-pre' => @talk.tag_list.join(',') }
     = f.input :speakers, placeholder: t('.speakers')
+  %hr
 
   .row
     %h3.form-title= t('.choose_date_and_time')
@@ -35,6 +36,7 @@
         = f.input :starts_at_time, opts.merge(input_html: {'data-picker' => 'time'}, disabled: disable)
       .medium-4.columns
         = f.input :duration, opts.merge(collection: Settings.durations, disabled: disable)
+  %hr
 
   .title-box.clearfix
     %h3.form-title.left= t('.add_to_series')
@@ -46,6 +48,7 @@
         input_html: { 'data-on-blank-show' => '#wrapper_new_series_title' }
     .medium-6.columns
       = f.input :new_series_title, wrapper_html: { id: 'wrapper_new_series_title' }
+  %hr
 
   .title-box.clearfix
     %h3.form-title.left= t('.illustrate_and_describe')
@@ -56,9 +59,11 @@
       -#%button.button.hollow(type="button" data-trigger-file-input="#talk_image")
         = t('.select_image')
       = f.file_field :image, as: :file, class: 'soft-hide'
+  %hr
 
   .row
     = f.input :description, input_html: { rows: 10 }
+  %hr
 
   -#.title-box.clearfix
   -#  %h3.form-title.left= t('.upload_slides')
