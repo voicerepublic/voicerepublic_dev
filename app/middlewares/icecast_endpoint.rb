@@ -5,6 +5,16 @@ class IcecastEndpoint < Struct.new(:app, :opts)
     return app.call(env) unless env['PATH_INFO'].match(%r{\A/icecast/})
 
     payload = JSON.parse(env['rack.input'].read)
+
+
+    if env['PATH_INFO'].match(%r{^/icecast/stats/([\w-]+)$})
+      venue = Venue.find_by(client_token: $1)
+      # TODO do something with it
+      Rails.logger.info payload
+      return [ 200, {}, [] ]
+    end
+
+
     client_token = payload['client_token']
 
     return [ 740, {}, ['740 - Computer says no'] ] if client_token.nil?
@@ -25,6 +35,9 @@ class IcecastEndpoint < Struct.new(:app, :opts)
 
     when '/icecast/disconnect'
       venue.disconnect!
+
+    when '/icecast/synced'
+      venue.synced!
 
     else
       return [ 721, {}, ['721 - Known Unknowns', env['PATH_INFO']] ]

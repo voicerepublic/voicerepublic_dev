@@ -6,6 +6,7 @@ priority_timezones: Berlin|Bern
 audio:
   process_chain: precursor normalize_fragments kluuu_merge trim cut normalize compress jinglize m4a mp3 ogg copy_clean cleanup
   override_chain: jinglize m4a mp3 ogg copy_clean cleanup
+  archive_chain: wavify merge trim normalize jinglize m4a mp3 ogg cleanup
 rtmp:
   # all paths get expanded with `Rails.root`
   # which doesn't affect absolute paths
@@ -139,7 +140,8 @@ icecast:
     #image: ami-5a806335 (icebox protoype)
     #image: ami-b39173dc (icebox v3 - defunct)
     #image: ami-30f2105f (icebox 3.1)
-    image: ami-30f2105f
+    #image: ami-d422cebb (icebox 3.2)
+    image: ami-d422cebb
     default_instance_type: t2.micro
     security_group: Icecast Servers
     key_name: phil-ffm

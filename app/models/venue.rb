@@ -30,6 +30,7 @@ class Venue < ActiveRecord::Base
     state :device_required
     state :awaiting_stream, enter: :start_streaming
     state :connected # aka. streaming
+    state :disconnect_required
     state :disconnected # aka. lost connection
 
     # issued by the venues controller
@@ -54,10 +55,15 @@ class Venue < ActiveRecord::Base
       transitions from: [:awaiting_stream, :disconnected], to: :connected
     end
     event :disconnect do
-      transitions from: :connected, to: :disconnected
+      transitions from: [:connected, :disconnect_required], to: :disconnected
     end
 
-    # issued by ?
+    # issues by ended talks
+    event :require_disconnect, success: :restart_streaming do
+      transitions from: :connected, to: :disconnect_required
+    end
+
+    # maybe issued by cron'ed rake task
     event :shutdown do
       transitions from: [:device_required, :awaiting_stream,
                          :connected, :disconnected],
@@ -65,7 +71,9 @@ class Venue < ActiveRecord::Base
                   guard: :shutdown?
     end
 
-    # for emergencies only, may leave running instances behind!
+    # issued from the rails console, for emergencies & testing only
+    # you may lose data, since it does not wait for the sync between
+    # the ec2 instances and s3
     event :reset do
       transitions from: [:available, :provisioning, :device_required,
                          :awaiting_stream, :connected, :disconnected],
@@ -210,19 +218,15 @@ class Venue < ActiveRecord::Base
 
   # Returns the time the provisioning window will open.
   #
+  # TODO rename to available_at
   def availability
     return false if talks.prelive.empty?
 
     talks.prelive.ordered.first.starts_at.to_i - PROVISIONING_WINDOW
   end
 
-  # This is used in userdata.
-  #
   # This names the bucket which will be mounted on the ec2 instance
   # running the icecast server.
-  #
-  # This is only used on ec2 instances.
-  #
   def recordings_bucket
     Settings.storage.recordings
   end
@@ -245,6 +249,44 @@ class Venue < ActiveRecord::Base
   def aws_credentials
     [ Settings.fog.storage.aws_access_key_id,
       Settings.fog.storage.aws_secret_access_key ] * ':'
+  end
+
+  # called by icecast middleware
+  def synced!
+    # trigger archive of postlive talks on this venue
+    talks.postlive.each(&:schedule_archiving!)
+
+    shutdown!
+  end
+
+  # tricky shit
+  #
+  # returns an array of `[['key', 'timestamp']]` pairs
+  #
+  def relevant_files(started_at, ended_at, names=stored_files)
+    files = names.select { |name| name.include?('dump_') }
+    files = files.map { |name| name.match(/^dump_(\d+)/).to_a }
+    files = files.sort_by(&:last)
+
+    during = files.select { |file| file.last.to_i >= started_at }
+    during = during.select { |file| file.last.to_i <= ended_at }
+
+    before = files.select { |file| file.last.to_i < started_at }
+
+    [ before.last ] + during
+  end
+
+  # returns an array of filenames
+  #
+  def stored_files
+    recordings_storage.files.map do |file|
+      file.key.sub("#{slug}/", '')
+    end.reject(&:blank?)
+  end
+
+  def recordings_storage
+    @recordings_storage ||=
+      Storage.directories.get(recordings_bucket, prefix: slug)
   end
 
   # --- state machine callbacks
@@ -277,13 +319,16 @@ class Venue < ActiveRecord::Base
   end
 
   def start_streaming
-    return unless device.present?
-
-    device.start_stream!
+    device.present? and device.start_stream!
   end
 
+  def restart_streaming
+    device.present? and device.restart_stream!
+  end
+
+  # either a controlled device or a generic client set?
   def device_present?
-    device.present? || device_name.present?
+    device.present? or device_name.present?
   end
 
   # called on event shutdown
@@ -339,9 +384,7 @@ class Venue < ActiveRecord::Base
   end
 
   def shutdown?
-    # TODO check if all data is save!
-    # TODO check if there is no other talk within PROVISIONING_WINDOW on this venue
-    true
+    !(availability and in_provisioning_window?)
   end
 
   private

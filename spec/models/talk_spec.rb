@@ -198,6 +198,8 @@ describe Talk do
         expect(talk.current_state).to be(:prelive)
         talk.start_talk!
         expect(talk.current_state).to be(:live)
+        # talk.end_talk! will also fire a talk.venue.require_disconnect!
+        talk.venue.update_attribute :state, 'connected'
         talk.end_talk!
         expect(talk.current_state).to be(:postlive)
         talk.process!

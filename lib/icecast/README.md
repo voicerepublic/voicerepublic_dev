@@ -10,7 +10,7 @@ ICECAST DOCKER SETUP
 Prerequistites
 --------------
 
-### Install Docker
+### Install Docker on Debian Jessie
 
 ```
 apt-get -y install apt-transport-https ca-certificates
@@ -27,6 +27,8 @@ apt-get -y install docker-engine
 
 Setup development
 -----------------
+
+Install Docker as described above.
 
 ```
 docker build -t branch14/icecast2 lib/icecast
@@ -67,11 +69,11 @@ logout
 
 # copy/scp the directory `lib/icecast` over to root
 #
-#   scp -r lib/icecast icebox:
+#   scp -r lib/icecast root@icebox:
 #
 # log in as root
 #
-#   ssh icebox
+#   ssh root@icebox
 
 apt-get update
 export DEBIAN_FRONTEND=noninteractive
@@ -96,11 +98,50 @@ cd
 Pull an AMI. Done. Add the AMIs id to `settings.yml`.
 
 
+Working on the image
+--------------------
+
+
+```
+scp -r lib/icecast root@icebox:
+```
+
+
+
+
+```
+export VENUE_SLUG=<your venue's slug>
+
+docker stop icecast
+docker rm icecast
+docker build -t branch14/icecast2 icecast/.
+docker run --detach=true --name=icecast --env-file=/root/env.list --expose=8000 --publish=80:8000 --volume=/data/$VENUE_SLUG:/share branch14/icecast2
+
+```
+
+Other helpful commands
+
+* `docker restart icecast`
+* `docker exec -ti icecast bash`
+
+
+
+### cleanup when creating a new image
+
+```
+docker stop icecast
+docker rm icecast
+rm /etc/passwd-s3fs
+rm /root/env.list
+rm /tmp/part-001.log
+```
+
+
+
 Notes
 -----
 
 ```
-#docker stop icecast
 docker stop icecast
 docker rm icecast
 
@@ -115,6 +156,13 @@ apt-get -y install ruby ruby-dev
 * AWS Security Group `sg-b7d058d0` (Icecast Servers)
 * Debian jessie amd64
 * Type `t2.micro`
+
+### Statistics
+
+* curl -u admin:mqilkfut http://52.58.132.102/admin/stats.xml
+* curl http://52.58.132.102/status-json.xsl
+
+* curl http://localhost:8000/status-json.xsl | curl -X POST -d @- $CALLBACK_URL/stats/$CLIENT_TOKEN
 
 ### Resources
 

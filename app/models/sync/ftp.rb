@@ -66,7 +66,8 @@ module Sync
                 index[name]['uri'] = talk_uri
                 talk = Talk.find_by(uri: talk_uri)
                 if talk.nil?
-                  msg = "Could not find talk with uri #{talk_uri} for ftp file '#{name}'"
+                  msg = "Could not find talk with uri #{talk_uri} "+
+                        "for ftp file '#{name}'"
                   Rails.logger.fatal msg
                   puts msg
                   next
