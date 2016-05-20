@@ -393,6 +393,11 @@ class Talk < ActiveRecord::Base
     Rails.application.routes.url_helpers.talk_url(self)
   end
 
+  def edit_self_url
+    Rails.application.routes.url_helpers.edit_talk_url(self)
+  end
+
+
   def create_message_url
     url = Rails.application.routes.url_helpers.create_message_url(self)
     # WTF? why does it generate a http message instead of https on staging
@@ -430,12 +435,14 @@ class Talk < ActiveRecord::Base
     {
       talk: attributes.merge(
         media_links: media_links,
+        edit_url: edit_self_url,
         create_message_url: create_message_url,
         image_url: image.url,
         channel: channel,
         venue: {
           user: venue_user_attributes,
-          stream_url: venue.stream_url
+          stream_url: venue.stream_url,
+          url: venue.self_url
         },
         series: series.attributes.merge(
           url: series.self_url

@@ -21,6 +21,8 @@
 
     translations = #{t('frontend.talks').to_json};
     signedIn = #{user_signed_in?.to_s};
+    isHost = #{(current_user == @talk.user).to_s};
+
 
 
 

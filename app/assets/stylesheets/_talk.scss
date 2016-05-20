@@ -6,6 +6,29 @@ body {
     }
 }
 
+    .loading-message {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        svg {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 24px;
+        }
+    h1 {
+        font-size: rem-calc(18);
+        text-transform: uppercase;
+        text-align: center;
+    }
+    .loading-graphic {
+        margin-top: -60px;
+    }
+    #main {
+        padding-top:24px;
+            }
+}
+
 .test-talk-msg {
     background:$vr-yellow;
     padding:24px;
@@ -831,6 +854,32 @@ button,
     }
 }
 
+.talks .state-container {
+    margin-bottom: 0;
+ .state-msg {
+    margin-bottom: 12px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: rem-calc(9);
+    letter-spacing: rem-calc(1);
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-right: 6px;
+}
+.button {
+    padding-top: 8px;
+    padding-bottom:8px;
+    margin-right: 6px;
+}
+
+
+
+}
+
+
+
+
+  
 //forms
 .talks-create, .talks-new, .uploads-create, .uploads-new {
     .input {
@@ -853,6 +902,7 @@ button,
             border:none;
             cursor: auto;
         }
+
     }
     .image-box {
         width: 300px;
@@ -900,7 +950,11 @@ button,
         }
         tbody {
             font-weight: 500;
+
         }
+           td {
+                text-align: center;
+            }
     }
     .ui_tpicker_unit_hide {
         display: none;
@@ -919,6 +973,10 @@ button,
         border-radius:50%;
         box-shadow:0 1px 2px rgba(0,0,0,.3);
     }
+    .ui-datepicker-today {
+    background: $vr-yellow;
+    color: $vr-purple;
+}
 }
 
 .audio-uploader {
