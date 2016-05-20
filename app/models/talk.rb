@@ -393,7 +393,10 @@ class Talk < ActiveRecord::Base
   end
 
   def create_message_url
-    Rails.application.routes.url_helpers.create_message_url(self)
+    url = Rails.application.routes.url_helpers.create_message_url(self)
+    # WTF? why does it generate a http message instead of https on staging
+    url = url.sub('http://', 'https://') if Rails.env.production?
+    url
   end
 
   def lined_up
@@ -464,6 +467,7 @@ class Talk < ActiveRecord::Base
       tmp_dir = FileUtils.mkdir_p("/tmp/archive_from_dump/#{id}").first
       FileUtils.fileutils_output = logfile
       Rails.logger.info "--> Changeing to tmp dir #{tmp_dir}"
+      Rails.logger.info relevant_files.inspect
       FileUtils.chdir(tmp_dir, verbose: true) do
         # download
         relevant_files.map(&:first).each do |filename|
@@ -741,8 +745,8 @@ class Talk < ActiveRecord::Base
   end
 
   def run_ic_chain!(chain)
-    write_manifest_file!(chain)
-    worker = IcProcessor.new # see lib/ic_processor.rb
+    path = write_manifest_file!(chain)
+    worker = IcProcessor.new(path) # see lib/ic_processor.rb
     worker.talk = self
     logfile = File.expand_path("process-#{id}.log")
 
@@ -793,7 +797,7 @@ class Talk < ActiveRecord::Base
   end
 
   def upload_ic_results!
-    Dir.new('.').entries.each do |file|
+    Dir.new('.').entries.reject { |f| File.directory?(f) }.each do |file|
       cache_storage_metadata(file)
       key = "#{uri}/#{File.basename(file)}"
       upload_file(key, file)
@@ -827,6 +831,7 @@ class Talk < ActiveRecord::Base
   def write_manifest_file!(chain=nil)
     # since archive_from_dump did a chdir this is easy...
     File.open('manifest.yml', 'w') { |f| f.puts(manifest(chain).to_yaml) }
+    'manifest.yml'
   end
 
   # collect information about what's stored via fog
