@@ -40,11 +40,11 @@ class IcProcessor < Fidelity::ChainRunner
 
   def after_chain
     # uploading might take a while, so we'll take the time
-    t2 = Time.now.to_i
+    ##t2 = Time.now.to_i
     talk.send(:upload_ic_results!)
-    delta_t2 = Time.now.to_i - t2
+    ##delta_t2 = Time.now.to_i - t2
 
-    delta_t0 = Time.now.to_i - @t0
+    ##delta_t0 = Time.now.to_i - @t0
     Emitter.audio_processing(event: 'after_chain', details: { id: talk.id })
     # TODO oldschool: remove (should by covered by talk_transitions)
     LiveServerMessage.call(talk.public_channel, { event: 'Archive',
