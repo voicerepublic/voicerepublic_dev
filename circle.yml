@@ -2,7 +2,7 @@ dependencies:
   cache_directories:
     - spec/angular/node_modules
   pre:
-    - sudo apt-get update; sudo apt-get install lame vorbis-tools
+    - sudo apt-get update; sudo apt-get install lame vorbis-tools mplayer
     - cd lib/vrng && lein cljsbuild once app
 #test:
 #  post:
