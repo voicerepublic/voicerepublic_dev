@@ -1,9 +1,13 @@
 body {
     background: $talk-dark;
     height: auto;
-    &.talks-new, &.talks-create, &.uploads, &.uploads-new {
+    &.talks-new, &.talks-create, &.talks-edit, &.uploads, &.uploads-new {
         background:$silver;
     }
+}
+
+audio {
+    width: 100%;
 }
 
     .loading-message {
