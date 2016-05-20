@@ -195,6 +195,7 @@ class Venue < ActiveRecord::Base
     }
   end
 
+
   # private
   def talks_as_array
     talks.map do |talk|
@@ -399,6 +400,10 @@ class Venue < ActiveRecord::Base
 
   def shutdown?
     !(availability and in_provisioning_window?)
+  end
+
+  def self_url
+    Rails.application.routes.url_helpers.venue_url(self)
   end
 
   private

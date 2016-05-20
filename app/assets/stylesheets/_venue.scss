@@ -11,7 +11,7 @@
 // * * * * * * * * *:hover { border:2px dotted #CD1821 }    /* Dotted Red */
 
 
-.venues-show, .talks-show {
+.venues-show{
     background: $talk-dark;
     .button, p {
         margin: 0;
@@ -28,6 +28,8 @@
         justify-content: center;
         align-items: center;
         svg {
+            width: 60px;
+            height: 60px;
             margin-bottom: 24px;
         }
     h1 {

@@ -6,6 +6,29 @@ body {
     }
 }
 
+    .loading-message {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        svg {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 24px;
+        }
+    h1 {
+        font-size: rem-calc(18);
+        text-transform: uppercase;
+        text-align: center;
+    }
+    .loading-graphic {
+        margin-top: -60px;
+    }
+    #main {
+        padding-top:24px;
+            }
+}
+
 .test-talk-msg {
     background:$vr-yellow;
     padding:24px;
@@ -831,9 +854,26 @@ button,
     }
 }
 
-.talks .state-msg {
+.talks .state-container {
+    margin-bottom: 0;
+ .state-msg {
     margin-bottom: 12px;
-    @include button(tiny);
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: rem-calc(9);
+    letter-spacing: rem-calc(1);
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-right: 6px;
+}
+.button {
+    padding-top: 8px;
+    padding-bottom:8px;
+    margin-right: 6px;
+}
+
+
+
 }
 
 
