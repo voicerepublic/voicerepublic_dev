@@ -139,7 +139,7 @@ button,
 }
 
 .speakers {
-    font-size: rem-calc(12);
+    // font-size: rem-calc(12);
     font-weight: bold;
     color: $info-color;
     margin-top: 12px;
@@ -683,6 +683,7 @@ button,
     background: rgba($almost-black, 0.5);
     height: auto;
     padding: 12px 6px 200px 6px;
+    transition: opacity 1s ease;
     @include breakpoint(medium) {
         padding: 12px 6px 48px 6px;
         // max-width: 300px;

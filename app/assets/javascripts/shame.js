@@ -164,3 +164,11 @@ $('.talk-card').on('click','.pin-btn, .unpin-btn', function(e){
     next();
 });
 });
+
+window.fired = false;
+window.onTalkPageReady = function() {
+    if (fired) {
+        return;
+    }
+    $('#right-sidebar').removeClass('hide')
+};

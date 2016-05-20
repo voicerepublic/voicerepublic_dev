@@ -45,9 +45,9 @@
 //
 // --- MISC
 //= require sencha
+//= require shame
 //= require cljs
 //= require topbar
-//= require shame
 
 $(document).foundation();
 
