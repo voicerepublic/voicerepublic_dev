@@ -247,6 +247,7 @@ class Talk < ActiveRecord::Base
   end
 
   def media_links(variant='', formats=%w(mp3 m4a ogg))
+    return {} unless archived?
     formats.inject({}) { |r, f| r.merge f => "/vrmedia/#{id}#{variant}.#{f}" }
   end
 
@@ -428,6 +429,7 @@ class Talk < ActiveRecord::Base
   def snapshot
     {
       talk: attributes.merge(
+        media_links: media_links,
         create_message_url: create_message_url,
         image_url: image.url,
         channel: channel,

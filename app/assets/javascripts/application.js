@@ -64,13 +64,13 @@ $('#mobile-logo').on('click', function() {
     $('#mobile-nav').toggleClass('hide');
 });
 
-$('.button-play-pause').on('click', function() {
-    $(this).children('span').each(function() {
-        $(this).toggleClass('hide');
-
-    });
-    $('#indicator').toggleClass('metering');
-});
+//$('.button-play-pause').on('click', function() {
+//    $(this).children('span').each(function() {
+//        $(this).toggleClass('hide');
+//
+//    });
+//    $('#indicator').toggleClass('metering');
+//});
 
 $('.button-volume').on('click', function() {
     $(this).children('span').each(function() {
@@ -83,12 +83,12 @@ $('.button-volume').on('click', function() {
 
 
 
-//Fake volume meter:
-window.setInterval(function() {
-    $('.metering').css({
-        "max-height": Math.random() * 20
-    });
-}, 100);
+////Fake volume meter:
+//window.setInterval(function() {
+//    $('.metering').css({
+//        "max-height": Math.random() * 20
+//    });
+//}, 100);
 
 
 // change to light view on avatar click (profile page)
