@@ -138,12 +138,12 @@ button,
     margin-right: 12px;
 }
 
-.meta-speaker {
+.speakers {
     font-size: rem-calc(12);
     font-weight: bold;
     color: $info-color;
     margin-top: 12px;
-    .speaker-names {
+    .names {
         font-weight: normal;
         color: $vr-light-blue;
         line-height: rem-calc(16);
@@ -628,6 +628,7 @@ button,
     .comment-avatar {
         width: 42px;
         height: 42px;
+        border-radius:21px;
     }
     .previous-comments {
         margin-top: 48px;
