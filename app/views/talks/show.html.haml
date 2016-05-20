@@ -19,14 +19,24 @@
     insider = #{!!current_user.try(:insider?)};
     console.off = #{!!(Settings.disable_js_debugging && !current_user.try(:insider?))};
 
-    initialSnapshot = #{@talk.snapshot.to_json};
     translations = #{t('frontend.talks').to_json};
+    signedIn = #{user_signed_in?.to_s};
+
+
+
+    
+    signInPath = #{new_user_session_path.to_json};
+    initialSnapshot = #{@talk.snapshot.to_json};
 
 #main-column.clearfix
 
-  #app Initializing...
+  #app
+    .loading-message
+      .loading-graphic
+        = render partial: 'explore/loading'
+        %h1= t('.loading')
 
-  #right-sidebar.medium-3.columns.clearfix.qa-related-talks
+  #right-sidebar.medium-3.columns.clearfix.qa-related-talks.hide
     .row.collapse
       %h3
         Recommended Talks
@@ -36,4 +46,4 @@
       %a{:href => "#"} What is Voice Republic?
 
 -# hidden div for qa
-.qa.talks-show= @talk.id
+.qa.talks-show.hide= @talk.id
