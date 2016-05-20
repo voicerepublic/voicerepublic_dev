@@ -393,7 +393,10 @@ class Talk < ActiveRecord::Base
   end
 
   def create_message_url
-    Rails.application.routes.url_helpers.create_message_url(self)
+    url = Rails.application.routes.url_helpers.create_message_url(self)
+    # WTF? why does it generate a http message instead of https on staging
+    url = url.sub('http://', 'https://') if Rails.env.production?
+    url
   end
 
   def lined_up
