@@ -831,6 +831,15 @@ button,
     }
 }
 
+.talks .state-msg {
+    margin-bottom: 12px;
+    @include button(tiny);
+}
+
+
+
+
+  
 //forms
 .talks-create, .talks-new, .uploads-create, .uploads-new {
     .input {
@@ -853,6 +862,7 @@ button,
             border:none;
             cursor: auto;
         }
+
     }
     .image-box {
         width: 300px;
@@ -900,7 +910,11 @@ button,
         }
         tbody {
             font-weight: 500;
+
         }
+           td {
+                text-align: center;
+            }
     }
     .ui_tpicker_unit_hide {
         display: none;
@@ -919,6 +933,10 @@ button,
         border-radius:50%;
         box-shadow:0 1px 2px rgba(0,0,0,.3);
     }
+    .ui-datepicker-today {
+    background: $vr-yellow;
+    color: $vr-purple;
+}
 }
 
 .audio-uploader {
