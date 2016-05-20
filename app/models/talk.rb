@@ -797,7 +797,7 @@ class Talk < ActiveRecord::Base
   end
 
   def upload_ic_results!
-    Dir.new('.').entries.each do |file|
+    Dir.new('.').entries.reject { |f| File.directory?(f) }.each do |file|
       cache_storage_metadata(file)
       key = "#{uri}/#{File.basename(file)}"
       upload_file(key, file)
