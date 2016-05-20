@@ -66,6 +66,7 @@ uploadFunc = ($scope, $log, FileUploader, validity, safetynet) ->
       $log.info 'cancel'
       safetynet.deactivate()
       file = item?.file # because here item is a FileItem
+      $scope.uploadFailed = true
 
     uploader.onErrorItem = (item, response, status, headers) ->
       $log.info 'error item'

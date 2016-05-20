@@ -931,11 +931,9 @@ button,
     }
 }
 
-.audio-uploader {
-    background:$vr-purple;
-    padding:24px;
-    margin-bottom: 48px;
-    h3 {
-        color: white;
-    }
+
+.uploader-container {
+    // background: $vr-beige;
+    // border: 2px solid $vr-purple;
+    height: 220px;
 }
