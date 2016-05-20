@@ -652,7 +652,10 @@ Helpful
 venue = Venue.find('venue-of-senior-hofmann')
 talk = venue.talks.suspended.last
 talk.title
+
+talk = Talk.find(5217)
 talk.update_attribute :state, 'postlive'
 talk.reload
 talk.archive_from_dump!
+
 ```

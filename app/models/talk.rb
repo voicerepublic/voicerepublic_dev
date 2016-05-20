@@ -464,6 +464,7 @@ class Talk < ActiveRecord::Base
       tmp_dir = FileUtils.mkdir_p("/tmp/archive_from_dump/#{id}").first
       FileUtils.fileutils_output = logfile
       Rails.logger.info "--> Changeing to tmp dir #{tmp_dir}"
+      Rails.logger.info relevant_files.inspect
       FileUtils.chdir(tmp_dir, verbose: true) do
         # download
         relevant_files.map(&:first).each do |filename|
@@ -741,8 +742,8 @@ class Talk < ActiveRecord::Base
   end
 
   def run_ic_chain!(chain)
-    write_manifest_file!(chain)
-    worker = IcProcessor.new # see lib/ic_processor.rb
+    path = write_manifest_file!(chain)
+    worker = IcProcessor.new(path) # see lib/ic_processor.rb
     worker.talk = self
     logfile = File.expand_path("process-#{id}.log")
 
@@ -827,6 +828,7 @@ class Talk < ActiveRecord::Base
   def write_manifest_file!(chain=nil)
     # since archive_from_dump did a chdir this is easy...
     File.open('manifest.yml', 'w') { |f| f.puts(manifest(chain).to_yaml) }
+    'manifest.yml'
   end
 
   # collect information about what's stored via fog
