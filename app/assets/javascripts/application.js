@@ -37,6 +37,7 @@
 //= require components/persisted_log
 //= require components/language_select
 //= require components/instant_image
+//= require components/on_blank_show
 //
 // --- VIEWS
 //= require views/explore
