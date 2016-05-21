@@ -2,7 +2,7 @@ class Venue < ActiveRecord::Base
 
   PROVISIONING_WINDOW = 90.minutes
   # PROVISIONING_WINDOW = 12.hours
-  PROVISIONING_DURATION = 210.seconds
+  PROVISIONING_DURATION = 100.seconds
 
   extend FriendlyId
   friendly_id :slug_candidates, use: [:slugged, :finders]
@@ -76,7 +76,8 @@ class Venue < ActiveRecord::Base
     # the ec2 instances and s3
     event :reset do
       transitions from: [:available, :provisioning, :device_required,
-                         :awaiting_stream, :connected, :disconnected],
+                         :awaiting_stream, :connected, :disconnect_required,
+                         :disconnected],
                   to: :offline, on_transition: :unprovision
     end
   end
@@ -199,11 +200,17 @@ class Venue < ActiveRecord::Base
   # private
   def talks_as_array
     talks.map do |talk|
-      attrs = talk.attributes
-      attrs.delete('storage')
-      attrs.delete('listeners')
-      attrs.delete('session')
-      attrs
+      {
+        id: talk.id,
+        state: talk.state,
+        starts_at: talk.starts_at,
+        starts_at_date: talk.starts_at_date,
+        starts_at_time: talk.starts_at_time,
+        title: talk.title,
+        started_at: talk.started_at,
+        duration: talk.duration,
+        url: talk.self_url
+      }
     end
   end
 
@@ -399,7 +406,9 @@ class Venue < ActiveRecord::Base
   end
 
   def shutdown?
-    !(availability and in_provisioning_window?)
+    !(talks.live.any? or
+      (availability and
+       in_provisioning_window?))
   end
 
   def self_url

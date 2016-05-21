@@ -137,10 +137,12 @@ def aws
   awscli_path = File.join(ENV['HOME'], '.aws', 'credentials')
 
   if File.exist?(s3cmd_path)
+    puts 'Found %s' % s3cmd_path
     config = IniFile.load(s3cmd_path)
     access_key = config['default']['access_key']
     secret_key = config['default']['secret_key']
   elsif File.exist?(awscli_path)
+    puts 'Found %s' % awscli_path
     config = IniFile.load(awscli_path)
     access_key = config['default']['aws_access_key_id']
     secret_key = config['default']['aws_secret_access_key']

@@ -48,6 +48,7 @@ cat >$ENV_LIST <<EOF
 PUBLIC_IP=$PUBLIC_IP
 EOF
 
+# production
 docker run \
        --detach=true \
        --name=icecast \
@@ -58,6 +59,17 @@ docker run \
        --volume=$STORAGE/$PREFIX:/share \
        branch14/icecast2
 
+# in dev this helps
+#
+# docker stop icecast
+# docker rm icecast
+# docker run \
+#        --name=icecast \
+#        --env-file=$ENV_LIST \
+#        --expose=8000 \
+#        --publish=<%= port %>:8000 \
+#        --volume=$STORAGE/$PREFIX:/share \
+#        branch14/icecast2
 
 # callback to slack -- for debugging only
 CLIENT_TOKEN=<%= client_token %>
