@@ -4800,3 +4800,13 @@ footer {
   .api-container pre code {
     background: none;
     border: 0; }
+
+
+/* TODO migrate these hacks to the redesign! */
+.markdown .buttons a { border: 2px solid; padding: 0.5em 1em; }
+.markdown .blue .buttons a { color: yellow; }
+.markdown .blue { color: white; }
+.markdown .turquoise .buttons a { color: yellow; }
+.markdown .turquoise h2 { color: white; }
+.markdown section .row  { text-align: left; }
+.markdown section .row.center  { text-align: center; }
