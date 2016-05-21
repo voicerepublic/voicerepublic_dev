@@ -27,7 +27,7 @@
 		padding:6px;
 		border:0;
 	}
-	
+
 	pre {
 		background: $light-gray;
 		padding: 12px;
@@ -37,3 +37,13 @@
 	}
 	}
 }
+
+
+/* hacks by phil */
+.markdown .buttons a { border: 2px solid; padding: 0.5em 1em; }
+.markdown .blue .buttons a { color: yellow; }
+.markdown .blue { color: white; }
+.markdown .turquoise .buttons a { color: yellow; }
+.markdown .turquoise h2 { color: white; }
+.markdown section .row  { text-align: left; }
+.markdown section .row.center  { text-align: center; }

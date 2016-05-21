@@ -140,3 +140,193 @@ en:
         listen to your content online or download it as a podcast. You
         can easily embed the Voice Republic Player into your own web
         page and share the Talks on social networks.
+
+    listen:
+      text_1: |
+
+        # Hello World
+
+        A paragrah of some text. Pellentesque habitant morbi tristique
+        senectus et netus et malesuada fames ac turpis egestas. Fusce
+        a quam. Aliquam erat volutpat. Phasellus consectetuer
+        vestibulum elit. Aliquam lobortis. Sed fringilla mauris sit
+        amet nibh.
+
+      buttons_1: |
+
+        [A link >>](http://www.thelongestdomainnameintheworldandthensomeandthensomemoreandmore.com/) [Another link >>](http://3.141592653589793238462643383279502884197169399375105820974944592.eu/)
+
+      text_2: |
+
+        ## Hello World
+
+        A paragrah of some text. Pellentesque habitant morbi tristique
+        senectus et netus et malesuada fames ac turpis egestas. Fusce
+        a quam. Aliquam erat volutpat. Phasellus consectetuer
+        vestibulum elit. Aliquam lobortis. Sed fringilla mauris sit
+        amet nibh.
+
+        * a
+        * bulleted
+        * list
+
+        1. a
+        1. numbered
+        1. list
+
+      buttons_2: |
+
+        [A link >>](http://www.thelongestdomainnameintheworldandthensomeandthensomemoreandmore.com/) [Another link >>](http://3.141592653589793238462643383279502884197169399375105820974944592.eu/)
+
+      aside_2: |
+
+        ![free](http://blog.voicerepublic.com/wp-content/uploads/2016/04/Banner_rund_free_credits_straight.png)
+
+        This is aside_2.
+
+      text_3: |
+
+        ## Hello World
+
+        A paragrah of some text. Pellentesque habitant morbi tristique
+        senectus et netus et malesuada fames ac turpis egestas. Fusce
+        a quam. Aliquam erat volutpat. Phasellus consectetuer
+        vestibulum elit. Aliquam lobortis. Sed fringilla mauris sit
+        amet nibh.
+
+        * a
+        * bulleted
+        * list
+
+        1. a
+        1. numbered
+        1. list
+
+      buttons_3: |
+
+        [A link >>](http://www.thelongestdomainnameintheworldandthensomeandthensomemoreandmore.com/) [Another link >>](http://3.141592653589793238462643383279502884197169399375105820974944592.eu/)
+
+      aside_3: |
+
+        ![free](http://blog.voicerepublic.com/wp-content/uploads/2016/04/Banner_rund_free_credits_straight.png)
+
+        This is aside_3.
+
+
+    audio-upload:
+      text_1: text_1
+      buttons_1: buttons_1
+      text_2: text_2
+      buttons_2: buttons_2
+      aside_2: aside_2
+      text_3: text_3
+      buttons_3: buttons_3
+      aside_3: aside_3
+    livestream:
+      text_1: text_1
+      buttons_1: buttons_1
+      text_2: text_2
+      buttons_2: buttons_2
+      aside_2: aside_2
+      text_3: text_3
+      buttons_3: buttons_3
+      aside_3: aside_3
+    conferences-fairs:
+      text_1: text_1
+      buttons_1: buttons_1
+      text_2: text_2
+      buttons_2: buttons_2
+      aside_2: aside_2
+      text_3: text_3
+      buttons_3: buttons_3
+      aside_3: aside_3
+    science-education:
+      text_1: text_1
+      buttons_1: buttons_1
+      text_2: text_2
+      buttons_2: buttons_2
+      aside_2: aside_2
+      text_3: text_3
+      buttons_3: buttons_3
+      aside_3: aside_3
+    culture:
+      text_1: text_1
+      buttons_1: buttons_1
+      text_2: text_2
+      buttons_2: buttons_2
+      aside_2: aside_2
+      text_3: text_3
+      buttons_3: buttons_3
+      aside_3: aside_3
+    companies:
+      text_1: text_1
+      buttons_1: buttons_1
+      text_2: text_2
+      buttons_2: buttons_2
+      aside_2: aside_2
+      text_3: text_3
+      buttons_3: buttons_3
+      aside_3: aside_3
+    independents:
+      text_1: text_1
+      buttons_1: buttons_1
+      text_2: text_2
+      buttons_2: buttons_2
+      aside_2: aside_2
+      text_3: text_3
+      buttons_3: buttons_3
+      aside_3: aside_3
+    foundations:
+      text_1: text_1
+      buttons_1: buttons_1
+      text_2: text_2
+      buttons_2: buttons_2
+      aside_2: aside_2
+      text_3: text_3
+      buttons_3: buttons_3
+      aside_3: aside_3
+    universities:
+      text_1: text_1
+      buttons_1: buttons_1
+      text_2: text_2
+      buttons_2: buttons_2
+      aside_2: aside_2
+      text_3: text_3
+      buttons_3: buttons_3
+      aside_3: aside_3
+    speakers:
+      text_1: text_1
+      buttons_1: buttons_1
+      text_2: text_2
+      buttons_2: buttons_2
+      aside_2: aside_2
+      text_3: text_3
+      buttons_3: buttons_3
+      aside_3: aside_3
+    topics:
+      text_1: text_1
+      buttons_1: buttons_1
+      text_2: text_2
+      buttons_2: buttons_2
+      aside_2: aside_2
+      text_3: text_3
+      buttons_3: buttons_3
+      aside_3: aside_3
+    publishers:
+      text_1: text_1
+      buttons_1: buttons_1
+      text_2: text_2
+      buttons_2: buttons_2
+      aside_2: aside_2
+      text_3: text_3
+      buttons_3: buttons_3
+      aside_3: aside_3
+    media-journalism:
+      text_1: text_1
+      buttons_1: buttons_1
+      text_2: text_2
+      buttons_2: buttons_2
+      aside_2: aside_2
+      text_3: text_3
+      buttons_3: buttons_3
+      aside_3: aside_3

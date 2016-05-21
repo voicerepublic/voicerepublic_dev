@@ -147,6 +147,8 @@ Run App
 * `lib/rtmp_watcher.rb run`
 * `rake jobs:work`
 * `DEBUG=1 bumpy_bridge run -- config/bumpy_bridge.yml`
+* `cd lib/vrng && rlwrap lein figwheel`
+* `docker start rabbitmq`
 
 ### or optionally voicerepublic_dev with tmux
 

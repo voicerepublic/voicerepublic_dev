@@ -1,0 +1,31 @@
+.markdown
+  %section#claim.dark
+    .row.clearfix.center
+      .container.medium-12.columns
+        = s('.text_1')
+    .row.clearfix.center
+      .medium-12.columns.buttons
+        = s('.buttons_1')
+
+  - unless s('.text_2').blank?
+    %section.blue
+      .row.clearfix
+        .medium-4.columns
+          = s('.aside_2')
+        .medium-8.columns
+          = s('.text_2')
+      .row.clearfix
+        .medium-4.columns.buttons
+        .medium-8.columns.buttons
+          = s('.buttons_2')
+
+  - unless s('.text_3').blank?
+    %section.turquoise
+      .row.clearfix
+        .medium-8.columns
+          = s('.text_3')
+        .medium-4.columns
+          = s('.aside_3')
+      .row.clearfix
+        .medium-12.columns.buttons
+          = s('.buttons_3')
