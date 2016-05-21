@@ -90,10 +90,9 @@
 
     %ul#example-tabs.tabs{"data-tabs" => "g69yge-tabs"}
 
-      - unless @user.reminders.empty?
-        %li.tabs-title{:role => "presentation", class: @tab_pinned_class}
-          %a#pinned-label{"aria-controls" => "pinned", "aria-selected" => "false", :href => "#pinned", :role => "tab"}
-            = t('.listen_later', count: @user.reminders.count)
+      %li.tabs-title{:role => "presentation", class: @tab_pinned_class}
+        %a#pinned-label{"aria-controls" => "pinned", "aria-selected" => "false", :href => "#pinned", :role => "tab"}
+          = t('.listen_later', count: @user.reminders.count)
 
       - unless @live_talks.empty?
         %li.tabs-title{:role => "presentation"}
