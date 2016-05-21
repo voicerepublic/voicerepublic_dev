@@ -653,9 +653,27 @@ venue = Venue.find('venue-of-senior-hofmann')
 talk = venue.talks.suspended.last
 talk.title
 
-talk = Talk.find(5217)
+talk = Talk.find('ontologische-relativitat')
 talk.update_attribute :state, 'postlive'
 talk.reload
 talk.archive_from_dump!
 
 ```
+
+New Pages
+---------
+
+* listen
+* audio-upload
+* livestream
+* conferences-fairs
+* science-education
+* culture
+* companies
+* independents
+* foundations
+* universities
+* speakers
+* topics
+* publishers
+* media-journalism
