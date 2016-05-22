@@ -6,7 +6,7 @@ class IcecastEndpoint < Struct.new(:app, :opts)
 
     json = env['rack.input'].read
     # workaround malformed json posted by icecast
-    json = json.sub('",}', '"}')
+    json = json.sub('",}', '"}}')
     payload = JSON.parse(json)
 
     if env['PATH_INFO'].match(%r{^/icecast/stats/([\w-]+)$})
