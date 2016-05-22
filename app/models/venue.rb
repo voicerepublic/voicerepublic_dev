@@ -386,6 +386,9 @@ class Venue < ActiveRecord::Base
   def provision_production
     response = EC2.run_instances(*provisioning_parameters)
     self.instance_id = response.body["instancesSet"].first["instanceId"]
+
+    # set name of instance
+    EC2.tags.create(resource_id: instance_id, key: 'Name', value: name)
   end
 
   def provision_development
