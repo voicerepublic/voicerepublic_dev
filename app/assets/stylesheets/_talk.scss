@@ -128,6 +128,9 @@ body.talks {
         padding-top: 24px;
         padding-bottom: 48px;
     }
+    @include breakpoint(large) {
+        width: calc(100% - 300px);
+    }
 
     &.alt, &.alt3 {
         padding-top: 78px;
@@ -186,6 +189,15 @@ button,
     }
 }
 
+#talk-meta {
+    margin-top: 12px;
+    @include breakpoint(medium) {
+        margin-top: 0;
+    }
+    .media-object-section {
+    padding-bottom: 0;
+}
+}
 
 
 .pub-meta {
@@ -722,6 +734,7 @@ button,
     @include breakpoint(large) {
         position: absolute;
         right: 0;
+        max-width:300px;
     }
 
     .talk-card {

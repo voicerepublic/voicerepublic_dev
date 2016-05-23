@@ -199,6 +199,10 @@
     box-shadow: 0 1px 20px rgba(0,0,0,.2);
 }
     }
+    .dropdown.menu > li.is-dropdown-submenu-parent > a::after {
+        border-color: rgba(white, 0.5) transparent transparent;
+        
+    }
     .dropdown.menu .is-dropdown-submenu-parent.is-down-arrow > a::after {
         border-color: rgba($vr-beige, 0.5) transparent transparent;
         right: 10px;

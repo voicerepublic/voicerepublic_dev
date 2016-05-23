@@ -14,4 +14,10 @@
 
 .flash-msg {
 	background: $vr-yellow;
+  padding: 24px;
+  z-index: 1;
+  button {
+    background:none;
+    top: 1rem;
+  }
 }
