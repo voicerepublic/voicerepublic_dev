@@ -4,6 +4,7 @@
 # translations
 @podcast.title =       t('.podcast.title')
 @podcast.description = t('.podcast.description', url: root_url).chomp
+@podcast.description_as_text = @podcast.description
 @podcast.image_title = t('.podcast.title')
 @podcast.author =      t('.podcast.author')
 @podcast.subtitle =    t('.podcast.subtitle')
