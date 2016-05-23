@@ -63,7 +63,7 @@ xml.rss namespaces.merge(version: '2.0') do
     xml.itunes :category, text: @podcast.category
     xml.itunes :subtitle, @podcast.subtitle
     xml.itunes :summary do
-      xml.cdata! @podcast.description + I18n.t(:podcast_branding)
+      xml.cdata! @podcast.description_as_text + I18n.t(:podcast_branding)
     end
     xml.itunes :explicit, 'no'
 
@@ -86,7 +86,7 @@ xml.rss namespaces.merge(version: '2.0') do
 
         # description
         xml.description talk.description + I18n.t(:podcast_branding)
-        xml.itunes :summary, talk.description + I18n.t(:podcast_branding)
+        xml.itunes :summary, talk.description_as_text + I18n.t(:podcast_branding)
 
         xml.itunes :subtitle, talk.teaser
         # TODO: Maybe we want to show the speakers here?

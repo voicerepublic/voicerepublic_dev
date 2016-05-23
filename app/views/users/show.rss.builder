@@ -8,6 +8,7 @@
 
 # misc
 @podcast.description = @user.about
+@podcast.description_as_text = @user.about_as_text
 @podcast.author =      @user.name
 
 # urls

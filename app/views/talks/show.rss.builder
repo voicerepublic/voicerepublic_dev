@@ -7,6 +7,7 @@
 
 # misc
 @podcast.description = @talk.description
+@podcast.description_as_text = @ talk.description_as_text
 @podcast.author =      @talk.user.name # delegate via series
 @podcast.subtitle =    @talk.teaser
 
