@@ -130,7 +130,7 @@
 }
 
 .instruction-container {
-        position: fixed;
+    position: fixed;
     top: 0;
     left: 0;
     bottom: 0;
@@ -138,7 +138,7 @@
     z-index: 9999;
 }
 
-#instructions {
+#instructions, #talk-modal {
     max-width: 26em;
     display: block;
     background: $vr-purple;
@@ -183,6 +183,11 @@
             }
         }
     }
+}
+
+#talk-modal {
+    background:$talk-dark;
+
 }
 
 
