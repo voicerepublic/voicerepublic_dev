@@ -433,7 +433,19 @@ class Talk < ActiveRecord::Base
 
   def snapshot
     {
-      talk: attributes.merge(
+      talk: {
+        # regular
+        started_at: started_at,
+        title: title,
+        state: state,
+        speakers: speakers,
+        teaser: teaser,
+        description: description_as_html,
+        play_count: play_count,
+        image_alt: image_alt,
+        duration: duration,
+
+        # extended
         media_links: media_links,
         edit_url: edit_self_url,
         create_message_url: create_message_url,
@@ -448,7 +460,7 @@ class Talk < ActiveRecord::Base
           url: series.self_url
         ),
         messages: messages.map(&:extended_attributes)
-      ),
+      },
       now: Time.now.to_i
     }
   end
