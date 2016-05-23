@@ -318,6 +318,7 @@ en:
       no_results: Sorry, no results.
   shared:
     upload:
+      successfully_uploaded: "&#x2713"
       choose_file: Choose A File To Upload
       upload_advice: You can upload MP3, M4A, OGG, WAV files
       initializing: Initializing Uploader...
@@ -325,12 +326,12 @@ en:
       uploading: Uploading...
       drop_files_here: "Drop files here"
       upload: Upload
-      cancel: "&times;"
+      cancel: Cancel Upload
       remove: Remove
       upload_failed: Upload failed. Please try reloading the page and try again.
       drop_file_not_supported: "HTML5 Drop File is not supported!"
       audio:
-        supported_filetypes: Supported Filetypes are MP3, M4A, OGG, WAV
+        supported_filetypes: "Supported Filetypes: MP3, M4A, OGG, WAV"
       slides:
         supported_filetypes: Please upload your slides as PDF
     unconfirmed:

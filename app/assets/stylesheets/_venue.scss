@@ -11,7 +11,7 @@
 // * * * * * * * * *:hover { border:2px dotted #CD1821 }    /* Dotted Red */
 
 
-.venues-show{
+.venues, .talks{
     background: $talk-dark;
     .button, p {
         margin: 0;
@@ -40,9 +40,9 @@
     .loading-graphic {
         margin-top: -60px;
     }
-    #main {
-        padding-top:24px;
-            }
+    // #main {
+    //     padding-top:24px;
+    //         }
 }
 .top-bar {
     padding: 12px;
@@ -61,7 +61,7 @@
 
     .dropdown.menu > li.is-dropdown-submenu-parent > a::after {
         right: 7px;
-        border-color: $oil transparent transparent
+        border-color: white transparent transparent
 
     }
     .top-bar-left #mobile-logo a:after {
@@ -75,6 +75,9 @@
         .topbar-left {
             width: 100%;
 
+        }
+        .logo img {
+            width: 44px;
         }
     }
 

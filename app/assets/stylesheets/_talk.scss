@@ -28,9 +28,12 @@ audio {
     .loading-graphic {
         margin-top: -60px;
     }
-    #main {
-        padding-top:24px;
-            }
+}
+    // #main {
+    //     padding-top:24px;
+    //         }
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
 }
 
 .test-talk-msg {
@@ -48,7 +51,7 @@ audio {
    //@include form-error;
   }
 
-  input,
+  input
   textarea,
   select {
     // @extend .is-invalid-input;
@@ -84,8 +87,8 @@ audio {
         fill: currentColor;
         width: 16px;
         height: 16px;
-        max-height: 16px;
-        max-width: 16px;
+        // max-height: 16px;
+        // max-width: 16px;
         
     }
 
@@ -885,7 +888,15 @@ button,
 
   
 //forms
-.talks-create, .talks-new, .uploads-create, .uploads-new {
+.talks-create, .talks-new, .talks-edit, .uploads-create, .uploads-new .uploads-edit {
+    .progress {
+        height: 2px;
+        border-radius:2px;
+        background:#ddd;
+        .progress-meter {
+            background:$vr-purple;
+        }
+    }
     .input {
         margin-bottom: 48px;
     }
@@ -984,11 +995,9 @@ button,
 }
 }
 
-.audio-uploader {
-    background:$vr-purple;
-    padding:24px;
-    margin-bottom: 48px;
-    h3 {
-        color: white;
-    }
+
+.uploader-container {
+    // background: $vr-beige;
+    // border: 2px solid $vr-purple;
+    height: 220px;
 }

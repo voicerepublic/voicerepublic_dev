@@ -133,6 +133,15 @@ $topbar-dark: #35363b !default;
 
 $input-error-color: $vr-red;
 
+$foundation-palette: (
+  primary: $vr-blue,
+  secondary: $vr-light-blue,
+  alert: $vr-red,
+  warning: $vr-yellow,
+  success: $success-color,
+  info: $vr-beige
+);
+
 // We use these to control various global styles
 // $body-bg: $white;
 // $body-font-color: $jet;
