@@ -6,8 +6,7 @@
 @podcast.image_title = t('.podcast.title', title: @series.title)
 
 # misc
-@podcast.description = @series.description
-@podcast.description_as_text = @series.description_as_text
+@podcast.description = @series.description_as_text
 @podcast.author =      @series.user.name
 @podcast.subtitle =    @series.teaser
 
