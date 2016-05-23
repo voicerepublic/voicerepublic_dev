@@ -438,12 +438,15 @@ button,
 .talk-title {
     padding-bottom:0;
     h1 {
-        color: $vr-light-blue;
-        font-size: rem-calc(36);
+        font-size: rem-calc(24);
+        line-height: rem-calc(28);
         margin: 0;
-        margin-bottom: 18px;
-        line-height: rem-calc(36);
-        // font-weight: 700;
+        color: $vr-light-blue;
+        letter-spacing: rem-calc(1);
+        text-align: center;
+
+        @include breakpoint(medium) {
+            // font-weight: 700;
         display: inline-block;
         // margin-right: 12px;
         font-family: $header-font-family;
@@ -456,24 +459,29 @@ button,
         hyphens: auto;
         -ms-word-break: break-all;
         word-break: break-word;
-        letter-spacing: 0;
-        @include breakpoint(medium) {
+        letter-spacing: 1;
             font-size: rem-calc(48);
             line-height: rem-calc(48);
             margin-bottom: 18px;
+            text-align: left;
         }
     }
 }
     .teaser {
-        font-size: rem-calc(16);
-        line-height: rem-calc(24);
+        font-size: rem-calc(14);
+        line-height: rem-calc(18);
         font-weight: normal;
         color: $info-color;
         // max-width: 540px;
-        margin-bottom: 24px;
+        padding-bottom: 12px;
+        margin-bottom: 12px;
+        border-bottom: 1px solid rgba(white,.1);
         @include breakpoint(medium) {
             font-size: rem-calc(18);
             line-height: rem-calc(24);
+            border-bottom:0;
+            padding-bottom:0;
+            margin-bottom: 0;
         }
 
         .inline-speaker {
@@ -875,9 +883,17 @@ button,
 }
 
 .talks .state-container {
-    margin-bottom: 0;
- .state-msg {
     margin-bottom: 12px;
+    li {
+        margin-bottom: 6px;
+        margin-right: 0;
+        @include breakpoint(medium) {
+            margin-bottom: 0;
+            margin-right: 6px;
+            padding-right:6px;
+        }
+    }
+ .state-msg {
     padding-top: 10px;
     padding-bottom: 10px;
     font-size: rem-calc(9);
@@ -885,11 +901,19 @@ button,
     text-transform: uppercase;
     font-weight: 500;
     margin-right: 6px;
+    width: 100%;
+    text-align: center;
+    &.prelive {
+        @include breakpoint(medium){
+        min-width: 170px;
+            
+        }
+    }
 }
 .button {
     padding-top: 8px;
     padding-bottom:8px;
-    margin-right: 6px;
+    // margin-right: 6px;
 }
 
 

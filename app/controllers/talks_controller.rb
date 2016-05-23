@@ -66,7 +66,7 @@ class TalksController < BaseController
     authorize! :create, @talk
 
     if @talk.save
-      redirect_to @talk #, notice: 'Talk was successfully created.'
+      redirect_to @talk 
     else
       render action: 'new'
     end
@@ -82,7 +82,7 @@ class TalksController < BaseController
 
     authorize! :update, @talk
     if @talk.update(talk_params)
-      redirect_to @talk #, notice: 'Talk was successfully updated.'
+      redirect_to @talk 
     else
       render action: 'edit'
     end
@@ -93,7 +93,7 @@ class TalksController < BaseController
     authorize! :destroy, @talk
 
     @talk.destroy
-    redirect_to current_user #, notice: 'Talk was successfully destroyed.'
+    redirect_to current_user 
   end
 
   private
