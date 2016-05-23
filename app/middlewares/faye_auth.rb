@@ -26,11 +26,11 @@ class FayeAuth < Struct.new(:app, :opts)
       # NEWSCHOOL
       when %r{/down/venue/(\d+)$}
         if user = env['warden'].user
-          venue = Venue.find($1)
+          venue = Venue.find_by(id: $1)
           if venue and venue.user_id == user.id
             msg.merge signature: Faye::Authentication.sign(msg, opts[:secret])
           else
-            Rails.logger.error "Access to #{channel} denied for user #{user.inspect}"
+            Rails.logger.error "Access to Venue #{venue.id} denied for user #{user.id}, owner is user #{venue.user_id}"
             msg.merge error: 'Forbidden'
           end
         else

@@ -344,8 +344,8 @@ class Venue < ActiveRecord::Base
     details = {
       event: 'connected',
       stream_url: stream_url,
-      name: title,
-      slug: slug,
+      name: name,
+      slug: slug
     }
     Faye.publish_to '/admin/connections', details
   end
