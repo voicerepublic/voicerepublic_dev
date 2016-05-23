@@ -26,9 +26,14 @@
           %li.can-hide.hide-for-small-only
             = link_to explore_path do
               = t('.explore')
-          %li.can-hide.hide-for-small-only
-            = link_to page_path action: 'publish' do
-              = t('.publish')
+          - if user_signed_in?
+            %li.can-hide.hide-for-small-only
+              = link_to venues_path do
+                = t('.stream_now')
+          - else
+            %li.can-hide.hide-for-small-only
+              = link_to page_path action: 'publish' do
+                = t('.publish')
             -# TODO: Add this back in someday?
               %ul.submenu.menu.vertical{"data-submenu" => ""}
                 %li.drop-title= t('.categories')

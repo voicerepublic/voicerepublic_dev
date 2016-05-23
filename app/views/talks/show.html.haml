@@ -23,10 +23,6 @@
     signedIn = #{user_signed_in?.to_s};
     isHost = #{(current_user == @talk.user).to_s};
 
-
-
-
-    
     signInPath = #{new_user_session_path.to_json};
     initialSnapshot = #{@talk.snapshot.to_json};
 
@@ -48,4 +44,4 @@
       %a{:href => "#"} What is Voice Republic?
 
 -# hidden div for qa
-.qa.talks-show.hide= @talk.id
+.qa.talks-show= @talk.id

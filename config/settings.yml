@@ -132,7 +132,7 @@ developers:
   - munen@dispatched.ch
   - accounts@dispatched.ch
   - spam@dispatched.ch
-sitemap: http://localhost:3000/landing_page/index.xml
+sitemap: http://localhost:3000/root/index.xml
 
 icecast:
   ec2:

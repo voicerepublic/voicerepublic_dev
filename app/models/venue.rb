@@ -29,9 +29,9 @@ class Venue < ActiveRecord::Base
     state :provisioning, enter: :provision, exit: :complete_details
     state :device_required
     state :awaiting_stream, enter: :start_streaming
-    state :connected # aka. streaming
+    state :connected, enter: :on_connected # aka. streaming
     state :disconnect_required
-    state :disconnected # aka. lost connection
+    state :disconnected, enter: :on_disconnected # aka. lost connection
 
     # issued by the venues controller
     event :become_available do
@@ -338,6 +338,21 @@ class Venue < ActiveRecord::Base
     if Rails.env.development? and File.exist?(provisioning_file)
       FileUtils.rm(provisioning_file)
     end
+  end
+
+  def on_connected
+    details = {
+      event: 'connected',
+      stream_url: stream_url,
+      name: name,
+      slug: slug
+    }
+    Faye.publish_to '/admin/connections', details
+  end
+
+  def on_disconnected
+    details = { event: 'disconnected', slug: slug }
+    Faye.publish_to '/admin/connections', details
   end
 
   def start_streaming
