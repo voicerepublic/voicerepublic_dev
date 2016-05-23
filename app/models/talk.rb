@@ -435,6 +435,7 @@ class Talk < ActiveRecord::Base
     {
       talk: {
         # regular
+        starts_at: starts_at,
         started_at: started_at,
         title: title,
         state: state,
