@@ -683,6 +683,11 @@ nav.top-bar {
                     text-decoration: underline;
                 }
             }
+            /* HACK by phil */
+            .stop-warning {
+                padding-left: 12px;
+                color: $vr-red;
+            }
         }
 
         .talk-start-button {
