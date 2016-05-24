@@ -403,7 +403,7 @@ class Venue < ActiveRecord::Base
     self.instance_id = response.body["instancesSet"].first["instanceId"]
 
     # set name of instance
-    EC2.tags.create(resource_id: instance_id, key: 'Name', value: name)
+    EC2.tags.create(resource_id: instance_id, key: 'Name', value: slug)
   end
 
   def provision_development
