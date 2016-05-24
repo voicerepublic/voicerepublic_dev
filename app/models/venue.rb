@@ -2,7 +2,7 @@ class Venue < ActiveRecord::Base
 
   PROVISIONING_WINDOW = 90.minutes
   # PROVISIONING_WINDOW = 12.hours
-  PROVISIONING_DURATION = 100.seconds
+  PROVISIONING_DURATION = 120.seconds
 
   extend FriendlyId
   friendly_id :slug_candidates, use: [:slugged, :finders]
