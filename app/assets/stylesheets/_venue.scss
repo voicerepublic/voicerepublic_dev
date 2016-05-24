@@ -136,10 +136,27 @@
     bottom: 0;
     right: 0;
     z-index: 9999;
+    // background: rgba(0,0,0,.8);
+
+}
+
+.modal-background {
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    bottom: 0;
+    background:rgba(0,0,0,.5);
+    z-index: -1;
 }
 
 #instructions, #talk-modal {
-    max-width: 26em;
+    @include reveal-overlay();
+    top:48px;
+    right: 48px;
+    left: 48px;
+    bottom: auto;
+    // max-width: 26em;
     display: block;
     background: $vr-purple;
     padding: 24px;
@@ -164,16 +181,16 @@
         color: white;
         margin-bottom: 12px;
     }
-    &:before {
-        content: "";
-        background: rgba(0, 0, 0, 0.5);
-        position: fixed;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        z-index: -1;
-    }
+    // &:before {
+    //     content: "";
+    //     background: rgba(0, 0, 0, 0.5);
+    //     position: fixed;
+    //     top: 0;
+    //     bottom: 0;
+    //     left: 0;
+    //     right: 0;
+    //     z-index: -1;
+    // }
     table {
         tbody {
             border: none;
@@ -187,6 +204,14 @@
 
 #talk-modal {
     background:$talk-dark;
+    .close-button {
+        color: white;
+        font-size: 3em;
+        font-weight: 100;
+        &:hover {
+            color: $vr-red;
+        }
+    }
 
 }
 

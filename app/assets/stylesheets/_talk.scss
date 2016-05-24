@@ -729,6 +729,35 @@ button,
     }
 }
 
+// .fake-background {
+//     background:yellow;
+//     position:fixed;
+//     top:0;
+//     left:0;
+//     right:0;
+//     bottom: 0;
+// }
+
+// .fake-modal {
+//     max-width: 44em;
+//     background:red;
+// }
+
+ul.share-links {
+    max-width: 64em;
+    li {
+        text-align: center;
+        a:hover {
+            color: $vr-yellow;
+        }
+    }
+    svg {
+        color: currentColor;
+        width: 44px;
+        height: 44px;
+    }
+}
+
 #right-sidebar {
     background: rgba($almost-black, 0.5);
     height: auto;
@@ -837,7 +866,8 @@ button,
     }
 }
 
-.reveal {
+.shakeel {
+    @include reveal-overlay();
     background-color: $vr-blue;
     border:none;
 
