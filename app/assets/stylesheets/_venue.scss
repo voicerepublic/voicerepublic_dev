@@ -374,6 +374,13 @@ nav.top-bar {
             font-family: $body-font-family;
             font-weight: 300;
         }
+        a {
+            color: $vr-beige;
+            &:hover {
+                color: white;
+                text-decoration: underline;
+            }
+        }
     }
     .dashboard {
         padding-top: 9px;;
@@ -537,7 +544,7 @@ nav.top-bar {
     }
 }
 
-.venue select {
+.venues select {
     margin: 0;
     padding: 9px 12px 12px 12px;
     border: none;
@@ -670,7 +677,8 @@ nav.top-bar {
         }
         /* NOTE phil: I couldn't read it */
         option {
-            background-color: $talk-dark;
+            background-color: white;
+            color: $talk-dark;
         }
         .server-start-button {
             border-bottom-right-radius: 4px;

@@ -118,11 +118,11 @@ $("input#user_slug").focus(function() {
 
 //trigger thing on search
 $('.search-container button[type="submit"]').click(function() {
-    $('#working').removeClass('hide');
+    $('#working').removeClass('offscreen');
 });
 $('.search-container input').keypress(function(e) {
     if (e.which == 13) { //Enter key pressed
-        $('#working').removeClass('hide');
+        $('#working').removeClass('offscreen');
     }
 });
 
@@ -170,4 +170,5 @@ $('#search-close').on('click', function() {
 
 $(document).ready(function(){
     $('.top-bar').removeClass('transparent')
+    $('#working').addClass('offscreen')
 });

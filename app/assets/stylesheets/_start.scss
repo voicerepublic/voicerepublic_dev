@@ -42,8 +42,13 @@
 
 #working {
     margin: 0;
+    transition: top .5s cubic-bezier(0.4, 0.0, 0.6, 1);
+
     * {
         display: inline-block;
+    }
+    &.offscreen {
+        top: -100px;
     }
 }
 
