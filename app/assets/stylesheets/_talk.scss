@@ -924,15 +924,20 @@ ul.share-links {
         }
     }
  .state-msg {
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding-top: 6px;
+    padding-bottom: 6px;
     font-size: rem-calc(9);
-    letter-spacing: rem-calc(1);
+    letter-spacing: rem-calc(0);
     text-transform: uppercase;
     font-weight: 500;
     margin-right: 6px;
-    width: 100%;
     text-align: center;
+    @include breakpoint(medium){
+         padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: rem-calc(9);
+    letter-spacing: rem-calc(1);
+    }
     &.prelive {
         @include breakpoint(medium){
         min-width: 170px;
