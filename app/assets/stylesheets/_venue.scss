@@ -136,6 +136,9 @@
     bottom: 0;
     right: 0;
     z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items:center;
     // background: rgba(0,0,0,.8);
 
 }
@@ -151,17 +154,16 @@
 }
 
 #instructions, #talk-modal {
-    @include reveal-overlay();
-    top:48px;
-    right: 48px;
-    left: 48px;
-    bottom: auto;
+    //@include reveal-overlay();
     // max-width: 26em;
     display: block;
     background: $vr-purple;
     padding: 24px;
     box-shadow: 0 1px 10px rgba(0, 0, 0, 0.3);
     color: white;
+    position:relative;
+    min-width:400px;
+    max-width: 480px;
     h4 {
         color: white;
         font-size: rem-calc(18);
@@ -203,7 +205,10 @@
 }
 
 #talk-modal {
-    background:$talk-dark;
+    background:$vr-purple;
+    h2 {
+        color: white;
+    }
     .close-button {
         color: white;
         font-size: 3em;
