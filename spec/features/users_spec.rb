@@ -64,6 +64,7 @@ feature "User edits own profile" do
   end
 
   scenario "uploading a avatar image", js: true do
+    pending "after switching to amazon as storage provider for dragonfly, we would need to add our credentials to the settings..."
     some_image = Rails.root.join('app/assets/images/logo.png')
     expect(@user.reload.avatar_uid).to be_nil
     make_upload_field_visible('user_avatar')
