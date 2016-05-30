@@ -142,7 +142,8 @@ icecast:
     #image: ami-30f2105f (icebox 3.1)
     #image: ami-d422cebb (icebox 3.2 - bad)
     #image: ami-d822ceb7 (icebox 3.3)
-    image: ami-d822ceb7
+    #image: ami-b31cf3dc (icebox 3.4)
+    image: ami-b31cf3dc
     default_instance_type: t2.micro
     security_group: Icecast Servers
     key_name: phil-ffm
