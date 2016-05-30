@@ -106,7 +106,7 @@
     .row
       .medium-6.medium-offset-3.columns
         %h2 Are you planning a conference or event?
-        = link_to page_path action: 'publish', class: 'button large hollow btn-yellow btn-hover-blue' do
+        = link_to page_path, action: 'publish', class: 'button large hollow btn-yellow btn-hover-blue' do
           = t('.start_now')
         %br/
         = link_to t('.or_contact_us'), blog_url('/contact'), class: 'link-yellow text-link'
