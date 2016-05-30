@@ -454,6 +454,7 @@ class Talk < ActiveRecord::Base
         duration: duration,
 
         # extended
+        flyer_path: flyer.path,
         embed_url: embed_self_url,
         media_links: media_links,
         edit_url: edit_self_url,
