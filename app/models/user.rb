@@ -144,6 +144,13 @@ class User < ActiveRecord::Base
     end
   end
 
+  def details
+    {
+      url: self_url,
+      image_url: avatar.thumb('36x36').url
+    }
+  end
+
   def details_for(talk)
     {
       id: id,
