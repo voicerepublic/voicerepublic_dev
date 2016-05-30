@@ -2,5 +2,6 @@
 
 echo `date` ready >> /share/actions.log
 
-JSON='{"public_ip_address":"'$PUBLIC_IP'","client_token":"'$CLIENT_TOKEN'"}'
-curl -X POST --data "$JSON" $CALLBACK_URL/complete
+JSON='{"public_ip_address":"'$PUBLIC_IP'"}'
+
+curl -X POST $CALLBACK_URL/ready/$CLIENT_TOKEN
