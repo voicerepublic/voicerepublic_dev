@@ -509,6 +509,13 @@ nav.top-bar {
                 vertical-align: bottom;
                 min-width: 36px;
             }
+            .label {
+                margin-left: 12px;
+                background: $vr-purple;
+                &.live {
+                    background:$vr-red;
+                }
+            }
         }
         td.blank {
             width: 24px;
