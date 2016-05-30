@@ -397,10 +397,13 @@ class Talk < ActiveRecord::Base
     Rails.application.routes.url_helpers.talk_url(self)
   end
 
+  def embed_self_url
+    Rails.application.routes.url_helpers.embed_talk_url(self)
+  end
+
   def edit_self_url
     Rails.application.routes.url_helpers.edit_talk_url(self)
   end
-
 
   def create_message_url
     url = Rails.application.routes.url_helpers.create_message_url(self)
@@ -451,6 +454,7 @@ class Talk < ActiveRecord::Base
         duration: duration,
 
         # extended
+        embed_url: embed_self_url,
         media_links: media_links,
         edit_url: edit_self_url,
         create_message_url: create_message_url,
