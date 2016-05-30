@@ -88,6 +88,9 @@ xml.rss namespaces.merge(version: '2.0') do
         xml.description do
           xml.cdata! talk.description + I18n.t(:podcast_branding)
         end
+        xml.itunes, :summary do
+          xml.cdata! talk.description + I18n.t(:podcast_branding)
+        end
 
         xml.itunes :subtitle, talk.teaser
         # TODO: Maybe we want to show the speakers here?
