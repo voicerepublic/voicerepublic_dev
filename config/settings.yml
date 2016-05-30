@@ -143,8 +143,9 @@ icecast:
     #image: ami-d422cebb (icebox 3.2 - bad)
     #image: ami-d822ceb7 (icebox 3.3)
     #image: ami-b31cf3dc (icebox 3.4 - renamed endpoints)
-    #image: ami-b81cf3d7 (icebox 3.5 - update icecast to 2.4.2 + cors)
-    image: ami-b81cf3d7
+    #image: ami-b81cf3d7 (icebox 3.5 - update icecast to 2.4.2 + cors, defunct)
+    #image: ami-f21bf49d (icebox 3.6 - fixed ready)
+    image: ami-f21bf49d
     default_instance_type: t2.micro
     security_group: Icecast Servers
     key_name: phil-ffm
