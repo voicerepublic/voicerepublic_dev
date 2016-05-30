@@ -45,8 +45,8 @@ class IcecastEndpoint < Struct.new(:app, :opts)
         listener_count: source['listeners'],
         listener_peak: source['listener_peak']
       }
+      StreamStat.create(stats.merge(venue_id: venue.id))
       Faye.publish_to venue.channel, event: 'stats', stats: stats
-      # TODO persist
       return OK
 
     else
