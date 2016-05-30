@@ -339,19 +339,23 @@ class Talk < ActiveRecord::Base
     storage["#{uri}/#{id}.mp3"]
   end
 
+  # TODO rename to recommendations
+  # FIXME not in ids
   def related_talks
-    talks, goal = [], 3
+    talks, goal = [], 5
 
     talks << related_talk if related_talk.present?
 
     limit = goal - talks.size
-    talks += series.talks.where.not(id: id).ordered.limit(limit)
+    talks += series.talks.where.not(id: id).
+            where.not(state: 'suspended').ordered.limit(limit)
 
     return talks if talks.size == goal
 
     limit = goal - talks.size
     talks += Talk.joins(:series).
             where(series: { user_id: series.user_id }).
+            where.not(state: 'suspended').
             where.not(id: id).ordered.limit(limit)
 
     return talks if talks.size == goal
@@ -393,10 +397,13 @@ class Talk < ActiveRecord::Base
     Rails.application.routes.url_helpers.talk_url(self)
   end
 
+  def embed_self_url
+    Rails.application.routes.url_helpers.embed_talk_url(self)
+  end
+
   def edit_self_url
     Rails.application.routes.url_helpers.edit_talk_url(self)
   end
-
 
   def create_message_url
     url = Rails.application.routes.url_helpers.create_message_url(self)
@@ -447,6 +454,8 @@ class Talk < ActiveRecord::Base
         duration: duration,
 
         # extended
+        flyer_path: flyer.path,
+        embed_url: embed_self_url,
         media_links: media_links,
         edit_url: edit_self_url,
         create_message_url: create_message_url,

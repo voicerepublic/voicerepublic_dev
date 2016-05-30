@@ -77,7 +77,6 @@ class Device < ActiveRecord::Base
     {
       name: name,
       state: state,
-      target: target,
       public_ip_address: public_ip_address,
       report_interval: report_interval,
       heartbeat_interval: heartbeat_interval,
