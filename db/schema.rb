@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160505185649) do
+ActiveRecord::Schema.define(version: 20160530151615) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -264,6 +264,17 @@ ActiveRecord::Schema.define(version: 20160505185649) do
 
   add_index "social_shares", ["shareable_id", "shareable_type"], name: "index_social_shares_on_shareable_id_and_shareable_type", using: :btree
 
+  create_table "stream_stats", force: :cascade do |t|
+    t.integer  "venue_id"
+    t.integer  "listener_count"
+    t.integer  "listener_peak"
+    t.integer  "bitrate"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "stream_stats", ["venue_id"], name: "index_stream_stats_on_venue_id", using: :btree
+
   create_table "tag_bundles", force: :cascade do |t|
     t.string   "title_en"
     t.string   "title_de"
@@ -456,6 +467,7 @@ ActiveRecord::Schema.define(version: 20160505185649) do
   add_foreign_key "devices", "organizations"
   add_foreign_key "memberships", "organizations"
   add_foreign_key "memberships", "users"
+  add_foreign_key "stream_stats", "venues"
   add_foreign_key "talks", "venues"
   add_foreign_key "venues", "devices"
   add_foreign_key "venues", "users"

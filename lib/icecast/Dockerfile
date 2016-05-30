@@ -5,7 +5,8 @@ MAINTAINER Phil Hofmann "phil@voicerepublic.com"
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get -qq -y update && \
-    apt-get -qq -y install icecast2 curl && \
+    apt-get -qq -y install curl && \
+    apt-get -qq -y -t jessie-backports install icecast2 && \
     apt-get clean
 
 RUN mkdir /share && \
