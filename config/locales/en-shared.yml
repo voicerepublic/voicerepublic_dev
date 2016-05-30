@@ -9,6 +9,7 @@ en:
       processing: "Processing..."
       please_login: "Please sign in to Voice Republic to Pin a Talk."
     talk_card:
+      exclamation: "!"
       speaker: "Speaker: "
       ago_by: "%{time} ago"
       plays: " Plays "

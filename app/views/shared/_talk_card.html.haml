@@ -3,7 +3,10 @@
 .talk-card.columns{ class: talk.state }
   .talk-card-inside
     = link_to talk do
-      %h5.title= talk.title
+      %h5.title
+        - if %w(pending postlive processing suspended).include?(talk.state)
+          %span.badge.alert.has-tip.tip-top{"data-tooltip" => "", "aria-haspopup" => true, "data-disable-hover"=>false, "title" =>"Talk not available"}= t('.exclamation')
+        = talk.title
     .publisher-name
       = link_to user_path(talk.user), class: "publisher" do
         = talk.user.name
@@ -51,11 +54,3 @@
         .pinboard
           = link_to talk do
             .pin-placeholder
-
-  - if %w(pending postlive processing suspended).include?(talk.state)
-    .not_available
-      %p.lead= t(".message.#{talk.state}")
-  - if current_user
-    .talk-card-flasher.hide
-      .flasher-text
-        %p thing

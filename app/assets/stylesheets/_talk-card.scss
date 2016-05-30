@@ -19,18 +19,23 @@
             width: 20%;
         }
     }
+    .badge {
+        vertical-align: text-top;
+        margin-top: 2px;
+        font-weight: 500;
+    }
     &.postlive, &.processing, &.suspended {
         //pointer-events: none;
-        .talk-card-inside {
-            opacity: .5;
-        }
+        // .talk-card-inside {
+        //     opacity: .5;
+        // }
         .not_available {
             position: absolute;
             top: 97px;
-            left: 30px;
-            right: 30px;
+            left: 12px;
+            right: 12px;
             padding: 12px;
-            background: $vr-yellow;
+            background: rgba(black,.5);
             p {
                 font-size: rem-calc(12);
                 line-height: rem-calc(14);
