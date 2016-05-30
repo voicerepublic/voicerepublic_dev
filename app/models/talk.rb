@@ -355,7 +355,7 @@ class Talk < ActiveRecord::Base
     limit = goal - talks.size
     talks += Talk.joins(:series).
             where(series: { user_id: series.user_id }).
-            where.not(state: 'suspended')
+            where.not(state: 'suspended').
             where.not(id: id).ordered.limit(limit)
 
     return talks if talks.size == goal
