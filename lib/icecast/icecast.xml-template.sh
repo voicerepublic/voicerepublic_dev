@@ -134,6 +134,11 @@ cat <<EOF
       <public>0</public>
     </mount>
 
+    <http-headers>
+      <header name="Access-Control-Allow-Origin" value="*" />
+      <header name="X-Robots-Tag" value="noindex, nofollow, noarchive" />
+    </http-headers>
+
     <fileserve>1</fileserve>
 
     <paths>
