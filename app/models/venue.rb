@@ -209,7 +209,11 @@ class Venue < ActiveRecord::Base
         title: talk.title,
         started_at: talk.started_at,
         duration: talk.duration,
-        url: talk.self_url
+        url: talk.self_url,
+        series: {
+          title: talk.series.title,
+          url: talk.series.self_url
+        }
       }
     end
   end
