@@ -634,7 +634,7 @@ class Talk < ActiveRecord::Base
     LiveServerMessage.call public_channel, { event: 'EndTalk', origin: 'server' }
 
     # to make the dump file of icecast appear on s3, we need to disconnect
-    venue.require_disconnect!
+    venue.require_disconnect! if venue.connected?
   end
 
   def postprocess!(uat=false)
