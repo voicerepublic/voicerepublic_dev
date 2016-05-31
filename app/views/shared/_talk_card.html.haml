@@ -49,6 +49,9 @@
             = render partial: 'reminders/unpin', locals: { reminder: reminder }
           - else
             = render partial: 'reminders/pin', locals: { rememberable: talk }
+        .talk-card-flasher.hide{style:"display:table"}
+          .flasher-text
+            %p Pin
       - else
         -# display a fake pin button
         .pinboard

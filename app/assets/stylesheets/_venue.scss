@@ -552,7 +552,7 @@ nav.top-bar {
     }
 }
 
-.venues select {
+.venues .selectize-input {
     margin: 0;
     padding: 9px 12px 12px 12px;
     border: none;
@@ -572,6 +572,37 @@ nav.top-bar {
     height: 36px;
     font-size: .8rem;
     border-top: 1px solid #29292b;
+
+    input {
+        visibility: hidden;
+    }
+
+    &.input-active {
+        background: none;
+        cursor: pointer;
+    }
+}
+
+.venues .selectize-dropdown {
+    background:$topbar-dark;
+    border-radius:0;
+    border:0;
+    color: $oil;
+    .selectize-dropdown-content {
+        .selected {
+            background: $topbar-dark;
+            color: $vr-light-blue;
+
+        }
+        .option {
+            padding:6px 0;
+
+        &:hover {
+                background:none;
+                color: $vr-yellow;
+            }
+        }
+    }
 }
 
 #venue-control-panel {

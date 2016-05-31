@@ -11,7 +11,8 @@
                  [reagent-utils "0.1.7"]
                  [secretary "1.2.3"]
                  [cljs-ajax "0.5.4"]
-                 [cljsjs/moment "2.10.6-4"]]
+                 [cljsjs/moment "2.10.6-4"]
+                 [cljsjs/selectize "0.12.1-1"]]
 
   :plugins [[lein-cljsbuild "1.1.1"]]
 
