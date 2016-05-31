@@ -44,7 +44,7 @@ class TalksController < BaseController
       @talk.tag_list = Faker::Commerce.department
       @talk.teaser = Faker::Company.catch_phrase
       @talk.starts_at_date= Date.today
-      @talk.starts_at_time= 1.minute.from_now.strftime('%H:%M')
+      @talk.starts_at_time= 10.minutes.from_now.strftime('%H:%M')
       @talk.description = Faker::Lorem.paragraph(3)
     end
 
@@ -66,7 +66,7 @@ class TalksController < BaseController
     authorize! :create, @talk
 
     if @talk.save
-      redirect_to @talk 
+      redirect_to @talk
     else
       render action: 'new'
     end
@@ -82,7 +82,7 @@ class TalksController < BaseController
 
     authorize! :update, @talk
     if @talk.update(talk_params)
-      redirect_to @talk 
+      redirect_to @talk
     else
       render action: 'edit'
     end
@@ -93,7 +93,7 @@ class TalksController < BaseController
     authorize! :destroy, @talk
 
     @talk.destroy
-    redirect_to current_user 
+    redirect_to current_user
   end
 
   private

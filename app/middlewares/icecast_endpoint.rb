@@ -1,58 +1,60 @@
 class IcecastEndpoint < Struct.new(:app, :opts)
 
+  ROUTE = %r{/icecast/(\w+)/([\w-]+)}
+
+  OK               = [200, {}, ['200 - OK']]
+  NOT_FOUND        = [404, {}, ['404 - Not found']]
+  COMPUTER_SAYS_NO = [740, {}, ['740 - Computer says no']]
+
   def call(env)
+    path = env['PATH_INFO']
+
     return app.call(env) unless env['REQUEST_METHOD'] == 'POST'
-    return app.call(env) unless env['PATH_INFO'].match(%r{\A/icecast/})
+    return app.call(env) unless path.match(%r{\A/icecast/})
+
+    _, action, token = path.match(ROUTE).to_a
+    return app.call(env) unless _
 
     json = env['rack.input'].read
-    # workaround malformed json posted by icecast
-    json = json.sub('",}', '"}}')
-    payload = JSON.parse(json)
+    return OK if action == 'stats' && !json.match(/"source"/)
 
-    if env['PATH_INFO'].match(%r{^/icecast/stats/([\w-]+)$})
-      venue = Venue.find_by(client_token: $1)
-      if source = payload['icestats']['source']
-        stats = {
-          bitrate: source['audio_bitrate'],
-          listener_count: source['listeners'],
-          listener_peak: source['listener_peak']
-        }
-        Faye.publish_to venue.channel, event: 'stats', stats: stats
-      end
-      return [ 200, {}, [] ]
-    end
+    venue = Venue.find_by(client_token: token)
+    return NOT_FOUND if venue.nil?
 
 
-    client_token = payload['client_token']
-
-    return [ 740, {}, ['740 - Computer says no'] ] if client_token.nil?
-
-    venue = Venue.find_by(client_token: client_token)
-    return [ 404, {}, [] ] unless venue.present?
-
-    # pp env
-
-    case env['PATH_INFO']
-    when '/icecast/complete'
-      # raise "wtf" if env['REMOTE_ADDR'] != payload['public_ip_address']
-      venue.public_ip_address = Settings.icecast.url.host || payload['public_ip_address']
+    case action.to_sym
+    when :ready
+      venue.public_ip_address = Settings.icecast.url.host ||
+                                JSON.parse(json)['public_ip_address']
+      return COMPUTER_SAYS_NO if venue.public_ip_address.nil?
       venue.complete_provisioning!
 
-    when '/icecast/connect'
+    when :connect
       venue.connect!
 
-    when '/icecast/disconnect'
+    when :disconnect
       venue.disconnect!
 
-    when '/icecast/synced'
+    when :synced
       venue.synced!
 
+    when :stats
+      source = JSON.parse(json)['icestats']['source']
+      stats = {
+        bitrate: source['audio_bitrate'],
+        listener_count: source['listeners'],
+        listener_peak: source['listener_peak']
+      }
+      StreamStat.create(stats.merge(venue_id: venue.id))
+      Faye.publish_to venue.channel, event: 'stats', stats: stats
+      return OK
+
     else
-      return [ 721, {}, ['721 - Known Unknowns', env['PATH_INFO']] ]
+      return [ 721, {}, ['721 - Known Unknowns', path] ]
     end
 
-    Rails.logger.info '200 OK'
-    [ 200, {}, [] ]
+    Rails.logger.info '-> 200 OK'
+    OK
 
     #for now remove the catch all errors here
     # rescue => e
