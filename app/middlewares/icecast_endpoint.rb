@@ -30,10 +30,10 @@ class IcecastEndpoint < Struct.new(:app, :opts)
       venue.complete_provisioning!
 
     when :connect
-      venue.connect!
+      venue.connect! unless venue.connected?
 
     when :disconnect
-      venue.disconnect!
+      venue.disconnect! if venue.can_disconnect?
 
     when :synced
       venue.synced!

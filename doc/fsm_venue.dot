@@ -48,17 +48,21 @@ digraph G {
   connected -> offline [label="shutdown"]
   disconnected -> offline [label="shutdown"]
 
-  // reset!
-  available -> offline [label="reset" style=dashed]
-  provisioning -> offline [label="reset" style=dashed]
-  device_required -> offline [label="reset" style=dashed]
-  awaiting_stream -> offline [label="reset" style=dashed]
-  connected -> offline [label="reset" style=dashed]
-  disconnected -> offline [label="reset" style=dashed]
+  // // reset!
+  // available -> offline [label="reset" style=dashed]
+  // provisioning -> offline [label="reset" style=dashed]
+  // device_required -> offline [label="reset" style=dashed]
+  // awaiting_stream -> offline [label="reset" style=dashed]
+  // connected -> offline [label="reset" style=dashed]
+  // disconnected -> offline [label="reset" style=dashed]
 
   // select_device!
   awaiting_stream -> awaiting_stream [label="select_device"]
   connected -> awaiting_stream [label="select_device"]
   disconnected -> awaiting_stream [label="select_device"]
+
+  // require_disconnect
+  connected -> disconnect_required [label="require_disconnect"]
+  disconnect_required -> disconnected [label="disconnect"]
 
 }
