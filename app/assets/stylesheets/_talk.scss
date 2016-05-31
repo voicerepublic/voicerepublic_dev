@@ -249,7 +249,7 @@ button,
     padding: 0;
     margin-bottom: 12px;
     @include breakpoint(medium) {
-        margin-bottom: 24px;
+        margin-bottom: 0;
     }
 
     img {

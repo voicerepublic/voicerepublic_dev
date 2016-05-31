@@ -43,8 +43,6 @@
       - unless %w(pending postlive processing suspended).include?(@talk.state)
         = render partial: 'shared/talk_card', collection: @related_talks
 
-    %h1.text-center.show-for-small-only
-      %a{:href => "#"} What is Voice Republic?
 
 -# hidden div for qa
 .qa.talks-show= @talk.id
