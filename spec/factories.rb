@@ -20,9 +20,15 @@ FactoryGirl.define do
   factory :venue do
     name "Some venue"
     user
+    trait :available do
+      state :available
+    end
     trait :provisioning do
       state :provisioning
       client_token
+    end
+    trait :device_required do
+      state :device_required
     end
     trait :awaiting_stream do
       state :awaiting_stream
@@ -34,6 +40,12 @@ FactoryGirl.define do
     trait :connected do
       state :connected
       client_token
+    end
+    trait :disconnect_required do
+      state :disconnect_required
+    end
+    trait :disconnected do
+      state :disconnected
     end
   end
 
@@ -91,6 +103,15 @@ FactoryGirl.define do
     tag_list 'lorem, ipsum, dolor'
     description 'Some talk description'
     language 'en'
+
+    trait :prelive do
+      state 'prelive'
+      starts_at 10.minutes.from_now
+    end
+
+    trait :live do
+      state 'live'
+    end
 
     trait :archived do
       state 'archived'
