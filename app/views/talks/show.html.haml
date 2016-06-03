@@ -26,6 +26,8 @@
     signInPath = #{new_user_session_path.to_json};
     initialSnapshot = #{@talk.snapshot.to_json};
 
+    pinId = #{@reminder.try(:id) || 'null'};
+
 #modals
 
 #main-column.clearfix
