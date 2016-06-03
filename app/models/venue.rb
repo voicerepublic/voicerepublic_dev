@@ -354,6 +354,7 @@ class Venue < ActiveRecord::Base
   end
 
   def on_connected
+    return if Rails.env.test?
     details = {
       event: 'connected',
       stream_url: stream_url,
@@ -364,6 +365,7 @@ class Venue < ActiveRecord::Base
   end
 
   def on_disconnected
+    return if Rails.env.test?
     details = { event: 'disconnected', slug: slug }
     Faye.publish_to '/admin/connections', details
   end

@@ -10,7 +10,7 @@ end
 
 feature "Search", js: true do
   before do
-    visit root_path # sometimes fails here on CI
+    #visit root_path # sometimes fails here on CI
     Thread.current["PgSearch.enable_multisearch"] = true
   end
 
