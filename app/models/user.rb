@@ -146,6 +146,7 @@ class User < ActiveRecord::Base
 
   def details
     {
+      name: name,
       url: self_url,
       image_url: avatar.thumb('36x36').url
     }

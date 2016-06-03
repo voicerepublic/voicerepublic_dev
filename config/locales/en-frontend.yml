@@ -12,6 +12,10 @@ en:
         pending: Processing...
         archived: Archived
       any_time_now: any time now...
+      email:
+        subject: Check out this talk on voicerepublic.com
+        body: "Hi there\n\nCheck out this talk on voicerepublic.com: "
+        closing: "\n\nBest regards\n"
     venues:
       streaming_server: Streaming Server
       audio_source: Audio Source
