@@ -35,21 +35,6 @@ class FluxCapacitor
           client.publish(*response) unless response.nil?
         end
 
-        logger.info "Subscribing to /register/listener..."
-        client.subscribe('/register/listener') do |msg|
-          logger.info "/register/listener #{msg.inspect}"
-          talk_id = msg['talk_id']
-          # TODO: We can skip persisting and publishing this information
-          # when the listener is already known
-          talk = Talk.find_by(id: talk_id)
-          if talk.try(:live?)
-            talk.add_listener! msg['session']
-            client.publish(talk.public_channel, { type: 'listeners',
-                                                  listeners: talk.listeners.size })
-            print 'l'
-          end
-        end
-
         logger.info "Subscribing to /heartbeat..."
         client.subscribe('/heartbeat') do |msg|
           identifier = msg['identifier']
