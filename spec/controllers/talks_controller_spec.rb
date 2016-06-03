@@ -102,9 +102,8 @@ describe TalksController do
           }.to change(Talk, :count).by(-1)
         end
         it 'does not destroy the talk' do
-          expect {
-            delete :destroy, {:series_id => @series_2.id, :id => @talk_2.to_param}
-          }.to raise_error(CanCan::AccessDenied)
+          delete :destroy, {:series_id => @series_2.id, :id => @talk_2.to_param}
+          expect(response.status).to eq(302)
         end
       end
     end
@@ -113,13 +112,14 @@ describe TalksController do
       describe "Authorization" do
         it "updates the talk" do
           expect(@talk.title).not_to eq('new test title')
-          post :update, { series_id: @series.id, id: @talk.id, talk: { "title" => 'new test title' } }
+          post :update, { series_id: @series.id, id: @talk.id,
+                          talk: { "title" => 'new test title' } }
           expect(@talk.reload.title).to eq('new test title')
         end
         it "does not update the talk" do
-          expect {
-            post :update, { series_id: @series_2.id, id: @talk_2.id, talk: { "title" => 'new test title' } }
-          }.to raise_error(CanCan::AccessDenied)
+          post :update, { series_id: @series_2.id, id: @talk_2.id,
+                          talk: { "title" => 'new test title' } }
+          expect(response.status).to eq(302)
           expect(@talk.reload.title).not_to eq('new test title')
         end
       end
@@ -140,9 +140,8 @@ describe TalksController do
         end
         it 'does not allow for creation of a new talk' do
           attrs = FactoryGirl.attributes_for(:talk, series_id: @series_2.id)
-          expect {
-            post :create, { talk: attrs }
-          }.to raise_error(CanCan::AccessDenied)
+          post :create, { talk: attrs }
+          expect(response.status).to eq(302)
         end
       end
 
@@ -175,14 +174,13 @@ describe TalksController do
 
       describe "Authorization" do
         it 'downloads a talks message history' do
-          get :show, { :id => @talk.id, :series_id => @series.id, :format => :text }
+          get :show, id: @talk.id, series_id: @series.id, format: :text
           expect(response.body).to include("spec content")
         end
 
         it 'authorizes downloading a talks message history' do
-          expect {
-            get :show, { :id => @talk_2.id, :series_id => @series_2.id, :format => :text }
-          }.to raise_error(CanCan::AccessDenied)
+          get :show, id: @talk_2.id, series_id: @series_2.id, format: :text
+          expect(response.status).to eq(302)
         end
       end
     end

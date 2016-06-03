@@ -27,9 +27,11 @@ describe RemindersController do
         expect(assigns(:reminder)).to be_persisted
       end
 
-      it "redirects to the created reminder" do
+      it "returns ok" do
         post :create, talk_id: talk.id
-        expect(response).to redirect_to(assigns(:reminder))
+        expect(response.status).to eq(200)
+        data = JSON.parse(response.body)
+        expect(data['id']).not_to be_nil
       end
     end
   end
@@ -44,9 +46,8 @@ describe RemindersController do
 
     it "authorizes destroys" do
       reminder = FactoryGirl.create(:reminder)
-      expect {
-        delete :destroy, id: reminder.to_param
-      }.to raise_error(CanCan::AccessDenied)
+      delete :destroy, id: reminder.to_param
+      expect(response.status).to eq(302)
     end
 
     it "destroy returns 200 and renders js code" do

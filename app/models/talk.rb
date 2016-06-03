@@ -161,8 +161,8 @@ class Talk < ActiveRecord::Base
     end
   end
 
-  serialize :listeners
-  serialize :session
+  serialize :listeners # TODO migrate & remove
+  serialize :session # TODO remove
   serialize :storage
   serialize :social_links
 
@@ -418,14 +418,6 @@ class Talk < ActiveRecord::Base
     venue.talks.where('starts_at > ?', starts_at).ordered.first
   end
 
-  # Used by FluxCapacitor to remember visitors during a live talk
-  def add_listener!(session_id)
-    self.listeners[session_id] ||= Time.now.to_i
-    # TODO write with locking
-    self.save
-  end
-
-
   class << self
     # returns a list of key name pairs of languages in order of prevalence
     def available_languages
@@ -442,6 +434,7 @@ class Talk < ActiveRecord::Base
     {
       talk: {
         # regular
+        id: id,
         starts_at: starts_at,
         started_at: started_at,
         title: title,
@@ -634,7 +627,7 @@ class Talk < ActiveRecord::Base
     LiveServerMessage.call public_channel, { event: 'EndTalk', origin: 'server' }
 
     # to make the dump file of icecast appear on s3, we need to disconnect
-    venue.require_disconnect!
+    venue.require_disconnect! if venue.connected?
   end
 
   def postprocess!(uat=false)

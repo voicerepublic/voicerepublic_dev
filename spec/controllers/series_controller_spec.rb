@@ -67,11 +67,10 @@ describe SeriesController do
   end
 
   describe "GET edit" do
-    it "raises CanCan::AccessDenied if series requested by other user" do
+    it "redirect to root page if series requested by other user" do
       series = FactoryGirl.create(:series)
-      expect {
-        get :edit, {:id => series.to_param}, valid_session
-      }.to raise_error # CanCan::AccessDenied
+      get :edit, {:id => series.to_param}, valid_session
+      expect(response.status).to eq(302)
     end
   end
 
@@ -157,9 +156,8 @@ describe SeriesController do
     describe "with unauthorized user" do
       it "raises permission denied" do
         series = FactoryGirl.create(:series)
-        expect {
-          put :update, {:id => series.to_param, series: invalid_attributes}, valid_session
-        }.to raise_error # CanCan::AccessDenied
+        put :update, {:id => series.to_param, series: invalid_attributes}, valid_session
+        expect(response.status).to eq(302)
       end
     end
   end
@@ -180,9 +178,8 @@ describe SeriesController do
 
     it "raises permission if unauthorized user" do
       series = FactoryGirl.create(:series)
-      expect {
-        delete :destroy, {:id => series.to_param}, valid_session
-      }.to raise_error # CanCan::AccessDenied
+      delete :destroy, {:id => series.to_param}, valid_session
+      expect(response.status).to eq(302)
     end
   end
 

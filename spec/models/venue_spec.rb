@@ -154,4 +154,49 @@ RSpec.describe Venue, type: :model do
     end
   end
 
+  describe 'scopes' do
+    it 'provides not_offline' do
+      expected = [
+        FactoryGirl.create(:venue, :available),
+        FactoryGirl.create(:venue, :provisioning),
+        FactoryGirl.create(:venue, :device_required),
+        FactoryGirl.create(:venue, :awaiting_stream),
+        FactoryGirl.create(:venue, :connected),
+        FactoryGirl.create(:venue, :disconnect_required),
+        FactoryGirl.create(:venue, :disconnected)
+      ]
+      unexpected = [
+        FactoryGirl.create(:venue)
+      ]
+      venues = Venue.not_offline
+      expected.each do |expectation|
+        expect(venues).to include(expectation)
+      end
+      unexpected.each do |suprise|
+        expect(venues).not_to include(suprise)
+      end
+    end
+
+    it 'provides with_live_talks' do
+      venue = FactoryGirl.create(:venue)
+      FactoryGirl.create(:talk, :live, venue: venue)
+      unexpected = FactoryGirl.create(:venue)
+
+      venues = Venue.with_live_talks
+      expect(venues).to include(venue)
+      expect(venues).not_to include(unexpected)
+    end
+
+    it 'provides with_upcoming_talks' do
+      venue = FactoryGirl.create(:venue)
+      FactoryGirl.create(:talk, :prelive, venue: venue)
+      unexpected = FactoryGirl.create(:venue)
+
+      venues = Venue.with_upcoming_talks
+      expect(venues).to include(venue)
+      expect(venues).not_to include(unexpected)
+    end
+
+  end
+
 end

@@ -13,13 +13,7 @@ class TalksController < BaseController
         @reminder = Reminder.find_by_user_and_talk(current_user, @talk)
       end
       @related_talks = @talk.related_talks
-      format.html do
-        # write to session to make sure we have an id
-        # see http://stackoverflow.com/questions/13673969
-        session[:foo] = 'bar'
-        session_id = session[:session_id]
-        RegisterListenerMessage.call(@talk, session_id)
-      end
+      format.html
       format.text do
         authorize! :manage, @talk
         render text: @talk.message_history

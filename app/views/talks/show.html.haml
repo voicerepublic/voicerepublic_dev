@@ -20,11 +20,15 @@
     console.off = #{!!(Settings.disable_js_debugging && !current_user.try(:insider?))};
 
     translations = #{t('frontend.talks').to_json};
+
     signedIn = #{user_signed_in?.to_s};
     isHost = #{(current_user == @talk.user).to_s};
+    currentUser = #{current_user.try(:details).to_json || 'null'};
 
     signInPath = #{new_user_session_path.to_json};
     initialSnapshot = #{@talk.snapshot.to_json};
+
+    pinId = #{@reminder.try(:id) || 'null'};
 
 #modals
 

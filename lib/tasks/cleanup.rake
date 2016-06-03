@@ -44,8 +44,13 @@ namespace :cleanup do
 
   desc 'stops disused streaming servers'
   task stop_disused_streaming_servers: :environment do
-    # TODO
-    # Venues.disconnected...
+    candidates = Venue.not_offline
+    candidates -= Venue.not_offline.with_live_talks
+    candidates -= Venue.not_offline.with_upcoming_talks
+    candidates.each do |venue|
+      puts "Send shutdown signal to venue #{venue.slug}"
+      venue.shutdown!
+    end
   end
 
   desc 'Remove listener that has not visited during the Live phase'

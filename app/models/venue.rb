@@ -22,6 +22,15 @@ class Venue < ActiveRecord::Base
 
   include ActiveModel::Transitions
 
+  scope :not_offline, -> { where.not(state: 'offline') }
+
+  scope :with_live_talks, -> { joins(:talks).where("talks.state = 'live'") }
+
+  scope :with_upcoming_talks, -> do
+    joins(:talks).where("talks.state = 'prelive'").
+      where('talks.starts_at <= ?', Time.now + PROVISIONING_WINDOW)
+  end
+
   state_machine auto_scopes: true do
 
     state :offline, enter: :reset_ephemeral_details # aka. unavailable
@@ -345,6 +354,7 @@ class Venue < ActiveRecord::Base
   end
 
   def on_connected
+    return if Rails.env.test?
     details = {
       event: 'connected',
       stream_url: stream_url,
@@ -355,6 +365,7 @@ class Venue < ActiveRecord::Base
   end
 
   def on_disconnected
+    return if Rails.env.test?
     details = { event: 'disconnected', slug: slug }
     Faye.publish_to '/admin/connections', details
   end
