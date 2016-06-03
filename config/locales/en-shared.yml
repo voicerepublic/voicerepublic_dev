@@ -23,3 +23,18 @@ en:
         zero: 'No Talks Yet'
         one: 'One Talk'
         other: '%{count} Talks'
+    footer_velvet:
+      headline: What Is Voice Republic?
+      text: |
+        Voice Republic is the platform for the spoken word. 
+        Listen to thousands of high quality audio podcasts 
+        from the fields of politics, science, arts and culture, 
+        technology and business. We offer free live streaming, 
+        archiving and free podcast hosting to conferences, 
+        cultural and political institutions and podcasters. 
+        Use our easy-to-handle technology to reach an interested 
+        and engaged audience with your lecture, panel, reading or 
+        presentation. Either upload your audio files directly to our 
+        archive or stream your event live. After a live broadcast, 
+        the talk will automatically be saved in the audio archive and 
+        can be heard at any time or downloaded as a podcast.
