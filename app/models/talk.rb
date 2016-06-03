@@ -299,8 +299,6 @@ class Talk < ActiveRecord::Base
     self.starts_at_time = delta.from_now.strftime('%H:%M')
     self.state = :prelive
     self.save!
-    # TODO oldschool: find a way to do newschool
-    LiveServerMessage.call public_channel, event: 'Reload'
     self
   end
 
@@ -515,7 +513,6 @@ class Talk < ActiveRecord::Base
       Rails.logger.error message
       self.processing_error = message
       suspend!
-      LiveServerMessage.call public_channel, event: 'Suspend', error: e.message
     ensure
       #FileUtils.remove_entry tmp_dir
     end
@@ -623,9 +620,6 @@ class Talk < ActiveRecord::Base
   end
 
   def after_end
-    # TODO oldschool, find a way to do it newschool
-    LiveServerMessage.call public_channel, { event: 'EndTalk', origin: 'server' }
-
     # to make the dump file of icecast appear on s3, we need to disconnect
     venue.require_disconnect! if venue.connected?
   end
@@ -647,7 +641,6 @@ class Talk < ActiveRecord::Base
       Rails.logger.error message
       self.processing_error = message
       suspend!
-      LiveServerMessage.call public_channel, event: 'Suspend', error: e.message
     end
   end
 
