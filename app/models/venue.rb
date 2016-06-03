@@ -75,9 +75,10 @@ class Venue < ActiveRecord::Base
     # maybe issued by cron'ed rake task
     event :shutdown do
       transitions from: [:device_required, :awaiting_stream,
-                         :connected, :disconnected],
+                         :connected, :disconnected, :disconnect_required],
                   to: :offline, on_transition: :unprovision,
                   guard: :shutdown?
+      transitions from: :available, to: :offline, guard: :shutdown?
     end
 
     # issued from the rails console, for emergencies & testing only
