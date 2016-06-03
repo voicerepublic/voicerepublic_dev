@@ -161,8 +161,8 @@ class Talk < ActiveRecord::Base
     end
   end
 
-  serialize :listeners
-  serialize :session
+  serialize :listeners # TODO migrate & remove
+  serialize :session # TODO remove
   serialize :storage
   serialize :social_links
 
