@@ -7,11 +7,8 @@ require 'logger'
 # publishes to Faye. Nothing more, nothing less. All other names were
 # already taken.
 #
+# TODO rename to HeartBeatMonitor
 class FluxCapacitor
-
-  PATTERN = %r{^/live/up/t(\d+)/u(\d+)$}
-
-  NO_CHANNEL = "no channel info for message %s"
 
   attr_accessor :client, :heartbeats
 
@@ -28,13 +25,6 @@ class FluxCapacitor
       logger.info 'Faye::Client established.'
 
       begin
-        logger.info "Subscribing to /live/up..."
-        client.subscribe('/live/up') do |msg|
-          logger.info "/live/up #{msg.inspect}"
-          response = process(msg)
-          client.publish(*response) unless response.nil?
-        end
-
         logger.info "Subscribing to /heartbeat..."
         client.subscribe('/heartbeat') do |msg|
           identifier = msg['identifier']
@@ -74,61 +64,6 @@ class FluxCapacitor
         end
       end
     end
-  end
-
-  def process(msg)
-    # pp msg
-    channel = msg.delete('channel')
-    if channel.nil?
-      Rails.logger.error NO_CHANNEL % msg.inspect
-      logger.warn NO_CHANNEL % msg.inspect
-    end
-
-    _, talk_id, user_id = channel.match(PATTERN).to_a
-    talk = Talk.find(talk_id)
-
-    if msg['event'] # EVENTS
-      # events may only be called by the owner of a talk
-      # TODO use cancan instead
-      return unless user_id == talk.series.user_id.to_s
-      case msg['event']
-      when 'EndTalk'
-        talk.end_talk!
-        print 'e'
-      when 'StartTalk'
-        talk.start_talk!
-        msg[:session] = talk.session
-        msg[:talk_state] = talk.current_state
-        print 's'
-      else
-        print 'o'
-        # silently pass other events like Promote and Demote
-        # TODO set user state to Listening on Demote
-      end
-    elsif msg['state'] # STATE PROPAGATION
-      talk.with_lock do
-        session = talk.session || {}
-        if session[user_id].nil?
-          user = User.find(user_id)
-          msg['user'] = session[user_id] = user.details_for(talk)
-        end
-        session[user_id][:state] = msg['state']
-        talk.update_attribute :session, session
-      end
-      msg['user'] ||= { 'id' => user_id.to_i }
-      print "."
-    else
-      Rails.logger.warn "Don't know how to handle:\n#{msg.to_yaml}"
-      logger.warn "Don't know how to handle:\n#{msg.to_yaml}"
-    end
-
-    [ talk.public_channel, msg ]
-  rescue => e
-    print 'X'
-    logger.error 'E2 '+error(e)
-    # TODO propagate errors via errbit
-    # ENV["airbrake.error_id"] = notify_airbrake(e)
-    nil
   end
 
   def logger
