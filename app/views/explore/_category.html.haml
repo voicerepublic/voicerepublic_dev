@@ -1,7 +1,7 @@
 - klass = 'selected' if params.try(:[], :filter).try(:[], :category).to_s == category.id.to_s
 
 %li
-  %label{ class: klass }
+  %label{ class: klass, 'data-ga-event' => "click explore category #{category.icon}" }
     .icon
       %svg
         %use{"xlink:href" => "#icon-#{category.icon}"}

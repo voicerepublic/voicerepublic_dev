@@ -91,25 +91,25 @@
     %ul#example-tabs.tabs{"data-tabs" => "g69yge-tabs"}
 
       %li.tabs-title{:role => "presentation", class: @tab_pinned_class}
-        %a#pinned-label{"aria-controls" => "pinned", "aria-selected" => "false", :href => "#pinned", :role => "tab"}
+        %a#pinned-label{"aria-controls" => "pinned", "aria-selected" => "false", :href => "#pinned", :role => "tab", 'data-ga-event' => "click profile tab pinned" }
           = t('.listen_later', count: @user.reminders.count)
 
       - unless @live_talks.empty?
         %li.tabs-title{:role => "presentation"}
-          %a#live-label{"aria-controls" => "live", "aria-selected" => "true", :href => "#live", :role => "tab"}
+          %a#live-label{"aria-controls" => "live", "aria-selected" => "true", :href => "#live", :role => "tab", 'data-ga-event' => "click profile tab live"}
             = t('.live_talks', count: @live_talks.count)
 
       %li.tabs-title{role: "presentation", class: @tab_archived_class}
-        %a#archived-label{"aria-controls" => "archived", "aria-selected" => "true", :href => "#archived", :role => "tab"}
+        %a#archived-label{"aria-controls" => "archived", "aria-selected" => "true", :href => "#archived", :role => "tab", 'data-ga-event' => "click profile tab archived"}
           = t('.archived_talks', count: @archived_talks.count)
 
       - unless @upcoming_talks.empty?
         %li.tabs-title{:role => "presentation"}
-          %a#upcoming-label{"aria-controls" => "upcoming", "aria-selected" => "false", :href => "#upcoming", :role => "tab"}
+          %a#upcoming-label{"aria-controls" => "upcoming", "aria-selected" => "false", :href => "#upcoming", :role => "tab", 'data-ga-event' => "click profile tab upcoming"}
             = t('.upcoming_talks', count: @upcoming_talks.count)
 
       %li.tabs-title{:role => "presentation"}
-        %a#series-label{"aria-controls" => "series", "aria-selected" => "false", :href => "#series", :role => "tab"}
+        %a#series-label{"aria-controls" => "series", "aria-selected" => "false", :href => "#series", :role => "tab", 'data-ga-event' => "click profile tab series"}
           = t('.series', count: @user.series_without_default.count)
 
     .tabs-content{"data-tabs-content" => "example-tabs"}
