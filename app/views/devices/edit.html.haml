@@ -1,0 +1,13 @@
+%section.light
+  .api-container.row.clearfix
+    .container.medium-10.medium-offset-1.large-8.large-offset-2.columns.text-left
+      %h2= t('.pair_device')
+
+      = @device.type
+
+      = simple_form_for @device do |f|
+        = f.input :name
+        -# TODO if user has multiple organizations show a select box
+        - if current_user.organizations.count > 1
+          = f.input :organization, collection: current_user.organizations
+        = f.submit

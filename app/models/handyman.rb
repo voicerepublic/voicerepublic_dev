@@ -16,6 +16,47 @@ class Handyman
 
   class Tasks
 
+    def venue_set_missing_state
+      log '-> Check for venues without state...'
+      sql = "UPDATE venues SET state='offline' WHERE state IS NULL"
+      ActiveRecord::Base.connection.execute(sql)
+    end
+
+    def set_default_pins_for_users_with_no_pins
+      log '-> Check for users with no pins...'
+      nice = Reminder.distinct(:user_id).pluck(:user_id)
+      naughty = User.where('id NOT IN (?)', nice).pluck(:id).sort
+      total = naughty.count
+
+      slugs = Settings.default_pins || []
+      talks = slugs.map { |slug| Talk.find_by(slug: slug) }.compact
+      return if talks.empty?
+
+      naughty.each_with_index do |id, index|
+        log '%s/%s Add default pins for User %s' % [index, total, id]
+        talks.each do |talk|
+          Reminder.create user_id: id, rememberable: talk
+        end
+      end
+    end
+
+    def set_alt_fields(resource=nil, prop=nil)
+      if resource.nil?
+        set_alt_fields Talk, :image_alt
+        set_alt_fields Series, :image_alt
+        set_alt_fields User, :image_alt
+      else
+        log '-> Check %s for empty alt fields...' % resource.name
+        query = resource.where(prop => nil)
+        total = query.count
+
+        query.each_with_index do |obj, index|
+          log '%s/%s %s %s' % [index+1, total, resource.name, obj.id]
+          obj.save
+        end
+      end
+    end
+
     def talk_set_icon
       log '-> Check for default icons...'
       query = Talk.where(icon: 'default')
@@ -47,10 +88,22 @@ class Handyman
         next if talk_ids.empty?
         log '%s/%s Creating default venue for user %s and apply to %s talks' %
             [ uidx+1, utot, user.id, talk_ids.size ]
-        venue = user.venues.create name: 'Default venue' # TODO centralize name
+        venue = user.venues.create name: user.venue_default_name
         sql = 'UPDATE talks SET venue_id=%s WHERE id IN (%s)' %
               [ venue.id, talk_ids * ',' ]
         ActiveRecord::Base.connection.execute(sql)
+      end
+    end
+
+    def improve_venues_names
+      log 'Check for venues whose name needs improvement...'
+      query = Venue.where("name LIKE 'Default venue%'")
+      total = query.count
+
+      query.joins(:user).each_with_index do |venue, index|
+        name = venue.user.venue_default_name
+        log '%s/%s Renaming venue to %s' % [index+1, total, name]
+        venue.update_attributes name: name, slug: nil
       end
     end
 

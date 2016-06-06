@@ -1,4 +1,4 @@
-[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+.qa, [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
   display: none !important;
 }
 
@@ -173,4 +173,23 @@ span[class^="icon-"]{
 
 .hint {
     font-size: 0.875rem;
+}
+
+#mount-audio {
+    position: absolute;
+    margin-top: 100px;
+    z-index: 999;
+}
+
+/*banner- migrate later!*/
+.banner {
+  display: inline-block;
+  margin-bottom: 24px;
+}
+
+.banner a:hover  {
+  text-decoration: underline;
+}
+.banner .label-new {
+  color: #ffed00;
 }

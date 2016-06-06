@@ -1,0 +1,23 @@
+.callout {
+  border: 0;
+  margin:0;
+  background-color: $vr-yellow;
+}
+
+.callout.warning {
+  background-color: $vr-yellow;
+}
+
+.callout.info {
+  background-color: $vr-beige;
+}
+
+.flash-msg {
+	background: $vr-yellow;
+  padding: 24px;
+  z-index: 1;
+  button {
+    background:none;
+    top: 1rem;
+  }
+}

@@ -144,16 +144,6 @@ describe Talk do
   end
 
   describe 'on class level' do
-    it 'has a scope featured which does not include live talks' do
-      talk0 = FactoryGirl.create(:talk, featured_from: 2.days.ago, state: :prelive)
-      talk1 = FactoryGirl.create(:talk, featured_from: 1.day.ago, state: :live)
-      talk2 = FactoryGirl.create(:talk, featured_from: 1.day.from_now, state: :prelive)
-      expect(Talk.scheduled_featured.count).to eq(1)
-      expect(Talk.scheduled_featured).to include(talk0)
-      expect(Talk.scheduled_featured).to_not include(talk1)
-      expect(Talk.scheduled_featured).to_not include(talk2)
-    end
-
     describe 'saves the Content-Type' do
       before { @talk = FactoryGirl.create(:talk) }
       it 'works for m4a' do
@@ -208,6 +198,8 @@ describe Talk do
         expect(talk.current_state).to be(:prelive)
         talk.start_talk!
         expect(talk.current_state).to be(:live)
+        # talk.end_talk! will also fire a talk.venue.require_disconnect!
+        talk.venue.update_attribute :state, 'connected'
         talk.end_talk!
         expect(talk.current_state).to be(:postlive)
         talk.process!
@@ -398,14 +390,15 @@ describe Talk do
 
   end
 
-  describe 'debit' do
-    it 'reduces the owners credits by one' do
-      user = FactoryGirl.create(:user)
-      user_credits = user.reload.credits
-      FactoryGirl.create(:talk, series: user.default_series)
-      expect(user.reload.credits).to eq(user_credits - 1)
-    end
-  end
+  # NOTE everything is free ATM
+  # describe 'debit' do
+  #   it 'reduces the owners credits by one' do
+  #     user = FactoryGirl.create(:user)
+  #     user_credits = user.reload.credits
+  #     FactoryGirl.create(:talk, series: user.default_series)
+  #     expect(user.reload.credits).to eq(user_credits - 1)
+  #   end
+  # end
 
   describe 'dryrun' do
     it 'automatically destroys the talk after a while' do
@@ -473,20 +466,6 @@ describe Talk do
     it 'provides media_url' do
       expect(talk).to respond_to(:media_url)
       expect(talk.media_url).to match(%r{/#{talk.id}.mp3$})
-    end
-  end
-
-  describe 'live' do
-    it 'saves unique listeners' do
-      talk = FactoryGirl.create :talk
-      expect(talk.listeners.size).to eq(0)
-
-      talk.add_listener! "some_uuid"
-      expect(talk.listeners.size).to eq(1)
-
-      # Unique listeners will only be added once
-      talk.add_listener! "some_uuid"
-      expect(talk.listeners.size).to eq(1)
     end
   end
 

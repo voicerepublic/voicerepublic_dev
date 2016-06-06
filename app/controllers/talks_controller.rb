@@ -2,7 +2,7 @@ class TalksController < BaseController
 
   before_action :set_talk, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, except: [:show]
-  before_action :redirect_if_low_on_credits, only: :new
+  #before_action :redirect_if_low_on_credits, only: :new
 
   # GET /talks/1
   def show
@@ -13,13 +13,7 @@ class TalksController < BaseController
         @reminder = Reminder.find_by_user_and_talk(current_user, @talk)
       end
       @related_talks = @talk.related_talks
-      format.html do
-        # write to session to make sure we have an id
-        # see http://stackoverflow.com/questions/13673969
-        session[:foo] = 'bar'
-        session_id = session[:session_id]
-        RegisterListenerMessage.call(@talk, session_id)
-      end
+      format.html
       format.text do
         authorize! :manage, @talk
         render text: @talk.message_history
@@ -44,7 +38,7 @@ class TalksController < BaseController
       @talk.tag_list = Faker::Commerce.department
       @talk.teaser = Faker::Company.catch_phrase
       @talk.starts_at_date= Date.today
-      @talk.starts_at_time= 1.minute.from_now.strftime('%H:%M')
+      @talk.starts_at_time= 10.minutes.from_now.strftime('%H:%M')
       @talk.description = Faker::Lorem.paragraph(3)
     end
 
@@ -66,7 +60,7 @@ class TalksController < BaseController
     authorize! :create, @talk
 
     if @talk.save
-      redirect_to @talk, notice: 'Talk was successfully created.'
+      redirect_to @talk
     else
       render action: 'new'
     end
@@ -82,7 +76,7 @@ class TalksController < BaseController
 
     authorize! :update, @talk
     if @talk.update(talk_params)
-      redirect_to @talk, notice: 'Talk was successfully updated.'
+      redirect_to @talk
     else
       render action: 'edit'
     end
@@ -93,7 +87,7 @@ class TalksController < BaseController
     authorize! :destroy, @talk
 
     @talk.destroy
-    redirect_to current_user, notice: 'Talk was successfully destroyed.'
+    redirect_to current_user
   end
 
   private

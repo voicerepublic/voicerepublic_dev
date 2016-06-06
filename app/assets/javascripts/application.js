@@ -12,41 +12,40 @@
 // WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE
 // PROCESSED, ANY BLANK LINE SHOULD GO AFTER THE REQUIRES BELOW.
 //
+//
+// --- BUNDLED LIBRARIES
 //= require jquery
 //= require jquery_ujs
 //= require foundation
-//= require jquery.jplayer.min
-//= require select2
+//= require selectize
 //= require slick
-//
-//= require player.js
-//= require validate_search
 //= require jquery-ui/datepicker
 //= require jquery-ui/slider
-//= require jquery-ui-timepicker-addon
-//= require slider.js
-//= require nprogress
 //
+// --- VENDORED LIBRARIES
+//= require jquery.jplayer.min
+//= require nprogress
+//= require jquery-ui-timepicker-addon
+//
+// --- COMPONENTS
+//= require components/ajax_filter
+//= require components/infinite_scroll
+//= require components/share_social
+//= require components/ga-event
+//= require components/tag_list
+//= require components/picker
+//= require components/persisted_log
+//= require components/language_select
+//= require components/instant_image
+//= require components/on_blank_show
+//
+// --- VIEWS
+//= require views/explore
+//= require views/purchases
+//
+// --- MISC
 //= require sencha
-//= require purchases
-//= require_tree ./components
+//= require shame
+//= require cljs
+//= require topbar
 
-// run `proof` on the console to get a proof background-image on body
-window.proof = function(name) {
-  if(name==undefined) name = 'default';
-  var value = 'papayaWhip url(/images/proof/'+name+'.png) no-repeat center top';
-  $('body').css({background: value});
-};
-
-$(document).foundation();
-
-// deep linking for foundation tabs
-// https://github.com/zurb/foundation/issues/3692
-if(window.location.hash) {
-  $('dl.tabs dd a').each(function(){
-    var hash = '#' + $(this).attr('href').split('#')[1];
-    if(hash == window.location.hash) {
-      $(this).click();
-    };
-  });
-}

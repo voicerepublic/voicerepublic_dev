@@ -8,13 +8,14 @@
 
 #main.clearfix{:role => "main"}
   #left-column
-    - if current_user && current_user == @user
-      #credits.clearfix
-        .float-left
-          %p
-            = t('.you_have_x_credits_left', count: @user.credits).html_safe
-        .float-right
-          = link_to t('.purchase_more_credits'), :purchases, class: 'button hollow warning tiny'
+    -# NOTE everyting for free ATM
+    -# - if current_user && current_user == @user
+    -#   #credits.clearfix
+    -#     .float-left
+    -#       %p
+    -#         = t('.you_have_x_credits_left', count: @user.credits).html_safe
+    -#     .float-right
+    -#       = link_to t('.purchase_more_credits'), :purchases, class: 'button hollow warning tiny'
     #user-block
 
 
@@ -24,7 +25,7 @@
       %h3.user-name=@user.name
       - if can? :manage, @user
         %p
-          = link_to [:edit, @user], class: 'button tiny hollow secondary' do
+          = link_to [:edit, @user], class: 'button tiny hollow' do
             -#= icon_tag 'pencil'
             = t('.edit_profile')
         %p#user-description
@@ -89,10 +90,9 @@
 
     %ul#example-tabs.tabs{"data-tabs" => "g69yge-tabs"}
 
-      - unless @user.reminders.empty?
-        %li.tabs-title{:role => "presentation", class: @tab_pinned_class}
-          %a#pinned-label{"aria-controls" => "pinned", "aria-selected" => "false", :href => "#pinned", :role => "tab"}
-            = t('.listen_later', count: @user.reminders.count)
+      %li.tabs-title{:role => "presentation", class: @tab_pinned_class}
+        %a#pinned-label{"aria-controls" => "pinned", "aria-selected" => "false", :href => "#pinned", :role => "tab"}
+          = t('.listen_later', count: @user.reminders.count)
 
       - unless @live_talks.empty?
         %li.tabs-title{:role => "presentation"}

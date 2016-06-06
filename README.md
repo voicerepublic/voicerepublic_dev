@@ -140,13 +140,15 @@ Run App
 
 ### voicerepublic_dev
 
-* `rails s`
+* `rails s -b 0.0.0.0`
 * `rake rtmp:start` (will daemonize)
-* `rackup -E production faye.ru`
+* `rackup -E production faye.ru -o 0.0.0.0`
 * `lib/flux_capacitor.rb run`
 * `lib/rtmp_watcher.rb run`
 * `rake jobs:work`
 * `DEBUG=1 bumpy_bridge run -- config/bumpy_bridge.yml`
+* `cd lib/vrng && rlwrap lein figwheel`
+* `docker start rabbitmq`
 
 ### or optionally voicerepublic_dev with tmux
 
@@ -249,6 +251,15 @@ For general platform and development documentation please refer to the
     railroady -b -M | dot -Tsvg > doc/models_brief.svg
     railroady -C | dot -Tsvg > doc/controllers_complete.svg
     railroady -b -C | dot -Tsvg > doc/controllers_brief.svg
+
+    mscgen -T svg -o doc/streaming.svg doc/streaming.msc
+    mscgen -T png -o doc/streaming.png doc/streaming.msc
+
+    dot -Tsvg doc/fsm_venue.dot > doc/fsm_venue.svg
+    dot -Tpng doc/fsm_venue.dot > doc/fsm_venue.png
+
+    dot -Tsvg doc/fsm_device.dot > doc/fsm_device.svg
+    dot -Tpng doc/fsm_device.dot > doc/fsm_device.png
 
 
 ### Working with Settings/Config
@@ -585,3 +596,86 @@ How To Update Icons
 * `cp fonts/* app/assets/fonts`
 * update `app/assets/stylesheets/grids_variables_mixins/style.css` with content of `style.css` (only the lower part, keep the top part!)
 * done
+
+
+How To Update Modernizr
+-----------------------
+
+https://modernizr.com/download
+
+Unselect
+
+* minify (on the left)
+
+Select
+
+* Touch Events
+
+(Add anything else we need, and add it to this list.)
+
+Click BUILD
+
+Download to vendor/assets/modernizr.js
+
+
+ClojureScript
+-------------
+
+    cd lib/vrng
+    lein figwheel
+
+
+Icecast Dev
+-----------
+
+    docker build -t branch14/icecast2 lib/icecast
+
+    docker exec -it icecast bash
+
+
+Helpful
+-------
+
+    slug = ''
+
+    reload!; Venue.find(slug).reset!
+
+    reload!; Venue.find(slug).talks.prelive.first.make_it_start_soon! 91.minutes
+
+
+
+    reload!; Venue.find(124).reset!
+
+    reload!; Talk.find(4147).make_it_start_soon! 91.minutes; nil
+
+
+
+```
+venue = Venue.find('venue-of-senior-hofmann')
+talk = venue.talks.suspended.last
+talk.title
+
+talk = Talk.find('ontologische-relativitat')
+talk.update_attribute :state, 'postlive'
+talk.reload
+talk.archive_from_dump!
+
+```
+
+New Pages
+---------
+
+* listen
+* audio-upload
+* livestream
+* conferences-fairs
+* science-education
+* culture
+* companies
+* independents
+* foundations
+* universities
+* speakers
+* topics
+* publishers
+* media-journalism

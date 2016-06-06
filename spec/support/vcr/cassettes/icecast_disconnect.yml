@@ -1,0 +1,51 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: http://192.168.178.21:9292/faye
+    body:
+      encoding: US-ASCII
+      base64_string: |
+        bWVzc2FnZT0lN0IlMjJjaGFubmVsJTIyJTNBJTIyJTJGYWRtaW4lMkZjb25u
+        ZWN0aW9ucyUyMiUyQyUyMmNsaWVudElkJTIyJTNBJTIyaHR0cCUyMiUyQyUy
+        MnNpZ25hdHVyZSUyMiUzQSUyMmV5SjBlWEFpT2lKS1YxUWlMQ0poYkdjaU9p
+        SklVekkxTmlKOS5leUpqYUdGdWJtVnNJam9pTDJGa2JXbHVMMk52Ym01bFkz
+        UnBiMjV6SWl3aVkyeHBaVzUwU1dRaU9pSm9kSFJ3SWl3aVpYaHdJam94TkRZ
+        ME9UazFORFUwZlEuaFpmR2RKUkhta2EzaGF2UTdEZzdER3hNdkYyZkRlQzE2
+        dlI0VDlYdEdJNCUyMiUyQyUyMmRhdGElMjIlM0ElN0IlMjJldmVudCUyMiUz
+        QSUyMmRpc2Nvbm5lY3RlZCUyMiUyQyUyMnNsdWclMjIlM0ElMjJzb21lLXZl
+        bnVlJTIyJTdEJTdE
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Cache-Control:
+      - no-cache, no-store
+      X-Content-Type-Options:
+      - nosniff
+      Content-Length:
+      - '70'
+      Connection:
+      - close
+      Server:
+      - thin
+    body:
+      encoding: UTF-8
+      base64_string: |
+        W3siY2xpZW50SWQiOiJodHRwIiwiY2hhbm5lbCI6Ii9hZG1pbi9jb25uZWN0
+        aW9ucyIsInN1Y2Nlc3NmdWwiOnRydWV9XQ==
+    http_version: 
+  recorded_at: Fri, 03 Jun 2016 11:10:54 GMT
+recorded_with: VCR 2.8.0

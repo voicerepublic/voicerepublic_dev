@@ -1,0 +1,49 @@
+.api-container {
+	h3, h4, h5, h6 {
+		font-family: $body-font-family;
+		font-weight: 700;
+		letter-spacing: rem-calc(1);
+		margin-top: rem-calc(12);
+		margin-bottom: rem-calc(12);
+	}
+	h2 {
+		margin-bottom: 24px;
+		margin-top: 24px;
+	}
+
+	h3 {
+		font-size: rem-calc(24);
+		font-weight: 800;
+	}
+	h4 {
+		font-size: rem-calc(21);
+	}
+	h5 {
+		font-size: rem-calc(18);
+	}
+
+	code {
+		background: $light-gray;
+		padding:6px;
+		border:0;
+	}
+
+	pre {
+		background: $light-gray;
+		padding: 12px;
+		code {
+		background: none;
+		border: 0;
+	}
+	}
+}
+
+
+/* hacks by phil */
+.markdown .buttons a { border: 2px solid; padding: 0.5em 1em; }
+.markdown .blue .buttons a { color: yellow; }
+.markdown .blue { color: white; }
+.markdown .turquoise .buttons a { color: yellow; }
+.markdown .turquoise h2 { color: white; }
+.markdown section .row  { text-align: left; }
+.markdown section .row.center  { text-align: center; }

@@ -13,9 +13,40 @@ FactoryGirl.define do
     user
   end
 
+  sequence :client_token do |n|
+    "client-token-#{n}"
+  end
+
   factory :venue do
     name "Some venue"
     user
+    trait :available do
+      state :available
+    end
+    trait :provisioning do
+      state :provisioning
+      client_token
+    end
+    trait :device_required do
+      state :device_required
+    end
+    trait :awaiting_stream do
+      state :awaiting_stream
+      client_token
+      public_ip_address '0.0.0.0'
+      mount_point 'random-mountpoint'
+      source_password 'some-password'
+    end
+    trait :connected do
+      state :connected
+      client_token
+    end
+    trait :disconnect_required do
+      state :disconnect_required
+    end
+    trait :disconnected do
+      state :disconnected
+    end
   end
 
   sequence :email do |n|
@@ -31,7 +62,7 @@ FactoryGirl.define do
   #   FactoryGirl.create(:user, :unconfirmed)
   #
   factory :user do
-    ignore do
+    transient do
       unconfirmed false
     end
 
@@ -72,6 +103,15 @@ FactoryGirl.define do
     tag_list 'lorem, ipsum, dolor'
     description 'Some talk description'
     language 'en'
+
+    trait :prelive do
+      state 'prelive'
+      starts_at 10.minutes.from_now
+    end
+
+    trait :live do
+      state 'live'
+    end
 
     trait :archived do
       state 'archived'
@@ -132,6 +172,23 @@ FactoryGirl.define do
   factory :tag_bundle do
     title_en "MyString"
     title_de "MyString"
+  end
+
+
+  factory :device do
+    identifier "some-identifier"
+  end
+
+
+  factory :organization do
+    name "My Organization"
+    slug "my-organization"
+  end
+
+
+  factory :membership do
+    user
+    organization
   end
 
 end

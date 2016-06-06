@@ -7,6 +7,9 @@ en:
 
         %{started_at} - %{ended_at}
     show:
+      loading: Loading The Talk
+      sprecherin: "SprecherIn: "
+      comments: Comments
       favorite: Favorite
       dryrun: "(This test talk is available for 24 hours.)"
       talk_queued_for_processing: Queued for processing, please stand by...
@@ -100,7 +103,7 @@ en:
       please_reload_this_page: Click to reload this page
       nelly_warning: 'Attention: Inferior Codec. Click here to fix.'
       participants: Participants
-      plays: '%{count} plays'
+      plays: ' Plays'
       subscribe_to_podcast: Podcast
       embed: Embed
       embed_this_talk: Embed this Talk
@@ -145,7 +148,7 @@ en:
       delete_talk: Delete talk
       select_image: Background image
     fields:
-      upload_a_recording: Upload A Recording
+      upload_a_recording: Upload To Voice Republic
       describe_your_talk: Describe Your Talk
       unprocessed_upload: |
         Please click 'Save' to start processing your uploaded audio file.

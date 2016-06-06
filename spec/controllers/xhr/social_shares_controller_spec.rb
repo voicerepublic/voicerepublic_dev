@@ -4,9 +4,10 @@ describe Xhr::SocialSharesController do
 
   describe 'anonymous' do
     it 'does not return with unauthorized' do
-      @talk = FactoryGirl.create(:talk)
-      xhr :post, :create, id: @talk.id, social_share: { asdf: 'asdf' }
+      attrs = { shareable_type: 'talk' }
+      xhr :post, :create, social_share: attrs
       expect(response.status).not_to be(401)
+      expect(response.status).not_to be(406)
       expect(response.status).to be(200)
     end
   end
@@ -45,14 +46,13 @@ describe Xhr::SocialSharesController do
       it 'returns json to verify success' do
         xhr :post, :create, social_share: { shareable_type: 'talk',
                                             shareable_id: @talk.id }
-        res = JSON.parse(response.body)
-        expect(res['message']).to eq(I18n.t("social_share/has_been_tracked"))
+        expect(response.status).to be(200)
       end
 
       it 'guards against random shares' do
         xhr :post, :create, social_share: { shareable_type: 'random' }
         res = JSON.parse(response.body)
-        expect(res['message']['shareable_type'][0]).to eq("is not included in the list")
+        expect(res['errors']['shareable_type'][0]).to eq("is not included in the list")
       end
 
     end

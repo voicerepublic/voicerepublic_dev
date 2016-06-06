@@ -1,8 +1,5 @@
-#= require swfobject
 #= require angular
 #= require angularjs-file-upload
-#= require state-machine.min
-#= require faye-authentication
 #= require_self
 #= require_tree ./angular
 

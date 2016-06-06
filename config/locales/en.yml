@@ -1,11 +1,15 @@
 en:
-  embed: 
+  embed:
     shared:
       talk:
         plays: Plays
   pages:
     outdated_browser:
       oops: Oops!
+    publish:
+      pricing: Pricing
+      start_live_stream: "Start A Live Stream &raquo;"
+      upload_a_recording: "Upload A Recording &raquo;"
   all_categories: All Categories
   validation:
     bad_chars_in_slug: |
@@ -162,9 +166,8 @@ en:
     format: ! '%{attribute} %{message}'
     messages:
       accepted: must be accepted
-      blank: can't be blank
-      confirmation: doesn't match confirmation
-      empty: can't be empty
+      blank: "can't be blank"
+      empty: "can't be empty"
       equal_to: must be equal to %{count}
       even: must be even
       exclusion: is reserved
@@ -278,9 +281,6 @@ en:
       time_only: ! '%k:%M'
       timeonly: ! '%H:%M:%S'
     pm: pm
-  will_paginate:
-    next_label: ! '>>'
-    previous_label: <<
 
   devise:
     registrations:
@@ -318,18 +318,20 @@ en:
       no_results: Sorry, no results.
   shared:
     upload:
+      successfully_uploaded: "&#x2713"
+      choose_file: Choose A File To Upload
+      upload_advice: You can upload MP3, M4A, OGG, WAV files
       initializing: Initializing Uploader...
       audio_upload: "Upload your audio file"
-      choose_file: Choose file
       uploading: Uploading...
       drop_files_here: "Drop files here"
       upload: Upload
-      cancel: "&times;"
+      cancel: Cancel Upload
       remove: Remove
       upload_failed: Upload failed. Please try reloading the page and try again.
       drop_file_not_supported: "HTML5 Drop File is not supported!"
       audio:
-        supported_filetypes: Supported Filetypes are MP3, M4A, OGG, WAV
+        supported_filetypes: "Supported Filetypes: MP3, M4A, OGG, WAV"
       slides:
         supported_filetypes: Please upload your slides as PDF
     unconfirmed:
@@ -350,9 +352,9 @@ en:
       explore: Explore
       my_profile: My Profile
       schedule_talk: Schedule A Live Talk
-      upload_talk: Upload A Recording
+      upload_talk: Upload A Recording To Voice Republic
       pricing: Pricing
-      test_talk: 'Test A Talk (Free)'
+      test_talk: 'Test A Talk'
       logout: Log Out
     check_flash:
       no_flash_version_notice: Your current version of Flash-Plugin is not sufficient. Install Version 10.3 or higher. to use Video call.
@@ -415,8 +417,8 @@ en:
       archived_talks: '%{count} Archived Talks'
 
   layouts:
-    application:
-      landing_title: Voice Republic - Home To The Spoken Word
+    head:
+      title: Voice Republic - Home To The Spoken Word
     velvet_minimal:
       title: Voice Republic
     support:
@@ -437,7 +439,7 @@ en:
       schedule_talk: Schedule A Live Talk
       upload_talk: Upload A Recording
       pricing: Pricing
-      test_talk: 'Test A Talk (Free)'
+      test_talk: 'Test A Talk'
       logout: Log Out
     velvet_minimal:
       title: Voice Republic
@@ -529,9 +531,11 @@ en:
 
   reminders:
     pin:
-      pin: Pin This Talk
+      pin_this_talk: Pin This Talk
+      pin: Pin
     unpin:
-      unpin: Un-Pin This Talk
+      unpin: Un-Pin
+      unpin_this_talk: Un-Pin This Talk
     favorite:
       favorite: Favorite
     unfavorite:
@@ -632,3 +636,10 @@ en:
     Produced by Voice Republic
 
     For more podcasts visit http://voicerepublic.com
+
+  devices:
+    index:
+      devices_found:
+        zero: "No devices found connected via %{ip}"
+        one: "Redirecting... (you should actually never see this!)"
+        other: "Multiple devices found, please unplug all but one. Then reload."

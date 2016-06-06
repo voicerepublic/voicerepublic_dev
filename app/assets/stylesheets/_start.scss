@@ -1,0 +1,494 @@
+.banner {
+  display: inline-block;
+  margin-bottom: 24px;
+}
+
+.banner a:hover  {
+  text-decoration: underline;
+}
+.banner .label-new {
+  color: $vr-yellow;
+}
+
+//Loading Triangle Animation
+@keyframes dash {
+    50% {
+        stroke-dasharray: 20,19;
+        stroke: #ffed00;
+        transform: scaleX(0.9) scaleY(0.9);
+    }
+    100% {
+        stroke-dashoffset: -234;
+    }
+}
+
+#spy, #working, .loading-message {
+    // @extend .row;
+  //@extend .clearfix;
+    //margin-top: 12px;
+    height: 56px;
+    & svg {
+        display: block;
+        height: 36px;
+        margin: 0 auto;
+    }
+    path {
+        stroke-dasharray: 36,3;
+        stroke-dashoffset: 0;
+        animation: dash 3s linear infinite;
+        transform-origin: center center;
+    }
+}
+
+#working {
+    margin: 0;
+    transition: top .5s cubic-bezier(0.4, 0.0, 0.6, 1);
+
+    * {
+        display: inline-block;
+    }
+    &.offscreen {
+        top: -100px;
+    }
+}
+
+//hollow buttons:
+
+@mixin hollow-button($color) {
+    border-color: $color;
+    color: $color;
+}
+
+.top-bar-left, .top-bar-right {
+    @include breakpoint(small) {
+        width: 50%;
+    }
+
+    @include breakpoint(medium) {
+        width: 344px;
+    }
+}
+
+.top-bar-right {
+    @include breakpoint(medium) {
+        width: auto;
+    }
+}
+
+$h1-bottom-margin: 48px;
+
+.svg-icon {
+    display: block;
+    max-width: 36px;
+    height: 36px;
+    margin: 0 auto;
+    margin-bottom: 12px;
+    svg {
+        max-width: 36px;
+        max-height: 36px;
+        * {
+            fill: currentColor;
+        }
+    }
+}
+
+.icon {
+    display: block;
+    width: 36px;
+    height: 36px;
+    margin: 0 auto;
+    margin-bottom: 24px;
+    transition: background-color .2s ease;
+}
+
+button {
+    margin: 12px;
+    border-width: 2px;
+    &:hover, &:active, &:focus {
+        background: none;
+        border-color: $vr-blue;
+        color: $vr-blue;
+    }
+    &.large {
+        border-width: 3px;
+    }
+}
+
+.root-index, .pages {
+    .row {
+        text-align: center;
+    }
+    background: $talk-dark;
+    section {
+        padding: 24px 0;
+        &.light {
+            background: $silver;
+        }
+        &.blue {
+            background: $vr-blue;
+            button:hover, button:active {
+                @include hollow-button(white);
+            }
+        }
+        &.white {
+            background: white;
+        }
+        &.dark {
+            background: $talk-dark;
+            color: white;
+        }
+        &.yellow {
+            background: $vr-yellow;
+            columns: $vr-purple;
+        }
+        &.turquoise {
+            background: $vr-light-blue;
+            color: white;
+            button {
+                @include hollow-button($vr-yellow);
+                &:hover, &:active {
+                    @include hollow-button($vr-red);
+                }
+            }
+        }
+        @include breakpoint(medium) {
+            padding: 96px 0;
+        }
+    }
+}
+
+.row {
+    max-width: 1200px;
+    padding: 12px;
+    h2 {
+        color: $vr-light-blue;
+        margin-bottom: $h1-bottom-margin;
+        font-size: rem-calc(24);
+        text-transform: uppercase;
+        letter-spacing: rem-calc(5);
+    }
+}
+
+h1, h2 {
+    color: white;
+    letter-spacing: rem-calc(6);
+    margin-bottom: 12px;
+    @include breakpoint(medium){
+
+    margin-bottom: $h1-bottom-margin;
+    }
+}
+
+.talk-collection, .talk-teasers {
+    margin-bottom: 48px;
+}
+
+#claim {
+    text-align: center;
+    padding-bottom: 96px;
+    background: url(../../images/background/main-bg.jpg) no-repeat 50% 25%;
+    background-size: cover;
+    .down-arrow {
+        width: 28px;
+        height: 28px;
+        background-color: white;
+        margin-top: 96px;
+        animation-duration: 2s;
+    }
+    h1 {
+        color: white;
+        text-transform: uppercase;
+        @include breakpoint(medium) {
+            font-size: rem-calc(36);
+            letter-spacing: rem-calc(6);
+            margin-bottom: 24px;
+        }
+
+        @include breakpoint(large) {
+            font-size: rem-calc(42);
+            line-height: rem-calc(48);
+            letter-spacing: rem-calc(6);
+            margin-bottom: 24px;
+        }
+    }
+    .lead {
+        font-size: rem-calc(16);
+        // letter-spacing: rem-calc(0.5);
+        margin-bottom: 0;
+        line-height: rem-calc(24);
+        font-weight: 300;
+        a {
+            font-weight: 500;
+            color: white;
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+    a {
+        color: $vr-yellow;
+    }
+    .container {
+        float: left;
+    }
+}
+
+#listen-now {
+    border-bottom: 1px solid $light-gray;
+    padding-top: 60px;
+    .listen-interstitial {}
+    .category-buttons {
+        float: none;
+        margin-bottom: 48px;
+        padding: 0;
+        .button {
+            background: $vr-yellow;
+            color: $vr-purple;
+            font-size: rem-calc(12);
+            line-height: rem-calc(14);
+            letter-spacing: 0;
+            padding: 24px 6px;
+            width: 100%;
+            margin-bottom: 6px;
+            @include breakpoint(medium) {
+                float: left;
+                width: calc(50% - 3px);
+                &:nth-child(odd) {
+                    margin-right: 6px;
+                }
+            }
+
+            @include breakpoint(large) {
+                width: calc(100%/6);
+                margin-right: 0;
+                &:nth-child(odd) {
+                    margin-right: 0;
+                }
+            }
+
+            .icon {
+                background-color: $vr-purple;
+                margin-bottom: 12px;
+            }
+            &:hover {
+                background: $vr-beige;
+            }
+        }
+    }
+}
+
+#coming-up {
+    h2 {
+        margin-bottom: 60px;
+    }
+    .lead {
+        color: white;
+    }
+}
+
+#categories {
+    h2 {
+        margin-bottom: 60px;
+    }
+    .talk-collection {
+        $color: $vr-purple;
+        .category {
+            a {
+                color: $vr-purple;
+            }
+            padding: 24px 24px;
+            a svg {
+                fill: $vr-purple;
+            }
+            h3 {
+                font-size: rem-calc(20);
+            }
+            *:hover > * {
+                text-decoration: none;
+            }
+            *:hover > h3 {
+                text-decoration: underline;
+            }
+            .icon {
+                background-color: $color;
+            }
+            h3 {
+                color: $color;
+            }
+            .lead {
+                color: $color;
+                height: 100px;
+                font-size: rem-calc(16);
+            }
+            hr {
+                border-color: $vr-light-blue;
+                max-width: 100px;
+                margin: 0 auto;
+                margin-top: 48px;
+            }
+        }
+    }
+}
+
+#publishers {
+    #publisher-collection {
+        .publisher {
+            padding: 48px 24px;
+            h4 {
+                font-family: $body-font-family;
+                font-weight: 700;
+                font-size: rem-calc(20);
+            }
+            *:hover > h4 {
+                text-decoration: underline;
+                color: $almost-black;
+            }
+            h4, .lead {
+                color: rgba($dark-gray, 0.8);
+            }
+            .lead {
+                font-size: rem-calc(16);
+            }
+            img {
+                max-width: 50vw;
+                @include breakpoint(medium) {
+                    max-width: 220px;
+                }
+            }
+            hr {
+                border-color: $light-gray;
+                max-width: 100px;
+                margin: 0 auto;
+                margin-top: 48px;
+            }
+        }
+        div:last-child {
+            @extend .end;
+        }
+        div:last-child:not(:nth-child(even)) {
+            @extend .medium-offset-3;
+        }
+    }
+}
+
+.landing-feature {
+    padding-top: 72px;
+    padding-bottom: 72px;
+    border-bottom: 1px solid $light-gray;
+    .landing-half {
+        @include breakpoint(medium) {
+            min-height: rem-calc(900);
+            position: relative;
+            padding: 24px;
+            &.right {
+                text-align: right;
+                padding-left: 60px;
+                img {
+                    left: 0;
+                }
+            }
+        }
+
+        .left {
+            padding-left: 0;
+            @include breakpoint(medium) {
+                text-align: left;
+                padding-left: 0;
+            }
+        }
+        h3 {
+            color: $vr-blue;
+            margin-bottom: 24px;
+        }
+        .lead {
+            font-size: rem-calc(16);
+            line-height: rem-calc(30);
+            color: $jet;
+        }
+    }
+    .feature-copy {
+        text-align: left;
+        width: 100%;
+        padding-top: 60px;
+        @include breakpoint(medium) {
+            max-width: rem-calc(300);
+            .right & {
+                margin: 0 auto;
+            }
+        }
+
+        @include breakpoint(large) {
+            max-width: rem-calc(500);
+        }
+
+        p {
+            margin-bottom: 36px;
+        }
+        button {
+            margin: 0;
+        }
+    }
+}
+
+#cta {
+    h1 {
+        font-size: rem-calc(36);
+        line-height: rem-calc(39);
+    }
+    .text-link {
+        font-weight: 500;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
+            .claim-cta-half {
+                // @extend .medium-6;
+
+                // @extend .columns;
+                button {
+                    margin: 6px;
+                }
+                padding: 0;
+                // padding-top: 12px;
+
+                // &:last-child {
+                //     padding-top: 6px;
+                // }
+                text-align: right;
+                padding-top: 24px;
+
+                    &:last-child {
+                        text-align: left;
+                        padding-top: 24px;
+                    }
+
+                .icon {
+                    display: inline-block;
+                    vertical-align: middle;
+                    margin-bottom: 0;
+                    background-color: $secondary-color;
+                    margin-right: 12px;
+                }
+
+                a:hover .icon {
+                    background-color: $primary-color;
+                }
+
+                // @include breakpoint(medium) {
+                //     text-align: right;
+                //     padding-top: 24px;
+
+                //     &:last-child {
+                //         text-align: left;
+                //         padding-top: 24px;
+                //     }
+                // }
+
+
+                // button {
+                //     height: 60px;
+                // }
+           
+            }

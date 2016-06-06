@@ -1,0 +1,1124 @@
+//venue page
+
+// debug:
+// * *:hover { border:2px solid #89A81E }                   /* Solid Green */
+// * * *:hover { border:2px solid #F34607 }                 /* Solid Orange */
+// * * * *:hover { border:2px solid #5984C3 }               /* Solid Blue */
+// * * * * *:hover { border:2px solid #CD1821 }             /* Solid Red */
+// * * * * * *:hover { border:2px dotted #89A81E }          /* Dotted Green */
+// * * * * * * *:hover { border:2px dotted #F34607 }        /* Dotted Orange */
+// * * * * * * * *:hover { border:2px dotted #5984C3 }      /* Dotted Blue */
+// * * * * * * * * *:hover { border:2px dotted #CD1821 }    /* Dotted Red */
+
+
+.venues, .talks{
+    background: $talk-dark;
+    .button {
+        margin: 0;
+    }
+    .button svg {
+        fill: currentColor;
+        width: 12px;
+        height: 12px;
+        margin-right: 12px;
+        vertical-align: middle;
+    }
+    .loading-message {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        svg {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 24px;
+        }
+    h1 {
+        font-size: rem-calc(18);
+        text-transform: uppercase;
+        text-align: center;
+    }
+    .loading-graphic {
+        margin-top: -60px;
+    }
+    // #main {
+    //     padding-top:24px;
+    //         }
+}
+.top-bar {
+    padding: 12px;
+    min-height: inherit;
+    max-height: inherit;
+    background:none;
+    border-bottom:1px solid rgba(0,0,0,.3);
+    box-shadow:none;
+    color: $vr-red;
+
+    svg {
+        width: 50px;
+        height: 38px;
+        fill: $vr-red;
+    }
+
+    .dropdown.menu > li.is-dropdown-submenu-parent > a::after {
+        right: 7px;
+        border-color: white transparent transparent
+
+    }
+    .top-bar-left #mobile-logo a:after {
+        border-color: $vr-red transparent transparent;
+    }
+    @include breakpoint(medium){
+        padding: 0;
+        background: $topbar-dark;
+        box-shadow: 0 1px 10px rgba(0, 0, 0, 0.3);
+        border:0;
+        .topbar-left {
+            width: 100%;
+
+        }
+        .logo img {
+            width: 44px;
+        }
+    }
+
+    &.alert {
+        background: $vr-red;
+        color: white;
+        svg {
+            fill: white;
+        }
+            .top-bar-left #mobile-logo a:after {
+        border-color: white transparent transparent;
+    }
+    }
+
+    &.warning {
+            background: $vr-yellow;
+        color: $talk-dark;
+        svg {
+            fill: $vr-red;
+        }
+            .top-bar-left #mobile-logo a:after {
+        border-color: $vr-red transparent transparent;
+    }
+    }
+
+        &.success {
+            background: $success-color;
+        color: white;
+        svg {
+            fill: white;
+        }
+            .top-bar-left #mobile-logo a:after {
+        border-color: white transparent transparent;
+    }
+    }
+}
+}
+
+#venue-header, .control-panels {
+    padding: 0 12px;
+}
+
+#modals {
+    // position: fixed;
+    // top: 0;
+    // left: 0;
+    // bottom: 0;
+    // right: 0;
+    height: 0;
+}
+
+.instruction-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    // background: rgba(0,0,0,.8);
+
+}
+
+.modal-background {
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    bottom: 0;
+    background:rgba(0,0,0,.5);
+    z-index: -1;
+}
+
+#instructions, #talk-modal {
+    //@include reveal-overlay();
+    // max-width: 26em;
+    display: block;
+    background: $vr-purple;
+    padding: 24px;
+    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.3);
+    color: white;
+    position:relative;
+    min-width:400px;
+    max-width: 480px;
+    h4 {
+        color: white;
+        font-size: rem-calc(18);
+        text-transform: uppercase;
+        letter-spacing: rem-calc(1);
+    }
+    code {
+        background-color: #eee;
+        padding: 12px;
+        margin: 0 0 12px 0;
+        display: inline-block;
+        color: $vr-purple;
+    }
+    p.lead {
+        font-size: rem-calc(14);
+        font-weight: 300;
+        color: white;
+        margin-bottom: 12px;
+    }
+    // &:before {
+    //     content: "";
+    //     background: rgba(0, 0, 0, 0.5);
+    //     position: fixed;
+    //     top: 0;
+    //     bottom: 0;
+    //     left: 0;
+    //     right: 0;
+    //     z-index: -1;
+    // }
+    table {
+        tbody {
+            border: none;
+            background: none;
+            tr {
+                background: rgba(0, 0, 0, 0.1);
+            }
+        }
+    }
+}
+
+#talk-modal {
+    background:$vr-purple;
+    h2 {
+        color: white;
+    }
+    .close-button {
+        color: white;
+        font-size: 3em;
+        font-weight: 100;
+        &:hover {
+            color: $vr-red;
+        }
+    }
+
+}
+
+
+.home {
+    padding: 24px;
+}
+
+nav.top-bar {
+    border: none;
+}
+
+.prototype-controls {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    max-width: 400px;
+    background: $vr-purple;
+    color: white;
+    padding: 6px;
+    font-size: rem-calc(12);
+    a {
+        margin-left: 12px;
+    }
+}
+
+.top-bar svg {
+    width: 16px;
+    height: 16px;
+    fill: $primary-color;
+}
+
+.top-bar ul {
+    background: none;
+}
+
+.top-bar li a:hover {
+    color: $success-color;
+}
+
+.top-bar li a.state-fake-button {
+    pointer-events: none;
+}
+
+.top-bar.topbar-on-air {
+    background: $success-color;
+}
+
+.top-bar.topbar-off-air {
+    background: $vr-red;
+}
+
+.title-bar {
+    background: none;
+    padding: 12px 24px;
+    margin-top: 60px;
+    h5 {
+        font-size: .8rem;
+        color: $oil;
+        letter-spacing: rem-calc(1);
+        text-transform: uppercase;
+        font-family: $body-font-family;
+        font-weight: 300;
+    }
+}
+
+.index #main {
+    padding: 18px;
+    background: none;
+}
+
+.panel-outside {
+    flex: 0 0 25%;
+    padding: 6px;
+    margin: 0;
+    display: flex;
+}
+
+.panel {
+    width: 100%;
+    transition: background .2s;
+    background: #f4f4f4;
+    border-color: #ccc;
+    color: #333;
+    margin: 0;
+    &:hover {
+        background: white;
+    }
+}
+
+.date-btn {
+    color: #eee;
+    svg {
+        fill: currentColor;
+    }
+}
+
+.badge {
+    color: $talk-dark;
+    &.warning {
+        background: $vr-yellow;
+        color: $talk-dark;
+    }
+    &.alert {
+        background: $vr-red;
+    }
+}
+
+.label {
+    vertical-align: middle;
+}
+
+#venue-header, #start-header {
+    // background: $talk-dark;
+    padding: 48px 12px 36px 12px;
+    text-align: center;
+    @include breakpoint(medium) {
+        text-align: left;
+    }
+
+    // border-bottom: 1px solid #;
+    h1 {
+        font-weight: 500;
+        margin: 0;
+        color: $vr-light-blue;
+        line-height: 1.1;
+        margin-bottom: 12px;
+        letter-spacing: .1em;
+        font-size: rem-calc(28);
+        overflow:hidden;
+        text-overflow: ellipsis;
+        @include breakpoint(medium) {
+            font-size: rem-calc(36);
+        }
+    }
+    p.countdown-text {
+        font-size: rem-calc(24);
+        font-weight: 300;
+        margin: 0;
+        line-height: 1.4;
+    }
+    .button {
+        margin: 0;
+    }
+}
+
+#venue-header {
+    .talk-title {
+        color: $vr-beige;
+        .talk-label {
+            font-size: .8rem;
+            color: $oil;
+            letter-spacing: rem-calc(1);
+            text-transform: uppercase;
+            font-family: $body-font-family;
+            font-weight: 300;
+        }
+        a {
+            color: $vr-beige;
+            &:hover {
+                color: white;
+                text-decoration: underline;
+            }
+        }
+    }
+    .dashboard {
+        padding-top: 9px;;
+        @include breakpoint(medium) {
+            padding-top: 12px;
+        }
+    }
+    .label {
+        font-family: $body-font-family;
+        padding: 12px;
+        border: 2px solid $oil;
+        background: none;
+        color: $oil;
+        font-size: rem-calc(16);
+        font-weight: 500;
+        float: none;
+        width: 90px;
+        text-align: center;
+        @include breakpoint(medium) {
+            float: right;
+        }
+
+        &.success {
+            border-color: $success-color;
+            color: $success-color;
+        }
+    }
+}
+
+// .server-status {
+//     svg {
+//         width: 18px;
+//         height: 18px;
+//         fill: currentColor;
+//         vertical-align: middle;
+//     }
+//     h3 {
+//         font-size: rem-calc(14);
+//         width: 100%;
+//         text-align: center;
+//         // text-transform: uppercase;
+//         margin: 0;
+//     }
+//     .button {
+//         margin: 0;
+//         margin-left: 12px;
+//     }
+//     .launchable-in {
+//         opacity: .5;
+//     }
+//     &.provisioning {
+//         background: lemonchiffon;
+//     }
+//     &.provisionable {
+//         // background: coral;
+//         cursor: pointer;
+//         .status {
+//             margin-left: 12px;
+//             opacity: 1;
+//             .button {
+//                 margin: 0;
+//             }
+//         }
+//     }
+//     &.online {
+//         background: $success-color;
+//         color: white;
+//         h3 {
+//             font-weight: 500;
+//         }
+//     }
+// }
+
+.has-tip {
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.tooltip {
+    background: $vr-red;
+    &.top:before {
+        border-color: $vr-red transparent transparent;
+    }
+}
+
+.lineup-list table {
+    text-align: left;
+    border-top: 1px solid $topbar-dark;
+    border: none;
+    width: 100%;
+    color: rgba(white, 0.5);
+    font-size: rem-calc(14);
+    .button {
+        margin: 0;
+        // width: 100%;
+
+    }
+    tbody {
+        border: none;
+        background:none;
+    }
+    tbody tr:nth-child(even) {
+        background: rgba(black, 0.1);
+    }
+    th {
+        padding: 12px 0;
+        color: $silver;
+    }
+    tr {
+        border: none;
+        border-bottom: 1px solid $topbar-dark;
+        background: rgba(black, 0.1);
+        &:hover {
+            background: rgba(black, 0.1);
+        }
+        &:nth-child(even) {
+            background: none;
+            &:hover {
+                background: rgba(black, 0.1);
+            }
+        }
+        td {
+            padding: 12px 0;
+            &.soundbars-cell {
+                vertical-align: bottom;
+                min-width: 36px;
+            }
+            .label {
+                margin-left: 12px;
+                background: $vr-purple;
+                &.live {
+                    background:$vr-red;
+                }
+            }
+        }
+        td.blank {
+            width: 24px;
+        }
+        th:first-child {
+            padding-left: 0;
+        }
+        td:first-child {
+            padding-left: 0;
+        }
+        &.next-talk {
+            background: lemonchiffon;
+            &:hover {
+                background: lemonchiffon;
+            }
+        }
+        &.streaming {
+            background: $success-color;
+            color: white;
+            &:hover {
+                background: $success-color;
+            }
+        }
+        &.interrupted {
+            background: $warning-color;
+            color: white;
+            &:hover {
+                background: $warning-color;
+            }
+        }
+    }
+    &.previous-talks {
+        color: #999;
+    }
+}
+
+.venues .selectize-input {
+    margin: 0;
+    padding: 9px 12px 12px 12px;
+    border: none;
+    border-radius: 0;
+    margin: 0;
+    font-size: 1rem;
+    font-family: inherit;
+    line-height: normal;
+    color: $vr-beige;
+    background-color: transparent;
+    border-radius: 0;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-size: 9px 6px;
+    background-position: right 12px center;
+    background-repeat: no-repeat;
+    height: 36px;
+    font-size: .8rem;
+    border-top: 1px solid #29292b;
+
+    input {
+        visibility: hidden;
+    }
+
+    &.input-active {
+        background: none;
+        cursor: pointer;
+    }
+}
+
+.venues .selectize-dropdown {
+    background:$topbar-dark;
+    border-radius:0;
+    border:0;
+    color: $oil;
+    .selectize-dropdown-content {
+        .selected {
+            background: $topbar-dark;
+            color: $vr-light-blue;
+
+        }
+        .option {
+            padding:6px 0;
+
+        &:hover {
+                background:none;
+                color: $vr-yellow;
+            }
+        }
+    }
+}
+
+#venue-control-panel {
+    background: none;
+    border-radius: 4px;
+    color: rgba(white, 0.4);
+    .columns {
+        background-color: $topbar-dark;
+        margin-bottom: 12px;
+        border-radius:4px;
+        padding: 0;
+        box-shadow: 0 1px 10px rgba(0,0,0,.1);
+        @include breakpoint(medium) {
+            border-radius:0;
+            border-right: 3px solid $talk-dark;
+            margin: 0;
+        padding: 0;
+        &:first-child {
+                  border-top-left-radius: 4px;
+            border-bottom-left-radius: 4px;
+        }
+        &:last-child {
+            border-right: none;
+            border-top-right-radius: 4px;
+            border-bottom-right-radius: 4px;
+        }
+        }
+
+    }
+    .titlebar {
+        padding: 12px;
+        max-height: 46px;
+        h4 {
+            font-size: rem-calc(12);
+            margin: 0;
+            font-family: $body-font-family;
+            font-weight: 300;
+            color: $oil;
+            text-transform: uppercase;
+        }
+        .neutral {
+            background: currentColor;
+        }
+        .server-bitrate-wrapper {
+            font-size: rem-calc(12);
+            color: $oil;
+            margin-right: 12px;
+        }
+    }
+    .divider {
+        height: 1px;
+        background: $talk-dark;
+    }
+    .actionbar {
+        padding: 0;
+        color: $vr-beige;
+        background: rgba(black, 0.1);
+        height: 72px;
+        max-height: 72px;
+        font-size: .8rem;
+        .holder {
+            padding: 0;
+        }
+        .status-bar {
+            height: 36px;
+            //background: rgba(black,.1);
+            padding:8px;
+            text-align: center;
+        }
+        a.button {
+            // // width: 100%;
+            // // height: 46px;
+            // max-height: 46px;
+            // font-size: .8rem;
+            // padding-top: 16px;
+
+        }
+        .label {
+            background: none;
+            margin: 0;
+            color: $vr-beige;
+            padding: 0;
+        }
+        .server-progress, .talk-progress {
+            background: rgba(black, 0.1);
+            height: 36px;
+            max-height: 36px;
+            margin: 0;
+            border-bottom-left-radius: 4px;
+            .progress-meter {
+                background: rgba($vr-blue, 1);
+                // border-bottom-left-radius: 4px;
+                .progress-meter-text {
+                    left: 12px;
+                    transform: none;
+                    top: 8px;
+                    color: $vr-beige;
+                    font-weight: 300;
+                    font-size: .8rem;
+                }
+            }
+        }
+        .talk-progress {
+            // border-bottom-right-radius: 4px;
+            border-bottom-left-radius: 0;
+            overflow-x: hidden;
+            padding:0;
+            .progress-meter {
+                border-bottom-left-radius: 0;
+            }
+        }
+        /* NOTE phil: I couldn't read it */
+        option {
+            background-color: white;
+            color: $talk-dark;
+        }
+        .server-start-button {
+            border-bottom-right-radius: 4px;
+            border-bottom-left-radius:4px;
+            @include breakpoint(medium){
+                border-bottom-right-radius:0;
+            }
+        }
+        .button-holder {
+            padding: 8px 12px 0 0;
+            a {
+                color: $vr-red;
+                &:hover {
+                    color: $vr-red;
+                    text-decoration: underline;
+                }
+            }
+            /* HACK by phil */
+            .stop-warning {
+                padding-left: 12px;
+                color: $vr-red;
+            }
+        }
+
+        .talk-start-button {
+            border-bottom-right-radius: 4px;
+            border-bottom-left-radius:4px;
+            @include breakpoint(medium){
+                border-radius:0;
+                border-bottom-left-radius:0;
+            }
+        }
+    }
+
+    .talk-panel .actionbar .button {
+        border-bottom-right-radius: 4px;
+
+    }
+    .talk-start-button {
+        height: 36px;
+        border-bottom-right-radius:4px;
+    }
+    // .talk-stop-button {
+    //     position: absolute;
+    //     margin-top: -37px;
+    //     right: 47px;
+    //}
+}
+
+#venue-control-panel .device-panel .status-bar {
+    padding: 0;
+}
+
+// table.venue-control-panel {
+//     text-align: left;
+//     width: 100%;
+//     vertical-align: middle;
+//     box-shadow: 0 1px 15px rgba(0, 0, 0, 0.2);
+//     p, .button {
+//         margin: 0;
+//         vertical-align: middle;
+//     }
+//     tbody tr:nth-child(even) {
+//         background: none;
+//     }
+//     tbody {
+//         border: none;
+//         background: $topbar-dark;
+//     }
+//     th, td {
+//         // border: 1px solid green;
+//         width: 33%;
+//         background: none;
+//         border-right: 1px solid $talk-dark;
+//         padding: 12px 24px;
+//         &:last-child {
+//             border-right: none;
+//         }
+//     }
+//     th {
+//         font-size: rem-calc(14);
+//         font-weight: 300;
+//         background: none;
+//         color: $vr-beige;
+//         border-bottom: 2px solid $vr-light-blue;
+//         // border-right: 1px solid black;
+
+//     }
+//     td.blank, th.blank {
+//         width: 2px;
+//         max-width: 2px;
+//         border: none;
+//         padding: 0;
+//         background: $talk-dark;
+//         border-spacing: 0;
+//     }
+// }
+
+.stopped {
+    background: $alert-color;
+}
+
+.soundbars {
+    position: relative;
+    height: 36px;
+    margin: 0;
+    float: none;
+    width: 100%;
+    // @include breakpoint(medium) {
+    //     margin: 0;
+    //     float: right;
+    //     margin-right: 12px;
+    // }
+
+    // margin-right: 60px;
+}
+
+#bars {
+    display: inline-block;
+    width: 100%;
+    height: 36px;
+}
+
+.bar-holder {
+    width: 6.25%;
+    height: 36px;
+    background: none;
+    position: relative;
+    float: left;
+    margin-right: 0;
+
+
+}
+
+.bar {
+    background: $success-color;
+    bottom: 0;
+    height: 0px;
+    position: absolute;
+    width: 100%;
+    .signal & {
+        animation: sound 0ms -800ms linear infinite alternate;
+    }
+}
+
+@keyframes sound {
+    0% {
+        opacity: .35;
+        height: 1px;
+    }
+    100% {
+        opacity: 1;
+        height: 28px;
+        @include breakpoint(medium) {
+            height: 44px;
+        }
+    }
+}
+
+
+.bar-holder:nth-child(1) .bar {
+    // left: 1px;
+    animation-duration: 474ms;
+}
+
+.bar-holder:nth-child(2) .bar {
+    // left: 15px;
+    animation-duration: 433ms;
+}
+
+.bar-holder:nth-child(3) .bar {
+    // left: 30px;
+    animation-duration: 407ms;
+}
+
+.bar-holder:nth-child(4) .bar {
+    // left: 45px;
+    animation-duration: 458ms;
+}
+
+.bar-holder:nth-child(5) .bar {
+    // left: 60px;
+    animation-duration: 400ms;
+}
+
+.bar-holder:nth-child(6) .bar {
+    // left: 75px;
+    animation-duration: 427ms;
+}
+
+.bar-holder:nth-child(7) .bar {
+    // left: 90px;
+    animation-duration: 441ms;
+}
+
+.bar-holder:nth-child(8) .bar {
+    // left: 105px;
+    animation-duration: 419ms;
+}
+
+.bar-holder:nth-child(9) .bar {
+    // left: 120px;
+    animation-duration: 487ms;
+}
+
+.bar-holder:nth-child(10) .bar {
+    // left: 135px;
+    animation-duration: 442ms;
+}
+
+// switch
+.switch {
+    margin-bottom: 0;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 12px;
+}
+
+.switch.large input:checked ~ .switch-paddle:after {
+    left: 5.75rem;
+}
+
+.switch.large .switch-paddle {
+    width: 8rem;
+}
+
+.starting input:checked ~ .switch-paddle {
+    background: $warning-color;
+}
+
+.disabled.switch {
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+// modal
+
+#device-modal {
+    h3 {
+        margin-bottom: 48px;
+    }
+    a.button.hollow {
+        min-height: 100px;
+        border-radius: 4px;
+    }
+}
+
+@keyframes flickerAnimation {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: .2;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+
+@-o-keyframes flickerAnimation {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: .2;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+
+@-moz-keyframes flickerAnimation {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: .2;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+
+@-webkit-keyframes flickerAnimation {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: .2;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+
+.animate-flicker {
+    -webkit-animation: flickerAnimation 1.5s infinite;
+    -moz-animation: flickerAnimation 1.5s infinite;
+    -o-animation: flickerAnimation 1.5s infinite;
+    animation: flickerAnimation 1.5s infinite;
+}
+
+/* NOTE phil: removed to make it work over reloads
+.server-progress .progress-meter {
+    -webkit-animation: move-progress-bar 240s infinite;
+    -moz-animation: move-progress-bar 240s infinite;
+    -o-animation: move-progress-bar 240s infinite;
+    animation: move-progress-bar 240s infinite;
+}
+
+@-webkit-keyframes move-progress-bar {
+    0% {
+        width: 0;
+    }
+
+    100% {
+        width: 100%;
+    }
+}
+
+@-moz-keyframes move-progress-bar {
+    0% {
+        width: 0;
+    }
+
+    100% {
+        width: 100%;
+    }
+}
+
+@-o-keyframes move-progress-bar {
+    0% {
+        width: 0;
+    }
+
+    100% {
+        width: 100%;
+    }
+}
+
+@keyframes move-progress-bar {
+    0% {
+        width: 0;
+    }
+
+    100% {
+        width: 100%;
+    }
+}
+*/
+.callout {
+    border: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    button {
+        // color: white;
+        margin: 0;
+        span {
+            margin: 0;
+        }
+    }
+    h5 {
+        font-family: $body-font-family;
+        margin: 0;
+        // color: white;
+
+    }
+    &.alert {
+        background: $vr-red;
+    }
+    &.warning {
+        background: $vr-yellow;
+    }
+}
+
+.listeners {
+    margin-right: 0;
+    color: $oil;
+    svg {
+        width: 18px;
+        height: 18px;
+        fill: currentColor;
+        margin-left: 12px;
+        vertical-align: baseline;
+    }
+    .listener-count {
+        // color: $oil;
+        font-size: rem-calc(24);
+    }
+    .listener-label {
+        // color: $oil;
+        font-size: rem-calc(12);
+        margin: 0;
+    }
+    @include breakpoint(medium) {
+        margin-right: 24px;
+    }
+}

@@ -1,0 +1,319 @@
+#working {
+    position:absolute;
+    height:80px;
+    max-height: 80px;
+    top:0;
+    left:0;
+    right:0;
+    background: $vr-beige;
+    text-align: center;
+    color: $talk-dark;
+    padding-top: 21px;
+    z-index: 9999;
+    pointer-events:none;
+}
+.logo a span {
+    font-family: $header-font-family;
+    color: $vr-red;
+    letter-spacing: rem-calc(6);
+    font-size: rem-calc(14);
+    line-height: rem-calc(36);
+    font-weight: normal;
+    margin: 5px 0 0 2px;
+    display: none;
+    @include breakpoint(850px) {
+        display: inline-block;
+    }
+}
+
+#mobile-nav {
+    li a {
+        background: $vr-blue;
+        color: white;
+        min-height: 44px;
+        font-size: rem-calc(14);
+        font-weight: 500;
+        letter-spacing: rem-calc(1);
+        padding: 18px 24px;
+        // margin-bottom: 1px;
+        border-bottom: 1px solid $talk-dark;
+    }
+}
+
+.talks .top-bar {
+    box-shadow: 0 1px 5px rgba(0,0,0,.3);
+}
+
+
+.top-bar {
+    // @extend .sticky;
+    background: rgba($talk-dark, 1);
+    transition: background .3s ease;
+    margin: 0;
+    right: 0;
+    left: 0;
+    max-height: 80px;
+    min-height: 80px;
+    padding:12px;
+    padding-top:18px;
+    ul li:last-child {
+        padding-right: 0;
+    }
+    a {
+        color: rgba(white,.5);
+    }
+    .top-bar-right {
+        margin-top: 4px;
+        height: 58px;
+        max-height: 58px;
+        @include breakpoint(small only) {
+            width: 50px;
+            margin-top: -6px;
+        }
+        ul li:not(.is-dropdown-submenu-item) {
+            height: 58px;
+        }
+
+
+        padding-right: 12px;
+        .avatar {
+            padding: 0;
+            margin: 0;
+            img {
+                border-radius: 50%;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+                width: 36px;
+                height: 36px;
+            }
+            // a:first-child {
+            //     padding: 0;
+            //     &:after {
+            //         margin-right: -18px;
+            //     }
+            // }
+            ul.submenu {
+                right: 0px;
+                left: auto;
+                margin: 0;
+            }
+            ul li {
+                // padding: 6px 6px 8px;
+            }
+        }
+    }
+    .top-bar-left {
+        .menu {
+            @include breakpoint(small only) {
+                // max-width: 50%;
+            }
+        }
+        @include breakpoint(medium only) {
+            max-width: 40%;
+        }
+
+        #mobile-logo {
+            position: relative;
+            a {
+                padding:0;
+            }
+            a:after {
+                content: '';
+                display: block;
+                width: 0;
+                height: 0;
+                border: inset 5px;
+                border-color: $vr-red transparent transparent;
+                border-top-style: solid;
+                position: absolute;
+                top: 1.4rem;
+                right: -3px;
+            }
+            svg {
+                min-width: 60px;
+            }
+        }
+    }
+    &.with-background {
+        background: $talk-dark;
+    }
+    ul {
+        // background: none;
+        background:$talk-dark;
+        li {
+            // text-transform: uppercase;
+            font-weight: 500;
+            letter-spacing: rem-calc(0.5);
+            font-size: rem-calc(14);
+            // padding-right: 12px;
+            // letter-spacing: rem-calc(1);
+            a:hover, a:active {
+                color: white;
+                transition: background .2s ease;
+            }
+            .drop-title {
+                color: $vr-light-blue;
+                // text-transform: uppercase;
+                // font-weight: 300;
+                padding-left: 14px;
+                padding-top: 12px;
+                padding-bottom: 6px;
+            }
+            .divider {
+                height: 1px;
+                background: $talk-dark;
+            }
+            .submenu {
+                a {
+                    color: $vr-beige;
+                    &:hover {
+                        color: $white;
+                        background:rgba($talk-dark, .2);
+                    }
+                }
+            }
+            &.join a {
+                color: $vr-light-blue;
+                &:hover {
+                    color: $vr-yellow;
+                }
+            }
+            &.zoomIn {
+                animation-duration: .2s;
+            }
+            &.zoomOut {
+                // pointer-events: none;
+           
+            }
+        }
+        li.search-btn a {
+            padding-left: 0 !important;
+        }
+
+        &.is-dropdown-submenu {
+    top:auto;
+    left: auto;
+    background: $vr-blue;
+    border:none;
+        z-index: 9999;
+    
+    box-shadow: 0 1px 20px rgba(0,0,0,.2);
+}
+    }
+    .dropdown.menu > li.is-dropdown-submenu-parent > a::after {
+        border-color: rgba(white, 0.5) transparent transparent;
+        
+    }
+    .dropdown.menu .is-dropdown-submenu-parent.is-down-arrow > a::after {
+        border-color: rgba($vr-beige, 0.5) transparent transparent;
+        right: 10px;
+    }
+    @include breakpoint(medium){
+        padding:0;
+        padding-top:6px;
+    }
+}
+
+#search-loupe a {
+    font-weight: 700;
+    font-size: rem-calc(18);
+    padding-top: 10px;
+    .svg-icon {
+        height: 6px;
+        svg {
+            fill: rgba(white, 0.5);
+            width: 18px;
+            height: 18px;
+        }
+    }
+    &:hover {
+        svg {
+            fill: white;
+        }
+    }
+}
+
+.search-container {
+    position: absolute;
+    top: 18px;
+    right: 0;
+    width: 380px;
+    background: $talk-dark;
+    animation-duration: .5s;
+    form {
+        label button {
+            color: white;
+            font-size: rem-calc(18);
+            width: 24px;
+            float: left;
+            margin: 0;
+            padding: 0;
+            border: 0;
+            padding-top: 8px;
+            margin-left: -32px;
+            margin-top: 14px;
+            background:none;
+            @include breakpoint(medium){
+                margin-top: 4px;
+            }
+            &:hover {
+                background:none;
+            }
+            .svg-icon {
+                height: 6px;
+                svg {
+                    fill: rgba(white, 0.5);
+                    width: 18px;
+                    height: 18px;
+                }
+            }
+        }
+        input {
+            float: left;
+            font-weight: 300;
+            font-size: rem-calc(14);
+            width: 300px;
+            margin-right: 0;
+            background: $talk-dark;
+            color: white;
+            box-shadow: none;
+            &:focus, &:active {
+                background: $talk-dark;
+                border-color: $talk-dark;
+            }
+        }
+    }
+    .close-button {
+        font-size: rem-calc(36);
+        font-weight: 200;
+        color: $vr-red;
+        top: 0;
+        padding: 0;
+        border: 0;
+        background:none;
+        &:hover {
+            background: none;
+            color: $vr-yellow;
+        }
+    }
+    @include breakpoint(small only) {
+        top: 80px;
+        left: 0;
+        width: 100%;
+        padding: 12px;
+        background: $vr-blue;
+        .close-button {
+            margin-top: -60px;
+        }
+        form input {
+            width: 100%;
+            height: 60px;
+            margin: 0;
+            background: $vr-blue;
+            font-size: rem-calc(16);
+            &:focus, &:active {
+                background: $vr-blue;
+                border-color: $vr-blue;
+            }
+        }
+    }
+}

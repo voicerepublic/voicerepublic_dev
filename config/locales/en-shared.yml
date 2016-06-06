@@ -1,11 +1,15 @@
 en:
-  shared:
+  shared:      
+    free_pricing_banner:
+      new: "New:"
+      free_pricing: "Upload and stream your content for free!"
     player:
       loading: Loading...
       live_in: "Live In "
       processing: "Processing..."
       please_login: "Please sign in to Voice Republic to Pin a Talk."
     talk_card:
+      exclamation: "!"
       speaker: "Speaker: "
       ago_by: "%{time} ago"
       plays: " Plays "

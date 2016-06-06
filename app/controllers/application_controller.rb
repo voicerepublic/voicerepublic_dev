@@ -1,5 +1,7 @@
 class ApplicationController < ActionController::Base
 
+  layout 'velvet'
+
   RSS_GONE = '410 - Sorry, this RSS feed is gone for good.'
 
   class OutdatedBrowser < RuntimeError
@@ -122,6 +124,8 @@ class ApplicationController < ActionController::Base
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
   rescue_from ActionController::RoutingError, with: :routing_error
   rescue_from OutdatedBrowser, with: :outdated_browser
+  rescue_from CanCan::AccessDenied, with: :access_denied
+
   # ActionView::Template::Error
   # ActionController::InvalidAuthenticityToken
   # Errno::ENOSPC
@@ -148,6 +152,10 @@ class ApplicationController < ActionController::Base
 
   def outdated_browser
     redirect_to '/pages/outdated_browser'
+  end
+
+  def access_denied
+    redirect_to root_url, alert: I18n.t('access_denied')
   end
 
 end

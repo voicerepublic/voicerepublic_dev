@@ -14,7 +14,7 @@ class RootController < BaseController
 
         @talks_popular = Talk.popular.limit(12)
         @publishers = load_publishers
-        @talks_upcoming = Talk.scheduled_featured.limit(12)
+        @talks_upcoming = Talk.upcoming.limit(12)
       end
       format.rss do
         @podcast = OpenStruct.new(talks: Talk.recent.limit(10))

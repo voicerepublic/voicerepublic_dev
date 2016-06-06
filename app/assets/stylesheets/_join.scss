@@ -1,0 +1,222 @@
+//Join Page
+
+// generic input styling:
+// input {
+//     	border: 1px solid $light-gray !important;
+//     	border-radius:2px;
+//     	background:white;
+//     	box-shadow:none;
+
+//     }
+.registrations, .sessions, .confirmations, .passwords {
+    height: 100%;
+    html & {
+        // background: url(../../images/background/matterhorn.jpg) no-repeat 50% 50% fixed;
+        background-size: cover;
+        height: 100%;
+        padding: 0;
+        margin: 0;
+    }
+    body {
+        height: 100%;
+        background: none;
+        text-align: center;
+        // padding-top: 100px;
+        .bg-img {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+    }
+
+    label {
+    	text-align: left;
+    }
+
+    #error_explanation {
+        h2 {
+            text-transform: none;
+            color:$vr-red;
+            font-size:rem-calc(18);
+            letter-spacing: rem-calc(0);
+            margin-bottom: 12px;
+            text-align: left;
+        }
+
+        ul {
+            list-style-type: decimal;
+            text-align: left;
+            font-size: rem-calc(14);
+            margin-bottom: 24px;
+            color: $vr-red;
+            font-weight: 500;
+
+            li {
+                // padding-left:1em;
+                // text-indent: -.7em;
+                // &:before {
+                //     content: "• ";
+                //     color: $vr-red;
+                // }
+            }
+
+        }
+    }
+
+    
+
+    .bg-img {
+    	position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    min-width: 100%;
+    min-height: 100%;
+    }
+
+    .columns {
+    	padding: 0 0 12px 0;
+    }
+
+    .row {
+    	padding:0 -15px;
+    }
+
+
+    @include breakpoint(medium){
+    	    .row {
+    	padding-bottom:0;
+    }
+    	    .form-content-block  .columns {
+    	padding: 0;
+    	&:nth-child(2) {
+    		padding-left:12px;
+    	}
+    }
+    }
+
+    label {
+    	color: $talk-dark;
+    }
+    .facebook {
+        background: #3B5998;
+        color: white;
+        font-weight: 500;
+        span {
+            line-height: 48px;
+        }
+        .svg-icon {
+            float: left;
+            display: inline-block;
+            margin-top: 4px;
+            margin-right: 24px;
+        }
+    }
+    h2 {
+        margin-bottom: 36px;
+    }
+
+    .menu li {
+    	font-size: rem-calc(12);
+    	background: $light-gray;
+    	a {
+    		color: $talk-dark;
+    	}
+    }
+    p.divider-title {
+        font-weight: 500;
+        font-size: rem-calc(12);
+        background: white;
+        width: 110px;
+        margin: 0 auto;
+        margin-top: -31px;
+        text-transform: uppercase;
+        color: $talk-dark;
+        letter-spacing: rem-calc(1);
+        margin-bottom: 24px;
+    }
+    .join-logo {
+        max-height: 60px;
+    }
+    .input {
+        input {
+            margin-bottom: 0;
+        }
+        label {
+            text-align: left;
+            text-transform: uppercase;
+            font-weight: 500;
+            font-size: rem-calc(12);
+            letter-spacing: rem-calc(1);
+            color:$tuatara;
+        }
+    }
+  
+    small.error {
+        background: $vr-red;
+        color: white;
+        text-align: left;
+        float: left;
+        padding: 6px;
+        font-weight: 500;
+        width: 100%;
+    }
+    .user_accept_terms_of_use label{
+    	text-transform: none;
+    	letter-spacing: 0;
+
+    }
+    .user_accept_terms_of_use small.error {
+        width: auto;
+    }
+    .error input {
+        border: 1px solid $vr-red;
+    }
+    select {
+        // background-color: $vr-yellow;
+        border: 1px solid $vr-light-blue;
+    }
+    #input-block {
+        background: white;
+        margin: 0;
+        padding: 24px;
+        z-index: 100;
+        position: absolute;
+        left: 0;
+
+        img {
+            margin-bottom: 30px;
+        }
+        // h5 {
+        //   //@extend .text-center;
+        //     margin-bottom: 0;
+        //     color: $talk-dark;
+        //     font-size: rem-calc(24);
+        // }
+        // .lead {
+        //     text-transform: uppercase;
+        //     font-size: rem-calc(14);
+        //     color: $charcoal;
+        //     margin-bottom: 48px;
+        // }
+        @include breakpoint(medium) {
+            position: absolute;
+            left: 50%;
+            margin-top: 50px;
+            margin-bottom: 50px;
+            border-radius: 4px;
+            width: 600px;
+            padding: 24px 48px 24px 48px;
+            margin-left: -300px;
+        }
+
+    }
+}
+
+
+.sessions {
+	.input {
+		margin-bottom: 12px;
+	}
+}

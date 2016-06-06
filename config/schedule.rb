@@ -48,6 +48,14 @@ every 24.hours, at: '11:00 pm', roles: [:app] do
   rake 'build:sitemap'
 end
 
-# every 1.hour, roles: [:app] do
-#   rake 'sync:rp15'
-# end
+#every 1.hour, roles: [:app] do
+#  runner 'Sync::Rp16.new.sync'
+#end
+
+every 1.minute, roles: [:app] do
+  rake 'sync:ftp'
+end
+
+every 24.hours, at: '3:00 am', roles: [:app] do
+  rake 'cleanup:stop_disused_streaming_servers'
+end

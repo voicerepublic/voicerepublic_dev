@@ -59,7 +59,7 @@ xml.rss namespaces.merge(version: '2.0') do
              type: 'application/rss+xml',
              href: request.url
 
-    xml.itunes :image, href: @podcast.image_url
+    xml.itunes :image, href: @podcast.image_url || itunes_image_url(@podcast.image)
     xml.itunes :category, text: @podcast.category
     xml.itunes :subtitle, @podcast.subtitle
     xml.itunes :summary do
@@ -85,8 +85,12 @@ xml.rss namespaces.merge(version: '2.0') do
         xml.title h talk.title
 
         # description
-        xml.description talk.description + I18n.t(:podcast_branding)
-        xml.itunes :summary, talk.description + I18n.t(:podcast_branding)
+        xml.description do
+          xml.cdata! talk.description + I18n.t(:podcast_branding)
+        end
+        xml.itunes :summary do
+          xml.cdata! talk.description + I18n.t(:podcast_branding)
+        end
 
         xml.itunes :subtitle, talk.teaser
         # TODO: Maybe we want to show the speakers here?
