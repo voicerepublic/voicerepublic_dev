@@ -6,6 +6,12 @@
 %section.light
   .api-container.row.clearfix
     .container.medium-10.medium-offset-1.large-8.large-offset-2.columns.text-left
-      %ul
-        - @venues.each do |venue|
-          %li= link_to venue.name, venue
+      - if @venues.empty?
+        %p
+          You seem to have no venue, yet. Please
+          = link_to 'create a talk', new_talk_path
+          first.
+      - else
+        %ul
+          - @venues.each do |venue|
+            %li= link_to venue.name, venue
