@@ -1,3 +1,12 @@
+// particles
+#particles {
+    position: absolute;
+    top: 80px;
+    left: 0;
+    right: 0;
+    height: 500px;
+    pointer-events: none;
+}
 .banner {
   display: inline-block;
   margin-bottom: 24px;
@@ -187,7 +196,12 @@ h1, h2 {
     text-align: center;
     padding-bottom: 96px;
     background: url(../../images/background/main-bg.jpg) no-repeat 50% 25%;
+    //background:$talk-dark;
     background-size: cover;
+    .claim-content {
+        position:relative;
+        z-index: 100;
+    }
     .down-arrow {
         width: 28px;
         height: 28px;

@@ -1,9 +1,15 @@
-%section#claim.dark
+:css
+  .driftup {
+    visibility: hidden;
+  }
+%section.dark.text-center
   .row
-    %header
-      %h1= t('.please_select_your_venue')
+    .title-block
+      = link_to root_path do
+        = image_tag'logos/vr_red.svg', class: 'join-logo', style: 'width:90px;'
+      %h2.driftup= t('.please_select_a_venue')
     %ul.menu
       - @venues.each do |venue|
-        %li.talk-card
+        %li.talk-card.driftup
           .talk-card-inside
-            %h2.talk-title= link_to venue.name, venue
+            %h5.title= link_to venue.name, venue        
