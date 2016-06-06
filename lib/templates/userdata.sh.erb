@@ -27,7 +27,6 @@ if [ -f /sys/hypervisor/uuid ] && [ `head -c 3 /sys/hypervisor/uuid` == ec2 ]; t
 
   # FYI
   # ssh admin@<ip> cat INFO.txt
-  # maybe this script could also set a tag/name of the ec2 instance
   cat > /home/admin/INFO.txt <<EOF
 Host:  <%= %x[hostname].chomp %>
 Venue: <%= %x[name] %>
@@ -71,10 +70,11 @@ docker run \
 #        --volume=$STORAGE/$PREFIX:/share \
 #        branch14/icecast2
 
-# callback to slack -- for debugging only
-CLIENT_TOKEN=<%= client_token %>
-TEXT="Started Icebox on $PUBLIC_IP with client token $CLIENT_TOKEN"
-JSON='{"channel":"@phil","text":"'$TEXT'","icon_emoji":":mushroom:","username":"icecast"}'
 
-curl -X POST -H 'Content-type: application/json' --data "$JSON" \
-     https://hooks.slack.com/services/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
+# callback to slack -- for debugging only
+# CLIENT_TOKEN=<%= client_token %>
+# TEXT="Started Icebox on $PUBLIC_IP with client token $CLIENT_TOKEN"
+# JSON='{"channel":"@phil","text":"'$TEXT'","icon_emoji":":mushroom:","username":"icecast"}'
+#
+# curl -X POST -H 'Content-type: application/json' --data "$JSON" \
+#      https://hooks.slack.com/services/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
