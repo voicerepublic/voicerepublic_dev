@@ -249,7 +249,7 @@ button,
     padding: 0;
     margin-bottom: 12px;
     @include breakpoint(medium) {
-        margin-bottom: 24px;
+        margin-bottom: 0;
     }
 
     img {
@@ -584,7 +584,7 @@ button,
 
                 svg {
                     margin-top: 6px;
-        vertical-align: text-bottom;
+                    vertical-align: text-bottom;
                 }
             }
 
@@ -866,6 +866,18 @@ ul.share-links {
     }
 }
 
+#publisher-options {
+    background: rgba(black,.1);
+    padding:30px;
+    box-shadow: inset 0px -1px 10px rgba(0,0,0, .2);
+    ul li {
+        margin-right: 6px;
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+}
+
 .shakeel {
     @include reveal-overlay();
     background-color: $vr-blue;
@@ -930,7 +942,6 @@ ul.share-links {
     letter-spacing: rem-calc(0);
     text-transform: uppercase;
     font-weight: 500;
-    margin-right: 6px;
     text-align: center;
     @include breakpoint(medium){
          padding-top: 10px;
@@ -1073,3 +1084,14 @@ ul.share-links {
     // border: 2px solid $vr-purple;
     height: 220px;
 }
+
+// .stream-now {
+//     width: 100%;
+//     padding:48px;
+//     background:pink;
+//     background:url(http://farm4.static.flickr.com/3429/3760111786_57b92c8ce2.jpg);
+//     border:20px solid fuchsia;
+//     color: yellow;
+//     font-size: 10em;
+//     transform: rotate(10deg)
+// }
