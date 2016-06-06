@@ -27,8 +27,6 @@
 //= require nprogress
 //= require jquery-ui-timepicker-addon
 //= require greensock/TweenMax
-
-
 //
 // --- COMPONENTS
 //= require components/ajax_filter

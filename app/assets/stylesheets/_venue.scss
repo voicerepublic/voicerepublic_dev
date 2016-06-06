@@ -10,16 +10,32 @@
 // * * * * * * * *:hover { border:2px dotted #5984C3 }      /* Dotted Blue */
 // * * * * * * * * *:hover { border:2px dotted #CD1821 }    /* Dotted Red */
 
-#logo {
-        width: 100px;
-    height: 100px;
-    background: red;
-    position: absolute;
-    left: 50%;
-    margin-left: -50px;
-}
+
 .venues, .talks{
     background: $talk-dark;
+    #app {
+        position:relative;
+        z-index: 0;
+    }
+    #topbar {
+        position:relative;
+        z-index: 1;
+    }
+
+    .dropdown a {
+        float: right;
+    }
+
+    .top-bar ul li .submenu a {
+        background: white;
+        width: 100%;
+        color: $talk-dark;
+        float: left;
+        &:hover {
+            background: $vr-yellow;
+        }
+    }
+    
     .button {
         margin: 0;
     }
@@ -1127,5 +1143,51 @@ nav.top-bar {
     }
     @include breakpoint(medium) {
         margin-right: 24px;
+    }
+}
+
+
+.venues-index {
+    background: url(../../images/background/erosion.jpg) no-repeat 50% 25%;
+    background-size: cover;
+    height: 100vh;
+    .title-block svg {
+        fill: $vr-red;
+        height: 60px;
+    }
+    h2 {
+        color: white;
+        margin-top: 24px;
+    }
+    .talk-card a {
+        padding: 0;
+    }
+    .talk-card-inside {
+        .title {
+            color: $talk-dark
+        }
+        .talk-count, .venue-state {
+            margin: 0 12px 12px 12px;
+            font-size: rem-calc(14);
+        }
+        .venue-state {
+            // font-size: rem-calc(12);
+            font-weight: 200;
+            text-transform: uppercase;
+            letter-spacing: rem-calc(1);
+            color: $oil;
+        }
+        &.available {
+            background: $success-color;
+            &:hover {
+                background:$success-color;
+            }
+        }
+        &.provisioning {
+            background: $vr-yellow;
+            &:hover {
+                background:$vr-yellow;
+            }
+        }
     }
 }
