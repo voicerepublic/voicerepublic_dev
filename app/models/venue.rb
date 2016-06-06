@@ -199,7 +199,7 @@ class Venue < ActiveRecord::Base
         user: user.attributes.merge(
           image_url: user.avatar.thumb('36x36').url
         ),
-        availability: availability
+        available_at: available_at
       ),
       devices: Device.all.map(&:attributes),
       now: Time.now.to_i
@@ -241,7 +241,7 @@ class Venue < ActiveRecord::Base
   # Returns the time the provisioning window will open.
   #
   # TODO rename to available_at
-  def availability
+  def available_at
     return false if talks.prelive.empty?
 
     talks.prelive.ordered.first.starts_at.to_i - PROVISIONING_WINDOW
@@ -330,7 +330,7 @@ class Venue < ActiveRecord::Base
   def in_provisioning_window?
     return false if talks.prelive.empty?
 
-    availability <= Time.now.to_i
+    available_at <= Time.now.to_i
   end
 
   def reset_ephemeral_details
@@ -441,7 +441,7 @@ class Venue < ActiveRecord::Base
 
   def shutdown?
     !(talks.live.any? or
-      (availability and
+      (available_at and
        in_provisioning_window?))
   end
 
