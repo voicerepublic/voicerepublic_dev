@@ -4,13 +4,13 @@ namespace :dragonfly do
   task migrate_to_s3: :environment do
     logfile_path = Rails.root.join('public/system/dragonfly', Rails.env, 'images_local_to_s3.txt')
     logfile = {}
-    File.open(logfile_path, 'r') {|file| logfile = Hash[file.readlogfile.map { |e| e.split(" => ")}] } if File.file?(logfile_path)
+    logfile = Hash[File.read(logfile_path).map { |e| e.split(' => ') }] if File.exist?(logfile_path)
     begin
       # Adjust this line to meet your needs:
       { Series => :image_uid, Talk => :image_uid, User => [:header_uid, :avatar_uid] }.each do |klass, col|
         puts "Migrating #{klass.table_name}..."
         Array(col).each do |col|
-          klass.where("#{col} != ''").find_each do |instance|
+          klass.where("#{col} IS NOT NULL AND #{col} != ''").find_each do |instance|
             begin
                 old_uid = instance.send(col)
                 puts "Migrating #{old_uid}..."
