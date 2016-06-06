@@ -54,7 +54,3 @@
 //= require cljs
 //= require topbar
 
-$(document).foundation();
-
-
-

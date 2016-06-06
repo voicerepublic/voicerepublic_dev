@@ -68,6 +68,8 @@ module VoiceRepublic
 
     config.middleware.use 'Rack::Affiliates'
 
+    config.middleware.use 'PhpResponder'
+
     config.assets.initialize_on_precompile = false
 
     # http://stackoverflow.com/questions/18294150/how-to-use-fonts-in-rails-4

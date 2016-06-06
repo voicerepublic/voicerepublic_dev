@@ -31,7 +31,7 @@ class Mediator
     body = args.shift
     event = body['details']['event'] * '.'
     error = body['details']['talk']['error']
-    error = error.split[0, 2].join("\n")
+    error = error.split("\n")[0, 2].join("\n")
     intros = {
       'created.pending.prepare'      => 'Has been uploaded',
       'created.prelive.prepare'      => 'Has been scheduled',

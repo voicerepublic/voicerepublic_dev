@@ -11,8 +11,6 @@
  * appear at the top of the compiled file, but it's generally better
  * to create a new file per style scope.
  *
- *= require selectize
- *= require selectize.default
  *= require_self
  *= require foundation
 
@@ -40,6 +38,7 @@
  @import 'jquery-ui/datepicker';
  @import 'jquery-ui/slider';
 @import 'jquery-ui-timepicker-addon';
+@import 'selectize';
 @import "appstyles";
 @import "buttons";
 

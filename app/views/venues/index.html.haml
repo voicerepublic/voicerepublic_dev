@@ -8,8 +8,14 @@
       = link_to root_path do
         = image_tag'logos/vr_red.svg', class: 'join-logo', style: 'width:90px;'
       %h2.driftup= t('.please_select_a_venue')
-    %ul.menu
-      - @venues.each do |venue|
-        %li.talk-card.driftup
-          .talk-card-inside
-            %h5.title= link_to venue.name, venue        
+    - if @venues.empty?
+        %p
+          You seem to have no venue, yet. Please
+          = link_to 'create a talk', new_talk_path
+          first.
+    - else
+      %ul.menu
+        - @venues.each do |venue|
+          %li.talk-card.driftup
+            .talk-card-inside
+              %h5.title= link_to venue.name, venue        
