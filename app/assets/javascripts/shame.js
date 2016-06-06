@@ -4,36 +4,10 @@
 $('.flash-msg').delay(3000).fadeOut(1000);
 
 
-
-
-// Smooth scrolll
-// $(function() {
-//     $('a[href*=#]:not([href=#])').click(function() {
-//         if (location.pathname.replace(/^\//, '') === this.pathname.replace(/^\//, '') && location.hostname === this.hostname) {
-//             var target = $(this.hash);
-//             target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
-//             if (target.length) {
-//                 $('html,body').animate({
-//                     scrollTop: target.offset().top
-//                 }, 1000);
-//                 return false;
-//             }
-//         }
-//     });
-// });
-
 $('#mobile-logo').on('click', function(){
     console.log('opening the mobile nav');
     $('#mobile-nav').toggle();
 });
-
-//$('.button-play-pause').on('click', function() {
-//    $(this).children('span').each(function() {
-//        $(this).toggleClass('hide');
-//
-//    });
-//    $('#indicator').toggleClass('metering');
-//});
 
 $('.button-volume').on('click', function() {
     $(this).children('span').each(function() {
@@ -42,16 +16,6 @@ $('.button-volume').on('click', function() {
     });
     $(this).toggleClass('muted');
 });
-
-
-
-
-////Fake colume meter:
-//window.setInterval(function() {
-//    $('.metering').css({
-//        "max-height": Math.random() * 20
-//    });
-//}, 100);
 
 
 // change to light view on avatar click (profile page)
@@ -63,25 +27,11 @@ $('.profile-avatar').on('click',function(){
 var $comingUp = $('#coming-up');
 var $claim = $('#claim');
 
-// $(window).scroll(function() {
-//     if ( $comingUp.is( ':in-viewport' ) ) {
-//   $('.down-arrow').addClass('hide');
-// }
-
-// if ($claim.is (':in-viewport')){
-
-//     $('.top-bar').removeClass('with-background');
-// } else {
-//     $('.top-bar').addClass('with-background');
-// }
-// });
-
 $('.category-buttons .button').on('click', function(){
     $(this).siblings().removeClass('active');
     $(this).toggleClass('active');
 });
 
-//$( '.inputfile' ).each( function()
 
 function changeLabelName(input)
 {
@@ -89,14 +39,9 @@ function changeLabelName(input)
         $label   = $input.next( 'label' ),
         labelVal = $label.html();
 
-        //console.log('should change label name')
 
-    // $input.on( 'change', function( e )
-    // {
         var fileName = '';
 
-        // if( this.files && this.files.length > 1 )
-        //     fileName = ( this.getAttribute( 'data-multiple-caption' ) || '' ).replace( '{count}', this.files.length );
          if( $input.target.value )
             fileName = e.target.value.split( '\\' ).pop();
 
@@ -104,7 +49,6 @@ function changeLabelName(input)
             $label.find( 'span' ).html( fileName );
         else
             $label.html( labelVal );
-    // });
 
     // Firefox bug fix
     $input
@@ -165,10 +109,25 @@ $('.talk-card').on('click','.pin-btn, .unpin-btn', function(e){
 });
 });
 
+var venueThumb = $('.venue-thumb')
+
 window.fired = false;
 window.onTalkPageReady = function() {
     if (fired) {
         return;
     }
     $('#right-sidebar').removeClass('hide')
+    //Venues#Index animation
 };
+
+  //   var logo = document.getElementById("logo");
+  //   //TweenLite.from(venueThumb,.5,{opacity:0, marginTop: 100},.2);
+
+  // TweenLite.to(logo, 2, {background:"black"});
+
+
+  //var logo = document.getElementById("logo");
+  window.onload = function() {
+  TweenMax.staggerFrom(".talk-card", 1, {top:"50px",opacity:0, ease:Power2.easeOut},.5);
+}
+

@@ -10,7 +10,14 @@
 // * * * * * * * *:hover { border:2px dotted #5984C3 }      /* Dotted Blue */
 // * * * * * * * * *:hover { border:2px dotted #CD1821 }    /* Dotted Red */
 
-
+#logo {
+        width: 100px;
+    height: 100px;
+    background: red;
+    position: absolute;
+    left: 50%;
+    margin-left: -50px;
+}
 .venues, .talks{
     background: $talk-dark;
     .button {

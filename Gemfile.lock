@@ -368,6 +368,7 @@ GEM
     git-version-bump (0.15.1)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
+    greensock-rails (1.18.4.0)
     haml (4.0.7)
       tilt
     haml-rails (0.9.0)
@@ -672,6 +673,7 @@ DEPENDENCIES
   fog
   foundation-rails (= 6.2.0.1)
   friendly_id
+  greensock-rails
   haml-rails
   inifile
   jquery-rails

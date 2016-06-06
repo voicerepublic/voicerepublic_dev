@@ -26,6 +26,10 @@
 //= require jquery.jplayer.min
 //= require nprogress
 //= require jquery-ui-timepicker-addon
+//= require greensock/TweenMax
+//= require greensock/easing/EasePack
+//= require greensock/plugins/CSSPlugin
+
 //
 // --- COMPONENTS
 //= require components/ajax_filter
