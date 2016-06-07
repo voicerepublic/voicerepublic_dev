@@ -36,18 +36,18 @@
 
 #main-column.clearfix
   #publisher-options-holder
+  #right-sidebar.float-right.medium-3.columns.clearfix.qa-related-talks.hide
+    .row.collapse
+      %h3
+        Recommended Talks
+      - unless %w(pending postlive processing suspended).include?(@talk.state)
+        = render partial: 'shared/talk_card', collection: @related_talks
   #app
     .loading-message
       .loading-graphic
         = render partial: 'explore/loading'
         %h1= t('.loading')
 
-  #right-sidebar.medium-3.columns.clearfix.qa-related-talks.hide
-    .row.collapse
-      %h3
-        Recommended Talks
-      - unless %w(pending postlive processing suspended).include?(@talk.state)
-        = render partial: 'shared/talk_card', collection: @related_talks
 
 
 -# hidden div for qa

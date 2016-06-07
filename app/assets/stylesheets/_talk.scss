@@ -349,14 +349,6 @@ button,
         margin-bottom: 12px;
     }
 
-    .alt & {
-        margin-top: 12px;
-    }
-    .alt3 & {
-        margin-bottom: 24px;
-    }
-}
-
 .button-playbar {
     flex: 0 0 70px;
     margin: 0;
@@ -365,7 +357,13 @@ button,
     height: 70px;
     font-size: 1.4em;
     outline: none;
+    border: 0;
     padding: 0;
+        svg {
+        width: 36px;
+        height: 36px;
+        margin:0;
+    }
     span {
         width: 100%;
     }
@@ -374,7 +372,19 @@ button,
 .button-play-pause {
     // animation: pulse 2s infinite;
     background: $vr-blue;
+    &:hover {
+        background:$vr-light-blue;
+    }
 }
+.button-pin {
+    &:hover {
+        background:$vr-yellow;
+        color: $talk-dark;
+    }
+}
+}
+
+
 
 .muted {
     background: $alert-color;
@@ -396,7 +406,7 @@ button,
         width: 12px;
         /*height: 1px;*/
         /*max-height: 0px;*/
-        background: $warning-color;
+        background: $vr-yellow;
         align-self: flex-end;
     }
 }
