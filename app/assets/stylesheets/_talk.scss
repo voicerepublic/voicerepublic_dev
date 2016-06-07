@@ -42,7 +42,7 @@ audio {
 }
 
 
-// TODO: This is a hack to get Foundation 6 styles on simple_form 
+// TODO: This is a hack to get Foundation 6 styles on simple_form
 // elements with errors.
 .input.error {
   label {
@@ -89,7 +89,7 @@ audio {
         height: 16px;
         // max-height: 16px;
         // max-width: 16px;
-        
+
     }
 
 .breakpoint-viewer {
@@ -392,10 +392,10 @@ button,
     height: 70px;
     background: black;
     #indicator {
-        flex: 1 1 12px;
+        /*flex: 1 1 12px;*/
         width: 12px;
-        height: 1px;
-        max-height: 0px;
+        /*height: 1px;*/
+        /*max-height: 0px;*/
         background: $warning-color;
         align-self: flex-end;
     }
@@ -431,7 +431,7 @@ button,
 .track-playing {
     height: 12px;
     background: $vr-light-blue;
-    width: 10%;
+    width: 0%;
     border-radius: 2px;
 }
 
@@ -802,11 +802,11 @@ ul.share-links {
             margin-bottom: 6px;
         }
         .title {
-            
+
             display: inline-block;
             height: auto;
             margin: 0 auto;
-            
+
             -webkit-line-clamp: auto;
             -webkit-box-orient: vertical;
             // overflow: auto;
@@ -952,7 +952,7 @@ ul.share-links {
     &.prelive {
         @include breakpoint(medium){
         min-width: 170px;
-            
+
         }
     }
 }
@@ -969,7 +969,7 @@ ul.share-links {
 
 
 
-  
+
 //forms
 .talks-create, .talks-new, .talks-edit, .uploads-create, .uploads-new .uploads-edit {
     .progress {
