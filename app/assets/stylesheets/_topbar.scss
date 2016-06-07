@@ -317,3 +317,81 @@
         }
     }
 }
+
+.venues .top-bar {
+    transition: opacity .3s ease;
+    box-shadow: 0 1px 10px rgba(0,0,0,.2);
+
+    min-height: inherit;
+    padding: 12px;
+    // min-height: inherit;
+    // max-height: inherit;
+    background:none;
+    border-bottom:1px solid rgba(0,0,0,.3);
+    box-shadow:none;
+    color: $vr-red;
+
+    svg {
+        width: 50px;
+        height: 38px;
+        fill: $vr-red;
+    }
+
+    .dropdown.menu > li.is-dropdown-submenu-parent > a::after {
+        right: 7px;
+        border-color: white transparent transparent
+
+    }
+    .top-bar-left #mobile-logo a:after {
+        border-color: $vr-red transparent transparent;
+    }
+    @include breakpoint(medium){
+        padding: 0;
+        background: $topbar-dark;
+        box-shadow: 0 1px 10px rgba(0, 0, 0, 0.3);
+        border:0;
+        .topbar-left {
+            width: 100%;
+
+        }
+        .logo img {
+            width: 44px;
+        }
+    }
+
+    &.alert {
+        background: $vr-red;
+        color: white;
+        svg {
+            fill: white;
+        }
+            .top-bar-left #mobile-logo a:after {
+        border-color: white transparent transparent;
+    }
+    }
+
+    &.warning {
+            background: $vr-yellow;
+        color: $talk-dark;
+        svg {
+            fill: $vr-red;
+        }
+            .top-bar-left #mobile-logo a:after {
+        border-color: $vr-red transparent transparent;
+    }
+    }
+
+    &.success {
+            background: $success-color;
+        color: white;
+        svg {
+            fill: white;
+        }
+            .top-bar-left #mobile-logo a:after {
+        border-color: white transparent transparent;
+    }
+    }
+    
+}
+
+
