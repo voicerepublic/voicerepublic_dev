@@ -2,6 +2,12 @@ en:
   venues:
     show:
       loading: loading venue
+    index: 
+        please_select_a_venue: Please Choose A Venue
+        talks:
+            zero: Talks
+            one: Talk
+            other: Talks
   frontend:
     talks:
       state:
