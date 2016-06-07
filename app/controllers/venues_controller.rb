@@ -4,7 +4,8 @@ class VenuesController < ApplicationController
                        start_provisioning
                        select_device )
 
-  layout 'velvet_minimal'
+  layout 'velvet'
+
 
   load_and_authorize_resource
 
@@ -16,6 +17,10 @@ class VenuesController < ApplicationController
 
   skip_before_action :verify_authenticity_token, only: [:update]
 
+
+  def show 
+    render layout: "velvet_minimal"
+  end
   # PUT /venues/:slug
   #
   # Responds to xhr requests. (Should hence problaby move to

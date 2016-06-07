@@ -68,76 +68,7 @@
     //     padding-top:24px;
     //         }
 }
-.top-bar {
-    padding: 12px;
-    min-height: inherit;
-    max-height: inherit;
-    background:none;
-    border-bottom:1px solid rgba(0,0,0,.3);
-    box-shadow:none;
-    color: $vr-red;
 
-    svg {
-        width: 50px;
-        height: 38px;
-        fill: $vr-red;
-    }
-
-    .dropdown.menu > li.is-dropdown-submenu-parent > a::after {
-        right: 7px;
-        border-color: white transparent transparent
-
-    }
-    .top-bar-left #mobile-logo a:after {
-        border-color: $vr-red transparent transparent;
-    }
-    @include breakpoint(medium){
-        padding: 0;
-        background: $topbar-dark;
-        box-shadow: 0 1px 10px rgba(0, 0, 0, 0.3);
-        border:0;
-        .topbar-left {
-            width: 100%;
-
-        }
-        .logo img {
-            width: 44px;
-        }
-    }
-
-    &.alert {
-        background: $vr-red;
-        color: white;
-        svg {
-            fill: white;
-        }
-            .top-bar-left #mobile-logo a:after {
-        border-color: white transparent transparent;
-    }
-    }
-
-    &.warning {
-            background: $vr-yellow;
-        color: $talk-dark;
-        svg {
-            fill: $vr-red;
-        }
-            .top-bar-left #mobile-logo a:after {
-        border-color: $vr-red transparent transparent;
-    }
-    }
-
-        &.success {
-            background: $success-color;
-        color: white;
-        svg {
-            fill: white;
-        }
-            .top-bar-left #mobile-logo a:after {
-        border-color: white transparent transparent;
-    }
-    }
-}
 }
 
 #venue-header, .control-panels {
@@ -268,9 +199,9 @@ nav.top-bar {
 }
 
 .top-bar svg {
-    width: 16px;
-    height: 16px;
-    fill: $primary-color;
+    width: 54px;
+    height: 44px;
+    fill: $vr-red;
 }
 
 .top-bar ul {
@@ -750,17 +681,19 @@ nav.top-bar {
             }
         }
         .button-holder {
-            padding: 8px 12px 0 0;
-            a {
-                color: $vr-red;
-                &:hover {
-                    color: $vr-red;
-                    text-decoration: underline;
-                }
-            }
+            //padding: 8px 12px 0 0;
+            // a {
+            //     color: $vr-red;
+            //     &:hover {
+            //         color: $vr-red;
+            //         text-decoration: underline;
+            //     }
+            // }
             /* HACK by phil */
             .stop-warning {
+                display: inline-block;
                 padding-left: 12px;
+                margin-top:10px;
                 color: $vr-red;
             }
         }
@@ -1125,6 +1058,7 @@ nav.top-bar {
 .listeners {
     margin-right: 0;
     color: $oil;
+    text-align: center;
     svg {
         width: 18px;
         height: 18px;
@@ -1135,11 +1069,14 @@ nav.top-bar {
     .listener-count {
         // color: $oil;
         font-size: rem-calc(24);
+        line-height: 1.4;
+        margin-bottom: 0;
     }
     .listener-label {
         // color: $oil;
         font-size: rem-calc(12);
         margin: 0;
+        text-transform:uppercase;
     }
     @include breakpoint(medium) {
         margin-right: 24px;
