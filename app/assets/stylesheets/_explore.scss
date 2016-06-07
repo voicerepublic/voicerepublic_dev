@@ -173,7 +173,7 @@
         max-height: 60px;
         margin-bottom: 2px;
         @include breakpoint(medium) {
-            width: 14.285%;
+            width: 12.5%;
             margin-bottom: 0;
         }
     }
@@ -224,8 +224,11 @@
             @include breakpoint(medium) {
                 margin-right: 0;
                 margin-bottom: 12px;
-                font-size: rem-calc(12);
+                font-size: rem-calc(11);
                 line-height: rem-calc(12);
+            }
+            @include breakpoint(800px){
+                font-size: rem-calc(12)
             }
         }
     }
