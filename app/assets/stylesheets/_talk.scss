@@ -972,6 +972,14 @@ ul.share-links {
   
 //forms
 .talks-create, .talks-new, .talks-edit, .uploads-create, .uploads-new .uploads-edit {
+    .selectize-input {
+        background: white;
+            border: 1px solid #cacaca;
+    }
+            .selectize-dropdown .active {
+                background: $vr-yellow;
+                color: $talk-dark;
+            }
     .progress {
         height: 2px;
         border-radius:2px;
@@ -1095,3 +1103,5 @@ ul.share-links {
 //     font-size: 10em;
 //     transform: rotate(10deg)
 // }
+
+
