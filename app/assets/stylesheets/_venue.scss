@@ -681,17 +681,19 @@ nav.top-bar {
             }
         }
         .button-holder {
-            padding: 8px 12px 0 0;
-            a {
-                color: $vr-red;
-                &:hover {
-                    color: $vr-red;
-                    text-decoration: underline;
-                }
-            }
+            //padding: 8px 12px 0 0;
+            // a {
+            //     color: $vr-red;
+            //     &:hover {
+            //         color: $vr-red;
+            //         text-decoration: underline;
+            //     }
+            // }
             /* HACK by phil */
             .stop-warning {
+                display: inline-block;
                 padding-left: 12px;
+                margin-top:10px;
                 color: $vr-red;
             }
         }
