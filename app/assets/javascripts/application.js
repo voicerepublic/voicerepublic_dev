@@ -21,6 +21,7 @@
 //= require slick
 //= require jquery-ui/datepicker
 //= require jquery-ui/slider
+//= require greensock/TweenMax
 //
 // --- VENDORED LIBRARIES
 //= require jquery.jplayer.min
@@ -48,4 +49,3 @@
 //= require shame
 //= require cljs
 //= require topbar
-

@@ -1,17 +1,30 @@
-%section#claim.dark
-  .row
-    %header
-      %h1= t('.please_select_your_venue')
+:css
+  .driftup {
+    visibility: hidden;
+  }
 
-%section.light
-  .api-container.row.clearfix
-    .container.medium-10.medium-offset-1.large-8.large-offset-2.columns.text-left
-      - if @venues.empty?
-        %p
-          You seem to have no venue, yet. Please
-          = link_to 'create a talk', new_talk_path
-          first.
-      - else
-        %ul
-          - @venues.each do |venue|
-            %li= link_to venue.name, venue
+#working
+  = render 'explore/loading'
+%section.dark.text-center
+  .row
+    .title-block.driftup
+      = link_to root_path do
+        = naked_icon 'logo'
+      %h2= t('.please_select_a_venue')
+    - if @venues.empty?
+      %p
+        You seem to have no venue, yet. Please
+        = link_to 'create a talk', new_talk_path
+        first.
+    - else
+      %ul.menu
+        - @venues.each do |venue|
+          %li.talk-card.driftup
+            = link_to venue do
+              .talk-card-inside{class: venue.state}
+                %h5.title= venue.name
+                %p.clearfix
+                  %span.talk-count.float-left
+                    = human_count(venue.talks.count)
+                    = t('.talks', count: venue.talks.count)
+                  %span.venue-state.float-right= venue.state
