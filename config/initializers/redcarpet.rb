@@ -46,6 +46,11 @@ MD2HTML = Redcarpet::Markdown.new(Redcarpet::Render::VRHTML.new(filter_html: tru
 
 MD2TEXT = Redcarpet::Markdown.new(Redcarpet::Render::StripDown.new)
 
+MD2TEXT.alias_method :old_render, :render
+def MD2TEXT.render(str)
+  ApplicationHelper.strip_html(old_render(str))
+end
+
 # a more permissive renderer
 
 options = {

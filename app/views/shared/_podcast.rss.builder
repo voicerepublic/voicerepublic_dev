@@ -21,8 +21,6 @@
 # FIXME: itunes category hardcoded - where to get ahold of it?
 #
 
-include ApplicationHelper
-
 namespaces = {
   'xmlns:atom'            => "http://www.w3.org/2005/Atom",
   'xmlns:media'           => "http://search.yahoo.com/mrss/",
@@ -38,11 +36,11 @@ xml.rss namespaces.merge(version: '2.0') do
   xml.channel do
 
     # title
-    xml.title { xml.cdata! strip_html(@podcast.title) }
-    xml.dc(:title) { xml.cdata! strip_html(@podcast.title) }
+    xml.title { xml.cdata! @podcast.title }
+    xml.dc(:title) { xml.cdata! @podcast.title }
 
     xml.description do
-      xml.cdata! strip_html(@podcast.description) + I18n.t(:podcast_branding)
+      xml.cdata! @podcast.description + I18n.t(:podcast_branding)
     end
     xml.link @podcast.url
     langs = @podcast.talks.map(&:language).compact
@@ -52,7 +50,7 @@ xml.rss namespaces.merge(version: '2.0') do
     xml.image do
       xml.url unsecure_link(@podcast.image_url || itunes_image_url(@podcast.image))
       xml.title do
-        xml.cdata! strip_html(@podcast.image_title)
+        xml.cdata! @podcast.image_title
       end
       xml.link @podcast.image_link
     end
@@ -66,7 +64,7 @@ xml.rss namespaces.merge(version: '2.0') do
     xml.itunes :category, text: @podcast.category
     xml.itunes :subtitle, @podcast.subtitle
     xml.itunes :summary do
-      xml.cdata! strip_html(@podcast.description) + I18n.t(:podcast_branding)
+      xml.cdata! @podcast.description + I18n.t(:podcast_branding)
     end
     xml.itunes :explicit, 'no'
 
@@ -89,10 +87,10 @@ xml.rss namespaces.merge(version: '2.0') do
 
         # description
         xml.description do
-          xml.cdata! strip_html(talk.description_as_text) + I18n.t(:podcast_branding)
+          xml.cdata! talk.description_as_text + I18n.t(:podcast_branding)
         end
         xml.itunes :summary do
-          xml.cdata! strip_html(talk.description_as_text) + I18n.t(:podcast_branding)
+          xml.cdata! talk.description_as_text + I18n.t(:podcast_branding)
         end
 
         xml.itunes :subtitle, talk.teaser
