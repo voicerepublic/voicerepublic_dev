@@ -28,6 +28,8 @@ module ApplicationHelper
 
   # s works much like t, but looks up md formatted content from the db
   # and inserts it as html
+  #
+  # interpolations are also options, but the only option is :format
   def section(key, interpolations={})
     if key.to_s.first == "."
       if @virtual_path
@@ -42,13 +44,18 @@ module ApplicationHelper
       section.save
       section.reload
     end
-    section = section.content_as_html
+    case interpolations[:format]
+    when 'raw'
+      section = section.content || ''
+    else
+      section = section.content_as_html
+    end
     section = interpolations.inject(section) do |result, interpolation|
       name, value = interpolation
       result.gsub("%{#{name}}", value)
     end
-    if Rails.env.edvelopment? and section.blank?
-      section = "section: #{key}<br/>#{interpolations.inspect}"
+    if Rails.env.development? and section.blank?
+      section = [key, interpolations.inspect] * ' '
     end
     section.html_safe
   end
@@ -63,7 +70,7 @@ module ApplicationHelper
   def icon_tag(topic, opts={})
     title = opts[:title] || topic
     "<div class='svg-icon' title='#{title}'><svg><use xlink:href='#icon-#{topic}'></use></svg></div>".html_safe
-  end  
+  end
 
   def naked_icon(topic, opts={})
     "<svg><use xlink:href='#icon-#{topic}'></use></svg>".html_safe
