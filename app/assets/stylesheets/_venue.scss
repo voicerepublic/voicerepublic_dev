@@ -1106,6 +1106,7 @@ nav.top-bar {
         .talk-count, .venue-state {
             margin: 0 12px 12px 12px;
             font-size: rem-calc(14);
+            color: $topbar-dark;
         }
         .venue-state {
             // font-size: rem-calc(12);
@@ -1114,7 +1115,7 @@ nav.top-bar {
             letter-spacing: rem-calc(1);
             color: $oil;
         }
-        &.available {
+        &.available, &.connected {
             background: $success-color;
             &:hover {
                 background:$success-color;
