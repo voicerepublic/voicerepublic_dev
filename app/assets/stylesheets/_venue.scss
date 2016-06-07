@@ -68,10 +68,10 @@
     //     padding-top:24px;
     //         }
 }
-.top-bar {
+.venues .top-bar {
     padding: 12px;
-    min-height: inherit;
-    max-height: inherit;
+    // min-height: inherit;
+    // max-height: inherit;
     background:none;
     border-bottom:1px solid rgba(0,0,0,.3);
     box-shadow:none;
@@ -268,9 +268,9 @@ nav.top-bar {
 }
 
 .top-bar svg {
-    width: 16px;
-    height: 16px;
-    fill: $primary-color;
+    width: 54px;
+    height: 44px;
+    fill: $vr-red;
 }
 
 .top-bar ul {

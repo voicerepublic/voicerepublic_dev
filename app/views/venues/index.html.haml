@@ -3,13 +3,9 @@
     visibility: hidden;
   }
 
-#working
-  = render 'explore/loading'
-%section.dark.text-center
+%section.text-center
   .row
     .title-block.driftup
-      = link_to root_path do
-        = naked_icon 'logo'
       %h2= t('.please_select_a_venue')
     - if @venues.empty?
       %p
