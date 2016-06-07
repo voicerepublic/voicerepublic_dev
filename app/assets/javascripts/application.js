@@ -21,12 +21,12 @@
 //= require slick
 //= require jquery-ui/datepicker
 //= require jquery-ui/slider
+//= require greensock/TweenMax
 //
 // --- VENDORED LIBRARIES
 //= require jquery.jplayer.min
 //= require nprogress
 //= require jquery-ui-timepicker-addon
-//= require greensock/TweenMax
 //
 // --- COMPONENTS
 //= require components/ajax_filter
@@ -39,8 +39,6 @@
 //= require components/language_select
 //= require components/instant_image
 //= require components/on_blank_show
-//= require components/particles.min
-//= require components/stackblur
 //
 // --- VIEWS
 //= require views/explore
@@ -51,4 +49,3 @@
 //= require shame
 //= require cljs
 //= require topbar
-
