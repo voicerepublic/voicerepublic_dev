@@ -475,6 +475,20 @@ button,
             margin-bottom: 18px;
             text-align: left;
         }
+
+        .live-inline-label {
+            color: white;
+    background: $vr-red;
+    padding: 7px;
+    font-size: 24px;
+    font-weight: 200;
+    vertical-align: middle;
+    line-height: 0;
+    margin-right: 6px;
+    text-transform: uppercase;
+    font-family: $body-font-family;
+    letter-spacing: rem-calc(3);
+        }
     }
 }
     .teaser {
@@ -491,7 +505,7 @@ button,
             line-height: rem-calc(24);
             border-bottom:0;
             padding-bottom:0;
-            margin-bottom: 0;
+            // margin-bottom: 0;
         }
 
         .inline-speaker {
