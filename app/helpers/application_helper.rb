@@ -135,6 +135,10 @@ module ApplicationHelper
     document.text
   end
 
+  def unsecure_link(link)
+    link.gsub(/https:\/\//, "http://")
+  end
+
   def render_social_meta_tags(opts)
     render partial: 'shared/social_meta_tags', locals: opts
   end

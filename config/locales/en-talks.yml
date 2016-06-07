@@ -172,6 +172,9 @@ en:
       teaser: Short description
       tag_list: Tags
       create_new_series: Create New Series...
+    podcast:
+      title: "%{title}"
+      subtitle: "Podcast provided by Voice Republic"
 
   # this makes all translations from `talks` also available to `uploads`
   uploads:
