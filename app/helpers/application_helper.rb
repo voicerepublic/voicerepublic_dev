@@ -27,6 +27,12 @@ module ApplicationHelper
     true
   end
 
+  # TODO: refactor into controllers
+  def render_top_loader?
+    return false if controller_action == 'talks-show'
+    true
+  end
+
   def controller_action
     [controller_name, action_name] * '-'
   end

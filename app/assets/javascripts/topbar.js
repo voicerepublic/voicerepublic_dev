@@ -1,20 +1,26 @@
+var $searchLoupe = $('#search-loupe a')
+var $searchContainer = $('.search-container')
+var $canHide = $('.can-hide')
+
+TweenMax.set($searchContainer,{right:"-800px", autoAlpha:0})
+
+var showSearchContainer = function(){
+    TweenMax.to($searchContainer, .5, {autoAlpha: 1, right: 0, ease: Power2.easeOut})
+    TweenMax.to($searchLoupe, .5, {autoAlpha: 0, scaleX: 0, scaleY: 0})
+    TweenMax.to($canHide, .5, {autoAlpha: 0, scaleX: 0, scaleY: 0})
+}
+
+var hideSearchContainer = function(){
+    TweenMax.to($searchContainer, .5, {autoAlpha: 0, right: "-800px", ease: Power2.easeOut})
+    TweenMax.to($searchLoupe, .5, {autoAlpha: 1, scaleX: 1, scaleY: 1})
+    TweenMax.to($canHide, .5, {autoAlpha: 1, scaleX: 1, scaleY: 1})
+}
+
 $('#search-loupe a').on('click',function(){
-    $('.can-hide').addClass('animated zoomOut').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend',function(){
-        $(this).removeClass('animated zoomOut').addClass('hide');
-    });
-    $('.search-container').removeClass('hide').addClass('animated fadeInRight').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend',function(){
-        $('.search-container').find('input').focus();
-    });
+    showSearchContainer()
     $('#mobile-nav').hide();
 });
 
 $('#search-close').on('click', function(){
-    $('.search-container').addClass('animated fadeOutRight').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend',function(){
-        $(this).removeClass('animated fadeOutRight').addClass('hide');
-        $('.can-hide').removeClass('hide').addClass('animated zoomIn').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend',function(){
-            $(this).removeClass('animated zoomIn');
-        });
-    });
-   
-
+    hideSearchContainer()
 });

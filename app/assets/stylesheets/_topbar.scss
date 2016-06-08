@@ -239,6 +239,7 @@
     width: 380px;
     background: $talk-dark;
     animation-duration: .5s;
+    z-index: 999;
     form {
         label button {
             color: white;
