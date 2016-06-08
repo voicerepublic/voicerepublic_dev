@@ -71,6 +71,10 @@
 
 }
 
+.talks #app {
+    z-index: 1;
+}
+
 #venue-header, .control-panels {
     padding: 0 12px;
 }
