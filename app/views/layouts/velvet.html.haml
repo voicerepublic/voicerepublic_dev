@@ -73,7 +73,7 @@
                 %li
                   = link_to(destroy_user_session_path, method: :delete) do
                     = t('.logout')
-        .search-container.hide
+        .search-container
           = form_tag search_path do
             %input#search-field.search{placeholder: t('.search_placeholder'), type: "text", name: 'query' }/
             %label
