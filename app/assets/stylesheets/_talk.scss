@@ -76,6 +76,9 @@ audio {
   &.live {
     background: $vr-red;
   }
+  &.archived {
+    background: $topbar-dark;
+  }
   &.processing {
     background:$vr-yellow;
     color: $talk-dark;
@@ -321,6 +324,12 @@ button,
         max-width: 16px;
         height: 16px;
         max-height:16px;
+    }
+    &.prelive {
+        -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+    opacity: .3;
+    pointer-events: none;
     }
 }
 
@@ -950,7 +959,7 @@ ul.share-links {
 
 .talks .state-container {
     margin-bottom: 12px;
-    li {
+    p span {
         margin-bottom: 6px;
         margin-right: 0;
         @include breakpoint(medium) {
@@ -974,11 +983,16 @@ ul.share-links {
     letter-spacing: rem-calc(1);
     }
     &.prelive {
+        text-align: left;
         @include breakpoint(medium){
         min-width: 170px;
 
         }
     }
+    &.archived {
+        display: none;
+    }
+
 }
 .button {
     padding-top: 8px;
