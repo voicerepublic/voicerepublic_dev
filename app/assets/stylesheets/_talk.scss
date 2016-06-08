@@ -325,6 +325,14 @@ button,
         height: 16px;
         max-height:16px;
     }
+    .button-pin, .button-unpin {
+        svg {
+            max-height: 24px;
+            max-width: 24px;
+            width: 24px;
+            height: 24px;
+        }
+    }
     
 }
 
@@ -383,23 +391,33 @@ button,
 .button-pin {
     font-size: rem-calc(10);
     font-weight: 300;
-    &:hover {
-        background:$success-color;
-       // color: $talk-dark;
-    }
+    // &:hover {
+    //     svg {
+
+    //     color:$success-color;
+    //     }
+    //    // color: $talk-dark;
+    // }
 }
 .button-unpin {
     font-size: rem-calc(10);
     font-weight:300;
-    background: $vr-light-blue;
-    &:hover {
-        background:$vr-red;
+    svg {
+        color: $vr-light-blue;
     }
+    //background: $vr-light-blue;
+    // &:hover {
+    //     svg {
+    //     color:$vr-red;
+    //     }
+    // }
 }
 
 }
 
  .player-container.prelive, 
+ .player-container.suspended, 
+ .player-container.pending, 
  .player-container.postlive, 
  .player-container.processing {
 
