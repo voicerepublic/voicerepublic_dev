@@ -101,7 +101,7 @@ class TalksController < BaseController
   def talk_params
     params.require(:talk).permit(:title, :teaser, :starts_at_date,
                                  :starts_at_time, :duration, :speakers,
-                                 :description, :image,
+                                 :description, :image, :venue_id,
                                  :tag_list, :guest_list, :language,
                                  :format, :new_series_title, :series_id,
                                  :user_override_uuid, :dryrun, :slides_uuid)
