@@ -325,11 +325,11 @@ button,
         height: 16px;
         max-height:16px;
     }
-    &.prelive {
+    &.prelive, &.postlive, &.processing {
         -webkit-filter: grayscale(100%);
-    filter: grayscale(100%);
-    opacity: .3;
-    pointer-events: none;
+        filter: grayscale(100%);
+        opacity: .3;
+        pointer-events: none;
     }
 }
 
