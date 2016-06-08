@@ -1133,3 +1133,20 @@ nav.top-bar {
         }
     }
 }
+
+#venue-dropdown {
+    max-width: 300px;
+    background: white;
+    float:right;
+    margin-right: -12px;
+    box-shadow:0 1px 5px rgba(black,.3);
+    li a{
+        color: $talk-dark;
+        background:white;
+        transition: background .2s ease;
+        &:hover {
+            background: $vr-yellow;
+
+        }
+    }
+}
