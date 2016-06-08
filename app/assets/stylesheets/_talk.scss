@@ -349,14 +349,6 @@ button,
         margin-bottom: 12px;
     }
 
-    .alt & {
-        margin-top: 12px;
-    }
-    .alt3 & {
-        margin-bottom: 24px;
-    }
-}
-
 .button-playbar {
     flex: 0 0 70px;
     margin: 0;
@@ -365,7 +357,13 @@ button,
     height: 70px;
     font-size: 1.4em;
     outline: none;
+    border: 0;
     padding: 0;
+        svg {
+        width: 36px;
+        height: 36px;
+        margin:0;
+    }
     span {
         width: 100%;
     }
@@ -374,7 +372,19 @@ button,
 .button-play-pause {
     // animation: pulse 2s infinite;
     background: $vr-blue;
+    &:hover {
+        background:$vr-light-blue;
+    }
 }
+.button-pin {
+    &:hover {
+        background:$vr-yellow;
+        color: $talk-dark;
+    }
+}
+}
+
+
 
 .muted {
     background: $alert-color;
@@ -396,7 +406,7 @@ button,
         width: 12px;
         /*height: 1px;*/
         /*max-height: 0px;*/
-        background: $warning-color;
+        background: $vr-yellow;
         align-self: flex-end;
     }
 }
@@ -465,6 +475,20 @@ button,
             margin-bottom: 18px;
             text-align: left;
         }
+
+        .live-inline-label {
+            color: white;
+    background: $vr-red;
+    padding: 7px;
+    font-size: 24px;
+    font-weight: 200;
+    vertical-align: middle;
+    line-height: 0;
+    margin-right: 6px;
+    text-transform: uppercase;
+    font-family: $body-font-family;
+    letter-spacing: rem-calc(3);
+        }
     }
 }
     .teaser {
@@ -481,7 +505,7 @@ button,
             line-height: rem-calc(24);
             border-bottom:0;
             padding-bottom:0;
-            margin-bottom: 0;
+            // margin-bottom: 0;
         }
 
         .inline-speaker {
