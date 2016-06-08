@@ -332,6 +332,7 @@ button,
             width: 24px;
             height: 24px;
         }
+
     }
     
 }
@@ -387,6 +388,12 @@ button,
     &:hover {
         background:$vr-light-blue;
     }
+}
+
+.button-pin, .button-unpin {
+    &:hover {
+            background:$vr-blue;
+        }
 }
 .button-pin {
     font-size: rem-calc(10);
