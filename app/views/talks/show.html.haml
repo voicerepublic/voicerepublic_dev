@@ -29,6 +29,7 @@
     initialSnapshot = #{@talk.snapshot.to_json};
 
     pinId = #{@reminder.try(:id) || 'null'};
+    podcastUrl = #{podcast_url(@talk.series).to_json};
 
 %audio#audio
 
