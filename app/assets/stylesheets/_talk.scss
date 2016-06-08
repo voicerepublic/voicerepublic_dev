@@ -76,6 +76,9 @@ audio {
   &.live {
     background: $vr-red;
   }
+  &.archived {
+    background: $topbar-dark;
+  }
   &.processing {
     background:$vr-yellow;
     color: $talk-dark;
@@ -322,6 +325,7 @@ button,
         height: 16px;
         max-height:16px;
     }
+    
 }
 
 #talk-playbar {
@@ -377,14 +381,38 @@ button,
     }
 }
 .button-pin {
+    font-size: rem-calc(10);
+    font-weight: 300;
     &:hover {
-        background:$vr-yellow;
-        color: $talk-dark;
+        background:$success-color;
+       // color: $talk-dark;
     }
 }
+.button-unpin {
+    font-size: rem-calc(10);
+    font-weight:300;
+    background: $vr-light-blue;
+    &:hover {
+        background:$vr-red;
+    }
 }
 
+}
 
+ .player-container.prelive, 
+ .player-container.postlive, 
+ .player-container.processing {
+
+    .button-play-pause, #meter, .timecode, .timeline {
+
+        -webkit-filter: grayscale(100%);
+        filter: grayscale(100%);
+        opacity: .3;
+        pointer-events: none;
+    
+    }
+
+ }
 
 .muted {
     background: $alert-color;
@@ -787,6 +815,8 @@ ul.share-links {
     height: auto;
     padding: 12px 6px 200px 6px;
     transition: opacity 1s ease;
+    position:relative;
+    z-index: 0;
     @include breakpoint(medium) {
         padding: 12px 6px 48px 6px;
         // max-width: 300px;
@@ -950,7 +980,7 @@ ul.share-links {
 
 .talks .state-container {
     margin-bottom: 12px;
-    li {
+    p span {
         margin-bottom: 6px;
         margin-right: 0;
         @include breakpoint(medium) {
@@ -959,6 +989,7 @@ ul.share-links {
             padding-right:6px;
         }
     }
+
  .state-msg {
     padding-top: 6px;
     padding-bottom: 6px;
@@ -974,11 +1005,14 @@ ul.share-links {
     letter-spacing: rem-calc(1);
     }
     &.prelive {
+        text-align: left;
         @include breakpoint(medium){
         min-width: 170px;
 
         }
     }
+
+
 }
 .button {
     padding-top: 8px;

@@ -4,7 +4,8 @@
 $('.flash-msg').delay(3000).fadeOut(1000);
 
 $('#mobile-logo').on('click', function(){
-  $('#mobile-nav').toggle();
+  $('#mobile-nav').toggle().toggleClass('hide');
+  hideSearchContainer()
 });
 
 $('.button-volume').on('click', function() {
@@ -114,5 +115,6 @@ $(document).ready(function(){
   $('.top-bar').removeClass('transparent');
   $('#working').addClass('offscreen');
 });
+
 
 $(document).foundation();

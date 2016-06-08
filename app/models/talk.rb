@@ -180,6 +180,7 @@ class Talk < ActiveRecord::Base
   scope :reordered, -> { order('starts_at DESC') }
   scope :recent, -> { nodryrun.archived.order('ends_at DESC') }
   scope :promoted, -> { nodryrun.archived.featured.order('featured_from DESC') }
+  scope :scheduled_or_archived, -> { where("state IN ('prelive','archived')")}
 
   ARCHIVED_AND_LIMBO =
     %w(archived pending postlive processing suspended).map { |s| "'#{s}'" } * ','
@@ -346,14 +347,14 @@ class Talk < ActiveRecord::Base
 
     limit = goal - talks.size
     talks += series.talks.where.not(id: id).
-            where.not(state: 'suspended').ordered.limit(limit)
+            scheduled_or_archived.ordered.limit(limit)
 
     return talks if talks.size == goal
 
     limit = goal - talks.size
     talks += Talk.joins(:series).
             where(series: { user_id: series.user_id }).
-            where.not(state: 'suspended').
+            scheduled_or_archived.
             where.not(id: id).ordered.limit(limit)
 
     return talks if talks.size == goal
