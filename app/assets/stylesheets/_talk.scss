@@ -833,15 +833,23 @@ ul.share-links {
     max-width: 64em;
     li {
         text-align: center;
+        a {
+            
+        color: white;
+        }
         a:hover {
             color: $vr-yellow;
         }
     }
     svg {
         color: currentColor;
-        width: 44px;
-        height: 44px;
+        width: 24px;
+        height: 24px;
     }
+}
+
+.share-flyer {
+    max-height: 50vh;
 }
 
 #right-sidebar {
