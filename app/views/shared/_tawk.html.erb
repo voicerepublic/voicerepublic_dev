@@ -1,7 +1,6 @@
 <!--Start of Tawk.to Script-->
 <script type="text/javascript">
 // Do not enable Tawk.to for mobile devices
-if(!Modernizr.touch) {
   var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
   <% if @current_user %>
     Tawk_API.visitor = {
@@ -17,7 +16,11 @@ if(!Modernizr.touch) {
   s1.setAttribute('crossorigin','*');
   s0.parentNode.insertBefore(s1,s0);
   })();
-}
-$('.talks-show #tawkchat-container').css("bottom","60px important!")
+
+  // push up by 60px
+  //setTimeout(function () {
+  //elem = $('.talks-show #tawkchat-minified-iframe-element');
+  //elem.attr("style", elem.attr("style") + "bottom: 60px !important;");
+  //}, 5000);
 </script>
 <!--End of Tawk.to Script-->
