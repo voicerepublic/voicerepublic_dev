@@ -498,6 +498,15 @@ button,
     border-radius: 2px;
 }
 
+.track-buffered {
+    width: 18%;
+    background: $oil;
+    height: 12px;
+    position: absolute;
+    z-index: -1;
+    border-radius: 2px;
+}
+
 .talk-title {
     padding-bottom:0;
     h1 {
