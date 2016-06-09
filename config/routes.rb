@@ -2,6 +2,10 @@ Rails.application.routes.draw do
 
   extend ApplicationHelper
 
+  get '/403', to: 'application#forbidden'
+  get '/404', to: 'application#record_not_found'
+  get '/500', to: 'application#forbidden'
+
   # a bunch of redirects
   scope 'r' do
     get 'md',       to: redirect(blog_url('/how-to-format-text-with-markdown'))

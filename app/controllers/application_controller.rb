@@ -133,7 +133,6 @@ class ApplicationController < ActionController::Base
   def record_not_found
     respond_to do |format|
       format.html do
-        @talk = Talk.promoted.first
         render action: 'record_not_found', status: 404, layout: 'velvet'
       end
       format.rss { render status: 410, text: RSS_GONE }
@@ -155,7 +154,7 @@ class ApplicationController < ActionController::Base
   end
 
   def access_denied
-    redirect_to root_url, alert: I18n.t('access_denied')
+    render action: 'forbidden', status: 403, layout: 'velvet'
   end
 
 end
