@@ -456,7 +456,7 @@ class Talk < ActiveRecord::Base
         channel: channel,
         venue: {
           user: venue_user_attributes,
-          stream_url: venue.stream_url,
+          stream_url: live? ? venue.stream_url : nil,
           url: venue.self_url
         },
         series: series.attributes.merge(
