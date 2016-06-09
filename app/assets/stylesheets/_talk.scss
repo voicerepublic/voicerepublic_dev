@@ -325,6 +325,15 @@ button,
         height: 16px;
         max-height:16px;
     }
+    .button-pin, .button-unpin {
+        svg {
+            max-height: 24px;
+            max-width: 24px;
+            width: 24px;
+            height: 24px;
+        }
+
+    }
     
 }
 
@@ -380,26 +389,42 @@ button,
         background:$vr-light-blue;
     }
 }
+
+.button-pin, .button-unpin {
+    &:hover {
+            background:$vr-blue;
+        }
+}
 .button-pin {
     font-size: rem-calc(10);
     font-weight: 300;
-    &:hover {
-        background:$success-color;
-       // color: $talk-dark;
-    }
+    // &:hover {
+    //     svg {
+
+    //     color:$success-color;
+    //     }
+    //    // color: $talk-dark;
+    // }
 }
 .button-unpin {
     font-size: rem-calc(10);
     font-weight:300;
-    background: $vr-light-blue;
-    &:hover {
-        background:$vr-red;
+    svg {
+        color: $vr-light-blue;
     }
+    //background: $vr-light-blue;
+    // &:hover {
+    //     svg {
+    //     color:$vr-red;
+    //     }
+    // }
 }
 
 }
 
  .player-container.prelive, 
+ .player-container.suspended, 
+ .player-container.pending, 
  .player-container.postlive, 
  .player-container.processing {
 
@@ -470,6 +495,15 @@ button,
     height: 12px;
     background: $vr-light-blue;
     width: 0%;
+    border-radius: 2px;
+}
+
+.track-buffered {
+    width: 18%;
+    background: $oil;
+    height: 12px;
+    position: absolute;
+    z-index: -1;
     border-radius: 2px;
 }
 
@@ -799,15 +833,23 @@ ul.share-links {
     max-width: 64em;
     li {
         text-align: center;
+        a {
+            
+        color: white;
+        }
         a:hover {
             color: $vr-yellow;
         }
     }
     svg {
         color: currentColor;
-        width: 44px;
-        height: 44px;
+        width: 24px;
+        height: 24px;
     }
+}
+
+.share-flyer {
+    max-height: 50vh;
 }
 
 #right-sidebar {

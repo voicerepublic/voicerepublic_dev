@@ -372,8 +372,14 @@
     }
 
     &.warning {
-            background: $vr-yellow;
+        background: $vr-yellow;
         color: $talk-dark;
+        .top-bar-right ul li a {
+            color: $oil;
+            &:hover {
+                color: $talk-dark;
+            }
+        }
         svg {
             fill: $vr-red;
         }
