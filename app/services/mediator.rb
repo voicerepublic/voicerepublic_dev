@@ -15,6 +15,45 @@ require File.expand_path(File.join(%w(.. mediator dj_callback)), __FILE__)
 #
 class Mediator
 
+  # a never complete list of boring domains
+  BORING_DOMAINS = %w(
+    bluewin.ch
+    versanet.de
+    freenet.de
+    googlemail.com
+    gmail.com
+    yahoo.co.uk
+    yahoo.com
+    yahoo.de
+    web.de
+    hotmail.com
+    hotmail.co.uk
+    gmx.ch
+    gmx.us
+    gmx.de
+    gmx.net
+    gmx.at
+    yopmail.com
+    emailgo.de
+    t-online.de
+    exemail.com.au
+    live.com
+    live.co.uk
+    live.ca
+    outlook.com
+    outlook.de
+    talk21.com
+    fadingemails.com
+    ntlworld.com
+    icloud.com
+    msn.com
+    posteo.de
+    aol.com
+    aol.de
+    btinternet.com
+    me.com
+  )
+
   include Services::Subscriber  # provides `subscribe`
   include Services::Publisher   # provides `publish`
   include Services::LocalConfig # provides `config`
@@ -135,6 +174,10 @@ class Mediator
       #host_or_ip = resolv(ip)
       message = "%s just registered with %s" %
                 [slack_link(name, url), email]
+
+      domain = email.split('@').last
+      domain = false if BORING_DOMAINS.include?(domain)
+      message += ", check out http://" + domain if domain
 
       { x: 'notification', text: message }
 
