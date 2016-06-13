@@ -1,7 +1,0 @@
--# Since angular's dependency injection decides in what order to
--# resolve dependencies this can totally go into the html page
--# rendered by rails.
-%script
-  sencha.factory("config", function() {
-  return #{ UploadConfig.new(@talk, current_user).to_json.html_safe };
-  });
