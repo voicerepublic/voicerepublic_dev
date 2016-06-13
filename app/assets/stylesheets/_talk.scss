@@ -334,7 +334,7 @@ button,
         }
 
     }
-    
+
 }
 
 #talk-playbar {
@@ -422,10 +422,10 @@ button,
 
 }
 
- .player-container.prelive, 
- .player-container.suspended, 
- .player-container.pending, 
- .player-container.postlive, 
+ .player-container.prelive,
+ .player-container.suspended,
+ .player-container.pending,
+ .player-container.postlive,
  .player-container.processing {
 
     .button-play-pause, #meter, .timecode, .timeline {
@@ -434,7 +434,7 @@ button,
         filter: grayscale(100%);
         opacity: .3;
         pointer-events: none;
-    
+
     }
 
  }
@@ -834,7 +834,7 @@ ul.share-links {
     li {
         text-align: center;
         a {
-            
+
         color: white;
         }
         a:hover {
@@ -1193,3 +1193,7 @@ ul.share-links {
     height: 220px;
 }
 
+.slides .progress .meter {
+    height: 100%;
+    background-color: $vr-red;
+}

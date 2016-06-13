@@ -444,6 +444,7 @@ class Talk < ActiveRecord::Base
         play_count: play_count,
         image_alt: image_alt,
         duration: duration,
+        slides_url: slides_url(false),
 
         # extended
         archived_duration: podcast_file && podcast_file[:seconds],

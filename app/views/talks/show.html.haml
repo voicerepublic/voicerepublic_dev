@@ -5,7 +5,6 @@
   = social_meta_tags_talk
 
 - content_for :javascripts do
-  %script{ src: '/pdf_viewer/pdf-viewer-0.1.2.js' }
   %script{ src: Settings.faye.server + '/client.js' }
   = javascript_include_tag 'faye-authentication'
   :javascript
@@ -30,6 +29,8 @@
 
     pinId = #{@reminder.try(:id) || 'null'};
     podcastUrl = #{podcast_url(@talk.series).to_json};
+
+    pdfWorkerSrc = #{asset_path('pdf.worker.js').to_json};
 
 %audio#audio
 
