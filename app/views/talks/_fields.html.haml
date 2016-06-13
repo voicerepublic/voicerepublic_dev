@@ -64,16 +64,6 @@
     = f.input :description, input_html: { rows: 10 }
   %hr
 
-  -#.title-box.clearfix
-  -#  %h3.form-title.left= t('.upload_slides')
-  -#  = f.input :slides_uuid, as: :hidden
-  -#  - if f.object.new_record? and f.object.slides_uuid?
-  -#    .help-text.left= t('.upload_done')
-  -#  - else
-  -#    = render partial: 'shared/upload',
-  -#             locals: { f: f, ns: 'slides', init: init_slides_uploader }
-
-
   = f.input :slides_uuid, as: :hidden
   = render partial: 'shared/upload',
     locals: { f: f, ns: 'slides', init: init_slides_uploader }
