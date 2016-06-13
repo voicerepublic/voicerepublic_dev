@@ -129,14 +129,10 @@ module ApplicationHelper
       YAML.load(File.read(Rails.root.join('config/sections.yml')))
   end
 
-  def self.strip_html(str)
+  def strip_html(str)
     document = Nokogiri::HTML.parse(str)
     document.css("br").each { |node| node.replace("\n") }
     document.text
-  end
-
-  def strip_html(str)
-    ApplicationHelper.strip_html(str)
   end
 
   def unsecure_link(link)

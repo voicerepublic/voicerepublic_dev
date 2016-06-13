@@ -93,4 +93,35 @@ namespace :cleanup do
     puts "Kept #{res[:yes]} saved listeners, #{res[:no]} have been deleted."
   end
 
+  desc "Regenerate plain text for descriptions"
+  task regenerate_plain_text: :environment do
+    fields = {[User] => "about", [Talk, Series, Organization] => "description"}
+    items = {}
+    puts "Starting to regenerate plain text for:"
+    sum = 0
+    fields.each do |models, field|
+      models.each do |model|
+        items[model] ||= model.where("#{field} is not null and #{field} != ''")
+        puts "\t#{model}.#{field}: #{items[model].size} items"
+        sum += items[model].size
+      end
+    end
+    puts "Total: #{sum} items. This might take a while."
+    sum = 0
+    fields.each do |models, field|
+      models.each do |model|
+        puts "Regenerating plain text for #{model}.#{field}..."
+        count = 0
+        items[model].each do |item|
+          item.send("#{field}_as_text=", MD2TEXT.render(item.send(field)))
+          item.save
+          count += 1
+        end
+        puts "Done! Regenerated plain text for #{count} instances of #{model}.#{field}."
+        sum += count
+      end
+    end
+    puts "Finished task. Regenerated plain text for #{sum} total fields."
+  end
+
 end

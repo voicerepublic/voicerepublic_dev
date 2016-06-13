@@ -444,18 +444,6 @@ class Handyman
       end
     end
 
-    def regenerate_plain_text(config={}, default=false)
-      config = {[User] => "about", [Talk, Series, Organization] => "description"} if default
-      config.each do |models, field|
-        models.each do |model|
-          model.where("#{field} is not null").each do |item|
-            item.send("#{field}_as_text=", MD2TEXT.render(item.send(field)))
-            item.save
-          end
-        end
-      end
-    end
-
     private
 
     def log(msg)
