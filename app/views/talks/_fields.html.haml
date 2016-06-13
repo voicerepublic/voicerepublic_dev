@@ -72,3 +72,8 @@
   -#  - else
   -#    = render partial: 'shared/upload',
   -#             locals: { f: f, ns: 'slides', init: init_slides_uploader }
+
+
+  = f.input :slides_uuid, as: :hidden
+  = render partial: 'shared/upload',
+    locals: { f: f, ns: 'slides', init: init_slides_uploader }
