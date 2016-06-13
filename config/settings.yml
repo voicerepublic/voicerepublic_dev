@@ -85,6 +85,7 @@ blackbox:
 limit:
   text: 2300
   string: 140
+  varchar: 255
 simon:
   enabled: false
 slack:
