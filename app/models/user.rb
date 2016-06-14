@@ -78,16 +78,19 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :omniauthable,
     :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
-  validates :email, uniqueness: true
+  validates :email, uniqueness: true, length: { maximum: Settings.limit.varchar }
   validates :firstname, presence: true, length: { minimum: 1, maximum: 100 }
   validates :lastname, presence: true, length: { minimum: 1, maximum: 100 }
   validates :summary, length: { maximum: Settings.limit.string }
   validates :about, length: { maximum: Settings.limit.text }
   validates :slug, presence: true
 
-  validates :slug, length: { minimum: 5 }
+  validates :slug, length: { minimum: 5,
+                             maximum: Settings.limit.varchar }
   validates :slug, format: { with: /\A[\w-]+\z/,
                              message: I18n.t('validation.bad_chars_in_slug') }
+
+  validates :website, length: { maximum: Settings.limit.varchar }
 
   validates_acceptance_of :accept_terms_of_use
   # TODO check if this works, especcialy the allow_nil, and does allow_nil make sense?

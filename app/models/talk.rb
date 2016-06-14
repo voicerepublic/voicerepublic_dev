@@ -121,6 +121,8 @@ class Talk < ActiveRecord::Base
 
   validates :new_series_title, presence: true, if: ->(t) { t.series_id.nil? }
 
+  validates :speakers, length: {maximum: Settings.limit.varchar}
+
   # for temp usage during creation, we need this to hand the user
   # trough to associate with a default_series or create a new one
   attr_accessor :series_user
