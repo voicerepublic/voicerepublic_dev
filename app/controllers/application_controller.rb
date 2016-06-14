@@ -64,6 +64,40 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # === Better Exception Handling ===
+  rescue_from CanCan::AccessDenied, with: :forbidden
+  rescue_from ActiveRecord::RecordNotFound, with: :not_found
+  rescue_from ActionController::RoutingError, with: :not_found
+  rescue_from OutdatedBrowser, with: :outdated_browser
+  # ActionView::Template::Error
+  # ActionController::InvalidAuthenticityToken
+  # Errno::ENOSPC
+
+  def forbidden
+    @body_classes = %w( error 403 forbidden )
+    render layout: 'velvet', status: 403
+  end
+
+  def not_found
+    respond_to do |format|
+      format.html do
+        @body_classes = %w( error 404 not-found )
+        render layout: 'velvet', status: 404
+      end
+      format.rss { render status: 410, text: RSS_GONE }
+      format.json { render status: 404, text: 'Not found.' }
+    end
+  end
+
+  def internal_server_error
+    @body_classes = %w( error 500 internal-server-error )
+    render layout: 'velvet', status: 500
+  end
+
+  def outdated_browser
+    redirect_to '/pages/outdated_browser'
+  end
+
   private
 
   def check_browser
@@ -117,44 +151,6 @@ class ApplicationController < ActionController::Base
 
   def set_csrf_cookie_for_ng
     cookies['XSRF-TOKEN'] = form_authenticity_token if protect_against_forgery?
-  end
-
-
-  # === Better Exception Handling ===
-  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
-  rescue_from ActionController::RoutingError, with: :routing_error
-  rescue_from OutdatedBrowser, with: :outdated_browser
-  rescue_from CanCan::AccessDenied, with: :access_denied
-
-  # ActionView::Template::Error
-  # ActionController::InvalidAuthenticityToken
-  # Errno::ENOSPC
-
-  def record_not_found
-    respond_to do |format|
-      format.html do
-        render action: 'record_not_found', status: 404, layout: 'velvet'
-      end
-      format.rss { render status: 410, text: RSS_GONE }
-      format.json { render status: 404, text: 'Not found.' }
-    end
-  end
-
-  def routing_error
-    respond_to do |format|
-      format.html do
-        render action: 'routing_error', status: 404, layout: 'velvet'
-      end
-      format.rss { render status: 410, text: RSS_GONE }
-    end
-  end
-
-  def outdated_browser
-    redirect_to '/pages/outdated_browser'
-  end
-
-  def access_denied
-    render action: 'forbidden', status: 403, layout: 'velvet'
   end
 
 end
