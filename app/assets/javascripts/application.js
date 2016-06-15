@@ -27,7 +27,6 @@
 //= require jquery.jplayer.min
 //= require nprogress
 //= require jquery-ui-timepicker-addon
-//= require pdf
 //
 // --- COMPONENTS
 //= require components/ajax_filter
