@@ -759,6 +759,18 @@ button,
         max-width:1024px;
         margin:0 auto;
         padding: 24px 0;
+
+        svg {
+            vertical-align: middle;
+        }
+
+        h3 {
+            color: $talk-dark;
+            font-size: rem-calc(18);
+            text-transform:uppercase;
+            letter-spacing: rem-calc(1);
+            margin-bottom: 12px;
+        }
     }
 
     .comment-avatar {
@@ -769,7 +781,7 @@ button,
     .previous-comments {
         margin-top: 48px;
     }
-    .cancel {
+    button.cancel {
         margin-right: 6px;
     }
     .panel {
