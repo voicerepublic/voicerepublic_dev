@@ -251,6 +251,7 @@ button,
 .talk-picture {
     padding: 0;
     margin-bottom: 12px;
+    position:relative;
     @include breakpoint(medium) {
         margin-bottom: 0;
     }
@@ -1214,6 +1215,17 @@ ul.share-links {
 .slides .progress .meter {
     height: 100%;
     background-color: $vr-red;
+}
+
+#view-slides {
+    left: 12px;
+    bottom: 12px;
+    text-align: center;
+    svg {
+        width: 16px;
+        height: 16px;
+        margin: 0 auto;
+    }
 }
 
 //SLIDES VIEWER
