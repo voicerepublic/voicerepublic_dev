@@ -74,12 +74,13 @@ module VoiceRepublic
 
     # http://stackoverflow.com/questions/18294150/how-to-use-fonts-in-rails-4
     config.assets.paths << "#{config.root}/app/assets/fonts"
+
     # config.assets.precompile += %w( *.js *.png *.jpg *.eot *.woff *.ttf *.svg )
-    config.assets.precompile += %w( sencha.js embed_talk.js )
-
-    config.assets.precompile += %w( embed_talk.css )
-
-    config.assets.precompile += %w( venues.js )
+    config.assets.precompile += %w( sencha.js
+                                    embed_talk.js
+                                    embed_talk.css
+                                    venues.js
+                                    pdf.worker.js )
 
     # Handling exceptions dynamically using middleware.
     # Here a rack middleware app could be configured, instead we are using the
