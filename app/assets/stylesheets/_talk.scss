@@ -382,6 +382,12 @@ button,
     }
 }
 
+.slides-button {
+    &:hover {
+        background:$vr-blue;
+    }
+}
+
 .button-play-pause {
     // animation: pulse 2s infinite;
     background: $vr-blue;
@@ -1208,4 +1214,52 @@ ul.share-links {
 .slides .progress .meter {
     height: 100%;
     background-color: $vr-red;
+}
+
+//SLIDES VIEWER
+
+.slides {
+    background:rgba($almost-black, .3);
+    margin:12px;
+
+    button.close {
+        font-family: $body-font-family;
+        background:none;
+        color: $vr-beige;
+        font-size: 2rem;
+        font-weight: 200;
+        padding: 0;
+        margin: 0;
+        vertical-align: baseline;
+        margin-top: -7px;
+        &:hover {
+            color: $vr-yellow;
+        }
+    }
+
+            h3 {
+            color: $vr-beige;
+            font-size: rem-calc(18);
+            text-transform:uppercase;
+            letter-spacing: rem-calc(1);
+            margin-bottom: 12px;
+        }
+
+    .pager {
+        text-align: center;
+        color: $vr-beige;
+        min-width: 50%; 
+
+        button {
+            background: none;
+            vertical-align: middle;
+            svg {
+                width: 24px;
+                height: 24px;
+            }
+            &:hover {
+                color: $vr-yellow;
+            }
+        }
+    }
 }
