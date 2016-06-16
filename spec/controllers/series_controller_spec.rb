@@ -70,7 +70,7 @@ describe SeriesController do
     it "redirect to root page if series requested by other user" do
       series = FactoryGirl.create(:series)
       get :edit, {:id => series.to_param}, valid_session
-      expect(response.status).to eq(302)
+      expect(response.status).to eq(403)
     end
   end
 
@@ -140,7 +140,7 @@ describe SeriesController do
         series = FactoryGirl.create(:series, :user => @user)
         # Trigger the behavior that occurs when invalid params are submitted
         allow_any_instance_of(Series).to receive(:save).and_return(false)
-        put :update, {:id => series.to_param, series: invalid_attributes}, valid_session
+        put :update, {id: series.to_param, series: invalid_attributes}, valid_session
         expect(assigns(:series)).to eq(series)
       end
 
@@ -148,7 +148,7 @@ describe SeriesController do
         series = FactoryGirl.create(:series, :user => @user)
         # Trigger the behavior that occurs when invalid params are submitted
         allow_any_instance_of(Series).to receive(:save).and_return(false)
-        put :update, {:id => series.to_param, series: invalid_attributes}, valid_session
+        put :update, {id: series.to_param, series: invalid_attributes}, valid_session
         expect(response).to render_template("edit")
       end
     end
@@ -156,8 +156,8 @@ describe SeriesController do
     describe "with unauthorized user" do
       it "raises permission denied" do
         series = FactoryGirl.create(:series)
-        put :update, {:id => series.to_param, series: invalid_attributes}, valid_session
-        expect(response.status).to eq(302)
+        put :update, {id: series.to_param, series: invalid_attributes}, valid_session
+        expect(response.status).to eq(403)
       end
     end
   end
@@ -179,7 +179,7 @@ describe SeriesController do
     it "raises permission if unauthorized user" do
       series = FactoryGirl.create(:series)
       delete :destroy, {:id => series.to_param}, valid_session
-      expect(response.status).to eq(302)
+      expect(response.status).to eq(403)
     end
   end
 

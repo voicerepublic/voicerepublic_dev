@@ -131,6 +131,7 @@ FactoryGirl.define do
       starts_at_time 1.hour.ago.strftime('%H:%M')
       starts_at_date 1.hour.ago.strftime('%Y-%m-%d')
     end
+
   end
 
   factory :appearance do

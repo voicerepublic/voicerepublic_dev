@@ -1,7 +1,10 @@
 module ApplicationHelper
 
   def body_classes
-   [ controller_name, [controller_name, action_name] * '-' ] * ' '
+    list = [ controller_name,
+             [controller_name, action_name] * '-' ]
+    list += @body_classes unless @body_classes.nil?
+    list * ' '
   end
 
   def itunes_image_url(image)
