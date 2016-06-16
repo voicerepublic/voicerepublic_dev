@@ -4,9 +4,6 @@ class ApplicationController < ActionController::Base
 
   RSS_GONE = '410 - Sorry, this RSS feed is gone for good.'
 
-  class OutdatedBrowser < RuntimeError
-  end
-
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
@@ -14,7 +11,6 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
 
   before_filter :set_last_request
-  before_filter :check_browser
   #before_filter :set_locale
 
   around_filter :user_time_zone, :if => :current_user
@@ -68,7 +64,6 @@ class ApplicationController < ActionController::Base
   rescue_from CanCan::AccessDenied, with: :forbidden
   rescue_from ActiveRecord::RecordNotFound, with: :not_found
   rescue_from ActionController::RoutingError, with: :not_found
-  rescue_from OutdatedBrowser, with: :outdated_browser
   # ActionView::Template::Error
   # ActionController::InvalidAuthenticityToken
   # Errno::ENOSPC
@@ -99,26 +94,7 @@ class ApplicationController < ActionController::Base
     render layout: 'velvet', status: 500, action: :internal_server_error
   end
 
-  def outdated_browser
-    redirect_to '/pages/outdated_browser'
-  end
-
   private
-
-  def check_browser
-    browser_name = browser.meta.first.to_sym
-    browser_version = browser.version.to_i
-
-    # This will not catch all kinds of browsers (Android, iOS). This
-    # is by design.
-    supported = Settings.supported_browsers.to_hash.keys
-    return unless supported.include?(browser_name)
-
-    expected_version = Settings.supported_browsers[browser_name]
-    return unless browser_version < expected_version
-
-    raise OutdatedBrowser
-  end
 
   # get locale from browser settings
   def extract_locale_from_accept_language_header

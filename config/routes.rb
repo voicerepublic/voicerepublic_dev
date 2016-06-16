@@ -129,10 +129,6 @@ Rails.application.routes.draw do
 
   # match ':controller(/:action(/:id))(.:format)'
 
-  # Match exceptions
-  # http://railscasts.com/episodes/53-handling-exceptions-revised?view=asciicast
-  match '(errors)/:status', to: 'errors#show', constraints: {status: /\d{3}/}, via: :all
-
   if Rails.env.development?
     mount LetterOpenerWeb::Engine, at: "/letter_opener"
   end

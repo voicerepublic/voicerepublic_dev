@@ -1,5 +1,6 @@
 module PodcastHelper
 
+  # TODO fix this and maybe ge rif to the browser gem on the way
   def podcast_url(entity)
     # Different systems require a different protocol:
     #   Macs: ITPC
@@ -15,19 +16,15 @@ module PodcastHelper
     # linux
     protocol = browser.linux? ? 'http' : protocol
 
-    url = url_for controller: entity.class.model_name.plural,
-                  action: 'show',
-                  id: entity.to_param,
-                  format: :rss,
-                  only_path: false,
-                  protocol: protocol
-
-    
-
+    url_for controller: entity.class.model_name.plural,
+            action: 'show',
+            id: entity.to_param,
+            format: :rss,
+            only_path: false,
+            protocol: protocol
   end
 
   def link_to_podcast(entity)
-    
     url = podcast_url(entity)
     link_to url, class: 'button-podcast', 'data-ga-event' => "click talk podcast talk:#{entity.id}" do
       content_tag('span', '', class: 'icon-podcast') +

@@ -1,7 +1,5 @@
 class PagesController < ApplicationController
 
-  skip_before_filter :check_browser
-
   layout 'velvet'
 
   def api
