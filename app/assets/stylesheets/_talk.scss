@@ -607,7 +607,7 @@ button,
 
 
 
-    .button-group {
+    .menu {
         width: 100%;
         text-align: center;
         margin-bottom: 24px;
@@ -620,16 +620,16 @@ button,
         }
 
         li {
-            width: 33.33%;
             padding: 1px;
-            float: left;
-            display: inline-block;
+            // float: left;
+            // display: inline-block;
             .button {
                 border: 0;
             }
             @include breakpoint(medium) {
                 margin: 0;
                 width: 100%;
+                display: inline-block;
             }
 
             @include breakpoint(large) {
