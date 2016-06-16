@@ -8,7 +8,7 @@
       = link_to user_path(talk.user), class: "publisher" do
         = talk.user.name
 
-    
+
     = link_to talk, class: "image-box-holder clearfix" do
       .image-box
         = image_tag talk.image.thumb("600x338#").url, alt: talk.image_alt
@@ -26,10 +26,10 @@
 
           .teaser.clearfix
             %p.teaser= truncate(talk.teaser, length: 500)
-            - unless talk.speakers.blank?
+            - unless talk.speaker_list.blank?
               %p.speaker
                 = t('.speaker')
-                = talk.speakers
+                = talk.speaker_list
 
     .bottom-info
       = link_to talk, class: "category-icon" do
@@ -38,7 +38,7 @@
         = link_to talk do
           %p.play-count
             = human_count(talk.play_count) + t('.plays')
-      - else 
+      - else
         .empty-count-holder
       - if current_user
         .pinboard{ class: "pin-Talk-#{talk.id}" }

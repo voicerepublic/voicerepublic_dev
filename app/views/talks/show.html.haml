@@ -218,10 +218,10 @@
       .large-12.columns.text-center
         .stage-title
           =t('.stage')
-        - unless @talk.speakers.blank?
+        - unless @talk.speaker_list.blank?
           .speakers-box
-            %h3= t('.speakers', count: @talk.speakers.split(',').size)
-            %p= @talk.speakers
+            %h3= t('.speakers', count: @talk.speaker_list.split(',').size)
+            %p= @talk.speaker_list
         - else
           .avatar.avatar-host
             .avatar-box

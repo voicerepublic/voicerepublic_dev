@@ -36,7 +36,7 @@ class Api::OembedController < ApplicationController
     # with love for our dear friends at republica
     if params[:mode] == '42'
       response.merge!( title: talk.title,
-                       author_name: talk.speakers,
+                       author_name: talk.speaker_list,
                        thumbnail_url: talk.image.url,
                        thumbnail_width: talk.image.width,
                        thumbnail_height: talk.image.height )

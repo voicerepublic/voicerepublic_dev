@@ -22,7 +22,7 @@
 # * session [text] - TODO: document me
 # * slides_uuid [string] - TODO: document me
 # * slug [string] - TODO: document me
-# * speakers [string] - TODO: document me
+# * speaker_list [string] - TODO: document me
 # * started_at [datetime] - TODO: document me
 # * starts_at [datetime] - TODO: document me
 # * starts_at_date [string] - local date
@@ -100,7 +100,6 @@ class Talk < ActiveRecord::Base
   has_one :user, through: :series
   belongs_to :venue
   has_many :appearances, dependent: :destroy
-  has_many :guests, through: :appearances, source: :user
   has_many :messages, dependent: :destroy
   has_many :social_shares, as: :shareable
   has_many :reminders, as: :rememberable, dependent: :destroy
@@ -144,7 +143,6 @@ class Talk < ActiveRecord::Base
   #after_create :create_and_process_debit_transaction!, unless: :dryrun?
   after_create :set_auto_destruct_mode, if: :dryrun?
   # TODO: important, these will be triggered after each PUT, optimize
-  after_save :set_guests
   after_save :generate_flyer!, if: :generate_flyer?
   after_save :process_slides!, if: :process_slides?
   after_save :schedule_user_override, if: :schedule_user_override?
@@ -202,24 +200,14 @@ class Talk < ActiveRecord::Base
   }
 
   include PgSearch
-  multisearchable against: [:tag_list, :title, :teaser, :description, :speakers]
+  multisearchable against: [:tag_list, :title, :teaser, :description, :speaker_list]
   pg_search_scope :search,
                   ignoring: :accents,
-                  against: [:title, :teaser, :description_as_text, :speakers],
+                  against: [:title, :teaser, :description_as_text, :speaker_list],
                   associated_against: {
                     series: [:title, :description_as_text, :teaser],
                     user: [:firstname, :lastname, :about_as_text, :summary]
                   }
-
-  # returns an array of json objects
-  def guest_list
-    guests.map(&:for_select).to_json
-  end
-
-  # accepts a string with a comma separated list of ids
-  def guest_list=(list)
-    @guest_list = list.split(',').sort
-  end
 
   def remaining_seconds
     return starts_in if prelive?
@@ -495,16 +483,6 @@ class Talk < ActiveRecord::Base
     return if series.users.empty?
     series.users.each do |participant|
       UserMailer.delay(queue: 'mail').new_talk(self, participant)
-    end
-  end
-
-  def set_guests
-    return if @guest_list.nil?
-    return if @guest_list == appearances.pluck(:user_id).sort
-
-    appearances.clear
-    @guest_list.each do |id|
-      appearances.create(user_id: id)
     end
   end
 

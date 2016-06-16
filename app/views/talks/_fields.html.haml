@@ -26,7 +26,7 @@
 
     .row
       .medium-12.columns
-        = f.input :speakers, placeholder: t('.speakers')
+        = f.input :speaker_list, placeholder: t('.speakers')
 
     .title-box.clearfix
       %h2.form-title= t('.choose_date_and_time')
@@ -64,13 +64,6 @@
     .row
       .medium-12.columns
         = f.input :description, input_html: { rows: 10 }
-
-    .title-box.clearfix
-      %h2.form-title.left= t('.invite_guests')
-      .help-text.left= t('.invite_guests_text')
-    .row
-      .medium-12.columns
-        = f.input :guest_list, opts.merge(input_html: { class: 'guestList' })
 
     .title-box.clearfix
       %h2.form-title.left= t('.upload_slides')

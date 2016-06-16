@@ -105,10 +105,10 @@ class Handyman
       end
     end
 
-    def appearances_nonextistent_users
-      log "-> Check appearances for nonexistent users..."
-      condition = "user_id NOT IN (?)"
-      ids = User.pluck(:id)
+    def appearances_nonextistent_speakers
+      log "-> Check appearances for nonexistent speakers..."
+      condition = "speaker_id NOT IN (?)"
+      ids = Speaker.pluck(:id)
       Appearance.where(condition, ids).each do |a|
         log "Destroy invalid appearance %s" % a.id
         a.destroy

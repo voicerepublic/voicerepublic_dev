@@ -3,12 +3,12 @@
 # * created_at [datetime] - creation time
 # * talk_id [integer] - belongs to :talk
 # * updated_at [datetime] - last update time
-# * user_id [integer] - belongs to :user
+# * speaker_id [integer] - belongs to :speaker
 class Appearance < ActiveRecord::Base
 
-  validates :user, :talk, presence: true
+  validates :speaker, :talk, presence: true
 
-  belongs_to :user
+  belongs_to :speaker
   belongs_to :talk
 
 end
