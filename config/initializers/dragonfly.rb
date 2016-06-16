@@ -1,4 +1,6 @@
 require 'dragonfly'
+require 'dragonfly/s3_data_store'
+
 
 # Configure
 Dragonfly.app.configure do
@@ -11,9 +13,10 @@ Dragonfly.app.configure do
 
   url_host Settings.root_url
 
-  datastore :file,
-    root_path: Rails.root.join('public/system/dragonfly', Rails.env),
-    server_root: Rails.root.join('public')
+  datastore :s3,
+    bucket_name: Settings.storage.images,
+    access_key_id: Settings.fog.storage.aws_access_key_id,
+    secret_access_key: Settings.fog.storage.aws_secret_access_key
 end
 
 # Logger
