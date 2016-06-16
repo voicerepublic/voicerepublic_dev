@@ -3,8 +3,8 @@ Rails.application.routes.draw do
   extend ApplicationHelper
 
   get '/403', to: 'application#forbidden'
-  get '/404', to: 'application#record_not_found'
-  get '/500', to: 'application#forbidden'
+  get '/404', to: 'application#not_found'
+  get '/500', to: 'application#internal_server_error'
 
   # a bunch of redirects
   scope 'r' do
@@ -128,10 +128,6 @@ Rails.application.routes.draw do
   root :to => "root#index"
 
   # match ':controller(/:action(/:id))(.:format)'
-
-  # Match exceptions
-  # http://railscasts.com/episodes/53-handling-exceptions-revised?view=asciicast
-  match '(errors)/:status', to: 'errors#show', constraints: {status: /\d{3}/}, via: :all
 
   if Rails.env.development?
     mount LetterOpenerWeb::Engine, at: "/letter_opener"

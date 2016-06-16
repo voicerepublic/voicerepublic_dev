@@ -40,23 +40,3 @@
 		float:none !important;
 	}
 }
-
-.pages-outdated_browser {
-	h3 {
-		font-family: $body-font-family;
-	}
-	ul {
-		list-style-position: inside;
-		li {
-			margin-bottom: 24px;
-			font-weight: 300;
-			// border-bottom: 1px solid $vr-light-blue;
-			a {
-				font-weight: 500;
-				&:hover {
-					text-decoration: underline;
-				}
-			}
-		}
-	}
-}

@@ -47,7 +47,7 @@ describe RemindersController do
     it "authorizes destroys" do
       reminder = FactoryGirl.create(:reminder)
       delete :destroy, id: reminder.to_param
-      expect(response.status).to eq(302)
+      expect(response.status).to eq(403)
     end
 
     it "destroy returns 200 and renders js code" do
