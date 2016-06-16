@@ -334,7 +334,7 @@ button,
         }
 
     }
-    
+
 }
 
 #talk-playbar {
@@ -382,6 +382,12 @@ button,
     }
 }
 
+.slides-button {
+    &:hover {
+        background:$vr-blue;
+    }
+}
+
 .button-play-pause {
     // animation: pulse 2s infinite;
     background: $vr-blue;
@@ -422,10 +428,10 @@ button,
 
 }
 
- .player-container.prelive, 
- .player-container.suspended, 
- .player-container.pending, 
- .player-container.postlive, 
+ .player-container.prelive,
+ .player-container.suspended,
+ .player-container.pending,
+ .player-container.postlive,
  .player-container.processing {
 
     .button-play-pause, #meter, .timecode, .timeline {
@@ -434,7 +440,7 @@ button,
         filter: grayscale(100%);
         opacity: .3;
         pointer-events: none;
-    
+
     }
 
  }
@@ -601,7 +607,7 @@ button,
 
 
 
-    .button-group {
+    .menu {
         width: 100%;
         text-align: center;
         margin-bottom: 24px;
@@ -614,16 +620,16 @@ button,
         }
 
         li {
-            width: 33.33%;
             padding: 1px;
-            float: left;
-            display: inline-block;
+            // float: left;
+            // display: inline-block;
             .button {
                 border: 0;
             }
             @include breakpoint(medium) {
                 margin: 0;
                 width: 100%;
+                display: inline-block;
             }
 
             @include breakpoint(large) {
@@ -759,6 +765,18 @@ button,
         max-width:1024px;
         margin:0 auto;
         padding: 24px 0;
+
+        svg {
+            vertical-align: middle;
+        }
+
+        h3 {
+            color: $talk-dark;
+            font-size: rem-calc(18);
+            text-transform:uppercase;
+            letter-spacing: rem-calc(1);
+            margin-bottom: 12px;
+        }
     }
 
     .comment-avatar {
@@ -769,7 +787,7 @@ button,
     .previous-comments {
         margin-top: 48px;
     }
-    .cancel {
+    button.cancel {
         margin-right: 6px;
     }
     .panel {
@@ -834,7 +852,7 @@ ul.share-links {
     li {
         text-align: center;
         a {
-            
+
         color: white;
         }
         a:hover {
@@ -1193,3 +1211,57 @@ ul.share-links {
     height: 220px;
 }
 
+.slides .progress .meter {
+    height: 100%;
+    background-color: $vr-red;
+}
+
+
+
+//SLIDES VIEWER
+
+.slides {
+    background:rgba($almost-black, .3);
+    margin:12px;
+
+    button.close {
+        font-family: $body-font-family;
+        background:none;
+        color: $vr-beige;
+        font-size: 2rem;
+        font-weight: 200;
+        padding: 0;
+        margin: 0;
+        vertical-align: baseline;
+        margin-top: -7px;
+        &:hover {
+            color: $vr-yellow;
+        }
+    }
+
+            h3 {
+            color: $vr-beige;
+            font-size: rem-calc(18);
+            text-transform:uppercase;
+            letter-spacing: rem-calc(1);
+            margin-bottom: 12px;
+        }
+
+    .pager {
+        text-align: center;
+        color: $vr-beige;
+        min-width: 50%; 
+
+        button {
+            background: none;
+            vertical-align: middle;
+            svg {
+                width: 24px;
+                height: 24px;
+            }
+            &:hover {
+                color: $vr-yellow;
+            }
+        }
+    }
+}
