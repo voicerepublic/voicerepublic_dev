@@ -135,8 +135,8 @@ module ApplicationHelper
     document.text
   end
 
-  def unsecure_link(link)
-    link.gsub(/https:\/\//, "http://")
+  def unsecured_url(url)
+    url.gsub(/https:\/\//, 'http://')
   end
 
   def render_social_meta_tags(opts)
