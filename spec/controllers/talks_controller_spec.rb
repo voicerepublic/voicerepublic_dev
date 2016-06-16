@@ -32,7 +32,7 @@ describe TalksController do
   describe 'Authenticated' do
     before do
       allow(request.env['warden']).to receive_messages :authenticate! => @user
-      allow(controller).to receive_messages :current_user => @user
+      allow(controller).to receive_messages current_user: @user
       @user.reload
     end
 
@@ -98,12 +98,12 @@ describe TalksController do
       describe "Authorization" do
         it 'destroys the talk' do
           expect {
-            delete :destroy, {:series_id => @series.id, :id => @talk.to_param}
+            delete :destroy, {series_id: @series.id, id: @talk.to_param}
           }.to change(Talk, :count).by(-1)
         end
         it 'does not destroy the talk' do
-          delete :destroy, {:series_id => @series_2.id, :id => @talk_2.to_param}
-          expect(response.status).to eq(302)
+          delete :destroy, {series_id: @series_2.id, id: @talk_2.to_param}
+          expect(response.status).to eq(403)
         end
       end
     end
@@ -119,7 +119,7 @@ describe TalksController do
         it "does not update the talk" do
           post :update, { series_id: @series_2.id, id: @talk_2.id,
                           talk: { "title" => 'new test title' } }
-          expect(response.status).to eq(302)
+          expect(response.status).to eq(403)
           expect(@talk.reload.title).not_to eq('new test title')
         end
       end
@@ -141,7 +141,7 @@ describe TalksController do
         it 'does not allow for creation of a new talk' do
           attrs = FactoryGirl.attributes_for(:talk, series_id: @series_2.id)
           post :create, { talk: attrs }
-          expect(response.status).to eq(302)
+          expect(response.status).to eq(403)
         end
       end
 
@@ -180,7 +180,7 @@ describe TalksController do
 
         it 'authorizes downloading a talks message history' do
           get :show, id: @talk_2.id, series_id: @series_2.id, format: :text
-          expect(response.status).to eq(302)
+          expect(response.status).to eq(403)
         end
       end
     end

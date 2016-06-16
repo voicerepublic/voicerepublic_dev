@@ -74,15 +74,20 @@ class ApplicationController < ActionController::Base
   # Errno::ENOSPC
 
   def forbidden
-    @body_classes = %w( error 403 forbidden )
-    render layout: 'velvet', status: 403
+    respond_to do |format|
+      format.html do
+        @body_classes = %w( error 403 forbidden )
+        render layout: 'velvet', status: 403, action: :forbidden
+      end
+      format.text { render status: 403, text: 'Forbidden!' }
+    end
   end
 
   def not_found
     respond_to do |format|
       format.html do
         @body_classes = %w( error 404 not-found )
-        render layout: 'velvet', status: 404
+        render layout: 'velvet', status: 404, action: :not_found
       end
       format.rss { render status: 410, text: RSS_GONE }
       format.json { render status: 404, text: 'Not found.' }
@@ -91,7 +96,7 @@ class ApplicationController < ActionController::Base
 
   def internal_server_error
     @body_classes = %w( error 500 internal-server-error )
-    render layout: 'velvet', status: 500
+    render layout: 'velvet', status: 500, action: :internal_server_error
   end
 
   def outdated_browser
