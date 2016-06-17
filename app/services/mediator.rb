@@ -17,6 +17,7 @@ class Mediator
 
   # a never complete list of boring domains
   BORING_DOMAINS = %w(
+    sbcglobal.net
     bluewin.ch
     versanet.de
     freenet.de
