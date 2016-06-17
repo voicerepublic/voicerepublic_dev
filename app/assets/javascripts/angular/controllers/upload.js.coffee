@@ -2,7 +2,7 @@
 #
 #     https://github.com/nervgh/angular-file-upload
 #
-uploadFunc = ($scope, $log, FileUploader, validity, safetynet, messaging) ->
+uploadFunc = ($scope, $log, FileUploader, validity, safetynet) ->
 
   # initialize scope variables
   $scope.addingFailed = false
@@ -74,8 +74,5 @@ uploadFunc = ($scope, $log, FileUploader, validity, safetynet, messaging) ->
       # call the success pseudo callback given via options by eval
       eval(options.success)
 
-    messaging.commitSub()
-
-uploadFunc.$inject = ["$scope", "$log", "FileUploader", "validity", "safetynet",
-  "messaging"]
+uploadFunc.$inject = ["$scope", "$log", "FileUploader", "validity", "safetynet"]
 window.sencha.controller "UploadController", uploadFunc
