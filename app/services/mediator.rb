@@ -26,6 +26,7 @@ class Mediator
     yahoo.co.uk
     yahoo.com
     yahoo.de
+    yahoo.fr
     web.de
     hotmail.com
     hotmail.co.uk
