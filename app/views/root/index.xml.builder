@@ -3,8 +3,27 @@ namespaces = {
   'xmlns:image' => "http://www.google.com/schemas/sitemap-image/1.1"
 }
 
+pages = %w( api
+            are-you-planning-a-conference
+            audio-upload
+            companies
+            conferences-fairs
+            culture
+            foundations
+            independents
+            listen
+            livestream
+            media-journalism
+            publishers
+            publish
+            science-education
+            services
+            speakers
+            topics
+            universities )
+
 # https://support.google.com/webmasters/answer/183668
-total = Talk.count + Series.count + User.count
+total = pages.size + Talk.count + Series.count + User.count
 raise "Too many entries for sitemap." if total > 50_000
 
 # http://www.w3.org/TR/NOTE-datetime
@@ -13,10 +32,19 @@ iso8601 = "%Y-%m-%dT%H:%M:%S%:z"
 xml.instruct!
 xml.urlset(namespaces.merge(total: total)) do |urlset|
 
+  pages.each do |page|
+    urlset.url do |url|
+      url.loc page_url(action: page)
+      date = Section.where("key like 'pages.#{page}.%'").maximum(:updated_at)
+      date ||= Time.now
+      url.lastmod date.strftime(iso8601)
+    end
+  end
+
   Talk.find_each do |talk|
     urlset.url do |url|
       # Do not use the url_for helper here, because it will be slow as hell!
-      url.loc "https://" + request.host + "/talks/" + talk.slug
+      url.loc '%s/talks/%s' % [Settings.root_url, talk.slug]
       url.image(:image) do |image|
         image.image(:loc, talk.image.url)
       end
@@ -28,7 +56,7 @@ xml.urlset(namespaces.merge(total: total)) do |urlset|
 
   Series.joins(:talks).find_each do |series|
     urlset.url do |url|
-      url.loc "https://" + request.host + "/series/" + series.slug
+      url.loc '%s/series/%s' % [Settings.root_url, series.slug]
       url.image(:image) do |image|
         image.image(:loc, series.image.url)
       end
@@ -42,7 +70,7 @@ xml.urlset(namespaces.merge(total: total)) do |urlset|
 
   User.find_each do |user|
     urlset.url do |url|
-      url.loc "https://" + request.host + "/users/" + user.slug
+      url.loc '%s/users/%s' % [Settings.root_url, user.slug]
       url.image(:image) do |image|
         image.image(:loc, user.avatar.url)
       end

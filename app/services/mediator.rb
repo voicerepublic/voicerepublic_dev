@@ -17,6 +17,7 @@ class Mediator
 
   # a never complete list of boring domains
   BORING_DOMAINS = %w(
+    sbcglobal.net
     bluewin.ch
     versanet.de
     freenet.de
@@ -25,6 +26,7 @@ class Mediator
     yahoo.co.uk
     yahoo.com
     yahoo.de
+    yahoo.fr
     web.de
     hotmail.com
     hotmail.co.uk

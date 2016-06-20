@@ -1,3 +1,7 @@
+- content_for :head do
+  %meta{name: 'description', content: s('.meta.description', format: 'raw')}
+  %meta{name: 'keywords', content: s('.meta.keywords', format: 'raw')}
+
 .markdown
   %section#claim.dark
     .row.clearfix.center

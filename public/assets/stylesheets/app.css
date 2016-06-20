@@ -3737,7 +3737,7 @@ h1, h2 {
     margin-bottom: 2px; }
     @media screen and (min-width: 40em) {
       .category-buttons li {
-        width: 14.285%;
+        width: 12.5%;
         margin-bottom: 0; } }
   .category-buttons label {
     display: block;

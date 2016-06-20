@@ -4,8 +4,6 @@
 #
 uploadFunc = ($scope, $log, FileUploader, validity, safetynet) ->
 
-  $log.info 'init'
-
   # initialize scope variables
   $scope.addingFailed = false
   $scope.uploadFailed = false
