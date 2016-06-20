@@ -172,6 +172,9 @@ en:
       teaser: Short description
       tag_list: Tags
       create_new_series: Create New Series...
+      slides: Upload Your Slides
+      slides_help_text: >-
+        Do you have slides for your talk? Upload them here as a pdf document.
     podcast:
       title: "%{title}"
       subtitle: "Podcast provided by Voice Republic"

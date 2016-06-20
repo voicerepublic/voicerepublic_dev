@@ -64,6 +64,10 @@
     = f.input :description, input_html: { rows: 10 }
   %hr
 
-  = f.input :slides_uuid, as: :hidden
-  = render partial: 'shared/upload',
-    locals: { f: f, ns: 'slides', init: init_slides_uploader }
+  .row
+    %h3.form-title= t('.slides')
+    .help-text.text-center= t('.slides_help_text')
+
+    = f.input :slides_uuid, as: :hidden
+    = render partial: 'shared/upload',
+      locals: { f: f, ns: 'slides', init: init_slides_uploader }
