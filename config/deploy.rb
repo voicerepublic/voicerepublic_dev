@@ -36,7 +36,8 @@ set :deploy_to, '/home/app/app'
 # Default value for :linked_files is []
 set :linked_files, %w{ config/database.yml
                        config/bumpy_bridge.yml
-                       config/settings.local.yml }
+                       config/settings.local.yml
+                       config/versions.edn }
 
 # Default value for linked_dirs is []
 # set :linked_dirs, %w{bin log tmp/pids tmp/cache
