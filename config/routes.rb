@@ -44,7 +44,7 @@ Rails.application.routes.draw do
 
   namespace 'api' do
     get 'oembed(.:format)' => 'oembed#show'
-    resources :devices, only: [:show, :create]
+    resources :devices, only: [:show, :create, :update]
     resources :talks, only: [:index]
     resources :uploads, only: [ :create ]
     resources :bookmarks, only: [ :index ]

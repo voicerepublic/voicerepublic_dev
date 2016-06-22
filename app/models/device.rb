@@ -98,6 +98,21 @@ class Device < ActiveRecord::Base
     OpenStruct.new(options)
   end
 
+  # details returned on polling
+  def details
+    Hash.new.tap do |details|
+      details[:name] = name
+      details[:state] = state
+      if venue.present?
+        details[:venue] = {
+          name: venue.name,
+          state: venue.state,
+          icecast: venue.icecast_params
+        }
+      end
+    end
+  end
+
   # state machine callbacks
 
   def signal_start_stream

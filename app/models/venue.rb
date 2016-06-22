@@ -103,7 +103,7 @@ class Venue < ActiveRecord::Base
   end
 
   def generate_mount_point
-    SecureRandom.uuid
+    'live' # SecureRandom.uuid
   end
 
   def generate_password(length=8)
