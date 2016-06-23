@@ -11,26 +11,29 @@
         - avatar_url = @user.avatar.thumb('180x180#nw').url
         #avatar-img.preview-img(style="background-image:url(#{avatar_url})")
         = f.input :avatar, as: :file, wrapper_html: { class: 'inputfile' }, label: icon_tag("photo") + t('.change_photo').html_safe, label_html: {class: 'button hollow tiny btn-hover-yellow', id: 'avatar-label'}, input_html: {'data-instant-image'=> '#avatar-img | #avatar-label'}
-      .large-9.columns
+      .row
+        -#.large-9.columns
         .medium-6.columns
           = f.input :firstname, placeholder: 'First Name'
         .medium-6.columns
           = f.input :lastname, placeholder: 'Last Name'
+      .row
         .medium-6.columns
           = f.input :email, placeholder: 'Email Address'
         .medium-6.columns.pw-change.text-left
           %label= t('.password')
           = link_to edit_user_registration_path do
             .button.small.hollow.muted.btn-hover-yellow= t('.change_password')
-        
+
         %hr
+      .row
         .medium-6.columns.input.slug
           %label{:for => "user_slug"}
             Username & URL
           .input-group
             %span.input-group-label voicerepublic.com/users/
             = f.input_field :slug, class: 'input-group-field'
-            
+
           .alert.callout.slug-warning.hide{"data-closable" => ""}
             = t('.slug_explanation2')
             %p.text-right
@@ -39,10 +42,17 @@
         .medium-6.columns.summary
           = f.input :summary, as: :text, input_html: { rows: 4, maxLength: 140}
         %hr
+      .row
         .medium-6.columns
           = f.input :timezone, as: :time_zone, priority: User::PRIOTZ
         .medium-6.columns
           = f.input :website
+      .row
+        .medium-6.columns
+          = f.input :facebook
+        .medium-6.columns
+          = f.input :twitter
+      .row
         .about
           = f.input :about, input_html: { rows: 10 }
         .menu.actions.float-right.small-expanded

@@ -8,6 +8,8 @@ class UsersController < BaseController
                         avatar
                         header
                         timezone
+                        facebook
+                        twitter
                         website
                         summary
                         about

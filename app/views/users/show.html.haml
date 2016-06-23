@@ -80,6 +80,20 @@
           %p.label= t('.pinned', count: @user.reminders.count)
       %hr/
 
+      -# TODO nick: make it look less shitty, please
+      %ul
+        - unless @user.website.blank?
+          %li
+            = t('.website')
+            = @user.website
+        - unless @user.facebook.blank?
+          %li
+            = t('.facebook')
+            = @user.facebook
+        - unless @user.twitter.blank?
+          %li
+            = t('.twitter')
+            = @user.twitter
 
     #user-about.row
       - unless @user.about.blank?
