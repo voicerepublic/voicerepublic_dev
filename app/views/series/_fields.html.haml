@@ -7,7 +7,7 @@
     .row
       .medium-12.columns.text-center
         #series-image.preview-img(style="background-image:url(#{@series.image.url})")
-        = f.input :avatar, as: :file, wrapper_html: { class: 'inputfile' }, label: icon_tag("photo") + t('.change_photo').html_safe, label_html: {class: 'button hollow tiny btn-hover-yellow', id: 'series-label'}, input_html: {'data-instant-image'=> '#series-image | #series-label'}
+        = f.input :image, as: :file, wrapper_html: { class: 'inputfile' }, label: icon_tag("photo") + t('.change_photo').html_safe, label_html: {class: 'button hollow tiny btn-hover-yellow', id: 'series-label'}, input_html: {'data-instant-image'=> '#series-image | #series-label'}
 
         = f.input :title, placeholder: t('.title')
         = f.input :teaser, rows: 2, placeholder: t('.teaser')
