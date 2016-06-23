@@ -1,7 +1,7 @@
 attribute = '#social_share .share'
 
 initialize = (element, selector) ->
-  #console.log "initialize: #{attribute} (#{selector})"
+  console.log "initialize: #{attribute} (#{selector})"
 
   source = $(element)
   target = $(selector)
@@ -14,6 +14,7 @@ initialize = (element, selector) ->
     social_network = social_network[0]
 
     $.post("/xhr/social_shares",
+      authenticity_token: $('meta[name=csrf-token]')[0].content,
       social_share:
         shareable_id: $(element).attr("data-shareable-id")
         shareable_type: $(element).attr("data-shareable-type")
