@@ -439,3 +439,10 @@ $lines-to-show: 2;
         }
     }
 }
+
+.venues .talk-card {
+    float: left;
+    .talk-card-inside p {
+        margin:0;
+    }
+}
