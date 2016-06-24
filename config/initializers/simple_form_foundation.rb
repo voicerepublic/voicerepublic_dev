@@ -1,3 +1,50 @@
+# http://stackoverflow.com/questions/29262066/tooltips-with-foundation-5-and-simpleform
+module SimpleForm
+  module Components
+    module Tooltips
+      def tooltip(wrapper_options=nil)
+        @tooltip ||= begin
+          hint = options[:hint]
+
+          text =
+            if hint.is_a?(String)
+              html_escape(hint)
+            else
+              translate_from_namespace(:hints)
+            end
+
+          if text
+            content = <<-HTML
+              <span data-tooltip
+                aria-haspopup='true'
+                class='has-tip'
+                data-disable-hover='true'
+                tabindex=1
+                title='#{text}'>
+                  <div class="question">
+                    <div class="svg-icon">
+                      <svg>
+                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-question"></use>
+                      </svg>
+                    </div>
+                  </div>
+                </span>
+            HTML
+            content.html_safe
+          end
+        end
+      end
+
+      def has_tooltip?
+        options[:hint] != false && tooltip.present?
+      end
+    end
+  end
+end
+
+SimpleForm::Inputs::Base.send(:include, SimpleForm::Components::Tooltips)
+
+
 # Use this setup block to configure all options available in SimpleForm.
 SimpleForm.setup do |config|
   # Don't forget to edit this file to adapt it to your needs (specially
@@ -14,10 +61,10 @@ SimpleForm.setup do |config|
     b.optional :pattern
     b.optional :min_max
     b.optional :readonly
-    b.use :label_input
+    b.use :label
+    b.use :tooltip
+    b.use :input
     b.use :error, wrap_with: { tag: :small, class: :error }
-
-    b.use :hint,  wrap_with: { tag: :span, class: :hint }
   end
 
   config.wrappers :horizontal_form, tag: 'div', class: 'row', hint_class: :field_with_hint, error_class: :error do |b|

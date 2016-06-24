@@ -1,12 +1,14 @@
 = f.input :dryrun, as: :hidden
 = f.input :venue_id, as: :hidden
 
+
 .row.talk-form
   %h2.text-center.form-title= form_title
   = render "dryrun" if @talk.dryrun?
 
 
   -#= f.error_messages
+
 
   - opts = {}
 
@@ -16,8 +18,8 @@
              locals: { f: f, ns: 'audio', init: init_audio_uploader }
 
   .row
-    = f.input :title, placeholder: t('.title')
-    = f.input :teaser, placeholder: t('.teaser'), as: "text", input_html: {maxlength: 140}
+    = f.input :title, placeholder: t('.title'), hint: t('.title_hint')
+    = f.input :teaser, placeholder: t('.teaser'), as: "text", input_html: {maxlength: 140}, hint: t('.teaser_hint')
     = f.input :language, as: :grouped_select, collection: Talk::LANGUAGES,
       group_method: :last, label_method: :last, value_method: :first
     = f.input :tag_list, input_html: { class: 'tagList', value: @talk.tag_list.join(',') }

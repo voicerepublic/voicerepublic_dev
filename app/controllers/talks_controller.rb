@@ -4,6 +4,8 @@ class TalksController < BaseController
   before_action :authenticate_user!, except: [:show]
   #before_action :redirect_if_low_on_credits, only: :new
 
+  layout 'velvet'
+
   # GET /talks/1
   def show
     return redirect_to(@talk.forward_url) unless @talk.forward_url.blank? or current_user == @talk.user
@@ -13,6 +15,7 @@ class TalksController < BaseController
         @reminder = Reminder.find_by_user_and_talk(current_user, @talk)
       end
       @related_talks = @talk.related_talks
+
       format.html
       format.text do
         authorize! :manage, @talk

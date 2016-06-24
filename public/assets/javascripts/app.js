@@ -128,6 +128,7 @@ function readURL(input) {
     }
 }
 
+
 $("#user_avatar, #series_image").change(function(){
     console.log('should change the image');
     readURL(this);

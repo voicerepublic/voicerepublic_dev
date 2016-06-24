@@ -141,23 +141,26 @@ en:
       title: "Create Talk - Voice Republic"
       schedule_a_talk: Schedule A Live Talk
       billing_notice: |
-        Creating this talk will deduct one of your credits.
+        Note: Creating this talk will deduct one of your credits.
+      progress_text: Completed 2 of 6
     edit:
       title: "Edit Talk %{title} - Voice Republic"
       edit_talk: Edit Talk
       delete_talk: Delete talk
       select_image: Background image
     fields:
+      title_hint: "Your Talk will be judged by its title. Make it count! (Max. characters: 100)"
+      teaser_hint: "You have 140 characters to convince your listeners"
       upload_a_recording: Upload To Voice Republic
       describe_your_talk: Describe Your Talk
       unprocessed_upload: |
         Please click 'Save' to start processing your uploaded audio file.
         Your upload will be lost unless you press 'Save'.
-      choose_date_and_time: 'Choose Date & Time'
+      choose_date_and_time: 'When Is Your Talk?'
       upload_help_text: Choose your recording file and fill out the form during upload.
       upload_done: A file has already been uploaded.
       record: <span class="red">Record</span> the Broadcast for later Playback and Embedding
-      add_to_series: Add to Series
+      add_to_series: Add This Talk To A Series
       series_help_text: Series are like playlist, they allow you to group your talks by theme.
       invite_guests: Invite guests
       invite_guests_text: Your guests will be automatically added to the stage.
@@ -166,10 +169,11 @@ en:
       image_text: Please choose an image with a minimum resolution of 1200 x 1200 px
       import_your_audio_file: Import audio file
       select_image: Select image
-      title: Title
-      speakers: Comma separated list of speaker names
+      title: A Heartbreaking Lecture of Staggering Genius
+      tags_placeholder: "Business, Economy, Surfing"
+      speakers: "Groucho Marx, Susan Sarandon, Leonard Nimoy"
       required: required
-      teaser: Short description
+      teaser: Quite possibly the most important lecture in the history of humankind.
       tag_list: Tags
       create_new_series: Create New Series...
       slides: Upload Your Slides
