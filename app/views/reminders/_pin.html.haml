@@ -1,0 +1,4 @@
+- target = [ rememberable, :reminders ]
+= link_to target, method: 'post', :data => { :msg => 'pinned' }, class: "button pin-btn", title: t('.pin'), remote: true do
+  = naked_icon('pin')
+  %span.pin-msg= t('.pin')

@@ -7,6 +7,9 @@ en:
 
         %{started_at} - %{ended_at}
     show:
+      loading: Loading The Talk
+      sprecherin: "SprecherIn: "
+      comments: Comments
       favorite: Favorite
       dryrun: "(This test talk is available for 24 hours.)"
       talk_queued_for_processing: Queued for processing, please stand by...
@@ -100,7 +103,7 @@ en:
       please_reload_this_page: Click to reload this page
       nelly_warning: 'Attention: Inferior Codec. Click here to fix.'
       participants: Participants
-      plays: '%{count} plays'
+      plays: ' Plays'
       subscribe_to_podcast: Podcast
       embed: Embed
       embed_this_talk: Embed this Talk
@@ -146,15 +149,9 @@ en:
       delete_talk: Delete talk
       select_image: Background image
     fields:
-      title_hint: "Select a title that catches the attention of your audience and gives them a clear idea of what content awaits them."
-      teaser_hint: Can be up to 140 characters long. It will appear on the Talk page directly beneath the title.
-      tags_hint: |
-        Comma-separated keywords that make your Talk easier to find. Include one of the following to add your Talk to the right category: Business, Arts & Culture, Politics & Society, Sciences, Technology, Media
-      speakers_hint: |
-        Comma-separated list of speakers and participants. These also make your Talk eaiser to find.
-      description_hint: Give your listeners detailed background information about your talk.2300 characters (which is about one page in MS Word) are available. Please note that you can edit the text using Markdown and can also insert links and images.
-      image_hint: this is an image hint
-      upload_a_recording: Upload A Recording
+      title_hint: "Your Talk will be judged by its title. Make it count! (Max. characters: 100)"
+      teaser_hint: "You have 140 characters to convince your listeners"
+      upload_a_recording: Upload To Voice Republic
       describe_your_talk: Describe Your Talk
       unprocessed_upload: |
         Please click 'Save' to start processing your uploaded audio file.
@@ -179,6 +176,12 @@ en:
       teaser: Quite possibly the most important lecture in the history of humankind.
       tag_list: Tags
       create_new_series: Create New Series...
+      slides: Upload Your Slides
+      slides_help_text: >-
+        Do you have slides for your talk? Upload them here as a pdf document.
+    podcast:
+      title: "%{title}"
+      subtitle: "Podcast provided by Voice Republic"
 
   # this makes all translations from `talks` also available to `uploads`
   uploads:

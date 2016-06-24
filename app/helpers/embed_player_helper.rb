@@ -23,7 +23,7 @@ module EmbedPlayerHelper
                   end
 
 
-    audio_file  = Settings.root_url + talk.media_links['m4a']
+    audio_file  = Settings.root_url + talk.media_links['m4a'].to_s
 
     url = host + base_url + CGI.escape(config_path) +
       background +

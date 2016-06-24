@@ -13,6 +13,8 @@ rtmp:
   authenticate:       true
 paths:
   log: /home/app/app/shared/process_log
+  # the mountpoint of the bucket
+  recordings: /data
 errbit:
   enabled: true
 simon:

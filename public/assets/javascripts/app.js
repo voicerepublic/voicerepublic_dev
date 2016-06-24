@@ -119,17 +119,18 @@ function readURL(input) {
         
         reader.onload = function (e) {
             var fileName = $('input[type=file]').val().split('\\').pop();
-            $('#avatar-img').css('background-image', 'url(' + e.target.result) + ')';
-            //console.log('filename:' + fileName);
-            $('.profile-avatar label').find('span').html(fileName);
+            $('.preview-img').css('background-image', 'url(' + e.target.result) + ')';
+            console.log('filename:' + fileName);
+            $('.preview-img').next().find('span').html(fileName);
         }
         
         reader.readAsDataURL(input.files[0]);
     }
 }
 
-$("#user_avatar").change(function(){
-    //console.log('should change the image');
+
+$("#user_avatar, #series_image").change(function(){
+    console.log('should change the image');
     readURL(this);
     // changeLabelName($('.inputfile'));
 });
@@ -138,6 +139,31 @@ $("input#user_slug").focus(function(){
     //console.log('tryign to schange slug');
 
     $('.slug-warning').removeClass('hide');
+});
+
+//trigger thing on search 
+$('.search-container button[type="submit"]').click(function(){
+       $('#working').removeClass('hide');
+    });
+$('.search-container input').keypress(function(e){
+        if(e.which == 13){//Enter key pressed
+$('#working').removeClass('hide');        }
+});
+
+
+//show talk card alerts
+$('.talk-card').on('click','.pin-btn, .unpin-btn', function(e){
+    //console.log(e);
+    var flasher = $(this).parent().parent().parent().next();
+    var myText = $(this).attr('data-msg');
+    console.log("text: " + myText);
+    flasher.find('.flasher-text p').text(myText);
+    flasher.removeClass('hide').delay(1000).queue(function(next){
+    $.when($(this).fadeOut(500)).done(function() {
+    $(this).addClass('hide').css({"opacity":1, "display":"table"});
+});
+    next();
+});
 });
 
 $(document).foundation();

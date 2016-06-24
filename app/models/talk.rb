@@ -47,7 +47,7 @@ class Talk < ActiveRecord::Base
   # colors according to ci style guide
   COLORS = %w( #182847 #2c46b0 #54c6c6 #a339cd )
 
-  attr_accessor :venue_name
+  attr_accessor :venue_name, :event
 
   # https://github.com/troessner/transitions
   state_machine auto_scopes: true do
@@ -97,6 +97,7 @@ class Talk < ActiveRecord::Base
   acts_as_taggable
 
   belongs_to :series, inverse_of: :talks
+  has_one :user, through: :series
   belongs_to :venue
   has_many :appearances, dependent: :destroy
   has_many :guests, through: :appearances, source: :user
@@ -120,6 +121,8 @@ class Talk < ActiveRecord::Base
 
   validates :new_series_title, presence: true, if: ->(t) { t.series_id.nil? }
 
+  validates :speakers, length: {maximum: Settings.limit.varchar}
+
   # for temp usage during creation, we need this to hand the user
   # trough to associate with a default_series or create a new one
   attr_accessor :series_user
@@ -129,25 +132,23 @@ class Talk < ActiveRecord::Base
   before_save :set_starts_at
   before_save :set_ends_at
   before_save :set_popularity, if: :archived?
-  before_save :set_description_as_html, if: :description_changed?
+  before_save :process_description, if: :description_changed?
   before_save :set_venue
   before_save :set_icon, if: :tag_list_changed?
+  before_save :set_image_alt, unless: :image_alt?
   before_create :prepare, if: :can_prepare?
   before_create :inherit_penalty
   after_create :notify_participants
   after_create :set_uri!, unless: :uri?
-  after_create :create_and_process_debit_transaction!, unless: :dryrun?
+  # NOTE everything is free ATM
+  #after_create :create_and_process_debit_transaction!, unless: :dryrun?
   after_create :set_auto_destruct_mode, if: :dryrun?
   # TODO: important, these will be triggered after each PUT, optimize
   after_save :set_guests
   after_save :generate_flyer!, if: :generate_flyer?
-
-  # Begin 'user audio upload'
-  after_save -> { delay(queue: 'audio').user_override! },
-             if: ->(t) { t.user_override_uuid_changed? and
-                           !t.user_override_uuid.to_s.empty? }
-
   after_save :process_slides!, if: :process_slides?
+  after_save :schedule_user_override, if: :schedule_user_override?
+  after_save :propagate_changes
 
   validates_each :starts_at_date, :starts_at_time do |record, attr, value|
     # guard against submissions where no upload occured or no starts_at
@@ -155,44 +156,37 @@ class Talk < ActiveRecord::Base
     unless record.user_override_uuid.to_s.empty? or
       record.starts_at_time.to_s.empty? or
       record.starts_at_date.to_s.empty?
-      if Time.zone.parse([record.starts_at_date, record.starts_at_time] * ' ') > DateTime.now
+      datetime = [record.starts_at_date, record.starts_at_time] * ' '
+      if Time.zone.parse(datetime) > DateTime.now
         record.errors.add attr, 'needs to be in the past'
       end
     end
   end
-  # End 'user audio upload'
 
-  serialize :listeners
-  serialize :session
+  serialize :listeners # TODO migrate & remove
+  serialize :session # TODO remove
   serialize :storage
   serialize :social_links
-
-  delegate :user, to: :series
 
   dragonfly_accessor :image do
     default Rails.root.join('app/assets/images/defaults/talk-image.jpg')
   end
 
-
+  scope :no_penalty, -> { where(penalty: 1) }
   scope :nodryrun, -> { where(dryrun: false) }
   scope :publicly_live, -> { nodryrun.live }
-  scope :upcoming, -> { nodryrun.prelive }
+  scope :upcoming, -> { nodryrun.prelive.no_penalty.ordered }
   scope :featured, -> { where.not(featured_from: nil) }
   scope :popular, -> { nodryrun.archived.order('popularity DESC') }
   scope :ordered, -> { order('starts_at ASC') }
   scope :reordered, -> { order('starts_at DESC') }
   scope :recent, -> { nodryrun.archived.order('ends_at DESC') }
   scope :promoted, -> { nodryrun.archived.featured.order('featured_from DESC') }
+  scope :scheduled_or_archived, -> { where("state IN ('prelive','archived')")}
 
   ARCHIVED_AND_LIMBO =
     %w(archived pending postlive processing suspended).map { |s| "'#{s}'" } * ','
   scope :archived_and_limbo, -> { where("state IN (#{ARCHIVED_AND_LIMBO})") }
-
-  scope :scheduled_featured, -> do
-    upcoming.featured.
-      where("featured_from < ?", Time.zone.now).
-      order('featured_from DESC')
-  end
 
   scope :remembered_by, ->(user) {
     joins(:reminders).where('reminders.user_id = ?', user.id)
@@ -211,6 +205,13 @@ class Talk < ActiveRecord::Base
 
   include PgSearch
   multisearchable against: [:tag_list, :title, :teaser, :description, :speakers]
+  pg_search_scope :search,
+                  ignoring: :accents,
+                  against: [:title, :teaser, :description_as_text, :speakers],
+                  associated_against: {
+                    series: [:title, :description_as_text, :teaser],
+                    user: [:firstname, :lastname, :about_as_text, :summary]
+                  }
 
   # returns an array of json objects
   def guest_list
@@ -238,11 +239,18 @@ class Talk < ActiveRecord::Base
     tend - Time.now.to_i
   end
 
+  # oldschool public channel
   def public_channel
     "/t#{id}/public"
   end
 
+  # newschool public channel
+  def channel
+    "/down/talk/#{id}"
+  end
+
   def media_links(variant='', formats=%w(mp3 m4a ogg))
+    return {} unless archived?
     formats.inject({}) { |r, f| r.merge f => "/vrmedia/#{id}#{variant}.#{f}" }
   end
 
@@ -294,7 +302,6 @@ class Talk < ActiveRecord::Base
     self.starts_at_time = delta.from_now.strftime('%H:%M')
     self.state = :prelive
     self.save!
-    LiveServerMessage.call public_channel, event: 'Reload'
     self
   end
 
@@ -315,6 +322,7 @@ class Talk < ActiveRecord::Base
 
   # returns the next talk (coming up next) talk in the series
   def next_talk
+    #raise "next_talk DEPRECATED!"
     begin
       talks = series.talks.order(:starts_at)
       talk_index = talks.find_index(self)
@@ -332,16 +340,30 @@ class Talk < ActiveRecord::Base
     storage["#{uri}/#{id}.mp3"]
   end
 
+  # TODO rename to recommendations
+  # FIXME not in ids
   def related_talks
-    talks = series.talks.where.not(id: id).ordered.limit(9)
-    if talks.empty?
-      talks = Talk.joins(:series).
-        where(series: { user_id: series.user_id }).
-        where.not(id: id).ordered.limit(9)
-    end
-    if talks.empty?
-      talks = Talk.popular.where.not(id: id).limit(9)
-    end
+    talks, goal = [], 5
+
+    talks << related_talk if related_talk.present?
+
+    limit = goal - talks.size
+    talks += series.talks.where.not(id: id).
+            scheduled_or_archived.ordered.limit(limit)
+
+    return talks if talks.size == goal
+
+    limit = goal - talks.size
+    talks += Talk.joins(:series).
+            where(series: { user_id: series.user_id }).
+            scheduled_or_archived.
+            where.not(id: id).ordered.limit(limit)
+
+    return talks if talks.size == goal
+
+    limit = goal - talks.size
+    talks += Talk.popular.where.not(id: id).limit(limit)
+
     talks
   end
 
@@ -376,18 +398,26 @@ class Talk < ActiveRecord::Base
     Rails.application.routes.url_helpers.talk_url(self)
   end
 
+  def embed_self_url
+    Rails.application.routes.url_helpers.embed_talk_url(self)
+  end
+
+  def edit_self_url
+    Rails.application.routes.url_helpers.edit_talk_url(self)
+  end
+
+  def create_message_url
+    url = Rails.application.routes.url_helpers.create_message_url(self)
+    # WTF? why does it generate a http message instead of https on staging
+    url = url.sub('http://', 'https://') if Rails.env.production?
+    url
+  end
+
   def lined_up
+    #raise 'lined_up DEPRECATED!'
     return nil unless venue.present?
     venue.talks.where('starts_at > ?', starts_at).ordered.first
   end
-
-  # Used by FluxCapacitor to remember visitors during a live talk
-  def add_listener!(session_id)
-    self.listeners[session_id] ||= Time.now.to_i
-    # TODO write with locking
-    self.save
-  end
-
 
   class << self
     # returns a list of key name pairs of languages in order of prevalence
@@ -401,10 +431,103 @@ class Talk < ActiveRecord::Base
     end
   end
 
+  def snapshot
+    {
+      talk: {
+        # regular
+        id: id,
+        starts_at: starts_at,
+        started_at: started_at,
+        title: title,
+        state: state,
+        speakers: speakers,
+        teaser: teaser,
+        description: description_as_html,
+        play_count: play_count,
+        image_alt: image_alt,
+        duration: duration,
+        slides_url: slides_url(false),
+
+        # extended
+        archived_duration: podcast_file && podcast_file[:seconds],
+        flyer_path: flyer.path,
+        embed_url: embed_self_url,
+        media_links: media_links,
+        edit_url: edit_self_url,
+        create_message_url: create_message_url,
+        image_url: image.url,
+        channel: channel,
+        venue: {
+          user: venue_user_attributes,
+          stream_url: live? ? venue.stream_url : nil,
+          url: venue.self_url
+        },
+        series: series.attributes.merge(
+          url: series.self_url
+        ),
+        messages: messages.map(&:extended_attributes)
+      },
+      now: Time.now.to_i
+    }
+  end
+
+  def venue_user_attributes
+    venue.user.attributes.tap do |attrs|
+      attrs[:image_url] = venue.user.avatar.thumb("60x60#").url
+      attrs[:name] = venue.user.name
+      attrs[:url] = venue.user.self_url
+    end
+  end
+
+  def schedule_archiving!
+    Delayed::Job.enqueue(ArchiveJob.new(id: id), queue: 'audio')
+  end
+
+  def relevant_files
+    venue.relevant_files(started_at, ended_at)
+  end
+
+  def archive_from_dump!
+    begin
+      process!
+      # move operations to tmp dir
+      tmp_dir = FileUtils.mkdir_p("/tmp/archive_from_dump/#{id}").first
+      FileUtils.fileutils_output = logfile
+      Rails.logger.info "--> Changeing to tmp dir #{tmp_dir}"
+      Rails.logger.info relevant_files.inspect
+      FileUtils.chdir(tmp_dir, verbose: true) do
+        # download
+        relevant_files.map(&:first).each do |filename|
+          Rails.logger.info "--> Downloading #{filename}"
+          file = venue.stored_file(filename)
+          Rails.logger.info file.inspect
+          File.open(filename, 'wb') { |f| f.write(file.body) }
+        end
+
+        # prepare manifest
+        chain = venue.opts.archive_chain
+        chain ||= Settings.audio.archive_chain
+        chain = chain.split(/\s+/)
+
+        run_ic_chain! chain # ic as in icecast
+
+        archive!
+      end
+    rescue => e
+      message = ([e.message] + e.backtrace) * "\n"
+      Rails.logger.error message
+      self.processing_error = message
+      suspend!
+    ensure
+      #FileUtils.remove_entry tmp_dir
+    end
+  end
+
   private
 
-  def set_description_as_html
+  def process_description
     self.description_as_html = MD2HTML.render(description)
+    self.description_as_text = MD2TEXT.render(description)
   end
 
   def create_and_set_series?
@@ -455,16 +578,21 @@ class Talk < ActiveRecord::Base
   def set_venue
     self.venue_name = venue_name.to_s.strip
     return if venue_name.blank? and venue.present?
-    self.venue_name = 'Default venue' if venue_name.blank?
+    self.venue_name = user.venue_default_name if venue_name.blank?
     self.venue = user.venues.find_or_create_by(name: venue_name)
   end
 
   def set_icon
-    bundles = TagBundle.category.tagged_with(tags, any: true)
-    icon = bundles.group(:icon).count.
-           sort_by(&:last).reverse.
-           map(&:first).compact.first
+    bundles = TagBundle.category.tagged_with(tag_list, any: true)
+    unless bundles.empty?
+      icons = bundles.map { |b| [b.icon, (b.tag_list & tag_list).size] }
+      icon = icons.sort_by(&:last).last.first
+    end
     self.icon = icon || 'default'
+  end
+
+  def set_image_alt
+    self.image_alt = title
   end
 
   def notify_participants
@@ -490,8 +618,6 @@ class Talk < ActiveRecord::Base
   end
 
   def after_start
-    MonitoringMessage.call(event: 'StartTalk', talk: attributes)
-
     return unless venue.opts.autoend
     # this will fail silently if the talk has ended early
     delta = started_at + duration.minutes
@@ -499,9 +625,8 @@ class Talk < ActiveRecord::Base
   end
 
   def after_end
-    LiveServerMessage.call public_channel, { event: 'EndTalk', origin: 'server' }
-    Delayed::Job.enqueue(Postprocess.new(id: id), queue: 'audio')
-    MonitoringMessage.call(event: 'EndTalk', talk: attributes)
+    # to make the dump file of icecast appear on s3, we need to disconnect
+    venue.require_disconnect! if venue.connected?
   end
 
   def postprocess!(uat=false)
@@ -516,9 +641,11 @@ class Talk < ActiveRecord::Base
       chain = chain.split(/\s+/)
       run_chain! chain, uat
       archive!
-    rescue
+    rescue => e
+      message = ([e.message] + e.backtrace) * "\n"
+      Rails.logger.error message
+      self.processing_error = message
       suspend!
-      LiveServerMessage.call public_channel, event: 'Suspend'
     end
   end
 
@@ -558,11 +685,24 @@ class Talk < ActiveRecord::Base
         # download
         tmp = "t#{id}"
         url = recording_override
+
         # cp local files
         cmd = "cp #{url} #{tmp}"
+
         # use wget for real urls
-        cmd = "wget --no-check-certificate " +
-              "-q '#{url}' -O #{tmp}" if url =~ /^https?:\/\//
+        if url =~ /^https?:\/\//
+          cmd = "wget --no-check-certificate " +
+                "-q '#{url}' -O #{tmp}"
+        end
+
+        # # use wget for ftp urls
+        # if url =~ /^ftp:\/\//
+        #   uri = URI.parse(url)
+        #   user, pass = uri.user, uri.password
+        #   cmd = "wget --user=%s --password='%s' -q '%s' -O %s" %
+        #         [user, pass, url, tmp]
+        # end
+
         # fetch files from s3
         if url =~ /^s3:\/\//
           puts "Downloading %s to %s..." % [url, tmp]
@@ -572,6 +712,7 @@ class Talk < ActiveRecord::Base
           File.open(tmp, 'wb') { |f| f.write(file.body) }
           puts "Downloading %s to %s complete." % [url, tmp]
         end
+
         logfile.puts cmd
         %x[ #{cmd} ]
         # guard against 0-byte overrides
@@ -625,6 +766,18 @@ class Talk < ActiveRecord::Base
     end
   end
 
+  def run_ic_chain!(chain)
+    path = write_manifest_file!(chain)
+    worker = IcProcessor.new(path) # see lib/ic_processor.rb
+    worker.talk = self
+    logfile = File.expand_path("process-#{id}.log")
+
+    ActiveSupport::Notifications.instrument "run_chain.ic_process.vr",
+                                            chain: chain do
+      worker.run(Logger.new(logfile))
+    end
+  end
+
   # move flvs to fog storage whil removing empty files
   def upload_flvs!
     base = File.expand_path(Settings.rtmp.recordings_path, Rails.root)
@@ -665,15 +818,24 @@ class Talk < ActiveRecord::Base
     save! # save `storage` field
   end
 
+  def upload_ic_results!
+    Dir.new('.').entries.reject { |f| File.directory?(f) }.each do |file|
+      cache_storage_metadata(file)
+      key = "#{uri}/#{File.basename(file)}"
+      upload_file(key, file)
+      FileUtils.rm(file, verbose: true)
+    end
+  end
+
   def manifest(chain=nil)
-    chain ||= series.opts.process_chain || Setting.get('audio.process_chain')
+    chain ||= venue.opts.process_chain || Setting.get('audio.process_chain')
     data = {
       id:         id,
       chain:      chain,
       talk_start: started_at.to_i,
       talk_stop:  ended_at.to_i,
-      jingle_in:  locate(series.opts.jingle_in  || Settings.paths.jingles.in),
-      jingle_out: locate(series.opts.jingle_out || Settings.paths.jingles.out)
+      jingle_in:  locate(venue.opts.jingle_in  || Settings.paths.jingles.in),
+      jingle_out: locate(venue.opts.jingle_out || Settings.paths.jingles.out)
     }
     data[:cut_conf] = edit_config.last['cutConfig'] unless edit_config.blank?
     data
@@ -686,6 +848,12 @@ class Talk < ActiveRecord::Base
     File.open(path, 'w') { |f| f.puts(manifest(chain).to_yaml) }
     upload_file(key, path)
     path
+  end
+
+  def write_manifest_file!(chain=nil)
+    # since archive_from_dump did a chdir this is easy...
+    File.open('manifest.yml', 'w') { |f| f.puts(manifest(chain).to_yaml) }
+    'manifest.yml'
   end
 
   # collect information about what's stored via fog
@@ -735,9 +903,21 @@ class Talk < ActiveRecord::Base
     save!
   end
 
-  # generically propagate all state changes
   def event_fired(*args)
-    TalkEventMessage.call(self, *args)
+    Emitter.talk_transition(self, args)
+  end
+
+  def propagate_changes
+    return if Rails.env.test?
+    push_snapshot
+
+    # bubble up
+    venue.push_snapshot
+  end
+
+  def push_snapshot
+    message = { event: 'snapshot', snapshot: snapshot }
+    Faye.publish_to channel, message
   end
 
   def slug_candidates
@@ -820,6 +1000,14 @@ class Talk < ActiveRecord::Base
 
   def process_slides?
     slides_uuid_changed? and slides_uuid.present?
+  end
+
+  def schedule_user_override
+    Delayed::Job.enqueue(UserOverride.new(id: id), queue: 'audio')
+  end
+
+  def schedule_user_override?
+    user_override_uuid_changed? and !user_override_uuid.to_s.empty?
   end
 
 end

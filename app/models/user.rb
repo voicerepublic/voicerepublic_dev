@@ -33,6 +33,8 @@
 # * website [string] - TODO: document me
 class User < ActiveRecord::Base
 
+  include LifecycleEmitter
+
   # this makes `url_for` available for use in `details_for`
   include Rails.application.routes.url_helpers
 
@@ -59,6 +61,8 @@ class User < ActiveRecord::Base
   has_one :welcome_transaction, as: :source
 
   belongs_to :default_series, class_name: 'Series', dependent: :destroy
+  has_many :memberships
+  has_many :organizations, through: :memberships
 
   acts_as_taggable
 
@@ -74,16 +78,19 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :omniauthable,
     :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
-  validates :email, uniqueness: true
+  validates :email, uniqueness: true, length: { maximum: Settings.limit.varchar }
   validates :firstname, presence: true, length: { minimum: 1, maximum: 100 }
   validates :lastname, presence: true, length: { minimum: 1, maximum: 100 }
   validates :summary, length: { maximum: Settings.limit.string }
   validates :about, length: { maximum: Settings.limit.text }
   validates :slug, presence: true
 
-  validates :slug, length: { minimum: 5 }
+  validates :slug, length: { minimum: 5,
+                             maximum: Settings.limit.varchar }
   validates :slug, format: { with: /\A[\w-]+\z/,
                              message: I18n.t('validation.bad_chars_in_slug') }
+
+  validates :website, length: { maximum: Settings.limit.varchar }
 
   validates_acceptance_of :accept_terms_of_use
   # TODO check if this works, especcialy the allow_nil, and does allow_nil make sense?
@@ -93,13 +100,15 @@ class User < ActiveRecord::Base
   # WARNING: Do not use after_save hooks in the 'user' model that will
   # save the model. The reason is that the Devise confirmable_token
   # might be reset mid-transaction.
-  before_save :set_about_as_html, if: :about_changed?
+  before_save :process_about, if: :about_changed?
+  before_save :set_image_alt, unless: :image_alt?
   before_create :build_and_set_default_series
   after_save :generate_flyers!, if: :generate_flyers?
 
   # for the same reason this has to happen in 2 steps
   before_create :build_welcome_transaction
   after_create :process_welcome_transaction
+  after_create :add_default_pins
 
   include PgSearch
   multisearchable against: [:firstname, :lastname]
@@ -136,6 +145,14 @@ class User < ActiveRecord::Base
 
       user.reload
     end
+  end
+
+  def details
+    {
+      name: name,
+      url: self_url,
+      image_url: avatar.thumb('36x36').url
+    }
   end
 
   def details_for(talk)
@@ -183,7 +200,7 @@ class User < ActiveRecord::Base
   end
 
   def remembers?(model)
-    reminders.exists?( rememberable_id: model.id,
+    reminders.find_by( rememberable_id: model.id,
                        rememberable_type: model.class.name )
   end
 
@@ -222,14 +239,38 @@ class User < ActiveRecord::Base
     series.inject({}) { |h, v| h.merge v.id => v.title }
   end
 
+  def self_url
+    Rails.application.routes.url_helpers.user_url(self)
+  end
+
+  def venue_default_name
+    "Venue of %s" % name
+  end
+
   private
 
-  def set_about_as_html
+  def process_about
     self.about_as_html = MD2HTML.render(about)
+    self.about_as_text = MD2TEXT.render(about)
+  end
+
+  def set_image_alt
+    self.image_alt = name
   end
 
   def process_welcome_transaction
     welcome_transaction.process!
+  end
+
+  def add_default_pins
+    slugs = Settings.default_pins
+    return if slugs.nil? or slugs.empty?
+
+    slugs.each do |slug|
+      talk = Talk.find_by(slug: slug)
+      next if talk.nil?
+      Reminder.create user: self, rememberable: talk
+    end
   end
 
   protected

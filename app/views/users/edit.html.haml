@@ -9,8 +9,8 @@
     .row
       .large-3.columns.profile-avatar.text-left
         - avatar_url = @user.avatar.thumb('180x180#nw').url
-        #avatar-img(style="background-image:url(#{avatar_url})")
-        = f.input :avatar, as: :file, wrapper_html: { class: 'inputfile' }, label: icon_tag("photo") + t('.change_photo').html_safe, label_html: {class: 'button hollow tiny muted'}
+        #avatar-img.preview-img(style="background-image:url(#{avatar_url})")
+        = f.input :avatar, as: :file, wrapper_html: { class: 'inputfile' }, label: icon_tag("photo") + t('.change_photo').html_safe, label_html: {class: 'button hollow tiny btn-hover-yellow', id: 'avatar-label'}, input_html: {'data-instant-image'=> '#avatar-img | #avatar-label'}
       .large-9.columns
         .medium-6.columns
           = f.input :firstname, placeholder: 'First Name'
@@ -21,7 +21,7 @@
         .medium-6.columns.pw-change.text-left
           %label= t('.password')
           = link_to edit_user_registration_path do
-            .button.small.hollow.muted= t('.change_password')
+            .button.small.hollow.muted.btn-hover-yellow= t('.change_password')
         
         %hr
         .medium-6.columns.input.slug
@@ -47,8 +47,8 @@
           = f.input :about, input_html: { rows: 10 }
         .menu.actions.float-right.small-expanded
           %li
-            = link_to t('.cancel', default: t("helpers.links.cancel")), user_path(id: @user), class: 'button large hollow secondary'
+            = link_to t('.cancel', default: t("helpers.links.cancel")), user_path(id: @user), class: 'button hollow btn-hover-red'
           %li
             &nbsp
           %li
-            = f.button :submit, class: 'button large primary'
+            = f.button :submit, class: 'button secondary btn-hover-blue'

@@ -5,11 +5,9 @@
       %h2.form-title= form_title
 
     .row
-      .medium-12.columns
-        .image-box(style="background-image: url(#{@series.image.url})" data-show-upload="#series_image")
-          %button.button-standard(type="button" data-trigger-file-input="#series_image")
-            = t('.select_image')
-          = f.file_field :image, class: 'soft-hide'
+      .medium-12.columns.text-center
+        #series-image.preview-img(style="background-image:url(#{@series.image.url})")
+        = f.input :avatar, as: :file, wrapper_html: { class: 'inputfile' }, label: icon_tag("photo") + t('.change_photo').html_safe, label_html: {class: 'button hollow tiny btn-hover-yellow', id: 'series-label'}, input_html: {'data-instant-image'=> '#series-image | #series-label'}
 
         = f.input :title, placeholder: t('.title')
         = f.input :teaser, rows: 2, placeholder: t('.teaser')

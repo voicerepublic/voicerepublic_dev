@@ -1,3 +1,5 @@
+require 'json'
+
 # config valid only for Capistrano 3.1
 lock '3.1.0'
 
@@ -35,13 +37,14 @@ set :deploy_to, '/home/app/app'
 set :linked_files, %w{ config/database.yml
                        config/bumpy_bridge.yml
                        config/settings.local.yml
-                       config/auditor.yml
-                       config/simon_the_slacker.yml }
+                       config/versions.edn }
 
 # Default value for linked_dirs is []
 # set :linked_dirs, %w{bin log tmp/pids tmp/cache
 #                      tmp/sockets vendor/bundle public/system}
-set :linked_dirs, %w{ log tmp/pids public/system }
+set :linked_dirs, %w{ log
+                      tmp/pids
+                      public/system }
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
@@ -61,29 +64,37 @@ namespace :deploy do
   end
   after :started, :slack_started
 
+
   task :slack_finished do
     slack "#{fetch(:me)} FINISHED a deployment of "+
           "#{fetch(:application)} (#{fetch(:branch)}) to #{fetch(:stage)}"
   end
   after :finished, :slack_finished
 
+
+  task :cljsbuild do
+    on release_roles(fetch(:assets_roles)) do
+      path = release_path + 'lib/vrng'
+      # requires java & leinigen
+      execute "cd #{path} && /home/app/bin/lein clean"
+      execute "cd #{path} && /home/app/bin/lein cljsbuild once min"
+    end
+  end
+  before :compile_assets, :cljsbuild
+
+
   desc 'Restart application'
   task :restart do
     on roles(:app), in: :sequence, wait: 5 do
-      # Your restart mechanism here, for example:
-      # execute :touch, release_path.join('tmp/restart.txt')
       execute "RAILS_ENV=#{fetch(:rails_env)} $HOME/bin/unicorn_wrapper restart"
 
-      # NEWSCHOOL
       monit_restart 'flux_capacitor',
                     'dj-trigger-0',
                     'dj-mail-0',
                     'dj-audio-0',
-                    'dj-audio-1'
-
-      # OLDSCHOOL
-      # Kill all delayed jobs and leave the respawning to monit.
-      # execute "pkill -f delayed_job; true"
+                    'dj-audio-1',
+                    'mediator',
+                    'slacker'
 
       # Will deliberately keep private_pub and rtmpd running
       # since we'll almost never have to change their code base
@@ -110,7 +121,7 @@ namespace :deploy do
 
 end
 
-require 'json'
+
 
 def slack(message)
   url = "https://voicerepublic.slack.com/services/hooks/incoming-webhook"+

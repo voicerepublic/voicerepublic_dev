@@ -1,0 +1,26 @@
+:css
+  .driftup {
+    visibility: hidden;
+  }
+
+%section.text-center
+  .row
+    .title-block.driftup
+      %h2= t('.please_select_a_venue')
+    - if @venues.empty?
+      %p
+        You seem to have no venue, yet. Please
+        = link_to 'create a talk', new_talk_path
+        first.
+    - else
+      %ul.menu
+        - @venues.each do |venue|
+          %li.talk-card.driftup
+            = link_to venue do
+              .talk-card-inside{class: venue.state}
+                %h5.title= venue.name
+                %p.clearfix
+                  %span.talk-count.float-left
+                    = human_count(venue.talks.count)
+                    = t('.talks', count: venue.talks.count)
+                  %span.venue-state.float-right= venue.state

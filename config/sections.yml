@@ -1,5 +1,42 @@
 # this file contains default content for sections (formatted in markdown)
 en:
+  talks:
+    dryrun:
+      text: >-
+
+        You’re about to create a test talk.
+
+
+        Test talks have all the same features as regular talks, but
+        they will only be saved on your profile for 24 hours. After
+        that the talk will automatically be deleted.
+
+
+        Happy testing!
+
+  shared:
+    footer_velvet:
+      copyright: '©2016 Voice Republic Media AG'
+      headline: What Is Voice Republic
+      text: >-
+
+        Voice Republic is the platform for the spoken word. We offer
+        you a simple tool to stream your event, your presentation,
+        your discussion or lecture live or make it accessible for
+        everyone by uploading it to the audio archive. The live stream
+        gives listeners who can not personally be at an event or live
+        performance the opportunity to listenin and to get involved –
+        using the comment function, they can actively take part in the
+        discussion. After the live broadcast, the talk will
+        automatically be saved in our [audio archive](/explore) and
+        can be heard at any time or downloaded as a podcast. You can
+        also easily upload existing recordings. Starting at [12 euros
+        per talk](/pricing) you can boost your reach and position your
+        content from the fields of politics,science, arts and culture,
+        technology and business in a guaranteed high-quality
+        environment. Listening to the live streams and downloading the
+        podcasts is free for all users.
+
   root:
     index:
       title: '# Home to the spoken word'
@@ -29,3 +66,267 @@ en:
           use Voice Republic in our help section. If you have any
           further questions, please contact us directly under
           service@voicerepublic.com.
+  pages:
+    outdated_browser:
+      text: >-
+        ### You are using an outdated browser.
+
+        (You are using an old version of %{browser} which is
+        %{version}.)
+
+
+        Unfortunately, at this stage, we do not have the manpower to
+        support every browser. We rather strive to to build the most
+        awesome user experience using modern browsers. For a good
+        experience with Voice Republic, please upgrade to the newest
+        version or download one of the browsers below:
+
+
+        * [Download Chrome 33+](https://www.google.com/intl/en/chrome/browser/)
+
+        * [Download Firefox 28+](http://www.mozilla.org/en-US/firefox/new/)
+
+        * **Safari 7** (If you are on OSX < 10.9, you need to upgrade to
+          get a newer version of Safari. It is easier to use Chrome or
+          Firefox.)
+
+        * [Download Internet Explorer](http://windows.microsoft.com/en-us/internet-explorer/download-ie)
+          (If you have an older version of Windows, you need to upgrade to get a newer version of Internet explorer. It's easier to use Chrome or Firefox.)
+    publish:
+      head_1: "# Publish your own content online"
+      text_1: >-
+
+        At Voice Republic, your content is in good company. Our archive is growing
+        daily with high-class lectures, discussions
+        and readings from the fields of culture, sciences, politics
+        and business. Expand your reach beyond the venue walls to interested listeners around the world.
+        Thanks to our browser-based technology, you'll need no extra gear.
+        [Starting at 12€ per Talk](/pricing)
+        your own audio channel is only a few clicks away...
+
+      head_2: "## The Voice Republic live stream"
+      text_2: >-
+
+        Are you organizing a conference, discussion panel, or
+        holding lectures and workshops yourself? With Voice Republic
+        you can publish your content to the whole world and reach a
+        large audience.
+
+
+        Broadcasting your own live stream is easy with Voice Republic's
+        browser-based technology. You configure a talk
+        in your Voice Republic account and simply click
+        "Start" and "Stop" during the event. The technology you need on site is only
+        a computer with internet access and an audio source. The
+        comment feature gives you the opportunity to interact with
+        your online audience. Listeners can comment and ask questions
+        in real time.
+
+
+        After your event, your audio content is
+        in good hands with us. All Talks are stored on the Voice
+        Republic servers and are searchable in the archive immediately
+        after the live broadcast.
+
+
+
+      head_3: "## The Voice Republic audio upload"
+      text_3: >-
+
+        Already have existing
+        recordings? You can also use our audio archive. Just upload
+        your audio files and add your own photos, descriptive texts
+        and—if you want to—presentation slides. Everyone can now
+        listen to your content online or download it as a podcast. You
+        can easily embed the Voice Republic Player into your own web
+        page and share the Talks on social networks.
+
+    listen:
+      text_1: |
+
+        # Hello World
+
+        A paragrah of some text. Pellentesque habitant morbi tristique
+        senectus et netus et malesuada fames ac turpis egestas. Fusce
+        a quam. Aliquam erat volutpat. Phasellus consectetuer
+        vestibulum elit. Aliquam lobortis. Sed fringilla mauris sit
+        amet nibh.
+
+      buttons_1: |
+
+        [A link >>](http://www.thelongestdomainnameintheworldandthensomeandthensomemoreandmore.com/) [Another link >>](http://3.141592653589793238462643383279502884197169399375105820974944592.eu/)
+
+      text_2: |
+
+        ## Hello World
+
+        A paragrah of some text. Pellentesque habitant morbi tristique
+        senectus et netus et malesuada fames ac turpis egestas. Fusce
+        a quam. Aliquam erat volutpat. Phasellus consectetuer
+        vestibulum elit. Aliquam lobortis. Sed fringilla mauris sit
+        amet nibh.
+
+        * a
+        * bulleted
+        * list
+
+        1. a
+        1. numbered
+        1. list
+
+      buttons_2: |
+
+        [A link >>](http://www.thelongestdomainnameintheworldandthensomeandthensomemoreandmore.com/) [Another link >>](http://3.141592653589793238462643383279502884197169399375105820974944592.eu/)
+
+      aside_2: |
+
+        ![free](http://blog.voicerepublic.com/wp-content/uploads/2016/04/Banner_rund_free_credits_straight.png)
+
+        This is aside_2.
+
+      text_3: |
+
+        ## Hello World
+
+        A paragrah of some text. Pellentesque habitant morbi tristique
+        senectus et netus et malesuada fames ac turpis egestas. Fusce
+        a quam. Aliquam erat volutpat. Phasellus consectetuer
+        vestibulum elit. Aliquam lobortis. Sed fringilla mauris sit
+        amet nibh.
+
+        * a
+        * bulleted
+        * list
+
+        1. a
+        1. numbered
+        1. list
+
+      buttons_3: |
+
+        [A link >>](http://www.thelongestdomainnameintheworldandthensomeandthensomemoreandmore.com/) [Another link >>](http://3.141592653589793238462643383279502884197169399375105820974944592.eu/)
+
+      aside_3: |
+
+        ![free](http://blog.voicerepublic.com/wp-content/uploads/2016/04/Banner_rund_free_credits_straight.png)
+
+        This is aside_3.
+
+
+    audio-upload:
+      text_1: text_1
+      buttons_1: buttons_1
+      text_2: text_2
+      buttons_2: buttons_2
+      aside_2: aside_2
+      text_3: text_3
+      buttons_3: buttons_3
+      aside_3: aside_3
+    livestream:
+      text_1: text_1
+      buttons_1: buttons_1
+      text_2: text_2
+      buttons_2: buttons_2
+      aside_2: aside_2
+      text_3: text_3
+      buttons_3: buttons_3
+      aside_3: aside_3
+    conferences-fairs:
+      text_1: text_1
+      buttons_1: buttons_1
+      text_2: text_2
+      buttons_2: buttons_2
+      aside_2: aside_2
+      text_3: text_3
+      buttons_3: buttons_3
+      aside_3: aside_3
+    science-education:
+      text_1: text_1
+      buttons_1: buttons_1
+      text_2: text_2
+      buttons_2: buttons_2
+      aside_2: aside_2
+      text_3: text_3
+      buttons_3: buttons_3
+      aside_3: aside_3
+    culture:
+      text_1: text_1
+      buttons_1: buttons_1
+      text_2: text_2
+      buttons_2: buttons_2
+      aside_2: aside_2
+      text_3: text_3
+      buttons_3: buttons_3
+      aside_3: aside_3
+    companies:
+      text_1: text_1
+      buttons_1: buttons_1
+      text_2: text_2
+      buttons_2: buttons_2
+      aside_2: aside_2
+      text_3: text_3
+      buttons_3: buttons_3
+      aside_3: aside_3
+    independents:
+      text_1: text_1
+      buttons_1: buttons_1
+      text_2: text_2
+      buttons_2: buttons_2
+      aside_2: aside_2
+      text_3: text_3
+      buttons_3: buttons_3
+      aside_3: aside_3
+    foundations:
+      text_1: text_1
+      buttons_1: buttons_1
+      text_2: text_2
+      buttons_2: buttons_2
+      aside_2: aside_2
+      text_3: text_3
+      buttons_3: buttons_3
+      aside_3: aside_3
+    universities:
+      text_1: text_1
+      buttons_1: buttons_1
+      text_2: text_2
+      buttons_2: buttons_2
+      aside_2: aside_2
+      text_3: text_3
+      buttons_3: buttons_3
+      aside_3: aside_3
+    speakers:
+      text_1: text_1
+      buttons_1: buttons_1
+      text_2: text_2
+      buttons_2: buttons_2
+      aside_2: aside_2
+      text_3: text_3
+      buttons_3: buttons_3
+      aside_3: aside_3
+    topics:
+      text_1: text_1
+      buttons_1: buttons_1
+      text_2: text_2
+      buttons_2: buttons_2
+      aside_2: aside_2
+      text_3: text_3
+      buttons_3: buttons_3
+      aside_3: aside_3
+    publishers:
+      text_1: text_1
+      buttons_1: buttons_1
+      text_2: text_2
+      buttons_2: buttons_2
+      aside_2: aside_2
+      text_3: text_3
+      buttons_3: buttons_3
+      aside_3: aside_3
+    media-journalism:
+      text_1: text_1
+      buttons_1: buttons_1
+      text_2: text_2
+      buttons_2: buttons_2
+      aside_2: aside_2
+      text_3: text_3
+      buttons_3: buttons_3
+      aside_3: aside_3

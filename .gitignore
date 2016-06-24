@@ -3,6 +3,7 @@
 /.bundle
 /.rspec
 /vendor/bundle
+/vendor/cache
 
 # Ignore all logfiles and tempfiles.
 /log/*.pid
@@ -61,3 +62,5 @@ Thumbs.db
 
 /bower_components/
 /vendor/assets/bower_components/
+/dragonfly.log
+/userdata.sh

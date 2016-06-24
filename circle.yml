@@ -2,9 +2,10 @@ dependencies:
   cache_directories:
     - spec/angular/node_modules
   pre:
-    - sudo apt-get update; sudo apt-get install lame vorbis-tools
-test:
-  post:
-    - cd spec/angular && npm test
-    - mkdir -p $CIRCLE_TEST_REPORTS/junit/
-    - cd ${HOME}/${CIRCLE_PROJECT_REPONAME} && find test-results.xml -exec cp {} $CIRCLE_TEST_REPORTS/junit/ \;
+    - sudo apt-get update; sudo apt-get install lame vorbis-tools mplayer
+    - cd lib/vrng && lein cljsbuild once app
+#test:
+#  post:
+#    - cd spec/angular && npm test
+#    - mkdir -p $CIRCLE_TEST_REPORTS/junit/
+#    - cd ${HOME}/${CIRCLE_PROJECT_REPONAME} && find test-results.xml -exec cp {} $CIRCLE_TEST_REPORTS/junit/ \;

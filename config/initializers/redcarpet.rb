@@ -1,5 +1,7 @@
 # https://github.com/vmg/redcarpet
 
+require 'redcarpet/render_strip'
+
 class Redcarpet::Render::VRHTML < Redcarpet::Render::HTML
 
   def postprocess(doc)
@@ -42,15 +44,24 @@ end
 
 MD2HTML = Redcarpet::Markdown.new(Redcarpet::Render::VRHTML.new(filter_html: true))
 
+class Redcarpet::Render::VRStripDown < Redcarpet::Render::StripDown
 
-# class Redcarpet::Render::TEXT < Redcarpet::Render::Base
-#   # TODO implement the renderer
-# end
-#
-# MD2TEXT = Redcarpet::Markdown.new(Redcarpet::Render::TEXT.new)
+  def raw_html(str)
+    return "\n" if str =~ /^<br *\/?>$/
+    ""
+  end
 
+  def entity(str)
+    Nokogiri::HTML.parse(str).text
+  end
 
+  def normal_text(str)
+    str.gsub(/\\n/, "\n")
+  end
 
+end
+
+MD2TEXT = Redcarpet::Markdown.new(Redcarpet::Render::VRStripDown.new)
 
 # a more permissive renderer
 

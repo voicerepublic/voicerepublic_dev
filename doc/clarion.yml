@@ -1,0 +1,245 @@
+--- !ruby/hash:Hashie::Mash
+has_more: false
+total_results: 1
+data:
+- !ruby/hash:Hashie::Mash
+  tasks:
+  - !ruby/hash:Hashie::Mash
+    date_updated: '2016-01-27T15:26:29.298000+00:00'
+    text: Follow up
+    object_type: 
+    contact_id: 
+    created_by: user_GE4oOiEGrcdRMxOLEE1OWxcBZKYME9KJIx3X3voDZaK
+    lead_name: Clarion Events
+    contact_name: 
+    id: task_40yOQ8uayGRdJnh7C0a66QHoryCfiigDSaxERg5OAqw
+    object_id: 
+    updated_by_name: Henrik Kuhlmann
+    created_by_name: Henrik Kuhlmann
+    is_dateless: false
+    due_date: '2016-01-27'
+    _type: lead
+    updated_by: user_GE4oOiEGrcdRMxOLEE1OWxcBZKYME9KJIx3X3voDZaK
+    organization_id: orga_acHdJNCbWl6s6gWZ2AVFBVX3JBtNeXbyJ3dWydrxlHM
+    assigned_to_name: Henrik Kuhlmann
+    date: '2016-01-27'
+    lead_id: lead_cfitzSXEF5ciQOdYgCtPLCdCfbIkjd9pmfvCewLHvr5
+    assigned_to: user_GE4oOiEGrcdRMxOLEE1OWxcBZKYME9KJIx3X3voDZaK
+    date_created: '2016-01-27T15:26:29.298000+00:00'
+    is_complete: false
+    view: inbox
+  - !ruby/hash:Hashie::Mash
+    date_updated: '2015-08-14T15:26:22.835000+00:00'
+    text: Jan Harms anrufen
+    object_type: taskcompleted
+    contact_id: 
+    created_by: user_GE4oOiEGrcdRMxOLEE1OWxcBZKYME9KJIx3X3voDZaK
+    lead_name: Clarion Events
+    contact_name: 
+    id: task_Yv9LOqMZ1OSIt6d1IPqQOC2UBd86LhaTx8mCbHI1BhH
+    object_id: acti_tHYlB2pcZ6qYjvcP1Dtz8gvSpbtMWsXcgok4cwtQOzk
+    updated_by_name: Henrik Kuhlmann
+    created_by_name: Henrik Kuhlmann
+    is_dateless: false
+    due_date: '2015-09-11'
+    _type: lead
+    updated_by: user_GE4oOiEGrcdRMxOLEE1OWxcBZKYME9KJIx3X3voDZaK
+    organization_id: orga_acHdJNCbWl6s6gWZ2AVFBVX3JBtNeXbyJ3dWydrxlHM
+    assigned_to_name: Henrik Kuhlmann
+    date: '2015-09-11'
+    lead_id: lead_cfitzSXEF5ciQOdYgCtPLCdCfbIkjd9pmfvCewLHvr5
+    assigned_to: user_GE4oOiEGrcdRMxOLEE1OWxcBZKYME9KJIx3X3voDZaK
+    date_created: '2015-07-15T11:11:43.793000+00:00'
+    is_complete: true
+    view: archive
+  - !ruby/hash:Hashie::Mash
+    date_updated: '2015-09-02T09:20:24.953000+00:00'
+    text: Follow up - Email
+    object_type: taskcompleted
+    contact_id: 
+    created_by: user_GE4oOiEGrcdRMxOLEE1OWxcBZKYME9KJIx3X3voDZaK
+    lead_name: Clarion Events
+    contact_name: 
+    id: task_cL6Mbq9RNZ0CK4MAGdOOZLk5Fx6HR1xjOZ9S3Aiij1a
+    object_id: acti_Guk01cw35lLwi3SUgeIsqDK6tH2lgI1TPHbMeW2v2V0
+    updated_by_name: Ole Kretschmann
+    created_by_name: Henrik Kuhlmann
+    is_dateless: false
+    due_date: '2015-09-01'
+    _type: lead
+    updated_by: user_H3DI7t0YoCDQhMSHLumtshj8IrWL9aasN6yFj8iuE39
+    organization_id: orga_acHdJNCbWl6s6gWZ2AVFBVX3JBtNeXbyJ3dWydrxlHM
+    assigned_to_name: Ole Kretschmann
+    date: '2015-09-01'
+    lead_id: lead_cfitzSXEF5ciQOdYgCtPLCdCfbIkjd9pmfvCewLHvr5
+    assigned_to: user_H3DI7t0YoCDQhMSHLumtshj8IrWL9aasN6yFj8iuE39
+    date_created: '2015-08-25T16:09:12.709000+00:00'
+    is_complete: true
+    view: archive
+  - !ruby/hash:Hashie::Mash
+    date_updated: '2015-08-25T16:07:42.009000+00:00'
+    text: Persönliches Gespräch Möckern
+    object_type: taskcompleted
+    contact_id: 
+    created_by: user_GE4oOiEGrcdRMxOLEE1OWxcBZKYME9KJIx3X3voDZaK
+    lead_name: Clarion Events
+    contact_name: 
+    id: task_T98SFxl0TBqh6IHmkwhlB7lFFaGxKKAUJoJFT0znoiT
+    object_id: acti_YvKRxVQi9z3FZfhIHwExwLQzxIQpLanXDYXpPgfoAq9
+    updated_by_name: Henrik Kuhlmann
+    created_by_name: Henrik Kuhlmann
+    is_dateless: false
+    due_date: '2015-08-25T10:00:00+00:00'
+    _type: lead
+    updated_by: user_GE4oOiEGrcdRMxOLEE1OWxcBZKYME9KJIx3X3voDZaK
+    organization_id: orga_acHdJNCbWl6s6gWZ2AVFBVX3JBtNeXbyJ3dWydrxlHM
+    assigned_to_name: Henrik Kuhlmann
+    date: '2015-08-25T10:00:00+00:00'
+    lead_id: lead_cfitzSXEF5ciQOdYgCtPLCdCfbIkjd9pmfvCewLHvr5
+    assigned_to: user_GE4oOiEGrcdRMxOLEE1OWxcBZKYME9KJIx3X3voDZaK
+    date_created: '2015-08-14T15:26:43.422000+00:00'
+    is_complete: true
+    view: archive
+  display_name: Clarion Events
+  addresses: []
+  name: Clarion Events
+  contacts:
+  - !ruby/hash:Hashie::Mash
+    name: Silke Bokern
+    title: Veranstalter Office in DE
+    date_updated: '2015-08-13T09:56:45.274000+00:00'
+    phones:
+    - !ruby/hash:Hashie::Mash
+      phone: "+495219653366"
+      phone_formatted: "+49 521 9653366"
+      type: office
+    created_by: user_8Vxg1zl5yATAZzYchCPGVpJ9Hq4px9ibKtgq8pR3Tud
+    id: cont_T3aAudOt8BL2AB02ZzM90PTuSaqjykfSMFCzdqB6Y83
+    organization_id: orga_acHdJNCbWl6s6gWZ2AVFBVX3JBtNeXbyJ3dWydrxlHM
+    urls:
+    - !ruby/hash:Hashie::Mash
+      url: http://www.clarionevents.com
+      type: url
+    date_created: '2015-07-14T14:29:37.115000+00:00'
+    emails:
+    - !ruby/hash:Hashie::Mash
+      type: office
+      email: silke.bokern@clarionevents.de
+    updated_by: user_GE4oOiEGrcdRMxOLEE1OWxcBZKYME9KJIx3X3voDZaK
+  - !ruby/hash:Hashie::Mash
+    name: Jan Harms
+    title: ''
+    date_updated: '2015-08-13T09:56:45.277000+00:00'
+    phones:
+    - !ruby/hash:Hashie::Mash
+      phone: "+49521965336663342"
+      phone_formatted: "+49 5219 65336663342"
+      type: office
+    created_by: user_H3DI7t0YoCDQhMSHLumtshj8IrWL9aasN6yFj8iuE39
+    id: cont_fFTPvqqaUk5WQTWLR4HTdPhsxNtHBqzIABNpxPiUlF0
+    organization_id: orga_acHdJNCbWl6s6gWZ2AVFBVX3JBtNeXbyJ3dWydrxlHM
+    urls: []
+    date_created: '2015-08-04T10:56:08.842000+00:00'
+    emails: []
+    updated_by: user_GE4oOiEGrcdRMxOLEE1OWxcBZKYME9KJIx3X3voDZaK
+  - !ruby/hash:Hashie::Mash
+    name: Dan Cole
+    title: Marketing
+    date_updated: '2015-08-13T09:56:45.315000+00:00'
+    phones: []
+    created_by: user_8Vxg1zl5yATAZzYchCPGVpJ9Hq4px9ibKtgq8pR3Tud
+    id: cont_olxR0TlYMDSfBlfm47yCDH5Wpn6hyVem67Bq9pjvHSr
+    organization_id: orga_acHdJNCbWl6s6gWZ2AVFBVX3JBtNeXbyJ3dWydrxlHM
+    urls: []
+    date_created: '2015-07-14T14:25:14.918000+00:00'
+    emails:
+    - !ruby/hash:Hashie::Mash
+      type: office
+      email: dan.cole@clarionevents.com
+    updated_by: user_GE4oOiEGrcdRMxOLEE1OWxcBZKYME9KJIx3X3voDZaK
+  - !ruby/hash:Hashie::Mash
+    name: Sonia Isidoro
+    title: For all media/PR enquiries, interviews and media accreditation
+    date_updated: '2015-08-13T09:56:45.320000+00:00'
+    phones: []
+    created_by: user_8Vxg1zl5yATAZzYchCPGVpJ9Hq4px9ibKtgq8pR3Tud
+    id: cont_XmOcbJvuoVcglh9fI9aSvaImkZ5lX2GFm1VYLVaAZXS
+    organization_id: orga_acHdJNCbWl6s6gWZ2AVFBVX3JBtNeXbyJ3dWydrxlHM
+    urls: []
+    date_created: '2015-07-14T14:21:18.257000+00:00'
+    emails:
+    - !ruby/hash:Hashie::Mash
+      type: office
+      email: sonia.isidoro@clarionevents.com
+    updated_by: user_GE4oOiEGrcdRMxOLEE1OWxcBZKYME9KJIx3X3voDZaK
+  - !ruby/hash:Hashie::Mash
+    name: Frank Haubold
+    title: Portfolio Director
+    date_updated: '2015-08-26T09:34:38.280000+00:00'
+    phones:
+    - !ruby/hash:Hashie::Mash
+      phone: "+495219653394"
+      phone_formatted: "+49 521 9653394"
+      type: office
+    created_by: user_GE4oOiEGrcdRMxOLEE1OWxcBZKYME9KJIx3X3voDZaK
+    id: cont_3NW9zDlkh4QLVfRsNduZd8n1AlQal1Q18EZ9qTC0H0E
+    organization_id: orga_acHdJNCbWl6s6gWZ2AVFBVX3JBtNeXbyJ3dWydrxlHM
+    urls: []
+    date_created: '2015-08-13T09:56:30.731000+00:00'
+    emails:
+    - !ruby/hash:Hashie::Mash
+      type: office
+      email: frank.haubold@clarionevents.de
+    updated_by: user_GE4oOiEGrcdRMxOLEE1OWxcBZKYME9KJIx3X3voDZaK
+  updated_by_name: Henrik Kuhlmann
+  created_by_name: Marina Villanueva
+  status_id: stat_3IKyqnRcJvsmwPLLjgqk1fbyEP6eTDSOZWzqYmUBfGU
+  html_url: https://app.close.io/lead/lead_cfitzSXEF5ciQOdYgCtPLCdCfbIkjd9pmfvCewLHvr5/
+  created_by: user_8Vxg1zl5yATAZzYchCPGVpJ9Hq4px9ibKtgq8pR3Tud
+  custom: !ruby/hash:Hashie::Mash
+    Point of Reference: Firma http://clarionevents.com/
+    Event Name: EiG Excellense in iGaming
+    Notes: Conf wird von Clarion Events ltd veranstaltet
+    Type of Institution: Conf / Company
+    Reputation: 5.0
+    Next Date: 20. & 22. Okt 2015 - http://www.eigexpo.com
+    Location: Berlin
+    Menge Talks: 'Talks: 1000'
+  organization_id: orga_acHdJNCbWl6s6gWZ2AVFBVX3JBtNeXbyJ3dWydrxlHM
+  date_updated: '2016-01-27T15:26:29.329000+00:00'
+  updated_by: user_GE4oOiEGrcdRMxOLEE1OWxcBZKYME9KJIx3X3voDZaK
+  opportunities:
+  - !ruby/hash:Hashie::Mash
+    date_updated: '2015-12-16T09:38:28.354000+00:00'
+    created_by_name: Henrik Kuhlmann
+    value_currency: EUR
+    contact_id: 
+    lead_name: Clarion Events
+    contact_name: 
+    id: oppo_d1KDPFC2MM2KTSEK9DtlyXBwWt0KlDemUgvbh5fyFPI
+    confidence: 0
+    user_id: user_GE4oOiEGrcdRMxOLEE1OWxcBZKYME9KJIx3X3voDZaK
+    value_period: one_time
+    created_by: user_GE4oOiEGrcdRMxOLEE1OWxcBZKYME9KJIx3X3voDZaK
+    note: ''
+    updated_by_name: Henrik Kuhlmann
+    user_name: Henrik Kuhlmann
+    status_type: active
+    updated_by: user_GE4oOiEGrcdRMxOLEE1OWxcBZKYME9KJIx3X3voDZaK
+    status_id: stat_vhU91s8Ksv7n1jYlhVV9yQCQM5OajYOqQAuEwemBX8W
+    value_formatted: "€1,200"
+    organization_id: orga_acHdJNCbWl6s6gWZ2AVFBVX3JBtNeXbyJ3dWydrxlHM
+    date_won: '2016-02-10'
+    lead_id: lead_cfitzSXEF5ciQOdYgCtPLCdCfbIkjd9pmfvCewLHvr5
+    date_lost: 
+    value: 120000
+    status_label: Active
+    date_created: '2015-08-13T09:56:48.156000+00:00'
+  url: http://clarionevents.com/about-us/all-events
+  status_label: Potential
+  date_created: '2015-07-14T14:21:18.266000+00:00'
+  id: lead_cfitzSXEF5ciQOdYgCtPLCdCfbIkjd9pmfvCewLHvr5
+  description: Clarion Events can trace its roots back to 1947 and takes great pride
+    in being one of the oldest independent event organisers in the UK.  More recently
+    the firm has developed an international portfolio of brands and now has interests
+    in a number of global vertical industries.

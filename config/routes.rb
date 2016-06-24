@@ -2,18 +2,17 @@ Rails.application.routes.draw do
 
   extend ApplicationHelper
 
+  get '/403', to: 'application#forbidden'
+  get '/404', to: 'application#not_found'
+  get '/500', to: 'application#internal_server_error'
+
   # a bunch of redirects
   scope 'r' do
     get 'md',       to: redirect(blog_url('/how-to-format-text-with-markdown'))
     get 'terms',    to: redirect(blog_url('/terms-of-use'))
-    get 'username', to: redirect('/support/username') # TODO change to blog
   end
 
-  get 'pages/:action' => 'pages'
-
-  # TODO these will probably have to goe
-  get 'support/:action', controller: 'support'
-  get 'support', to: 'support#index'
+  get 'pages/:action' => 'pages', as: 'page'
 
   get "/pricing", to: 'purchases#index', as: 'pricing'
   resources :purchases, only: [ :index, :new, :create, :show ] do
@@ -34,15 +33,18 @@ Rails.application.routes.draw do
 
   resources :uploads, only: [ :new, :create ]
 
-  post '/xhr/talk/:id/messages', to: 'xhr/messages#create'
+  post '/xhr/talk/:id/messages', to: 'xhr/messages#create', as: 'create_message'
   get  '/xhr/users',             to: 'xhr/users#index'
 
   namespace 'xhr' do
     resources :social_shares, only: [:create]
     resources :tags, only: [:index]
+    resources :talks, only: [:update]
   end
 
   namespace 'api' do
+    get 'oembed(.:format)' => 'oembed#show'
+    resources :devices, only: [:show, :create]
     resources :talks, only: [:index]
     resources :uploads, only: [ :create ]
     resources :bookmarks, only: [ :index ]
@@ -82,7 +84,16 @@ Rails.application.routes.draw do
     resources :comments, only: [:create]
     resources :participations, only: [:index, :create, :destroy]
   end
-  get '/venues/:id', to: redirect(->(params, req) { '/series/'+params[:id] })
+  # TODO remove
+  # get '/venues/:id', to: redirect(->(params, req) { '/series/'+params[:id] })
+
+  resources :venues, only: [:index, :show, :update] do
+    member do
+      get 'butt'
+      get 'darkice'
+    end
+  end
+  resources :devices, only: [:index, :edit, :update]
 
   resources :reminders, only: [:show, :destroy]
 
@@ -117,12 +128,6 @@ Rails.application.routes.draw do
   root :to => "root#index"
 
   # match ':controller(/:action(/:id))(.:format)'
-
-  # Match exceptions
-  # http://railscasts.com/episodes/53-handling-exceptions-revised?view=asciicast
-  match '(errors)/:status', to: 'errors#show', constraints: {status: /\d{3}/}, via: :all
-
-  get '/upgrade_browser', to: 'errors#upgrade_browser'
 
   if Rails.env.development?
     mount LetterOpenerWeb::Engine, at: "/letter_opener"

@@ -1,0 +1,106 @@
+#error-container {
+            background: url(../../images/background/desert.jpg) no-repeat 50% 25%;
+.not-found p {
+
+            color: $vr-beige;
+}
+}
+.qa {
+    display: none !important;
+}
+
+.bot-mar-1 {
+    margin-bottom: 1rem;
+}
+
+.transparent {
+    opacity: 0;
+}
+.no-pad {
+    padding: 0 !important;
+}
+
+.top-24 {
+    padding-top:24px;
+}
+
+// Overwrite the float-right behavior of the last element in grid:
+.column:last-child:not(:first-child), .columns:last-child:not(:first-child) {
+    float:left;
+}
+
+@mixin button-hollow-style($color: $vr-blue) {
+  $color-hover: $vr-red;
+
+  border: 1px solid $color;
+  color: $color;
+
+  &:hover, &:focus {
+    border-color: $color-hover;
+    color: $color-hover;
+  }
+}
+
+// @font-face {
+//     font-family: 'Eagle';
+//     src: url('../fonts/Eagle-Book.eot?-u70zge');
+//     src: url('../fonts/Eagle-Book.eot?#iefix-u70zge') format('embedded-opentype'), url('../fonts/Eagle-Book.ttf?-u70zge') format('truetype'), url('../fonts/Eagle-Book.woff?-u70zge') format('woff'), url('../fonts/Eagle-Book.svg?-u70zge#Eagle-Book') format('svg');
+//     font-weight: normal;
+//     font-style: normal;
+// }
+
+
+html {
+    -webkit-font-smoothing: antialiased;
+    height: auto;
+    overflow: auto;
+    font-weight: 300;
+    color: $almost-black;
+    background:$vr-blue;
+}
+
+body {
+      position: relative;
+  height: auto;
+  min-height: 100% !important;
+}
+
+a {
+    color: $vr-light-blue;
+    &:hover {
+        color: $vr-blue;
+    }
+    &.link-yellow {
+        color: $vr-yellow;
+    }
+}
+
+
+
+.close-button {
+    padding:0;
+    margin:0;
+    border:0;
+}
+
+//avatar
+.avatar {
+    height: 100%;
+    padding: 12px 0;
+    img {
+        border:1px solid rgba($talk-dark,.1);
+        border-radius:50%;
+    }
+}
+
+.avatar-image {
+    border-radius: 50%;
+    // border: 2px solid $smoke;
+    background-size: cover;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    margin:0 auto;
+}
+
+section {
+    padding:12px;
+}

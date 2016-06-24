@@ -1,6 +1,7 @@
 class RemindersController < BaseController
 
   before_action :authenticate_user!, except: [:index]
+  before_action :set_reminder, only: [:show, :destroy]
 
   # GET /users/:user_id/reminders
   def index
@@ -25,16 +26,26 @@ class RemindersController < BaseController
     @reminder = Reminder.new(attrs)
 
     authorize! :create, @reminder
-    return redirect_to @reminder if @reminder.save
+    return render json: { id: @reminder.id } if @reminder.save
 
-    head 422
+    head 409
   end
 
   # DELETE /reminders/1
   def destroy
-    @reminder = Reminder.find(params[:id])
     authorize! :destroy, @reminder
-    @reminder.destroy
+    return head(200) if @reminder.destroy
+
+    head 404
+  end
+
+  private
+
+  def set_reminder
+    @reminder = Reminder.find(params[:id])
+    @selector = [ '.pin',
+                  @reminder.rememberable_type,
+                  @reminder.rememberable_id ] * '-'
   end
 
 end

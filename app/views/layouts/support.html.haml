@@ -17,7 +17,7 @@
     %link{:href => "/images/apple-touch-icon-72x72.png", :rel => "apple-touch-icon", :sizes => "72x72"}/
     %link{:href => "/images/apple-touch-icon-114x114.png", :rel => "apple-touch-icon", :sizes => "114x114"}/
     = yield(:head)
-    = javascript_include_tag "vendor/modernizr"
+    = javascript_include_tag "modernizr"
     <script src="//use.typekit.net/ilh7iri.js"></script>
     <script>try{Typekit.load();}catch(e){}</script>
   %body{:class => "#{controller_name} #{[controller_name, action_name] * '-'}"}

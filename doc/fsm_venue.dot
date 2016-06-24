@@ -1,0 +1,68 @@
+digraph G {
+
+  // basic settings
+
+  fontname = "Bitstream Vera Sans"
+  fontsize = 8
+
+  edge [
+    fontname = "Bitstream Vera Sans"
+    fontsize = 8
+  ]
+
+  node [
+    fontname = "Bitstream Vera Sans"
+    fontsize = 8
+  ]
+
+
+  // normal transitions
+
+  edge [
+    arrowtail = "none"
+    arrowhead = "open"
+  ]
+
+  node [
+    shape = "oval"
+  ]
+
+  offline -> available [label="become_available"]
+  available -> provisioning [label="start_provisioning"]
+
+  // complete_provisioning!
+  provisioning -> awaiting_stream [label="complete_provisioning"]
+  provisioning -> device_required [label="complete_provisioning"]
+
+  device_required -> awaiting_stream [label="select_device"]
+
+  // connect!
+  awaiting_stream -> connected [label="connect"]
+  disconnected -> connected [label="connect"]
+
+  connected -> disconnected [label="disconnect"]
+
+  // shutdown!
+  device_required -> offline [label="shutdown"]
+  awaiting_stream -> offline [label="shutdown"]
+  connected -> offline [label="shutdown"]
+  disconnected -> offline [label="shutdown"]
+
+  // // reset!
+  // available -> offline [label="reset" style=dashed]
+  // provisioning -> offline [label="reset" style=dashed]
+  // device_required -> offline [label="reset" style=dashed]
+  // awaiting_stream -> offline [label="reset" style=dashed]
+  // connected -> offline [label="reset" style=dashed]
+  // disconnected -> offline [label="reset" style=dashed]
+
+  // select_device!
+  awaiting_stream -> awaiting_stream [label="select_device"]
+  connected -> awaiting_stream [label="select_device"]
+  disconnected -> awaiting_stream [label="select_device"]
+
+  // require_disconnect
+  connected -> disconnect_required [label="require_disconnect"]
+  disconnect_required -> disconnected [label="disconnect"]
+
+}

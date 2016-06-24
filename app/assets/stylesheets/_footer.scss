@@ -1,0 +1,112 @@
+//FOOTER
+footer {
+    padding: 84px 12px;
+    padding-bottom: 12px;
+    background: $talk-dark;
+    color: $ghost;
+    ul.menu.vertical li > a {
+        text-align: left;
+        @include breakpoint(small only) {
+            text-align:center;
+        }
+    }
+    hr {
+        max-width: 300px;
+        margin-bottom: 60px;
+        border-bottom: 1px solid $vr-yellow;
+        outline:0;
+    }
+
+    h3 {
+        margin-bottom: 24px;
+    }
+
+    .lead {
+        font-size: rem-calc(14);
+        color: $vr-beige;
+    }
+
+    img {
+        margin-bottom: 36px;
+    }
+
+    a {
+        color: $smoke;
+        font-weight: 700;
+        font-size: rem-calc(14);
+    }
+
+    a:hover {
+        color: $white;
+        text-decoration: underline;
+    }
+
+    ul {
+        // @extend .menu;
+
+        // @extend .vertical;
+
+      //@extend .medium-text-left;
+
+      //@extend .clearfix;
+
+      //@extend .small-text-center;
+
+        margin: 0 auto;
+
+        li a {
+            padding: 0;
+            padding-bottom: 12px;
+        }
+    }
+
+    .about {
+        padding-top:19px;
+    }
+}
+
+.copyright {
+    color: $vr-beige;
+    font-size: rem-calc(14);
+    padding-top: 96px;
+}
+
+
+
+.footer-link-section {
+
+
+    &:last-child {
+        // @extend .right;
+
+        // @extend .medium-offset-0;
+   
+    }
+}
+
+#footer-social-links {
+  //@extend .clearfix;
+
+    //@extend .row;
+
+    font-size: rem-calc(36);
+    margin-bottom: 48px;
+    padding-top: 48px;
+    padding-left: 0;
+    @include breakpoint(small only){
+        text-align: center;
+    }
+
+    a {
+        font-size: rem-calc(24);
+        // margin-right: 24px;
+
+        &:hover {
+            text-decoration: none;
+        }
+
+    }
+    a:first-child {
+            margin-left:12px;
+        }
+}

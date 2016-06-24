@@ -1,5 +1,16 @@
 module ApplicationHelper
 
+  def body_classes
+    list = [ controller_name,
+             [controller_name, action_name] * '-' ]
+    list += @body_classes unless @body_classes.nil?
+    list * ' '
+  end
+
+  def itunes_image_url(image)
+    image.thumb('1400x1400#', format: 'png').url(name: 'image.png')
+  end
+
   def default_content(locale, key)
     keys = [locale.to_s] + key.split('.')
     keys.reduce(sections) do |r, k|
@@ -13,8 +24,15 @@ module ApplicationHelper
 
   # TODO: refactor into controllers
   def render_footer?
-    return false if controller_action == 'explore-index' 
-    return false if controller_action == 'users-edit' 
+    return false if controller_action == 'explore-index'
+    return false if controller_action == 'users-edit'
+    return false if controller_action == 'venues-show'
+    true
+  end
+
+  # TODO: refactor into controllers
+  def render_top_loader?
+    return false if controller_action == 'talks-show'
     true
   end
 
@@ -24,6 +42,8 @@ module ApplicationHelper
 
   # s works much like t, but looks up md formatted content from the db
   # and inserts it as html
+  #
+  # interpolations are also options, but the only option is :format
   def section(key, interpolations={})
     if key.to_s.first == "."
       if @virtual_path
@@ -33,15 +53,23 @@ module ApplicationHelper
       end
     end
     section = Section.find_or_create_by(key: key, locale: I18n.locale)
-    if section.content.nil? # nil not blank!
+    if section.content.nil? or Rails.env.development? # nil not blank!
       section.content = default_content(locale, key)
       section.save
       section.reload
     end
-    section = section.content_as_html
+    case interpolations[:format]
+    when 'raw'
+      section = section.content || ''
+    else
+      section = section.content_as_html
+    end
     section = interpolations.inject(section) do |result, interpolation|
       name, value = interpolation
       result.gsub("%{#{name}}", value)
+    end
+    if Rails.env.development? and section.blank?
+      section = [key, interpolations.inspect] * ' '
     end
     section.html_safe
   end
@@ -53,8 +81,13 @@ module ApplicationHelper
   end
 
 
-  def icon_tag(topic)
-    "<div class='svg-icon'><svg><use xlink:href='#icon-#{topic}'></use></svg></div>".html_safe
+  def icon_tag(topic, opts={})
+    title = opts[:title] || topic
+    "<div class='svg-icon' title='#{title}'><svg><use xlink:href='#icon-#{topic}'></use></svg></div>".html_safe
+  end
+
+  def naked_icon(topic, opts={})
+    "<svg><use xlink:href='#icon-#{topic}'></use></svg>".html_safe
   end
 
 
@@ -81,7 +114,7 @@ module ApplicationHelper
       data: {
         confirm: I18n.t('.confirm_delete', default: 'Are you sure?')
       },
-      class: 'link-delete'
+      class: 'link-delete button hollow muted btn-hover-red'
     }
   end
 
@@ -93,15 +126,16 @@ module ApplicationHelper
   end
 
   # TODO: move into trickery
-  class << self
-    def determine_release
-      path = Rails.env.production? ? '../repo' : '.'
-      tag = %x[ (cd #{path} && git describe --tags --abbrev=0) ].chomp || 'notag'
-      patchlevel = %x[ (cd #{path} && git log --oneline #{tag}.. | wc -l) ].chomp
-      # date = %x[ (cd #{path} && git log -1 --format=%ai) ].chomp
-      # "#{tag} p#{patchlevel} (#{date})"
-      "#{tag} p#{patchlevel}"
-    end
+  def release
+    @release ||=
+      begin
+        path = Rails.env.production? ? '../repo' : '.'
+        tag = %x[ (cd #{path} && git describe --tags --abbrev=0) ].chomp || 'notag'
+        patchlevel = %x[ (cd #{path} && git log --oneline #{tag}.. | wc -l) ].chomp
+        # date = %x[ (cd #{path} && git log -1 --format=%ai) ].chomp
+        # "#{tag} p#{patchlevel} (#{date})"
+        "#{tag} p#{patchlevel}"
+      end
   end
 
   def sections
@@ -111,14 +145,14 @@ module ApplicationHelper
       YAML.load(File.read(Rails.root.join('config/sections.yml')))
   end
 
-  def release
-    RELEASE
-  end
-
   def strip_html(str)
     document = Nokogiri::HTML.parse(str)
     document.css("br").each { |node| node.replace("\n") }
     document.text
+  end
+
+  def unsecured_url(url)
+    url.gsub(/https:\/\//, 'http://')
   end
 
   def render_social_meta_tags(opts)
@@ -126,6 +160,3 @@ module ApplicationHelper
   end
 
 end
-
-# determine release once when module is loaded
-ApplicationHelper::RELEASE = ApplicationHelper.determine_release

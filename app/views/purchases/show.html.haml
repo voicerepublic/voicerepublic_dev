@@ -1,6 +1,9 @@
-.row(style='margin-top: 100px')
+.row
   .large-12.columns
+    .title-block
+      = link_to root_path do
+        = image_tag 'logos/vr_red.svg', class: 'join-logo'
     %h2= t('.headline')
-    %p= t('.able_to_create_count_talks', count: current_user.credits)
-    = link_to t('.schedule_talk'), new_talk_path, class: 'button vr-button'
-    = link_to t('.upload_talk'), new_upload_path, class: 'button vr-button'
+    %p.lead= t('.able_to_create_count_talks', count: current_user.credits)
+    = link_to t('.schedule_talk'), new_talk_path, class: 'button hollow vr-button'
+    = link_to t('.upload_talk'), new_upload_path, class: 'button hollow vr-button'

@@ -16,13 +16,14 @@ en:
           Get <a target='_blank' href='/r/username'>help</a> in choosing a good username.
     labels:
       talk:
-        title: What's the Title of Your Talk?
+        title: Talk Title
+
         language: What's the Primary Language of Your Talk?
         series: Add This Talk To A Series
         new_series_title: New Series Title
         starts_at_date: Date
         starts_at_time: Time
-        teaser: Provide A Short Description of Your Talk <br>
+        teaser: Short Description of Your Talk
         tag_list: Add Some Tags
         duration: Duration (Minutes)
         description: Give a Full Description of Your Talk

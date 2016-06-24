@@ -1,0 +1,203 @@
+//pricing
+
+.purchases-index {
+    background: $white;
+    h3 {
+        color: $vr-light-blue;
+        margin-bottom: 24px;
+    }
+    #claim.pricing {
+        padding-top: 60px;
+        background: url(../../images/background/pricing-bg-blue.jpg) no-repeat 50% 25%;
+        a {
+            color: $vr-yellow;
+            &:hover {
+                color: $vr-red;
+            }
+        }
+        .button a {
+            color: $vr-yellow;
+            &:hover {
+                color: $vr-red;
+            }
+        }
+        h2 {
+            margin-bottom: 36px;
+            color: white;
+        }
+        .lead {
+            color: $vr-beige;
+            margin-bottom: 48px;
+        }
+    }
+    .section-header {
+        font-size: rem-calc(21);
+        letter-spacing: rem-calc(3);
+        text-transform: uppercase;
+    }
+
+}
+
+
+.row.packages {
+    padding-top:60px;
+}
+
+
+.purchases-index .pricing-box ul li {
+    margin-left: 48px;
+    font-family: "minion-pro", times, serif;
+    opacity: .6;
+}
+
+.purchases-index form.purchase input[type='radio'] {
+    display: none;
+    opacity: 0;
+    margin: 0;
+}
+
+.purchases-index form.purchase label {
+    font-weight: 400;
+    font-size: 18px;
+    padding: 16px 10px 16px 0;
+    text-align: center;
+    transition: background .2s ease;
+    display: inline-block;
+    float: left;
+    background: $vr-yellow;
+    padding: 12px;
+    color:$vr-purple;
+    width:100%;
+    border:1px solid $silver;
+    @include breakpoint(medium){
+        width: 20%;
+        // min-height: 20vw;
+    }
+
+    .price {
+        font-weight: 300;
+        p {
+            font-weight: 500;
+            font-size: rem-calc(14);
+            span {
+                font-weight: 700;
+
+                display: block;
+                font-size: rem-calc(30);
+            }
+        }
+
+
+    }
+}
+
+
+.price_per_talk {
+            font-size: rem-calc(12);
+            font-weight: 300;
+        }
+.purchases-index form.purchase label .price_per_talk {
+    font-size: 80%;
+}
+
+.purchases-index form.purchase label.selected {
+    background-color: $vr-purple;
+    color: $vr-yellow;
+    pointer-events: none;
+}
+
+.purchases-index form.purchase label:hover {
+    background-color: $vr-beige;
+    color: $vr-purple;
+}
+
+.purchases-index form.purchase .button {
+    // border: 2px solid papayaWhip;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.purchases-index form.purchase .button:hover {
+    // border: 2px solid gray;
+}
+
+.purchases-index form.purchase #paypal_spinner {
+    display: none;
+}
+
+.purchases-index form.purchase #paypal_spinner img {
+    width: 42px;
+    height: 42px;
+    margin: 14px 24px 13px;
+}
+
+// .purchases-index .button.large.pricing-support-btn {
+//     background: #2C46B0;
+//     padding: 12px 24px;
+//     color: #fff;
+//     font-family: 'Eagle', sans-serif;
+//     margin-top: 24px;
+//     border: none;
+//     transition: background .2s ease;
+// }
+
+// .purchases-index .button.large.pricing-support-btn:hover {
+//     background: #a339cd;
+//     border: none;
+// }
+
+.purchases-index hr.pricing-hr {
+    margin-top: 48px;
+    margin-bottom: 48px;
+}
+
+.pricing-features {
+    padding-top: 60px;
+    padding-bottom: 60px;
+    // background: $silver;
+    color: $talk-dark;
+    h5 {
+        color: $vr-purple;
+        font-family: $body-font-family;
+        font-weight: 700;
+    }
+    p {
+        font-weight: 300;
+        font-size: rem-calc(14);
+    }
+    .svg-icon {
+        color: $vr-purple;
+        max-height: 48px;
+        max-width: 48px;
+        height: 48px;
+        margin-bottom: 12px;
+        // margin-top: 48px;
+        svg {
+            max-height: 48px;
+            max-width: 48px;
+        }
+    }
+    a {
+        color: $vr-light-blue;
+        font-weight:500;
+     
+    }
+}
+
+.paypal {
+    background:white;
+    padding-top:0;
+    p {
+        line-height: rem-calc(21);
+    span {
+        font-size: rem-calc(14);
+        opacity: .5;
+    }
+    }
+}
+
+.purchases {
+    .title-block img {
+        max-height: 48px;
+        margin: 24px 0;
+    }
+}

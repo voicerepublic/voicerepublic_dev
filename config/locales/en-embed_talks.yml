@@ -1,6 +1,17 @@
 en:
+  embed:
+    shared:
+      talk:
+        live: live
+        nice_stuff_on_vr: "Check out more great Talks on Voice Republic &raquo;"
+        msg_tiny: "More on VR &raquo;"
+        msg_xs: "More on VR &raquo;"
+        msg_small: "More on VR &raquo;"
+        msg_medium: "More interesting Talks on VR &raquo;"
+        msg_large: "Check out more interesting Talks on Voice Republic &raquo;"
   shared:
     player:
+      listen_on_vr: "Listen now on VR &raquo;"
       update_required: 'Update required'
       update_message: 'To play the media you will need to either update your browser to a recent version or update your'
   embed_talks:

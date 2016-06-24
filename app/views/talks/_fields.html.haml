@@ -1,92 +1,72 @@
-- content_for :javascript do
-  = render partial: 'config'
-
 = f.input :dryrun, as: :hidden
+= f.input :venue_id, as: :hidden
 
-.row
-  .medium-8.medium-offset-2.large-6.large-offset-3.columns.form-block
-    .title-box
-      %h2.form-title= form_title
 
-    -#= f.error_messages
+.row.talk-form
+  %h2.text-center.form-title= form_title
+  = render "dryrun" if @talk.dryrun?
 
-    - opts = {}
-    -# TODO some fields are protected after state prelive, add this to cancan
-    -#- opts[:disabled] = true unless f.object.created?
 
-    -#.row.title-teaser-box
+  -#= f.error_messages
+
+
+  - opts = {}
+
+  - unless f.object.new_record?
+    = f.input :user_override_uuid, as: :hidden
+    = render partial: 'shared/upload',
+             locals: { f: f, ns: 'audio', init: init_audio_uploader }
+
+  .row
     = f.input :title, placeholder: t('.title'), hint: t('.title_hint')
-    %hr
     = f.input :teaser, placeholder: t('.teaser'), as: "text", input_html: {maxlength: 140}, hint: t('.teaser_hint')
-    %hr
-    .medium-6.medium-offset-3.columns.clearfix
-      = f.input :language, as: :grouped_select, collection: Talk::LANGUAGES,
-        input_html: { class: 'languageSelect' },
-        group_method: :last, label_method: :last, value_method: :first
-    %hr
-    .medium-12.columns.clearfix  
-      = f.input :tag_list, placeholder: t('.tags_placeholder'), input_html: { class: 'tagList', 'data-pre' => @talk.tag_list.join(',') }, hint: t('.tags_hint').html_safe
+    = f.input :language, as: :grouped_select, collection: Talk::LANGUAGES,
+      group_method: :last, label_method: :last, value_method: :first
+    = f.input :tag_list, input_html: { class: 'tagList', value: @talk.tag_list.join(',') }
+    = f.input :speakers, placeholder: t('.speakers')
+  %hr
 
-    %hr
+  .row
+    %h3.form-title= t('.choose_date_and_time')
     .row
-      .medium-12.columns
-        = f.input :speakers, placeholder: t('.speakers'), hint: t('.speakers_hint').html_safe
-    %hr
-
-    .title-box.clearfix
-      %h3.form-title= t('.choose_date_and_time')
-    .date-time-picker-row.row
-      .medium-4.columns
+      .medium-4.columns.collapsed
         - disable = [:live].include?(@talk.state.to_sym)
         = f.input :starts_at_date, opts.merge(input_html: {'data-picker' => 'date'}, disabled: disable)
       .medium-4.columns
         = f.input :starts_at_time, opts.merge(input_html: {'data-picker' => 'time'}, disabled: disable)
       .medium-4.columns
-        = f.input :duration, opts.merge(collection: Settings.durations, disabled: disable)
-    %hr
+        = f.input :duration, opts.merge(collection: Settings.durations, include_blank: false, disabled: disable)
+  %hr
 
-    .title-box.clearfix
-      -#%h3.form-title.left= t('.add_to_series')
-      -#.help-text.left= t('.series_help_text')
-    .row.clearfix
-      .medium-8.medium-offset-2.columns
-        = f.association :series, collection: current_user.series,
-          include_blank: t('.create_new_series'),
-          input_html: { 'data-on-blank-show' => '#wrapper_new_series_title' }, hint: t('.series_help_text')
-      .medium-6.columns.hide
-        = f.input :new_series_title, wrapper_html: { id: 'wrapper_new_series_title' }
+  .title-box.clearfix
+    %h3.form-title.left= t('.add_to_series')
+    .help-text.text-center= t('.series_help_text')
+  .row
+    .medium-6.columns
+      = f.association :series, collection: current_user.series,
+        include_blank: t('.create_new_series'),
+        input_html: { 'data-on-blank-show' => '#wrapper_new_series_title' }
+    .medium-6.columns
+      = f.input :new_series_title, wrapper_html: { id: 'wrapper_new_series_title' }
+  %hr
 
-    %hr
+  .title-box.clearfix
+    %h3.form-title.left= t('.illustrate_and_describe')
+    .help-text.text-center= t('.ill_and_desc_text')
+  .row
+    .text-center
+      .image-box(style="background-image: url(#{f.object.image.url})")
+      = f.input :image, as: :file, wrapper_html: { class: 'inputfile' }, label: icon_tag("photo") + t('.change_photo').html_safe, input_html: {'data-instant-image' => '.image-box | .image-label'}, label_html: {class: 'image-label button hollow tiny btn-hover-yellow'}
+  %hr
 
-    .title-box.clearfix
-      -# %h3.form-title.left= t('.illustrate_and_describe')
-      -#.help-text.left= t('.ill_and_desc_text')
+  .row
+    = f.input :description, input_html: { rows: 10 }
+  %hr
 
+  .row
+    %h3.form-title= t('.slides')
+    .help-text.text-center= t('.slides_help_text')
 
-    .row
-      .text-center
-        .image-box(style="background-image: url(#{f.object.image.url})" data-show-upload="#talk_image,#series_talks_attributes_0_image")
-        -#%button.button-standard(type="button" data-trigger-file-input="#talk_image")
-          -#= t('.select_image')
-        = f.file_field :image, as: :file, class: 'soft-hide', label_html: {class: 'button', "for" => "fileUpload"}, input_html: {id: "fileUpload"}, hint: t('.image_hint')
-    %hr
-    .row
-      .medium-12.columns
-        = f.input :description, input_html: { rows: 10 }, hint: t('.description_hint')
-    %hr
-
-    -#.title-box.clearfix
-    -#  %h2.form-title.left= t('.invite_guests')
-    -#  .help-text.left= t('.invite_guests_text')
-    -#.row
-    -#  .medium-12.columns
-    -#    = f.input :guest_list, opts.merge(input_html: { class: 'guestList' })
-
-    .title-box.clearfix
-      %h3.form-title.left= t('.upload_slides')
-      = f.input :slides_uuid, as: :hidden
-      - if f.object.new_record? and f.object.slides_uuid?
-        .help-text.left= t('.upload_done')
-      - else
-        = render partial: 'shared/upload',
-                 locals: { f: f, ns: 'slides', init: init_slides_uploader }
+    = f.input :slides_uuid, as: :hidden
+    = render partial: 'shared/upload',
+      locals: { f: f, ns: 'slides', init: init_slides_uploader }

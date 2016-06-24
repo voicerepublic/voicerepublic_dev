@@ -6,13 +6,13 @@
 @podcast.image_title = t('.podcast.title', title: @series.title)
 
 # misc
-@podcast.description = @series.description
+@podcast.description = @series.description_as_text
 @podcast.author =      @series.user.name
 @podcast.subtitle =    @series.teaser
 
 # urls
 @podcast.url =         series_url(@series)
 @podcast.image_link =  series_url(@series)
-@podcast.image_url =   @series.image.thumb('1400x1400#').url
+@podcast.image =       @series.image
 
 xml << render(partial: 'shared/podcast', locals: { xml: xml })

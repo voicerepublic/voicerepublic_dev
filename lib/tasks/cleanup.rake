@@ -35,12 +35,21 @@ namespace :cleanup do
 
   # When a talk has been created, but the host never shows, the talk will never
   # proceed to further states. For the time being, this is corrected here.
-  # TODO: Maybe it's better to implement an additional state machine state
-  # 'abandoned'
-  desc 'Set abandoned talks(host never showed up) to state postlive'
-  task :fix_abandoned_talk_state => :environment do
+  desc 'Set abandoned talks to state postlive'
+  task fix_abandoned_talk_state: :environment do
     Talk.prelive.where("ends_at < ?", DateTime.now).each do |t|
       t.abandon!
+    end
+  end
+
+  desc 'stops disused streaming servers'
+  task stop_disused_streaming_servers: :environment do
+    candidates = Venue.not_offline
+    candidates -= Venue.not_offline.with_live_talks
+    candidates -= Venue.not_offline.with_upcoming_talks
+    candidates.each do |venue|
+      puts "Send shutdown signal to venue #{venue.slug}"
+      venue.shutdown!
     end
   end
 
@@ -82,6 +91,37 @@ namespace :cleanup do
       end
     end
     puts "Kept #{res[:yes]} saved listeners, #{res[:no]} have been deleted."
+  end
+
+  desc "Regenerate plain text for descriptions"
+  task regenerate_plain_text: :environment do
+    fields = {[User] => "about", [Talk, Series, Organization] => "description"}
+    items = {}
+    puts "Starting to regenerate plain text for:"
+    sum = 0
+    fields.each do |models, field|
+      models.each do |model|
+        items[model] ||= model.where("#{field} is not null and #{field} != ''")
+        puts "\t#{model}.#{field}: #{items[model].size} items"
+        sum += items[model].size
+      end
+    end
+    puts "Total: #{sum} items. This might take a while."
+    sum = 0
+    fields.each do |models, field|
+      models.each do |model|
+        puts "Regenerating plain text for #{model}.#{field}..."
+        count = 0
+        items[model].each do |item|
+          item.send("#{field}_as_text=", MD2TEXT.render(item.send(field)))
+          item.save
+          count += 1
+        end
+        puts "Done! Regenerated plain text for #{count} instances of #{model}.#{field}."
+        sum += count
+      end
+    end
+    puts "Finished task. Regenerated plain text for #{sum} total fields."
   end
 
 end

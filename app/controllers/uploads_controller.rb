@@ -1,7 +1,7 @@
 class UploadsController < BaseController
 
   before_action :authenticate_user!
-  before_action :redirect_if_low_on_credits, only: :new
+  #before_action :redirect_if_low_on_credits, only: :new
 
   def new
     attrs = params[:talk] ? talk_params : {}

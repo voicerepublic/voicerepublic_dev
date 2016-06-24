@@ -64,16 +64,22 @@ module VoiceRepublic
 
     config.middleware.use 'Slides'
 
+    config.middleware.use 'IcecastEndpoint'
+
     config.middleware.use 'Rack::Affiliates'
+
+    config.middleware.use 'PhpResponder'
 
     config.assets.initialize_on_precompile = false
 
     # http://stackoverflow.com/questions/18294150/how-to-use-fonts-in-rails-4
     config.assets.paths << "#{config.root}/app/assets/fonts"
-    # config.assets.precompile += %w( *.js *.png *.jpg *.eot *.woff *.ttf *.svg )
-    config.assets.precompile += %w( sencha.js embed_talk.js )
 
-    config.assets.precompile += %w( embed_talk.css )
+    # config.assets.precompile += %w( *.js *.png *.jpg *.eot *.woff *.ttf *.svg )
+    config.assets.precompile += %w( sencha.js
+                                    embed_talk.js
+                                    embed_talk.css
+                                    venues.js )
 
     # Handling exceptions dynamically using middleware.
     # Here a rack middleware app could be configured, instead we are using the

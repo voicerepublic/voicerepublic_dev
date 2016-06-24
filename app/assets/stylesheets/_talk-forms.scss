@@ -1,0 +1,205 @@
+//talk forms
+ .tooltip {
+    	max-width: 20rem !important;
+    }
+#sticky-progress {
+	position: fixed;
+	bottom: 0;
+	left:0;
+	right:0;
+	padding:12px 24px;
+	padding-top:18px;
+	background:$vr-beige;
+	height:60px;
+	box-shadow: 0 0 10px rgba($talk-dark, .2);
+	.progress-text {
+		width: 148px;
+		float:left;
+		color:$talk-dark;
+		font-weight: 700;
+		font-size: rem-calc(14);
+
+	}
+	.progress {
+		margin-left: 160px;
+		border-radius:4px;
+		height: 8px;
+		background:$white;
+		margin-top: 8px;
+		.progress-meter {
+			border-radius:4px;
+			background:$vr-light-blue;
+		}
+	}
+}
+
+td.ui-datepicker-today {
+    background: $vr-yellow;
+    color: $vr-purple;
+}
+
+#new_talk {
+    text-align: center;
+
+   
+
+    .image-box {
+    	width: 320px;
+    	height: 180px;
+    	margin:0 auto;
+    }
+    .has-tip {
+    	border:none;
+    }
+
+    .question {
+    	.svg-icon {
+    		width: 16px;
+    		height: 16px;
+    		svg {
+    			width: 16px;
+    			height: 16px;
+    			color: $charcoal;
+    			transition: color .2s ease;
+    		}
+    	}
+    	&:hover {
+    		.svg-icon svg {
+    			color: $vr-purple;
+    		}
+    	}
+    }
+
+    h3 {
+        color: $almost-black;
+        font-size: rem-calc(18);
+        text-transform: uppercase;
+        letter-spacing: rem-calc(2);
+    }
+
+    .form-block {
+        background: white;
+        border-radius: 4px;
+        padding: 24px;
+
+        // max-width: rem-calc(960);
+        // margin:0 auto;
+   
+    }
+
+    .input {
+        // padding-bottom: 60px;
+        margin-bottom: 60px;
+
+
+        // border-bottom: 1px solid $vr-blue;
+        // &:after {
+        //     content: "";
+        //     display: block;
+        //     width: 100px;
+        //     height: 4px;
+        //     background: $vr-light-blue;
+        //     margin: 0 auto;
+        //     margin-top: 60px;
+        // }
+    }
+
+    .hidden {
+        margin-bottom: 0;
+
+        &:after {
+            content: "";
+            display: none;
+        }
+    }
+
+    label {
+        // text-align: left;
+        margin-bottom: 12px;
+        font-size: rem-calc(18);
+        font-weight: 700;
+        line-height: rem-calc(21);
+        display: inline-block;
+
+        span {
+            color: red;
+            font-weight: 300;
+            color: $vr-purple;
+            font-size: rem-calc(14);
+            line-height: rem-calc(18);
+        }
+    }
+
+    .talk_starts_at_date, .talk_starts_at_time, .talk_duration {
+    	label {
+    		font-weight: 300;
+    		font-size: rem-calc(14);
+    		// color:$charcoal;
+    	}
+    }
+
+    h3 {
+    	font-size: rem-calc(18);
+    	font-weight: 700;
+    	font-family: $body-font-family;
+    	text-transform: none;
+    	letter-spacing: rem-calc(0);
+    }
+
+    .hint {
+        color: red;
+        font-weight: 300;
+        color: $vr-purple;
+        font-size: rem-calc(14);
+        line-height: rem-calc(18);
+        // padding: 0 24px;
+        display: inline-block;
+        text-align: left;
+
+        ul {
+            list-style-position: inside;
+        }
+    }
+
+    input, textarea, select {
+        padding: 12px;
+        margin-bottom: 6px;
+        border-color: $charcoal;
+
+        // border-width: 2px;
+        &:focus {
+            border-color: $vr-light-blue;
+        }
+    }
+
+    hr {
+        // border-color:$vr-light-blue;
+        // margin-top: 48px;
+        margin-bottom: 60px;
+        border-bottom: 4px solid $vr-light-blue;
+        max-width: 200px;
+    }
+
+    small.error {
+        background: $vr-red;
+        color: white;
+        text-align: left;
+        float: left;
+        padding: 6px;
+        font-weight: 500;
+        width: 100%;
+    }
+
+    .error input, .error textarea {
+        border: 1px solid $vr-red;
+        margin-bottom: 0;
+    }
+
+    .close-button.words span {
+    	font-size: rem-calc(16);
+    	font-weight: 300;
+    	border:1px solid $talk-dark;
+    	padding:6px;
+    	border-radius:3px;
+    }
+}

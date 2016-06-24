@@ -37,17 +37,13 @@ describe I18n do
           value = YAML.load($1)
           # and check if these exist in the translations
           unless translations.include?(value)
-            errors << "Blocked translation: '#{value}'"
+            errors << "Blocked: '#{value}'"
           end
         end
       end
     end
 
-    unless errors.empty?
-      puts
-      puts *errors
-      raise 'Errors in translations, see list above'
-    end
+    expect(errors).to be_empty
   end
 
 end

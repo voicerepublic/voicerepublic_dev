@@ -6,6 +6,7 @@ priority_timezones: Berlin|Bern
 audio:
   process_chain: precursor normalize_fragments kluuu_merge trim cut normalize compress jinglize m4a mp3 ogg copy_clean cleanup
   override_chain: jinglize m4a mp3 ogg copy_clean cleanup
+  archive_chain: wavify merge trim normalize jinglize m4a mp3 ogg cleanup
 rtmp:
   # all paths get expanded with `Rails.root`
   # which doesn't affect absolute paths
@@ -38,11 +39,16 @@ rtmp:
 # read the value directly from there.
 faye:
   server: http://localhost:9292/faye
+  #server: http://192.168.178.21:9292/faye
   secret_token: supersecret
+
+default_pins:
+  - willkommen-bei-voice-republic
 
 errbit:
   enabled: false
   api_key: 'this will be set on the stages in app/shared/config/settings.local.yml'
+  environment: 'development'
 devise:
   from_address: "Voice Republic <service@voicerepublic.com>"
   secret_key: '077e0e804b07d4284d6960b23579ca07b7a83bdf65f5c1a21d8d256e3d0ddfaec82bc294bf91e44bb0cc604757141f6b175d7290469fb881e4d347082f7e6481'
@@ -80,6 +86,7 @@ blackbox:
 limit:
   text: 2300
   string: 140
+  varchar: 255
 simon:
   enabled: false
 slack:
@@ -126,9 +133,46 @@ developers:
   - munen@dispatched.ch
   - accounts@dispatched.ch
   - spam@dispatched.ch
-sitemap: http://localhost:3000/landing_page/index.xml
+sitemap: http://localhost:3000/root/index.xml
 
-# this needs to be overridden by `app/shared/config/settings.local.yml`
 icecast:
+  ec2:
+    #image: ami-421cf82d (icebox)
+    #image: ami-5a806335 (icebox protoype)
+    #image: ami-b39173dc (icebox v3 - defunct)
+    #image: ami-30f2105f (icebox 3.1)
+    #image: ami-d422cebb (icebox 3.2 - bad)
+    #image: ami-d822ceb7 (icebox 3.3)
+    #image: ami-b31cf3dc (icebox 3.4 - renamed endpoints)
+    #image: ami-b81cf3d7 (icebox 3.5 - update icecast to 2.4.2 + cors, defunct)
+    #image: ami-f21bf49d (icebox 3.6 - fixed ready)
+    image: ami-f21bf49d
+    default_instance_type: t2.micro
+    security_group: Icecast Servers
+    key_name: phil-ffm
+  url:
+    protocol: http
+    port: 80
+  callback_url: http://change.in.your.local.settings.file/icecast
+
+  # TODO remove
+  # this needs to be overridden by `app/shared/config/settings.local.yml`
   host: localhost
   port: 8000
+
+fog:
+  compute:
+    provider: AWS
+    aws_access_key_id: needs to be set
+    aws_secret_access_key: needs to be set
+    region: eu-central-1
+
+devices:
+  endpoint:
+    live: https://voicerepublic.com/api/devices
+    staging: https://staging:oph5lohb@staging.voicerepublic.com/api/devices
+    # actually you need to set this in your local file
+    dev: http://needs.to.be.set.locally/api/devices
+  faye:
+    server: http://needs.to.be.set.locally/
+    secret_token: supersecret

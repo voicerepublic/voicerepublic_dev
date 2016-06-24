@@ -1,4 +1,16 @@
 en:
+  access_denied: Permission required.
+  embed:
+    shared:
+      talk:
+        plays: Plays
+  pages:
+    outdated_browser:
+      oops: Oops!
+    publish:
+      pricing: Pricing
+      start_live_stream: "Start A Live Stream &raquo;"
+      upload_a_recording: "Upload A Recording &raquo;"
   all_categories: All Categories
   validation:
     bad_chars_in_slug: |
@@ -155,9 +167,8 @@ en:
     format: ! '%{attribute} %{message}'
     messages:
       accepted: must be accepted
-      blank: can't be blank
-      confirmation: doesn't match confirmation
-      empty: can't be empty
+      blank: "can't be blank"
+      empty: "can't be empty"
       equal_to: must be equal to %{count}
       even: must be even
       exclusion: is reserved
@@ -265,15 +276,12 @@ en:
       long: ! '%B %d, %Y %H:%M'
       short: ! '%d %b %H:%M'
       micro: ! '%l:%M %P'
-      designed: ! '%-d%o %B %Y — %l%P'
+      designed: ! '%-d%o %B %Y — %l:%M%P'
       date_only: ! '%-d%o %B %Y'
       date_only_short: ! '%-d%o %b %Y'
       time_only: ! '%k:%M'
       timeonly: ! '%H:%M:%S'
     pm: pm
-  will_paginate:
-    next_label: ! '>>'
-    previous_label: <<
 
   devise:
     registrations:
@@ -294,32 +302,37 @@ en:
     show:
       title: 'Results for "%{query}"'
       results:
-        zero: 'SORRY, NO RESULTS FOR "%{query}"'
-        one: '%{count} RESULT FOR "%{query}"'
-        other: '%{count} RESULTS FOR "%{query}"'
+        zero: |
+          Sorry, we couldn't find anything for <span>%{query}</span>
+        one: |
+          One results for <span>%{query}</span>!
+        other: |
+          %{count} results for <span>%{query}</span>
       best_result: TOP RESULT
       talks: TALKS
       series: SERIES
       users: USERS
       now_live: NOW LIVE
-      featured: FEATURED
+      featured: Here are some FEATURED talks
       popular: POPULAR
       recently_archived: RECENTLY ARCHIVED
       no_results: Sorry, no results.
   shared:
     upload:
+      successfully_uploaded: "&#x2713"
+      choose_file: Choose A File To Upload
+      upload_advice: You can upload MP3, M4A, OGG, WAV files
       initializing: Initializing Uploader...
       audio_upload: "Upload your audio file"
-      choose_file: Choose file
       uploading: Uploading...
       drop_files_here: "Drop files here"
       upload: Upload
-      cancel: "&times;"
+      cancel: Cancel Upload
       remove: Remove
       upload_failed: Upload failed. Please try reloading the page and try again.
       drop_file_not_supported: "HTML5 Drop File is not supported!"
       audio:
-        supported_filetypes: Supported Filetypes are MP3, M4A, OGG, WAV
+        supported_filetypes: "Supported Filetypes: MP3, M4A, OGG, WAV"
       slides:
         supported_filetypes: Please upload your slides as PDF
     unconfirmed:
@@ -340,9 +353,9 @@ en:
       explore: Explore
       my_profile: My Profile
       schedule_talk: Schedule A Live Talk
-      upload_talk: Upload A Recording
+      upload_talk: Upload A Recording To Voice Republic
       pricing: Pricing
-      test_talk: 'Test A Talk (Free)'
+      test_talk: 'Test A Talk'
       logout: Log Out
     check_flash:
       no_flash_version_notice: Your current version of Flash-Plugin is not sufficient. Install Version 10.3 or higher. to use Video call.
@@ -360,7 +373,7 @@ en:
       fb: Voice Republic on facebook
       tw: Voice Republic on twitter
       team: Team
-    footer_velvet: 
+    footer_velvet:
       about: About
       pricing: Pricing
       support_and_faq: Support & FAQ
@@ -405,8 +418,8 @@ en:
       archived_talks: '%{count} Archived Talks'
 
   layouts:
-    application:
-      landing_title: Voice Republic - Home To The Spoken Word
+    head:
+      title: Voice Republic - Home To The Spoken Word
     velvet_minimal:
       title: Voice Republic
     support:
@@ -427,7 +440,7 @@ en:
       schedule_talk: Schedule A Live Talk
       upload_talk: Upload A Recording
       pricing: Pricing
-      test_talk: 'Test A Talk (Free)'
+      test_talk: 'Test A Talk'
       logout: Log Out
     velvet_minimal:
       title: Voice Republic
@@ -506,10 +519,10 @@ en:
     exception_for_vr_users: "Since you have an email adress [user]@voicrepublic.com, I'm showing you the exception message for debugging purposes. Regular users will not see this exception."
   errors:
     outdated_browser:
-      header: "You are using an outdated browser"
+      header: "You are using an outdated browser."
       body: |
         <p>You are using an old version of %{name} whis is %{version}.</p>
-        <p>Unfortunately, at this stage, we do not have the manpower to support every browser. We rather strive to to build the most awesome user experience using modern browsers. For a good experience with Voice Republic, please upgrade to the newest version or download one of the browsers below:</p>
+        <p>Unfortunately, at this sttage, we do not have the manpower to support every browser. We rather strive to to build the most awesome user experience using modern browsers. For a good experience with Voice Republic, please upgrade to the newest version or download one of the browsers below:</p>
         <ul>
           <li><a href="https://www.google.com/intl/en/chrome/browser/">Download Chrome 33+</a></li>
           <li><a href="http://www.mozilla.org/en-US/firefox/new/">Download Firefox 28+</a></li>
@@ -518,6 +531,12 @@ en:
         </ul>
 
   reminders:
+    pin:
+      pin_this_talk: Pin This Talk
+      pin: Pin
+    unpin:
+      unpin: Un-Pin
+      unpin_this_talk: Un-Pin This Talk
     favorite:
       favorite: Favorite
     unfavorite:
@@ -544,37 +563,43 @@ en:
   purchases:
     index:
       box-header-basic: "Basic"
-      basic-example-1: "Private Individuals"
-      basic-example-2: "Non-Profit Organizations"
-      basic-example-3: "Small Conferences &amp; Speaker Series"
-      box-header-enterprise: "Talk Credit Packages"
-      enterprise-example-1: "Large Conferences &amp; Speaker Series"
-      enterprise-example-2: "Universities"
-      enterprise-example-3: "Corporations"
-      ppexplain: "Credit Cards accepted. No PayPal account needed."
+      talk_credit_packages: "Talk Credit Packages"
+      ppexplain: |
+        Credit cards accepted! (No PayPal account needed.)
+      feature1: One Talk Credit = One Talk
+      feature1_description: At Voice Republic you can buy Talk Credits. One credit corresponds to one talk and will never expire. It makes no difference whether the event is broadcasted live or uploaded later.
+      feature2: No Recurring Costs
+      feature2_description:  Stay independent and flexible with our pay-as-you-go model. Don't want to publish a Talk? Then you pay nothing. Listening, downloading and sharing of live Talks and content in the archive is free of charge for all users.
+      feature3: Ad-Free & Private
+      feature3_description: Voice Republic has no ads, and never sells customer information to third parties.
+      feature4: Free Test Talks & Starter Credits
+      feature4_description: When you sign up with us, you get the first two Talk Credits as a present. You can also test all functions with free test talks. Listening and downloading Talks is free of charge.
     questions:
+      cc_accepted: Credit Cards Accepted
+      payment_description: |
+        Credit cards are accepted, a PayPal account is not necessary. Prefer to pay by invoice or receive an individual offer?
       contact_us: "Contact Us"
-      contact_us_for_questions: "You can also hire our Stream Team to come to your venue. Are you a non-profit organization or an individual? We offer reduced prices for qualified customers. For these or any other questions, please contact us."
-    ppexplain: "Credit Cards accepted. No PayPal account needed."
-    streamteam:
-      contact_us: "Contact Us"
-      streamteam_offer: "We also offer streaming services. Contact us for details."
-    explanation:
-      header: "Voice Republic Pricing"
-      subtitle: |
-        All content on Voice Republic is free to listen to. Content producers pay per Talk, and Talk Credits can be purchased in packages. A Talk Credit will never expire.
+      recommend: Recommend Voice Republic
+      recommend_description: You know someone who needs to be heard? We at Voice Republic are always looking for exciting talks. Help us to bring new content to the platform and receive 5 free credits!
+      more_info: More Information
 
-      pricing-feature-1: One Talk Credit = One Talk
-      pricing-description-1:  One Talk Credit allows one Talk to be broadcast, uploaded and archived. There is no limit to the number of times the Talk can be heard, downloaded or embedded.
-      pricing-feature-2: Credits Last Forever
-      pricing-description-2:  Any Credits you purchase will be fully valid for as long as your Voice Republic account exists.
-      pricing-feature-3: No Recurring Costs
-      pricing-description-3: Only purchase Talk Credits when you need them. No subscription necessary.
-      pricing-footnote: |
-        &#42;A Credit does not, however, cover the cost of the Voice Republic “Ground Crew” operating a stage at your event. For “Ground Crew” services, please refer to the Ground Crew Pricing Guide.
+      contact_us: "Contact Us"
+      contact_us_for_more_info: Contact Us For More Info
+      contact_us_description: |
+        If you’re interested in publishing or streaming on Voice Republic and need further information on pricing etc. please get in touch with our sales team.
+      services: Services at Voice Republic
+      services_description: Need help with the preparation, implementation or marketing of your event? No problem, Voice Republic supports you with many individual additional services.
+    streamteam:
+      contact_us: "Contact Us For More Info"
+      streamteam_offer: If you’re interested in publishing or streaming on Voice Republic and need further information on pricing etc. please get in touch with our sales team.
+    explanation:
+      header: Voice Republic Pricing
+      join_for_free: Join For Free
+      subtitle: |
+        All content on Voice Republic is free to listen to. Live streams and audio uploads starting at 12 €.
     package:
       purchase_count_at_a_price_of_amount: |
-        %{count} VR Talk Credits at %{amount}
+        <span>%{count}</span> VR Talk Credits at <br>%{amount}
       forwarding_to_paypal: Forwarding you...
     new:
       payment_authorized: |
@@ -582,7 +607,7 @@ en:
       you_are_buying_count_for_the_price_of_amount:
         one: Please confirm to buy a single VR talk credit for the price of %{amount}
         other: |
-          Please confirm to buy %{count} VR talk credits for the price of %{amount}
+          Please click the button below to buy %{count} VR talk credits for the price of %{amount}
       complete_purchase: Complete your purchase
     show:
       headline: Thank You for Your purchase
@@ -612,3 +637,10 @@ en:
     Produced by Voice Republic
 
     For more podcasts visit http://voicerepublic.com
+
+  devices:
+    index:
+      devices_found:
+        zero: "No devices found connected via %{ip}"
+        one: "Redirecting... (you should actually never see this!)"
+        other: "Multiple devices found, please unplug all but one. Then reload."

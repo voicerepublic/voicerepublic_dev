@@ -9,3 +9,6 @@ talk_upload_bucket: vr-audio-uploads-dev
 
 # delete this when Mailers#preview + inline attachment are fixed in rails
 no_attachments: true
+
+paths:
+  recordings: /tmp/recordings

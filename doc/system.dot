@@ -1,0 +1,73 @@
+/*
+ * Every message reflects an event.
+ *
+ * Every message has at least two fields:
+ *
+ *   * event
+ *   * version
+ *
+ */
+
+digraph G {
+
+  // basic settings
+
+  fontname = "Bitstream Vera Sans"
+  fontsize = 8
+
+  edge [
+    fontname = "Bitstream Vera Sans"
+    fontsize = 8
+  ]
+
+  node [
+    fontname = "Bitstream Vera Sans"
+    fontsize = 8
+  ]
+
+
+  // external systems
+
+  node [
+    shape = "rectangle"
+  ]
+
+  EC2
+  Slack
+  Icecast
+  CloseIO
+
+  // normal transitions
+
+  edge [
+    arrowtail = "none"
+    arrowhead = "open"
+  ]
+
+  node [
+    shape = "oval"
+  ]
+
+  StreamerFSM        -> ControlCenter   [label="streamer_ready"]
+  ControlCenter      -> EC2Spawner      [label="spawn_server"]
+  EC2Spawner         -> EC2             [label="_create"]
+  EC2Spawner         -> ControlCenter   [label="server_ready"]
+  ControlCenter      -> Client          [label="set_streaming_server"]
+  TalkFSM            -> ControlCenter   [label="talk_transition(started,ended,archived)"]
+  ControlCenter      -> EC2Reaper       [label="reap_server"]
+  EC2Reaper          -> EC2             [label="_destroy"]
+  ControlCenter      -> IcecastObserver [label="new_icecast_server"]
+  IcecastObserver    -> Icecast         [label="_status"]
+  IcecastObserver    -> ControlCenter   [label="icecast_status"]
+  Client             -> ControlCenter   [label="register_listener"]
+  ControlCenter      -> Techne          [label="create_task"]
+  Techne             -> CloseIO         [label="_create_task"]
+
+  "*"                -> Mediator        [label="*"]
+  DJ                 -> Mediator        [label="dj_callback"]
+  AudioProgress      -> Mediator        [label="audio_progress"]
+  PurchaseController -> Mediator        [label="purchase_completed"]
+  Mediator           -> Archeon         [label="notification"]
+  Archeon            -> Slack           [label="_message"]
+
+}

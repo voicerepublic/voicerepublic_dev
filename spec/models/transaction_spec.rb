@@ -27,7 +27,7 @@ describe ManualTransaction do
     user = FactoryGirl.create(:user)
     admin_user = FactoryGirl.create(:admin_user)
     details = { user_id: user.id, quantity: 42 }
-    transaction = ManualTransaction.create(details: details , source_id: admin_user.id)
+    transaction = ManualTransaction.create(details: details , source: admin_user)
     expect(transaction).to be_pending
     transaction.process!
     expect(transaction).to be_closed

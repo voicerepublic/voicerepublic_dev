@@ -1,0 +1,28 @@
+%section#claim.dark
+  .row
+    %header
+      %h1 oEmbed Documentation
+
+      .container.medium-8.medium-offset-2.large-6.large-offset-3.columns
+        %p.lead
+          Voice Republic supports oEmbed,
+          %i
+            a format for allowing an embedded representation
+            of a URL on third party sites.
+
+%section.light
+  .api-container.row.clearfix
+    .container.medium-10.medium-offset-1.large-8.large-offset-2.columns.text-left
+      %h2 URL scheme
+      %pre https://voicerepublic.com/talks/*
+      %h2 API endpoint
+      %pre https://voicerepublic.com/api/oembed.json
+      %h2 Supported Formats
+      %pre JSON
+      %h2 Response Type
+      %pre rich
+      %hr
+      %p
+        Find out more about
+        = succeed '.' do
+          = link_to 'oEmbed', 'http://oembed.com/'

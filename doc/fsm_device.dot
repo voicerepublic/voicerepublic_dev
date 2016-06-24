@@ -1,0 +1,47 @@
+digraph G {
+
+  // basic settings
+
+  fontname = "Bitstream Vera Sans"
+  fontsize = 8
+
+  edge [
+    fontname = "Bitstream Vera Sans"
+    fontsize = 8
+  ]
+
+  node [
+    fontname = "Bitstream Vera Sans"
+    fontsize = 8
+  ]
+
+
+  // normal transitions
+
+  edge [
+    arrowtail = "none"
+    arrowhead = "open"
+  ]
+
+  node [
+    shape = "oval"
+  ]
+
+
+  unpaired -> pairing [label="register"]
+  pairing -> pairing [label="register"]
+
+  offline -> idle [label="register"]
+  idle -> idle [label="register"]
+  streaming -> idle [label="register"]
+
+  pairing -> idle [label="complete_pairing"]
+
+  idle -> streaming [label="start_stream"]
+  streaming -> idle [label="stop_stream"]
+
+  idle -> offline [label="deregister"]
+  streaming -> offline [label="deregister"]
+
+
+}

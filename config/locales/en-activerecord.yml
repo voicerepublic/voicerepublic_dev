@@ -3,7 +3,8 @@ en:
     attributes:
       user:
         current_password: "Old Password"
-        password: "New Password"
+        password: "Password"
+        new_password: "New Password"
     errors:
       models:
         user:

@@ -2,14 +2,16 @@
 en:
   root:
     index:
-      lead: "Take part in the most up-to-date conversations happening today. Exclusive lectures and discussions with thought-leaders in the fields of"
+      lead: "Take part in the most up-to-date conversations happening today. Exclusive lectures and discussions with thought leaders in the fields of"
       feed_title: Featured talks of Voice Republic
       publish: Publish
       listen: Listen
       listen_now: Listen Now
-      lead_interstitial: | 
+      lead_interstitial: |
         Listen to rich discussions and presentations on topics that interest you.
         A wide range of professional content is available for free in the Voice Republic Archive:
-      more_talks: "More Talks  »"
+      more_talks: "More Talks »"
       more: "More »"
       coming_up_live: "Coming Up Live"
+      start_now: "Start Now »"
+      more_publishers: "More Publishers »"

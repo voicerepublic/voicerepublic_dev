@@ -16,6 +16,47 @@ class Handyman
 
   class Tasks
 
+    def venue_set_missing_state
+      log '-> Check for venues without state...'
+      sql = "UPDATE venues SET state='offline' WHERE state IS NULL"
+      ActiveRecord::Base.connection.execute(sql)
+    end
+
+    def set_default_pins_for_users_with_no_pins
+      log '-> Check for users with no pins...'
+      nice = Reminder.distinct(:user_id).pluck(:user_id)
+      naughty = User.where('id NOT IN (?)', nice).pluck(:id).sort
+      total = naughty.count
+
+      slugs = Settings.default_pins || []
+      talks = slugs.map { |slug| Talk.find_by(slug: slug) }.compact
+      return if talks.empty?
+
+      naughty.each_with_index do |id, index|
+        log '%s/%s Add default pins for User %s' % [index, total, id]
+        talks.each do |talk|
+          Reminder.create user_id: id, rememberable: talk
+        end
+      end
+    end
+
+    def set_alt_fields(resource=nil, prop=nil)
+      if resource.nil?
+        set_alt_fields Talk, :image_alt
+        set_alt_fields Series, :image_alt
+        set_alt_fields User, :image_alt
+      else
+        log '-> Check %s for empty alt fields...' % resource.name
+        query = resource.where(prop => nil)
+        total = query.count
+
+        query.each_with_index do |obj, index|
+          log '%s/%s %s %s' % [index+1, total, resource.name, obj.id]
+          obj.save
+        end
+      end
+    end
+
     def talk_set_icon
       log '-> Check for default icons...'
       query = Talk.where(icon: 'default')
@@ -47,38 +88,22 @@ class Handyman
         next if talk_ids.empty?
         log '%s/%s Creating default venue for user %s and apply to %s talks' %
             [ uidx+1, utot, user.id, talk_ids.size ]
-        venue = user.venues.create name: 'Default venue' # TODO centralize name
+        venue = user.venues.create name: user.venue_default_name
         sql = 'UPDATE talks SET venue_id=%s WHERE id IN (%s)' %
               [ venue.id, talk_ids * ',' ]
         ActiveRecord::Base.connection.execute(sql)
       end
     end
 
-    def series_options_rename_autoend
-      log '-> Check series for old option no_auto_end_talk...'
-
-      query = Series.where("options LIKE '%autoend%'")
-      if query.count > 0
-        log "PRIOR RUN DETECTED & NOT IDEMPOTENT. SKIPPING. REMOVE THIS METHOD."
-        return
-      end
-
-      query = Series.where("options NOT LIKE '%no_auto_end%'")
+    def improve_venues_names
+      log 'Check for venues whose name needs improvement...'
+      query = Venue.where("name LIKE 'Default venue%'")
       total = query.count
-      query.each_with_index do |series, index|
-        log "%s/%s Set option autoend for series %s" %
-            [ index+1, total, series.id ]
-        series.options[:autoend] = true
-        series.save
-      end
 
-      query = Series.where("options LIKE '%no_auto_end%'")
-      total = query.count
-      query.each_with_index do |series, index|
-        log "%s/%s Unset option no_auto_end_talk for series %s" %
-            [ index+1, total, series.id ]
-        series.options.delete :no_auto_end_talk
-        series.save
+      query.joins(:user).each_with_index do |venue, index|
+        name = venue.user.venue_default_name
+        log '%s/%s Renaming venue to %s' % [index+1, total, name]
+        venue.update_attributes name: name, slug: nil
       end
     end
 
@@ -386,6 +411,39 @@ class Handyman
       end
     end
 
+    def talks_generate_missing_flyers
+      log "-> Check for missing flyers"
+      total = Talk.count
+      index = 0
+      Talk.find_each do |talk|
+        index += 1
+        unless talk.flyer.exist?
+          log '%s/%s generating flyer for Talk %s' %
+               [index, total, talk.id]
+          talk.flyer.generate!
+        end
+      end
+    end
+
+    def list_resources_with_missing_images(resource=nil, prop=nil)
+      if resource.nil?
+        list_resources_with_missing_images(Talk, :image)
+        list_resources_with_missing_images(Series, :image)
+        list_resources_with_missing_images(User, :avatar)
+      else
+        log "-> Check for missing images (#{resource}##{prop})"
+        resource.find_each do |obj|
+          begin
+            unless File.exist?(obj.send(prop).path)
+              log "#{resource.name}.find(#{obj.id}).#{prop} missing (#{obj.self_url})"
+            end
+          rescue => e
+            log "#{resource.name}.find(#{obj.id}).#{prop} died with '#{e.message}'."
+          end
+        end
+      end
+    end
+
     private
 
     def log(msg)
@@ -404,9 +462,8 @@ class Handyman
       tasks = Tasks.new
       methods.sort.each { |key| tasks.send(key) }
 
-      channel = Settings.slack.system_channel
-      slack = Slack.new(channel, 'Handyman', ':construction_worker:')
-      slack.send tasks.instance_variable_get(:@log) * "\n"
+      message = tasks.instance_variable_get(:@log) * "\n"
+      Emitter.handyman(message)
     end
   end
 
