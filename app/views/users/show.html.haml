@@ -37,19 +37,6 @@
         %p#user-description
           = @user.summary
 
-        -#%p.website-link
-          -#= link_to @user.website do
-            -#= @user.website
-      -# TODO: get user's social links and post here?
-      -#%ul.social-links
-      -#  -# TODO: link these up, if they have provided the link, show the -#icon, make it go somewhere
-      -#  %li.list-item
-      -#    = icon_tag 'twitter'
-      -#    %p= t('.twitters')
-      -#  %li.list-item
-      -#    = icon_tag 'facebook'
-      -#  %li.list-item
-      -#    = icon_tag 'location'
       - if can? :manage, @user
         -# TODO: discuss. Can't we just have one path to the create talk page?
         -# =link_to new_talk_path, class:'button hollow' do
@@ -62,8 +49,6 @@
       - else
         = link_to podcast_url(@user), class:'button hollow tiny' do
           = t('.subscribe_to_podcast')
-
-      -# TODO: make these prettier: put the value big, then underneath, the key in small text
       %hr
       %ul.user-meta-group.menu.expanded
         %li
@@ -81,19 +66,29 @@
       %hr/
 
       -# TODO nick: make it look less shitty, please
-      %ul
+      %ul.social-links.menu.vertical
         - unless @user.website.blank?
-          %li
-            = t('.website')
-            = @user.website
+          %li.list-item
+            = link_to "http://#{@user.website}", :target => "_blank", title: 'website' do
+              %p
+                = naked_icon 'globe'
+              %p.label
+                = @user.website
         - unless @user.facebook.blank?
-          %li
-            = t('.facebook')
-            = @user.facebook
+          %li.list-item
+            = link_to "http://facebook.com/#{@user.facebook}", :target => "_blank", title: 'facebook' do
+              %p
+                = naked_icon 'facebook'
+              %p.label
+                = @user.facebook
         - unless @user.twitter.blank?
-          %li
-            = t('.twitter')
-            = @user.twitter
+          %li.list-item
+            = link_to "http://twitter.com/#{@user.twitter}", :target => "_blank", title: 'twitter' do
+              %p
+                = naked_icon 'twitter'
+              %p.label
+                = @user.twitter
+
 
     #user-about.row
       - unless @user.about.blank?

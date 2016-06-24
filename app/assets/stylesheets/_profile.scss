@@ -110,10 +110,34 @@
         margin-left: 0;
         li {
             display: inline-block;
-            padding: 0 12px;
+            padding: 0 3px;
+            color: $vr-light-blue;
+            margin-bottom: 12px;
+            a {
+                padding: 0;
+                p {
+                margin: 0;
+                color: $vr-light-blue;
+            }
+                &:hover p{
+                    color: $vr-blue;
+                }
+
+            }
+            &:hover {
+                color: $vr-blue;
+            }
             svg {
                 width: 24px;
                 height: 24px;
+                fill: currentColor;
+            }
+            
+            .label {
+                background:none;
+                color:$vr-light-blue;
+                cursor: inherit;
+                font-size: .625rem
             }
         }
     }
@@ -233,9 +257,11 @@
             // max-height: 18px;
             float: left;
             margin-right: 6px;
+            color: $vr-light-blue;
             svg {
                 width: 12px;
                 height: 12px;
+                fill:currentColor;
             }
         }
     }
