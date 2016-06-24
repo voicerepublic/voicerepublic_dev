@@ -24,3 +24,5 @@ en:
         zero: 'No Talks Yet'
         one: 'One Talk'
         other: '%{count} Talks'
+    autoplay_warning:
+      autoplay_warning: "Warning! Audio will begin playing automatically."
