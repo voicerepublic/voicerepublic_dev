@@ -77,7 +77,7 @@ RSpec.describe Venue, type: :model do
 
       it 'generates mount points' do
         mount_point = @venue.generate_mount_point
-        expect(mount_point).to match(uuid_regex)
+        expect(mount_point).to eq('live')#match(uuid_regex)
       end
 
       it 'generates passwords' do
