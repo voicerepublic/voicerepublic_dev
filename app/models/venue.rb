@@ -194,6 +194,7 @@ class Venue < ActiveRecord::Base
     {
       venue: attributes.merge(
         provisioning_duration: PROVISIONING_DURATION,
+        port: port,
         channel: channel,
         talks: talks_as_array,
         user: user.attributes.merge(
