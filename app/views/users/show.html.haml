@@ -69,21 +69,21 @@
       %ul.social-links.menu.vertical
         - unless @user.website.blank?
           %li.list-item
-            = link_to "http://#{@user.website}", :target => "_blank", title: 'website' do
+            = link_to @user.website_url, target: '_blank', title: 'website' do
               %p
                 = naked_icon 'globe'
               %p.label
                 = @user.website
         - unless @user.facebook.blank?
           %li.list-item
-            = link_to "http://facebook.com/#{@user.facebook}", :target => "_blank", title: 'facebook' do
+            = link_to @user.facebook_url, target: '_blank', title: 'facebook' do
               %p
                 = naked_icon 'facebook'
               %p.label
                 = @user.facebook
         - unless @user.twitter.blank?
           %li.list-item
-            = link_to "http://twitter.com/#{@user.twitter}", :target => "_blank", title: 'twitter' do
+            = link_to @user.twitter_url, target: '_blank', title: 'twitter' do
               %p
                 = naked_icon 'twitter'
               %p.label

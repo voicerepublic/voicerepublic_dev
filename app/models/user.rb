@@ -110,6 +110,10 @@ class User < ActiveRecord::Base
   after_create :process_welcome_transaction
   after_create :add_default_pins
 
+  before_save :normalize_website, if: :website_changed?
+  before_save :normalize_twitter, if: :twitter_changed?
+  before_save :normalize_facebook, if: :facebook_changed?
+
   include PgSearch
   multisearchable against: [:firstname, :lastname]
   pg_search_scope :search, against: [:firstname, :lastname],
@@ -247,7 +251,32 @@ class User < ActiveRecord::Base
     "Venue of %s" % name
   end
 
+  def website_url
+    website.blank? ? nil : 'http://' + website
+  end
+
+  def twitter_url
+    twitter.blank? ? nil : 'https://twitter.com/' + twitter
+  end
+
+  def facebook_url
+    facebook.blank? ? nil : 'https://www.facebook.com/' + facebook
+  end
+
   private
+
+  def normalize_website
+    self.website = website.sub(/^https?:\/\//, '')
+  end
+
+  def normalize_twitter
+    self.twitter = twitter.sub(/^@/, '').
+                   sub(/^https?:\/\/twitter\.com\//, '')
+  end
+
+  def normalize_facebook
+    self.facebook = facebook.sub(/^https?:\/\/www\.facebook\.com\//, '')
+  end
 
   def process_about
     self.about_as_html = MD2HTML.render(about)
