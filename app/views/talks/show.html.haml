@@ -44,7 +44,7 @@
       .loading-graphic
         = render partial: 'explore/loading'
         %h1= t('.loading')
-        = render partial: 'shared/autoplay_warning'
+        = render partial: 'shared/autoplay_warning' if @talk.live?
   #right-sidebar.float-right.medium-3.columns.clearfix.qa-related-talks.hide
     .row.collapse
       %h3
