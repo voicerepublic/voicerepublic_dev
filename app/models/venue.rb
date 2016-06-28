@@ -191,6 +191,16 @@ class Venue < ActiveRecord::Base
 
   # current single page app state
   def snapshot
+    # SHOULD be this, once the domain model is fixed,
+    # since the venue will belong to an organization
+    # devices = organization.devices
+
+    # CURRENTLY we show all devices the user has access to via
+    # memberships in organizations.
+    devices = user.organizations.map(&:devices).flatten
+
+    # COULD be this on staging for easy testing
+    # devices = Devices.all
     {
       venue: attributes.merge(
         provisioning_duration: PROVISIONING_DURATION,
@@ -202,7 +212,7 @@ class Venue < ActiveRecord::Base
         ),
         available_at: available_at
       ),
-      devices: Device.all.map(&:attributes),
+      devices: devices.map(&:for_venues),
       now: Time.now.to_i
     }
   end

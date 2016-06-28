@@ -98,7 +98,7 @@ class Device < ActiveRecord::Base
     OpenStruct.new(options)
   end
 
-  # details returned on polling
+  # details returned on polling by desktop app
   def details
     Hash.new.tap do |details|
       details[:name] = name
@@ -111,6 +111,13 @@ class Device < ActiveRecord::Base
         }
       end
     end
+  end
+
+  def for_venues
+    {
+      id: id,
+      name: name
+    }
   end
 
   # state machine callbacks
