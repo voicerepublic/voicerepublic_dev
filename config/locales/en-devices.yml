@@ -1,5 +1,8 @@
 en:
+  alert:
+    pairing_code_invalid: Pairing Code Invalid
   devices:
+
     index:
       headline: Detecting unclaimed clients...
 
@@ -26,3 +29,8 @@ en:
         pairing code until it is claimed. The Voice Republic
         Streamboxx displays its pairing code on an attached screen as
         well as reads it to you on plugged in headphones.
+
+
+    edit:
+      claim_client: Unclaimed client detected.
+      type: 'Type: %{type}'

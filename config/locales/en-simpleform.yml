@@ -1,6 +1,13 @@
 en:
   simple_form:
     hints:
+      device:
+        name: >-
+          You should pick a name for your device. This will help to
+          uniquely and unambiguously identify the streaming source. If
+          you are claiming a Voice Republic Streamboxx please tekt the
+          timeto write the name onto the case.
+
       talk:
         language: ""
         format: Please provide the format purely for informational purposes.

@@ -27,13 +27,11 @@ class DevicesController < ApplicationController
   #
   # Redirects to edit if device was found.
   def show
-    code = params[:id]
-
-    @device = Device.find_by(pairing_code: code)
+    @device = Device.find_by(pairing_code: params[:id])
 
     return redirect_to [:edit, @device] if @device
 
-    redirect_to :index, alert: I18n.t('alert.pairing_code_invalid')
+    redirect_to devices_path, alert: I18n.t('alert.pairing_code_invalid')
   end
 
 
