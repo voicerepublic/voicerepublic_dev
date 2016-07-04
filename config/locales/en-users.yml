@@ -65,9 +65,10 @@ en:
       title: "%{username} edit profile - Voice Republic"
       slug_explanation1: "Your public username is the same as your Voice Republic address:"
       slug_explanation2: |
-        Please note that changing the username will invalidate all references to your
-        profile from other sites and make you lose all the search
-        engine fu you might have gathered.
+        Please note that changing the username will change your URL
+        and invalidate all references to your profile from other
+        sites. If you alread gathered search engine traffic, it will
+        be lost.
       edit_your_profile: Edit profil
       edit_your_settings: Edit Your Profile
       select_profile_image: Profile image

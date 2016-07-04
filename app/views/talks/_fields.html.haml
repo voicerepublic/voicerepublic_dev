@@ -16,12 +16,18 @@
              locals: { f: f, ns: 'audio', init: init_audio_uploader }
 
   .row
-    = f.input :title, placeholder: t('.title')
-    = f.input :teaser, placeholder: t('.teaser'), as: "text", input_html: {maxlength: 140}
+    = f.input :title
+    = f.input :teaser, input_html: {maxlength: 140}
     = f.input :language, as: :grouped_select, collection: Talk::LANGUAGES,
       group_method: :last, label_method: :last, value_method: :first
+    -# TODO nick: simple form generates a div with class `hint` based
+    -# on simple_form.hints.talk.tag_list being set in
+    -# config/locales/en-simpleform.yml. I suggest using the class
+    -# `hint` instead of `help-text` used further down the page.  If
+    -# you want to stick with it and have the hint rendered above the
+    -# field, there are alternatives.
     = f.input :tag_list, input_html: { class: 'tagList', value: @talk.tag_list.join(',') }
-    = f.input :speakers, placeholder: t('.speakers')
+    = f.input :speakers
   %hr
 
   .row
@@ -34,6 +40,9 @@
         = f.input :starts_at_time, opts.merge(input_html: {'data-picker' => 'time'}, disabled: disable)
       .medium-4.columns
         = f.input :duration, opts.merge(collection: Settings.durations, include_blank: false, disabled: disable)
+    .row.hint
+      .medium-12.columns.hint
+        = t('simple_form.hints.talk.timings')        
   %hr
 
   .title-box.clearfix

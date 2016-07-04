@@ -11,13 +11,14 @@
     .title-box.clearfix
       .help-text.text-center= t('.upload_done')
   - else
+    .hint= t('.upload_hint')
     = render partial: 'shared/upload', locals: { f: f, ns: 'audio', init: init_audio_uploader }
 
   .title-box.clearfix
     %h3.form-title= t('.describe_your_talk')
   .row
-    = f.input :title, placeholder: t('.title')
-    = f.input :teaser, placeholder: t('.teaser'), as: "text", input_html: {maxlength: 140}
+    = f.input :title
+    = f.input :teaser, as: "text", input_html: {maxlength: 140}
     = f.input :language, as: :grouped_select, collection: Talk::LANGUAGES,
       group_method: :last, label_method: :last, value_method: :first
     = f.input :tag_list, input_html: { class: 'tagList' }
@@ -30,6 +31,9 @@
       = f.input :starts_at_date, opts.merge(input_html: {'data-picker' => 'date'})
     .medium-6.columns
       = f.input :starts_at_time, opts.merge(input_html: {'data-picker' => 'time'})
+  .row
+    .medium-12.columns.hint
+      = t('.upload_timings')
   %hr
 
   %h3.form-title.left= t('.add_to_series')

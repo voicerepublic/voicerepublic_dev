@@ -148,6 +148,13 @@ en:
       delete_talk: Delete talk
       select_image: Background image
     fields:
+      upload_timings: >-
+        Choose your date amd time when your talk took place. Please
+        note that am uploaded talk must be set in the past.
+      upload_hint: >-
+        If you don't want to create a livve stream, you can also
+        upload an existing recording. It will be available in our
+        archive within minutes.
       upload_a_recording: Upload To Voice Republic
       describe_your_talk: Describe Your Talk
       unprocessed_upload: |
@@ -158,11 +165,11 @@ en:
       upload_done: A file has already been uploaded.
       record: <span class="red">Record</span> the Broadcast for later Playback and Embedding
       add_to_series: Add to Series
-      series_help_text: Series are like playlist, they allow you to group your talks by theme.
+      series_help_text: Group your talks into series. Series can be topics, locations, dates, etc.
       invite_guests: Invite guests
       invite_guests_text: Your guests will be automatically added to the stage.
       illustrate_and_describe: Image and Description
-      ill_and_desc_text: Choose a background image and tell your audience a little more...
+      ill_and_desc_text: Make your talk pretty! Choose a background that illustrates the content of your talk. Be careful not to infringe on any copyrights.
       image_text: Please choose an image with a minimum resolution of 1200 x 1200 px
       import_your_audio_file: Import audio file
       select_image: Select image
@@ -174,7 +181,7 @@ en:
       create_new_series: Create New Series...
       slides: Upload Your Slides
       slides_help_text: >-
-        Do you have slides for your talk? Upload them here as a pdf document.
+        If you have presentation slides, please upload them here. PDF format is fine.
     podcast:
       title: "%{title}"
       subtitle: "Podcast provided by Voice Republic"

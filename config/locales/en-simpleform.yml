@@ -1,12 +1,39 @@
 en:
   simple_form:
+    placeholders:
+      talk:
+        title: Your talk will be judged by its title. Make it count.
+        teaser: You have 140 characters to convince your listeners.
+        speakers: |
+          Who's talking? List your speakers, separated by commas.
+        description: >-
+          What's this talk about? You have 2300 characters to tell
+          your audience what they can expect. Using Markdown, you can
+          also add links, pictures and headlines.
+      series:
+        teaser: >-
+          Your teaser can be up to 140 characters long. If you have
+          relevant keywords, use them here.
+        description: >-
+          What's happending in this series? Give your audience an
+          idead what they can expect. You have 2300 characters to do
+          so. Using Markdown, you can also add links, pictures and
+          headlines.
     hints:
       talk:
+        timings: |
+          Choose the exact date and time when your talk will take
+          place. A live talk must be scheduled in the future, a
+          recording in the past.
+        tag_list: |
+          Make your talk easy to find! Tags are keywords and should
+          sum up the content.
         language: ""
         format: Please provide the format purely for informational purposes.
         description: |
           This field <a target='_blank' href='/r/md'>supports Markdown</a>.
       series:
+        title: Give your series an expressive, comprehensible title.
         description: |
           This field <a target='_blank' href='/r/md'>supports Markdown</a>.
       user:
