@@ -13,8 +13,11 @@ class Device < ActiveRecord::Base
   has_one :venue
 
   validates :identifier, presence: true
+  validates :pairing_code, uniqueness: true
 
   serialize :options
+
+  after_create :generate_pairing_code!
 
   ONLINE = %w( pairing idle streaming )
 
@@ -77,6 +80,7 @@ class Device < ActiveRecord::Base
     {
       name: name,
       state: state,
+      pairing_code: pairing_code,
       public_ip_address: public_ip_address,
       report_interval: report_interval,
       heartbeat_interval: heartbeat_interval,
@@ -135,6 +139,13 @@ class Device < ActiveRecord::Base
   def signal_restart_stream
     Faye.publish_to(channel, event: 'restart_stream')
     Rails.logger.info "Restarted Stream from device '#{name}' to '#{venue.stream_url}'"
+  end
+
+  def generate_pairing_code!
+    self.pairing_code = ('0'..'9').to_a.shuffle[0,4].join
+    self.save!
+  rescue # catches violation of uniqueness constraint
+    retry
   end
 
 end

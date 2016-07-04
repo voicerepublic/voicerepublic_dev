@@ -1,0 +1,28 @@
+en:
+  devices:
+    index:
+      headline: Detecting unclaimed clients...
+
+      devices_found:
+        one: "Redirecting... (you should actually never see this!)"
+        zero: >-
+          We were unable to detect any unclaimed clients. If you
+          downloaded the Voice Republic Desktop App please make sure
+          it's running. If you want to claim a Voice Republic
+          Streamboxx please make sure it is connected. Then reload
+          this page. If the problem persist please use the alternate
+          method below.
+
+        other: >-
+          We detected %{count} unclaimed clients connected from your
+          network. If you are in control of all these clients, please
+          unplug all but one, then reload this page. Otherwise please
+          use the alternate method below.
+
+      alternatively: >-
+        Alternatively you can always use a pairing code to identifiy
+        the client that you want to claim. The pairing code is a four
+        digit number. The Voice Republic Desktop App displays the
+        pairing code until it is claimed. The Voice Republic
+        Streamboxx displays its pairing code on an attached screen as
+        well as reads it to you on plugged in headphones.

@@ -93,7 +93,7 @@ Rails.application.routes.draw do
       get 'darkice'
     end
   end
-  resources :devices, only: [:index, :edit, :update]
+  resources :devices, only: [:index, :edit, :update, :show]
 
   resources :reminders, only: [:show, :destroy]
 
