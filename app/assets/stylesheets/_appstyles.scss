@@ -1,3 +1,30 @@
+body.pages-icons {
+    background: #f9f9f9
+}
+#icon-cheatsheet {
+    padding:24px;
+    h1 {
+        color: $talk-dark;
+    }
+
+    .icon-thumb {
+        color:$talk-dark;
+
+    width:50%;
+    padding-bottom: 12px;
+    float:left;
+    text-align: center;
+    svg {
+        fill:currentColor;
+        width:60px;
+        height:60px;
+    }
+    @include breakpoint(medium) {
+        width:25%;
+    }
+}
+}
+
 #error-container {
             background: url(../../images/background/desert.jpg) no-repeat 50% 25%;
 .not-found p {

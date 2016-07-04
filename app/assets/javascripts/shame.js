@@ -117,4 +117,13 @@ $(document).ready(function(){
 });
 
 
+//icon cheatsheet:
+  var iconCounter = 1;
+  $('svg symbol').each(function(){
+    // print icons on page:
+    var iconName = $(this).attr('id').slice(5)
+    $('#icon-cheatsheet').append('<div class="icon-thumb"><svg class="icon"><use xlink:href="#'+$(this).attr('id')+'" /></svg><p>'+iconCounter+'. '+iconName+'</p></div>');
+    iconCounter ++
+  })
+
 $(document).foundation();
