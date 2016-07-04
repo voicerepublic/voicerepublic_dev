@@ -13,7 +13,7 @@ class Device < ActiveRecord::Base
   has_one :venue
 
   validates :identifier, presence: true
-  validates :pairing_code, uniqueness: true
+  validates :pairing_code, uniqueness: true, allow_nil: true
 
   serialize :options
 
@@ -42,6 +42,8 @@ class Device < ActiveRecord::Base
     end
 
     event :complete_pairing, timestamp: :paired_at do # local
+      transitions from: :unpaired, to: :offline,
+                  on_transition: :release_pairing_code
       transitions from: :pairing, to: :idle,
                   on_transition: :release_pairing_code
     end
