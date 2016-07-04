@@ -7,7 +7,10 @@ class DevicesController < ApplicationController
 
   # GET /devices
   #
-  # Used to display all devices ready for pairing.
+  # Optionally takes a pairing code and redirects to show.
+  #
+  # Used to display options to proceed if none or multiple devices
+  # were detected.
   #
   # Automatically redirects to device if there is exactly one.
   def index
@@ -16,7 +19,6 @@ class DevicesController < ApplicationController
 
     @devices = Device.online.pairing.with_ip(request.remote_ip)
     @devices = Device.online.pairing if Rails.env.development?
-    @devices = Device.all
     return redirect_to [:edit, @devices.first] if @devices.count == 1
   end
 
