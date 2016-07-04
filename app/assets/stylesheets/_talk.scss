@@ -1099,6 +1099,13 @@ ul.share-links {
 
 //forms
 .talks-create, .talks-new, .talks-edit, .uploads, .uploads-create, .uploads-new .uploads-edit {
+    h2 {
+        margin-bottom: 24px;
+    }
+    p.lead {
+        font-weight: 300;
+        margin-bottom: 48px;
+    }
     .input input, .input textarea {
         margin-bottom: 6px
     }
@@ -1121,8 +1128,12 @@ ul.share-links {
     .input {
         margin-bottom: 48px;
     }
+    .input.hidden {
+        margin-bottom: 0;
+    }
     .hint {
         color: $vr-purple;
+        color: $tuatara;
     }
     .pickers {
         padding:0;

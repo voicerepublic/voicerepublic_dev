@@ -67,7 +67,7 @@
 
   .row
     %h3.form-title= t('.slides')
-    .hint= t('.slides_help_text')
+    -#.hint= t('.slides_help_text')
 
     = f.input :slides_uuid, as: :hidden
     = render partial: 'shared/upload',

@@ -149,11 +149,10 @@ en:
       select_image: Background image
     fields:
       upload_timings: >-
-        Choose your date amd time when your talk took place. Please
+        Choose the date and time your talk took place. Please
         note that an uploaded talk must be set in the past.
       upload_hint: >-
-        If you don't want to create a live stream, you can also
-        upload an existing recording. It will be available in our
+        Already have a recording of your event? Here's where you can upload it. It will be available in our
         archive within minutes.
       upload_a_recording: Upload To Voice Republic
       describe_your_talk: Describe Your Talk
@@ -180,8 +179,8 @@ en:
       tag_list: Tags
       create_new_series: Create New Series...
       slides: Upload Your Slides
-      slides_help_text: >-
-        If you have presentation slides, please upload them here. PDF format is fine.
+      #slides_help_text: >-
+        #If you have presentation slides, please upload them here. PDF format is fine.
     podcast:
       title: "%{title}"
       subtitle: "Podcast provided by Voice Republic"
