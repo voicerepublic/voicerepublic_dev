@@ -7,8 +7,8 @@ en:
           Your teaser can be up to 140 characters long. If you have
           relevant keywords, use them here.
         description: >-
-          What's happending in this series? Give your audience an
-          idead what they can expect. You have 2300 characters to do
+          What's happening in this series? Give your audience an
+          idea of what they can expect. You have 2300 characters to do
           so. Using Markdown, you can also add links, pictures and
           headlines.
     hints:
@@ -23,7 +23,7 @@ en:
           also add links, pictures and headlines.
         timings: |
           Choose the exact date and time when your talk will take
-          place. A live talk must be scheduled in the future, a
+          place. A live talk must be scheduled in the future; a
           recording in the past.
         tag_list: |
           Make your talk easy to find! Tags are keywords and should

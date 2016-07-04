@@ -150,9 +150,9 @@ en:
     fields:
       upload_timings: >-
         Choose your date amd time when your talk took place. Please
-        note that am uploaded talk must be set in the past.
+        note that an uploaded talk must be set in the past.
       upload_hint: >-
-        If you don't want to create a livve stream, you can also
+        If you don't want to create a live stream, you can also
         upload an existing recording. It will be available in our
         archive within minutes.
       upload_a_recording: Upload To Voice Republic

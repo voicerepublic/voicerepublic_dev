@@ -6,6 +6,15 @@ body {
     }
 }
 
+.autoplay-warning {
+    background: $vr-red;
+    padding: 12px;
+    color: white;
+    font-weight: 500;
+    margin: 0;
+    text-align: center;
+}
+
 audio {
     width: 100%;
 }
