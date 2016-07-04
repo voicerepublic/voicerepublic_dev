@@ -2,14 +2,6 @@ en:
   simple_form:
     placeholders:
       talk:
-        title: Your talk will be judged by its title. Make it count.
-        teaser: You have 140 characters to convince your listeners.
-        speakers: |
-          Who's talking? List your speakers, separated by commas.
-        description: >-
-          What's this talk about? You have 2300 characters to tell
-          your audience what they can expect. Using Markdown, you can
-          also add links, pictures and headlines.
       series:
         teaser: >-
           Your teaser can be up to 140 characters long. If you have
@@ -21,6 +13,14 @@ en:
           headlines.
     hints:
       talk:
+        title: Your talk will be judged by its title. Make it count.
+        teaser: You have 140 characters to convince your listeners.
+        speakers: |
+          Who's talking? List your speakers, separated by commas.
+        description: >-
+          What's this talk about? You have 2300 characters to tell
+          your audience what they can expect. Using Markdown, you can
+          also add links, pictures and headlines.
         timings: |
           Choose the exact date and time when your talk will take
           place. A live talk must be scheduled in the future, a
@@ -45,10 +45,12 @@ en:
       talk:
         series: Series
         new_series_title: New Series Title
-        starts_at_date: Date
-        starts_at_time: Time
+        starts_at_date: Date of Talk
+        starts_at_time: Start Time
         teaser: Short description
         tag_list: Tags
+        duration: Duration In Minutes
+
       user:
         summary: Short description (140 characters or less)
         conference: I will be streaming a conference.

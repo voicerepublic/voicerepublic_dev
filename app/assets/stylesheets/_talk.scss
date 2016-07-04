@@ -6,15 +6,6 @@ body {
     }
 }
 
-.autoplay-warning {
-    background: $vr-red;
-    padding: 12px;
-    color: white;
-    font-weight: 500;
-    margin: 0;
-    text-align: center;
-}
-
 audio {
     width: 100%;
 }
@@ -1099,6 +1090,9 @@ ul.share-links {
 
 //forms
 .talks-create, .talks-new, .talks-edit, .uploads, .uploads-create, .uploads-new .uploads-edit {
+    .input input, .input textarea {
+        margin-bottom: 6px
+    }
     .selectize-input {
         background: white;
             border: 1px solid #cacaca;
@@ -1117,6 +1111,15 @@ ul.share-links {
     }
     .input {
         margin-bottom: 48px;
+    }
+    .hint {
+        color: $vr-purple;
+    }
+    .pickers {
+        padding:0;
+        .input {
+            margin-bottom: 0;
+        }
     }
     h3 {
         font-size: 16px;
