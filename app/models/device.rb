@@ -42,7 +42,8 @@ class Device < ActiveRecord::Base
     end
 
     event :complete_pairing, timestamp: :paired_at do # local
-      transitions from: :pairing, to: :idle
+      transitions from: :pairing, to: :idle,
+                  on_transition: :release_pairing_code
     end
 
     event :start_stream do # local
@@ -140,6 +141,12 @@ class Device < ActiveRecord::Base
     Faye.publish_to(channel, event: 'restart_stream')
     Rails.logger.info "Restarted Stream from device '#{name}' to '#{venue.stream_url}'"
   end
+
+  def release_pairing_code
+    self.pairing_code = nil
+  end
+
+  # model callbacks
 
   def generate_pairing_code!
     self.pairing_code = ('0'..'9').to_a.shuffle[0,4].join
