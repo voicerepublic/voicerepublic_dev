@@ -18,7 +18,7 @@ module.exports = function(grunt) {
             },
             default: {
                 files: {
-                    "<%= app %>/views/shared/_svg-defs2.html": ["<%= app %>/assets/images/svg/*.svg"]
+                    "<%= app %>/views/shared/_svg_defs.html": ["<%= app %>/assets/images/svg/*.svg"]
                 }
             }
         },
