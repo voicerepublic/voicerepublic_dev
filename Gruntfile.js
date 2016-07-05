@@ -18,7 +18,7 @@ module.exports = function(grunt) {
             },
             default: {
                 files: {
-                    "<%= app %>/views/shared/_svg_defs.html": ["<%= app %>/assets/images/svg/*.svg"]
+                    "<%= app %>/views/shared/_svg_defs.html": ["lib/svg/*.svg"]
                 }
             }
         },
@@ -26,7 +26,7 @@ module.exports = function(grunt) {
 
         watch: {
             svg: {
-                files: '<%= app %>/assets/images/svg/*.svg',
+                files: 'lib/svg/*.svg',
                 tasks: ['svgstore']
             }
         }
