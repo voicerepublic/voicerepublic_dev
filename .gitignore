@@ -4,6 +4,7 @@
 /.rspec
 /vendor/bundle
 /vendor/cache
+/node_modules
 
 # Ignore all logfiles and tempfiles.
 /log/*.pid
