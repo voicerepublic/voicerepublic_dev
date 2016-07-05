@@ -30,7 +30,7 @@
                                 ng-hide="!item.isUploading"
                                 href="#")= raw t('.cancel')
       .text-center(ng-show="uploader.isHTML5")
-        .file-types.help-text(ng-class="{'highlight-supported-files': addingFailed}" ng-show="state != 'finished'")
+        .file-types.hint(ng-class="{'highlight-supported-files': addingFailed}" ng-show="state != 'finished'")
           = t(".#{ns}.supported_filetypes")
         -#.well.my-drop-zone{"nv-file-over" => "", :uploader => "uploader"}
           -#= t('.drop_files_here')
