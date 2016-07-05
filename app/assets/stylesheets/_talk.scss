@@ -45,11 +45,10 @@ audio {
   display: none !important;
 }
 
-.test-talk-msg {
+.test-talk-msg, #greeting {
     background:$vr-yellow;
     padding:24px;
 }
-
 
 // TODO: This is a hack to get Foundation 6 styles on simple_form
 // elements with errors.
@@ -1098,7 +1097,7 @@ ul.share-links {
 
 
 //forms
-.talks-create, .talks-new, .talks-edit, .uploads, .uploads-create, .uploads-new .uploads-edit {
+.talks-create, .talks-new, .talks-edit, .uploads, .uploads-create, .uploads-new .uploads-edit, .series-new, .series-update {
     h2 {
         margin-bottom: 24px;
     }

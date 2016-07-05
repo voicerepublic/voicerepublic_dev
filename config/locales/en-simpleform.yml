@@ -34,8 +34,10 @@ en:
           This field <a target='_blank' href='/r/md'>supports Markdown</a>.
       series:
         title: Give your series an expressive, comprehensible title.
+        teaser: Your teaser can be up to 140 characters long. If you have relevant keywords, use them here.
         description: |
-          This field <a target='_blank' href='/r/md'>supports Markdown</a>.
+          What’s happening in this series? Give your audience an idea what they can expext. 
+          You have 2300 characters to do so. Using <a target='_blank' href='/r/md'>Markdown</a>, you can also add links, pictures and headlines.
       user:
         about: |
           This field <a target='_blank' href='/r/md'>supports Markdown</a>.
