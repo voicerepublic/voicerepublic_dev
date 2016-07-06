@@ -46,14 +46,14 @@
       .row
         .medium-6.columns
           = f.input :timezone, as: :time_zone, priority: User::PRIOTZ
-        .medium-6.columns
+        .medium-6.columns.input
           %label{:for => "user_website"}
             Website
           .input-group
             %span.input-group-label http://
             = f.input_field :website, class: 'input-group-field'
       .row
-        .medium-6.columns
+        .medium-6.columns.input
           %label{:for => "user_facebook"}
             Facebook URL
           .input-group
