@@ -2,14 +2,16 @@
 
 ## Write image to microSD card
 First you need the image. Download it here:
-https://staging.voicerepublic.com/system/streambox.img.gz
+https://staging.voicerepublic.com/system/streambox.img.gz (~430MB, gzipped, use gunzip on Linux/macOS, 7zip on Windows to unpack)
+or here:
+https://staging.voicerepublic.com/system/streambox.img (~1.4GB, unpacked, you can use this directly on all platforms)
+
 
 Then, follow the instructions for your operating system below. (Large parts of this are taken pretty much unchanged from the guides on https://www.raspberrypi.org/documentation/installation/installing-images/)
 
 ### Linux
-Under Linux, there are some GUI tools to accomplish what we want, but we all know that any self-respecting Linux user would scoff at the thought of using a GUI tool where a simple shell command can do the trick ;)
+Under Linux, there are some GUI tools to accomplish what we want, but we can easily accomplish it on the shell. If you want to use a GUI tool, you can use the tool described for macOS
 
-Of course, we also know that it seldomly actually **is** just a simple shell command...
 **Be wary! Using `dd` could delete all data on your computer. Be sure to check and double check your command/the target device before executing it!**
 
 Identify your microSD card:
@@ -37,9 +39,11 @@ Identify your microSD card:
 
 - **If your image file is in .gz format:** Either unpack the image file and then just follow the guide above or add `gunzip filename.img.gz |` to the `dd`-command, omitting the `if`-option.
 
+    gunzip streambox.img.gz | dd bs=32M of=/dev/sdd status=progress
+
 
 ### macOS
-Since Mac Users are used to getting both great GUI tools as well as the power of the shell, we will discuss both approaches here.
+For macOS there are two different approaches. There is a GUI tool called dd-utility or you can use the shell, similar to Linux.
 
 #### dd-utility
 *For the record, this utility also exists as a debian package, available in the same github repository.*
@@ -85,7 +89,7 @@ First, you also will use the `dd`-command, though it has a slightly different sy
 
     dd if=streambox.img of=/dev/rdisk3 bs=32m
 
-Did you spot the difference? The `m` in the `bs`-option is lowercase, instead of uppercase as in Linux. Also, no progress display. You can use the trick with the interrupt to display current progress, though (see Linux). Or just press `CTRL+T`.
+The `m` in the `bs`-option is lowercase, instead of uppercase as in Linux. Also, no progress display. You can use the trick with the interrupt to display current progress, though (as described for Linux). Or just press `CTRL+T`.
 *It might be easier to just install gnu coreutils and use its dd, since it is a lot more up to date than the version Apple provides.*
 
 Second, you should use diskutil for all operations concerning disks and filesystem.
@@ -97,8 +101,6 @@ Before you write to the disk, unmount it with `diskutil unmountDisk disk3`.
 And remember to eject the card (in Finder or using `diskutil eject disk3`) before physically removing it. macOS will scold you otherwise.
 
 ### Windows
-Now, as anyone who ever had the misfortune to open a command line on windows (yes, PowerShell is a lot better, but still far away from redemption) will know, its mere mention sends shivers down your back and makes you want to run away as fast and far as you can. Therefore, I will not even talk about it. So here is how to do it the Windows way.
-
 - Insert the SD card into your SD card reader and check which drive letter was assigned. You can easily see the drive letter, such as G:, by looking in the left column of Windows Explorer. You can use the SD card slot if you have one, or a cheap SD adapter in a USB port.
 
 - Download the Win32DiskImager utility from the Sourceforge Project page as a zip file; you can run this from a USB drive.
@@ -114,9 +116,10 @@ Now, as anyone who ever had the misfortune to open a command line on windows (ye
 
 
 ## Installing the heatsinks
-
-There are two heatsinks with pre-applied glue, one a bit bigger than the other. There are also two chips which the heatsinks pretty much perfectly fit. Remove the protective film from the heatsinks and stick them onto their matching chip. Voilà, heatsinks installed.
+There are two heatsinks with pre-applied glue, one a bit bigger than the other. There are also two chips on the Pi which the heatsinks pretty much perfectly fit. Remove the protective film from the heatsinks and stick them onto their matching chip. You're done ;)
 
 ![Heatsinks installed](img/heatsinks_installed.jpg)
+
+This is how the Pi should look with heatsinks installed.
 
 ## Encasing the Pi
