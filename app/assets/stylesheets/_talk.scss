@@ -45,11 +45,10 @@ audio {
   display: none !important;
 }
 
-.test-talk-msg {
+.test-talk-msg, #greeting {
     background:$vr-yellow;
     padding:24px;
 }
-
 
 // TODO: This is a hack to get Foundation 6 styles on simple_form
 // elements with errors.
@@ -1098,7 +1097,17 @@ ul.share-links {
 
 
 //forms
-.talks-create, .talks-new, .talks-edit, .uploads, .uploads-create, .uploads-new .uploads-edit {
+.talks-create, .talks-new, .talks-edit, .uploads, .uploads-create, .uploads-new .uploads-edit, .series-new, .series-update {
+    h2 {
+        margin-bottom: 24px;
+    }
+    p.lead {
+        font-weight: 300;
+        margin-bottom: 48px;
+    }
+    .input input, .input textarea {
+        margin-bottom: 6px
+    }
     .selectize-input {
         background: white;
             border: 1px solid #cacaca;
@@ -1117,6 +1126,19 @@ ul.share-links {
     }
     .input {
         margin-bottom: 48px;
+    }
+    .input.hidden {
+        margin-bottom: 0;
+    }
+    .hint {
+        color: $vr-purple;
+        color: $tuatara;
+    }
+    .pickers {
+        padding:0;
+        .input {
+            margin-bottom: 0;
+        }
     }
     h3 {
         font-size: 16px;

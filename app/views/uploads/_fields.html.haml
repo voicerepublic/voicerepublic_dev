@@ -9,15 +9,17 @@
   = f.input :user_override_uuid, as: :hidden
   - if f.object.new_record? and f.object.user_override_uuid?
     .title-box.clearfix
-      .help-text.text-center= t('.upload_done')
+      .hint= t('.upload_done')
   - else
+    .medium-10.columns.medium-offset-1
+      %p.lead.text-center= t('.upload_hint')
     = render partial: 'shared/upload', locals: { f: f, ns: 'audio', init: init_audio_uploader }
 
   .title-box.clearfix
     %h3.form-title= t('.describe_your_talk')
   .row
-    = f.input :title, placeholder: t('.title')
-    = f.input :teaser, placeholder: t('.teaser'), as: "text", input_html: {maxlength: 140}
+    = f.input :title
+    = f.input :teaser, as: "text", input_html: {maxlength: 140}
     = f.input :language, as: :grouped_select, collection: Talk::LANGUAGES,
       group_method: :last, label_method: :last, value_method: :first
     = f.input :tag_list, input_html: { class: 'tagList' }
@@ -25,40 +27,42 @@
   %hr
 
   %h3.form-title= t('.choose_date_and_time')
-  .date-time-picker-row.row
+  .date-time-picker-row.row.pickers
     .medium-6.columns
       = f.input :starts_at_date, opts.merge(input_html: {'data-picker' => 'date'})
     .medium-6.columns
       = f.input :starts_at_time, opts.merge(input_html: {'data-picker' => 'time'})
+    .medium-12.columns.hint
+      = t('.upload_timings')
   %hr
 
   %h3.form-title.left= t('.add_to_series')
-  .help-text.text-center= t('.series_help_text')
-  .row
+  .row.pickers
     .medium-6.columns
       = f.association :series, collection: current_user.series,
         include_blank: t('.create_new_series'),
         input_html: { 'data-on-blank-show' => '#wrapper_new_series_title' }
     .medium-6.columns
       = f.input :new_series_title, wrapper_html: { id: 'wrapper_new_series_title' }
+  .hint= t('.series_help_text')
   %hr
 
   .title-box.clearfix
     %h3.form-title.left= t('.illustrate_and_describe')
-    .help-text.text-center= t('.ill_and_desc_text')
+    .hint= t('.ill_and_desc_text')
   .row
     .text-center
       .image-box(style="background-image: url(#{f.object.image.url})")
       = f.input :image, as: :file, wrapper_html: { class: 'inputfile' }, label: icon_tag("photo") + t('.change_photo').html_safe, input_html: {'data-instant-image' => '.image-box | .image-label'}, label_html: {class: 'image-label button hollow tiny btn-hover-yellow'}
 
-  .row
+  .row.pickers
     .medium-12.columns
       = f.input :description, input_html: { rows: 10 }
   %hr
 
   .row
     %h3.form-title= t('.slides')
-    .help-text.text-center= t('.slides_help_text')
+    -#.hint= t('.slides_help_text')
 
     = f.input :slides_uuid, as: :hidden
     = render partial: 'shared/upload',

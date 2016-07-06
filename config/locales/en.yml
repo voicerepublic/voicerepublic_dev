@@ -334,7 +334,7 @@ en:
       audio:
         supported_filetypes: "Supported Filetypes: MP3, M4A, OGG, WAV"
       slides:
-        supported_filetypes: Please upload your slides as PDF
+        supported_filetypes: If you have presentation slides, please upload them here. PDF format is fine.
     unconfirmed:
       notice: |
         You haven't confirmed your email address, yet. Please check
