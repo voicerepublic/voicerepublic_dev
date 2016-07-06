@@ -15,6 +15,7 @@
     a.help-text-trigger {
         color: $vr-purple;
         margin-right: 12px;
+        transition: color .2s ease;
         svg {
             width: 18px;
             height: 18px;
