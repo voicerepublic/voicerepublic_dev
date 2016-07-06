@@ -12,10 +12,23 @@
 
 
 .venues, .talks{
+    a.help-text-trigger {
+        color: $vr-purple;
+        margin-right: 12px;
+        svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+        }
+        &:hover {
+            color: $vr-light-blue;
+        }
+    }
     background: $talk-dark;
     #app {
         position:relative;
         z-index: 0;
+        height: 100vh;
     }
     #topbar {
         position:relative;
