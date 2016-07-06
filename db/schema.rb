@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160623142238) do
+ActiveRecord::Schema.define(version: 20160704092407) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -108,9 +108,11 @@ ActiveRecord::Schema.define(version: 20160623142238) do
     t.integer  "report_interval",    default: 60
     t.integer  "heartbeat_interval", default: 5
     t.text     "options",            default: "--- {}"
+    t.string   "pairing_code"
   end
 
   add_index "devices", ["organization_id"], name: "index_devices_on_organization_id", using: :btree
+  add_index "devices", ["pairing_code"], name: "index_devices_on_pairing_code", using: :btree
 
   create_table "memberships", force: :cascade do |t|
     t.integer  "user_id"

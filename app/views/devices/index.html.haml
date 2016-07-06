@@ -1,12 +1,35 @@
+-# if exaclty one device was detected, the user is redirected to claim
+-# that device. hence this page has to handle the two remaining cases:
+-#
+-# * no device found
+-# * multiple devices found
+
 %section#claim.dark
   .row
     %header
-      %h1= t('.pair_device')
+      %h2= t('.headline')
 
 %section.light
-  .api-container.row.clearfix
+  .row.clearfix
     .container.medium-10.medium-offset-1.large-8.large-offset-2.columns.text-left
-      %h2= t('.devices_found', count: @devices.count, ip: request.remote_ip)
-      %ul
-        - @devices.each do |device|
-          %li= device.type
+
+      %p= t('.devices_found', count: @devices.count, ip: request.remote_ip)
+
+  .row.clearfix
+    .medium-2.medium-offset-5
+      = link_to t('.reload'), url_for(params), class: 'button hollow'
+
+  .row.clearfix
+    .container.medium-10.medium-offset-1.large-8.large-offset-2.columns.text-left
+      %hr
+
+  .row.clearfix
+    .container.medium-10.medium-offset-1.large-8.large-offset-2.columns.text-left
+
+      %p= t('.alternatively')
+
+  .row.clearfix
+    .medium-1.medium-offset-5
+      = simple_form_for :device, method: 'GET' do |f|
+        = f.input :pairing_code
+        = f.button :submit

@@ -12,6 +12,13 @@ en:
           so. Using Markdown, you can also add links, pictures and
           headlines.
     hints:
+      device:
+        name: >-
+          You should pick a name for your device. This will help to
+          uniquely and unambiguously identify the streaming source. If
+          you are claiming a Voice Republic Streamboxx please tekt the
+          timeto write the name onto the case.
+
       talk:
         title: Your talk will be judged by its title. Make it count.
         teaser: You have 140 characters to convince your listeners.
