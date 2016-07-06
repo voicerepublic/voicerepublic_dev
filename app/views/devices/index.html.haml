@@ -4,32 +4,54 @@
 -# * no device found
 -# * multiple devices found
 
-%section#claim.dark
-  .row
-    %header
-      %h2= t('.headline')
-
-%section.light
+#search-results-count
+  %p.lead.text-center= t('.devices_found', count: @devices.count, ip: request.remote_ip).html_safe
+%section#devices
   .row.clearfix
     .container.medium-10.medium-offset-1.large-8.large-offset-2.columns.text-left
-
-      %p= t('.devices_found', count: @devices.count, ip: request.remote_ip)
-
-  .row.clearfix
-    .medium-2.medium-offset-5
-      = link_to t('.reload'), url_for(params), class: 'button hollow'
+      -# TODO: not sure we need the headline?
+      -#%h2.text-center= t('.headline')
+      %p.text-center= t('.take_action')
 
   .row.clearfix
-    .container.medium-10.medium-offset-1.large-8.large-offset-2.columns.text-left
-      %hr
+    .device-method-box
+      %h4
+        1.
+        =t('.method1_title')
+      .row.clearfix
+        = render "shared/unplugged_box"
+        = render "shared/unplugged_box"
+        = render "shared/plugged_box"
+      %p=t('.method1',count: @devices.count).html_safe
+      = link_to url_for(params), class: 'button hollow btn-hover-green' do
+        = naked_icon 'replay'
+        = t('.reload')
 
-  .row.clearfix
-    .container.medium-10.medium-offset-1.large-8.large-offset-2.columns.text-left
+    .device-method-divider.no-pad
+      %p.text-center -OR-
 
-      %p= t('.alternatively')
+    .device-method-box
 
-  .row.clearfix
-    .medium-1.medium-offset-5
-      = simple_form_for :device, method: 'GET' do |f|
-        = f.input :pairing_code
-        = f.button :submit
+      %h4
+        2.
+        =t('.method2_title')
+      .row.clearfix
+        = render "shared/listen"
+      %p= t('.method2').html_safe
+      .row.clearfix
+        = simple_form_for :device, method: 'GET' do |f|
+          .medium-6.medium-offset-3.columns.text-center
+            = f.input :pairing_code, :autofocus => true, input_html: { maxlength: 4, placeholder: '0000', type: "number"}, class: 'large', label: false
+            = f.button :submit, 'go!', class: 'button hollow expanded btn-hover-green'
+        %hr
+      .row.clearfix.help.collapse
+        %h5.text-center
+          = naked_icon "question"
+          = t('.where_to_find_code')
+        %p
+        .medium-6.columns
+          %h6= t('.vr_app')
+          %p= t('.on_app').html_safe
+        .medium-6.columns
+          %h6= t('.vr_box')
+          %p= t('.on_box').html_safe

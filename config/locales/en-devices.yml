@@ -1,10 +1,11 @@
 en:
   alert:
-    pairing_code_invalid: Pairing Code Invalid
+    pairing_code_invalid: Oops! We couldn't find that pairing code.
   devices:
 
     index:
-      headline: Detecting unclaimed clients...
+      reload: Reload
+      headline: Claim Your Client
 
       devices_found:
         one: "Redirecting... (you should actually never see this!)"
@@ -17,20 +18,29 @@ en:
           method below.
 
         other: >-
-          We detected %{count} unclaimed clients connected from your
-          network. If you are in control of all these clients, please
-          unplug all but one, then reload this page. Otherwise please
-          use the alternate method below.
+          We detected <span>%{count}</span> unclaimed clients on your
+          network. 
+          
+      
+      take_action: "Please do one of the following:"
+      method1_title: Unplug All But One
+      method1: >-
+        Do you control these %{count} devices?
+        Then please
+        <strong>unplug</strong> all but one, then reload this page.
 
-      alternatively: >-
-        Alternatively you can always use a pairing code to identifiy
-        the client that you want to claim. The pairing code is a four
-        digit number. The Voice Republic Desktop App displays the
-        pairing code until it is claimed. The Voice Republic
+      method2_title: Use Pairing Code
+      method2: >-
+        Type the client's 4-digit pairing code:
+      where_to_find_code: Where's the code?
+      vr_app: "In the VR Desktop App:"
+      on_app: The Voice Republic Desktop App displays the
+        pairing code until it is claimed. 
+      vr_box: "On the VR Streamboxx:"
+      on_box: The Voice Republic
         Streamboxx displays its pairing code on an attached screen as
         well as reads it to you on plugged in headphones.
 
-
     edit:
-      claim_client: Unclaimed client detected.
+      claim_client: We found it!
       type: 'Type: %{type}'
