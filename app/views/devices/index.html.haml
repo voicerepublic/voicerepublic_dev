@@ -14,30 +14,13 @@
       %p.text-center= t('.take_action')
 
   .row.clearfix
-    .device-method-box
+    .device-method-box.medium-8.medium-offset-2.columns
       %h4
         1.
-        =t('.method1_title')
-      .row.clearfix
-        = render "shared/unplugged_box"
-        = render "shared/unplugged_box"
-        = render "shared/plugged_box"
-      %p=t('.method1',count: @devices.count).html_safe
-      = link_to url_for(params), class: 'button hollow btn-hover-green' do
-        = naked_icon 'replay'
-        = t('.reload')
-
-    .device-method-divider.no-pad
-      %p.text-center -OR-
-
-    .device-method-box
-
-      %h4
-        2.
-        =t('.method2_title')
+        =t('.method1_title').html_safe
       .row.clearfix
         = render "shared/listen"
-      %p= t('.method2').html_safe
+      %p= t('.method1').html_safe
       .row.clearfix
         = simple_form_for :device, method: 'GET' do |f|
           .medium-6.medium-offset-3.columns.text-center
@@ -55,3 +38,41 @@
         .medium-6.columns
           %h6= t('.vr_box')
           %p= t('.on_box').html_safe
+  .row.clearfix
+    .device-method-divider.medium-8.medium-offset-2.columns
+      %h5.text-center -OR-
+  .row.clearfix
+    .device-method-box.medium-8.medium-offset-2.columns
+      %h4
+        2.
+        =t('.method2_title').html_safe
+      .row.clearfix
+        %p
+          = t('we_detected')
+          -if @devices.survey["vr-restream"]
+            %span= t('.app_count', count: @devices.survey["vr-restream"]).html_safe
+          -if @devices.survey["vr-restream"] && @devices.survey["Streambox INGSOC"]
+            %span= t('.and')
+          -if @devices.survey["Streambox INGSOC"]
+            %span= t('.box_count', count: @devices.survey["Streambox INGSOC"]).html_safe
+          %span .
+          %span=t('.method2',count: @devices.count).html_safe
+        -if @devices.survey["vr-restream"]
+          = render "shared/unplugged_box"
+        -if @devices.survey["Streambox INGSOC"]
+          = render "shared/close_apps"
+        .graphic.interstitial
+          +
+        -if @devices.survey["vr-restream"]
+          = render "shared/plugged_box"
+        -if @devices.survey["vr-restream"] && @devices.survey["Streambox INGSOC"]
+          .graphic.interstitial
+            or
+        -if @devices.survey["Streambox INGSOC"]
+          = render "shared/open_app"
+
+      = link_to url_for(params), class: 'button hollow btn-hover-green' do
+        = naked_icon 'replay'
+        = t('.reload')
+
+

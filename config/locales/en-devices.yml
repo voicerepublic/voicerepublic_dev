@@ -1,4 +1,5 @@
 en:
+  we_detected: We detected
   alert:
     pairing_code_invalid: Oops! We couldn't find that pairing code.
   devices:
@@ -23,15 +24,23 @@ en:
           
       
       take_action: "Please do one of the following:"
-      method1_title: Unplug All But One
-      method1: >-
-        Do you control these %{count} devices?
-        Then please
-        <strong>unplug</strong> all but one, then reload this page.
-
-      method2_title: Use Pairing Code
+      method2_title: Disable All But One
       method2: >-
+        Do you control all %{count}? Then please
+        <strong>unplug/quit</strong> all but <strong>one</strong> and reload this page. We will automatically detect the one remaining client.
+
+      method1_title: "Use Pairing Code <span>(preferred method)</span>"
+      method1: >-
         Type the client's 4-digit pairing code:
+      do_you_control: Do you control 
+
+      app_count: 
+        one: 1 VR App
+        other: ! '%{count} VR Apps'
+      and: and
+      box_count: 
+        one: 1 VR Streamboxx
+        other: ! '%{count} VR Streamboxxes'
       where_to_find_code: Where's the code?
       vr_app: "In the VR Desktop App:"
       on_app: The Voice Republic Desktop App displays the
