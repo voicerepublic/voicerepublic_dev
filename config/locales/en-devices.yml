@@ -46,10 +46,15 @@ en:
       on_app: The Voice Republic Desktop App displays the
         pairing code until it is claimed. 
       vr_box: "On the VR Streamboxx:"
-      on_box: The Voice Republic
-        Streamboxx displays its pairing code on an attached screen as
-        well as reads it to you on plugged in headphones.
+      on_box1: "The Voice Republic
+        Streamboxx displays its pairing code on an attached screen:"
+      on_box2:
+        "And reads it to you when you plug in headphones:"
 
     edit:
-      claim_client: We found it!
+      claim_client: ! '%{type} found!'
       type: 'Type: %{type}'
+      naming_advice: >-
+          <strong>Pro Tip:</strong> Name your client something unique. This will help to
+          unambiguously identify it as a streaming source later. If
+          you're claiming a Voice Republic Streamboxx, we suggest you write this unique name on the case of the Streamboxx.

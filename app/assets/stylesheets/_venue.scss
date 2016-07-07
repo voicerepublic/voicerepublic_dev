@@ -12,12 +12,31 @@
 section#devices {
     padding: 24px;
     background: #f9f9f9;
+    .input label {
+        font-weight: 500;
+    }
+    .naming-advice {
+        background:$vr-purple;
+        padding: 24px 24px 24px 12px;
+        color: white;
+        margin-bottom: 24px;
+        svg {
+            fill: currentColor;
+            width: 36px;
+            height: 36px;
+        }
+    }
+    h2 {
+        color: $success-color;
+        margin-bottom: 24px;
+        svg {
+            fill: currentColor;
+            width: 24px;
+            height: 24px;
+            vertical-align: middle;
+        }
+    }
     .device-method-box {
-        // @include breakpoint(medium) {
-        //     float: left;
-        //     width: grid-column(7 of 15);
-        // }
-
         background: white;
         border: 1px solid $steel;
         padding: 24px;
@@ -30,55 +49,77 @@ section#devices {
             vertical-align: inherit;
         }
         input:not([type="submit"]) {
-            width: 100%;
-            height: 60px;
-            font-size: 24px;
+            height: 80px;
+            font-size: 34px;
             line-height: 48px;
             text-align: center;
             margin: 0 auto;
-            margin-bottom: 6px;
-            max-width: 90px;
+            margin-bottom: 26px;
+            max-width: 120px;
+            float: left;
         }
         input[type="submit"] {
             max-width: 90px;
             margin: 0 auto;
             margin-bottom: 24px;
+            padding: 24px;
+            height: 80px;
+            float: left;
+            margin-left: 12px;
         }
         input[type=number]::-webkit-inner-spin-button,
         input[type=number]::-webkit-outer-spin-button {
             -webkit-appearance: none;
             margin: 0;
         }
-
         h4 {
             span {
                 font-family: $body-font-family;
                 font-weight: 300;
-                color:$success-color;
+                color: $success-color;
                 text-transform: uppercase;
-                font-size: 1rem
-            }    
+                font-size: 1rem;
+            }
         }
-
     }
-    
     .help {
-        background: #f9f9f9;
+        padding: 24px;
+        border:1px solid $vr-purple;
+        .instruction {
+            padding: 0;
+            padding-right: 12px;
+        }
+        .instruction:first-child {
+            background: Orange;
+        }
+        h6 {
+            font-family: $body-font-family;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
         h5 {
+            color: $vr-purple;
+            margin-bottom: 24px;
             svg {
+                fill: currentColor;
                 width: 14px;
                 height: 14px;
             }
         }
+        .gray {
+            svg {
+                fill: $talk-dark;
+            }
+        }
     }
-
     .graphic {
-        width:40%;
-        float:left;
-        padding:6px;
+        width: 40%;
+        float: left;
+        padding: 6px;
         @include breakpoint(medium) {
             width: grid-column(2 of 10);
         }
+
         &.green {
             svg {
                 fill: $success-color;
@@ -89,28 +130,41 @@ section#devices {
                 fill: $charcoal;
             }
         }
-
     }
-
-        .interstitial {
+    .interstitial {
         width: 10%;
         float: left;
         display: flex;
-        height: 100%;
+        //height: 100%;
         justify-content: center;
-        align-items:center;
-        padding: 50%;
-        @include breakpoint(medium){
+        align-items: center;
+        font-weight: 500;
+        text-transform: uppercase;
+        //padding: 50%;
+        @include breakpoint(medium) {
             width: grid-column(1 of 10);
         }
     }
     .graphic-wide {
-        width: 66.66%;
+        // width: 33.333%;
+        width: 100%;
+        float: left;
+        padding: 24px;
+        padding-top: 0;
         &.gray {
             svg {
-                fill:$charcoal;
+                fill: $charcoal;
             }
         }
+        &.purple {
+            svg {
+                fill: $vr-purple;
+            }
+        }
+    }
+    .graphics {
+        display: flex;
+        padding-top: 0;
     }
 }
 
