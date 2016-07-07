@@ -109,6 +109,7 @@ class User < ActiveRecord::Base
   before_create :build_welcome_transaction
   after_create :process_welcome_transaction
   after_create :add_default_pins
+  after_create :create_first_organization
 
   before_save :normalize_website, if: :website_changed?
   before_save :normalize_twitter, if: :twitter_changed?
@@ -300,6 +301,10 @@ class User < ActiveRecord::Base
       next if talk.nil?
       Reminder.create user: self, rememberable: talk
     end
+  end
+
+  def create_first_organization
+    organizations.any? or organizations.create name: name
   end
 
   protected
