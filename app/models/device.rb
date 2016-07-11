@@ -14,6 +14,7 @@ class Device < ActiveRecord::Base
 
   validates :identifier, presence: true
   validates :pairing_code, uniqueness: true, allow_nil: true
+  validates :name, uniqueness: { scope: :organization }
 
   serialize :options
 
@@ -73,11 +74,11 @@ class Device < ActiveRecord::Base
   end
 
   def manifestation
-    case type 
+    case type
     when "Streambox" then :box
     when "vr-restream" then :app
     else :box
-    end 
+    end
   end
 
   def disappear!
