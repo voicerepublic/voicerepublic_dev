@@ -1,0 +1,18 @@
+- nl = CGI::escapeHTML("\n")
+- type = shareable.class.name.underscore
+- id = shareable.id
+- galabel = "#{type}:#{id}"
+.menu-centered
+  %ul#social_share.menu
+    %li.share{ class: 'facebook share', data: { shareable_id: id, shareable_type: type } }
+      = link_to '#', 'data-ga-event' => "click share facebook #{galabel}" do
+        = icon_tag 'facebook'
+    %li.share{ class: 'twitter share', data: { shareable_id: id, shareable_type: type } }
+      = link_to '#', 'data-ga-event' => "click share twitter #{galabel}" do
+        = icon_tag 'twitter'
+    %li{ class: 'mail share', data: { shareable_id: id, shareable_type: type } }
+      = mail_to "your@friend.com",
+          'data-ga-event' => "click share mail #{galabel}",
+          subject: t('social_share.mail_subject'),
+          body: t('social_share.mail_greeting') + nl + nl + t('social_share.mail_body') + request.original_url + nl + nl + t('social_share.mail_goodbye') + nl + current_user.try(:name).to_s do
+        = icon_tag 'email'
