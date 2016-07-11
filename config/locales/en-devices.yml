@@ -32,7 +32,7 @@ en:
         Do you control all %{count}? Then please
         <strong>unplug/quit</strong> all but <strong>one</strong> and reload this page. We will automatically detect the one remaining client.
 
-      method1_title: "Use Pairing Code <span>(preferred method)</span>"
+      method1_title: "Search By Pairing Code <span>(preferred method)</span>"
       method1: >-
         Type the client's 4-digit pairing code:
       do_you_control: Do you control
