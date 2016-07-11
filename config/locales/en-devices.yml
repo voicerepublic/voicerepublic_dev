@@ -23,7 +23,9 @@ en:
           network. 
           
       
-      take_action: "Please do one of the following:"
+      take_action: 
+        zero: "Please do the following:"
+        other: "Please do one of the following:"
       method2_title: Disable All But One
       method2: >-
         Do you control all %{count}? Then please

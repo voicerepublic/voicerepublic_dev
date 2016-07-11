@@ -4,24 +4,23 @@
 -# * no device found
 -# * multiple devices found
 
-#search-results-count
-  %p.lead.text-center= t('.devices_found', count: @devices.count, ip: request.remote_ip).html_safe
+#search-results-count.clearfix
+  .medium-8.medium-offset-2.columns
+    %p.lead.text-center= t('.devices_found', count: @devices.count, ip: request.remote_ip).html_safe
 %section#devices
   .row.clearfix
     .container.medium-10.medium-offset-1.large-8.large-offset-2.columns.text-left
-      %p.text-center= t('.take_action')
+      %p.text-center= t('.take_action', count: @devices.count)
 
   .row.clearfix
     .device-method-box.medium-8.medium-offset-2.columns
       %h4
-        1.
         =t('.method1_title').html_safe
       .row.clearfix
         = simple_form_for :device, method: 'GET' do |f|
           .medium-6.columns
             = f.input :pairing_code, :autofocus => true, input_html: { maxlength: 4, placeholder: '0000', type: "number"}, class: 'large', label: false
             = f.button :submit, 'find!', class: 'button hollow expanded btn-hover-green large'
-        %hr
       .clearfix.help
         %h5
           = naked_icon "question"
@@ -31,7 +30,7 @@
           %h6= t('.vr_app')
           %p= t('.on_app').html_safe
           = render "shared/code_app"
-        .row.instruction.collapse
+        .instruction
           %h6= t('.vr_box')
           .medium-6.columns
             %p= t('.on_box1').html_safe
@@ -45,7 +44,6 @@
   .row.clearfix
     .device-method-box.medium-8.medium-offset-2.columns
       %h4
-        2.
         =t('.method2_title').html_safe
       .row.clearfix
         %p
