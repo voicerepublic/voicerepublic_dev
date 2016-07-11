@@ -20,7 +20,7 @@
         = simple_form_for :device, method: 'GET' do |f|
           .medium-6.columns
             = f.input :pairing_code, :autofocus => true, input_html: { maxlength: 4, placeholder: '0000', type: "number"}, class: 'large', label: false
-            = f.button :submit, 'go!', class: 'button hollow expanded btn-hover-green large'
+            = f.button :submit, 'find!', class: 'button hollow expanded btn-hover-green large'
         %hr
       .clearfix.help
         %h5

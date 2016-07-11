@@ -59,7 +59,7 @@ section#devices {
             float: left;
         }
         input[type="submit"] {
-            max-width: 90px;
+            max-width:120px;
             margin: 0 auto;
             margin-bottom: 24px;
             padding: 24px;
@@ -76,7 +76,7 @@ section#devices {
             span {
                 font-family: $body-font-family;
                 font-weight: 300;
-                color: $success-color;
+                //color: $success-color;
                 text-transform: uppercase;
                 font-size: 1rem;
             }
