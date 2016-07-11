@@ -72,6 +72,14 @@ class Device < ActiveRecord::Base
     end
   end
 
+  def manifestation
+    case type 
+    when "Streambox" then :box
+    when "vr-restream" then :app
+    else :box
+    end 
+  end
+
   def disappear!
     update_attribute :disappeared_at, Time.now
   end

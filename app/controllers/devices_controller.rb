@@ -19,6 +19,7 @@ class DevicesController < ApplicationController
 
     @devices = Device.online.pairing.with_ip(request.remote_ip)
     @devices = Device.online.pairing if Rails.env.development?
+
     return redirect_to [:edit, @devices.first] if @devices.count == 1
   end
 

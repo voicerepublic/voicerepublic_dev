@@ -15,7 +15,7 @@
         .medium-1.columns
           = naked_icon 'jeeves'
         .medium-11.columns
-          = t('.naming_advice').html_safe
+          = t(".naming_advice.#{@device.manifestation}").html_safe
 
       = simple_form_for @device do |f|
         = f.input :name
