@@ -27,17 +27,18 @@
           = naked_icon "question"
           = t('.where_to_find_code')
         %p
-        .medium-6.columns.instruction
+        -#.medium-6.columns.instruction
           %h6= t('.vr_app')
           %p= t('.on_app').html_safe
           = render "shared/code_app"
-        .medium-6.columns.instruction
+        .row.instruction.collapse
           %h6= t('.vr_box')
-          %p= t('.on_box1').html_safe
-          = render "shared/code_monitor"
-          %hr
-          %p= t('.on_box2').html_safe
-          = render "shared/code_headphones"
+          .medium-6.columns
+            %p= t('.on_box1').html_safe
+            = render "shared/code_monitor"
+          .medium-6.columns
+            %p= t('.on_box2').html_safe
+            = render "shared/code_headphones"
   .row.clearfix
     .device-method-divider.medium-8.medium-offset-2.columns
       %h5.text-center -OR-
