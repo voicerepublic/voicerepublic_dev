@@ -127,3 +127,10 @@ $(document).ready(function(){
   })
 
 $(document).foundation();
+
+
+$(function() {
+      if($(".devices-edit").length > 0) {
+          $('#device_name').val(suggestions[organization_id]);
+      }
+});

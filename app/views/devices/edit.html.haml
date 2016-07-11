@@ -1,4 +1,10 @@
+:javascript
+  var names = #{@names.to_json};
+  var suggestions = #{@suggestions.to_json};
+  var organization_id = #{@organization_id.to_json};
+
 %section.light
+  #names
   .row.clearfix
     .medium-10.medium-offset-1.large-8.large-offset-2.columns
       %h1= t('.claim_client')
