@@ -1,0 +1,31 @@
+greek_philosophers:
+  - Aristoteles
+  - Platon
+  - Sokrates
+  - Xenophanes
+  - Anaximander
+  - Thales
+
+german_philosophers:
+  - Nietzsche
+  - Kant
+  - Frege
+  - Heidegger
+  - Hegel
+  - Schopenhauer
+
+anarchists:
+  - Kropotkin
+  - Bakunin
+  - Proudhon
+  - Striner
+  - Déjacque
+  - Malatesta
+
+computer_scientists:
+  - Lovelace
+  - Church
+  - McIlroy
+  - Mockapetris
+  - Zuse
+  - Weizenbaum

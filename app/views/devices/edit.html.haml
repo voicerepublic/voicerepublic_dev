@@ -1,3 +1,8 @@
+:javascript
+  var names = #{@names.to_json};
+  var suggestions = #{@suggestions.to_json};
+  var organization_id = #{@organization_id.to_json};
+
 %section#devices
   .row.clearfix
     .medium-10.medium-offset-1.large-8.large-offset-2.columns

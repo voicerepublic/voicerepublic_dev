@@ -42,6 +42,13 @@ class DevicesController < ApplicationController
   # Display form to name (and thus claim) the device for an organization.
   def edit
     @device = Device.find_by(identifier: params[:id])
+
+    @organization_id = current_user.organizations.first.id
+    @names, @suggestions = {}, {}
+    current_user.organizations.each do |org|
+      @names[org.id] = org.device_names * ', '
+      @suggestions[org.id] = org.device_name_suggestion
+    end
   end
 
 
@@ -61,6 +68,9 @@ class DevicesController < ApplicationController
 
   def devices_params
     params.require(:device).permit(:name, :organization_id)
+  end
+
+  def suggest_next_name
   end
 
 end
