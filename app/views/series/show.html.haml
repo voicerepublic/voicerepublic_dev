@@ -24,8 +24,6 @@
         %span.user= @series.user.name
       -#= @series.title
     -#  B R E A D C R U M B S - E N D
-    .row.image-container.text-center
-      = image_tag @series.image.thumb("900x600#").url, class: 'image', alt: @series.image_alt
 
 
 
@@ -74,6 +72,7 @@
 .series-grid.row.clearfix
   .medium-4.large-3.columns.float-left.series-left-column
     %h3.about= t('.description')
+    = image_tag @series.image.thumb("900x600#").url, class: 'image', alt: @series.image_alt
     %p
       = @series.description_as_html.html_safe
       - if can? :manage, @series
