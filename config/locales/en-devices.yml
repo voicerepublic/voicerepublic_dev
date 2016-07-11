@@ -1,7 +1,7 @@
 en:
   we_detected: We detected
   alert:
-    pairing_code_invalid: Oops! We couldn't find that pairing code.
+    pairing_code_invalid: "Oops! We couldn't find that pairing code."
   devices:
 
     index:
@@ -26,6 +26,7 @@ en:
       take_action: 
         zero: "Please do the following:"
         other: "Please do one of the following:"
+
       method2_title: Disable All But One
       method2: >-
         Do you control all %{count}? Then please
@@ -34,22 +35,20 @@ en:
       method1_title: "Use Pairing Code <span>(preferred method)</span>"
       method1: >-
         Type the client's 4-digit pairing code:
-      do_you_control: Do you control 
+      do_you_control: Do you control
 
-      app_count: 
+      app_count:
         one: 1 VR App
         other: ! '%{count} VR Apps'
       and: and
-      box_count: 
+      box_count:
         one: 1 VR Streamboxx
         other: ! '%{count} VR Streamboxxes'
       where_to_find_code: Where's the code?
       vr_app: "In the VR Desktop App:"
-      on_app: The Voice Republic Desktop App displays the
-        pairing code until it is claimed. 
+      on_app: The Voice Republic Desktop App displays the pairing code until it is claimed.
       vr_box: "On the VR Streamboxx:"
-      on_box1: "The Voice Republic
-        Streamboxx displays its pairing code on an attached screen:"
+      on_box1: "The Voice Republic Streamboxx displays its pairing code on an attached screen:"
       on_box2:
         "And reads it to you when you plug in headphones:"
 

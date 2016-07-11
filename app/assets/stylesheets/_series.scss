@@ -9,14 +9,14 @@
     }
 
     .series-meta-group li {
-    	color: $talk-dark;
+    	color: $vr-beige;
     	p.label {
-    		color: $talk-dark;
+    		color: $white;
     	}
     }
 
     .top-section {
-    	background:white;
+    	background:$vr-light-blue;
     }
     .link-delete {
         float: left;
@@ -218,10 +218,10 @@
     }
     .series-title {
     	margin: 0;
-    	color: $talk-dark;
+    	color: $vr-yellow;
     }
     h3.about {
-        // color: $vr-blue;
+        color: $vr-blue;
     }
 }
 

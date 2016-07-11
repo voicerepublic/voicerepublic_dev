@@ -2,7 +2,7 @@ en:
   venues:
     show:
       loading: loading venue
-    index: 
+    index:
         please_select_a_venue: Please Choose A Venue
         talks:
             zero: Talks
@@ -24,7 +24,7 @@ en:
         closing: "\n\nBest regards\n"
     venues:
       streaming_server: Streaming Server
-      audio_source: Audio Source
+      audio_source: Streaming Source
       broadcast: Broadcast
       select: Select
       setup: Setup
