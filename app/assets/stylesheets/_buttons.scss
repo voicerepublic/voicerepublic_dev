@@ -72,6 +72,13 @@ button, .button {
                 color: white;
             }
         }
+        &.btn-hover-green {
+            &:hover {
+                border-color: $success-color;
+                background: $success-color;
+                color: white;
+            }
+        }
         &.btn-hover-light-blue {
             &:hover {
                 border-color: $vr-light-blue;
