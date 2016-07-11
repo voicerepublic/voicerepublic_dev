@@ -25,6 +25,7 @@ class Device < ActiveRecord::Base
   scope :unclaimed, -> { where(organization_id: nil) }
   scope :with_ip, ->(ip) { where(public_ip_address: ip) }
   scope :disappeared, -> { where.not(disappeared_at: nil) }
+  scope :survey, -> { group(:type).count }
 
   include ActiveModel::Transitions
 
@@ -126,6 +127,8 @@ class Device < ActiveRecord::Base
       name: name
     }
   end
+
+
 
   # state machine callbacks
 

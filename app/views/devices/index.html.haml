@@ -4,32 +4,76 @@
 -# * no device found
 -# * multiple devices found
 
-%section#claim.dark
-  .row
-    %header
-      %h2= t('.headline')
-
-%section.light
+#search-results-count
+  %p.lead.text-center= t('.devices_found', count: @devices.count, ip: request.remote_ip).html_safe
+%section#devices
   .row.clearfix
     .container.medium-10.medium-offset-1.large-8.large-offset-2.columns.text-left
-
-      %p= t('.devices_found', count: @devices.count, ip: request.remote_ip)
-
-  .row.clearfix
-    .medium-2.medium-offset-5
-      = link_to t('.reload'), url_for(params), class: 'button hollow'
+      %p.text-center= t('.take_action')
 
   .row.clearfix
-    .container.medium-10.medium-offset-1.large-8.large-offset-2.columns.text-left
-      %hr
-
+    .device-method-box.medium-8.medium-offset-2.columns
+      %h4
+        1.
+        =t('.method1_title').html_safe
+      .row.clearfix
+        = simple_form_for :device, method: 'GET' do |f|
+          .medium-6.columns
+            = f.input :pairing_code, :autofocus => true, input_html: { maxlength: 4, placeholder: '0000', type: "number"}, class: 'large', label: false
+            = f.button :submit, 'go!', class: 'button hollow expanded btn-hover-green large'
+        %hr
+      .clearfix.help
+        %h5
+          = naked_icon "question"
+          = t('.where_to_find_code')
+        %p
+        .medium-6.columns.instruction
+          %h6= t('.vr_app')
+          %p= t('.on_app').html_safe
+          = render "shared/code_app"
+        .medium-6.columns.instruction
+          %h6= t('.vr_box')
+          %p= t('.on_box1').html_safe
+          = render "shared/code_monitor"
+          %hr
+          %p= t('.on_box2').html_safe
+          = render "shared/code_headphones"
   .row.clearfix
-    .container.medium-10.medium-offset-1.large-8.large-offset-2.columns.text-left
-
-      %p= t('.alternatively')
-
+    .device-method-divider.medium-8.medium-offset-2.columns
+      %h5.text-center -OR-
   .row.clearfix
-    .medium-1.medium-offset-5
-      = simple_form_for :device, method: 'GET' do |f|
-        = f.input :pairing_code
-        = f.button :submit
+    .device-method-box.medium-8.medium-offset-2.columns
+      %h4
+        2.
+        =t('.method2_title').html_safe
+      .row.clearfix
+        %p
+          = t('we_detected')
+          -if @devices.survey["vr-restream"]
+            %span= t('.app_count', count: @devices.survey["vr-restream"]).html_safe
+          -if @devices.survey["vr-restream"] && @devices.survey["Streambox INGSOC"]
+            %span= t('.and')
+          -if @devices.survey["Streambox INGSOC"]
+            %span= t('.box_count', count: @devices.survey["Streambox INGSOC"]).html_safe
+          %span .
+          %span=t('.method2',count: @devices.count).html_safe
+      .row.clearfix.graphics
+        -if @devices.survey["vr-restream"]
+          = render "shared/unplugged_box"
+        -if @devices.survey["Streambox INGSOC"]
+          = render "shared/close_apps"
+        .graphic.interstitial
+          +
+        -if @devices.survey["vr-restream"]
+          = render "shared/plugged_box"
+        -if @devices.survey["vr-restream"] && @devices.survey["Streambox INGSOC"]
+          .graphic.interstitial
+            or
+        -if @devices.survey["Streambox INGSOC"]
+          = render "shared/open_app"
+
+      = link_to url_for(params), class: 'button hollow btn-hover-green' do
+        = naked_icon 'replay'
+        = t('.reload')
+
+
