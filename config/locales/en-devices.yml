@@ -20,16 +20,19 @@ en:
 
         other: >-
           We detected <span>%{count}</span> unclaimed clients on your
-          network.
+          network. 
+          
+      
+      take_action: 
+        zero: "Please do the following:"
+        other: "Please do one of the following:"
 
-
-      take_action: "Please do one of the following:"
       method2_title: Disable All But One
       method2: >-
         Do you control all %{count}? Then please
         <strong>unplug/quit</strong> all but <strong>one</strong> and reload this page. We will automatically detect the one remaining client.
 
-      method1_title: "Use Pairing Code <span>(preferred method)</span>"
+      method1_title: "Search By Pairing Code <span>(preferred method)</span>"
       method1: >-
         Type the client's 4-digit pairing code:
       do_you_control: Do you control
@@ -52,7 +55,6 @@ en:
     edit:
       claim_client: ! '%{type} found!'
       type: 'Type: %{type}'
-      naming_advice: >-
-          <strong>Pro Tip:</strong> Name your client something unique. This will help to
-          unambiguously identify it as a streaming source later. If
-          you're claiming a Voice Republic Streamboxx, we suggest you write this unique name on the case of the Streamboxx.
+      naming_advice:
+        box: "<strong> Tip:</strong> The name will help you identify the Streamboxx you are claiming. Feel free to rename it here. We suggest you write this name on the case."
+        app: "<strong> Tip:</strong> The name will help you identify the app you are claiming. Feel free to rename it here."

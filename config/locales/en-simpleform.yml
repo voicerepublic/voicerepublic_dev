@@ -1,4 +1,8 @@
 en:
+  helpers:
+    submit:
+      device:
+        update: Claim This Device
   simple_form:
     placeholders:
       talk:
