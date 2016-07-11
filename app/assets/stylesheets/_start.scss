@@ -1,3 +1,4 @@
+
 // particles
 #particles {
     position: absolute;
@@ -128,7 +129,10 @@ button {
         text-align: center;
     }
     background: $talk-dark;
-    section {
+    
+}
+
+section {
         padding: 24px 0;
         &.light {
             background: $silver;
@@ -164,8 +168,6 @@ button {
             padding: 96px 0;
         }
     }
-}
-
 .row {
     max-width: 1200px;
     padding: 12px;
