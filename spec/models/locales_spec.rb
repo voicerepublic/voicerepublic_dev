@@ -34,7 +34,12 @@ describe I18n do
       File.read(file).split("\n").each do |line|
         case line
         when /^\s+\w+:\s*(.+)\s*$/
-          value = YAML.load($1)
+          begin
+            value = YAML.load($1)
+          rescue
+            puts 'ERROR PARSING...'
+            puts line
+          end
           # and check if these exist in the translations
           unless translations.include?(value)
             errors << "Blocked: '#{value}'"
