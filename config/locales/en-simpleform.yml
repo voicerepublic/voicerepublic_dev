@@ -2,7 +2,7 @@ en:
   helpers:
     submit:
       device:
-        update: Claim This Device
+        update: Claim And Start Streaming
   simple_form:
     placeholders:
       talk:

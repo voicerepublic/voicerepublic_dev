@@ -8,6 +8,13 @@ button, .button {
     transition: border .2s ease;
     transition: all .2s ease;
     background-color: $vr-blue;
+    svg {
+        fill:currentColor;
+        width: 12px;
+    height: 12px;
+    vertical-align: middle;
+    margin-right: 6px;
+    }
     &.secondary {
         background-color: $vr-light-blue;
         &:hover {

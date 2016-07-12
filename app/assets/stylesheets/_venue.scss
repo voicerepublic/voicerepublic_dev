@@ -12,14 +12,26 @@
 section#devices {
     padding: 24px;
     background: #f9f9f9;
+
+    #client-name {
+        font-size: 2rem;
+        &.read-only {
+            border: none;
+            background:none;
+            // font-size: 2rem;
+            box-shadow:none;
+            padding:0;
+        }
+    }
     .input label {
         font-weight: 500;
     }
-    .naming-advice {
-        background:$vr-purple;
+    #naming-advice {
+        background:$vr-beige;
         padding: 24px 24px 24px 12px;
-        color: white;
+        color: $oil;
         margin-bottom: 24px;
+        margin-top: 60px;
         svg {
             fill: currentColor;
             width: 36px;
@@ -71,6 +83,9 @@ section#devices {
         input[type=number]::-webkit-outer-spin-button {
             -webkit-appearance: none;
             margin: 0;
+        }
+        input[type=number] {
+        -moz-appearance:textfield;
         }
         h4 {
             span {
@@ -152,7 +167,7 @@ section#devices {
         width: 100%;
         float: left;
         padding: 36px;
-        padding-top: 0;
+        // padding-top: 0;
         &.gray {
             svg {
                 fill: $charcoal;
