@@ -19,7 +19,13 @@
         = link_to 'create a talk', new_talk_path
         first.
     - else
-      -#%ul.menu
+      .talk-card.small-12.medium-3.large-4.columns
+        .talk-card-inside.clearfix.help
+          .medium-1.columns
+            = naked_icon 'jeeves'
+          .medium-11.columns
+            = t('.help_text').html_safe
+          -#%p.clearfix
       - @venues.each do |venue|
         .talk-card.driftup.small-12.medium-3.large-4.columns
           = link_to venue do

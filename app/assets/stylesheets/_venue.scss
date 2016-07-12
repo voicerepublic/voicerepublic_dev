@@ -1298,6 +1298,11 @@ nav.top-bar {
                 background: $vr-yellow;
             }
         }
+        &.help {
+            background:$vr-beige;
+            padding:12px;
+            font-size: 14px;
+        }
     }
 }
 
