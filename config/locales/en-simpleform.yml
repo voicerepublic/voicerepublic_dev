@@ -16,9 +16,6 @@ en:
           so. Using Markdown, you can also add links, pictures and
           headlines.
     hints:
-      device:
-        
-
       talk:
         title: Your talk will be judged by its title. Make it count.
         teaser: You have 140 characters to convince your listeners.
@@ -34,22 +31,29 @@ en:
           recording in the past.
         tag_list: |
           Make your talk easy to find! Tags are keywords and should
-          sum up the content.
+          sum up the content. Separated by commas.
         language: ""
         format: Please provide the format purely for informational purposes.
-        description: |
-          This field <a target='_blank' href='/r/md'>supports Markdown</a>.
+        description: >-
+          Use <a target='_blank' href='/r/md'>Markdown</a> to add
+          links, pictures and headlines.
       series:
         title: Give your series an expressive, comprehensible title.
-        teaser: Your teaser can be up to 140 characters long. If you have relevant keywords, use them here.
-        description: |
-          What’s happening in this series? Give your audience an idea what they can expext. 
-          You have 2300 characters to do so. Using <a target='_blank' href='/r/md'>Markdown</a>, you can also add links, pictures and headlines.
+        teaser: >-
+          Your teaser can be up to 140 characters long. If you have
+          relevant keywords, use them here.
+        description: >-
+          What’s happening in this series? Give your audience an idea
+          what they can expext. You have 2300 characters to do
+          so. Using <a target='_blank' href='/r/md'>Markdown</a>, you
+          can also add links, pictures and headlines.
       user:
-        about: |
-          This field <a target='_blank' href='/r/md'>supports Markdown</a>.
-        slug: |
-          Get <a target='_blank' href='/r/username'>help</a> in choosing a good username.
+        about: >-
+          Use <a target='_blank' href='/r/md'>Markdown</a> to
+          format your text and to add links, pictures and headlines.
+        slug: >-
+          Get <a target='_blank' href='/r/username'>help</a>
+          choosing a good username.
     labels:
       talk:
         series: Series

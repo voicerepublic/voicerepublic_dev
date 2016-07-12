@@ -64,16 +64,20 @@ en:
     edit:
       title: "%{username} edit profile - Voice Republic"
       greeting: >-
-        Nice to meet you! Now tell us more about yourself. You can add a picture, a website,
-        a short and a long description. The description can contain links, headlines, italics
-        and bold type. Changing your name,
-        e-mail address and password is also possible.
+
+        Nice to meet you! Now tell us more about yourself. You can add
+        a picture, a website, your social media channels, a short and
+        a long description. The description can contain links,
+        headlines, and pictures, italics and bold type. Find more
+        information <a href='http://blog.voicerepublic.com/support/create-and-edit-account?lang=en' target='_blank'>here</a>. Changing your name, e-mail address and password
+        is also possible.
+
       slug_explanation1: "Your public username is the same as your Voice Republic address:"
       slug_explanation2: |
-        Please note that changing the username will change your URL
-        and invalidate all references to your profile from other
-        sites. If you've already gathered search engine traffic, it will
-        be lost.
+        Please note that changing your URL will invalidate old links
+        to your user profile. All other links to talks or series will
+        not be affected.
+
       edit_your_profile: Edit profile
       edit_your_settings: Edit Your Profile
       select_profile_image: Profile image
