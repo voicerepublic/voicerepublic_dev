@@ -1,6 +1,14 @@
 //series
 .series {
     background: $silver;
+    #social_share {
+        li a{
+            color: $vr-blue;
+            &:hover {
+                color: $vr-yellow
+            }
+        }
+    }
     h3 {
     	font-family: $body-font-family;
     	font-size: rem-calc(16);
@@ -9,14 +17,15 @@
     }
 
     .series-meta-group li {
-    	color: $talk-dark;
+    	color: $vr-beige;
     	p.label {
-    		color: $talk-dark;
+    		color: $white;
     	}
     }
 
+
     .top-section {
-    	background:white;
+    	background:$vr-light-blue;
     }
     .link-delete {
         float: left;
@@ -73,17 +82,21 @@
     	}
     }
 
-    .series-right-column {
+    #series-right-column {
     	// background: orange;
     	@include breakpoint(medium){
     		padding:12px;
     	}
     	@include breakpoint(large){
-    		padding:24px;
-    		padding-left:12px;
+    		padding:24px 0 0 24px;
     	// width: calc(100% - 350px)
     	// margin-left: 350px;
     	}
+    }
+
+    #series-about {
+        font-size: rem-calc(14);
+        margin-top: 24px;
     }
 
         .talk-card {
@@ -95,17 +108,17 @@
             width: 50%;
         }
 
-        @include breakpoint(1400px) {
-            width: 33.333%;
-        }
+        // @include breakpoint(1400px) {
+        //     width: 33.333%;
+        // }
 
-        @include breakpoint(1800px) {
-            width: 25%;
-        }
+        // @include breakpoint(1800px) {
+        //     width: 25%;
+        // }
 
-        @include breakpoint(2200px) {
-            width: 20%;
-        }
+        // @include breakpoint(2200px) {
+        //     width: 20%;
+        // }
     }
 
     // #right-column h3 {
@@ -170,7 +183,7 @@
         color: $vr-blue;
         width: auto;
         h3 {
-        	margin-left: 12px;
+        	// margin-left: 12px;
         }
     }
     .talks-grid {
@@ -218,10 +231,10 @@
     }
     .series-title {
     	margin: 0;
-    	color: $talk-dark;
+    	color: $vr-yellow;
     }
     h3.about {
-        // color: $vr-blue;
+        color: $vr-blue;
     }
 }
 

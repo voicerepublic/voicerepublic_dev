@@ -39,11 +39,12 @@
 
       - if can? :manage, @user
         -# TODO: discuss. Can't we just have one path to the create talk page?
-        -# =link_to new_talk_path, class:'button hollow' do
-        -#   = t('.upload_talk')
+        =link_to new_upload_path, class:'button hollow publish-btn tiny' do
+          = icon_tag 'upload'
+          = t('.upload_talk')
         = link_to new_talk_path, class:'button hollow publish-btn tiny' do
-          = icon_tag 'megaphone'
-          = t('.publish_a_talk')
+          = icon_tag 'victrola'
+          = t('.create_live_talk')
 
 
       - else
@@ -65,35 +66,26 @@
           %p.label= t('.pinned', count: @user.reminders.count)
       %hr/
 
-      -# TODO nick: make it look less shitty, please
-      %ul.social-links.menu.vertical
-        - unless @user.website.blank?
-          %li.list-item
-            = link_to @user.website_url, target: '_blank', title: 'website' do
-              %p
-                = naked_icon 'globe'
-              %p.label
-                = @user.website
-        - unless @user.facebook.blank?
-          %li.list-item
-            = link_to @user.facebook_url, target: '_blank', title: 'facebook' do
-              %p
-                = naked_icon 'facebook'
-              %p.label
-                = @user.facebook
-        - unless @user.twitter.blank?
-          %li.list-item
-            = link_to @user.twitter_url, target: '_blank', title: 'twitter' do
-              %p
-                = naked_icon 'twitter'
-              %p.label
-                = @user.twitter
 
 
     #user-about.row
       - unless @user.about.blank?
         %p.column-header= t('.about')
         %p= @user.about_as_html.html_safe
+      %ul.social-links.menu.vertical
+        - unless @user.website.blank?
+          %li.list-item
+            = link_to @user.website_url, target: '_blank', title: @user.website_url do
+              %p= naked_icon 'globe'
+        - unless @user.facebook.blank?
+          %li.list-item
+            = link_to @user.facebook_url, target: '_blank', title: @user.facebook_url do
+              %p= naked_icon 'facebook'
+        - unless @user.twitter.blank?
+          %li.list-item
+            = link_to @user.twitter_url, target: '_blank', title: @user.twitter_url do
+              %p= naked_icon 'twitter'
+              
 
   #right-column.clearfix
 

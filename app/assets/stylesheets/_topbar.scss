@@ -331,6 +331,22 @@
     border-bottom:1px solid rgba(0,0,0,.3);
     box-shadow:none;
     color: $vr-red;
+    @include breakpoint(medium){
+
+    .search-container {
+        background: $topbar-dark;
+        top:15px;
+        input.search {
+            margin-bottom: 12px;
+        }
+        label button {
+            margin-top: 0;
+        }
+    }
+    .close-button {
+        margin-top: -4px;
+    }
+    }
 
     svg {
         width: 50px;

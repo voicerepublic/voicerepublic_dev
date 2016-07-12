@@ -1,10 +1,12 @@
 en:
+  we_detected: We detected
   alert:
-    pairing_code_invalid: Pairing Code Invalid
+    pairing_code_invalid: "Oops! We couldn't find that pairing code."
   devices:
 
     index:
-      headline: Detecting unclaimed clients...
+      reload: Reload
+      headline: Claim Your Client
 
       devices_found:
         one: "Redirecting... (you should actually never see this!)"
@@ -17,20 +19,42 @@ en:
           method below.
 
         other: >-
-          We detected %{count} unclaimed clients connected from your
-          network. If you are in control of all these clients, please
-          unplug all but one, then reload this page. Otherwise please
-          use the alternate method below.
+          We detected <span>%{count}</span> unclaimed clients on your
+          network. 
+          
+      
+      take_action: 
+        zero: "Please do the following:"
+        other: "Please do one of the following:"
 
-      alternatively: >-
-        Alternatively you can always use a pairing code to identifiy
-        the client that you want to claim. The pairing code is a four
-        digit number. The Voice Republic Desktop App displays the
-        pairing code until it is claimed. The Voice Republic
-        Streamboxx displays its pairing code on an attached screen as
-        well as reads it to you on plugged in headphones.
+      method2_title: Disable All But One
+      method2: >-
+        Do you control all %{count}? Then please
+        <strong>unplug/quit</strong> all but <strong>one</strong> and reload this page. We will automatically detect the one remaining client.
 
+      method1_title: "Search By Pairing Code <span>(preferred method)</span>"
+      method1: >-
+        Type the client's 4-digit pairing code:
+      do_you_control: Do you control
+
+      app_count:
+        one: 1 VR App
+        other: ! '%{count} VR Apps'
+      and: and
+      box_count:
+        one: 1 VR Streamboxx
+        other: ! '%{count} VR Streamboxxes'
+      where_to_find_code: Where's the code?
+      vr_app: "In the VR Desktop App:"
+      on_app: The Voice Republic Desktop App displays the pairing code until it is claimed.
+      vr_box: "On the VR Streamboxx:"
+      on_box1: "The Voice Republic Streamboxx displays its pairing code on an attached screen:"
+      on_box2:
+        "And reads it to you when you plug in headphones:"
 
     edit:
-      claim_client: Unclaimed client detected.
+      claim_client: ! '%{type} found!'
       type: 'Type: %{type}'
+      naming_advice:
+        box: "<strong> Tip:</strong> The name will help you identify the Streamboxx you are claiming. Feel free to rename it here. We suggest you write this name on the case."
+        app: "<strong> Tip:</strong> The name will help you identify the app you are claiming. Feel free to rename it here."

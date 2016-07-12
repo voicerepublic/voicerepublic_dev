@@ -1,4 +1,8 @@
 en:
+  helpers:
+    submit:
+      device:
+        update: Claim This Device
   simple_form:
     placeholders:
       talk:
@@ -13,11 +17,7 @@ en:
           headlines.
     hints:
       device:
-        name: >-
-          You should pick a name for your device. This will help to
-          uniquely and unambiguously identify the streaming source. If
-          you are claiming a Voice Republic Streamboxx please tekt the
-          timeto write the name onto the case.
+        
 
       talk:
         title: Your talk will be judged by its title. Make it count.

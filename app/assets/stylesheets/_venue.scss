@@ -1,15 +1,174 @@
 //venue page
 
 // debug:
-// * *:hover { border:2px solid #89A81E }                   /* Solid Green */
-// * * *:hover { border:2px solid #F34607 }                 /* Solid Orange */
-// * * * *:hover { border:2px solid #5984C3 }               /* Solid Blue */
-// * * * * *:hover { border:2px solid #CD1821 }             /* Solid Red */
-// * * * * * *:hover { border:2px dotted #89A81E }          /* Dotted Green */
-// * * * * * * *:hover { border:2px dotted #F34607 }        /* Dotted Orange */
-// * * * * * * * *:hover { border:2px dotted #5984C3 }      /* Dotted Blue */
+// * *:hover { border:2px solid #89A81E }                   /* Solid Green
+// * * *:hover { border:2px solid #F34607 }                 /* Solid Orange
+// * * * *:hover { border:2px solid #5984C3 }               /* Solid Blue
+// * * * * *:hover { border:2px solid #CD1821 }             /* Solid Red
+// * * * * * *:hover { border:2px dotted #89A81E }          /* Dotted Green
+// * * * * * * *:hover { border:2px dotted #F34607 }        /* Dotted Orange
+// * * * * * * * *:hover { border:2px dotted #5984C3 }      /* Dotted Blue
 // * * * * * * * * *:hover { border:2px dotted #CD1821 }    /* Dotted Red */
+section#devices {
+    padding: 24px;
+    background: #f9f9f9;
+    .input label {
+        font-weight: 500;
+    }
+    .naming-advice {
+        background:$vr-purple;
+        padding: 24px 24px 24px 12px;
+        color: white;
+        margin-bottom: 24px;
+        svg {
+            fill: currentColor;
+            width: 36px;
+            height: 36px;
+        }
+    }
+    h2 {
+        color: $success-color;
+        margin-bottom: 24px;
+        svg {
+            fill: currentColor;
+            width: 24px;
+            height: 24px;
+            vertical-align: middle;
+        }
+    }
+    .device-method-box {
+        background: white;
+        border: 1px solid $steel;
+        padding: 24px;
+        border-radius: 4px;
+        box-shadow: 0 1px 3px rgba($talk-dark, 0.2);
+        .button svg {
+            fill: currentColor;
+            width: 18px;
+            height: 18px;
+            vertical-align: inherit;
+        }
+        input:not([type="submit"]) {
+            height: 80px;
+            font-size: 34px;
+            line-height: 48px;
+            text-align: center;
+            margin: 0 auto;
+            margin-bottom: 26px;
+            max-width: 120px;
+            float: left;
+        }
+        input[type="submit"] {
+            max-width:120px;
+            margin: 0 auto;
+            margin-bottom: 24px;
+            padding: 24px;
+            height: 80px;
+            float: left;
+            margin-left: 12px;
+        }
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        h4 {
+            span {
+                font-family: $body-font-family;
+                font-weight: 300;
+                //color: $success-color;
+                text-transform: uppercase;
+                font-size: 1rem;
+            }
+        }
+    }
+    .help {
+        padding: 24px;
+        background:$vr-beige;
+        color: $tuatara;
+        // border:1px solid $vr-purple;
+        .instruction {
+            padding: 0;
+            padding-right: 12px;
+        }
+        .instruction:first-child {
+            background: Orange;
+        }
+        h6 {
+            font-family: $body-font-family;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        h5 {
+            margin-bottom: 48px;
+            svg {
+                fill: currentColor;
+                width: 18px;
+                height: 18px;
+                vertical-align: middle;
+            }
+        }
+        .gray {
+            svg {
+                fill: $tuatara;
+            }
+        }
+    }
+    .graphic {
+        width: 40%;
+        float: left;
+        padding: 6px;
+        @include breakpoint(medium) {
+            width: grid-column(2 of 10);
+        }
 
+        &.green {
+            svg {
+                fill: $success-color;
+            }
+        }
+        &.gray {
+            svg {
+                fill: $charcoal;
+            }
+        }
+    }
+    .interstitial {
+        width: 10%;
+        float: left;
+        display: flex;
+        //height: 100%;
+        justify-content: center;
+        align-items: center;
+        font-weight: 500;
+        text-transform: uppercase;
+        //padding: 50%;
+        @include breakpoint(medium) {
+            width: grid-column(1 of 10);
+        }
+    }
+    .graphic-wide {
+        // width: 33.333%;
+        width: 100%;
+        float: left;
+        padding: 36px;
+        padding-top: 0;
+        &.gray {
+            svg {
+                fill: $charcoal;
+            }
+        }
+        &.purple {
+            svg {
+                fill: $vr-purple;
+            }
+        }
+    }
+    .graphics {
+        display: flex;
+        padding-top: 0;
+    }
+}
 
 .venues, .talks{
     a.help-text-trigger {
@@ -25,21 +184,20 @@
             color: $vr-light-blue;
         }
     }
+
     background: $talk-dark;
     #app {
-        position:relative;
+        position: relative;
         z-index: 0;
         height: 100vh;
     }
     #topbar {
-        position:relative;
+        position: relative;
         z-index: 1;
     }
-
     .dropdown a {
         float: right;
     }
-
     .top-bar ul li .submenu a {
         background: white;
         width: 100%;
@@ -49,7 +207,6 @@
             background: $vr-yellow;
         }
     }
-    
     .button {
         margin: 0;
     }
@@ -70,17 +227,16 @@
             height: 60px;
             margin-bottom: 24px;
         }
-    h1 {
-        font-size: rem-calc(18);
-        text-transform: uppercase;
-        text-align: center;
-        margin-bottom: 24px;
+        h1 {
+            font-size: rem-calc(18);
+            text-transform: uppercase;
+            text-align: center;
+            margin-bottom: 24px;
+        }
+        .loading-graphic {
+            margin-top: -60px;
+        }
     }
-    .loading-graphic {
-        margin-top: -60px;
-    }
-}
-
 }
 
 .talks .button svg {
@@ -114,18 +270,17 @@
     z-index: 9999;
     display: flex;
     justify-content: center;
-    align-items:center;
+    align-items: center;
     // background: rgba(0,0,0,.8);
-
 }
 
 .modal-background {
-    position:fixed;
-    top:0;
-    left:0;
-    right:0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
     bottom: 0;
-    background:rgba(0,0,0,.5);
+    background: rgba(0, 0, 0, 0.5);
     z-index: -1;
 }
 
@@ -137,8 +292,8 @@
     padding: 24px;
     box-shadow: 0 1px 10px rgba(0, 0, 0, 0.3);
     color: white;
-    position:relative;
-    min-width:400px;
+    position: relative;
+    min-width: 400px;
     max-width: 480px;
     h4 {
         color: white;
@@ -181,7 +336,7 @@
 }
 
 #talk-modal {
-    background:$vr-purple;
+    background: $vr-purple;
     h2 {
         color: white;
         margin-bottom: 24px;
@@ -194,9 +349,7 @@
             color: $vr-red;
         }
     }
-
 }
-
 
 .home {
     padding: 24px;
@@ -323,7 +476,7 @@ nav.top-bar {
         margin-bottom: 12px;
         letter-spacing: .1em;
         font-size: rem-calc(28);
-        overflow:hidden;
+        overflow: hidden;
         text-overflow: ellipsis;
         @include breakpoint(medium) {
             font-size: rem-calc(36);
@@ -360,7 +513,7 @@ nav.top-bar {
         }
     }
     .dashboard {
-        padding-top: 9px;;
+        padding-top: 9px;
         @include breakpoint(medium) {
             padding-top: 12px;
         }
@@ -453,11 +606,11 @@ nav.top-bar {
     .button {
         margin: 0;
         // width: 100%;
-
+   
     }
     tbody {
         border: none;
-        background:none;
+        background: none;
     }
     tbody tr:nth-child(even) {
         background: rgba(black, 0.1);
@@ -489,7 +642,7 @@ nav.top-bar {
                 margin-left: 12px;
                 background: $vr-purple;
                 &.live {
-                    background:$vr-red;
+                    background: $vr-red;
                 }
             }
         }
@@ -548,11 +701,9 @@ nav.top-bar {
     height: 36px;
     font-size: .8rem;
     border-top: 1px solid #29292b;
-
     input {
         visibility: hidden;
     }
-
     &.input-active {
         background: none;
         cursor: pointer;
@@ -560,21 +711,19 @@ nav.top-bar {
 }
 
 .venues .selectize-dropdown {
-    background:$topbar-dark;
-    border-radius:0;
-    border:0;
+    background: $topbar-dark;
+    border-radius: 0;
+    border: 0;
     color: $oil;
     .selectize-dropdown-content {
         .selected {
             background: $topbar-dark;
             color: $vr-light-blue;
-
         }
         .option {
-            padding:6px 0;
-
-        &:hover {
-                background:none;
+            padding: 6px 0;
+            &:hover {
+                background: none;
                 color: $vr-yellow;
             }
         }
@@ -588,25 +737,24 @@ nav.top-bar {
     .columns {
         background-color: $topbar-dark;
         margin-bottom: 12px;
-        border-radius:4px;
+        border-radius: 4px;
         padding: 0;
-        box-shadow: 0 1px 10px rgba(0,0,0,.1);
+        box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
         @include breakpoint(medium) {
-            border-radius:0;
+            border-radius: 0;
             border-right: 3px solid $talk-dark;
             margin: 0;
-        padding: 0;
-        &:first-child {
-                  border-top-left-radius: 4px;
-            border-bottom-left-radius: 4px;
+            padding: 0;
+            &:first-child {
+                border-top-left-radius: 4px;
+                border-bottom-left-radius: 4px;
+            }
+            &:last-child {
+                border-right: none;
+                border-top-right-radius: 4px;
+                border-bottom-right-radius: 4px;
+            }
         }
-        &:last-child {
-            border-right: none;
-            border-top-right-radius: 4px;
-            border-bottom-right-radius: 4px;
-        }
-        }
-
     }
     .titlebar {
         padding: 12px;
@@ -645,7 +793,7 @@ nav.top-bar {
         .status-bar {
             height: 36px;
             //background: rgba(black,.1);
-            padding:8px;
+            padding: 8px;
             text-align: center;
         }
         a.button {
@@ -654,7 +802,7 @@ nav.top-bar {
             // max-height: 46px;
             // font-size: .8rem;
             // padding-top: 16px;
-
+       
         }
         .label {
             background: none;
@@ -685,7 +833,7 @@ nav.top-bar {
             // border-bottom-right-radius: 4px;
             border-bottom-left-radius: 0;
             overflow-x: hidden;
-            padding:0;
+            padding: 0;
             .progress-meter {
                 border-bottom-left-radius: 0;
             }
@@ -697,9 +845,9 @@ nav.top-bar {
         }
         .server-start-button {
             border-bottom-right-radius: 4px;
-            border-bottom-left-radius:4px;
-            @include breakpoint(medium){
-                border-bottom-right-radius:0;
+            border-bottom-left-radius: 4px;
+            @include breakpoint(medium) {
+                border-bottom-right-radius: 0;
             }
         }
         .button-holder {
@@ -715,28 +863,25 @@ nav.top-bar {
             .stop-warning {
                 display: inline-block;
                 padding-left: 12px;
-                margin-top:10px;
+                margin-top: 10px;
                 color: $vr-red;
             }
         }
-
         .talk-start-button {
             border-bottom-right-radius: 4px;
-            border-bottom-left-radius:4px;
-            @include breakpoint(medium){
-                border-radius:0;
-                border-bottom-left-radius:0;
+            border-bottom-left-radius: 4px;
+            @include breakpoint(medium) {
+                border-radius: 0;
+                border-bottom-left-radius: 0;
             }
         }
     }
-
     .talk-panel .actionbar .button {
         border-bottom-right-radius: 4px;
-
     }
     .talk-start-button {
         height: 36px;
-        border-bottom-right-radius:4px;
+        border-bottom-right-radius: 4px;
     }
     // .talk-stop-button {
     //     position: absolute;
@@ -809,7 +954,6 @@ nav.top-bar {
     //     float: right;
     //     margin-right: 12px;
     // }
-
     // margin-right: 60px;
 }
 
@@ -826,8 +970,6 @@ nav.top-bar {
     position: relative;
     float: left;
     margin-right: 0;
-
-
 }
 
 .bar {
@@ -1067,7 +1209,7 @@ nav.top-bar {
         font-family: $body-font-family;
         margin: 0;
         // color: white;
-
+   
     }
     &.alert {
         background: $vr-red;
@@ -1098,13 +1240,12 @@ nav.top-bar {
         // color: $oil;
         font-size: rem-calc(12);
         margin: 0;
-        text-transform:uppercase;
+        text-transform: uppercase;
     }
     @include breakpoint(medium) {
         margin-right: 24px;
     }
 }
-
 
 .venues-index {
     background: url(../../images/background/erosion.jpg) no-repeat 50% 25%;
@@ -1123,7 +1264,7 @@ nav.top-bar {
     }
     .talk-card-inside {
         .title {
-            color: $talk-dark
+            color: $talk-dark;
         }
         .talk-count, .venue-state {
             margin: 0 12px 12px 12px;
@@ -1140,13 +1281,13 @@ nav.top-bar {
         &.available, &.connected {
             background: $success-color;
             &:hover {
-                background:$success-color;
+                background: $success-color;
             }
         }
         &.provisioning {
             background: $vr-yellow;
             &:hover {
-                background:$vr-yellow;
+                background: $vr-yellow;
             }
         }
     }
@@ -1155,16 +1296,15 @@ nav.top-bar {
 #venue-dropdown {
     max-width: 300px;
     background: white;
-    float:right;
+    float: right;
     margin-right: -12px;
-    box-shadow:0 1px 5px rgba(black,.3);
-    li a{
+    box-shadow: 0 1px 5px rgba(black, 0.3);
+    li a {
         color: $talk-dark;
-        background:white;
+        background: white;
         transition: background .2s ease;
         &:hover {
             background: $vr-yellow;
-
         }
     }
 }

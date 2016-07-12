@@ -1,12 +1,25 @@
-%section.light
+:javascript
+  var names = #{@names.to_json};
+  var suggestions = #{@suggestions.to_json};
+  var organization_id = #{@organization_id.to_json};
+
+%section#devices
   .row.clearfix
     .medium-10.medium-offset-1.large-8.large-offset-2.columns
-      %h1= t('.claim_client')
-      %h2= t('.type', type: @device.type)
+      %h2
+        = naked_icon 'check'
+        = t('.claim_client', type: @device.type)
+      -# #Phil: just include the device type in the success message above?
+      -# %p.lead= t('.type', type: @device.type)
+      .naming-advice.clearfix
+        .medium-1.columns
+          = naked_icon 'jeeves'
+        .medium-11.columns
+          = t(".naming_advice.#{@device.manifestation}").html_safe
 
       = simple_form_for @device do |f|
         = f.input :name
         -# TODO if user has multiple organizations show a select box
         - if current_user.organizations.count > 1
           = f.input :organization, collection: current_user.organizations
-        = f.button :submit
+        = f.button :submit, class: 'button hollow large btn-hover-green'

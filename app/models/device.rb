@@ -14,6 +14,7 @@ class Device < ActiveRecord::Base
 
   validates :identifier, presence: true
   validates :pairing_code, uniqueness: true, allow_nil: true
+  validates :name, uniqueness: { scope: :organization }
 
   serialize :options
 
@@ -25,6 +26,7 @@ class Device < ActiveRecord::Base
   scope :unclaimed, -> { where(organization_id: nil) }
   scope :with_ip, ->(ip) { where(public_ip_address: ip) }
   scope :disappeared, -> { where.not(disappeared_at: nil) }
+  scope :survey, -> { group(:type).count }
 
   include ActiveModel::Transitions
 
@@ -68,6 +70,14 @@ class Device < ActiveRecord::Base
     event :reset do
       transitions from: [:streaming, :idle], to: :idle,
                   on_transition: :signal_stop_stream
+    end
+  end
+
+  def manifestation
+    case type
+    when "Streambox" then :box
+    when "vr-restream" then :app
+    else :box
     end
   end
 
@@ -126,6 +136,8 @@ class Device < ActiveRecord::Base
       name: name
     }
   end
+
+
 
   # state machine callbacks
 
