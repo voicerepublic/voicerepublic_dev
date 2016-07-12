@@ -27,10 +27,11 @@ section#devices {
         font-weight: 500;
     }
     #naming-advice {
-        background:$vr-purple;
+        background:$vr-beige;
         padding: 24px 24px 24px 12px;
-        color: white;
+        color: $oil;
         margin-bottom: 24px;
+        margin-top: 60px;
         svg {
             fill: currentColor;
             width: 36px;
