@@ -13,7 +13,7 @@
       -# %p.lead= t('.type', type: @device.type)
 
       = simple_form_for @device do |f|
-        = f.input :name, input_html: {id: 'client-name', class: 'read-only'}
+        = f.input :name, input_html: {id: 'device_name', class: 'read-only'}
         -# TODO if user has multiple organizations show a select box
         - if current_user.organizations.count > 1
           = f.input :organization, collection: current_user.organizations

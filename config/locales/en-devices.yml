@@ -51,8 +51,8 @@ en:
       claim_client: ! '%{type} found!'
       type: 'Type: %{type}'
       naming_advice:
-        box: >-
-          "<strong> Tip:</strong> If you are streaming from multiple stages, you need to unambiguously identify your streaming sources.
+        box: |
+          <strong> Tip:</strong> If you are streaming from multiple stages, you need to unambiguously identify your streaming sources.
           It will be helpful to give your streaming source a unique name now. If you’re using a Voice Republic Streamboxx, 
-          we suggest you write this name on its case."
+          we suggest you write this name on its case.
         app: "<strong> Tip:</strong> The name will help you identify the app you are claiming. Feel free to rename it here."
