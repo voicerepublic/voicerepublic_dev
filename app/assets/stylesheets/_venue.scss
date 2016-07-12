@@ -171,10 +171,14 @@ section#devices {
 }
 
 .venues, .talks{
-    a.help-text-trigger {
-        color: $vr-purple;
-        margin-right: 12px;
+    section {
+        padding-top:48px;
+    }
+    #help-text-trigger {
+        // color: $vr-purple;
+        margin-left: 12px;
         transition: color .2s ease;
+        cursor: pointer;
         svg {
             width: 18px;
             height: 18px;
@@ -184,7 +188,11 @@ section#devices {
             color: $vr-light-blue;
         }
     }
-
+    .optional-help-text div {
+        background:$vr-beige;
+        padding: 24px;
+        text-align: left;
+    }
     background: $talk-dark;
     #app {
         position: relative;

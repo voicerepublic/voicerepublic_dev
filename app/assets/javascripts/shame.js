@@ -116,6 +116,12 @@ $(document).ready(function(){
   $('#working').addClass('offscreen');
 });
 
+//venue#index help text
+$('#help-text-trigger').on('click',function(){
+  console.log('show the helpies, bitch')
+  $('.optional-help-text').toggleClass('hide')
+});
+
 
 //icon cheatsheet:
   var iconCounter = 1;

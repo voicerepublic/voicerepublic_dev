@@ -6,10 +6,16 @@
 %section.text-center
   .row
     .title-block.driftup
-      %h2= t('.please_select_a_venue')
+      
+      %h2
+        = t('.please_select_a_venue')
+        %span#help-text-trigger
+          = naked_icon 'question'
+      .row.optional-help-text.clearfix.hide
+        .medium-6.medium-offset-3.columns= t('.help_text').html_safe
     - if @venues.empty?
       %p
-        You seem to have no venue, yet. Please
+        You seem to have no venues yet. Please
         = link_to 'create a talk', new_talk_path
         first.
     - else
