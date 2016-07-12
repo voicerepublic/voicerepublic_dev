@@ -44,7 +44,7 @@ en:
           relevant keywords, use them here.
         description: >-
           What’s happening in this series? Give your audience an idea
-          what they can expext.  You have 2300 characters to do
+          what they can expext. You have 2300 characters to do
           so. Using <a target='_blank' href='/r/md'>Markdown</a>, you
           can also add links, pictures and headlines.
       user:
@@ -52,7 +52,7 @@ en:
           Use <a target='_blank' href='/r/md'>Markdown</a> to
           format your text and to add links, pictures and headlines.
         slug: >-
-          Get <a target='_blank' href='/r/username'>help</a> in
+          Get <a target='_blank' href='/r/username'>help</a>
           choosing a good username.
     labels:
       talk:
