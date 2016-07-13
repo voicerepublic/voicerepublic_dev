@@ -6,11 +6,7 @@
 %section.text-center
   .row
     .title-block.driftup
-      
-      %h2
-        = t('.please_select_a_venue')
-        %span#help-text-trigger
-          = naked_icon 'question'
+      %h2= t('.please_select_a_venue')
       .row.optional-help-text.clearfix.hide
         .medium-6.medium-offset-3.columns= t('.help_text').html_safe
     - if @venues.empty?
@@ -19,13 +15,13 @@
         = link_to 'create a talk', new_talk_path
         first.
     - else
-      .talk-card.small-12.medium-3.large-4.columns
-        .talk-card-inside.clearfix.help
-          .medium-1.columns
-            = naked_icon 'jeeves'
-          .medium-11.columns
-            = t('.help_text').html_safe
-          -#%p.clearfix
+      .talk-card.small-12.medium-3.large-4.columns.driftup{'data-closable' => ''}
+        .clearfix.help
+          %p.clearfix
+            %span.float-left= naked_icon 'jeeves'
+            %button.close-button{'data-close' => ''}
+              %span.float-right &times;
+          %p= t('.help_text').html_safe
       - @venues.each do |venue|
         .talk-card.driftup.small-12.medium-3.large-4.columns
           = link_to venue do

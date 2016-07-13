@@ -1298,12 +1298,18 @@ nav.top-bar {
                 background: $vr-yellow;
             }
         }
-        &.help {
+    }
+        .help {
             background:$vr-beige;
+            text-align: left;
             padding:12px;
             font-size: 14px;
+            svg {
+                width: 24px;
+                height: 24px;
+                fill:currentColor;
+            }
         }
-    }
 }
 
 #venue-dropdown {
