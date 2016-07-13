@@ -457,6 +457,7 @@ nav.top-bar {
     margin-right: 12px;
     font-size: 12px;
     font-weight: 700;
+    background: $vr-beige;
     &.warning {
         background: $vr-yellow;
         color: $talk-dark;
@@ -797,6 +798,7 @@ nav.top-bar {
         background: $topbar-dark;
          border:2px solid $oil;
         border-top:none;
+        padding-bottom: 12px;
         &.error {
             background: $vr-red;
         }
