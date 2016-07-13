@@ -454,6 +454,9 @@ nav.top-bar {
 
 .badge {
     color: $talk-dark;
+    margin-right: 12px;
+    font-size: 12px;
+    font-weight: 700;
     &.warning {
         background: $vr-yellow;
         color: $talk-dark;
@@ -689,6 +692,12 @@ nav.top-bar {
     }
 }
 
+.selectize-control.single .selectize-input:after {
+    border-color: $vr-beige transparent transparent transparent;
+}
+
+
+
 .venues .selectize-input {
     margin: 0;
     padding: 9px 12px 12px 12px;
@@ -699,7 +708,7 @@ nav.top-bar {
     font-family: inherit;
     line-height: normal;
     color: $vr-beige;
-    background-color: transparent;
+    background: $oil;
     border-radius: 0;
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -708,7 +717,8 @@ nav.top-bar {
     background-repeat: no-repeat;
     height: 36px;
     font-size: .8rem;
-    border-top: 1px solid #29292b;
+    border-bottom: 1px solid rgba($oil, .4);
+    box-shadow:0 1px 5px rgba(black,.5);
     input {
         visibility: hidden;
     }
@@ -739,41 +749,89 @@ nav.top-bar {
 }
 
 #venue-control-panel {
-    background: none;
-    border-radius: 4px;
-    color: rgba(white, 0.4);
+    // border-radius: 4px;
+    color: $silver;
     //.columns {
-        background-color: $topbar-dark;
+        // background-color: $topbar-dark;
         margin-bottom: 12px;
-        border-radius: 4px;
+        // border-radius: 4px;
         padding: 0;
-        box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
-        @include breakpoint(medium) {
-            border-radius: 0;
-            border-right: 3px solid $talk-dark;
-            margin: 0;
-            padding: 0;
-            &:first-child {
-                border-top-left-radius: 4px;
-                border-bottom-left-radius: 4px;
-            }
-            &:last-child {
-                border-right: none;
-                border-top-right-radius: 4px;
-                border-bottom-right-radius: 4px;
+        //box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
+        // @include breakpoint(medium) {
+        //     border-radius: 0;
+        //     border-right: 6px solid $talk-dark;
+        //     margin: 0;
+        //     padding: 0;
+        //     &:first-child {
+        //         border-top-left-radius: 4px;
+        //         border-bottom-left-radius: 4px;
+        //     }
+        //     &:last-child {
+        //         border-right: none;
+        //         border-top-right-radius: 4px;
+        //         border-bottom-right-radius: 4px;
+        //     }
+        // }
+    //}
+
+    .venue-panel {
+        width: 100%;
+        padding:0;
+        float:left;
+        border-radius: 4px;
+       // background:$topbar-dark;
+        margin-bottom: 12px;
+        @include breakpoint(1000px){
+        border-right: 6px solid $talk-dark;
+        width: grid-column(4 of 12);
+        &:last-child {
+            border-right:none;
+        }
+
+        }
+    }
+    .message {
+        padding:12px;
+        border-bottom-left-radius:4px;
+        border-bottom-right-radius:4px;
+        background: $topbar-dark;
+         border:2px solid $oil;
+        border-top:none;
+        &.error {
+            background: $vr-red;
+        }
+        &.warning {
+            border-left: 2px solid $vr-yellow;
+            p {
+
+            //color:$talk-dark;
             }
         }
-    //}
+        &.success {
+            background: $success-color;
+        }
+        p {
+            font-size: rem-calc(12);
+            color: $silver;
+        }
+    }
     .titlebar {
         padding: 12px;
-        max-height: 46px;
+        //max-height: 46px;
+        border-top-right-radius:4px;
+        border-top-left-radius:4px;
+        background:$topbar-dark;
+        border:2px solid $oil;
+        border-bottom:1px solid rgba($oil,.4);
         h4 {
-            font-size: rem-calc(12);
+            font-size: rem-calc(18);
             margin: 0;
+
             font-family: $body-font-family;
-            font-weight: 300;
-            color: $oil;
-            text-transform: uppercase;
+            font-weight: 500;
+            color: $smoke;
+            //text-transform: uppercase;
+            //letter-spacing: rem-calc(.5)
         }
         .neutral {
             background: currentColor;
@@ -791,16 +849,23 @@ nav.top-bar {
     .actionbar {
         padding: 0;
         color: $vr-beige;
-        background: rgba(black, 0.1);
+        background: $topbar-dark;
         height: 72px;
         max-height: 72px;
         font-size: .8rem;
+        border-right: 2px solid $oil;
+        border-left: 2px solid $oil;
+                border-bottom:1px solid rgba($oil,.4);
+
+
         .holder {
             padding: 0;
         }
         .status-bar {
             height: 36px;
-            //background: rgba(black,.1);
+            background: $topbar-dark;
+            // border-right: 2px solid $oil;
+            // border-left: 2px solid $oil;
             padding: 8px;
             text-align: center;
         }
