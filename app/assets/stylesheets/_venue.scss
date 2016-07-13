@@ -171,6 +171,7 @@ section#devices {
 }
 
 .venues, .talks{
+
     section {
         padding-top:48px;
     }
@@ -192,6 +193,17 @@ section#devices {
         background:$vr-beige;
         padding: 24px;
         text-align: left;
+        .strong {
+            font-weight: 700
+        }
+        svg {
+            width: 24px;
+            height: 24px;
+            fill:currentColor
+        }
+        .close-button {
+            position:relative
+        }
     }
     background: $talk-dark;
     #app {
