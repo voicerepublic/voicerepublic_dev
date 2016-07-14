@@ -15,6 +15,16 @@ button, .button {
         }
     }
 
+    &.icon-button {
+        background:none;
+        color: inherit;
+        svg {
+            fill: currentColor;
+            width: .6em;
+            height: .6em;
+        }
+    }
+
     &.hollow {
         border-width: 2px;
         border-color: $vr-light-blue;
