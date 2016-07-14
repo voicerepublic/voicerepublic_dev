@@ -36,9 +36,9 @@ every 60.minutes, :roles => [:app] do
   rake "validity:check"
 end
 
-every 3.hours, roles: [:app] do
-  rake 'talks:popularity'
-end
+#every 3.hours, roles: [:app] do
+#  rake 'talks:popularity'
+#end
 
 every 24.hours, at: '2:00 am', roles: [:app] do
   runner "Metric.snapshot!"
