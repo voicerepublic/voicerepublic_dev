@@ -9,7 +9,7 @@
 // * * * * * * *:hover { border:2px dotted #F34607 }        /* Dotted Orange
 // * * * * * * * *:hover { border:2px dotted #5984C3 }      /* Dotted Blue
 // * * * * * * * * *:hover { border:2px dotted #CD1821 }    /* Dotted Red */
-$panelOutlineColor: $vr-light-blue;
+$panelOutlineColor: $tuatara;
 
 section#devices {
     padding: 24px;
@@ -293,7 +293,7 @@ section#devices {
     display: flex;
     justify-content: center;
     align-items: center;
-    // background: rgba(0,0,0,.8);
+    background: rgba(0,0,0,.8);
 }
 
 .modal-background {
@@ -487,7 +487,7 @@ nav.top-bar {
 
 #venue-header, #start-header {
     // background: $talk-dark;
-    padding: 48px 12px 36px 12px;
+    padding: 24px 12px 36px 12px;
     text-align: center;
     @include breakpoint(medium) {
         text-align: left;
@@ -777,10 +777,11 @@ nav.top-bar {
         margin-bottom: 12px;
         @include breakpoint(1000px){
         border-right: 6px solid $talk-dark;
+        border-left: 6px solid $talk-dark;
         width: grid-column(4 of 12);
-        &:last-child {
-            border-right:none;
-        }
+        // &:last-child {
+        //     border-right:none;
+        // }
 
         }
     }

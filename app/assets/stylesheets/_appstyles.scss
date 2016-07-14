@@ -91,7 +91,8 @@ html {
 }
 
 body {
-      position: relative;
+    position: relative;
+    overflow: auto;
   height: auto;
   min-height: 100% !important;
 }
