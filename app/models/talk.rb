@@ -880,13 +880,11 @@ class Talk < ActiveRecord::Base
   end
 
   def media_storage
-    @media_storage ||=
-      Storage.directories.new(key: Settings.storage.media, prefix: uri)
+    @media_storage ||= Storage.get(Settings.storage.media, uri)
   end
 
   def slides_storage
-    @slides_storage ||=
-      Storage.directories.new(key: Settings.storage.upload_slides)
+    @slides_storage ||= Storage.get(Settings.storage.upload_slides)
   end
 
   def logfile

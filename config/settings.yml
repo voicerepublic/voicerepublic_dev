@@ -69,10 +69,10 @@ flyer:
 # * staging.voicerepublic.com  -> vr-audio-uploads-staging
 # * voicerepublic.com          -> vr-audio-uploads-live
 storage:
-  media: vr-dev-media
-  import: vr-dev-import
-  upload_audio: vr-audio-uploads-dev
-  upload_slides: vr-slide-uploads-dev
+  media:         vr-dev-media@us-east-1
+  import:        vr-dev-import@us-east-1
+  upload_audio:  vr-audio-uploads-dev@us-east-1
+  upload_slides: vr-slide-uploads-dev@us-east-1
 paths:
   log: local/log
   jingles:

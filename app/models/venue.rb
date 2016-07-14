@@ -337,8 +337,7 @@ class Venue < ActiveRecord::Base
   end
 
   def recordings_storage
-    @recordings_storage ||=
-      Storage.directories.get(recordings_bucket, prefix: slug + '/')
+    @recordings_storage ||= Storage.get(recordings_bucket, slug + '/')
   end
 
   # --- state machine callbacks
