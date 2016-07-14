@@ -3,7 +3,7 @@ class StorageFactory < Struct.new(:config)
   attr_accessor :clients
 
   def get(bucket_with_region, prefix=nil)
-    unless value.include?('@')
+    unless bucket_with_region.include?('@')
       raise "Invalid bucket spec `#{value}` use `<bucket>@<region>` instead"
     end
     key, region = bucket_with_region.split('@')
