@@ -18,7 +18,7 @@ if [ -f /sys/hypervisor/uuid ] && [ `head -c 3 /sys/hypervisor/uuid` == ec2 ]; t
   HOME=/root
 
   # mount the bucket
-  BUCKET=<%= recordings_bucket %>
+  BUCKET=<%= recordings_bucket.split('@').first %>
   AWS_CREDENTIALS=<%= aws_credentials %>
 
   echo $AWS_CREDENTIALS > /etc/passwd-s3fs

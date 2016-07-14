@@ -306,19 +306,44 @@ class Venue < ActiveRecord::Base
   # returns an array of `[['key', 'timestamp']]` pairs
   #
   def relevant_files(started_at, ended_at, names=stored_files)
-    p started_at
-    p ended_at
+    puts "START: #{started_at}"
+    puts "END: #{ended_at}"
 
-    p files = names.select { |name| name.include?('dump_') }
-    p files = files.map { |name| name.match(/^dump_(\d+)/).to_a }
-    p files = files.sort_by(&:last)
+    files = names.select { |name| name.include?('dump_') }
 
-    p during = files.select { |file| file.last.to_i >= started_at.to_i }
-    p during = during.select { |file| file.last.to_i <= ended_at.to_i }
+    puts "ALL DUMPS"
+    puts *files
 
-    p before = files.select { |file| file.last.to_i < started_at.to_i }
+    files = files.map { |name| name.match(/^dump_(\d+)/).to_a }
 
-    ([ before.last ] + during).compact
+    puts "ALL DUMPS WITH TS"
+    puts *files
+
+    files = files.sort_by(&:last)
+
+    puts "ALL DUMPS WITH TS SORTED"
+    puts *files
+
+    during = files.select { |file| file.last.to_i >= started_at.to_i }
+    during = during.select { |file| file.last.to_i <= ended_at.to_i }
+
+    puts "ALL DUMPS DURING TALK"
+    puts *during
+
+    before = files.select { |file| file.last.to_i < started_at.to_i }
+
+    puts "ALL DUMPS BEFORE TALK STARTED"
+    puts *before
+
+    puts "THE ONE DUMP BEFORE TALK STARTED"
+    puts before.last
+
+    result = ([ before.last ] + during).compact
+
+    puts "RESULT"
+    puts *result
+
+    result
   end
 
   # returns an array of filenames
@@ -405,7 +430,8 @@ class Venue < ActiveRecord::Base
   end
 
   def unprovision_production
-    EC2.servers.get(instance_id).destroy
+    instance = EC2.servers.get(instance_id)
+    instance.destroy unless instance.nil?
   end
 
   def unprovision_development
