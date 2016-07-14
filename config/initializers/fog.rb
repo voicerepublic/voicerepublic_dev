@@ -9,9 +9,9 @@ class StorageFactory < Struct.new(:config)
     key, region = bucket_with_region.split('@')
     self.clients ||= {}
     self.clients[region] ||= Fog::Storage.new(config.merge(region: region))
-    attrs = { key: key }
-    attrs[:prefix] = prefix unless prefix.nil?
-    clients[region].directories.new(attrs)
+    options = {}
+    options[:prefix] = prefix unless prefix.nil?
+    clients[region].directories.get(key, options)
   end
 
 end

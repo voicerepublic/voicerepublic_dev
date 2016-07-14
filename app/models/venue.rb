@@ -1,3 +1,7 @@
+# Note: This works on Staging:
+#
+# Fog::Storage.new(Settings.fog.storage.to_hash.merge region: "eu-central-1").directories.get("vr-staging-recordings", prefix: 'venue-of-lino-von-burg/').files.count
+#
 class Venue < ActiveRecord::Base
 
   PROVISIONING_WINDOW = 90.minutes
@@ -305,20 +309,14 @@ class Venue < ActiveRecord::Base
     p started_at
     p ended_at
 
-    files = names.select { |name| name.include?('dump_') }
-    files = files.map { |name| name.match(/^dump_(\d+)/).to_a }
-    files = files.sort_by(&:last)
+    p files = names.select { |name| name.include?('dump_') }
+    p files = files.map { |name| name.match(/^dump_(\d+)/).to_a }
+    p files = files.sort_by(&:last)
 
-    p files
+    p during = files.select { |file| file.last.to_i >= started_at.to_i }
+    p during = during.select { |file| file.last.to_i <= ended_at.to_i }
 
-    during = files.select { |file| file.last.to_i >= started_at.to_i }
-    during = during.select { |file| file.last.to_i <= ended_at.to_i }
-
-    p during
-
-    before = files.select { |file| file.last.to_i < started_at.to_i }
-
-    p before
+    p before = files.select { |file| file.last.to_i < started_at.to_i }
 
     ([ before.last ] + during).compact
   end
