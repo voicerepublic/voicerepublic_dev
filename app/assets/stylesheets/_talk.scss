@@ -283,6 +283,34 @@ button,
     color: $tuatara;
     font-weight: 300;
     padding-right: 24px;
+    h1,h2,h3,h4,h5,h6 {
+        color: $vr-beige;
+        margin-bottom: 1rem;
+        letter-spacing: normal;
+        text-transform: none;
+        font-size:rem-calc(18)
+    }
+    h1 {
+        font-size: rem-calc(24)
+    }
+    // h6 {
+    //     font-size: rem-calc(14)
+    // }
+    // h5 {
+    //     font-size: rem-calc(16)
+    // }
+    // h4 {
+    //     font-size: rem-calc(18)
+    // }
+    // h3 {
+    //     font-size: rem-calc(21)
+    // }
+    // h2 {
+    //     font-size: rem-calc(24)
+    // }
+    // h1 {
+    //     font-size: rem-calc(28)
+    // }
     p {
         font-size: rem-calc(14);
         line-height: rem-calc(20);
