@@ -118,25 +118,22 @@ $(document).ready(function(){
 
 //venue#index help text
 $('#help-text-trigger').on('click',function(){
-  console.log('show the helpies, bitch')
-  $('.optional-help-text').toggleClass('hide')
+  $('.optional-help-text').toggleClass('hide');
 });
 
-
 //icon cheatsheet:
-  var iconCounter = 1;
-  $('svg symbol').each(function(){
-    // print icons on page:
-    var iconName = $(this).attr('id').slice(5)
-    $('#icon-cheatsheet').append('<div class="icon-thumb"><svg class="icon"><use xlink:href="#'+$(this).attr('id')+'" /></svg><p>'+iconCounter+'. '+iconName+'</p></div>');
-    iconCounter ++
-  })
+var iconCounter = 1;
+$('svg symbol').each(function(){
+  // print icons on page:
+  var iconName = $(this).attr('id').slice(5);
+  $('#icon-cheatsheet').append('<div class="icon-thumb"><svg class="icon"><use xlink:href="#'+$(this).attr('id')+'" /></svg><p>'+iconCounter+'. '+iconName+'</p></div>');
+  iconCounter ++;
+});
 
 $(document).foundation();
 
-
 $(function() {
-      if($(".devices-edit").length > 0) {
-          $('#device_name').val(suggestions[organization_id]);
-      }
+  if($(".devices-edit").length > 0) {
+    $('#device_name').val(suggestions[organization_id]);
+  }
 });
