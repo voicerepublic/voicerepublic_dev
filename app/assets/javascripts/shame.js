@@ -116,15 +116,19 @@ $(document).ready(function(){
   $('#working').addClass('offscreen');
 });
 
+//venue#index help text
+$('#help-text-trigger').on('click',function(){
+  $('.optional-help-text').toggleClass('hide');
+});
 
 //icon cheatsheet:
-  var iconCounter = 1;
-  $('svg symbol').each(function(){
-    // print icons on page:
-    var iconName = $(this).attr('id').slice(5)
-    $('#icon-cheatsheet').append('<div class="icon-thumb"><svg class="icon"><use xlink:href="#'+$(this).attr('id')+'" /></svg><p>'+iconCounter+'. '+iconName+'</p></div>');
-    iconCounter ++
-  })
+var iconCounter = 1;
+$('svg symbol').each(function(){
+  // print icons on page:
+  var iconName = $(this).attr('id').slice(5);
+  $('#icon-cheatsheet').append('<div class="icon-thumb"><svg class="icon"><use xlink:href="#'+$(this).attr('id')+'" /></svg><p>'+iconCounter+'. '+iconName+'</p></div>');
+  iconCounter ++;
+});
 
 //show claim btns on ready
 $( document ).ready(function(){
@@ -154,9 +158,8 @@ $("#save-btn").on('click',function(){
 
 $(document).foundation();
 
-
 $(function() {
-      if($(".devices-edit").length > 0) {
-          $('#device_name').val(suggestions[organization_id]);
-      }
+  if($(".devices-edit").length > 0) {
+    $('#device_name').val(suggestions[organization_id]);
+  }
 });

@@ -7,13 +7,21 @@
   .row
     .title-block.driftup
       %h2= t('.please_select_a_venue')
+      .row.optional-help-text.clearfix.hide
+        .medium-6.medium-offset-3.columns= t('.help_text').html_safe
     - if @venues.empty?
       %p
-        You seem to have no venue, yet. Please
+        You seem to have no venues yet. Please
         = link_to 'create a talk', new_talk_path
         first.
     - else
-      -#%ul.menu
+      .talk-card.small-12.medium-3.large-4.columns.driftup{'data-closable' => ''}
+        .clearfix.help
+          %p.clearfix
+            %span.float-left= naked_icon 'jeeves'
+            %button.close-button{'data-close' => ''}
+              %span.float-right &times;
+          %p= t('.help_text').html_safe
       - @venues.each do |venue|
         .talk-card.driftup.small-12.medium-3.large-4.columns
           = link_to venue do
