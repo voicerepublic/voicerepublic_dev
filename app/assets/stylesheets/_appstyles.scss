@@ -1,37 +1,36 @@
 body.pages-icons {
-    background: #f9f9f9
+    background: #f9f9f9;
 }
+
 #icon-cheatsheet {
-    padding:24px;
+    padding: 24px;
     h1 {
         color: $talk-dark;
     }
-
     .icon-thumb {
-        color:$talk-dark;
-
-    width:50%;
-    padding-bottom: 12px;
-    float:left;
-    text-align: center;
-    svg {
-        fill:currentColor;
-        width:60px;
-        height:60px;
+        color: $talk-dark;
+        width: 50%;
+        padding-bottom: 12px;
+        float: left;
+        text-align: center;
+        svg {
+            fill: currentColor;
+            width: 60px;
+            height: 60px;
+        }
+        @include breakpoint(medium) {
+            width: 25%;
+        }
     }
-    @include breakpoint(medium) {
-        width:25%;
-    }
-}
 }
 
 #error-container {
-            background: url(../../images/background/desert.jpg) no-repeat 50% 25%;
-.not-found p {
+    background: url(../../images/background/desert.jpg) no-repeat 50% 25%;
+    .not-found p {
+        color: $vr-beige;
+    }
+}
 
-            color: $vr-beige;
-}
-}
 .qa {
     display: none !important;
 }
@@ -43,58 +42,49 @@ body.pages-icons {
 .transparent {
     opacity: 0;
 }
+
 .no-pad {
     padding: 0 !important;
 }
 
 .no-margin {
-    margin:0 !important;
+    margin: 0 !important;
 }
 
 .top-24 {
-    padding-top:24px;
+    padding-top: 24px;
 }
 
 // Overwrite the float-right behavior of the last element in grid:
 .column:last-child:not(:first-child), .columns:last-child:not(:first-child) {
-    float:left;
+    float: left;
 }
 
 @mixin button-hollow-style($color: $vr-blue) {
-  $color-hover: $vr-red;
-
-  border: 1px solid $color;
-  color: $color;
-
-  &:hover, &:focus {
-    border-color: $color-hover;
-    color: $color-hover;
-  }
+    $color-hover: $vr-red;
+    border: 1px solid $color;
+    color: $color;
+    &:hover, &:focus {
+        border-color: $color-hover;
+        color: $color-hover;
+    }
 }
-
-// @font-face {
-//     font-family: 'Eagle';
-//     src: url('../fonts/Eagle-Book.eot?-u70zge');
-//     src: url('../fonts/Eagle-Book.eot?#iefix-u70zge') format('embedded-opentype'), url('../fonts/Eagle-Book.ttf?-u70zge') format('truetype'), url('../fonts/Eagle-Book.woff?-u70zge') format('woff'), url('../fonts/Eagle-Book.svg?-u70zge#Eagle-Book') format('svg');
-//     font-weight: normal;
-//     font-style: normal;
-// }
 
 
 html {
     -webkit-font-smoothing: antialiased;
     height: auto;
-    overflow: auto;
+    //overflow: auto;
     font-weight: 300;
     color: $almost-black;
-    background:$vr-blue;
+    background: $vr-blue;
 }
 
 body {
     position: relative;
     overflow: auto;
-  height: auto;
-  min-height: 100% !important;
+    height: auto;
+    min-height: 100% !important;
 }
 
 a {
@@ -107,12 +97,10 @@ a {
     }
 }
 
-
-
 .close-button {
-    padding:0;
-    margin:0;
-    border:0;
+    padding: 0;
+    margin: 0;
+    border: 0;
 }
 
 //avatar
@@ -120,8 +108,8 @@ a {
     height: 100%;
     padding: 12px 0;
     img {
-        border:1px solid rgba($talk-dark,.1);
-        border-radius:50%;
+        border: 1px solid rgba($talk-dark, 0.1);
+        border-radius: 50%;
     }
 }
 
@@ -130,9 +118,9 @@ a {
     // border: 2px solid $smoke;
     background-size: cover;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-    margin:0 auto;
+    margin: 0 auto;
 }
 
 section {
-    padding:12px;
+    padding: 12px;
 }
