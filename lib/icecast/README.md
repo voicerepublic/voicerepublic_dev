@@ -162,6 +162,8 @@ apt-get -y install ruby ruby-dev
 * Debian jessie amd64
 * Type `t2.micro`
 
+`sudo docker exec -i -t icecast /bin/bash`
+
 ### Statistics
 
 * curl -u admin:mqilkfut http://52.58.132.102/admin/stats.xml

@@ -16,8 +16,8 @@ class MediaTracker < Struct.new(:app, :opts)
     talk = nil
     Talk.transaction do
       talk = Talk.find_by(id: id)
-      return [404, {}, ['404 - Not found (try later.)']] unless talk.archived?
       return [410, {}, ['410 - Gone (for good!)']] if talk.nil?
+      return [404, {}, ['404 - Not found (try later.)']] unless talk.archived?
 
       talk.update_attribute(:play_count, talk.play_count + 1)
     end
