@@ -14,7 +14,7 @@ class Device < ActiveRecord::Base
 
   validates :identifier, presence: true
   validates :pairing_code, uniqueness: true, allow_nil: true
-  validates :name, uniqueness: { scope: :organization }
+  validates :name, uniqueness: { scope: :organization }, allow_blank: true
 
   serialize :options
 

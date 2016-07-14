@@ -11,15 +11,21 @@
         = t('.claim_client', type: @device.type)
       -# #Phil: just include the device type in the success message above?
       -# %p.lead= t('.type', type: @device.type)
-      .naming-advice.clearfix
+
+      = simple_form_for @device do |f|
+        = f.input :name, input_html: {id: 'device_name', class: 'read-only'}
+        -# TODO if user has multiple organizations show a select box
+        - if current_user.organizations.count > 1
+          = f.input :organization, collection: current_user.organizations
+        = f.button :submit, class: 'button hollow btn-hover-green hide', id: 'claim-btn'
+        %button.button.hollow.muted.btn-hover-light-blue#edit-btn.hide{:type => "button"}
+          = naked_icon 'pencil'
+          = t('.edit_name')
+        %button.button.hollow.muted.btn-hover-light-blue#save-btn.hide{:type => "button"}
+          =t('save')
+        -#= f.button :button as: :button, 'things', class: 'button hollow muted btn-hover-light-blue', id: 'change-name'
+      #naming-advice.clearfix.hide
         .medium-1.columns
           = naked_icon 'jeeves'
         .medium-11.columns
           = t(".naming_advice.#{@device.manifestation}").html_safe
-
-      = simple_form_for @device do |f|
-        = f.input :name
-        -# TODO if user has multiple organizations show a select box
-        - if current_user.organizations.count > 1
-          = f.input :organization, collection: current_user.organizations
-        = f.button :submit, class: 'button hollow large btn-hover-green'

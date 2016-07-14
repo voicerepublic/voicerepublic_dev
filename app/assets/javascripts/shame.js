@@ -130,6 +130,32 @@ $('svg symbol').each(function(){
   iconCounter ++;
 });
 
+//show claim btns on ready
+$( document ).ready(function(){
+  $('#claim-btn').removeClass('hide')
+  $('#edit-btn').removeClass('hide')
+  $('#naming-advice').removeClass('hide')
+})
+
+//claiming device name hack
+$("#device_name").prop("readonly", true)
+
+$("#edit-btn").on('click',function(){
+  $(this).addClass('hide')
+  $("#save-btn").removeClass('hide')
+  $("#device_name").removeClass('read-only').prop("readonly",false).select()
+});
+
+$("#save-btn").on('click',function(){
+  // $(this).html("save").removeClass('save')
+  $("#device_name").addClass('read-only').prop("readonly",true)
+  $(this).addClass('hide')
+  $("#edit-btn").removeClass('hide')
+
+});
+
+
+
 $(document).foundation();
 
 $(function() {

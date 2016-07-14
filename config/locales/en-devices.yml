@@ -11,23 +11,18 @@ en:
       devices_found:
         one: "Redirecting... (you should actually never see this!)"
         zero: >-
-          We were unable to detect any unclaimed clients. If you
-          downloaded the Voice Republic Desktop App please make sure
-          it's running. If you want to claim a Voice Republic
-          Streamboxx please make sure it is connected. Then reload
-          this page. If the problem persist please use the alternate
-          method below.
+          Please connect your streaming source. If you’re using a Voice Republic StreamBoxx, 
+          make sure it is connected to the internet (LAN) and to power. Then reload this page.
 
         other: >-
-          We detected <span>%{count}</span> unclaimed clients on your
-          network. 
+          We found <span>%{count}</span> possible streaming sources. Please pair one of them now.
           
       
       take_action: 
-        zero: "Please do the following:"
-        other: "Please do one of the following:"
+        zero: "To pair your streaming source, please try the following:"
+        other: "You have two options to pair your streaming source:"
 
-      method2_title: Disable All But One
+      method2_title: Disable All Streaming Sources But One
       method2: >-
         Do you control all %{count}? Then please
         <strong>unplug/quit</strong> all but <strong>one</strong> and reload this page. We will automatically detect the one remaining client.
@@ -47,14 +42,17 @@ en:
       where_to_find_code: Where's the code?
       vr_app: "In the VR Desktop App:"
       on_app: The Voice Republic Desktop App displays the pairing code until it is claimed.
-      vr_box: "On the VR Streamboxx:"
-      on_box1: "The Voice Republic Streamboxx displays its pairing code on an attached screen:"
+      vr_box: "On the Voice Republic StreamBoxx:"
+      on_box1: "The Voice Republic StreamBoxx displays its pairing code when you attach a screen."
       on_box2:
-        "And reads it to you when you plug in headphones:"
+        "If you don’t have a screen available, the StreamBoxx reads the code to you when you plug in headphones."
 
     edit:
       claim_client: ! '%{type} found!'
       type: 'Type: %{type}'
       naming_advice:
-        box: "<strong> Tip:</strong> The name will help you identify the Streamboxx you are claiming. Feel free to rename it here. We suggest you write this name on the case."
+        box: |
+          <strong> Tip:</strong> If you are streaming from multiple stages, you need to unambiguously identify your streaming sources.
+          It will be helpful to give your streaming source a unique name now. If you’re using a Voice Republic Streamboxx, 
+          we suggest you write this name on its case.
         app: "<strong> Tip:</strong> The name will help you identify the app you are claiming. Feel free to rename it here."
