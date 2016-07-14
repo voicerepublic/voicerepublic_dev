@@ -50,6 +50,11 @@ class Venue < ActiveRecord::Base
       transitions from: :available, to: :provisioning
     end
     event :select_device do
+      # these allow changeing the device before the streaming server is ready
+      transitions from: :offline, to: :offline
+      transitions from: :available, to: :available
+      transitions from: :provisioning, to: :provisioning
+
       transitions from: [:device_required, :awaiting_stream,
                          :connected, :disconnected],
                   to: :awaiting_stream
