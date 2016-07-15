@@ -16,6 +16,13 @@ class Handyman
 
   class Tasks
 
+    def venue_set_missing_device_name
+      log '-> Check for missing device_name...'
+      sql = "UPDATE venues SET device_name='noop' "+
+            "WHERE device_name IS NULL AND device_id IS NULL"
+      ActiveRecord::Base.connection.execute(sql)
+    end
+
     def venue_set_missing_state
       log '-> Check for venues without state...'
       sql = "UPDATE venues SET state='offline' WHERE state IS NULL"
