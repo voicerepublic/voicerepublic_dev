@@ -11,7 +11,10 @@ class StorageFactory < Struct.new(:config)
     self.clients[region] ||= Fog::Storage.new(config.merge(region: region))
     options = {}
     options[:prefix] = prefix unless prefix.nil?
-    clients[region].directories.get(key, options)
+    clients[region].directories.get(key, options) or
+      # the fallback makes sure we do not need to have
+      # the directories in place to make the specs pass
+      clients[region].directories.new(key: key)
   end
 
 end
