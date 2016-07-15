@@ -270,7 +270,7 @@ class Venue < ActiveRecord::Base
   # This names the bucket which will be mounted on the ec2 instance
   # running the icecast server.
   def recordings_bucket
-    Settings.storage.recordings
+    Settings.storage.recordings || ''
   end
 
   # This is used in userdata.

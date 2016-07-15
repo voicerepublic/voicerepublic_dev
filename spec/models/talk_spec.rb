@@ -151,21 +151,24 @@ describe Talk do
         m4a_file = File.expand_path("spec/support/fixtures/transcode0/1.m4a", Rails.root)
         @talk.send(:upload_file, '1.m4a', m4a_file)
 
-        media_storage = Storage.directories.new(key: Settings.storage.media, prefix: @talk.uri)
+        bucket = Settings.storage.media.split('@').first
+        media_storage = Storage.directories.new(key: bucket, prefix: @talk.uri)
         expect(media_storage.files.get('1.m4a').content_type).to eq('audio/mp4')
       end
       it 'works for mp3' do
         mp3_file = File.expand_path("spec/support/fixtures/transcode0/1.mp3", Rails.root)
         @talk.send(:upload_file, '1.mp3', mp3_file)
 
-        media_storage = Storage.directories.new(key: Settings.storage.media, prefix: @talk.uri)
+        bucket = Settings.storage.media
+        media_storage = Storage.get(bucket, @talk.uri)
         expect(media_storage.files.get('1.mp3').content_type).to eq('audio/mpeg')
       end
       it 'works for ogg' do
         ogg_file = File.expand_path("spec/support/fixtures/transcode0/1.ogg", Rails.root)
         @talk.send(:upload_file, '1.ogg', ogg_file)
 
-        media_storage = Storage.directories.new(key: Settings.storage.media, prefix: @talk.uri)
+        bucket = Settings.storage.media
+        media_storage = Storage.get(bucket, @talk.uri)
         expect(media_storage.files.get('1.ogg').content_type).to eq('audio/ogg')
       end
     end
@@ -251,8 +254,8 @@ describe Talk do
 
         # assert
         base = File.expand_path(Settings.fog.storage.local_root, Rails.root)
-        result = File.join(base, Settings.storage.media,
-                           talk.uri, talk.id.to_s + '.m4a')
+        bucket = Settings.storage.media.split('@').first
+        result = File.join(base, bucket, talk.uri, talk.id.to_s + '.m4a')
         expect(File.exist?(result)).to be_truthy
       end
     end
@@ -277,8 +280,8 @@ describe Talk do
         talk.update_current_state :postlive, true
         talk.send :postprocess!
         base = File.expand_path(Settings.fog.storage.local_root, Rails.root)
-        result = File.join(base, Settings.storage.media,
-                           talk.uri, talk.id.to_s + '.m4a')
+        bucket = Settings.storage.media.split('@').first
+        result = File.join(base, bucket, talk.uri, talk.id.to_s + '.m4a')
         ctime = File.ctime(result)
 
         # no we are in state `archived`, so we can do a `reprocess`
@@ -309,8 +312,8 @@ describe Talk do
         talk.update_current_state :postlive, true
         talk.send :postprocess!
         base = File.expand_path(Settings.fog.storage.local_root, Rails.root)
-        result = File.join(base, Settings.storage.media,
-                           talk.uri, talk.id.to_s + '.m4a')
+        bucket = Settings.storage.media.split('@').first
+        result = File.join(base, bucket, talk.uri, talk.id.to_s + '.m4a')
         ctime = File.ctime(result)
         # all of these should work, but for speed we only resort to the local file
         override = 'https://staging.voicerepublic.com/sonar.ogg'
