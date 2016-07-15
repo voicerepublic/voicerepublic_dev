@@ -2,9 +2,10 @@ module UploadsHelper
 
   def init_audio_uploader
     key = SecureRandom.uuid
+    bucket = Settings.storage.upload_audio.split('@').first
 
     params = {
-      uploadUrl: "https://#{Settings.storage.upload_audio}.s3.amazonaws.com",
+      uploadUrl: "https://#{bucket}.s3.amazonaws.com",
       key:       key,
       filter:    %w( ogg x-ogg
                      wav x-wav wave x-pn-wav
@@ -21,9 +22,10 @@ module UploadsHelper
 
   def init_slides_uploader
     key = SecureRandom.uuid
+    bucket = Settings.storage.upload_slides.split('@').first
 
     params = {
-      uploadUrl: "https://#{Settings.storage.upload_slides}.s3.amazonaws.com",
+      uploadUrl: "https://#{bucket}.s3.amazonaws.com",
       key:       key,
       filter:    'pdf',
       # `success` will be evaled on complete

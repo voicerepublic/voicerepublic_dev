@@ -928,7 +928,7 @@ class Talk < ActiveRecord::Base
 
     # with the current policy there is not need to talk to aws
     url = 'https://s3.amazonaws.com/%s/%s' %
-          [ Settings.storage.upload_audio, user_override_uuid ]
+          [ Settings.storage.upload_audio.split('@').first, user_override_uuid ]
 
     logger.info "URL: #{url}"
 
