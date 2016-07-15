@@ -276,7 +276,8 @@ class Talk < ActiveRecord::Base
       Rails.application.routes.url_helpers.root_url + "slides/#{id}"
     else
       # TODO make this a temporarily valid url
-      "https://#{Settings.storage.upload_slides}.s3.amazonaws.com/#{slides_uuid}"
+      bucket = Settings.storage.upload_slides.split('@').first
+      "https://#{bucket}.s3.amazonaws.com/#{slides_uuid}"
     end
   end
 
