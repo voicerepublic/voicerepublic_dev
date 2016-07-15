@@ -26,6 +26,8 @@ en:
         subject: Check out this talk on voicerepublic.com
         body: "Hi there\n\nCheck out this talk on voicerepublic.com: "
         closing: "\n\nBest regards\n"
+      in: in
+      days: days
     venues:
       streaming_server: 1. Connect to Streaming Server
       audio_source: 2. Choose Your Streaming Source
