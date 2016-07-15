@@ -52,9 +52,9 @@ end
 #  runner 'Sync::Rp16.new.sync'
 #end
 
-every 1.minute, roles: [:app] do
-  rake 'sync:ftp'
-end
+#every 1.minute, roles: [:app] do
+#  rake 'sync:ftp'
+#end
 
 every 24.hours, at: '3:00 am', roles: [:app] do
   rake 'cleanup:stop_disused_streaming_servers'
