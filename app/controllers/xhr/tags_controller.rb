@@ -5,7 +5,7 @@ class Xhr::TagsController < Xhr::BaseController
             where(["name ILIKE ?", "%#{params[:q]}%"]).
             order('promoted DESC', :name)
 
-    tags = scope.paginate(:page => params[:page], :per_page => params[:limit] || 10)
+    tags = scope.paginate(page: params[:page], per_page: params[:limit] || 10)
     render json: { tags: tags, total: scope.count }
   end
 
