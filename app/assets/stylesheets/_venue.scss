@@ -540,6 +540,10 @@ nav.top-bar {
     .button {
         margin: 0;
     }
+    .mute svg {
+        width: 2.5em;
+        height: 2.5em;
+    }
 }
 
 #venue-header {
@@ -655,7 +659,7 @@ nav.top-bar {
     .button {
         margin: 0;
         // width: 100%;
-   
+
     }
     tbody {
         border: none;
@@ -832,7 +836,7 @@ nav.top-bar {
             color: $panelOutlineColor;
             //text-transform: uppercase;
             //letter-spacing: rem-calc(.5)
-       
+
         }
         .neutral {
             background: currentColor;
@@ -874,7 +878,7 @@ nav.top-bar {
             // max-height: 46px;
             // font-size: .8rem;
             // padding-top: 16px;
-       
+
         }
         .label {
             background: none;
@@ -1235,7 +1239,7 @@ nav.top-bar {
         font-family: $body-font-family;
         margin: 0;
         // color: white;
-   
+
     }
     &.alert {
         background: $vr-red;
