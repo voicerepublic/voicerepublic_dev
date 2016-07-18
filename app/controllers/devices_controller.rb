@@ -1,7 +1,9 @@
 # TODO add some form of authorization, it's secure for now as long as
 # we have only a view devices, an attacker would have to guess the serial
 #
-class DevicesController < ApplicationController
+class DevicesController < BaseController
+
+  before_action :authenticate_user!
 
   layout 'velvet'
 
