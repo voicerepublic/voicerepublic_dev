@@ -2,697 +2,1356 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-  xmlns:dc="http://purl.org/dc/elements/1.1/"
-  xmlns:cc="http://creativecommons.org/ns#"
-  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-  xmlns:svg="http://www.w3.org/2000/svg"
-  xmlns="http://www.w3.org/2000/svg"
-  xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-  xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-  width="1052.3622"
-  height="744.09448"
-  id="svg2"
-  version="1.1"
-  inkscape:version="0.48.3.1 r9886"
-  sodipodi:docname="overview_pages.svg"
-  inkscape:export-filename="/home/phil/src/vr/dev/doc/overview_pages.png"
-  inkscape:export-xdpi="100"
-  inkscape:export-ydpi="100">
-  <defs id="defs4"/>
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="1052.3622"
+   height="744.09448"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.3.1 r9886"
+   sodipodi:docname="overview_pages.svg"
+   inkscape:export-filename="/home/phil/src/vr/dev/doc/overview_pages.png"
+   inkscape:export-xdpi="100"
+   inkscape:export-ydpi="100">
+  <defs
+     id="defs4" />
   <sodipodi:namedview
-    id="base"
-    pagecolor="#ffffff"
-    bordercolor="#666666"
-    borderopacity="1.0"
-    inkscape:pageopacity="0.0"
-    inkscape:pageshadow="2"
-    inkscape:zoom="0.89506958"
-    inkscape:cx="606.83195"
-    inkscape:cy="350.05232"
-    inkscape:document-units="px"
-    inkscape:current-layer="layer1"
-    showgrid="false"
-    inkscape:window-width="1596"
-    inkscape:window-height="864"
-    inkscape:window-x="0"
-    inkscape:window-y="34"
-    inkscape:window-maximized="0"/>
-  <metadata id="metadata7">
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.89506958"
+     inkscape:cx="606.83195"
+     inkscape:cy="350.05232"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1596"
+     inkscape:window-height="864"
+     inkscape:window-x="0"
+     inkscape:window-y="34"
+     inkscape:window-maximized="0" />
+  <metadata
+     id="metadata7">
     <rdf:RDF>
-      <cc:Work rdf:about="">
+      <cc:Work
+         rdf:about="">
         <dc:format>image/svg+xml</dc:format>
-        <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
         <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
-  <g inkscape:label="Layer 1" inkscape:groupmode="layer" id="layer1" transform="translate(0,-308.2677)">
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-308.2677)">
     <rect
-      style="color:#000000;fill:#000000;fill-opacity:0.07843137;fill-rule:nonzero;stroke:none;stroke-width:0.88582677;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-      id="rect4701"
-      width="358.55334"
-      height="744.07623"
-      x="694.5943"
-      y="308.28598"/>
+       style="color:#000000;fill:#000000;fill-opacity:0.07843137;fill-rule:nonzero;stroke:none;stroke-width:0.88582677;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect4701"
+       width="358.55334"
+       height="744.07623"
+       x="694.5943"
+       y="308.28598" />
     <text
-      xml:space="preserve"
-      style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial"
-      x="9.1509237"
-      y="448.54462"
-      id="text3100"
-      sodipodi:linespacing="125%">
-      <tspan sodipodi:role="line" id="tspan3102" x="9.1509237" y="448.54462">User</tspan>
-    </text>
+       xml:space="preserve"
+       style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial"
+       x="9.1509237"
+       y="448.54462"
+       id="text3100"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3102"
+         x="9.1509237"
+         y="448.54462">User</tspan></text>
     <text
-      xml:space="preserve"
-      style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial"
-      x="10.254439"
-      y="612.14954"
-      id="text3100-3"
-      sodipodi:linespacing="125%">
-      <tspan sodipodi:role="line" id="tspan3102-9" x="10.254439" y="612.14954">Talk</tspan>
-    </text>
+       xml:space="preserve"
+       style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial"
+       x="10.254439"
+       y="612.14954"
+       id="text3100-3"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3102-9"
+         x="10.254439"
+         y="612.14954">Talk</tspan></text>
     <text
-      xml:space="preserve"
-      style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial"
-      x="9.8247519"
-      y="823.86053"
-      id="text3100-9"
-      sodipodi:linespacing="125%">
-      <tspan sodipodi:role="line" id="tspan3102-94" x="9.8247519" y="823.86053">Series</tspan>
-    </text>
+       xml:space="preserve"
+       style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial"
+       x="9.8247519"
+       y="823.86053"
+       id="text3100-9"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3102-94"
+         x="9.8247519"
+         y="823.86053">Series</tspan></text>
     <text
-      xml:space="preserve"
-      style="font-size:72px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial"
-      x="9.1802206"
-      y="987.34338"
-      id="text3134"
-      sodipodi:linespacing="125%">
-      <tspan sodipodi:role="line" id="tspan3136" x="9.1802206" y="987.34338" style="font-size:20px;font-weight:normal;-inkscape-font-specification:Arial">Purchase</tspan>
-    </text>
+       xml:space="preserve"
+       style="font-size:72px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial"
+       x="9.1802206"
+       y="987.34338"
+       id="text3134"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3136"
+         x="9.1802206"
+         y="987.34338"
+         style="font-size:20px;font-weight:normal;-inkscape-font-specification:Arial">Purchase</tspan></text>
     <text
-      xml:space="preserve"
-      style="font-size:20px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial Bold"
-      x="153.91653"
-      y="375.39841"
-      id="text3142"
-      sodipodi:linespacing="125%">
-      <tspan sodipodi:role="line" id="tspan3144" x="153.91653" y="375.39841" style="font-weight:normal;-inkscape-font-specification:Arial">List</tspan>
-    </text>
-    <g id="g3960-4" transform="translate(-192.4824,152.386)">
+       xml:space="preserve"
+       style="font-size:20px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial Bold"
+       x="153.91653"
+       y="375.39841"
+       id="text3142"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3144"
+         x="153.91653"
+         y="375.39841"
+         style="font-weight:normal;-inkscape-font-specification:Arial">List</tspan></text>
+    <g
+       id="g3960-4"
+       transform="translate(-192.4824,152.386)">
       <rect
-        y="784.85925"
-        x="300.57233"
-        height="86.114174"
-        width="124.11417"
-        id="rect3098-4"
-        style="color:#000000;fill:#ffc022;stroke:#000000;stroke-width:0.88582677;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"/>
+         y="784.85925"
+         x="300.57233"
+         height="86.114174"
+         width="124.11417"
+         id="rect3098-4"
+         style="color:#000000;fill:#ffc022;stroke:#000000;stroke-width:0.88582677;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
       <text
-        sodipodi:linespacing="125%"
-        id="text3150-3"
-        y="795.57452"
-        x="304.23196"
-        style="font-size:20px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial Bold"
-        xml:space="preserve">
-        <tspan style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" y="795.57452" x="304.23196" id="tspan3152-4" sodipodi:role="line">Pricing</tspan><tspan id="tspan3952-9" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" y="808.07452" x="304.23196" sodipodi:role="line"/>
-        <tspan id="tspan3954-5" style="font-size:10px;font-style:italic;font-weight:normal;-inkscape-font-specification:Arial Italic" y="820.57452" x="304.23196" sodipodi:role="line">purchases#index</tspan><tspan id="tspan3956-6" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" y="833.07452" x="304.23196" sodipodi:role="line"/>
-        <tspan id="tspan3958-8" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" y="845.57452" x="304.23196" sodipodi:role="line">/pricing</tspan>
-        <tspan style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" y="858.07452" x="304.23196" sodipodi:role="line" id="tspan4152">/purchases</tspan>
-      </text>
+         sodipodi:linespacing="125%"
+         id="text3150-3"
+         y="795.57452"
+         x="304.23196"
+         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial Bold"
+         xml:space="preserve"><tspan
+           style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+           y="795.57452"
+           x="304.23196"
+           id="tspan3152-4"
+           sodipodi:role="line">Pricing</tspan><tspan
+           id="tspan3952-9"
+           style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+           y="808.07452"
+           x="304.23196"
+           sodipodi:role="line" /><tspan
+           id="tspan3954-5"
+           style="font-size:10px;font-style:italic;font-weight:normal;-inkscape-font-specification:Arial Italic"
+           y="820.57452"
+           x="304.23196"
+           sodipodi:role="line">purchases#index</tspan><tspan
+           id="tspan3956-6"
+           style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+           y="833.07452"
+           x="304.23196"
+           sodipodi:role="line" /><tspan
+           id="tspan3958-8"
+           style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+           y="845.57452"
+           x="304.23196"
+           sodipodi:role="line">/pricing</tspan><tspan
+           style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+           y="858.07452"
+           x="304.23196"
+           sodipodi:role="line"
+           id="tspan4152">/purchases</tspan></text>
     </g>
     <text
-      xml:space="preserve"
-      style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial"
-      x="565.11707"
-      y="375.39841"
-      id="text3146"
-      sodipodi:linespacing="125%">
-      <tspan sodipodi:role="line" id="tspan3148" x="565.11707" y="375.39841">Edit</tspan>
-    </text>
-    <g id="g3960-7-6" transform="translate(220.4564,-270.80164)">
+       xml:space="preserve"
+       style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial"
+       x="565.11707"
+       y="375.39841"
+       id="text3146"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3148"
+         x="565.11707"
+         y="375.39841">Edit</tspan></text>
+    <g
+       id="g3960-7-6"
+       transform="translate(220.4564,-270.80164)">
       <rect
-        y="784.85925"
-        x="300.57233"
-        height="86.114174"
-        width="124.11417"
-        id="rect3098-9-2"
-        style="color:#000000;fill:#ff4141;stroke:#000000;stroke-width:0.88582677;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"/>
+         y="784.85925"
+         x="300.57233"
+         height="86.114174"
+         width="124.11417"
+         id="rect3098-9-2"
+         style="color:#000000;fill:#ff4141;stroke:#000000;stroke-width:0.88582677;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
       <text
-        sodipodi:linespacing="125%"
-        id="text3150-0-8"
-        y="795.57452"
-        x="304.12943"
-        style="font-size:20px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial Bold"
-        xml:space="preserve">
-        <tspan style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" y="795.57452" x="304.12943" id="tspan3152-24-0" sodipodi:role="line">Edit Talk</tspan><tspan id="tspan3952-6-3" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" y="808.07452" x="304.12943" sodipodi:role="line"/>
-        <tspan id="tspan3954-1-2" style="font-size:10px;font-style:italic;font-weight:normal;-inkscape-font-specification:Arial Italic" y="820.57452" x="304.12943" sodipodi:role="line">talks#edit</tspan><tspan id="tspan3956-0-6" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" y="833.07452" x="304.12943" sodipodi:role="line"/>
-        <tspan id="tspan3958-21-8" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" y="845.57452" x="304.12943" sodipodi:role="line">/talks/:id/edit</tspan>
-      </text>
+         sodipodi:linespacing="125%"
+         id="text3150-0-8"
+         y="795.57452"
+         x="304.12943"
+         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial Bold"
+         xml:space="preserve"><tspan
+           style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+           y="795.57452"
+           x="304.12943"
+           id="tspan3152-24-0"
+           sodipodi:role="line">Edit Talk</tspan><tspan
+           id="tspan3952-6-3"
+           style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+           y="808.07452"
+           x="304.12943"
+           sodipodi:role="line" /><tspan
+           id="tspan3954-1-2"
+           style="font-size:10px;font-style:italic;font-weight:normal;-inkscape-font-specification:Arial Italic"
+           y="820.57452"
+           x="304.12943"
+           sodipodi:role="line">talks#edit</tspan><tspan
+           id="tspan3956-0-6"
+           style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+           y="833.07452"
+           x="304.12943"
+           sodipodi:role="line" /><tspan
+           id="tspan3958-21-8"
+           style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+           y="845.57452"
+           x="304.12943"
+           sodipodi:role="line">/talks/:id/edit</tspan></text>
     </g>
-    <g id="g3960-1-7" transform="translate(220.4564,-386.40786)">
+    <g
+       id="g3960-1-7"
+       transform="translate(220.4564,-386.40786)">
       <rect
-        y="784.85925"
-        x="300.57233"
-        height="86.114174"
-        width="124.11417"
-        id="rect3098-3-0"
-        style="color:#000000;fill:#9ade00;stroke:#000000;stroke-width:0.88582677;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"/>
+         y="784.85925"
+         x="300.57233"
+         height="86.114174"
+         width="124.11417"
+         id="rect3098-3-0"
+         style="color:#000000;fill:#9ade00;stroke:#000000;stroke-width:0.88582677;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
       <text
-        sodipodi:linespacing="125%"
-        id="text3150-1-3"
-        y="795.69659"
-        x="304.12943"
-        style="font-size:20px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial Bold"
-        xml:space="preserve">
-        <tspan style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" y="795.69659" x="304.12943" id="tspan3152-2-1" sodipodi:role="line">Edit Profile</tspan><tspan id="tspan3952-7-2" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" y="808.19659" x="304.12943" sodipodi:role="line"/>
-        <tspan id="tspan3954-7-1" style="font-size:10px;font-style:italic;font-weight:normal;-inkscape-font-specification:Arial Italic" y="820.69659" x="304.12943" sodipodi:role="line">users#edit</tspan><tspan id="tspan3956-2-4" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" y="833.19659" x="304.12943" sodipodi:role="line"/>
-        <tspan id="tspan3958-2-1" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" y="845.69659" x="304.12943" sodipodi:role="line">/users/:id/edit</tspan>
-      </text>
+         sodipodi:linespacing="125%"
+         id="text3150-1-3"
+         y="795.69659"
+         x="304.12943"
+         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial Bold"
+         xml:space="preserve"><tspan
+           style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+           y="795.69659"
+           x="304.12943"
+           id="tspan3152-2-1"
+           sodipodi:role="line">Edit Profile</tspan><tspan
+           id="tspan3952-7-2"
+           style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+           y="808.19659"
+           x="304.12943"
+           sodipodi:role="line" /><tspan
+           id="tspan3954-7-1"
+           style="font-size:10px;font-style:italic;font-weight:normal;-inkscape-font-specification:Arial Italic"
+           y="820.69659"
+           x="304.12943"
+           sodipodi:role="line">users#edit</tspan><tspan
+           id="tspan3956-2-4"
+           style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+           y="833.19659"
+           x="304.12943"
+           sodipodi:role="line" /><tspan
+           id="tspan3958-2-1"
+           style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+           y="845.69659"
+           x="304.12943"
+           sodipodi:role="line">/users/:id/edit</tspan></text>
     </g>
-    <g id="g3960-1-0" transform="translate(220.45637,-59.207815)">
+    <g
+       id="g3960-1-0"
+       transform="translate(220.45637,-59.207815)">
       <rect
-        y="784.85925"
-        x="300.57236"
-        height="86.114174"
-        width="124.11417"
-        id="rect3098-3-4"
-        style="color:#000000;fill:#ffc022;stroke:#000000;stroke-width:0.88582677;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"/>
+         y="784.85925"
+         x="300.57236"
+         height="86.114174"
+         width="124.11417"
+         id="rect3098-3-4"
+         style="color:#000000;fill:#ffc022;stroke:#000000;stroke-width:0.88582677;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
       <text
-        sodipodi:linespacing="125%"
-        id="text3150-1-1"
-        y="795.69659"
-        x="304.12946"
-        style="font-size:20px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial Bold"
-        xml:space="preserve">
-        <tspan style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" y="795.69659" x="304.12946" id="tspan3152-2-0" sodipodi:role="line">Edit Series</tspan><tspan id="tspan3952-7-1" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" y="808.19659" x="304.12946" sodipodi:role="line"/>
-        <tspan id="tspan3954-7-3" style="font-size:10px;font-style:italic;font-weight:normal;-inkscape-font-specification:Arial Italic" y="820.69659" x="304.12946" sodipodi:role="line">series#edit</tspan><tspan id="tspan3956-2-3" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" y="833.19659" x="304.12946" sodipodi:role="line"/>
-        <tspan id="tspan3958-2-3" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" y="845.69659" x="304.12946" sodipodi:role="line">/series/:id/edit</tspan>
-      </text>
+         sodipodi:linespacing="125%"
+         id="text3150-1-1"
+         y="795.69659"
+         x="304.12946"
+         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial Bold"
+         xml:space="preserve"><tspan
+           style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+           y="795.69659"
+           x="304.12946"
+           id="tspan3152-2-0"
+           sodipodi:role="line">Edit Series</tspan><tspan
+           id="tspan3952-7-1"
+           style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+           y="808.19659"
+           x="304.12946"
+           sodipodi:role="line" /><tspan
+           id="tspan3954-7-3"
+           style="font-size:10px;font-style:italic;font-weight:normal;-inkscape-font-specification:Arial Italic"
+           y="820.69659"
+           x="304.12946"
+           sodipodi:role="line">series#edit</tspan><tspan
+           id="tspan3956-2-3"
+           style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+           y="833.19659"
+           x="304.12946"
+           sodipodi:role="line" /><tspan
+           id="tspan3958-2-3"
+           style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+           y="845.69659"
+           x="304.12946"
+           sodipodi:role="line">/series/:id/edit</tspan></text>
     </g>
-    <g id="g3960-9" transform="translate(-54.836139,-59.207815)">
+    <g
+       id="g3960-9"
+       transform="translate(-54.836139,-59.207815)">
       <rect
-        y="784.85925"
-        x="300.57233"
-        height="86.114174"
-        width="124.11417"
-        id="rect3098-7"
-        style="color:#000000;fill:#ffc022;stroke:#000000;stroke-width:0.88582677;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"/>
+         y="784.85925"
+         x="300.57233"
+         height="86.114174"
+         width="124.11417"
+         id="rect3098-7"
+         style="color:#000000;fill:#ffc022;stroke:#000000;stroke-width:0.88582677;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
       <text
-        sodipodi:linespacing="125%"
-        id="text3150-2"
-        y="795.69659"
-        x="304.12943"
-        style="font-size:20px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial Bold"
-        xml:space="preserve">
-        <tspan style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" y="795.69659" x="304.12943" id="tspan3152-0" sodipodi:role="line">Create Series</tspan><tspan id="tspan3952-8" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" y="808.19659" x="304.12943" sodipodi:role="line"/>
-        <tspan id="tspan3954-3" style="font-size:10px;font-style:italic;font-weight:normal;-inkscape-font-specification:Arial Italic" y="820.69659" x="304.12943" sodipodi:role="line">series#new</tspan><tspan id="tspan3956-4" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" y="833.19659" x="304.12943" sodipodi:role="line"/>
-        <tspan id="tspan3958-9" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" y="845.69659" x="304.12943" sodipodi:role="line">/series/new</tspan>
-      </text>
+         sodipodi:linespacing="125%"
+         id="text3150-2"
+         y="795.69659"
+         x="304.12943"
+         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial Bold"
+         xml:space="preserve"><tspan
+           style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+           y="795.69659"
+           x="304.12943"
+           id="tspan3152-0"
+           sodipodi:role="line">Create Series</tspan><tspan
+           id="tspan3952-8"
+           style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+           y="808.19659"
+           x="304.12943"
+           sodipodi:role="line" /><tspan
+           id="tspan3954-3"
+           style="font-size:10px;font-style:italic;font-weight:normal;-inkscape-font-specification:Arial Italic"
+           y="820.69659"
+           x="304.12943"
+           sodipodi:role="line">series#new</tspan><tspan
+           id="tspan3956-4"
+           style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+           y="833.19659"
+           x="304.12943"
+           sodipodi:role="line" /><tspan
+           id="tspan3958-9"
+           style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+           y="845.69659"
+           x="304.12943"
+           sodipodi:role="line">/series/new</tspan></text>
     </g>
     <text
-      xml:space="preserve"
-      style="font-size:72px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial Bold"
-      x="277.67609"
-      y="375.39841"
-      id="text3138-8"
-      sodipodi:linespacing="125%">
-      <tspan sodipodi:role="line" id="tspan3140-3" x="277.67609" y="375.39841" style="font-size:20px;font-weight:normal;-inkscape-font-specification:Arial">Create</tspan>
-    </text>
-    <g id="g4739" transform="translate(-15.277266,-26.366955)">
-      <g transform="translate(-39.558873,-244.43475)" id="g3960">
+       xml:space="preserve"
+       style="font-size:72px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial Bold"
+       x="277.67609"
+       y="375.39841"
+       id="text3138-8"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3140-3"
+         x="277.67609"
+         y="375.39841"
+         style="font-size:20px;font-weight:normal;-inkscape-font-specification:Arial">Create</tspan></text>
+    <g
+       id="g4739"
+       transform="translate(-15.277266,-26.366955)">
+      <g
+         transform="translate(-39.558873,-244.43475)"
+         id="g3960">
         <rect
-          style="color:#000000;fill:#ff4141;stroke:#000000;stroke-width:0.88582677;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-          id="rect3098"
-          width="124.11417"
-          height="86.114174"
-          x="300.57233"
-          y="784.85931"/>
+           style="color:#000000;fill:#ff4141;stroke:#000000;stroke-width:0.88582677;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+           id="rect3098"
+           width="124.11417"
+           height="86.114174"
+           x="300.57233"
+           y="784.85931" />
         <text
-          xml:space="preserve"
-          style="font-size:20px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial Bold"
-          x="304.12943"
-          y="795.69666"
-          id="text3150"
-          sodipodi:linespacing="125%">
-          <tspan sodipodi:role="line" id="tspan3152" x="304.12943" y="795.69666" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial">Create Talk</tspan><tspan sodipodi:role="line" x="304.12943" y="808.19666" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" id="tspan3952"/>
-          <tspan sodipodi:role="line" x="304.12943" y="820.69666" style="font-size:10px;font-style:italic;font-weight:normal;-inkscape-font-specification:Arial Italic" id="tspan3954">talks#new</tspan><tspan sodipodi:role="line" x="304.12943" y="833.19666" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" id="tspan3956"/>
-          <tspan sodipodi:role="line" x="304.12943" y="845.69666" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" id="tspan3958">/talks/new</tspan>
-        </text>
+           xml:space="preserve"
+           style="font-size:20px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial Bold"
+           x="304.12943"
+           y="795.69666"
+           id="text3150"
+           sodipodi:linespacing="125%"><tspan
+             sodipodi:role="line"
+             id="tspan3152"
+             x="304.12943"
+             y="795.69666"
+             style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial">Create Talk</tspan><tspan
+             sodipodi:role="line"
+             x="304.12943"
+             y="808.19666"
+             style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+             id="tspan3952" /><tspan
+             sodipodi:role="line"
+             x="304.12943"
+             y="820.69666"
+             style="font-size:10px;font-style:italic;font-weight:normal;-inkscape-font-specification:Arial Italic"
+             id="tspan3954">talks#new</tspan><tspan
+             sodipodi:role="line"
+             x="304.12943"
+             y="833.19666"
+             style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+             id="tspan3956" /><tspan
+             sodipodi:role="line"
+             x="304.12943"
+             y="845.69666"
+             style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+             id="tspan3958">/talks/new</tspan></text>
       </g>
-      <g transform="translate(-39.558873,-148.44703)" id="g3960-7-9">
+      <g
+         transform="translate(-39.558873,-148.44703)"
+         id="g3960-7-9">
         <rect
-          style="color:#000000;fill:#ff4141;stroke:#000000;stroke-width:0.88582677;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-          id="rect3098-9-0"
-          width="124.11417"
-          height="86.114174"
-          x="300.57233"
-          y="784.85925"/>
+           style="color:#000000;fill:#ff4141;stroke:#000000;stroke-width:0.88582677;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+           id="rect3098-9-0"
+           width="124.11417"
+           height="86.114174"
+           x="300.57233"
+           y="784.85925" />
         <text
-          xml:space="preserve"
-          style="font-size:20px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial Bold"
-          x="304.12943"
-          y="795.57452"
-          id="text3150-0-7"
-          sodipodi:linespacing="125%">
-          <tspan sodipodi:role="line" id="tspan3152-24-6" x="304.12943" y="795.57452" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial">Upload Talk</tspan><tspan sodipodi:role="line" x="304.12943" y="808.07452" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" id="tspan3952-6-1"/>
-          <tspan sodipodi:role="line" x="304.12943" y="820.57452" style="font-size:10px;font-style:italic;font-weight:normal;-inkscape-font-specification:Arial Italic" id="tspan3954-1-8">uploads#new</tspan><tspan sodipodi:role="line" x="304.12943" y="833.07452" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" id="tspan3956-0-8"/>
-          <tspan sodipodi:role="line" x="304.12943" y="845.57452" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" id="tspan3958-21-5">/uploads/new</tspan>
-        </text>
+           xml:space="preserve"
+           style="font-size:20px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial Bold"
+           x="304.12943"
+           y="795.57452"
+           id="text3150-0-7"
+           sodipodi:linespacing="125%"><tspan
+             sodipodi:role="line"
+             id="tspan3152-24-6"
+             x="304.12943"
+             y="795.57452"
+             style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial">Upload Talk</tspan><tspan
+             sodipodi:role="line"
+             x="304.12943"
+             y="808.07452"
+             style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+             id="tspan3952-6-1" /><tspan
+             sodipodi:role="line"
+             x="304.12943"
+             y="820.57452"
+             style="font-size:10px;font-style:italic;font-weight:normal;-inkscape-font-specification:Arial Italic"
+             id="tspan3954-1-8">uploads#new</tspan><tspan
+             sodipodi:role="line"
+             x="304.12943"
+             y="833.07452"
+             style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+             id="tspan3956-0-8" /><tspan
+             sodipodi:role="line"
+             x="304.12943"
+             y="845.57452"
+             style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+             id="tspan3958-21-5">/uploads/new</tspan></text>
       </g>
     </g>
-    <g id="g3960-1-5" transform="translate(-54.836139,152.386)">
+    <g
+       id="g3960-1-5"
+       transform="translate(-54.836139,152.386)">
       <rect
-        y="784.85925"
-        x="300.57233"
-        height="86.114174"
-        width="124.11417"
-        id="rect3098-3-6"
-        style="color:#000000;fill:#ffc022;stroke:#000000;stroke-width:0.88582677;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"/>
+         y="784.85925"
+         x="300.57233"
+         height="86.114174"
+         width="124.11417"
+         id="rect3098-3-6"
+         style="color:#000000;fill:#ffc022;stroke:#000000;stroke-width:0.88582677;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
       <text
-        sodipodi:linespacing="125%"
-        id="text3150-1-9"
-        y="795.69659"
-        x="304.23196"
-        style="font-size:20px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial Bold"
-        xml:space="preserve">
-        <tspan style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" y="795.69659" x="304.23196" id="tspan3152-2-8" sodipodi:role="line">Confirm Purchase</tspan><tspan id="tspan3952-7-13" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" y="808.19659" x="304.23196" sodipodi:role="line"/>
-        <tspan id="tspan3954-7-8" style="font-size:10px;font-style:italic;font-weight:normal;-inkscape-font-specification:Arial Italic" y="820.69659" x="304.23196" sodipodi:role="line">purchases#new</tspan><tspan id="tspan3956-2-77" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" y="833.19659" x="304.23196" sodipodi:role="line"/>
-        <tspan id="tspan3958-2-6" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" y="845.69659" x="304.23196" sodipodi:role="line">/purchases/new</tspan>
-      </text>
+         sodipodi:linespacing="125%"
+         id="text3150-1-9"
+         y="795.69659"
+         x="304.23196"
+         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial Bold"
+         xml:space="preserve"><tspan
+           style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+           y="795.69659"
+           x="304.23196"
+           id="tspan3152-2-8"
+           sodipodi:role="line">Confirm Purchase</tspan><tspan
+           id="tspan3952-7-13"
+           style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+           y="808.19659"
+           x="304.23196"
+           sodipodi:role="line" /><tspan
+           id="tspan3954-7-8"
+           style="font-size:10px;font-style:italic;font-weight:normal;-inkscape-font-specification:Arial Italic"
+           y="820.69659"
+           x="304.23196"
+           sodipodi:role="line">purchases#new</tspan><tspan
+           id="tspan3956-2-77"
+           style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+           y="833.19659"
+           x="304.23196"
+           sodipodi:role="line" /><tspan
+           id="tspan3958-2-6"
+           style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+           y="845.69659"
+           x="304.23196"
+           sodipodi:role="line">/purchases/new</tspan></text>
     </g>
     <text
-      xml:space="preserve"
-      style="font-size:72px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial"
-      x="420.03427"
-      y="375.39841"
-      id="text3138"
-      sodipodi:linespacing="125%">
-      <tspan sodipodi:role="line" id="tspan3140" x="420.03427" y="375.39841" style="font-size:20px;font-weight:normal;-inkscape-font-specification:Arial">Show</tspan>
-    </text>
-    <g id="g3960-1" transform="translate(82.810132,-174.81398)">
+       xml:space="preserve"
+       style="font-size:72px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial"
+       x="420.03427"
+       y="375.39841"
+       id="text3138"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3140"
+         x="420.03427"
+         y="375.39841"
+         style="font-size:20px;font-weight:normal;-inkscape-font-specification:Arial">Show</tspan></text>
+    <g
+       id="g3960-1"
+       transform="translate(82.810132,-174.81398)">
       <rect
-        y="784.85925"
-        x="300.57233"
-        height="86.114174"
-        width="124.11417"
-        id="rect3098-3"
-        style="color:#000000;fill:#ffc022;stroke:#000000;stroke-width:0.88582677;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"/>
+         y="784.85925"
+         x="300.57233"
+         height="86.114174"
+         width="124.11417"
+         id="rect3098-3"
+         style="color:#000000;fill:#ffc022;stroke:#000000;stroke-width:0.88582677;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
       <text
-        sodipodi:linespacing="125%"
-        id="text3150-1"
-        y="795.57452"
-        x="304.12943"
-        style="font-size:20px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial Bold"
-        xml:space="preserve">
-        <tspan style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" y="795.57452" x="304.12943" id="tspan3152-2" sodipodi:role="line">Embed Talk</tspan><tspan id="tspan3952-7" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" y="808.07452" x="304.12943" sodipodi:role="line"/>
-        <tspan id="tspan3954-7" style="font-size:10px;font-style:italic;font-weight:normal;-inkscape-font-specification:Arial Italic" y="820.57452" x="304.12943" sodipodi:role="line">embed/talks#new</tspan><tspan id="tspan3956-2" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" y="833.07452" x="304.12943" sodipodi:role="line"/>
-        <tspan id="tspan3958-2" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" y="845.57452" x="304.12943" sodipodi:role="line">/embed/talks/:id</tspan>
-        <tspan style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" y="858.07452" x="304.12943" sodipodi:role="line" id="tspan5330">/embed/:id</tspan>
-      </text>
+         sodipodi:linespacing="125%"
+         id="text3150-1"
+         y="795.57452"
+         x="304.12943"
+         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial Bold"
+         xml:space="preserve"><tspan
+           style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+           y="795.57452"
+           x="304.12943"
+           id="tspan3152-2"
+           sodipodi:role="line">Embed Talk</tspan><tspan
+           id="tspan3952-7"
+           style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+           y="808.07452"
+           x="304.12943"
+           sodipodi:role="line" /><tspan
+           id="tspan3954-7"
+           style="font-size:10px;font-style:italic;font-weight:normal;-inkscape-font-specification:Arial Italic"
+           y="820.57452"
+           x="304.12943"
+           sodipodi:role="line">embed/talks#new</tspan><tspan
+           id="tspan3956-2"
+           style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+           y="833.07452"
+           x="304.12943"
+           sodipodi:role="line" /><tspan
+           id="tspan3958-2"
+           style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+           y="845.57452"
+           x="304.12943"
+           sodipodi:role="line">/embed/talks/:id</tspan><tspan
+           style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+           y="858.07452"
+           x="304.12943"
+           sodipodi:role="line"
+           id="tspan5330">/embed/:id</tspan></text>
     </g>
     <rect
-      style="color:#000000;fill:#ff4141;fill-opacity:0.94117647;stroke:#000000;stroke-width:0.88582677;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-      id="rect3098-9"
-      width="124.11417"
-      height="86.114174"
-      x="383.38245"
-      y="514.05762"/>
+       style="color:#000000;fill:#ff4141;fill-opacity:0.94117647;stroke:#000000;stroke-width:0.88582677;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect3098-9"
+       width="124.11417"
+       height="86.114174"
+       x="383.38245"
+       y="514.05762" />
     <text
-      xml:space="preserve"
-      style="font-size:20px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial Bold"
-      x="386.93954"
-      y="524.77289"
-      id="text3150-0"
-      sodipodi:linespacing="125%">
-      <tspan sodipodi:role="line" id="tspan3152-24" x="386.93954" y="524.77289" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial">Talk Page</tspan><tspan sodipodi:role="line" x="386.93954" y="537.27289" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" id="tspan3952-6"/>
-      <tspan sodipodi:role="line" x="386.93954" y="549.77289" style="font-size:10px;font-style:italic;font-weight:normal;-inkscape-font-specification:Arial Italic" id="tspan3954-1">talks#new</tspan><tspan sodipodi:role="line" x="386.93954" y="562.27289" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" id="tspan3956-0"/>
-      <tspan sodipodi:role="line" x="386.93954" y="574.77289" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" id="tspan3958-21">/talks/:id</tspan>
-      <tspan sodipodi:role="line" x="386.93954" y="587.27289" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" id="tspan5332">/talk/:id</tspan>
-    </text>
+       xml:space="preserve"
+       style="font-size:20px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial Bold"
+       x="386.93954"
+       y="524.77289"
+       id="text3150-0"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3152-24"
+         x="386.93954"
+         y="524.77289"
+         style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial">Talk Page</tspan><tspan
+         sodipodi:role="line"
+         x="386.93954"
+         y="537.27289"
+         style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+         id="tspan3952-6" /><tspan
+         sodipodi:role="line"
+         x="386.93954"
+         y="549.77289"
+         style="font-size:10px;font-style:italic;font-weight:normal;-inkscape-font-specification:Arial Italic"
+         id="tspan3954-1">talks#new</tspan><tspan
+         sodipodi:role="line"
+         x="386.93954"
+         y="562.27289"
+         style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+         id="tspan3956-0" /><tspan
+         sodipodi:role="line"
+         x="386.93954"
+         y="574.77289"
+         style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+         id="tspan3958-21">/talks/:id</tspan><tspan
+         sodipodi:role="line"
+         x="386.93954"
+         y="587.27289"
+         style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+         id="tspan5332">/talk/:id</tspan></text>
     <path
-      style="fill:none;stroke:#000000;stroke-width:0.88582677;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-      d="m 6.7033895,499.3116 677.0423405,0"
-      id="path5255"
-      inkscape:connector-curvature="0"/>
-    <path style="fill:none;stroke:#000000;stroke-width:0.88582677;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" d="m 6.70339,710.90541 677.04234,0" id="path5255-6" inkscape:connector-curvature="0"/>
-    <path style="fill:none;stroke:#000000;stroke-width:0.88582677;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" d="m 6.70339,922.49924 677.04234,0" id="path5255-2" inkscape:connector-curvature="0"/>
-    <g id="g3960-7-9-6" transform="translate(82.810132,-386.4078)">
+       style="fill:none;stroke:#000000;stroke-width:0.88582677;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 6.7033895,499.3116 677.0423405,0"
+       id="path5255"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.88582677;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 6.70339,710.90541 677.04234,0"
+       id="path5255-6"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.88582677;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 6.70339,922.49924 677.04234,0"
+       id="path5255-2"
+       inkscape:connector-curvature="0" />
+    <g
+       id="g3960-7-9-6"
+       transform="translate(82.810132,-386.4078)">
       <rect
-        y="784.85925"
-        x="300.57233"
-        height="86.114174"
-        width="124.11417"
-        id="rect3098-9-0-5"
-        style="color:#000000;fill:#9ade00;stroke:#000000;stroke-width:0.88582677;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"/>
+         y="784.85925"
+         x="300.57233"
+         height="86.114174"
+         width="124.11417"
+         id="rect3098-9-0-5"
+         style="color:#000000;fill:#9ade00;stroke:#000000;stroke-width:0.88582677;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
       <text
-        sodipodi:linespacing="125%"
-        id="text3150-0-7-3"
-        y="795.69659"
-        x="304.12943"
-        style="font-size:20px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial Bold"
-        xml:space="preserve">
-        <tspan style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" y="795.69659" x="304.12943" id="tspan3152-24-6-4" sodipodi:role="line">Profile Page</tspan><tspan id="tspan3952-6-1-5" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" y="808.19659" x="304.12943" sodipodi:role="line"/>
-        <tspan id="tspan3954-1-8-5" style="font-size:10px;font-style:italic;font-weight:normal;-inkscape-font-specification:Arial Italic" y="820.69659" x="304.12943" sodipodi:role="line">users#show</tspan><tspan id="tspan3956-0-8-2" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" y="833.19659" x="304.12943" sodipodi:role="line"/>
-        <tspan id="tspan3958-21-5-7" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" y="845.69659" x="304.12943" sodipodi:role="line">/users/:id</tspan>
-        <tspan style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" y="858.19659" x="304.12943" sodipodi:role="line" id="tspan4193">/onboard</tspan>
-      </text>
+         sodipodi:linespacing="125%"
+         id="text3150-0-7-3"
+         y="795.69659"
+         x="304.12943"
+         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial Bold"
+         xml:space="preserve"><tspan
+           style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+           y="795.69659"
+           x="304.12943"
+           id="tspan3152-24-6-4"
+           sodipodi:role="line">Profile Page</tspan><tspan
+           id="tspan3952-6-1-5"
+           style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+           y="808.19659"
+           x="304.12943"
+           sodipodi:role="line" /><tspan
+           id="tspan3954-1-8-5"
+           style="font-size:10px;font-style:italic;font-weight:normal;-inkscape-font-specification:Arial Italic"
+           y="820.69659"
+           x="304.12943"
+           sodipodi:role="line">users#show</tspan><tspan
+           id="tspan3956-0-8-2"
+           style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+           y="833.19659"
+           x="304.12943"
+           sodipodi:role="line" /><tspan
+           id="tspan3958-21-5-7"
+           style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+           y="845.69659"
+           x="304.12943"
+           sodipodi:role="line">/users/:id</tspan><tspan
+           style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+           y="858.19659"
+           x="304.12943"
+           sodipodi:role="line"
+           id="tspan4193">/onboard</tspan></text>
     </g>
-    <g id="g4721" transform="translate(-67.268538,-12.748468)">
-      <g transform="translate(150.07867,-46.459362)" id="g3960-1-3">
+    <g
+       id="g4721"
+       transform="translate(-67.268538,-12.748468)">
+      <g
+         transform="translate(150.07867,-46.459362)"
+         id="g3960-1-3">
         <rect
-          style="color:#000000;fill:#ffc022;stroke:#000000;stroke-width:0.88582677;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-          id="rect3098-3-2"
-          width="124.11417"
-          height="86.114174"
-          x="300.57233"
-          y="784.85925"/>
+           style="color:#000000;fill:#ffc022;stroke:#000000;stroke-width:0.88582677;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+           id="rect3098-3-2"
+           width="124.11417"
+           height="86.114174"
+           x="300.57233"
+           y="784.85925" />
         <text
-          xml:space="preserve"
-          style="font-size:20px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial Bold"
-          x="304.12943"
-          y="795.69659"
-          id="text3150-1-7"
-          sodipodi:linespacing="125%">
-          <tspan sodipodi:role="line" id="tspan3152-2-6" x="304.12943" y="795.69659" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial">Series Page</tspan><tspan sodipodi:role="line" x="304.12943" y="808.19659" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" id="tspan3952-7-28"/>
-          <tspan sodipodi:role="line" x="304.12943" y="820.69659" style="font-size:10px;font-style:italic;font-weight:normal;-inkscape-font-specification:Arial Italic" id="tspan3954-7-4">series#show</tspan><tspan sodipodi:role="line" x="304.12943" y="833.19659" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" id="tspan3956-2-0"/>
-          <tspan sodipodi:role="line" x="304.12943" y="845.69659" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" id="tspan3958-2-0">/series/:id</tspan>
-        </text>
+           xml:space="preserve"
+           style="font-size:20px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial Bold"
+           x="304.12943"
+           y="795.69659"
+           id="text3150-1-7"
+           sodipodi:linespacing="125%"><tspan
+             sodipodi:role="line"
+             id="tspan3152-2-6"
+             x="304.12943"
+             y="795.69659"
+             style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial">Series Page</tspan><tspan
+             sodipodi:role="line"
+             x="304.12943"
+             y="808.19659"
+             style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+             id="tspan3952-7-28" /><tspan
+             sodipodi:role="line"
+             x="304.12943"
+             y="820.69659"
+             style="font-size:10px;font-style:italic;font-weight:normal;-inkscape-font-specification:Arial Italic"
+             id="tspan3954-7-4">series#show</tspan><tspan
+             sodipodi:role="line"
+             x="304.12943"
+             y="833.19659"
+             style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+             id="tspan3956-2-0" /><tspan
+             sodipodi:role="line"
+             x="304.12943"
+             y="845.69659"
+             style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+             id="tspan3958-2-0">/series/:id</tspan></text>
       </g>
-      <g transform="translate(150.07696,49.528203)" id="g3960-1-2">
+      <g
+         transform="translate(150.07696,49.528203)"
+         id="g3960-1-2">
         <rect
-          style="color:#000000;fill:#ffc022;stroke:#000000;stroke-width:0.88582641;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-          id="rect3098-3-1"
-          width="124.11407"
-          height="86.114174"
-          x="300.57404"
-          y="784.85931"/>
+           style="color:#000000;fill:#ffc022;stroke:#000000;stroke-width:0.88582641;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+           id="rect3098-3-1"
+           width="124.11407"
+           height="86.114174"
+           x="300.57404"
+           y="784.85931" />
         <text
-          xml:space="preserve"
-          style="font-size:20px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial Bold"
-          x="304.13113"
-          y="795.69666"
-          id="text3150-1-36"
-          sodipodi:linespacing="125%">
-          <tspan sodipodi:role="line" id="tspan3152-2-7" x="304.13113" y="795.69666" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial">Embed Series</tspan><tspan sodipodi:role="line" x="304.13113" y="808.19666" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" id="tspan3952-7-3"/>
-          <tspan sodipodi:role="line" x="304.13113" y="820.69666" style="font-size:10px;font-style:italic;font-weight:normal;-inkscape-font-specification:Arial Italic" id="tspan3954-7-45">embed/series#show</tspan><tspan sodipodi:role="line" x="304.13113" y="833.19666" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" id="tspan3956-2-7"/>
-          <tspan sodipodi:role="line" x="304.13113" y="845.69666" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" id="tspan3958-2-9">/embed/series/:id</tspan>
-        </text>
+           xml:space="preserve"
+           style="font-size:20px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial Bold"
+           x="304.13113"
+           y="795.69666"
+           id="text3150-1-36"
+           sodipodi:linespacing="125%"><tspan
+             sodipodi:role="line"
+             id="tspan3152-2-7"
+             x="304.13113"
+             y="795.69666"
+             style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial">Embed Series</tspan><tspan
+             sodipodi:role="line"
+             x="304.13113"
+             y="808.19666"
+             style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+             id="tspan3952-7-3" /><tspan
+             sodipodi:role="line"
+             x="304.13113"
+             y="820.69666"
+             style="font-size:10px;font-style:italic;font-weight:normal;-inkscape-font-specification:Arial Italic"
+             id="tspan3954-7-45">embed/series#show</tspan><tspan
+             sodipodi:role="line"
+             x="304.13113"
+             y="833.19666"
+             style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+             id="tspan3956-2-7" /><tspan
+             sodipodi:role="line"
+             x="304.13113"
+             y="845.69666"
+             style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+             id="tspan3958-2-9">/embed/series/:id</tspan></text>
       </g>
     </g>
-    <g id="g3960-1-1" transform="translate(82.810132,152.386)">
+    <g
+       id="g3960-1-1"
+       transform="translate(82.810132,152.386)">
       <rect
-        y="784.85925"
-        x="300.57233"
-        height="86.114174"
-        width="124.11417"
-        id="rect3098-3-8"
-        style="color:#000000;fill:#ffc022;stroke:#000000;stroke-width:0.88582677;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"/>
+         y="784.85925"
+         x="300.57233"
+         height="86.114174"
+         width="124.11417"
+         id="rect3098-3-8"
+         style="color:#000000;fill:#ffc022;stroke:#000000;stroke-width:0.88582677;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
       <text
-        sodipodi:linespacing="125%"
-        id="text3150-1-8"
-        y="795.69659"
-        x="304.23196"
-        style="font-size:20px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial Bold"
-        xml:space="preserve">
-        <tspan style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" y="795.69659" x="304.23196" id="tspan3152-2-3" sodipodi:role="line">Purchase Confirmed</tspan><tspan id="tspan3952-7-9" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" y="808.19659" x="304.23196" sodipodi:role="line"/>
-        <tspan id="tspan3954-7-31" style="font-size:10px;font-style:italic;font-weight:normal;-inkscape-font-specification:Arial Italic" y="820.69659" x="304.23196" sodipodi:role="line">purchases#show</tspan><tspan id="tspan3956-2-8" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" y="833.19659" x="304.23196" sodipodi:role="line"/>
-        <tspan id="tspan3958-2-66" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" y="845.69659" x="304.23196" sodipodi:role="line">/purchases/:id</tspan>
-      </text>
+         sodipodi:linespacing="125%"
+         id="text3150-1-8"
+         y="795.69659"
+         x="304.23196"
+         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial Bold"
+         xml:space="preserve"><tspan
+           style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+           y="795.69659"
+           x="304.23196"
+           id="tspan3152-2-3"
+           sodipodi:role="line">Purchase Confirmed</tspan><tspan
+           id="tspan3952-7-9"
+           style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+           y="808.19659"
+           x="304.23196"
+           sodipodi:role="line" /><tspan
+           id="tspan3954-7-31"
+           style="font-size:10px;font-style:italic;font-weight:normal;-inkscape-font-specification:Arial Italic"
+           y="820.69659"
+           x="304.23196"
+           sodipodi:role="line">purchases#show</tspan><tspan
+           id="tspan3956-2-8"
+           style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+           y="833.19659"
+           x="304.23196"
+           sodipodi:role="line" /><tspan
+           id="tspan3958-2-66"
+           style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+           y="845.69659"
+           x="304.23196"
+           sodipodi:role="line">/purchases/:id</tspan></text>
     </g>
-    <g id="g5160" transform="translate(-16.000005,12.343797)">
-      <g transform="translate(444.15795,-356.82823)" id="g3960-1-35">
+    <g
+       id="g5160"
+       transform="translate(-16.000005,12.343797)">
+      <g
+         transform="translate(444.15795,-356.82823)"
+         id="g3960-1-35">
         <rect
-          style="color:#000000;fill:#9ade00;stroke:#000000;stroke-width:0.88582677;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-          id="rect3098-3-5"
-          width="124.11417"
-          height="86.114174"
-          x="300.57233"
-          y="784.85925"/>
+           style="color:#000000;fill:#9ade00;stroke:#000000;stroke-width:0.88582677;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+           id="rect3098-3-5"
+           width="124.11417"
+           height="86.114174"
+           x="300.57233"
+           y="784.85925" />
         <text
-          xml:space="preserve"
-          style="font-size:20px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial Bold"
-          x="304.12943"
-          y="795.69659"
-          id="text3150-1-6"
-          sodipodi:linespacing="125%">
-          <tspan sodipodi:role="line" id="tspan3152-2-9" x="304.12943" y="795.69659" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial">Start Page</tspan><tspan sodipodi:role="line" x="304.12943" y="808.19659" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" id="tspan3952-7-8"/>
-          <tspan sodipodi:role="line" x="304.12943" y="820.69659" style="font-size:10px;font-style:italic;font-weight:normal;-inkscape-font-specification:Arial Italic" id="tspan3954-7-6">root#index</tspan><tspan sodipodi:role="line" x="304.12943" y="833.19659" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" id="tspan3956-2-1"/>
-          <tspan id="tspan4572" sodipodi:role="line" x="304.12943" y="845.69659" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial">/</tspan>
-        </text>
+           xml:space="preserve"
+           style="font-size:20px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial Bold"
+           x="304.12943"
+           y="795.69659"
+           id="text3150-1-6"
+           sodipodi:linespacing="125%"><tspan
+             sodipodi:role="line"
+             id="tspan3152-2-9"
+             x="304.12943"
+             y="795.69659"
+             style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial">Start Page</tspan><tspan
+             sodipodi:role="line"
+             x="304.12943"
+             y="808.19659"
+             style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+             id="tspan3952-7-8" /><tspan
+             sodipodi:role="line"
+             x="304.12943"
+             y="820.69659"
+             style="font-size:10px;font-style:italic;font-weight:normal;-inkscape-font-specification:Arial Italic"
+             id="tspan3954-7-6">root#index</tspan><tspan
+             sodipodi:role="line"
+             x="304.12943"
+             y="833.19659"
+             style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+             id="tspan3956-2-1" /><tspan
+             id="tspan4572"
+             sodipodi:role="line"
+             x="304.12943"
+             y="845.69659"
+             style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial">/</tspan></text>
       </g>
-      <g transform="translate(444.15795,-71.551612)" id="g3960-1-6">
+      <g
+         transform="translate(444.15795,-71.551612)"
+         id="g3960-1-6">
         <rect
-          style="color:#000000;fill:#ffc022;stroke:#000000;stroke-width:0.88582677;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-          id="rect3098-3-9"
-          width="124.11417"
-          height="86.114174"
-          x="300.57233"
-          y="784.85925"/>
+           style="color:#000000;fill:#ffc022;stroke:#000000;stroke-width:0.88582677;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+           id="rect3098-3-9"
+           width="124.11417"
+           height="86.114174"
+           x="300.57233"
+           y="784.85925" />
         <text
-          xml:space="preserve"
-          style="font-size:20px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial Bold"
-          x="304.23196"
-          y="795.70148"
-          id="text3150-1-77"
-          sodipodi:linespacing="125%">
-          <tspan sodipodi:role="line" id="tspan3152-2-98" x="304.23196" y="795.70148" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial">Outdated Browser</tspan><tspan sodipodi:role="line" x="304.23196" y="808.20148" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" id="tspan3952-7-17"/>
-          <tspan sodipodi:role="line" x="304.23196" y="820.70148" style="font-size:10px;font-style:italic;font-weight:normal;-inkscape-font-specification:Arial Italic" id="tspan3954-7-5">pages#outdated_browser</tspan><tspan sodipodi:role="line" x="304.23196" y="833.20148" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" id="tspan3956-2-03"/>
-          <tspan sodipodi:role="line" x="304.23196" y="845.70148" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" id="tspan3958-2-98">/pages/outdated_browser</tspan>
-        </text>
+           xml:space="preserve"
+           style="font-size:20px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial Bold"
+           x="304.23196"
+           y="795.70148"
+           id="text3150-1-77"
+           sodipodi:linespacing="125%"><tspan
+             sodipodi:role="line"
+             id="tspan3152-2-98"
+             x="304.23196"
+             y="795.70148"
+             style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial">Outdated Browser</tspan><tspan
+             sodipodi:role="line"
+             x="304.23196"
+             y="808.20148"
+             style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+             id="tspan3952-7-17" /><tspan
+             sodipodi:role="line"
+             x="304.23196"
+             y="820.70148"
+             style="font-size:10px;font-style:italic;font-weight:normal;-inkscape-font-specification:Arial Italic"
+             id="tspan3954-7-5">pages#outdated_browser</tspan><tspan
+             sodipodi:role="line"
+             x="304.23196"
+             y="833.20148"
+             style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+             id="tspan3956-2-03" /><tspan
+             sodipodi:role="line"
+             x="304.23196"
+             y="845.70148"
+             style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+             id="tspan3958-2-98">/pages/outdated_browser</tspan></text>
       </g>
-      <g transform="translate(444.15795,-261.736)" id="g3960-1-48">
+      <g
+         transform="translate(444.15795,-261.736)"
+         id="g3960-1-48">
         <rect
-          style="color:#000000;fill:#ffc022;stroke:#000000;stroke-width:0.88582677;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-          id="rect3098-3-21"
-          width="124.11417"
-          height="86.114174"
-          x="300.57233"
-          y="784.85925"/>
+           style="color:#000000;fill:#ffc022;stroke:#000000;stroke-width:0.88582677;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+           id="rect3098-3-21"
+           width="124.11417"
+           height="86.114174"
+           x="300.57233"
+           y="784.85925" />
         <text
-          xml:space="preserve"
-          style="font-size:20px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial Bold"
-          x="304.23196"
-          y="795.57452"
-          id="text3150-1-80"
-          sodipodi:linespacing="125%">
-          <tspan sodipodi:role="line" id="tspan3152-2-07" x="304.23196" y="795.57452" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial">Publish</tspan><tspan sodipodi:role="line" x="304.23196" y="808.07452" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" id="tspan3952-7-49"/>
-          <tspan sodipodi:role="line" x="304.23196" y="820.57452" style="font-size:10px;font-style:italic;font-weight:normal;-inkscape-font-specification:Arial Italic" id="tspan3954-7-09">pages#publish</tspan><tspan sodipodi:role="line" x="304.23196" y="833.07452" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" id="tspan3956-2-85"/>
-          <tspan sodipodi:role="line" x="304.23196" y="845.57452" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" id="tspan3958-2-667">/pages/publish</tspan>
-        </text>
+           xml:space="preserve"
+           style="font-size:20px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial Bold"
+           x="304.23196"
+           y="795.57452"
+           id="text3150-1-80"
+           sodipodi:linespacing="125%"><tspan
+             sodipodi:role="line"
+             id="tspan3152-2-07"
+             x="304.23196"
+             y="795.57452"
+             style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial">Publish</tspan><tspan
+             sodipodi:role="line"
+             x="304.23196"
+             y="808.07452"
+             style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+             id="tspan3952-7-49" /><tspan
+             sodipodi:role="line"
+             x="304.23196"
+             y="820.57452"
+             style="font-size:10px;font-style:italic;font-weight:normal;-inkscape-font-specification:Arial Italic"
+             id="tspan3954-7-09">pages#publish</tspan><tspan
+             sodipodi:role="line"
+             x="304.23196"
+             y="833.07452"
+             style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+             id="tspan3956-2-85" /><tspan
+             sodipodi:role="line"
+             x="304.23196"
+             y="845.57452"
+             style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+             id="tspan3958-2-667">/pages/publish</tspan></text>
       </g>
-      <g transform="translate(444.15795,-166.64381)" id="g3960-1-32">
+      <g
+         transform="translate(444.15795,-166.64381)"
+         id="g3960-1-32">
         <rect
-          style="color:#000000;fill:#ffc022;stroke:#000000;stroke-width:0.88582677;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-          id="rect3098-3-59"
-          width="124.11417"
-          height="86.114174"
-          x="300.57233"
-          y="784.85925"/>
+           style="color:#000000;fill:#ffc022;stroke:#000000;stroke-width:0.88582677;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+           id="rect3098-3-59"
+           width="124.11417"
+           height="86.114174"
+           x="300.57233"
+           y="784.85925" />
         <text
-          xml:space="preserve"
-          style="font-size:20px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial Bold"
-          x="304.23196"
-          y="795.57452"
-          id="text3150-1-5"
-          sodipodi:linespacing="125%">
-          <tspan sodipodi:role="line" id="tspan3152-2-49" x="304.23196" y="795.57452" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial">Listen</tspan><tspan sodipodi:role="line" x="304.23196" y="808.07452" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" id="tspan3952-7-26"/>
-          <tspan sodipodi:role="line" x="304.23196" y="820.57452" style="font-size:10px;font-style:italic;font-weight:normal;-inkscape-font-specification:Arial Italic" id="tspan3954-7-70">pages#listen</tspan><tspan sodipodi:role="line" x="304.23196" y="833.07452" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" id="tspan3956-2-88"/>
-          <tspan sodipodi:role="line" x="304.23196" y="845.57452" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" id="tspan3958-2-44">/pages/listen</tspan>
-        </text>
+           xml:space="preserve"
+           style="font-size:20px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial Bold"
+           x="304.23196"
+           y="795.57452"
+           id="text3150-1-5"
+           sodipodi:linespacing="125%"><tspan
+             sodipodi:role="line"
+             id="tspan3152-2-49"
+             x="304.23196"
+             y="795.57452"
+             style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial">Listen</tspan><tspan
+             sodipodi:role="line"
+             x="304.23196"
+             y="808.07452"
+             style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+             id="tspan3952-7-26" /><tspan
+             sodipodi:role="line"
+             x="304.23196"
+             y="820.57452"
+             style="font-size:10px;font-style:italic;font-weight:normal;-inkscape-font-specification:Arial Italic"
+             id="tspan3954-7-70">pages#listen</tspan><tspan
+             sodipodi:role="line"
+             x="304.23196"
+             y="833.07452"
+             style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+             id="tspan3956-2-88" /><tspan
+             sodipodi:role="line"
+             x="304.23196"
+             y="845.57452"
+             style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+             id="tspan3958-2-44">/pages/listen</tspan></text>
       </g>
     </g>
-    <g id="g5142" transform="translate(-16,14.45546)">
-      <g transform="translate(604.14625,44.708011)" id="g3960-1-78">
+    <g
+       id="g5142"
+       transform="translate(-16,14.45546)">
+      <g
+         transform="translate(604.14625,44.708011)"
+         id="g3960-1-78">
         <rect
-          style="color:#000000;fill:#9ade00;stroke:#000000;stroke-width:0.88582677;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-          id="rect3098-3-65"
-          width="124.11417"
-          height="86.114174"
-          x="300.57233"
-          y="784.85925"/>
+           style="color:#000000;fill:#9ade00;stroke:#000000;stroke-width:0.88582677;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+           id="rect3098-3-65"
+           width="124.11417"
+           height="86.114174"
+           x="300.57233"
+           y="784.85925" />
         <text
-          xml:space="preserve"
-          style="font-size:20px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial Bold"
-          x="304.12943"
-          y="795.69659"
-          id="text3150-1-88"
-          sodipodi:linespacing="125%">
-          <tspan sodipodi:role="line" id="tspan3152-2-2" x="304.12943" y="795.69659" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial">Categories</tspan><tspan sodipodi:role="line" x="304.12943" y="808.19659" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" id="tspan3952-7-59"/>
-          <tspan sodipodi:role="line" x="304.12943" y="820.69659" style="font-size:10px;font-style:italic;font-weight:normal;-inkscape-font-specification:Arial Italic" id="tspan3954-7-44">explore#index</tspan><tspan sodipodi:role="line" x="304.12943" y="833.19659" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" id="tspan3956-2-70"/>
-          <tspan sodipodi:role="line" x="304.12943" y="845.69659" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" id="tspan3958-2-06">/explore</tspan>
-        </text>
+           xml:space="preserve"
+           style="font-size:20px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial Bold"
+           x="304.12943"
+           y="795.69659"
+           id="text3150-1-88"
+           sodipodi:linespacing="125%"><tspan
+             sodipodi:role="line"
+             id="tspan3152-2-2"
+             x="304.12943"
+             y="795.69659"
+             style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial">Categories</tspan><tspan
+             sodipodi:role="line"
+             x="304.12943"
+             y="808.19659"
+             style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+             id="tspan3952-7-59" /><tspan
+             sodipodi:role="line"
+             x="304.12943"
+             y="820.69659"
+             style="font-size:10px;font-style:italic;font-weight:normal;-inkscape-font-specification:Arial Italic"
+             id="tspan3954-7-44">explore#index</tspan><tspan
+             sodipodi:role="line"
+             x="304.12943"
+             y="833.19659"
+             style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+             id="tspan3956-2-70" /><tspan
+             sodipodi:role="line"
+             x="304.12943"
+             y="845.69659"
+             style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+             id="tspan3958-2-06">/explore</tspan></text>
       </g>
-      <g transform="translate(604.14625,137.93054)" id="g3960-1-9">
+      <g
+         transform="translate(604.14625,137.93054)"
+         id="g3960-1-9">
         <rect
-          style="color:#000000;fill:#ffc022;stroke:#000000;stroke-width:0.88582677;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-          id="rect3098-3-40"
-          width="124.11417"
-          height="86.114174"
-          x="300.57233"
-          y="784.85925"/>
+           style="color:#000000;fill:#ffc022;stroke:#000000;stroke-width:0.88582677;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+           id="rect3098-3-40"
+           width="124.11417"
+           height="86.114174"
+           x="300.57233"
+           y="784.85925" />
         <text
-          xml:space="preserve"
-          style="font-size:20px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial Bold"
-          x="304.12943"
-          y="795.69659"
-          id="text3150-1-4"
-          sodipodi:linespacing="125%">
-          <tspan sodipodi:role="line" id="tspan3152-2-36" x="304.12943" y="795.69659" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial">Search Results</tspan><tspan sodipodi:role="line" x="304.12943" y="808.19659" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" id="tspan3952-7-15"/>
-          <tspan sodipodi:role="line" x="304.12943" y="820.69659" style="font-size:10px;font-style:italic;font-weight:normal;-inkscape-font-specification:Arial Italic" id="tspan3954-7-07">search#show</tspan><tspan sodipodi:role="line" x="304.12943" y="833.19659" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" id="tspan3956-2-22"/>
-          <tspan sodipodi:role="line" x="304.12943" y="845.69659" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" id="tspan3958-2-60">/search/:page/*query</tspan>
-        </text>
+           xml:space="preserve"
+           style="font-size:20px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial Bold"
+           x="304.12943"
+           y="795.69659"
+           id="text3150-1-4"
+           sodipodi:linespacing="125%"><tspan
+             sodipodi:role="line"
+             id="tspan3152-2-36"
+             x="304.12943"
+             y="795.69659"
+             style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial">Search Results</tspan><tspan
+             sodipodi:role="line"
+             x="304.12943"
+             y="808.19659"
+             style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+             id="tspan3952-7-15" /><tspan
+             sodipodi:role="line"
+             x="304.12943"
+             y="820.69659"
+             style="font-size:10px;font-style:italic;font-weight:normal;-inkscape-font-specification:Arial Italic"
+             id="tspan3954-7-07">search#show</tspan><tspan
+             sodipodi:role="line"
+             x="304.12943"
+             y="833.19659"
+             style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+             id="tspan3956-2-22" /><tspan
+             sodipodi:role="line"
+             x="304.12943"
+             y="845.69659"
+             style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+             id="tspan3958-2-60">/search/:page/*query</tspan></text>
       </g>
     </g>
-    <g id="g5124" transform="translate(-16,14.45546)">
-      <g transform="translate(444.15795,44.708011)" id="g3960-1-78-8">
+    <g
+       id="g5124"
+       transform="translate(-16,14.45546)">
+      <g
+         transform="translate(444.15795,44.708011)"
+         id="g3960-1-78-8">
         <rect
-          style="color:#000000;fill:#ffc022;stroke:#000000;stroke-width:0.88582677;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-          id="rect3098-3-65-2"
-          width="124.11417"
-          height="86.114174"
-          x="300.57233"
-          y="784.85925"/>
+           style="color:#000000;fill:#ffc022;stroke:#000000;stroke-width:0.88582677;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+           id="rect3098-3-65-2"
+           width="124.11417"
+           height="86.114174"
+           x="300.57233"
+           y="784.85925" />
         <text
-          xml:space="preserve"
-          style="font-size:20px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial Bold"
-          x="304.00247"
-          y="795.60382"
-          id="text3150-1-88-7"
-          sodipodi:linespacing="125%">
-          <tspan sodipodi:role="line" id="tspan3152-2-2-7" x="304.00247" y="795.60382" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial">404</tspan><tspan sodipodi:role="line" x="304.00247" y="808.10382" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" id="tspan3952-7-59-0"/>
-          <tspan sodipodi:role="line" x="304.00247" y="820.60382" style="font-size:10px;font-style:italic;font-weight:normal;-inkscape-font-specification:Arial Italic" id="tspan3954-7-44-4">errors#404</tspan><tspan sodipodi:role="line" x="304.00247" y="833.10382" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" id="tspan3956-2-70-7"/><tspan sodipodi:role="line" x="304.00247" y="845.60382" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" id="tspan3958-2-06-1"/></text>
+           xml:space="preserve"
+           style="font-size:20px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial Bold"
+           x="304.00247"
+           y="795.60382"
+           id="text3150-1-88-7"
+           sodipodi:linespacing="125%"><tspan
+             sodipodi:role="line"
+             id="tspan3152-2-2-7"
+             x="304.00247"
+             y="795.60382"
+             style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial">404</tspan><tspan
+             sodipodi:role="line"
+             x="304.00247"
+             y="808.10382"
+             style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+             id="tspan3952-7-59-0" /><tspan
+             sodipodi:role="line"
+             x="304.00247"
+             y="820.60382"
+             style="font-size:10px;font-style:italic;font-weight:normal;-inkscape-font-specification:Arial Italic"
+             id="tspan3954-7-44-4">errors#404</tspan><tspan
+             sodipodi:role="line"
+             x="304.00247"
+             y="833.10382"
+             style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+             id="tspan3956-2-70-7" /><tspan
+             sodipodi:role="line"
+             x="304.00247"
+             y="845.60382"
+             style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+             id="tspan3958-2-06-1" /></text>
       </g>
-      <g transform="translate(444.15795,137.93054)" id="g3960-1-9-9">
+      <g
+         transform="translate(444.15795,137.93054)"
+         id="g3960-1-9-9">
         <rect
-          style="color:#000000;fill:#ffc022;stroke:#000000;stroke-width:0.88582677;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-          id="rect3098-3-40-2"
-          width="124.11417"
-          height="86.114174"
-          x="300.57233"
-          y="784.85925"/>
+           style="color:#000000;fill:#ffc022;stroke:#000000;stroke-width:0.88582677;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+           id="rect3098-3-40-2"
+           width="124.11417"
+           height="86.114174"
+           x="300.57233"
+           y="784.85925" />
         <text
-          xml:space="preserve"
-          style="font-size:20px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial Bold"
-          x="303.71439"
-          y="795.60382"
-          id="text3150-1-4-0"
-          sodipodi:linespacing="125%">
-          <tspan sodipodi:role="line" id="tspan3152-2-36-3" x="303.71439" y="795.60382" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial">500</tspan><tspan sodipodi:role="line" x="303.71439" y="808.10382" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" id="tspan3952-7-15-7"/>
-          <tspan sodipodi:role="line" x="303.71439" y="820.60382" style="font-size:10px;font-style:italic;font-weight:normal;-inkscape-font-specification:Arial Italic" id="tspan3954-7-07-0">errors#500</tspan><tspan sodipodi:role="line" x="303.71439" y="833.10382" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" id="tspan3956-2-22-3"/><tspan sodipodi:role="line" x="303.71439" y="845.60382" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" id="tspan3958-2-60-9"/></text>
+           xml:space="preserve"
+           style="font-size:20px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial Bold"
+           x="303.71439"
+           y="795.60382"
+           id="text3150-1-4-0"
+           sodipodi:linespacing="125%"><tspan
+             sodipodi:role="line"
+             id="tspan3152-2-36-3"
+             x="303.71439"
+             y="795.60382"
+             style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial">500</tspan><tspan
+             sodipodi:role="line"
+             x="303.71439"
+             y="808.10382"
+             style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+             id="tspan3952-7-15-7" /><tspan
+             sodipodi:role="line"
+             x="303.71439"
+             y="820.60382"
+             style="font-size:10px;font-style:italic;font-weight:normal;-inkscape-font-specification:Arial Italic"
+             id="tspan3954-7-07-0">errors#500</tspan><tspan
+             sodipodi:role="line"
+             x="303.71439"
+             y="833.10382"
+             style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+             id="tspan3956-2-22-3" /><tspan
+             sodipodi:role="line"
+             x="303.71439"
+             y="845.60382"
+             style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+             id="tspan3958-2-60-9" /></text>
       </g>
     </g>
-    <g id="g5194" transform="translate(-16,12.343797)">
-      <g transform="matrix(1.0000518,0,0,0.99992228,603.0549,-371.0896)" id="g3960-1-79">
+    <g
+       id="g5194"
+       transform="translate(-16,12.343797)">
+      <g
+         transform="matrix(1.0000518,0,0,0.99992228,603.0549,-371.0896)"
+         id="g3960-1-79">
         <rect
-          style="color:#000000;fill:#9ade00;stroke:#000000;stroke-width:0.88583827;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-          id="rect3098-3-92"
-          width="123.7193"
-          height="85.732498"
-          x="300.76654"
-          y="799.57111"/>
+           style="color:#000000;fill:#9ade00;stroke:#000000;stroke-width:0.88583827;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+           id="rect3098-3-92"
+           width="123.7193"
+           height="85.732498"
+           x="300.76654"
+           y="799.57111" />
         <text
-          xml:space="preserve"
-          style="font-size:20px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial Bold"
-          x="304.77859"
-          y="813.75427"
-          id="text3150-1-823"
-          sodipodi:linespacing="125%">
-          <tspan sodipodi:role="line" id="tspan3152-2-93" x="304.77859" y="813.75427" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial">Confirm Email</tspan><tspan sodipodi:role="line" x="304.77859" y="826.25427" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" id="tspan3952-7-4"/>
-          <tspan sodipodi:role="line" x="304.77859" y="838.75427" style="font-size:10px;font-style:italic;font-weight:normal;-inkscape-font-specification:Arial Italic" id="tspan3954-7-62">users/confirmation#show</tspan><tspan sodipodi:role="line" x="304.77859" y="851.25427" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" id="tspan3956-2-5"/>
-          <tspan sodipodi:role="line" x="304.77859" y="863.75427" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" id="tspan3958-2-65">/users/confirmation</tspan>
-        </text>
+           xml:space="preserve"
+           style="font-size:20px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial Bold"
+           x="304.77859"
+           y="813.75427"
+           id="text3150-1-823"
+           sodipodi:linespacing="125%"><tspan
+             sodipodi:role="line"
+             id="tspan3152-2-93"
+             x="304.77859"
+             y="813.75427"
+             style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial">Confirm Email</tspan><tspan
+             sodipodi:role="line"
+             x="304.77859"
+             y="826.25427"
+             style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+             id="tspan3952-7-4" /><tspan
+             sodipodi:role="line"
+             x="304.77859"
+             y="838.75427"
+             style="font-size:10px;font-style:italic;font-weight:normal;-inkscape-font-specification:Arial Italic"
+             id="tspan3954-7-62">users/confirmation#show</tspan><tspan
+             sodipodi:role="line"
+             x="304.77859"
+             y="851.25427"
+             style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+             id="tspan3956-2-5" /><tspan
+             sodipodi:role="line"
+             x="304.77859"
+             y="863.75427"
+             style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+             id="tspan3958-2-65">/users/confirmation</tspan></text>
       </g>
-      <g transform="translate(603.0704,-451.72627)" id="g3960-1-61">
+      <g
+         transform="translate(603.0704,-451.72627)"
+         id="g3960-1-61">
         <rect
-          style="color:#000000;fill:#9ade00;stroke:#000000;stroke-width:0.88582677;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-          id="rect3098-3-7"
-          width="123.72578"
-          height="85.725784"
-          x="300.76651"
-          y="785.05347"/>
+           style="color:#000000;fill:#9ade00;stroke:#000000;stroke-width:0.88582677;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+           id="rect3098-3-7"
+           width="123.72578"
+           height="85.725784"
+           x="300.76651"
+           y="785.05347" />
         <text
-          xml:space="preserve"
-          style="font-size:20px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial Bold"
-          x="304.12939"
-          y="795.69666"
-          id="text3150-1-0"
-          sodipodi:linespacing="125%">
-          <tspan sodipodi:role="line" id="tspan3152-2-70" x="304.12939" y="795.69666" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial">Sign Up/Join</tspan><tspan sodipodi:role="line" x="304.12939" y="808.19666" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" id="tspan3952-7-5"/>
-          <tspan sodipodi:role="line" x="304.12939" y="820.69666" style="font-size:10px;font-style:italic;font-weight:normal;-inkscape-font-specification:Arial Italic" id="tspan3954-7-72">users/registrations#new</tspan><tspan sodipodi:role="line" x="304.12939" y="833.19666" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" id="tspan3956-2-9"/>
-          <tspan sodipodi:role="line" x="304.12939" y="845.69666" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" id="tspan3958-2-4">/sign_up</tspan>
-        </text>
+           xml:space="preserve"
+           style="font-size:20px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial Bold"
+           x="304.12939"
+           y="795.69666"
+           id="text3150-1-0"
+           sodipodi:linespacing="125%"><tspan
+             sodipodi:role="line"
+             id="tspan3152-2-70"
+             x="304.12939"
+             y="795.69666"
+             style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial">Sign Up/Join</tspan><tspan
+             sodipodi:role="line"
+             x="304.12939"
+             y="808.19666"
+             style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+             id="tspan3952-7-5" /><tspan
+             sodipodi:role="line"
+             x="304.12939"
+             y="820.69666"
+             style="font-size:10px;font-style:italic;font-weight:normal;-inkscape-font-specification:Arial Italic"
+             id="tspan3954-7-72">users/registrations#new</tspan><tspan
+             sodipodi:role="line"
+             x="304.12939"
+             y="833.19666"
+             style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+             id="tspan3956-2-9" /><tspan
+             sodipodi:role="line"
+             x="304.12939"
+             y="845.69666"
+             style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+             id="tspan3958-2-4">/sign_up</tspan></text>
       </g>
-      <g transform="translate(27.199054,-238.82643)" id="g4671">
+      <g
+         transform="translate(27.199054,-238.82643)"
+         id="g4671">
         <rect
-          y="952.52246"
-          x="876.63788"
-          height="85.725784"
-          width="123.72578"
-          id="rect3098-3-92-6"
-          style="color:#000000;fill:#ffc022;stroke:#000000;stroke-width:0.88582677;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"/>
-        <g id="g3960-1-73" transform="translate(574.78271,149.28256)">
+           y="952.52246"
+           x="876.63788"
+           height="85.725784"
+           width="123.72578"
+           id="rect3098-3-92-6"
+           style="color:#000000;fill:#ffc022;stroke:#000000;stroke-width:0.88582677;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+        <g
+           id="g3960-1-73"
+           transform="translate(574.78271,149.28256)">
           <text
-            sodipodi:linespacing="125%"
-            id="text3150-1-19"
-            y="813.75427"
-            x="304.77859"
-            style="font-size:20px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial Bold"
-            xml:space="preserve">
-            <tspan id="tspan3958-2-2" style="font-size:10px;font-style:normal;font-weight:normal;-inkscape-font-specification:Arial" y="813.75427" x="304.77859" sodipodi:role="line">Reset Password</tspan>
-          </text>
+             sodipodi:linespacing="125%"
+             id="text3150-1-19"
+             y="813.75427"
+             x="304.77859"
+             style="font-size:20px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial Bold"
+             xml:space="preserve"><tspan
+               id="tspan3958-2-2"
+               style="font-size:10px;font-style:normal;font-weight:normal;-inkscape-font-specification:Arial"
+               y="813.75427"
+               x="304.77859"
+               sodipodi:role="line">Reset Password</tspan></text>
         </g>
       </g>
-      <g transform="translate(148.98024,-290.34551)" id="g4681">
+      <g
+         transform="translate(148.98024,-290.34551)"
+         id="g4681">
         <rect
-          y="908.94934"
-          x="754.85669"
-          height="85.725784"
-          width="123.72578"
-          id="rect3098-3-92-5"
-          style="color:#000000;fill:#ffc022;stroke:#000000;stroke-width:0.88582677;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"/>
-        <g id="g3960-1-14" transform="translate(453.00153,105.83151)">
+           y="908.94934"
+           x="754.85669"
+           height="85.725784"
+           width="123.72578"
+           id="rect3098-3-92-5"
+           style="color:#000000;fill:#ffc022;stroke:#000000;stroke-width:0.88582677;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+        <g
+           id="g3960-1-14"
+           transform="translate(453.00153,105.83151)">
           <text
-            sodipodi:linespacing="125%"
-            id="text3150-1-68"
-            y="813.75427"
-            x="304.77859"
-            style="font-size:20px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial Bold"
-            xml:space="preserve">
-            <tspan id="tspan3958-2-5" style="font-size:10px;font-style:normal;font-weight:normal;-inkscape-font-specification:Arial" y="813.75427" x="304.77859" sodipodi:role="line">Change Password</tspan>
-          </text>
+             sodipodi:linespacing="125%"
+             id="text3150-1-68"
+             y="813.75427"
+             x="304.77859"
+             style="font-size:20px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial Bold"
+             xml:space="preserve"><tspan
+               id="tspan3958-2-5"
+               style="font-size:10px;font-style:normal;font-weight:normal;-inkscape-font-specification:Arial"
+               y="813.75427"
+               x="304.77859"
+               sodipodi:role="line">Change Password</tspan></text>
         </g>
       </g>
-      <g transform="translate(143.394,-306.11232)" id="g4691">
+      <g
+         transform="translate(143.394,-306.11232)"
+         id="g4691">
         <rect
-          y="829.62396"
-          x="760.44293"
-          height="85.725784"
-          width="123.72578"
-          id="rect3098-3-92-58"
-          style="color:#000000;fill:#9ade00;stroke:#000000;stroke-width:0.88582677;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"/>
-        <g id="g3960-1-4" transform="translate(459.02722,26.506134)">
+           y="829.62396"
+           x="760.44293"
+           height="85.725784"
+           width="123.72578"
+           id="rect3098-3-92-58"
+           style="color:#000000;fill:#9ade00;stroke:#000000;stroke-width:0.88582677;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+        <g
+           id="g3960-1-4"
+           transform="translate(459.02722,26.506134)">
           <text
-            sodipodi:linespacing="125%"
-            id="text3150-1-82"
-            y="813.75427"
-            x="304.77859"
-            style="font-size:20px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial Bold"
-            xml:space="preserve">
-            <tspan style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" y="813.75427" x="304.77859" id="tspan3152-2-4" sodipodi:role="line">Sign In/Login</tspan><tspan id="tspan3952-7-6" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" y="826.25427" x="304.77859" sodipodi:role="line"/>
-            <tspan id="tspan3954-7-0" style="font-size:10px;font-style:italic;font-weight:normal;-inkscape-font-specification:Arial Italic" y="838.75427" x="304.77859" sodipodi:role="line">users/sessions#new</tspan><tspan id="tspan3956-2-78" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" y="851.25427" x="304.77859" sodipodi:role="line"/>
-            <tspan id="tspan3958-2-57" style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial" y="863.75427" x="304.77859" sodipodi:role="line">/sign_in</tspan>
-          </text>
+             sodipodi:linespacing="125%"
+             id="text3150-1-82"
+             y="813.75427"
+             x="304.77859"
+             style="font-size:20px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial Bold"
+             xml:space="preserve"><tspan
+               style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+               y="813.75427"
+               x="304.77859"
+               id="tspan3152-2-4"
+               sodipodi:role="line">Sign In/Login</tspan><tspan
+               id="tspan3952-7-6"
+               style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+               y="826.25427"
+               x="304.77859"
+               sodipodi:role="line" /><tspan
+               id="tspan3954-7-0"
+               style="font-size:10px;font-style:italic;font-weight:normal;-inkscape-font-specification:Arial Italic"
+               y="838.75427"
+               x="304.77859"
+               sodipodi:role="line">users/sessions#new</tspan><tspan
+               id="tspan3956-2-78"
+               style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+               y="851.25427"
+               x="304.77859"
+               sodipodi:role="line" /><tspan
+               id="tspan3958-2-57"
+               style="font-size:10px;font-weight:normal;-inkscape-font-specification:Arial"
+               y="863.75427"
+               x="304.77859"
+               sodipodi:role="line">/sign_in</tspan></text>
         </g>
       </g>
     </g>
     <text
-      xml:space="preserve"
-      style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial"
-      x="758.21411"
-      y="375.39841"
-      id="text3146-1"
-      sodipodi:linespacing="125%">
-      <tspan sodipodi:role="line" id="tspan3148-1" x="758.21411" y="375.39841">Special</tspan>
-    </text>
+       xml:space="preserve"
+       style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial"
+       x="758.21411"
+       y="375.39841"
+       id="text3146-1"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3148-1"
+         x="758.21411"
+         y="375.39841">Special</tspan></text>
   </g>
 </svg>
