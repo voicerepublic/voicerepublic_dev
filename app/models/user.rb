@@ -264,6 +264,10 @@ class User < ActiveRecord::Base
     facebook.blank? ? nil : 'https://www.facebook.com/' + facebook
   end
 
+  def pin_map
+    Hash[Talk.remembered_by(self).pluck(:id, 'reminders.id')]
+  end
+
   private
 
   def normalize_website
