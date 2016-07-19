@@ -20,7 +20,9 @@
           = f.input :lastname, placeholder: 'Last Name'
       .row
         .medium-6.columns
-          = f.input :email, placeholder: 'Email Address'
+          - opts = { placeholder: 'Email Address' }
+          - opts[:hint] = "New Email Address (unconfirmed): #{@user.unconfirmed_email}" if @user.unconfirmed_email.present?
+          = f.input :email, opts
         .medium-6.columns.pw-change.text-left
           %label= t('.password')
           = link_to edit_user_registration_path do
