@@ -42,23 +42,26 @@ namespace :fog do
     { key: 'vr-live-recordings', location: 'eu-central-1' },
 
     # NEWSCHOOL
-    { key: 'vr-euc1-dev-audio-uploads',      location: 'eu-central-1' },
-    { key: 'vr-euc1-dev-import',             location: 'eu-central-1' },
-    { key: 'vr-euc1-dev-logs',               location: 'eu-central-1' },
-    { key: 'vr-euc1-dev-media',              location: 'eu-central-1' },
-    { key: 'vr-euc1-dev-slides-uploads',     location: 'eu-central-1' },
+    { key: 'vr-euc1-dev-audio-uploads',         location: 'eu-central-1' },
+    { key: 'vr-euc1-dev-import',                location: 'eu-central-1' },
+    { key: 'vr-euc1-dev-logs',                  location: 'eu-central-1' },
+    { key: 'vr-euc1-dev-media',                 location: 'eu-central-1' },
+    { key: 'vr-euc1-dev-slides-uploads',        location: 'eu-central-1' },
+    { key: 'vr-euc1-dev-backup-recordings',     location: 'eu-central-1' },
 
-    { key: 'vr-euc1-live-audio-uploads',     location: 'eu-central-1' },
-    { key: 'vr-euc1-live-import',            location: 'eu-central-1' },
-    { key: 'vr-euc1-live-logs',              location: 'eu-central-1' },
-    { key: 'vr-euc1-live-media',             location: 'eu-central-1' },
-    { key: 'vr-euc1-live-slides-uploads',    location: 'eu-central-1' },
+    { key: 'vr-euc1-live-audio-uploads',        location: 'eu-central-1' },
+    { key: 'vr-euc1-live-import',               location: 'eu-central-1' },
+    { key: 'vr-euc1-live-logs',                 location: 'eu-central-1' },
+    { key: 'vr-euc1-live-media',                location: 'eu-central-1' },
+    { key: 'vr-euc1-live-slides-uploads',       location: 'eu-central-1' },
+    { key: 'vr-euc1-live-backup-recordings',    location: 'eu-central-1' },
 
-    { key: 'vr-euc1-staging-audio-uploads',  location: 'eu-central-1' },
-    { key: 'vr-euc1-staging-import',         location: 'eu-central-1' },
-    { key: 'vr-euc1-staging-logs',           location: 'eu-central-1' },
-    { key: 'vr-euc1-staging-media',          location: 'eu-central-1' },
-    { key: 'vr-euc1-staging-slides-uploads', location: 'eu-central-1' }
+    { key: 'vr-euc1-staging-audio-uploads',     location: 'eu-central-1' },
+    { key: 'vr-euc1-staging-import',            location: 'eu-central-1' },
+    { key: 'vr-euc1-staging-logs',              location: 'eu-central-1' },
+    { key: 'vr-euc1-staging-media',             location: 'eu-central-1' },
+    { key: 'vr-euc1-staging-slides-uploads',    location: 'eu-central-1' },
+    { key: 'vr-euc1-staging-backup-recordings', location: 'eu-central-1' }
   ]
 
   desc 'list all buckets'

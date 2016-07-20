@@ -176,3 +176,8 @@ devices:
   faye:
     server: http://needs.to.be.set.locally/
     secret_token: supersecret
+  storage:
+    bucket: vr-euc1-dev-backup-recordings@eu-central-1
+    # user: device
+    aws_access_key_id: AKIAI7HSKHN3FBT2KAZQ
+    aws_secret_access_key: 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

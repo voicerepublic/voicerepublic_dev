@@ -99,7 +99,9 @@ class Device < ActiveRecord::Base
       heartbeat_interval: heartbeat_interval,
 
       faye_url: opts.faye_url || Settings.devices.faye.server,
-      faye_secret: opts.faye_secret || Settings.devices.faye.secret_token
+      faye_secret: opts.faye_secret || Settings.devices.faye.secret_token,
+
+      storage: Settings.devices.storage.to_hash
     }
   end
 
