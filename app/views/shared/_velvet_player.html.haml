@@ -32,7 +32,7 @@
       .embed-msg.hide
         = link_to talk, target: '_blank', class: 'msg-text', title: "cancel" do
           %p= t('.please_login')
-        %a.action-btn.close-msg{title: "Cancel"}            
+        %a.action-btn.close-msg{title: "Cancel"}
           ×
         .jp-spacer
       .teaser-msg.hide
@@ -48,7 +48,7 @@
             -# %span.sched-start= talk.starts_at
             -# %span.time-divider -
             -# %span.sched-end= talk.ends_at
-          
+
           %span.jp-current-time
           %span.time-divider /
           %span.jp-duration
@@ -62,26 +62,22 @@
         = naked_icon 'chat'
       .jp-spacer
       - if current_user
-        .pinboard{ class: "pin-Talk-#{talk.id}" }
-          - if reminder = current_user.remembers?(talk)
-            = render partial: 'reminders/unpin', locals: { reminder: reminder }
-          - else
-            = render partial: 'reminders/pin', locals: { rememberable: talk }
+        = render partial: 'reminders/pinboard', locals: { id: talk.id }
       - else
         -# display a fake pin button
         %a.action-btn.pin-btn{title: "No Pin Pin"}
           = naked_icon 'pin'
-      -#%a.action-btn.pin-btn{title: "Pin This Talk"}            
+      -#%a.action-btn.pin-btn{title: "Pin This Talk"}
         -#= naked_icon 'pin'
       .jp-spacer
-      %a.action-btn.action-share{title: "Share"}    
+      %a.action-btn.action-share{title: "Share"}
         = naked_icon 'share'
 
     = render partial: 'shared/embed_share_buttons', locals: { shareable_id: @talk.id, shareable_type: 'talk' }
-    
 
-      
-          
+
+
+
   .jp-no-solution
     %span= t '.update_required'
     = t '.update_message'
