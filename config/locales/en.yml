@@ -532,21 +532,9 @@ en:
         </ul>
 
   reminders:
-    pin:
-      pin_this_talk: Pin This Talk
+    pinboard:
       pin: Pin
-    unpin:
       unpin: Un-Pin
-      unpin_this_talk: Un-Pin This Talk
-    favorite:
-      favorite: Favorite
-    unfavorite:
-      unfavorite: Unfavorite
-    create:
-      success: Reminder was successfully created.
-      failure: Reminder could not be created.
-    destroy:
-      success: Reminder was successfully destroyed.
     index:
       podcast:
         title: VR - Listen Later by %{username}

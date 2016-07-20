@@ -7,6 +7,7 @@
 //
 // --- COMPONENTS
 //= require components/ga-event
+//= require components/pinboard
 
 // http://jplayer.org/latest/developer-guide/
 //

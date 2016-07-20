@@ -26,7 +26,9 @@ class RemindersController < BaseController
     @reminder = Reminder.new(attrs)
 
     authorize! :create, @reminder
-    return render json: { id: @reminder.id } if @reminder.save
+    if @reminder.save
+      return render json: { id: @reminder.id, reminder_id: @reminder.id }
+    end
 
     head 409
   end

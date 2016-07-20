@@ -39,6 +39,7 @@
 //= require components/language_select
 //= require components/instant_image
 //= require components/on_blank_show
+//= require components/pinboard
 //
 // --- VIEWS
 //= require views/explore
