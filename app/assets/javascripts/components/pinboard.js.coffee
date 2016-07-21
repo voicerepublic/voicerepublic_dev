@@ -1,3 +1,5 @@
+pinMap = [] unless pinMap?
+
 selector = '.pinboard'
 
 csrfToken = $('*[name=csrf-token]').attr('content')
