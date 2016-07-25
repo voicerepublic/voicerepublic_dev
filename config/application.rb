@@ -51,6 +51,8 @@ module VoiceRepublic
     # authenticate access to rtmp against rack middleware
     config.middleware.use 'RtmpAuth'
 
+    config.middleware.use 'Tts'
+
     # has to be wrapped in `config.before_initialize` in order to use Settings
     config.before_initialize do
       opts = { :log => Settings.rtmp.log_notifications? }
