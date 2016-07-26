@@ -30,6 +30,7 @@ class Device < ActiveRecord::Base
 
   include ActiveModel::Transitions
 
+  # TODO fix the state machine or abolish entirely
   state_machine auto_scopes: true do
 
     state :unpaired # offline & unpaired (initial state)

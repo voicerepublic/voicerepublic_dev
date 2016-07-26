@@ -414,7 +414,8 @@ class Venue < ActiveRecord::Base
   end
 
   def restart_streaming
-    device.present? and device.restart_stream!
+    # does not use the buggy statemachine on device
+    device.signal_restart_stream if device.present?
   end
 
   # either a controlled device or a generic client set?
