@@ -15,6 +15,7 @@ class FluxCapacitor
   def run
     logger.info 'FluxCapacitor started.'
     start_heart_monitor
+    start_announcer
 
     extension = Faye::Authentication::ClientExtension.new(Settings.faye.secret_token)
     EM.run {
@@ -62,6 +63,16 @@ class FluxCapacitor
             heartbeats.delete(identifier)
           end
         end
+      end
+    end
+  end
+
+  def start_announcer
+    Thread.new do
+      loop do
+        sleep 5 # TODO set to 30 or 60
+        data = Venue.not_offline.map(&:snapshot)
+        Faye.publish_to '/admin/bigpicture', data
       end
     end
   end

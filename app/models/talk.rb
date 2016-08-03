@@ -437,6 +437,7 @@ class Talk < ActiveRecord::Base
       talk: {
         # regular
         id: id,
+        slug: slug,
         starts_at: starts_at,
         started_at: started_at,
         title: title,
@@ -917,6 +918,7 @@ class Talk < ActiveRecord::Base
   def push_snapshot
     message = { event: 'snapshot', snapshot: snapshot }
     Faye.publish_to channel, message
+    Faye.publish_to '/admin/talks', message[:snapshot]
   end
 
   def slug_candidates

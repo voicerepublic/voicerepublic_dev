@@ -233,6 +233,7 @@ class Venue < ActiveRecord::Base
         id: talk.id,
         state: talk.state,
         starts_at: talk.starts_at,
+        ends_at: talk.ends_at,
         starts_at_date: talk.starts_at_date,
         starts_at_time: talk.starts_at_time,
         title: talk.title,
@@ -255,6 +256,7 @@ class Venue < ActiveRecord::Base
   def push_snapshot
     message = { event: 'snapshot', snapshot: snapshot }
     Faye.publish_to channel, message
+    Faye.publish_to '/admin/venues', message[:snapshot]
   end
 
   # Returns the time the provisioning window will open.
@@ -459,6 +461,7 @@ class Venue < ActiveRecord::Base
 
     # set name of instance
     EC2.tags.create(resource_id: instance_id, key: 'Name', value: slug)
+    EC2.tags.create(resource_id: instance_id, key: 'Target', value: Settings.target)
   end
 
   def provision_development
