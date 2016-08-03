@@ -985,6 +985,10 @@ nav.top-bar {
     //     margin-right: 12px;
     // }
     // margin-right: 60px;
+    &.warning {
+        padding: 8px;
+        opacity: 0.3;
+    }
 }
 
 #bars {
