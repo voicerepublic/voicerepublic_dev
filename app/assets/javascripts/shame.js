@@ -5,7 +5,7 @@ $('.flash-msg').delay(3000).fadeOut(1000);
 
 $('#mobile-logo').on('click', function(){
   $('#mobile-nav').toggle().toggleClass('hide');
-  hideSearchContainer()
+  hideSearchContainer();
 });
 
 $('.button-volume').on('click', function() {
@@ -54,17 +54,15 @@ function readURL(input) {
 
     reader.onload = function (e) {
       var fileName = $('input[type=file]').val().split('\\').pop();
-      $('.preview-img').css('background-image', 'url(' + e.target.result) + ')';
-      console.log('filename:' + fileName);
+      $('.preview-img').css('background-image', 'url(' + e.target.result + ')');
       $('.preview-img').next().find('span').html(fileName);
-    }
+    };
 
     reader.readAsDataURL(input.files[0]);
   }
 }
 
 $("#user_avatar, #series_image").change(function(){
-  console.log('should change the image');
   readURL(this);
   // changeLabelName($('.inputfile'));
 });
@@ -132,26 +130,25 @@ $('svg symbol').each(function(){
 
 //show claim btns on ready
 $( document ).ready(function(){
-  $('#claim-btn').removeClass('hide')
-  $('#edit-btn').removeClass('hide')
-  $('#naming-advice').removeClass('hide')
-})
+  $('#claim-btn').removeClass('hide');
+  $('#edit-btn').removeClass('hide');
+  $('#naming-advice').removeClass('hide');
+});
 
 //claiming device name hack
-$("#device_name").prop("readonly", true)
+$("#device_name").prop("readonly", true);
 
 $("#edit-btn").on('click',function(){
-  $(this).addClass('hide')
-  $("#save-btn").removeClass('hide')
-  $("#device_name").removeClass('read-only').prop("readonly",false).select()
+  $(this).addClass('hide');
+  $("#save-btn").removeClass('hide');
+  $("#device_name").removeClass('read-only').prop("readonly",false).select();
 });
 
 $("#save-btn").on('click',function(){
   // $(this).html("save").removeClass('save')
-  $("#device_name").addClass('read-only').prop("readonly",true)
-  $(this).addClass('hide')
-  $("#edit-btn").removeClass('hide')
-
+  $("#device_name").addClass('read-only').prop("readonly",true);
+  $(this).addClass('hide');
+  $("#edit-btn").removeClass('hide');
 });
 
 
