@@ -47,6 +47,7 @@ class IcecastEndpoint < Struct.new(:app, :opts)
       }
       StreamStat.create(stats.merge(venue_id: venue.id))
       Faye.publish_to venue.channel, event: 'stats', stats: stats
+      Faye.publish_to '/admin/stats', stats: stats, slug: venue.slug
       return OK
 
     else
