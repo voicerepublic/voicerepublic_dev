@@ -1,17 +1,4 @@
 en:
-  venues:
-    show:
-      loading: loading venue
-    index:
-        please_select_a_venue: Please Choose A Venue
-        help_text: |
-          Here you can see all your venues. A venue is the digital counterpart to a real stage. For every stage you want to stream, there is one venue page.
-          Do you have more than one stage? Please contact us under <a href='mailtp:serve@voicerepubloc.com'>service@voicerepublic.com</a>.
-          Choose the venue you want to stream from here and, if needed, open other ones in new tabs.
-        talks:
-            zero: Talks
-            one: Talk
-            other: Talks
   frontend:
     talks:
       state:
@@ -57,14 +44,14 @@ en:
         disconnected: Disconnected
       explanation:
         offline: >-
-          The venue is currently offline. The provisioning window
+          The stage is currently offline. The provisioning window
           opens 90 minutes before a scheduled live stream. Please
-          setup your venue as soon as the window opens. This will give
+          setup your stage as soon as the window opens. This will give
           you enough time to setup your audio signal and contributes
           to smooth operations.
 
         ready_to_provision: >-
-          The provisioning window is now open. The venue is still
+          The provisioning window is now open. The stage is still
           offline. Please start the setup process now.
 
         provisioning: >-
