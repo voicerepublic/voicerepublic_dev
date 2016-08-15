@@ -15,6 +15,14 @@ section#devices {
     padding: 24px;
     background: #f9f9f9;
 
+    .autostart {
+        color: $success-color;
+        input[type="checkbox"] {
+            float: left !important;
+            margin:0;
+        }
+    }
+
     button svg {
         width: 12px;
         height: 12px;
