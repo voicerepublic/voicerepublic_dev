@@ -1,31 +1,14 @@
-class VenuesController < ApplicationController
+class Xhr::VenuesController < Xhr::BaseController
 
   ALLOWED_EVENTS = %w( become_available
                        start_provisioning
                        select_device )
 
-  layout 'velvet'
-
-
   load_and_authorize_resource
-
-  # redriects to venue if exactly one
-  before_action :redirect_if_only_one, only: :index
-  def redirect_if_only_one
-    redirect_to(@venues.first) if @venues.size == 1
-  end
 
   skip_before_action :verify_authenticity_token, only: [:update]
 
-  def show
-    render layout: "velvet_minimal"
-  end
-
-
-  # PUT /venues/:slug
-  #
-  # Responds to xhr requests. (Should hence problaby move to
-  # `Xhr::VenuesController`.)
+  # PUT /xhr/venues/:slug
   #
   # Accepts and performs regular updates like setting...
   #

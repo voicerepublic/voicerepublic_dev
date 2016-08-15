@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   get '/404', to: 'application#not_found'
   get '/500', to: 'application#internal_server_error'
 
+  get '/pages/outdated_browser', to: redirect('/')
+
   # a bunch of redirects
   scope 'r' do
     get 'md',       to: redirect(blog_url('/how-to-format-text-with-markdown'))
@@ -40,6 +42,12 @@ Rails.application.routes.draw do
     resources :social_shares, only: [:create]
     resources :tags, only: [:index]
     resources :talks, only: [:update]
+    resources :venues, only: [:update] do
+      member do
+        get 'butt'
+        get 'darkice'
+      end
+    end
   end
 
   namespace 'api' do
@@ -87,14 +95,8 @@ Rails.application.routes.draw do
   # TODO remove
   # get '/venues/:id', to: redirect(->(params, req) { '/series/'+params[:id] })
 
-  resources :venues, only: [:index, :show, :update] do
-    member do
-      get 'butt'
-      get 'darkice'
-    end
-  end
+  resources :venues, only: [:index, :show, :edit, :update]
   resources :devices, only: [:index, :edit, :update, :show]
-
   resources :reminders, only: [:show, :destroy]
 
   devise_scope :user do
