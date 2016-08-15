@@ -5,7 +5,6 @@ en:
         update: Claim And Start Streaming
   simple_form:
     placeholders:
-      talk:
       series:
         teaser: >-
           Your teaser can be up to 140 characters long. If you have
@@ -63,6 +62,8 @@ en:
         teaser: Short description
         tag_list: Tags
         duration: Duration In Minutes
+        venue: Stage
+        new_venue_name: New Stage Name
 
       user:
         summary: Short description (140 characters or less)
