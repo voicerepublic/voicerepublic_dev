@@ -6,6 +6,7 @@ class UploadsController < BaseController
   def new
     attrs = params[:talk] ? talk_params : {}
     attrs[:series_id] ||= current_user.default_series_id
+    attrs[:venue_id] ||= current_user.venues.try(:first).try(:id)
     @talk = Talk.new(attrs)
   end
 
