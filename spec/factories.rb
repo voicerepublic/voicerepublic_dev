@@ -95,6 +95,7 @@ FactoryGirl.define do
   factory :talk do
     title "Some awesome title"
     series
+    venue
     # NOTE: times set here are not affected by `Timecop.freeze` in a
     # `before` block
     starts_at_time 1.hour.from_now.strftime('%H:%M')
