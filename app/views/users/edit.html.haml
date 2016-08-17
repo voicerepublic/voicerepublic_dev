@@ -1,17 +1,25 @@
 - content_for :title do
   = t('.title', username: @user.name)
 
-= simple_form_for(@user) do |f|
-  .container
-    #basics
-    %h4= t('.edit_your_settings')
-    #greeting= raw t('.greeting')
-    %hr
+.container
+  #basics
+  %h4= t('.edit_your_settings')
+  -# #greeting= raw t('.greeting')
+  .small-12.columns.no-pad{'data-closable' => ''}
+    .clearfix.help
+      %p.clearfix
+        %span.float-left= naked_icon 'jeeves'
+        %button.close-button.float-right{'data-close' => ''}
+          %span.float-right &times;
+      %p= t('.greeting').html_safe
+  %hr
+  = simple_form_for(@user) do |f|
     .row
-      .large-3.columns.profile-avatar.text-left
+      .small-12.medium-3.medium-offset-4.columns.profile-avatar.text-left
         - avatar_url = @user.avatar.thumb('180x180#nw').url
         #avatar-img.preview-img(style="background-image:url(#{avatar_url})")
         = f.input :avatar, as: :file, wrapper_html: { class: 'inputfile' }, label: icon_tag("photo") + t('.change_photo').html_safe, label_html: {class: 'button hollow tiny btn-hover-yellow', id: 'avatar-label'}, input_html: {'data-instant-image'=> '#avatar-img | #avatar-label'}
+      %hr
       .row
         -#.large-9.columns
         .medium-6.columns
@@ -66,10 +74,11 @@
       .row
         .about
           = f.input :about, input_html: { rows: 10 }
-        .menu.actions.float-right.small-expanded
-          %li
-            = link_to t('.cancel', default: t("helpers.links.cancel")), user_path(id: @user), class: 'button hollow btn-hover-red'
-          %li
-            &nbsp
-          %li
-            = f.button :submit, class: 'button secondary btn-hover-blue'
+        %hr
+      .row.collapse
+        .medium-4.medium-offset-4.columns
+          .menu.actions.expanded
+            %li
+              = link_to t('.cancel', default: t("helpers.links.cancel")), user_path(id: @user), class: 'button hollow btn-hover-red'
+            %li
+              = f.button :submit, class: 'button secondary btn-hover-blue'
