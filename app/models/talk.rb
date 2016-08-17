@@ -47,7 +47,7 @@ class Talk < ActiveRecord::Base
   # colors according to ci style guide
   COLORS = %w( #182847 #2c46b0 #54c6c6 #a339cd )
 
-  attr_accessor :venue_name, :event
+  attr_accessor :event
 
   # https://github.com/troessner/transitions
   state_machine auto_scopes: true do
@@ -136,7 +136,6 @@ class Talk < ActiveRecord::Base
   before_save :set_ends_at
   before_save :set_popularity, if: :archived?
   before_save :process_description, if: :description_changed?
-  before_save :set_venue
   before_save :set_icon, if: :tag_list_changed?
   before_save :set_image_alt, unless: :image_alt?
   before_create :prepare, if: :can_prepare?
@@ -587,13 +586,6 @@ class Talk < ActiveRecord::Base
   def set_ends_at
     return unless starts_at && duration # TODO check if needed
     self.ends_at = starts_at + duration.minutes
-  end
-
-  def set_venue
-    self.venue_name = venue_name.to_s.strip
-    return if venue_name.blank? and venue.present?
-    self.venue_name = user.venue_default_name if venue_name.blank?
-    self.venue = user.venues.find_or_create_by(name: venue_name)
   end
 
   def set_icon

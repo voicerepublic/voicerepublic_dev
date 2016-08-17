@@ -94,8 +94,15 @@ FactoryGirl.define do
 
   factory :talk do
     title "Some awesome title"
+
     series
     venue
+
+    # NOTE: this is tricky & ugly
+    after :create  do |talk|
+      talk.venue.update_attribute(:user_id, talk.user.id)
+    end
+
     # NOTE: times set here are not affected by `Timecop.freeze` in a
     # `before` block
     starts_at_time 1.hour.from_now.strftime('%H:%M')

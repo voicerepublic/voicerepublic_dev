@@ -426,16 +426,22 @@ describe Talk do
 
   describe 'venues' do
     it 'created implicitly' do
-      talk = FactoryGirl.create(:talk, venue_name: 'A brand new venue')
+      user = FactoryGirl.create(:user)
+      talk = FactoryGirl.create(:talk,
+                                new_series_title: 'A brand new series',
+                                new_venue_name: 'A brand new venue',
+                                series_user: user,
+                                series_id: nil,
+                                venue_id: nil)
       expect(talk.venue).to be_present
       expect(talk.venue.name).to eq('A brand new venue')
       expect(talk.venue).to be_persisted
-      expect(talk.user.venues.count).to eq(1)
+      expect(talk.user.reload.venues.count).to eq(1)
 
       # subsequent uses of the same name will reuse the existing venue
-      talk = FactoryGirl.create(:talk)
-      talk.venue_name = 'A brand new venue'
-      expect(talk.user.venues.count).to eq(1)
+      #talk = FactoryGirl.create(:talk)
+      #talk.new_venue_name = 'A brand new venue'
+      #expect(talk.user.venues.count).to eq(1)
     end
 
     it 'finds the next talk via venue' do
