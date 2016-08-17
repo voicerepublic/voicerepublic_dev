@@ -29,9 +29,17 @@ $panelOutlineColor: $tuatara;
     }
 }
 
+    .autostart {
+        input[type="checkbox"] {
+            // float: left !important;
+            margin:0;
+        }
+    }
+
 section#devices {
     padding: 24px;
     background: #f9f9f9;
+
 
     button svg {
         width: 12px;
