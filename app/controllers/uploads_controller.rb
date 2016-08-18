@@ -33,6 +33,7 @@ class UploadsController < BaseController
                                  :description, :image,
                                  :tag_list, :language,
                                  :new_series_title, :series_id,
+                                 :new_venue_name, :venue_id,
                                  :user_override_uuid, :slides_uuid)
   end
 
