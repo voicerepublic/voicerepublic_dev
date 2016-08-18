@@ -257,10 +257,6 @@ class User < ActiveRecord::Base
     Rails.application.routes.url_helpers.user_url(self)
   end
 
-  def venue_default_name
-    "Venue of %s" % name
-  end
-
   def website_url
     website.blank? ? nil : 'http://' + website
   end
