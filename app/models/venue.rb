@@ -307,42 +307,42 @@ class Venue < ActiveRecord::Base
   # returns an array of `[['key', 'timestamp']]` pairs
   #
   def relevant_files(started_at, ended_at, names=stored_files)
-    puts "START: #{started_at}"
-    puts "END: #{ended_at}"
+    #puts "START: #{started_at}"
+    #puts "END: #{ended_at}"
 
     files = names.select { |name| name.include?('dump_') }
 
-    puts "ALL DUMPS"
-    puts *files
+    #puts "ALL DUMPS"
+    #puts *files
 
     files = files.map { |name| name.match(/^dump_(\d+)/).to_a }
 
-    puts "ALL DUMPS WITH TS"
-    puts *files
+    #puts "ALL DUMPS WITH TS"
+    #puts *files
 
     files = files.sort_by(&:last)
 
-    puts "ALL DUMPS WITH TS SORTED"
-    puts *files
+    #puts "ALL DUMPS WITH TS SORTED"
+    #puts *files
 
     during = files.select { |file| file.last.to_i >= started_at.to_i }
     during = during.select { |file| file.last.to_i <= ended_at.to_i }
 
-    puts "ALL DUMPS DURING TALK"
-    puts *during
+    #puts "ALL DUMPS DURING TALK"
+    #puts *during
 
     before = files.select { |file| file.last.to_i < started_at.to_i }
 
-    puts "ALL DUMPS BEFORE TALK STARTED"
-    puts *before
+    #puts "ALL DUMPS BEFORE TALK STARTED"
+    #puts *before
 
-    puts "THE ONE DUMP BEFORE TALK STARTED"
-    puts before.last
+    #puts "THE ONE DUMP BEFORE TALK STARTED"
+    #puts before.last
 
     result = ([ before.last ] + during).compact
 
-    puts "RESULT"
-    puts *result
+    #puts "RESULT"
+    #puts *result
 
     result
   end

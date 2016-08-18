@@ -124,4 +124,20 @@ namespace :cleanup do
     puts "Finished task. Regenerated plain text for #{sum} total fields."
   end
 
+  task associate_default_venues: :environment do
+    total = User.count
+    index = 0
+    User.find_each do |user|
+      index += 1
+      venue = user.venues.order(:id).first
+      if venue.nil?
+        puts "%s/%s %s %s" % [index, total, user.name, "NO VENUES!"]
+      else
+        puts "%s/%s %s %s" % [index, total, user.name, venue.name]
+        user.default_venue = venue
+        user.save!
+      end
+    end
+  end
+
 end

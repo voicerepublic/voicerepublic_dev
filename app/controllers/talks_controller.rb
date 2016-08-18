@@ -30,6 +30,7 @@ class TalksController < BaseController
   def new
     attrs = params[:talk] ? talk_params : {}
     attrs[:series_id] ||= current_user.default_series_id
+    attrs[:venue_id] ||= current_user.default_venue_id
     @talk = Talk.new(attrs)
 
     # set random default values for test talks
@@ -104,6 +105,7 @@ class TalksController < BaseController
                                  :description, :image, :venue_id,
                                  :tag_list, :guest_list, :language,
                                  :format, :new_series_title, :series_id,
+                                 :new_venue_name, :venue_id,
                                  :user_override_uuid, :dryrun, :slides_uuid)
   end
 

@@ -47,7 +47,7 @@ class Talk < ActiveRecord::Base
   # colors according to ci style guide
   COLORS = %w( #182847 #2c46b0 #54c6c6 #a339cd )
 
-  attr_accessor :venue_name, :event
+  attr_accessor :event
 
   # https://github.com/troessner/transitions
   state_machine auto_scopes: true do
@@ -120,6 +120,7 @@ class Talk < ActiveRecord::Base
   validates :description, length: { maximum: Settings.limit.text }
 
   validates :new_series_title, presence: true, if: ->(t) { t.series_id.nil? }
+  validates :new_venue_name, presence: true, if: ->(t) { t.venue_id.nil? }
 
   validates :speakers, length: {maximum: Settings.limit.varchar}
 
@@ -127,13 +128,14 @@ class Talk < ActiveRecord::Base
   # trough to associate with a default_series or create a new one
   attr_accessor :series_user
   attr_accessor :new_series_title
+  attr_accessor :new_venue_name
 
   before_validation :create_and_set_series, if: :create_and_set_series?
+  before_validation :create_and_set_venue, if: :create_and_set_venue?
   before_save :set_starts_at
   before_save :set_ends_at
   before_save :set_popularity, if: :archived?
   before_save :process_description, if: :description_changed?
-  before_save :set_venue
   before_save :set_icon, if: :tag_list_changed?
   before_save :set_image_alt, unless: :image_alt?
   before_create :prepare, if: :can_prepare?
@@ -536,9 +538,20 @@ class Talk < ActiveRecord::Base
     series.nil? and new_series_title.present?
   end
 
+  def create_and_set_venue?
+    venue.nil? and new_venue_name.present?
+  end
+
   def create_and_set_series
     raise 'no series_user set while it should be' if series_user.nil?
-    self.series = series_user.series.create title: new_series_title
+    title = new_series_title.to_s.strip
+    self.series = series_user.series.find_or_create_by title: title
+  end
+
+  def create_and_set_venue
+    raise 'no series_user set while it should be' if series_user.nil?
+    name = new_venue_name.to_s.strip
+    self.venue = series_user.venues.find_or_create_by name: name
   end
 
   # upload file to storage
@@ -575,13 +588,6 @@ class Talk < ActiveRecord::Base
   def set_ends_at
     return unless starts_at && duration # TODO check if needed
     self.ends_at = starts_at + duration.minutes
-  end
-
-  def set_venue
-    self.venue_name = venue_name.to_s.strip
-    return if venue_name.blank? and venue.present?
-    self.venue_name = user.venue_default_name if venue_name.blank?
-    self.venue = user.venues.find_or_create_by(name: venue_name)
   end
 
   def set_icon
@@ -638,7 +644,7 @@ class Talk < ActiveRecord::Base
     logfile.puts "\n\n# --- postprocess (#{Time.now}) ---"
     begin
       process!
-      chain = series.opts.process_chain
+      chain = venue.opts.process_chain
       chain ||= Setting.get('audio.process_chain')
       chain = chain.split(/\s+/)
       run_chain! chain, uat
@@ -667,7 +673,7 @@ class Talk < ActiveRecord::Base
       File.open(path, 'wb') { |f| f.write(file.body) }
     end
 
-    chain = series.opts.process_chain
+    chain = venue.opts.process_chain
     chain ||= Setting.get('audio.process_chain')
     chain = chain.split(/\s+/)
     run_chain! chain, uat
@@ -743,7 +749,7 @@ class Talk < ActiveRecord::Base
       FileUtils.remove_entry tmp_dir
     end
 
-    chain = series.opts.override_chain
+    chain = venue.opts.override_chain
     chain ||= Setting.get('audio.override_chain')
     chain = chain.split(/\s+/)
     run_chain! chain, uat

@@ -61,6 +61,8 @@ class User < ActiveRecord::Base
   has_one :welcome_transaction, as: :source
 
   belongs_to :default_series, class_name: 'Series', dependent: :destroy
+  belongs_to :default_venue,  class_name: 'Venue',  dependent: :destroy
+
   has_many :memberships, dependent: :destroy
   has_many :organizations, through: :memberships
 
@@ -102,7 +104,6 @@ class User < ActiveRecord::Base
   # might be reset mid-transaction.
   before_save :process_about, if: :about_changed?
   before_save :set_image_alt, unless: :image_alt?
-  before_create :build_and_set_default_series
   after_save :generate_flyers!, if: :generate_flyers?
 
   # for the same reason this has to happen in 2 steps
@@ -110,6 +111,7 @@ class User < ActiveRecord::Base
   after_create :process_welcome_transaction
   after_create :add_default_pins
   after_create :create_first_organization
+  after_create :create_defaults!
 
   before_save :normalize_website, if: :website_changed?
   before_save :normalize_twitter, if: :twitter_changed?
@@ -121,9 +123,16 @@ class User < ActiveRecord::Base
     using: { tsearch: { prefix: true } },
     ignoring: :accents
 
-  def build_and_set_default_series
-    attrs = Settings.default_series_defaults[I18n.locale].to_hash
-    build_default_series(attrs.merge(user: self))
+  def create_defaults!
+    unless default_series.present?
+      attrs = Settings.default_series_defaults[I18n.locale].to_hash
+      create_default_series!(attrs.merge(user: self))
+    end
+    unless default_venue.present?
+      attrs = Settings.default_venue_defaults[I18n.locale].to_hash
+      attrs[:name] = attrs[:name].gsub('%{user}', name)
+      create_default_venue!(attrs.merge(user: self))
+    end
   end
 
   def name
@@ -246,10 +255,6 @@ class User < ActiveRecord::Base
 
   def self_url
     Rails.application.routes.url_helpers.user_url(self)
-  end
-
-  def venue_default_name
-    "Venue of %s" % name
   end
 
   def website_url

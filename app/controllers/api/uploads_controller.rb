@@ -9,6 +9,10 @@ class Api::UploadsController < Api::BaseController
 
     @talk = Talk.new(talk_params)
     @talk.series_user = current_user
+    @talk.series_id ||= current_user.default_series_id
+    @talk.venue_id ||= current_user.default_venue_id
+
+    # TODO security: I think here we can inject talks into any series or venue!
 
     authorize! :create, @talk
 
@@ -27,6 +31,7 @@ class Api::UploadsController < Api::BaseController
                                  :description, :image,
                                  :tag_list, :language,
                                  :new_series_title, :series_id,
+                                 :new_venue_name, :venue_id,
                                  :user_override_uuid)
   end
 

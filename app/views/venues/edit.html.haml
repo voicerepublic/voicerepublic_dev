@@ -1,0 +1,25 @@
+= simple_form_for(@venue) do |f|
+
+  .row
+    %h2.text-center.form-title= t('.edit_venue')
+
+  .row
+    .medium-6.columns
+      = f.input :name
+    .medium-6.columns
+      = f.input :emergency_phone_number
+
+  .row
+    .medium-12.columns
+      = f.input :street_address
+
+  -#.row
+  -#  .medium-6.columns
+  -#    = f.input :lat
+  -#  .medium-6.columns
+  -#    = f.input :long
+
+  .form-save-row.row.collapsed
+    .medium-12.columns.text-center
+      = link_to t('helpers.links.cancel'), :back, class: 'button-cancel button hollow muted btn-hover-red'
+      = f.button :submit, class: 'button-save right'
