@@ -155,9 +155,12 @@ describe TalksController do
         expect(Talk.all[2].tag_list).not_to be_empty
       end
 
-      it 'creates a new series on the fly' do
-        attrs = FactoryGirl.attributes_for(:talk, series_id: nil,
-                                           new_series_title: 'Some title')
+      it 'creates a new series and new venues on the fly' do
+        attrs = FactoryGirl.attributes_for(:talk,
+                                           series_id: nil,
+                                           new_series_title: 'Some title',
+                                           venue_id: nil,
+                                           new_venue_name: 'Some name')
         expect {
           post :create, talk: attrs
         }.to_not raise_error
