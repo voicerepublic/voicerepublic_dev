@@ -116,6 +116,11 @@ default_series_defaults:
 default_venue_defaults:
   en:
     name: 'Venue of %{user}'
+series_default_attributes:
+  en:
+    teaser: Add your teaser here.
+    description: Add your description here.
+    tag_list: untagged
 
 welcome_credits: 2
 
