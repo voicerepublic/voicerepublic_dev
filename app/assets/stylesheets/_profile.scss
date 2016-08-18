@@ -583,20 +583,43 @@
 }
 
 .users-edit, .users-update {
+
+    .menu > li {
+        padding: 2px;
+    }
+
+        .help {
+        background: $vr-beige;
+        text-align: left;
+        padding: 24px;
+        font-size: 14px;
+        margin-bottom: 1em;
+        svg {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
+        }
+        .close-button {
+            position: relative;
+            right: 0;
+            top:0;
+        }
+    }
     .container {
         background: white;
         border-radius: 4px;
         padding: 12px;
-        max-width: 1100px;
+        max-width: 900px;
         padding-top: 24px;
         padding-bottom: 48px;
         @include breakpoint(medium) {
-            margin: 48px;
+            margin: 0 auto;
             padding: 24px;
+            margin-top: 48px;
         }
 
         .row {
-            padding: 0;
+            // padding: 0;
             .columns {
                 padding: 0;
                 @include breakpoint(medium) {
@@ -702,7 +725,7 @@
         }
     }
     .time_zone {
-        padding-right: 12px;
+        // padding-right: 12px;
         select {
             padding: .75rem;
         }

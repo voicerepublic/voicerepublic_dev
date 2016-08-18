@@ -29,6 +29,7 @@ $panelOutlineColor: $tuatara;
     }
 }
 
+
     .autostart {
         input[type="checkbox"] {
             // float: left !important;
@@ -131,38 +132,7 @@ section#devices {
             }
         }
     }
-    .help {
-        padding: 24px;
-        background: $vr-beige;
-        color: $tuatara;
-        // border:1px solid $vr-purple;
-        .instruction {
-            padding: 0;
-            padding-right: 12px;
-        }
-        .instruction:first-child {
-            background: Orange;
-        }
-        h6 {
-            font-family: $body-font-family;
-            font-weight: 700;
-            text-transform: uppercase;
-        }
-        h5 {
-            margin-bottom: 48px;
-            svg {
-                fill: currentColor;
-                width: 18px;
-                height: 18px;
-                vertical-align: middle;
-            }
-        }
-        .gray {
-            svg {
-                fill: $tuatara;
-            }
-        }
-    }
+    
     .graphic {
         width: 40%;
         float: left;
