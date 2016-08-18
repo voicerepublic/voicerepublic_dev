@@ -436,7 +436,7 @@ describe Talk do
       expect(talk.venue).to be_present
       expect(talk.venue.name).to eq('A brand new venue')
       expect(talk.venue).to be_persisted
-      expect(talk.user.reload.venues.count).to eq(1)
+      expect(talk.user.reload.venues.count).to eq(2) # the default and the new one
 
       # subsequent uses of the same name will reuse the existing venue
       #talk = FactoryGirl.create(:talk)
