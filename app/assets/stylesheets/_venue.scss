@@ -10,6 +10,24 @@
 // * * * * * * * *:hover { border:2px dotted #5984C3 }      /* Dotted Blue
 // * * * * * * * * *:hover { border:2px dotted #CD1821 }    /* Dotted Red */
 $panelOutlineColor: $tuatara;
+#mute-toggle {
+    width: 24px;
+    height: 24px;
+    color: $oil;
+    margin-right: 24px;
+    padding-top:9px;
+    svg {
+        width: 24px;
+        height: 24px;
+        fill: currentColor;
+    }
+    .sound_on {
+        color: $success-color;
+    }
+    .sound_off {
+        color: $vr-red;
+    }
+}
 
     .autostart {
         input[type="checkbox"] {
