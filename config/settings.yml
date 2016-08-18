@@ -105,6 +105,7 @@ slack:
   # TODO remove slack.tag from local settings on staging and live
 googleanalytics:
   token: UA-46754662-1
+
 default_series_defaults:
   en:
     title: My Talks
@@ -112,11 +113,10 @@ default_series_defaults:
     description: |
       Various talks, that don't belong to any particular series
     tag_list: default
-series_default_attributes:
+default_venue_defaults:
   en:
-    teaser: Add your teaser here.
-    description: Add your description here.
-    tag_list: untagged
+    name: 'Venue of %{user}'
+
 welcome_credits: 2
 
 # this needs to be overridden by `app/shared/config/settings.local.yml`

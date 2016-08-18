@@ -544,12 +544,14 @@ class Talk < ActiveRecord::Base
 
   def create_and_set_series
     raise 'no series_user set while it should be' if series_user.nil?
-    self.series = series_user.series.create title: new_series_title
+    title = new_series_title.to_s.strip
+    self.series = series_user.series.find_or_create_by title: title
   end
 
   def create_and_set_venue
     raise 'no series_user set while it should be' if series_user.nil?
-    self.venue = series_user.venues.create name: new_venue_name
+    name = new_venue_name.to_s.strip
+    self.venue = series_user.venues.find_or_create_by name: name
   end
 
   # upload file to storage

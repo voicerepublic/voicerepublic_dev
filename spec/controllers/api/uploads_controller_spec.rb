@@ -31,7 +31,7 @@ describe Api::UploadsController do
                           user_token: @user.authentication_token,
                           user_email: @user.email,
                           format: 'json' }
-          res = JSON.parse(response.body)
+          p res = JSON.parse(response.body)
           expect(res['slug']).to_not be_empty
           expect(response.status).to eq(200)
         end

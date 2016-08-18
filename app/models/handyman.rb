@@ -16,6 +16,19 @@ class Handyman
 
   class Tasks
 
+    def fix_too_short_slugs
+      log '-> Check for users with too short slug...'
+      query = User.where('LENGTH(slug) < 5')
+      total = query.count
+      query.each_with_index do |user, index|
+        slug = user.slug.rjust(5, '-')
+        log '%s/%s Slug for %s was %s and is now %s' %
+            [index+1, total, user.name, user.slug, slug]
+        user.slug = slug
+        user.save!
+      end
+    end
+
     def venue_set_missing_device_name
       log '-> Check for missing device_name...'
       sql = "UPDATE venues SET device_name='noop' "+
@@ -103,7 +116,7 @@ class Handyman
     end
 
     def improve_venues_names
-      log 'Check for venues whose name needs improvement...'
+      log '-> Check for venues whose name needs improvement...'
       query = Venue.where("name LIKE 'Default venue%'")
       total = query.count
 
@@ -310,15 +323,15 @@ class Handyman
       end
     end
 
-    def users_missing_default_series
-      log "-> Check users for missing default_series..."
-      query = User.where(default_series_id: nil)
+    def users_missing_defaults
+      log "-> Check users for missing defaults..."
+      query = User.where('default_series_id IS NULL or default_venue_id IS NULL')
       total = query.count
       counter = 0
       query.each do |user|
         counter += 1
-        log "Fix default series for user #{counter}/#{total} #{user.name}"
-        user.build_and_set_default_series
+        log "Fix default series/venue for user #{counter}/#{total} #{user.name}"
+        user.create_defaults!
         user.save!
       end
     end
