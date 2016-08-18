@@ -320,6 +320,7 @@ en:
   shared:
     upload:
       successfully_uploaded: "&#x2713"
+      failed_upload: "!"
       choose_file: Choose A File To Upload
       upload_advice: You can upload MP3, M4A, OGG, WAV files
       initializing: Initializing Uploader...

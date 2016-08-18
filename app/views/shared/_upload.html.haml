@@ -22,7 +22,9 @@
             = t('.uploading')
             %strong"{{ item.file.name }}"
           %p.finished-message(ng-show="state == 'finished'")
-            %span.badge.success(ng-show="state == 'finished'")= t('.successfully_uploaded').html_safe
+
+            %span.badge.alert(ng-show="uploadFailed")= t('.failed_upload').html_safe
+            %span.badge.success(ng-show="!uploadFailed")= t('.successfully_uploaded').html_safe
             %strong"{{ item.file.name }}"
           .progress(ng-show="state != 'finished'"){role: "progressbar"}
             .progress-meter(ng-style="{ 'width': item.progress + '%'}")
