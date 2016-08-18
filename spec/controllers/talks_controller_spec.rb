@@ -6,6 +6,7 @@ describe TalksController do
   before do
     @user = FactoryGirl.create(:user)
     @series = FactoryGirl.create(:series, user: @user)
+    @venue = FactoryGirl.create(:venue, user: @user)
     @talk = FactoryGirl.create :talk, series: @series
     @user_2 = FactoryGirl.create :user
     @series_2 = FactoryGirl.create :series, user: @user_2
@@ -17,6 +18,7 @@ describe TalksController do
   let(:valid_attributes) do
     FactoryGirl.attributes_for(:talk) do |hash|
       hash[:series_id] = @series.id
+      hash[:venue_id] = @venue.id
     end
   end
 
@@ -147,7 +149,7 @@ describe TalksController do
 
       it 'talk has attached tags after creation' do
         expect(Talk.count).to be(2) # @talk & @talk_2
-        post :create, { series_id: @series.id, talk: valid_attributes }
+        post :create, talk: valid_attributes
         expect(assigns(:talk).series_id).not_to be_nil
         expect(assigns(:talk).errors.to_a).to eq([])
         expect(Talk.all[2].tag_list).not_to be_empty
