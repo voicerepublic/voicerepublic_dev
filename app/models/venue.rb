@@ -60,18 +60,22 @@ class Venue < ActiveRecord::Base
 
       transitions from: [:device_required, :awaiting_stream,
                          :connected, :disconnected],
-                  to: :awaiting_stream
+                  to: :awaiting_stream,
+                  on_transition: :set_awaiting_stream_at
     end
 
     # issued by the icecast endpoint middleware
     event :complete_provisioning, timestamp: :completed_provisioning_at do
-      transitions from: :provisioning, to: :awaiting_stream, guard: :device_present?
+      transitions from: :provisioning,
+                  to: :awaiting_stream,
+                  on_transition: :set_awaiting_stream_at,
+                  guard: :device_present?
       transitions from: :provisioning, to: :device_required
     end
     event :connect do
       transitions from: [:awaiting_stream, :disconnected], to: :connected
     end
-    event :disconnect do
+    event :disconnect, timestamp: :disconnected_at do
       transitions from: [:connected, :disconnect_required], to: :disconnected
     end
 
@@ -101,6 +105,10 @@ class Venue < ActiveRecord::Base
   end
 
   before_create :set_default_instance_type
+
+  def set_awaiting_stream_at
+    self.awaiting_stream_at = Time.now
+  end
 
   def set_default_instance_type
     self.instance_type = Settings.icecast.ec2.default_instance_type
