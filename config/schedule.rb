@@ -58,4 +58,5 @@ end
 
 every 24.hours, at: '3:00 am', roles: [:app] do
   rake 'cleanup:stop_disused_streaming_servers'
+  rake 'cleanup:reset_abandoned_venues'
 end
