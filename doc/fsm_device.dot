@@ -13,8 +13,12 @@ digraph G {
   node [
     fontname = "Bitstream Vera Sans"
     fontsize = 8
+    shape = "none"
   ]
 
+  "*1"
+  "*2"
+  ""
 
   // normal transitions
 
@@ -27,21 +31,50 @@ digraph G {
     shape = "oval"
   ]
 
+  "" -> unpaired
 
-  unpaired -> pairing [label="register"]
-  pairing -> pairing [label="register"]
+  unpaired          -> pairing [label="register"]
+  pairing           -> pairing [label="register"]
 
-  offline -> idle [label="register"]
-  idle -> idle [label="register"]
-  streaming -> idle [label="register"]
+  offline           -> idle [label="register"]
+  idle              -> idle [label="register"]
+  starting_stream   -> idle [label="register"]
+  streaming         -> idle [label="register"]
+  restarting_stream -> idle [label="register"]
+  stopping_stream   -> idle [label="register"]
+  starting          -> idle [label="register"]
 
-  pairing -> idle [label="complete_pairing"]
+  pairing           -> idle [label="complete_pairing"]
+  unpaired          -> offline [label="complete_pairing"]
 
-  idle -> streaming [label="start_stream"]
-  streaming -> idle [label="stop_stream"]
+  idle              -> starting_stream [label="start_stream"]
+  idle              -> streaming [label="stream_started"]
+  starting_stream   -> streaming [label="stream_started"]
 
-  idle -> offline [label="deregister"]
-  streaming -> offline [label="deregister"]
+  streaming         -> stopping_stream [label="stop_stream"]
+  stopping_stream   -> idle [label="stream_stopped"]
 
+  streaming         -> restarting_stream [label="restart_stream"]
+  restarting_stream -> streaming [label="stream_restarted"]
+
+  //unpaired          -> offline [label="shutdown"]
+  //pairing           -> offline [label="shutdown"]
+  //idle              -> offline [label="shutdown"]
+  //starting_stream   -> offline [label="shutdown"]
+  //streaming         -> offline [label="shutdown"]
+  //restarting_stream -> offline [label="shutdown"]
+  //stopping_stream   -> offline [label="shutdown"]
+  //starting          -> offline [label="shutdown"]
+  //
+  //pairing           -> starting [label="restart"]
+  //idle              -> starting [label="restart"]
+  //starting_stream   -> starting [label="restart"]
+  //streaming         -> starting [label="restart"]
+  //restarting_stream -> starting [label="restart"]
+  //stopping_stream   -> starting [label="restart"]
+  //starting          -> starting [label="restart"]
+
+  "*1" -> offline  [label="shutdown"]
+  "*2" -> starting [label="restart"]
 
 }

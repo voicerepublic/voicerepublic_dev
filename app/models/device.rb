@@ -36,12 +36,16 @@ class Device < ActiveRecord::Base
     state :unpaired # offline & unpaired (initial state)
     state :pairing # online & still unpaired
     state :idle # online, paired & not streaming
-    state :streaming, enter: :signal_start_stream
+    state :starting_stream, enter: :signal_start_stream
+    state :streaming
+    state :restarting_stream, enter: :signal_restart_sream
+    state :stopping_stream, enter: :signal_stop_stream
+    state :starting
     state :offline
 
     event :register do # remote
       transitions from: [:unpaired, :pairing], to: :pairing
-      transitions from: [:offline, :idle, :streaming], to: :idle
+      transitions from: Device.available_states, to: :idle
     end
 
     event :complete_pairing, timestamp: :paired_at do # local
@@ -52,25 +56,35 @@ class Device < ActiveRecord::Base
     end
 
     event :start_stream do # local
-      transitions from: [:idle, :streaming], to: :streaming
+      transitions from: [:idle, :starting_stream, :streaming], to: :starting_stream
+    end
+
+    event :stream_started do # remote
+      transitions from: [:starting_stream, :idle], to: :streaming
     end
 
     event :stop_stream do # local
-      transitions from: :streaming, to: :idle
+      transitions from: :streaming, to: :stopping_stream
     end
 
-    event :restart_stream do
-      transitions from: :streaming, to: :streaming,
-                  on_transition: :signal_restart_stream
+    event :stream_stopped do # remote
+      transitions from: :stopping_stream, to: :idle
     end
 
-    event :deregister do # remote
-      transitions from: [:idle, :streaming], to: :offline
+    event :restart_stream do # local
+      transitions from: :streaming, to: :restarting_stream
     end
 
-    event :reset do
-      transitions from: [:streaming, :idle], to: :idle,
-                  on_transition: :signal_stop_stream
+    event :stream_restarted do # remote
+      transitions from: :restarting_stream, to: :streaming
+    end
+
+    event :shutdown do # remote
+      transitions from: Device.available_states, to: :offline
+    end
+
+    event :restart do # remote
+      transitions from: Device.available_states, to: :starting
     end
   end
 
@@ -139,8 +153,6 @@ class Device < ActiveRecord::Base
       name: name
     }
   end
-
-
 
   # state machine callbacks
 

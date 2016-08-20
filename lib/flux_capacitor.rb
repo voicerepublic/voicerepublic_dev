@@ -25,6 +25,14 @@ class FluxCapacitor
       logger.info 'Faye::Client established.'
 
       begin
+        logger.info "Subscribing to /event/devices..."
+        client.subscribe('/event/devices') do |msg|
+          identifier = msg['identifier']
+          event = msg['event']
+          device = Device.find_by(identifier: identifier)
+          device and device.send("#{event}!")
+        end
+
         logger.info "Subscribing to /heartbeat..."
         client.subscribe('/heartbeat') do |msg|
           identifier = msg['identifier']
@@ -41,12 +49,14 @@ class FluxCapacitor
 
       rescue => e
         logger.fatal 'E1 '+error(e)
+        warn 'E1 '+error(e)
       end
 
     }
     logger.info 'FluxCapacitor terminated. (This should never happen!)'
   rescue => e
     logger.fatal 'E0 '+error(e)
+    warn 'E0 '+error(e)
   end
 
   def start_heart_monitor

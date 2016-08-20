@@ -37,7 +37,7 @@ class Xhr::VenuesController < Xhr::BaseController
     head :ok
 
   rescue => e
-    render status: 409, text: e.message
+    render status: 409, text: e.message + "\n" + e.backtrace * "\n"
   end
 
 
