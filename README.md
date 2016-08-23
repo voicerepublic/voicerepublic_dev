@@ -679,3 +679,25 @@ New Pages
 * topics
 * publishers
 * media-journalism
+
+
+
+Troubleshooting Audio Processing
+--------------------------------
+
+You need to have fidelity installed.
+
+    mkdir -p /tmp/fid
+    cd /tmp/fid
+
+If processing goes wrong, download the bucket/prefix in question.
+
+E.g.
+
+    aws s3 sync s3://vr-live-media/vr-6123 .
+
+Run fidelity
+
+    fidelity run manifest.yml
+
+And see.
