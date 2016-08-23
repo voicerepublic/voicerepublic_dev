@@ -1,0 +1,13 @@
+.pinboard{ data: { pin: id } }
+
+  -# pin
+  = link_to '#', data: { msg: 'pinned' }, class: "button pin-btn",
+    title: t('.pin') do
+    = naked_icon('pin')
+    %span.pin-msg= t('.pin')
+
+  -# unpin
+  = link_to '#', data: { msg: 'unpinned' }, class: "button unpin-btn",
+    title: t('.unpin'), style: 'display: none' do
+    = naked_icon('pin')
+    %span.pin-msg= t('.unpin')

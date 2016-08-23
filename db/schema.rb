@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160425084227) do
+ActiveRecord::Schema.define(version: 20160819113123) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -108,9 +108,11 @@ ActiveRecord::Schema.define(version: 20160425084227) do
     t.integer  "report_interval",    default: 60
     t.integer  "heartbeat_interval", default: 5
     t.text     "options",            default: "--- {}"
+    t.string   "pairing_code"
   end
 
   add_index "devices", ["organization_id"], name: "index_devices_on_organization_id", using: :btree
+  add_index "devices", ["pairing_code"], name: "index_devices_on_pairing_code", using: :btree
 
   create_table "memberships", force: :cascade do |t|
     t.integer  "user_id"
@@ -233,6 +235,7 @@ ActiveRecord::Schema.define(version: 20160425084227) do
     t.string   "slug",                limit: 255
     t.float    "penalty",                         default: 1.0
     t.text     "description_as_html",             default: ""
+    t.boolean  "is_hidden",                       default: false
     t.string   "image_alt",                       default: ""
     t.text     "description_as_text",             default: ""
   end
@@ -262,6 +265,17 @@ ActiveRecord::Schema.define(version: 20160425084227) do
   end
 
   add_index "social_shares", ["shareable_id", "shareable_type"], name: "index_social_shares_on_shareable_id_and_shareable_type", using: :btree
+
+  create_table "stream_stats", force: :cascade do |t|
+    t.integer  "venue_id"
+    t.integer  "listener_count"
+    t.integer  "listener_peak"
+    t.integer  "bitrate"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "stream_stats", ["venue_id"], name: "index_stream_stats_on_venue_id", using: :btree
 
   create_table "tag_bundles", force: :cascade do |t|
     t.string   "title_en"
@@ -336,6 +350,7 @@ ActiveRecord::Schema.define(version: 20160425084227) do
     t.text     "description_as_html",              default: ""
     t.string   "slides_uuid",         limit: 1024
     t.integer  "venue_id"
+    t.boolean  "is_hidden",                        default: false
     t.string   "icon",                             default: "default"
     t.string   "image_alt"
     t.text     "description_as_text",              default: ""
@@ -403,15 +418,20 @@ ActiveRecord::Schema.define(version: 20160425084227) do
     t.string   "referrer"
     t.text     "about_as_html",                      default: ""
     t.boolean  "paying",                             default: false
+    t.boolean  "is_hidden",                          default: false
     t.datetime "featured_from"
     t.datetime "featured_until"
     t.string   "image_alt",                          default: ""
     t.text     "about_as_text",                      default: ""
     t.string   "contact_email"
+    t.string   "facebook"
+    t.string   "twitter"
+    t.integer  "default_venue_id"
   end
 
   add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", using: :btree
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
+  add_index "users", ["default_venue_id"], name: "index_users_on_default_venue_id", using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["purchases_count"], name: "index_users_on_purchases_count", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
@@ -443,6 +463,9 @@ ActiveRecord::Schema.define(version: 20160425084227) do
     t.datetime "started_provisioning_at"
     t.datetime "completed_provisioning_at"
     t.integer  "device_id"
+    t.string   "device_name",                   default: "noop"
+    t.datetime "disconnected_at"
+    t.datetime "awaiting_stream_at"
   end
 
   add_index "venues", ["device_id"], name: "index_venues_on_device_id", using: :btree
@@ -452,6 +475,7 @@ ActiveRecord::Schema.define(version: 20160425084227) do
   add_foreign_key "devices", "organizations"
   add_foreign_key "memberships", "organizations"
   add_foreign_key "memberships", "users"
+  add_foreign_key "stream_stats", "venues"
   add_foreign_key "talks", "venues"
   add_foreign_key "venues", "devices"
   add_foreign_key "venues", "users"

@@ -598,6 +598,26 @@ How To Update Icons
 * done
 
 
+How To Update Modernizr
+-----------------------
+
+https://modernizr.com/download
+
+Unselect
+
+* minify (on the left)
+
+Select
+
+* Touch Events
+
+(Add anything else we need, and add it to this list.)
+
+Click BUILD
+
+Download to vendor/assets/modernizr.js
+
+
 ClojureScript
 -------------
 
@@ -608,4 +628,76 @@ ClojureScript
 Icecast Dev
 -----------
 
+    docker build -t branch14/icecast2 lib/icecast
+
     docker exec -it icecast bash
+
+
+Helpful
+-------
+
+    slug = ''
+
+    reload!; Venue.find(slug).reset!
+
+    reload!; Venue.find(slug).talks.prelive.first.make_it_start_soon! 91.minutes
+
+
+
+    reload!; Venue.find(124).reset!
+
+    reload!; Talk.find(4147).make_it_start_soon! 91.minutes; nil
+
+
+
+```
+venue = Venue.find('venue-of-senior-hofmann')
+talk = venue.talks.suspended.last
+talk.title
+
+talk = Talk.find('ontologische-relativitat')
+talk.update_attribute :state, 'postlive'
+talk.reload
+talk.archive_from_dump!
+
+```
+
+New Pages
+---------
+
+* listen
+* audio-upload
+* livestream
+* conferences-fairs
+* science-education
+* culture
+* companies
+* independents
+* foundations
+* universities
+* speakers
+* topics
+* publishers
+* media-journalism
+
+
+
+Troubleshooting Audio Processing
+--------------------------------
+
+You need to have fidelity installed.
+
+    mkdir -p /tmp/fid
+    cd /tmp/fid
+
+If processing goes wrong, download the bucket/prefix in question.
+
+E.g.
+
+    aws s3 sync s3://vr-live-media/vr-6123 .
+
+Run fidelity
+
+    fidelity run manifest.yml
+
+And see.

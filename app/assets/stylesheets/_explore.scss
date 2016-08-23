@@ -1,0 +1,272 @@
+
+
+
+#results {
+    background: $silver;
+    padding: 0 6px 12px;
+    margin-top: -56px;
+}
+
+#search-results-count {
+    background: $vr-yellow;
+    padding: 12px;
+    font-size: rem-calc(16);
+    p {
+        margin: 0;
+        font-weight: 300;
+        span {
+            font-weight: 700;
+            color: $vr-purple;
+        }
+    }
+}
+
+#more {
+    margin: 0;
+}
+
+.pagination {
+    font-weight: 500;
+    margin-top: 24px;
+    display: inline-block;
+    
+    a {
+        color: $vr-light-blue;
+        border-right: none;
+        &:hover {
+            background: white;
+        }
+        &:last-child {
+            border-right:1px solid $vr-light-blue;
+        }
+    }
+    max-height: 44px;
+    * {
+        background: $vr-beige;
+        min-height: 44px;
+        min-width: 44px;
+        // width: 44px;
+        height: 44px;
+        display: inline-block;
+        line-height: 42px;
+        font-size: rem-calc(14);
+        border: 1px solid $vr-light-blue;
+        text-align: center;
+        float:left;
+    }
+    .previous_page, .next_page {
+        // font-size: rem-calc(10);
+        background: none;
+    }
+    .disabled, .gap {
+        color: $vr-light-blue;
+        background: none;
+        opacity: .5;
+    }
+    em.current {
+        background: $vr-light-blue;
+        color: white;
+        text-transform: none;
+        font-style: normal;
+    }
+}
+
+#result-count {
+    font-weight: 700;
+    display: inline-block;
+    color: $vr-red;
+    border-bottom: 4px solid $vr-red;
+    width: auto;
+    margin: 0 auto 24px;
+    line-height: 1.5rem;
+    padding-bottom: 12px;
+    margin-left: 6px;
+}
+
+.explore-index, .search{
+    background: $silver;
+    // padding-top: 90px;
+    .top-margin-action-bar {
+        min-height: 50vh;
+        background: url(../../images/background/desert.jpg) no-repeat 50% 25%;
+        background-size: cover;
+    }
+    h2 {
+        text-align: center;
+        font-size: rem-calc(18);
+        letter-spacing: rem-calc(2);
+        color: $vr-light-blue;
+        text-transform: uppercase;
+        margin-top: 48px;
+        margin-bottom: 42px;
+    }
+    h6 {
+        font-family: $body-font-family;
+        font-weight: 300;
+        font-size: rem-calc(14);
+        text-transform: uppercase;
+        color: $charcoal;
+        letter-spacing: rem-calc(1);
+        em {
+            font-style: normal;
+            color: $jet;
+        }
+    }
+    select {
+        background-color: $vr-yellow;
+        line-height: 24px;
+        height: 48px;
+        font-weight: 500;
+        float: right;
+        max-width: 200px;
+        margin-top: 24px;
+        margin-right: 12px;
+    }
+    hr {
+        max-width: 100%;
+        width: 100%;
+        border-color: $light-gray;
+    }
+}
+
+.category-buttons {
+    // background: $vr-yellow;
+    padding: 0 12px;
+    .icon {
+        float: left;
+        margin: 0 auto;
+        width: 24px;
+        padding: 4px 0 0 6px;
+        @include breakpoint(medium) {
+            float: none;
+            width: 36px;
+            height: 36px;
+            margin: 0 auto;
+            margin-bottom: 0;
+            padding: 0;
+        }
+
+        @include breakpoint(large) {
+            margin-bottom: 24px;
+        }
+
+        svg {
+            max-width: 24px;
+            max-height: 24px;
+            fill: $vr-purple;
+            margin: 0;
+            @include breakpoint(medium) {}
+
+            @include breakpoint(large) {
+                max-width: 36px;
+                max-height: 36px;
+                margin: 12px 0;
+            }
+        }
+    }
+    li {
+        background: none;
+        padding: 0;
+        text-align: center;
+        position: relative;
+        width: calc(100%);
+        max-height: 60px;
+        margin-bottom: 2px;
+        @include breakpoint(medium) {
+            width: 12.5%;
+            margin-bottom: 0;
+        }
+    }
+    label {
+        display: block;
+        background: $vr-yellow;
+        padding: 12px;
+        min-height: 60px;
+        // position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        transition: background .2s ease;
+        @include breakpoint(medium) {
+            min-height: 120px;
+            padding: 6px;
+            padding-top: 24px;
+        }
+
+        @include breakpoint(large) {
+            padding-top: 17px;
+        }
+
+        &:hover {
+            background: $vr-beige;
+        }
+        &.selected {
+            background: $vr-purple;
+            svg {
+                fill: $vr-yellow;
+            }
+            p {
+                color: $vr-yellow;
+            }
+        }
+        &.focus {
+            border: 2px solid red;
+        }
+        p {
+            text-transform: uppercase;
+            color: $vr-purple;
+            font-size: rem-calc(12);
+            font-weight: 500;
+            margin-bottom: 0;
+            margin-top: 7px;
+            margin-right: 30px;
+            @include breakpoint(medium) {
+                margin-right: 0;
+                margin-bottom: 12px;
+                font-size: rem-calc(11);
+                line-height: rem-calc(12);
+            }
+            @include breakpoint(800px){
+                font-size: rem-calc(12)
+            }
+        }
+    }
+    input[type="radio"] {
+        opacity: .01;
+        z-index: 100;
+        margin: 0;
+    }
+    h5 {
+        z-index: 500;
+    }
+    [type="radio"] {
+        border: 0;
+        clip: rect(0 0 0 0);
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+        width: 1px;
+    }
+    [type="radio"] + label::before {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        // background: red;
+        // z-index: 0;
+   
+    }
+    [type="radio"]:checked + label::before {
+        background: rgba(orange, 0.6);
+    }
+    [type="radio"]:focus + label {
+        border: 2px solid green;
+    }
+}
+

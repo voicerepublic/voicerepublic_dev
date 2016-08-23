@@ -26,15 +26,19 @@ class RemindersController < BaseController
     @reminder = Reminder.new(attrs)
 
     authorize! :create, @reminder
-    return redirect_to @reminder if @reminder.save
+    if @reminder.save
+      return render json: { id: @reminder.id, reminder_id: @reminder.id }
+    end
 
-    head 422
+    head 409
   end
 
   # DELETE /reminders/1
   def destroy
     authorize! :destroy, @reminder
-    @reminder.destroy
+    return head(200) if @reminder.destroy
+
+    head 404
   end
 
   private

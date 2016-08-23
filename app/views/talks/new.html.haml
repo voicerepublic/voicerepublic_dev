@@ -1,16 +1,13 @@
 - content_for :title do
   = t('.title')
 
-
-= render "dryrun" if @talk.dryrun?
-
 - form_opts = { 'ng-controller' => 'FormController' }
 = simple_form_for(@talk, html: form_opts) do |f|
   = render partial: "fields", locals: { f: f, form_title: t('.schedule_a_talk') }
 
   .form-save-row.row
-    .medium-12.columns
-      = link_to t('helpers.links.cancel'), :back, class: 'button-cancel right'
+    .medium-12.columns.text-center
+      = link_to t('helpers.links.cancel'), :back, class: 'button-cancel button hollow muted btn-hover-red'
       = f.button :submit, class: 'button-save right',
                           'ng-disabled' => '!valid()',
                           'ng-click' => 'deactivateSafetynet()'

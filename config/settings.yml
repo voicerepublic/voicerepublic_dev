@@ -1,3 +1,5 @@
+target: local
+
 # this file reflects standard settings for development
 # overrides for production can be found in
 # `config/settings/production.yml`
@@ -6,6 +8,7 @@ priority_timezones: Berlin|Bern
 audio:
   process_chain: precursor normalize_fragments kluuu_merge trim cut normalize compress jinglize m4a mp3 ogg copy_clean cleanup
   override_chain: jinglize m4a mp3 ogg copy_clean cleanup
+  archive_chain: wavify merge trim normalize jinglize m4a mp3 ogg cleanup
 rtmp:
   # all paths get expanded with `Rails.root`
   # which doesn't affect absolute paths
@@ -68,10 +71,10 @@ flyer:
 # * staging.voicerepublic.com  -> vr-audio-uploads-staging
 # * voicerepublic.com          -> vr-audio-uploads-live
 storage:
-  media: vr-dev-media
-  import: vr-dev-import
-  upload_audio: vr-audio-uploads-dev
-  upload_slides: vr-slide-uploads-dev
+  media:         vr-dev-media@us-east-1
+  import:        vr-dev-import@us-east-1
+  upload_audio:  vr-audio-uploads-dev@us-east-1
+  upload_slides: vr-slide-uploads-dev@us-east-1
 paths:
   log: local/log
   jingles:
@@ -102,6 +105,7 @@ slack:
   # TODO remove slack.tag from local settings on staging and live
 googleanalytics:
   token: UA-46754662-1
+
 default_series_defaults:
   en:
     title: My Talks
@@ -109,11 +113,15 @@ default_series_defaults:
     description: |
       Various talks, that don't belong to any particular series
     tag_list: default
+default_venue_defaults:
+  en:
+    name: 'Venue of %{user}'
 series_default_attributes:
   en:
     teaser: Add your teaser here.
     description: Add your description here.
     tag_list: untagged
+
 welcome_credits: 2
 
 # this needs to be overridden by `app/shared/config/settings.local.yml`
@@ -136,8 +144,16 @@ sitemap: http://localhost:3000/root/index.xml
 
 icecast:
   ec2:
-    #image: ami-421cf82d
-    image: ami-5a806335
+    #image: ami-421cf82d (icebox)
+    #image: ami-5a806335 (icebox protoype)
+    #image: ami-b39173dc (icebox v3 - defunct)
+    #image: ami-30f2105f (icebox 3.1)
+    #image: ami-d422cebb (icebox 3.2 - bad)
+    #image: ami-d822ceb7 (icebox 3.3)
+    #image: ami-b31cf3dc (icebox 3.4 - renamed endpoints)
+    #image: ami-b81cf3d7 (icebox 3.5 - update icecast to 2.4.2 + cors, defunct)
+    #image: ami-f21bf49d (icebox 3.6 - fixed ready)
+    image: ami-f21bf49d
     default_instance_type: t2.micro
     security_group: Icecast Servers
     key_name: phil-ffm
@@ -167,3 +183,8 @@ devices:
   faye:
     server: http://needs.to.be.set.locally/
     secret_token: supersecret
+  storage:
+    bucket: vr-euc1-dev-backup-recordings@eu-central-1
+    # user: device
+    aws_access_key_id: AKIAI7HSKHN3FBT2KAZQ
+    aws_secret_access_key: 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

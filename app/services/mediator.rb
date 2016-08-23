@@ -17,43 +17,25 @@ class Mediator
 
   # a never complete list of boring domains
   BORING_DOMAINS = %w(
-    sbcglobal.net
-    bluewin.ch
-    versanet.de
-    freenet.de
-    googlemail.com
-    gmail.com
-    yahoo.co.uk
-    yahoo.com
-    yahoo.de
-    yahoo.fr
-    web.de
-    hotmail.com
-    hotmail.co.uk
-    gmx.ch
-    gmx.us
-    gmx.de
-    gmx.net
-    gmx.at
-    yopmail.com
-    emailgo.de
-    t-online.de
-    exemail.com.au
-    live.com
-    live.co.uk
-    live.ca
-    outlook.com
-    outlook.de
-    talk21.com
-    fadingemails.com
-    ntlworld.com
+    aol.com aol.de
+    bluewin.ch btinternet.com
+    emailgo.de exemail.com.au
+    fadingemails.com freenet.de
+    gmail.com gmx.info gmx.ch gmx.us gmx.de gmx.net gmx.at googlemail.com
+    hotmail.de hotmail.com hotmail.co.uk
     icloud.com
-    msn.com
+    yahoo.co.uk yahoo.com yahoo.de yahoo.fr yopmail.com
+    live.com live.co.uk live.ca
+    mail.com me.com msn.com
+    ncable.net.au ntlworld.com
+    outlook.com outlook.de
     posteo.de
-    aol.com
-    aol.de
-    btinternet.com
-    me.com
+    sbcglobal.net
+    t-online.de talk21.com
+    versanet.de
+    web.de
+    xs4all.nl
+    yandex.com
   )
 
   include Services::Subscriber  # provides `subscribe`
@@ -72,6 +54,7 @@ class Mediator
     body = args.shift
     event = body['details']['event'] * '.'
     error = body['details']['talk']['error']
+    error = error.split("\n")[0, 2].join("\n") unless error.nil?
     intros = {
       'created.pending.prepare'      => 'Has been uploaded',
       'created.prelive.prepare'      => 'Has been scheduled',

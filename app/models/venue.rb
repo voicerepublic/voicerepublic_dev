@@ -1,8 +1,11 @@
+# Note: This works on Staging:
+#
+# Fog::Storage.new(Settings.fog.storage.to_hash.merge region: "eu-central-1").directories.get("vr-staging-recordings", prefix: 'venue-of-lino-von-burg/').files.count
+#
 class Venue < ActiveRecord::Base
 
-  PROVISIONING_WINDOW = 90.minutes
-  # PROVISIONING_WINDOW = 12.hours
-  PROVISIONING_TIME = 210.seconds
+  PROVISIONING_WINDOW = 3.hours
+  PROVISIONING_DURATION = 150.seconds
 
   extend FriendlyId
   friendly_id :slug_candidates, use: [:slugged, :finders]
@@ -12,24 +15,35 @@ class Venue < ActiveRecord::Base
   has_many :talks
 
   validates :name, :user_id, presence: true
-
   validates :client_token, uniqueness: true, allow_blank: true
 
   serialize :options
 
+  after_save :propagate_changes
+
   attr_accessor :event
 
   include ActiveModel::Transitions
+
+  scope :not_offline, -> { where.not(state: 'offline') }
+
+  scope :with_live_talks, -> { joins(:talks).where("talks.state = 'live'") }
+
+  scope :with_upcoming_talks, -> do
+    joins(:talks).where("talks.state = 'prelive'").
+      where('talks.starts_at <= ?', Time.now + PROVISIONING_WINDOW)
+  end
 
   state_machine auto_scopes: true do
 
     state :offline, enter: :reset_ephemeral_details # aka. unavailable
     state :available
     state :provisioning, enter: :provision, exit: :complete_details
-    state :select_device
+    state :device_required
     state :awaiting_stream, enter: :start_streaming
-    state :connected, enter: :propagate_reconnect # aka. streaming
-    state :disconnected # aka. lost connection
+    state :connected, enter: :on_connected # aka. streaming
+    state :disconnect_required
+    state :disconnected, enter: :on_disconnected # aka. lost connection
 
     # issued by the venues controller
     event :become_available do
@@ -38,39 +52,63 @@ class Venue < ActiveRecord::Base
     event :start_provisioning, timestamp: :started_provisioning_at do
       transitions from: :available, to: :provisioning
     end
-    event :device_selected do
-      transitions from: :select_device, to: :awaiting_stream
+    event :select_device do
+      # these allow changeing the device before the streaming server is ready
+      transitions from: :offline, to: :offline
+      transitions from: :available, to: :available
+      transitions from: :provisioning, to: :provisioning
+
+      transitions from: [:device_required, :awaiting_stream,
+                         :connected, :disconnected],
+                  to: :awaiting_stream,
+                  on_transition: :set_awaiting_stream_at
     end
 
     # issued by the icecast endpoint middleware
     event :complete_provisioning, timestamp: :completed_provisioning_at do
-      transitions from: :provisioning, to: :awaiting_stream, guard: :device_present?
-      transitions from: :provisioning, to: :select_device
+      transitions from: :provisioning,
+                  to: :awaiting_stream,
+                  on_transition: :set_awaiting_stream_at,
+                  guard: :device_present?
+      transitions from: :provisioning, to: :device_required
     end
     event :connect do
       transitions from: [:awaiting_stream, :disconnected], to: :connected
     end
-    event :disconnect do
-      transitions from: :connected, to: :disconnected
+    event :disconnect, timestamp: :disconnected_at do
+      transitions from: [:connected, :disconnect_required], to: :disconnected
     end
 
-    # issued by?
+    # issues by ended talks
+    event :require_disconnect, success: :restart_streaming do
+      transitions from: :connected, to: :disconnect_required
+    end
+
+    # maybe issued by cron'ed rake task
     event :shutdown do
-      transitions from: [:select_device, :awaiting_stream,
-                         :connected, :disconnected],
+      transitions from: [:device_required, :awaiting_stream,
+                         :connected, :disconnected, :disconnect_required],
                   to: :offline, on_transition: :unprovision,
                   guard: :shutdown?
+      transitions from: :available, to: :offline, guard: :shutdown?
     end
 
-    # for emergencies only, may leave running instances behind!
+    # issued from the rails console, for emergencies & testing only
+    # you may lose data, since it does not wait for the sync between
+    # the ec2 instances and s3
     event :reset do
-      transitions from: [:available, :provisioning, :select_device,
-                         :awaiting_stream, :connected, :disconnected],
+      transitions from: [:available, :provisioning, :device_required,
+                         :awaiting_stream, :connected, :disconnect_required,
+                         :disconnected],
                   to: :offline, on_transition: :unprovision
     end
   end
 
   before_create :set_default_instance_type
+
+  def set_awaiting_stream_at
+    self.awaiting_stream_at = Time.now
+  end
 
   def set_default_instance_type
     self.instance_type = Settings.icecast.ec2.default_instance_type
@@ -81,7 +119,7 @@ class Venue < ActiveRecord::Base
   end
 
   def generate_mount_point
-    SecureRandom.uuid
+    'live' # SecureRandom.uuid
   end
 
   def generate_password(length=8)
@@ -138,6 +176,8 @@ class Venue < ActiveRecord::Base
     ERB.new(butt_config_template).result(binding)
   end
 
+  # This is used in userdata.
+  #
   def env_list
     ERB.new(env_list_template).result(binding)
   end
@@ -166,23 +206,170 @@ class Venue < ActiveRecord::Base
   end
 
   # current single page app state
-  def atom
+  def snapshot
+    # SHOULD be this, once the domain model is fixed,
+    # since the venue will belong to an organization
+    # devices = organization.devices
+
+    # CURRENTLY we show all devices the user has access to via
+    # memberships in organizations.
+    devices = user.organizations.map(&:devices).flatten
+
+    # COULD be this on staging for easy testing
+    # devices = Devices.all
     {
-      venue: attributes,
-      user: user.attributes,
-      talks: talks.inject({}) { |r, t| r.merge t.id => t.attributes },
-      now: Time.now.to_i,
-      channel: channel,
-      # TODO limit to the user/org's devices
-      devices: Device.idle.map(&:attributes),
-      availability_countdown: availability_countdown
+      venue: attributes.merge(
+        provisioning_duration: PROVISIONING_DURATION,
+        port: port,
+        channel: channel,
+        talks: talks_as_array,
+        user: user.attributes.merge(
+          image_url: user.avatar.thumb('36x36').url
+        ),
+        available_at: available_at
+      ),
+      devices: devices.map(&:for_venues),
+      now: Time.now.to_i
     }
   end
 
-  def availability_countdown
+
+  # private
+  def talks_as_array
+    talks.map do |talk|
+      {
+        id: talk.id,
+        state: talk.state,
+        starts_at: talk.starts_at,
+        ends_at: talk.ends_at,
+        starts_at_date: talk.starts_at_date,
+        starts_at_time: talk.starts_at_time,
+        title: talk.title,
+        started_at: talk.started_at,
+        duration: talk.duration,
+        url: talk.self_url,
+        series: {
+          title: talk.series.title,
+          url: talk.series.self_url
+        }
+      }
+    end
+  end
+
+  def propagate_changes
+    return if Rails.env.test?
+    push_snapshot
+  end
+
+  def push_snapshot
+    message = { event: 'snapshot', snapshot: snapshot }
+    Faye.publish_to channel, message
+    Faye.publish_to '/admin/venues', message[:snapshot]
+  end
+
+  # Returns the time the provisioning window will open.
+  #
+  # TODO rename to available_at
+  def available_at
     return false if talks.prelive.empty?
 
-    talks.prelive.ordered.first.starts_at - PROVISIONING_WINDOW.from_now
+    talks.prelive.ordered.first.starts_at.to_i - PROVISIONING_WINDOW
+  end
+
+  # This names the bucket which will be mounted on the ec2 instance
+  # running the icecast server.
+  def recordings_bucket
+    Settings.storage.recordings || ''
+  end
+
+  # This is used in userdata.
+  #
+  # It is used as the `host-src` of the docker volume.
+  #
+  # For production this is '/data' (the mountpoint of the bucket).
+  #
+  # For development this should probably be `/tmp/recordings` or an
+  # absolute path to a local folder, which is not tracked by git.
+  #
+  def recordings_path
+    Settings.paths.recordings
+  end
+
+  # This is used in userdata to mount the s3 bucket with s3fs.
+  #
+  def aws_credentials
+    [ Settings.fog.storage.aws_access_key_id,
+      Settings.fog.storage.aws_secret_access_key ] * ':'
+  end
+
+  # called by icecast middleware
+  def synced!
+    # trigger archive of postlive talks on this venue
+    talks.postlive.each(&:schedule_archiving!)
+
+    shutdown!
+  end
+
+  # tricky shit
+  #
+  # returns an array of `[['key', 'timestamp']]` pairs
+  #
+  def relevant_files(started_at, ended_at, names=stored_files)
+    #puts "START: #{started_at}"
+    #puts "END: #{ended_at}"
+
+    files = names.select { |name| name.include?('dump_') }
+
+    #puts "ALL DUMPS"
+    #puts *files
+
+    files = files.map { |name| name.match(/^dump_(\d+)/).to_a }
+
+    #puts "ALL DUMPS WITH TS"
+    #puts *files
+
+    files = files.sort_by(&:last)
+
+    #puts "ALL DUMPS WITH TS SORTED"
+    #puts *files
+
+    during = files.select { |file| file.last.to_i >= started_at.to_i }
+    during = during.select { |file| file.last.to_i <= ended_at.to_i }
+
+    #puts "ALL DUMPS DURING TALK"
+    #puts *during
+
+    before = files.select { |file| file.last.to_i < started_at.to_i }
+
+    #puts "ALL DUMPS BEFORE TALK STARTED"
+    #puts *before
+
+    #puts "THE ONE DUMP BEFORE TALK STARTED"
+    #puts before.last
+
+    result = ([ before.last ] + during).compact
+
+    #puts "RESULT"
+    #puts *result
+
+    result
+  end
+
+  # returns an array of filenames
+  #
+  # TODO rename to stored_filenames
+  def stored_files
+    recordings_storage.files.map do |file|
+      file.key.sub("#{slug}/", '')
+    end.reject(&:blank?)
+  end
+
+  def stored_file(key)
+    recordings_storage.files.get([slug, key] * '/')
+  end
+
+  def recordings_storage
+    @recordings_storage ||= Storage.get(recordings_bucket, slug + '/')
   end
 
   # --- state machine callbacks
@@ -190,7 +377,7 @@ class Venue < ActiveRecord::Base
   def in_provisioning_window?
     return false if talks.prelive.empty?
 
-    availability_countdown <= 0
+    available_at <= Time.now.to_i
   end
 
   def reset_ephemeral_details
@@ -214,16 +401,34 @@ class Venue < ActiveRecord::Base
     end
   end
 
+  def on_connected
+    return if Rails.env.test?
+    details = {
+      event: 'connected',
+      stream_url: stream_url,
+      name: name,
+      slug: slug
+    }
+    Faye.publish_to '/admin/connections', details
+  end
+
+  def on_disconnected
+    return if Rails.env.test?
+    details = { event: 'disconnected', slug: slug }
+    Faye.publish_to '/admin/connections', details
+  end
+
   def start_streaming
-    device.start_stream!
+    device.present? and device.start_stream!
   end
 
-  def propagate_reconnect
-    talks.live.each(&:reconnect)
+  def restart_streaming
+    device.present? and device.restart_stream!
   end
 
+  # either a controlled device or a generic client set?
   def device_present?
-    device.present?
+    device.present? or device_name.present?
   end
 
   # called on event shutdown
@@ -234,7 +439,8 @@ class Venue < ActiveRecord::Base
   end
 
   def unprovision_production
-    EC2.servers.get(instance_id).destroy
+    instance = EC2.servers.get(instance_id)
+    instance.destroy unless instance.nil?
   end
 
   def unprovision_development
@@ -259,6 +465,10 @@ class Venue < ActiveRecord::Base
   def provision_production
     response = EC2.run_instances(*provisioning_parameters)
     self.instance_id = response.body["instancesSet"].first["instanceId"]
+
+    # set name of instance
+    EC2.tags.create(resource_id: instance_id, key: 'Name', value: slug)
+    EC2.tags.create(resource_id: instance_id, key: 'Target', value: Settings.target)
   end
 
   def provision_development
@@ -268,7 +478,7 @@ class Venue < ActiveRecord::Base
 
     # for debugging
     # puts userdata
-    # FileUtils.cp f.path, 'userdata.sh'
+    FileUtils.cp f.path, 'userdata.sh'
 
     puts 'Running provisioning file...'
     spawn provisioning_file
@@ -279,20 +489,19 @@ class Venue < ActiveRecord::Base
   end
 
   def shutdown?
-    # TODO check if all data is save!
-    # TODO check if there is no other talk within PROVISIONING_WINDOW on this venue
-    true
+    !(talks.live.any? or
+      (available_at and
+       in_provisioning_window?))
+  end
+
+  def self_url
+    Rails.application.routes.url_helpers.venue_url(self)
   end
 
   private
 
   def event_fired(*args)
     Emitter.venue_transition(self, args)
-
-    Faye.publish_to channel,
-                    event: 'venue-transition',
-                    args: args,
-                    atom: atom
   end
 
   def slug_candidates

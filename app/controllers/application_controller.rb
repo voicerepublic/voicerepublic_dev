@@ -1,9 +1,8 @@
 class ApplicationController < ActionController::Base
 
-  RSS_GONE = '410 - Sorry, this RSS feed is gone for good.'
+  layout 'velvet'
 
-  class OutdatedBrowser < RuntimeError
-  end
+  RSS_GONE = '410 - Sorry, this RSS feed is gone for good.'
 
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
@@ -12,7 +11,6 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
 
   before_filter :set_last_request
-  before_filter :check_browser
   #before_filter :set_locale
 
   around_filter :user_time_zone, :if => :current_user
@@ -62,22 +60,41 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  private
+  # === Better Exception Handling ===
+  rescue_from CanCan::AccessDenied, with: :forbidden
+  rescue_from ActiveRecord::RecordNotFound, with: :not_found
+  rescue_from ActionController::RoutingError, with: :not_found
+  # ActionView::Template::Error
+  # ActionController::InvalidAuthenticityToken
+  # Errno::ENOSPC
 
-  def check_browser
-    browser_name = browser.meta.first.to_sym
-    browser_version = browser.version.to_i
-
-    # This will not catch all kinds of browsers (Android, iOS). This
-    # is by design.
-    supported = Settings.supported_browsers.to_hash.keys
-    return unless supported.include?(browser_name)
-
-    expected_version = Settings.supported_browsers[browser_name]
-    return unless browser_version < expected_version
-
-    raise OutdatedBrowser
+  def forbidden
+    respond_to do |format|
+      format.html do
+        @body_classes = %w( error 403 forbidden )
+        render layout: 'velvet', status: 403, action: :forbidden
+      end
+      format.text { render status: 403, text: 'Forbidden!' }
+    end
   end
+
+  def not_found
+    respond_to do |format|
+      format.html do
+        @body_classes = %w( error 404 not-found )
+        render layout: 'velvet', status: 404, action: :not_found
+      end
+      format.rss { render status: 410, text: RSS_GONE }
+      format.json { render status: 404, text: 'Not found.' }
+    end
+  end
+
+  def internal_server_error
+    @body_classes = %w( error 500 internal-server-error )
+    render layout: 'velvet', status: 500, action: :internal_server_error
+  end
+
+  private
 
   # get locale from browser settings
   def extract_locale_from_accept_language_header
@@ -115,39 +132,6 @@ class ApplicationController < ActionController::Base
 
   def set_csrf_cookie_for_ng
     cookies['XSRF-TOKEN'] = form_authenticity_token if protect_against_forgery?
-  end
-
-
-  # === Better Exception Handling ===
-  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
-  rescue_from ActionController::RoutingError, with: :routing_error
-  rescue_from OutdatedBrowser, with: :outdated_browser
-  # ActionView::Template::Error
-  # ActionController::InvalidAuthenticityToken
-  # Errno::ENOSPC
-
-  def record_not_found
-    respond_to do |format|
-      format.html do
-        @talk = Talk.promoted.first
-        render action: 'record_not_found', status: 404, layout: 'velvet'
-      end
-      format.rss { render status: 410, text: RSS_GONE }
-      format.json { render status: 404, text: 'Not found.' }
-    end
-  end
-
-  def routing_error
-    respond_to do |format|
-      format.html do
-        render action: 'routing_error', status: 404, layout: 'velvet'
-      end
-      format.rss { render status: 410, text: RSS_GONE }
-    end
-  end
-
-  def outdated_browser
-    redirect_to '/pages/outdated_browser'
   end
 
 end

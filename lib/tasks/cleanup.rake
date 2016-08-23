@@ -42,6 +42,23 @@ namespace :cleanup do
     end
   end
 
+  desc 'stops disused streaming servers'
+  task stop_disused_streaming_servers: :environment do
+    candidates = Venue.not_offline
+    candidates -= Venue.not_offline.with_live_talks
+    candidates -= Venue.not_offline.with_upcoming_talks
+    candidates.each do |venue|
+      puts "Send shutdown signal to venue #{venue.slug}"
+      venue.shutdown!
+    end
+  end
+
+  desc 'reset abondoned venues'
+  task reset_abandoned_venues: :environment do
+    Venue.awaiting_stream.where('awaiting_stream_at < ', 6.hours.ago).each(&:reset!)
+    Venue.disconnected.where('disconnected_at < ', 6.hours.ago).each(&:reset!)
+  end
+
   desc 'Remove listener that has not visited during the Live phase'
   task :remove_listener_non_live => :environment do
     puts "Starting to remove listeners during the non-Live phase of talks"
@@ -80,6 +97,53 @@ namespace :cleanup do
       end
     end
     puts "Kept #{res[:yes]} saved listeners, #{res[:no]} have been deleted."
+  end
+
+  desc "Regenerate plain text for descriptions"
+  task regenerate_plain_text: :environment do
+    fields = {[User] => "about", [Talk, Series, Organization] => "description"}
+    items = {}
+    puts "Starting to regenerate plain text for:"
+    sum = 0
+    fields.each do |models, field|
+      models.each do |model|
+        items[model] ||= model.where("#{field} is not null and #{field} != ''")
+        puts "\t#{model}.#{field}: #{items[model].size} items"
+        sum += items[model].size
+      end
+    end
+    puts "Total: #{sum} items. This might take a while."
+    sum = 0
+    fields.each do |models, field|
+      models.each do |model|
+        puts "Regenerating plain text for #{model}.#{field}..."
+        count = 0
+        items[model].each do |item|
+          item.send("#{field}_as_text=", MD2TEXT.render(item.send(field)))
+          item.save
+          count += 1
+        end
+        puts "Done! Regenerated plain text for #{count} instances of #{model}.#{field}."
+        sum += count
+      end
+    end
+    puts "Finished task. Regenerated plain text for #{sum} total fields."
+  end
+
+  task associate_default_venues: :environment do
+    total = User.count
+    index = 0
+    User.find_each do |user|
+      index += 1
+      venue = user.venues.order(:id).first
+      if venue.nil?
+        puts "%s/%s %s %s" % [index, total, user.name, "NO VENUES!"]
+      else
+        puts "%s/%s %s %s" % [index, total, user.name, venue.name]
+        user.default_venue = venue
+        user.save!
+      end
+    end
   end
 
 end

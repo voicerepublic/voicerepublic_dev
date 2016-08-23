@@ -3,12 +3,15 @@
 .talk-card.columns{ class: talk.state }
   .talk-card-inside
     = link_to talk do
-      %h5.title= talk.title
+      %h5.title
+        - if %w(pending postlive processing suspended).include?(talk.state)
+          %span.badge.alert.has-tip.tip-top{"data-tooltip" => "", "aria-haspopup" => true, "data-disable-hover"=>false, "title" =>"Talk not available"}= t('.exclamation')
+        = talk.title
     .publisher-name
       = link_to user_path(talk.user), class: "publisher" do
         = talk.user.name
 
-    
+
     = link_to talk, class: "image-box-holder clearfix" do
       .image-box
         = image_tag talk.image.thumb("600x338#").url, alt: talk.image_alt
@@ -38,24 +41,16 @@
         = link_to talk do
           %p.play-count
             = human_count(talk.play_count) + t('.plays')
-      - else 
+      - else
         .empty-count-holder
       - if current_user
-        .pinboard{ class: "pin-Talk-#{talk.id}" }
-          - if reminder = current_user.remembers?(talk)
-            = render partial: 'reminders/unpin', locals: { reminder: reminder }
-          - else
-            = render partial: 'reminders/pin', locals: { rememberable: talk }
+        = render partial: 'reminders/pinboard', locals: { id: talk.id }
+        -# TODO @nick is this used anywhere?
+        .talk-card-flasher.hide{style:"display:table"}
+          .flasher-text
+            %p Pin
       - else
         -# display a fake pin button
         .pinboard
           = link_to talk do
             .pin-placeholder
-
-  - if %w(pending postlive processing suspended).include?(talk.state)
-    .not_available
-      %p.lead= t(".message.#{talk.state}")
-  - if current_user
-    .talk-card-flasher.hide
-      .flasher-text
-        %p thing

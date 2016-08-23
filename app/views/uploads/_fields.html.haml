@@ -1,78 +1,82 @@
-.form-top-box.row
-  .medium-12.columns
-    .title-box
-      %h2.form-title= t('.upload_a_recording')
+.row.uploads-form
+  %h2.form-title.text-center= t('.upload_a_recording')
+  -#= f.error_messages
+  - opts = {}
+  -# TODO some fields are protected after state prelive, add this to cancan
+  -#- opts[:disabled] = true unless f.object.created?
 
-    -#= f.error_messages
-
-    - opts = {}
-    -# TODO some fields are protected after state prelive, add this to cancan
-    -#- opts[:disabled] = true unless f.object.created?
-
-    -# if new record and upload has already finished
-    = f.input :user_override_uuid, as: :hidden
-    - if f.object.new_record? and f.object.user_override_uuid?
-      .title-box.clearfix
-        .help-text.left= t('.upload_done')
-    - else
-      = render partial: 'shared/upload',
-               locals: { f: f, ns: 'audio', init: init_audio_uploader }
-
+  -# if new record and upload has already finished
+  = f.input :user_override_uuid, as: :hidden
+  - if f.object.new_record? and f.object.user_override_uuid?
     .title-box.clearfix
-      %h2.form-title= t('.describe_your_talk')
-    .row.title-teaser-box
-      .medium-7.columns
-        = f.input :title, placeholder: t('.title')
-        = f.input :teaser, placeholder: t('.teaser'), as: "text", input_html: {maxlength: 140}
-      .medium-5.columns
-        = f.input :language, as: :grouped_select, collection: Talk::LANGUAGES,
-          input_html: { class: 'languageSelect' },
-          group_method: :last, label_method: :last, value_method: :first
-        = f.input :tag_list, input_html: { class: 'tagList' }
+      .hint= t('.upload_done')
+  - else
+    .medium-10.columns.medium-offset-1
+      %p.lead.text-center= t('.upload_hint')
+    = render partial: 'shared/upload', locals: { f: f, ns: 'audio', init: init_audio_uploader }
 
-    .row
-      .medium-12.columns
-        = f.input :speakers
+  .title-box.clearfix
+    %h3.form-title= t('.describe_your_talk')
+  .row
+    = f.input :title
+    = f.input :teaser, as: "text", input_html: {maxlength: 140}
+    = f.input :language, as: :grouped_select, collection: Talk::LANGUAGES,
+      group_method: :last, label_method: :last, value_method: :first
+    = f.input :tag_list, input_html: { class: 'tagList' }
+    = f.input :speakers
+  %hr
 
-    .title-box.clearfix
-      %h2.form-title= t('.choose_date_and_time')
-    .date-time-picker-row.row
-      .medium-6.columns
-        = f.input :starts_at_date, opts.merge(input_html: {'data-picker' => 'date'})
-      .medium-6.columns
-        = f.input :starts_at_time, opts.merge(input_html: {'data-picker' => 'time'})
+  %h3.form-title= t('.choose_date_and_time')
+  .date-time-picker-row.row.pickers
+    .medium-6.columns
+      = f.input :starts_at_date, opts.merge(input_html: {'data-picker' => 'date'})
+    .medium-6.columns
+      = f.input :starts_at_time, opts.merge(input_html: {'data-picker' => 'time'})
+    .medium-12.columns.hint
+      = t('.upload_timings')
+  %hr
 
-    .title-box.clearfix
-      %h2.form-title.left= t('.add_to_series')
-      .help-text.left= t('.series_help_text')
-    .row
-      .medium-6.columns
-        = f.association :series, collection: current_user.series,
-          include_blank: t('.create_new_series'),
-          input_html: { 'data-on-blank-show' => '#wrapper_new_series_title' }
-      .medium-6.columns
-        = f.input :new_series_title, wrapper_html: { id: 'wrapper_new_series_title' }
+  %h3.form-title.left= t('.add_to_series')
+  .row.pickers
+    .medium-6.columns
+      = f.association :series, collection: current_user.series,
+        include_blank: t('.create_new_series'),
+        input_html: { 'data-on-blank-show' => '#wrapper_new_series_title' }
+    .medium-6.columns
+      = f.input :new_series_title, wrapper_html: { id: 'wrapper_new_series_title' }
+  .hint= t('.series_help_text')
+  %hr
 
-    .title-box.clearfix
-      %h2.form-title.left= t('.illustrate_and_describe')
-      .help-text.left= t('.ill_and_desc_text')
-    .row
-      .medium-3.columns
-        .image-box(style="background-image: url(#{f.object.image.url})" data-show-upload="#talk_image,#series_talks_attributes_0_image")
-      .medium-9.columns
-        %button.button-standard(type="button" data-trigger-file-input="#talk_image")
-          = t('.select_image')
-        = f.file_field :image, as: :file, class: 'soft-hide'
+  .title-box.clearfix
+    %h3.form-title.left= t('.add_to_venue')
+  .row.pickers
+    .medium-6.columns
+      = f.association :venue, collection: current_user.venues,
+	include_blank: t('.create_new_stage'),
+        input_html: { 'data-on-blank-show' => '#wrapper_new_venue_name' }
+    .medium-6.columns
+      = f.input :new_venue_name, wrapper_html: { id: 'wrapper_new_venue_name' }
+    .medium-12.columns
+      .hint= t('.venue_help_text')
+  %hr
 
-    .row
-      .medium-12.columns
-        = f.input :description, input_html: { rows: 10 }
+  .title-box.clearfix
+    %h3.form-title.left= t('.illustrate_and_describe')
+    .hint= t('.ill_and_desc_text')
+  .row
+    .text-center
+      .image-box(style="background-image: url(#{f.object.image.url})")
+      = f.input :image, as: :file, wrapper_html: { class: 'inputfile' }, label: icon_tag("photo") + t('.change_photo').html_safe, input_html: {'data-instant-image' => '.image-box | .image-label'}, label_html: {class: 'image-label button hollow tiny btn-hover-yellow'}
 
-    .title-box.clearfix
-      %h2.form-title.left= t('.upload_slides')
-      = f.input :slides_uuid, as: :hidden
-      - if f.object.new_record? and f.object.slides_uuid?
-        .help-text.left= t('.upload_done')
-      - else
-        = render partial: 'shared/upload',
-                 locals: { f: f, ns: 'slides', init: init_slides_uploader }
+  .row.pickers
+    .medium-12.columns
+      = f.input :description, input_html: { rows: 10 }
+  %hr
+
+  .row
+    %h3.form-title= t('.slides')
+    -#.hint= t('.slides_help_text')
+
+    = f.input :slides_uuid, as: :hidden
+    = render partial: 'shared/upload',
+      locals: { f: f, ns: 'slides', init: init_slides_uploader }

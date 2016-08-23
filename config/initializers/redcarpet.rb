@@ -44,7 +44,24 @@ end
 
 MD2HTML = Redcarpet::Markdown.new(Redcarpet::Render::VRHTML.new(filter_html: true))
 
-MD2TEXT = Redcarpet::Markdown.new(Redcarpet::Render::StripDown.new)
+class Redcarpet::Render::VRStripDown < Redcarpet::Render::StripDown
+
+  def raw_html(str)
+    return "\n" if str =~ /^<br *\/?>$/
+    ""
+  end
+
+  def entity(str)
+    Nokogiri::HTML.parse(str).text
+  end
+
+  def normal_text(str)
+    str.gsub(/\\n/, "\n")
+  end
+
+end
+
+MD2TEXT = Redcarpet::Markdown.new(Redcarpet::Render::VRStripDown.new)
 
 # a more permissive renderer
 

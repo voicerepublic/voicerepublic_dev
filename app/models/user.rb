@@ -61,7 +61,9 @@ class User < ActiveRecord::Base
   has_one :welcome_transaction, as: :source
 
   belongs_to :default_series, class_name: 'Series', dependent: :destroy
-  has_many :memberships
+  belongs_to :default_venue,  class_name: 'Venue',  dependent: :destroy
+
+  has_many :memberships, dependent: :destroy
   has_many :organizations, through: :memberships
 
   acts_as_taggable
@@ -102,13 +104,18 @@ class User < ActiveRecord::Base
   # might be reset mid-transaction.
   before_save :process_about, if: :about_changed?
   before_save :set_image_alt, unless: :image_alt?
-  before_create :build_and_set_default_series
   after_save :generate_flyers!, if: :generate_flyers?
 
   # for the same reason this has to happen in 2 steps
   before_create :build_welcome_transaction
   after_create :process_welcome_transaction
   after_create :add_default_pins
+  after_create :create_first_organization
+  after_create :create_defaults!
+
+  before_save :normalize_website, if: :website_changed?
+  before_save :normalize_twitter, if: :twitter_changed?
+  before_save :normalize_facebook, if: :facebook_changed?
 
   include PgSearch
   multisearchable against: [:firstname, :lastname]
@@ -116,9 +123,16 @@ class User < ActiveRecord::Base
     using: { tsearch: { prefix: true } },
     ignoring: :accents
 
-  def build_and_set_default_series
-    attrs = Settings.default_series_defaults[I18n.locale].to_hash
-    build_default_series(attrs.merge(user: self))
+  def create_defaults!
+    unless default_series.present?
+      attrs = Settings.default_series_defaults[I18n.locale].to_hash
+      create_default_series!(attrs.merge(user: self))
+    end
+    unless default_venue.present?
+      attrs = Settings.default_venue_defaults[I18n.locale].to_hash
+      attrs[:name] = attrs[:name].gsub('%{user}', name)
+      create_default_venue!(attrs.merge(user: self))
+    end
   end
 
   def name
@@ -145,6 +159,14 @@ class User < ActiveRecord::Base
 
       user.reload
     end
+  end
+
+  def details
+    {
+      name: name,
+      url: self_url,
+      image_url: avatar.thumb('36x36').url
+    }
   end
 
   def details_for(talk)
@@ -235,7 +257,36 @@ class User < ActiveRecord::Base
     Rails.application.routes.url_helpers.user_url(self)
   end
 
+  def website_url
+    website.blank? ? nil : 'http://' + website
+  end
+
+  def twitter_url
+    twitter.blank? ? nil : 'https://twitter.com/' + twitter
+  end
+
+  def facebook_url
+    facebook.blank? ? nil : 'https://www.facebook.com/' + facebook
+  end
+
+  def pin_map
+    Hash[Talk.remembered_by(self).pluck(:id, 'reminders.id')]
+  end
+
   private
+
+  def normalize_website
+    self.website = website.sub(/^https?:\/\//, '')
+  end
+
+  def normalize_twitter
+    self.twitter = twitter.sub(/^@/, '').
+                   sub(/^https?:\/\/twitter\.com\//, '')
+  end
+
+  def normalize_facebook
+    self.facebook = facebook.sub(/^https?:\/\/www\.facebook\.com\//, '')
+  end
 
   def process_about
     self.about_as_html = MD2HTML.render(about)
@@ -259,6 +310,10 @@ class User < ActiveRecord::Base
       next if talk.nil?
       Reminder.create user: self, rememberable: talk
     end
+  end
+
+  def create_first_organization
+    organizations.any? or organizations.create name: name
   end
 
   protected

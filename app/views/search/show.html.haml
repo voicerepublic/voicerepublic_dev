@@ -8,7 +8,7 @@
     .large-12.columns
       .result-container.clearfix
         = render partial: "shared/talk_card", collection: @talks
-  .row.clearfix              
+  .row.clearfix.text-center              
     = will_paginate @talks
 - else 
   .row.collapse.top-margin-action-bar

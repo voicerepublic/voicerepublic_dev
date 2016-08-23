@@ -1,7 +1,11 @@
+:css
+  html {
+    overflow: auto;
+  }
+
 -# TODO the 3 lines of faye setup could move to cljs
 - content_for :javascripts do
-  %script{ src: '/javascripts/moment-with-locales.min.js' }
-  %script{ src: '/javascripts/faye-authentication.js' }
+  = javascript_include_tag 'faye-authentication'
   %script{ src: Settings.faye.server + '/client.js' }
   :javascript
     fayeUrl = #{Settings.faye.server.to_json};
@@ -10,8 +14,22 @@
     fayeExtension = new FayeAuthentication(fayeClient);
     fayeClient.addExtension(fayeExtension);
 
-    initialState = #{@venue.atom.to_json};
+    initialSnapshot = #{@venue.snapshot.to_json};
     translations = #{t('frontend.venues').to_json};
-  = javascript_include_tag :venues
 
-#app Initializing...
+    user = #{current_user.details.to_json};
+
+    //dummy
+    pinId = null;
+
+
+#topbar
+
+#modals
+
+#app
+  .loading-message
+    .loading-graphic
+      = render partial: 'explore/loading'
+      %h1= t('.loading')
+      = render partial: 'shared/autoplay_warning' if @venue.connected?

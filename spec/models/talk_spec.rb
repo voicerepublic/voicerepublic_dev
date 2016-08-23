@@ -151,21 +151,24 @@ describe Talk do
         m4a_file = File.expand_path("spec/support/fixtures/transcode0/1.m4a", Rails.root)
         @talk.send(:upload_file, '1.m4a', m4a_file)
 
-        media_storage = Storage.directories.new(key: Settings.storage.media, prefix: @talk.uri)
+        bucket = Settings.storage.media.split('@').first
+        media_storage = Storage.directories.new(key: bucket, prefix: @talk.uri)
         expect(media_storage.files.get('1.m4a').content_type).to eq('audio/mp4')
       end
       it 'works for mp3' do
         mp3_file = File.expand_path("spec/support/fixtures/transcode0/1.mp3", Rails.root)
         @talk.send(:upload_file, '1.mp3', mp3_file)
 
-        media_storage = Storage.directories.new(key: Settings.storage.media, prefix: @talk.uri)
+        bucket = Settings.storage.media
+        media_storage = Storage.get(bucket, @talk.uri)
         expect(media_storage.files.get('1.mp3').content_type).to eq('audio/mpeg')
       end
       it 'works for ogg' do
         ogg_file = File.expand_path("spec/support/fixtures/transcode0/1.ogg", Rails.root)
         @talk.send(:upload_file, '1.ogg', ogg_file)
 
-        media_storage = Storage.directories.new(key: Settings.storage.media, prefix: @talk.uri)
+        bucket = Settings.storage.media
+        media_storage = Storage.get(bucket, @talk.uri)
         expect(media_storage.files.get('1.ogg').content_type).to eq('audio/ogg')
       end
     end
@@ -198,6 +201,8 @@ describe Talk do
         expect(talk.current_state).to be(:prelive)
         talk.start_talk!
         expect(talk.current_state).to be(:live)
+        # talk.end_talk! will also fire a talk.venue.require_disconnect!
+        talk.venue.update_attribute :state, 'connected'
         talk.end_talk!
         expect(talk.current_state).to be(:postlive)
         talk.process!
@@ -249,8 +254,8 @@ describe Talk do
 
         # assert
         base = File.expand_path(Settings.fog.storage.local_root, Rails.root)
-        result = File.join(base, Settings.storage.media,
-                           talk.uri, talk.id.to_s + '.m4a')
+        bucket = Settings.storage.media.split('@').first
+        result = File.join(base, bucket, talk.uri, talk.id.to_s + '.m4a')
         expect(File.exist?(result)).to be_truthy
       end
     end
@@ -275,8 +280,8 @@ describe Talk do
         talk.update_current_state :postlive, true
         talk.send :postprocess!
         base = File.expand_path(Settings.fog.storage.local_root, Rails.root)
-        result = File.join(base, Settings.storage.media,
-                           talk.uri, talk.id.to_s + '.m4a')
+        bucket = Settings.storage.media.split('@').first
+        result = File.join(base, bucket, talk.uri, talk.id.to_s + '.m4a')
         ctime = File.ctime(result)
 
         # no we are in state `archived`, so we can do a `reprocess`
@@ -307,8 +312,8 @@ describe Talk do
         talk.update_current_state :postlive, true
         talk.send :postprocess!
         base = File.expand_path(Settings.fog.storage.local_root, Rails.root)
-        result = File.join(base, Settings.storage.media,
-                           talk.uri, talk.id.to_s + '.m4a')
+        bucket = Settings.storage.media.split('@').first
+        result = File.join(base, bucket, talk.uri, talk.id.to_s + '.m4a')
         ctime = File.ctime(result)
         # all of these should work, but for speed we only resort to the local file
         override = 'https://staging.voicerepublic.com/sonar.ogg'
@@ -421,16 +426,22 @@ describe Talk do
 
   describe 'venues' do
     it 'created implicitly' do
-      talk = FactoryGirl.create(:talk, venue_name: 'A brand new venue')
+      user = FactoryGirl.create(:user)
+      talk = FactoryGirl.create(:talk,
+                                new_series_title: 'A brand new series',
+                                new_venue_name: 'A brand new venue',
+                                series_user: user,
+                                series_id: nil,
+                                venue_id: nil)
       expect(talk.venue).to be_present
       expect(talk.venue.name).to eq('A brand new venue')
       expect(talk.venue).to be_persisted
-      expect(talk.user.venues.count).to eq(1)
+      expect(talk.user.reload.venues.count).to eq(2) # the default and the new one
 
       # subsequent uses of the same name will reuse the existing venue
-      talk = FactoryGirl.create(:talk)
-      talk.venue_name = 'A brand new venue'
-      expect(talk.user.venues.count).to eq(1)
+      #talk = FactoryGirl.create(:talk)
+      #talk.new_venue_name = 'A brand new venue'
+      #expect(talk.user.venues.count).to eq(1)
     end
 
     it 'finds the next talk via venue' do
@@ -464,20 +475,6 @@ describe Talk do
     it 'provides media_url' do
       expect(talk).to respond_to(:media_url)
       expect(talk.media_url).to match(%r{/#{talk.id}.mp3$})
-    end
-  end
-
-  describe 'live' do
-    it 'saves unique listeners' do
-      talk = FactoryGirl.create :talk
-      expect(talk.listeners.size).to eq(0)
-
-      talk.add_listener! "some_uuid"
-      expect(talk.listeners.size).to eq(1)
-
-      # Unique listeners will only be added once
-      talk.add_listener! "some_uuid"
-      expect(talk.listeners.size).to eq(1)
     end
   end
 

@@ -36,9 +36,9 @@ every 60.minutes, :roles => [:app] do
   rake "validity:check"
 end
 
-every 3.hours, roles: [:app] do
-  rake 'talks:popularity'
-end
+#every 3.hours, roles: [:app] do
+#  rake 'talks:popularity'
+#end
 
 every 24.hours, at: '2:00 am', roles: [:app] do
   runner "Metric.snapshot!"
@@ -52,6 +52,11 @@ end
 #  runner 'Sync::Rp16.new.sync'
 #end
 
-every 1.minute, roles: [:app] do
-  rake 'sync:ftp'
+#every 1.minute, roles: [:app] do
+#  rake 'sync:ftp'
+#end
+
+every 24.hours, at: '3:00 am', roles: [:app] do
+  rake 'cleanup:stop_disused_streaming_servers'
+  rake 'cleanup:reset_abandoned_venues'
 end

@@ -16,6 +16,26 @@ class Handyman
 
   class Tasks
 
+    def fix_too_short_slugs
+      log '-> Check for users with too short slug...'
+      query = User.where('LENGTH(slug) < 5')
+      total = query.count
+      query.each_with_index do |user, index|
+        slug = user.slug.rjust(5, '-')
+        log '%s/%s Slug for %s was %s and is now %s' %
+            [index+1, total, user.name, user.slug, slug]
+        user.slug = slug
+        user.save!
+      end
+    end
+
+    def venue_set_missing_device_name
+      log '-> Check for missing device_name...'
+      sql = "UPDATE venues SET device_name='noop' "+
+            "WHERE device_name IS NULL AND device_id IS NULL"
+      ActiveRecord::Base.connection.execute(sql)
+    end
+
     def venue_set_missing_state
       log '-> Check for venues without state...'
       sql = "UPDATE venues SET state='offline' WHERE state IS NULL"
@@ -88,7 +108,8 @@ class Handyman
         next if talk_ids.empty?
         log '%s/%s Creating default venue for user %s and apply to %s talks' %
             [ uidx+1, utot, user.id, talk_ids.size ]
-        venue = user.venues.create name: 'Default venue' # TODO centralize name
+        user.create_defaults!
+        venue = user.default_venue
         sql = 'UPDATE talks SET venue_id=%s WHERE id IN (%s)' %
               [ venue.id, talk_ids * ',' ]
         ActiveRecord::Base.connection.execute(sql)
@@ -291,15 +312,15 @@ class Handyman
       end
     end
 
-    def users_missing_default_series
-      log "-> Check users for missing default_series..."
-      query = User.where(default_series_id: nil)
+    def users_missing_defaults
+      log "-> Check users for missing defaults..."
+      query = User.where('default_series_id IS NULL or default_venue_id IS NULL')
       total = query.count
       counter = 0
       query.each do |user|
         counter += 1
-        log "Fix default series for user #{counter}/#{total} #{user.name}"
-        user.build_and_set_default_series
+        log "Fix default series/venue for user #{counter}/#{total} #{user.name}"
+        user.create_defaults!
         user.save!
       end
     end

@@ -1,0 +1,448 @@
+.talk-card {
+    padding: 6px;
+    background: none;
+    position: relative;
+    @include breakpoint(560px) {
+        width: 50%;
+    }
+
+    @include breakpoint(760px) {
+        width: 33.333%;
+    }
+
+    @include breakpoint(1100px) {
+        width: 25%;
+    }
+
+    .explore-index & {
+        @include breakpoint(1600px) {
+            width: 20%;
+        }
+    }
+    .badge {
+        vertical-align: text-top;
+        margin-top: 2px;
+        font-weight: 500;
+    }
+    &.postlive, &.processing, &.suspended {
+        //pointer-events: none;
+        // .talk-card-inside {
+        //     opacity: .5;
+        // }
+        .not_available {
+            position: absolute;
+            top: 97px;
+            left: 12px;
+            right: 12px;
+            padding: 12px;
+            background: rgba(black,.5);
+            p {
+                font-size: rem-calc(12);
+                line-height: rem-calc(14);
+                margin-bottom: 0;
+                font-weight: 500;
+                height: auto;
+            }
+        }
+    }
+    &:last-child {
+        //@extend .end;
+   
+    }
+    .talk-card-inside {
+        background: $ghost;
+        padding: 0;
+        cursor: pointer;
+        position: relative;
+        //@extend .text-left;
+        text-align: left;
+        transition: all .2s ease;
+        .publisher-name {
+            margin: 0;
+            margin-bottom: 0;
+            padding: 0 12px;
+            display: inline-block;
+            width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: $vr-light-blue;
+            .publisher {
+                line-height: 18px;
+                font-weight: 300;
+                font-size: rem-calc(14);
+                color: rgba($talk-dark, 0.5);
+                color: $vr-light-blue;
+                &:hover {
+                    text-decoration: underline;
+                    color: $vr-blue;
+                }
+            }
+        }
+        p.series-label {
+            color: $almost-black;
+            font-size: rem-calc(12);
+            text-transform: uppercase;
+            letter-spacing: rem-calc(4);
+            margin: 0;
+            margin-bottom: 10px;
+            line-height: rem-calc(12);
+        }
+        .meta-data {
+            width: 100%;
+            margin: 0;
+            font-size: rem-calc(11);
+            line-height: rem-calc(12);
+            text-transform: uppercase;
+            letter-spacing: rem-calc(1);
+            color: rgba($light-gray, 0.5);
+            margin-bottom: 6px;
+            // .running-time {
+            //   //@extend .float-left;
+            // }
+            // .play-count {
+            //   //@extend .float-right;
+            // }
+       
+        }
+        .date {
+            margin: 0;
+            font-size: rem-calc(11);
+            line-height: rem-calc(12);
+            text-transform: uppercase;
+            letter-spacing: rem-calc(1);
+            // color: rgba($talk-dark, 0.5);
+            margin-bottom: 6px;
+            strong {
+                font-weight: 500;
+                // color: rgba($talk-dark, 0.8);
+           
+            }
+        }
+        .image-box-holder {
+            padding: 0 12px;
+            display: block;
+            position: relative;
+        }
+        .image-box {
+            margin-bottom: 6px;
+            position: relative;
+            margin-top: 6px;
+            .hover-info {
+                position: absolute;
+                padding: 12px;
+                height: 100%;
+                width: 100%;
+                top: 0;
+                left: 0;
+                background-color: rgba($talk-dark, 0.9);
+                opacity: 0;
+                transition: opacity .2s ease;
+                .teaser, .speaker {
+                    // @extend .date;
+                    font-size: rem-calc(12);
+                    line-height: rem-calc(14);
+                    color: $light-gray;
+                    a {
+                        text-decoration: none;
+                        text-transform: none;
+                        color: white;
+                        &:hover {
+                            text-decoration: underline;
+                        }
+                    }
+                }
+                p.speaker {
+                    color: $vr-beige;
+                }
+            }
+        }
+        $font-size: 18px;
+        $line-height: 1.2;
+        $lines-to-show: 2;
+        .title, .series > & {
+            display: block;
+            /* Fallback for non-webkit */
+            display: -webkit-box;
+            // max-width: 400px;
+            height: $font-size * $line-height * $lines-to-show;
+            /* Fallback for non-webkit */
+            margin: 0 auto;
+            font-size: $font-size;
+            line-height: $line-height;
+            -webkit-line-clamp: $lines-to-show;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-bottom: 0;
+            transition: text-decoration .2s ease;
+            padding: 12px;
+            padding-bottom: 0;
+            min-height: 56px;
+            //wrapping and hyphenating:
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+            -webkit-hyphens: auto;
+            -ms-hyphens: auto;
+            -moz-hyphens: auto;
+            hyphens: auto;
+            -ms-word-break: break-all;
+            word-break: break-word;
+        }
+        a {
+            color: $talk-dark;
+        }
+        &:hover {
+            background: $white;
+            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+        }
+        &:hover > .title {
+            text-decoration: underline;
+        }
+        &:hover .hover-info {
+            display: block !important;
+            opacity: 1;
+        }
+        // .svg-icon {
+        //     float: left;
+        //     max-width: 24px;
+        //     max-height: 4px;
+        //     color:$light-gray;
+        //     svg {
+        //         // @extend .float-left;
+        //         max-width: 24px;
+        //         max-height: 24px;
+        //         margin-top: 0;
+        //         margin-right: 12px;
+        //         * {
+        //             fill: currentColor;
+        //         }
+        //     }
+        // }
+        .svg-icon {
+            vertical-align: middle;
+            max-width: 24px;
+            max-height: 24px;
+            color: $light-gray;
+            svg {
+                width: 24px;
+                height: 24px;
+                max-width: 24px;
+                max-height: 24px;
+                fill: currentColor;
+            }
+        }
+        .info-right {
+            text-align: right;
+        }
+    }
+    .profile-page & {
+        //@extend .small-6;
+        // @extend .medium-4;
+        @include breakpoint(1400px) {
+            width: 33.33%;
+        }
+
+        @include breakpoint(1600px) {
+            width: 25%;
+        }
+
+        @include breakpoint(1900px) {
+            width: 20%;
+        }
+
+        @include breakpoint(2200px) {
+            width: 16.6667%;
+        }
+
+        &.series {
+            .series-thumb {
+                margin-bottom: 12px;
+            }
+            .talk-count {
+                //@extend .float-left;
+           
+            }
+            .meta {
+                margin-bottom: 0;
+            }
+            .talk-count, .play-count {
+                margin-bottom: 0;
+            }
+        }
+        .talk-card-inside h5 {
+            color: $talk-dark;
+            padding: 12px;
+        }
+    }
+}
+
+$font-size: 14px;
+$line-height: 1.2;
+$lines-to-show: 2;
+
+.series .talk-card-inside p.lead {
+    display: block;
+    /* Fallback for non-webkit */
+    display: -webkit-box;
+    // max-width: 400px;
+    height: $font-size * $line-height * $lines-to-show;
+    /* Fallback for non-webkit */
+    margin: 0 auto;
+    font-size: $font-size;
+    line-height: $line-height;
+    -webkit-line-clamp: $lines-to-show;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 6px;
+    transition: text-decoration .2s ease;
+}
+
+.talk-card:hover .talk-card-inside h5.title, .series:hover .talk-card-inside h5.title {
+    text-decoration: underline;
+}
+
+.series .talk-card-inside .meta {
+    height: 18px;
+    a {
+        color: $vr-red;
+        font-weight: 500;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
+.series {
+    .talk-card-inside {
+        padding: 12px;
+        img {
+            margin-bottom: 12px;
+        }
+        .title, p.lead {
+            color: $almost-black;
+        }
+        .title {
+            padding: 0;
+        }
+    }
+}
+
+.talk-card .bottom-info {
+    display: table;
+    width: 100%;
+    * {
+        display: table-cell;
+    }
+    .category-icon {
+        width: 44px;
+        height: 44px;
+        max-width: 44px;
+        max-height: 44px;
+        vertical-align: middle;
+        text-align: center;
+        padding: 12px;
+    }
+    // .svg-icon {
+    //     width: 44px;
+    //     vertical-align: middle;
+    //     padding-top:0;
+    //     max-height: 20px;
+    // }
+    .play-count {
+        width: 100%;
+        text-align: center;
+        font-size: rem-calc(12);
+        vertical-align: middle;
+        color: $charcoal;
+        display: inline-block;
+        line-height: 60px;
+        margin: 0;
+        margin-top: -5px;
+    }
+    .pin-btn, .unpin-btn, .pin-placeholder {
+        max-width: 44px;
+        padding: 12px;
+        background: none;
+        border: 1px solid $light-gray;
+        color: $light-gray;
+        border-radius: 2px;
+        color: $light-gray;
+        svg {
+            width: 16px;
+            height: 16px;
+            max-width: 16px;
+            max-height: 16px;
+            margin: 0;
+            fill: currentColor;
+        }
+        &:hover {
+            border-color: $vr-light-blue;
+            color: $vr-light-blue;
+        }
+        .pin-msg {
+            display: none;
+        }
+    }
+    .pinboard {
+        height: 44px;
+        max-height: 44px;
+        max-width: 56px;
+        width: 56px;
+        padding: 0 12px 0 0;
+        padding-top: 6px;
+    }
+    .unpin-btn {
+        background: $vr-light-blue;
+        border-color: $vr-light-blue;
+        color: white;
+        svg {
+            fill: currentColor;
+        }
+        &:hover {
+            background: $vr-red;
+            border-color: $vr-red;
+            color: white;
+        }
+    }
+    .pin-placeholder {
+        border: none;
+    }
+}
+
+.talk-card-flasher {
+    position: absolute;
+    background: #ffed00;
+    top: 50%;
+    left: 50%;
+    max-width: 100px;
+    max-height: 100px;
+    border-radius: 50px;
+    margin-top: -50px;
+    margin-left: -50px;
+    color: $vr-purple;
+    font-weight: 500;
+    height: 100px;
+    width: 100px;
+    display: table;
+    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.2);
+    .flasher-text {
+        display: table-cell;
+        vertical-align: middle;
+        text-align: center;
+        p {
+            margin: 0;
+            font-size: rem-calc(12);
+            text-transform: uppercase;
+            display: inline-block;
+        }
+    }
+}
+
+.venues .talk-card {
+    float: left;
+    .talk-card-inside p {
+        margin:0;
+    }
+}

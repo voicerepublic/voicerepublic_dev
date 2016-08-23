@@ -1,10 +1,10 @@
 msc {
-    vm   [label="Venue (M)"],
     tm   [label="Talk (M)"],
+    vm   [label="Venue (M)"],
     dm   [label="Device (M)"],
 
-    vc   [label="Venue (C)"],
     tc   [label="Talk (C)"],
+    vc   [label="Venue (C)"],
     dc   [label="Device (C)"],
 
     icep [label="ICEP (MW)"],
@@ -14,8 +14,8 @@ msc {
     dv   [label="Device (V)"],
 
     #cc2   [label="CC2 (RMQ)"],
-    rmq  [label="RabbitMQ"],
-    bb   [label="BumpyBridge"],
+    #rmq  [label="RabbitMQ"],
+    #bb   [label="BumpyBridge"],
     faye [label="Faye"],
     cc1   [label="CC1 (Faye)"],
 
@@ -25,77 +25,146 @@ msc {
     publ [label="Publisher"],
     cons [label="Consumer"];
 
-    tm box tm [label="prelive"];
-    cons->tv  [label="visit /talks/:slug"];
-    dm box dm [label="unpaired"];
-    publ->sb  [label="switch on"];
-    sb box sb [label="on"];
-    sb->dc    [label="knocking: GET /api/devices/:serial"];
-    dc>>sb    [label="resp.: endpoint (target), loglevel"];
-    sb->dc    [label="registering: POST /api/devices"];
-    dc>>sb    [label="resp.: all other details"];
-    sb->faye  [label="heartbeat (continously)"];
-    faye->cc1 [label="heartbeat (continously)"];
-    dc=>dm    [label="register! (event)"];
-    dm box dm [label="pairing"];
-    publ->dv  [label="visit /devices"];
-    dv->dc    [label="complete_pairing: PUT /devices/:id"];
-    dc=>dm    [label="complete_pairing! (event)"];
-    dm box dm [label="idle"];
-    publ->sb  [label="switch off"];
-    sb box sb [label="off"];
-    cc1=>dm   [label="disappear! (event)"];
-    dm box dm [label="(disappeared)"];
-    publ->sb  [label="switch on"];
-    sb box sb [label="on"];
-    sb->dc    [label="knocking: GET /api/devices/:serial"];
-    dc>>sb    [label="resp.: endpoint, loglevel"];
-    sb->dc    [label="registering: POST /api/devices"];
-    dc>>sb    [label="resp.: all other details"];
-    dc=>dm    [label="register! (event)"];
-    dm box dm [label="idle"];
-    vm box vm [label="offline"];
-    publ->vv  [label="visit /venues/:slug"];
-    vv->vc    [label="start_provisioning! (ajax)"];
-    vc=>vm    [label="start_provisioning!"];
-    vm box vm [label="provisioning"];
-    vm->rmq   [label="venue_transition provisioning"];
-    rmq->bb   [label="venue_transition provisioning"];
-    bb->faye  [label="venue_transition provisioning"];
-    faye->vv  [label="venue_transition provisioning"];
-    vv box vv [label="update"];
-    vm->ec2   [label="run_instance (rest)"];
-    ec2->icep [label="/icecast/complete (rest)"];
-    icep=>vm  [label="complete_provisioning!"];
-    vm box vm [label="select_device"];
-    vm->rmq   [label="venue_transition select_device"];
-    rmq->bb   [label="venue_transition select_device"];
-    bb->faye  [label="venue_transition select_device"];
-    faye->vv  [label="venue_transition select_device"];
-    vv box vv [label="update"];
-    vv->vc    [label="device_selected! (ajax)"];
-    vc=>vm    [label="device_selected!"];
-    vm box vm [label="awaiting"];
-    vm=>dm    [label="start_stream! (event)"];
-    dm box dm [label="streaming"];
-    dm->faye  [label="start_stream! (direct?)"];
-    faye->sb  [label="start_stream!"];
-    sb->ec2   [label="icecast stream"];
-    ec2->icep [label="/icecast/connect"];
-    icep=>vm  [label="connect! (event)"];
-    vm box vm [label="connected"];
-    vm->rmq   [label="venue_transition connected"];
-    rmq->bb   [label="venue_transition connected"];
-    bb->faye  [label="venue_transition connected"];
-    faye->vv  [label="venue_transition connected"];
-    vv box vv [label="update"];
-    vv->tc    [label="start_talk! (ajax)"];
-    tc=>tm    [label="start_talk! (event)"];
-    tm box tm [label="live"];
-    tm->rmq   [label="talk_transition live"];
-    rmq->bb   [label="talk_transition live"];
-    bb->faye  [label="talk_transition live"];
-    faye->tv  [label="talk_transition live"];
-    tv box tv [label="update"];
+    ---         [label="INITIAL SITUATION"];
+    tm box tm   [label="prelive"];
+    dm box dm   [label="unpaired"];
+    vm box vm   [label="offline"];
+    cons->tv    [label="visit /talks/:slug"];
+
+    ---         [label="SWITCH ON UNPAIRED DEVICE"];
+    publ->sb    [label="switch on"];
+    sb box sb   [label="on"];
+    sb->dc      [label="knocking: GET /api/devices/:serial"];
+    dc>>sb      [label="resp.: endpoint (target), loglevel"];
+    sb->dc      [label="registering: POST /api/devices"];
+    dc>>sb      [label="resp.: all other details"];
+    sb->faye    [label="heartbeat (continously)"];
+    faye->cc1   [label="heartbeat (continously)"];
+    dc=>dm      [label="register! (event)"];
+    dm box dm   [label="pairing"];
+
+    ---         [label="PAIR A DEVICE"];
+    publ->dv    [label="visit /devices"];
+    dv->dc      [label="complete_pairing: PUT /devices/:id"];
+    dc=>dm      [label="complete_pairing! (event)"];
+    dm box dm   [label="idle"];
+
+    ---         [label="SWITCH OFF DEVICE"];
+    publ->sb    [label="switch off"];
+    sb box sb   [label="off"];
+    cc1=>dm     [label="disappear!"];
+    dm box dm   [label="disappeared_at set"];
+
+    ---         [label="SWITCH ON PAIRED DEVICE"];
+    publ->sb    [label="switch on"];
+    sb box sb   [label="on"];
+    sb->dc      [label="knocking: GET /api/devices/:serial"];
+    dc>>sb      [label="resp.: endpoint, loglevel"];
+    sb->dc      [label="registering: POST /api/devices"];
+    dc>>sb      [label="resp.: all other details"];
+    dc=>dm      [label="register! (event)"];
+    dm box dm   [label="idle"];
+
+    ---         [label="VISITING THE VENUES PAGE"];
+    publ->vv    [label="visit /venues/:slug"];
+    vv->vc      [label="xhr PUT /venues/:slug (event: become_available!)"];
+    vm box vm   [label="available"];
+    vm->faye    [label="push_snapshot (state: available)"];
+    faye->vv    [label="push_snapshot (state: available)"];
+    vv box vv   [label="update"];
+
+    ---         [label="STARTING THE STREAMING SERVER"];
+    publ->vv    [label="clicks 'Start Server'"];
+    vv->vc      [label="xhr PUT /venues/:slug (event: start_provisioning!)"];
+    vc=>vm      [label="start_provisioning!"];
+    vm box vm   [label="provisioning"];
+    vm->faye    [label="push_snapshot (state: provisioning)"];
+    faye->vv    [label="push_snapshot (state: provisioning)"];
+    vv box vv   [label="update"];
+    vm->ec2     [label="run_instance (rest)"];
+    ec2->icep   [label="POST /icecast/complete (client_token, public_ip_address)"];
+    icep=>vm    [label="complete_provisioning!"];
+    vm box vm   [label="device_required"];
+    vm->faye    [label="push_snapshot (state: device_required)"];
+    faye->vv    [label="push_snapshot (state: device_required)"];
+    vv box vv   [label="update"];
+
+    ---         [label="SELECTING THE AUDIO SOURCE"];
+    publ->vv    [label="selects device from list"];
+    vv->vc      [label="xhr PUT /venues/:slug (event: select_device!)"];
+    vc=>vm      [label="select_device!"];
+    vm box vm   [label="awaiting_stream"];
+    vm->faye    [label="push_snapshot (state: awaiting_stream)"];
+    faye->vv    [label="push_snapshot (state: awaiting_stream)"];
+    vv box vv   [label="update"];
+    vm=>dm      [label="start_stream! (event)"];
+    dm box dm   [label="streaming"];
+    dm->faye    [label="start_stream!"];
+    faye->sb    [label="start_stream!"];
+    sb->ec2     [label="icecast stream"];
+
+    ---         [label="CONNECT A CLIENT"];
+    publ->sb    [label="setup (automatic with streamboxx)"];
+    ec2->icep   [label="/icecast/connect"];
+    icep=>vm    [label="connect! (event)"];
+    vm box vm   [label="connected"];
+    vm->faye    [label="push_snapshot (state: connected)"];
+    faye->vv    [label="push_snapshot (state: connected)"];
+    vv box vv   [label="update"];
+    vv->ec2     [label="subscribes to audio stream"];
+    vv->publ    [label="plays audio"];
+
+    ---         [label="STARTING A TALK"];
+    publ->vv    [label="clicks 'Start Broadcast'"];
+    vv->tc      [label="xhr PUT /xhr/talks/:slug (event: start_talk!)"];
+    tc=>tm      [label="start_talk!"];
+    tm box tm   [label="live"];
+    tm=>vm      [label="propagate changes"];
+    vm->faye    [label="push_snapshot"];
+    faye->vv    [label="push_snapshot"];
+    vv box vv   [label="update"];
+    tm->faye    [label="push_snapshot (state: live)"];
+    faye->tv    [label="push_snapshot (state: live)"];
+    tv box tv   [label="update"];
+    tv->ec2     [label="subscribes to audio stream"];
+    tv->cons    [label="plays audio"];
+
+    ---         [label="ENDING A TALK"];
+    publ->vv    [label="clicks 'Stop Broadcast'"];
+    vv->tc      [label="xhr PUT /xhr/talks/:slug (event: end_talk!)"];
+    tc=>tm      [label="end_talk!"];
+    tm box tm   [label="postlive"];
+    tm=>vm      [label="propagate changes"];
+    vm->faye    [label="push_snapshot"];
+    faye->vv    [label="push_snapshot"];
+    vv box vv   [label="update"];
+    tm->faye    [label="push_snapshot (state: postlive)"];
+    faye->tv    [label="push_snapshot (state: postlive)"];
+    tv box tv   [label="update"];
+    tv->ec2     [label="unsubscribes from audio stream"];
+    tv->cons    [label="stops playing audio"];
+    tm=>vm      [label="require_disconnect!"];
+    vm box vm   [label="disconnect_required"];
+    vm->faye    [label="push_snapshot (state: disconnect_required)"];
+    faye->vv    [label="push_snapshot (state: disconnect_required)"];
+    vv box vv   [label="update"];
+
+    ---         [label="RECONNECT THE CLIENT"];
+    publ->sb    [label="reconnect (automatic with streamboxx)"];
+    vm=>dm      [label="restart_stream!"];
+    dm->faye    [label="restart_stream!"];
+    faye->sb    [label="restart_stream!"];
+    sb->ec2     [label="icecast stop (part of restart)"];
+    ec2->icep   [label="/icecast/disconnect"];
+    icep=>vm    [label="disconnect!"];
+    vm box vm   [label="disconnected"];
+    ec2 box ec2 [label="syncing"];
+    sb->ec2     [label="icecast start (part of restart)"];
+    ec2->icep   [label="/icecast/connect"];
+    icep=>vm    [label="connect!"];
+    vm box vm   [label="connected"];
+    ec2->icep   [label="/icecast/synced"];
+    icep=>vm    [label="synced!"];
+    vm=>tm      [label="schedule_archiving!"];
 
 }

@@ -21,8 +21,10 @@ describe Api::UploadsController do
     describe 'creation of a talk' do
       before do
         @series = FactoryGirl.create :series, user: @user
+        @venue = FactoryGirl.create :venue, user: @user
         @talk = FactoryGirl.attributes_for :talk, :with_user_override_uuid
         @talk.merge!(series_id: @series.id)
+        @talk.merge!(venue_id: @venue.id)
       end
       it 'returns the slug of the created talk' do
         # Creating a Talk would have the side effect of postprocessing.

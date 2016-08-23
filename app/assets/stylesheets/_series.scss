@@ -1,0 +1,253 @@
+//series
+.series {
+    background: $silver;
+    #social_share {
+        li a{
+            color: $vr-blue;
+            &:hover {
+                color: $vr-yellow
+            }
+        }
+    }
+    h3 {
+    	font-family: $body-font-family;
+    	font-size: rem-calc(16);
+    	color: $talk-dark;
+    	font-weight: 700;
+    }
+
+    .series-meta-group li {
+    	color: $vr-beige;
+    	p.label {
+    		color: $white;
+    	}
+    }
+
+
+    .top-section {
+    	background:$vr-light-blue;
+    }
+    .link-delete {
+        float: left;
+        color: $vr-beige;
+        border-color: $vr-beige;
+    }
+    .button-cancel {
+        margin-right: 6px;
+    }
+    .preview-img {
+        width: 600px;
+        height: 400px;
+        background-size: cover;
+        margin: 0 auto;
+        margin-bottom: 12px;
+    }
+
+    .series-container {
+    	max-width: 900px;
+    	margin: 0 auto;
+    	padding-top:12px;
+    }
+
+    .user-box {
+    	* {
+    		display: inline-block;
+    	}
+
+    	.image-box {
+    	 	text-align: center;
+    	 	img {
+    	 		margin: 0 auto;
+    	 	}
+    	 }
+
+
+    }
+    .series-grid {
+    	max-width: none;
+    	width: 100%;
+
+    }
+    .series-left-column {
+    	// background:yellow;
+    	padding: 12px;
+    	@include breakpoint(large){
+    		// max-width: 350px;
+    		padding: 24px;
+    		padding-right: 0;
+
+    	}
+    	img {
+    		margin-top: 6px;
+    	}
+    }
+
+    #series-right-column {
+    	// background: orange;
+    	@include breakpoint(medium){
+    		padding:12px;
+    	}
+    	@include breakpoint(large){
+    		padding:24px 0 0 24px;
+    	// width: calc(100% - 350px)
+    	// margin-left: 350px;
+    	}
+    }
+
+    #series-about {
+        font-size: rem-calc(14);
+        margin-top: 24px;
+    }
+
+        .talk-card {
+        @include breakpoint(medium) {
+            width: 100%;
+        }
+
+        @include breakpoint(800px) {
+            width: 50%;
+        }
+
+        // @include breakpoint(1400px) {
+        //     width: 33.333%;
+        // }
+
+        // @include breakpoint(1800px) {
+        //     width: 25%;
+        // }
+
+        // @include breakpoint(2200px) {
+        //     width: 20%;
+        // }
+    }
+
+    // #right-column h3 {
+    //     font-family: $body-font-family;
+    //     font-size: rem-calc(18);
+    //     text-align: left;
+    //     font-weight: 700;
+    //     color:$vr-light-blue;
+    //     margin-left: 6px;	
+    // }
+    // max-width: rem-calc(900);
+    // margin: 0 auto;
+    // padding-top: 24px;
+    // text-align: center;
+    .row {
+        padding: 0;
+        max-width: 48rem;
+        // text-align: center;
+        // .columns {
+        //     padding: 12px;
+        // }
+
+        &.image-box,
+        &.meta-data-box {
+            padding: 0;
+        }
+        &.meta-data-box {
+            padding-top: 0;
+        }
+    }
+
+    .meta-data-box {
+    	hr {
+    		border-color: $vr-yellow;
+    	}
+    }
+    .title-box {
+    		text-align: center;
+    		img {
+    			margin: 0 auto;
+    			margin-bottom: 0;
+    			vertical-align: middle;
+    		}
+        padding: 24px 0 6px 0;
+      
+
+    }
+    .byline {
+    	margin-bottom: 24px;
+    }
+        span.user {
+            color: $talk-dark;
+            font-weight: 700;
+            font-size: rem-calc(14);
+            margin-left: 6px;
+            margin-bottom: 0;
+            display: inline-block;
+        }
+    .talks-title {
+        padding: 0;
+        padding-bottom: 6px;
+        color: $vr-blue;
+        width: auto;
+        h3 {
+        	// margin-left: 12px;
+        }
+    }
+    .talks-grid {
+        padding: 0;
+        margin: -6px;
+        padding-bottom: 24px;
+        width: auto;
+        @include breakpoint(medium) {
+            width: 100%;
+        }
+    }
+    .action-links {
+        text-align: center;
+        padding-top: 12px;
+    }
+    .talks-box {
+        padding: 12px;
+        padding-bottom: 0;
+        @include breakpoint(medium) {
+            padding-right: 0;
+        }
+
+        hr {
+            border-color: $vr-blue;
+        }
+    }
+    .series-label {
+        font-size: rem-calc(12);
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: rem-calc(1);
+        line-height: rem-calc(12);
+        margin-bottom: 6px;
+        opacity: .6;
+        margin-right: 6px;
+    }
+    .series-description {
+        padding: 12px;
+        // padding-bottom: 60px;
+   
+    }
+    .series-description p {
+        text-align: left !important;
+        font-weight: 300;
+    }
+    .series-title {
+    	margin: 0;
+    	color: $vr-yellow;
+    }
+    h3.about {
+        color: $vr-blue;
+    }
+}
+
+.menu-centered {
+	text-align:center;
+	.menu > li {
+		display: inline-block;
+	}
+
+	li.mail {
+		svg {
+			max-width: 26px;
+			max-height: 32px;
+		}
+	}
+}

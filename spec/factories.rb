@@ -20,9 +20,15 @@ FactoryGirl.define do
   factory :venue do
     name "Some venue"
     user
+    trait :available do
+      state :available
+    end
     trait :provisioning do
       state :provisioning
       client_token
+    end
+    trait :device_required do
+      state :device_required
     end
     trait :awaiting_stream do
       state :awaiting_stream
@@ -34,6 +40,12 @@ FactoryGirl.define do
     trait :connected do
       state :connected
       client_token
+    end
+    trait :disconnect_required do
+      state :disconnect_required
+    end
+    trait :disconnected do
+      state :disconnected
     end
   end
 
@@ -50,7 +62,7 @@ FactoryGirl.define do
   #   FactoryGirl.create(:user, :unconfirmed)
   #
   factory :user do
-    ignore do
+    transient do
       unconfirmed false
     end
 
@@ -82,7 +94,15 @@ FactoryGirl.define do
 
   factory :talk do
     title "Some awesome title"
+
     series
+    venue
+
+    # NOTE: this is tricky & ugly
+    after :create  do |talk|
+      talk.venue.update_attribute(:user_id, talk.user.id)
+    end
+
     # NOTE: times set here are not affected by `Timecop.freeze` in a
     # `before` block
     starts_at_time 1.hour.from_now.strftime('%H:%M')
@@ -91,6 +111,15 @@ FactoryGirl.define do
     tag_list 'lorem, ipsum, dolor'
     description 'Some talk description'
     language 'en'
+
+    trait :prelive do
+      state 'prelive'
+      starts_at 10.minutes.from_now
+    end
+
+    trait :live do
+      state 'live'
+    end
 
     trait :archived do
       state 'archived'
@@ -110,6 +139,7 @@ FactoryGirl.define do
       starts_at_time 1.hour.ago.strftime('%H:%M')
       starts_at_date 1.hour.ago.strftime('%Y-%m-%d')
     end
+
   end
 
   factory :appearance do

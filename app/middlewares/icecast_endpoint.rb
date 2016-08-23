@@ -1,39 +1,68 @@
 class IcecastEndpoint < Struct.new(:app, :opts)
 
+  ROUTE = %r{/icecast/(\w+)/([\w-]+)}
+
+  OK               = [200, {}, ['200 - OK']]
+  NOT_FOUND        = [404, {}, ['404 - Not found']]
+  COMPUTER_SAYS_NO = [740, {}, ['740 - Computer says no']]
+
   def call(env)
+    path = env['PATH_INFO']
+
     return app.call(env) unless env['REQUEST_METHOD'] == 'POST'
-    return app.call(env) unless env['PATH_INFO'].match(%r{\A/icecast/})
+    return app.call(env) unless path.match(%r{\A/icecast/})
 
-    payload = JSON.parse(env['rack.input'].read)
-    client_token = payload['client_token']
+    _, action, token = path.match(ROUTE).to_a
+    return app.call(env) unless _
 
-    return [ 740, {}, ['740 - Computer says no'] ] if client_token.nil?
+    Faye.publish_to '/server/heartbeat', token: token if action == 'stats'
 
-    venue = Venue.find_by(client_token: client_token)
-    return [ 404, {}, [] ] unless venue.present?
+    json = env['rack.input'].read
+    return OK if action == 'stats' && !json.match(/"source"/)
 
-    case env['PATH_INFO']
-    when '/icecast/complete'
-      venue.public_ip_address = payload['public_ip_address']
+    venue = Venue.find_by(client_token: token)
+    return NOT_FOUND if venue.nil?
+
+
+    case action.to_sym
+    when :ready
+      venue.public_ip_address = Settings.icecast.url.host ||
+                                JSON.parse(json)['public_ip_address']
+      return COMPUTER_SAYS_NO if venue.public_ip_address.nil?
       venue.complete_provisioning!
 
-    when '/icecast/connect'
-      venue.connect!
+    when :connect
+      venue.connect! unless venue.connected?
 
-    when '/icecast/disconnect'
-      venue.disconnect!
+    when :disconnect
+      venue.disconnect! if venue.can_disconnect?
+
+    when :synced
+      venue.synced!
+
+    when :stats
+      source = JSON.parse(json)['icestats']['source']
+      stats = {
+        bitrate: source['audio_bitrate'],
+        listener_count: source['listeners'],
+        listener_peak: source['listener_peak']
+      }
+      StreamStat.create(stats.merge(venue_id: venue.id))
+      Faye.publish_to venue.channel, event: 'stats', stats: stats
+      Faye.publish_to '/admin/stats', stats: stats, slug: venue.slug
+      return OK
 
     else
-      # TODO log an error
-      return [ 721, {}, ['721 - Known Unknowns', env['PATH_INFO']] ]
+      return [ 721, {}, ['721 - Known Unknowns', path] ]
     end
 
-    [ 200, {}, [] ]
+    Rails.logger.info '-> 200 OK'
+    OK
 
-  # for now remove the catch all errors here
-  #rescue => e
-  #  # TODO log an error
-  #  [ 722, {}, ['722 - Unknown Unknowns', e.message] ]
+    #for now remove the catch all errors here
+    # rescue => e
+    # Rails.logger.error(([e.message]+e.backtrace) * "\n")
+    #  [ 722, {}, ['722 - Unknown Unknowns', e.message] ]
   end
 
 end

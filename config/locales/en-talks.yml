@@ -7,6 +7,9 @@ en:
 
         %{started_at} - %{ended_at}
     show:
+      loading: Loading The Talk
+      sprecherin: "SprecherIn: "
+      comments: Comments
       favorite: Favorite
       dryrun: "(This test talk is available for 24 hours.)"
       talk_queued_for_processing: Queued for processing, please stand by...
@@ -100,7 +103,7 @@ en:
       please_reload_this_page: Click to reload this page
       nelly_warning: 'Attention: Inferior Codec. Click here to fix.'
       participants: Participants
-      plays: '%{count} plays'
+      plays: ' Plays'
       subscribe_to_podcast: Podcast
       embed: Embed
       embed_this_talk: Embed this Talk
@@ -145,7 +148,18 @@ en:
       delete_talk: Delete talk
       select_image: Background image
     fields:
-      upload_a_recording: Upload A Recording
+      add_to_venue: Set the Stage
+      venue_help_text: >-
+        Stages allow you to organize streams from multiple
+        locations. This is required if you want to stream multiple
+        streams at the same time.
+      upload_timings: >-
+        Choose the date and time your talk took place. Please
+        note that an uploaded talk must be set in the past.
+      upload_hint: >-
+        Already have a recording of your event? Here's where you can upload it. It will be available in our
+        archive within minutes.
+      upload_a_recording: Upload To Voice Republic
       describe_your_talk: Describe Your Talk
       unprocessed_upload: |
         Please click 'Save' to start processing your uploaded audio file.
@@ -155,11 +169,11 @@ en:
       upload_done: A file has already been uploaded.
       record: <span class="red">Record</span> the Broadcast for later Playback and Embedding
       add_to_series: Add to Series
-      series_help_text: Series are like playlist, they allow you to group your talks by theme.
+      series_help_text: Group your talks into series. Series can be topics, locations, dates, etc.
       invite_guests: Invite guests
       invite_guests_text: Your guests will be automatically added to the stage.
       illustrate_and_describe: Image and Description
-      ill_and_desc_text: Choose a background image and tell your audience a little more...
+      ill_and_desc_text: Make your talk pretty! Choose a background that illustrates the content of your talk. Be careful not to infringe on any copyrights.
       image_text: Please choose an image with a minimum resolution of 1200 x 1200 px
       import_your_audio_file: Import audio file
       select_image: Select image
@@ -169,6 +183,12 @@ en:
       teaser: Short description
       tag_list: Tags
       create_new_series: Create New Series...
+      slides: Upload Your Slides
+      #slides_help_text: >-
+        #If you have presentation slides, please upload them here. PDF only.
+    podcast:
+      title: "%{title}"
+      subtitle: "Podcast provided by Voice Republic"
 
   # this makes all translations from `talks` also available to `uploads`
   uploads:

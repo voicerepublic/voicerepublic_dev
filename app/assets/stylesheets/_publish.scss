@@ -1,0 +1,48 @@
+
+
+//publish
+
+
+
+.pages #claim {
+  padding: 96px 0;
+}
+
+
+.hero-icon {
+  color: $vr-blue;
+  padding-bottom: 24px;
+  &.yellow {
+    color:$vr-yellow;
+  }
+
+  svg {
+    fill: currentColor;
+    width: 120px;
+    height: 120px;
+  }
+
+  &.large svg {
+    width: 100%;
+    height: auto;
+    max-width: 500px;
+    max-height: 500px;
+  }
+}
+
+section.blue {
+  p {
+    color: $vr-beige;
+  }
+}
+
+section.turquoise {
+  h2 {
+    color: white;
+  }
+}
+
+span.description {
+  display: inline-block;
+  margin-bottom: 24px;
+}

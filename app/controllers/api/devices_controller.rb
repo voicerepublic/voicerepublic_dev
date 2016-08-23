@@ -38,6 +38,23 @@ class Api::DevicesController < ApplicationController
   end
 
 
+  # Desktop App: Poll
+  # PUT /api/devices/:id
+  def update
+    @device = Device.find_by(identifier: params[:id])
+
+    return render status: 404, text: "404 - Not found" if @device.nil?
+
+    # act as a proxy for the regular heartbeat logic
+    Faye.publish_to '/heartbeat',
+                    identifier: @device.identifier,
+                    interval: @device.heartbeat_interval
+
+    render json: @device.details
+  end
+
+  private
+
   def device_params
     params.require(:device).permit(:identifier, :type)
   end

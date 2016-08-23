@@ -1,0 +1,42 @@
+//errors
+.not-found {
+	padding-top:48px;
+	.svg-icon {
+		width: 48px;
+		height: 48px;
+		max-width: 48px;
+		max-height: 48px;
+		padding-bottom:12px;
+		svg {
+			width: 48px;
+			height: 48px;
+			& * {
+
+			fill: $vr-red;
+			}
+		}
+	}
+	h2 {
+		color: $vr-red;
+		margin-bottom: 12px;
+		text-transform: none;
+		font-size: rem-calc(36);
+	}
+
+	.lead {
+		color: $vr-beige;
+		// margin-bottom: 48px;
+	}
+
+	hr {
+		margin-top: 48px;
+	}
+}
+
+.talk-holder {
+	padding-bottom:48px;
+	.talk-card {
+		margin:0 auto;
+		float:none !important;
+	}
+}

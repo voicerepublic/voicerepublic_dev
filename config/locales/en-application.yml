@@ -1,9 +1,13 @@
 en:
   application:
-    record_not_found:
+    not_found:
       oops: "Oops!"
       nothing_here: "The page you were looking for is no longer here."
       something_else: "May we recommend another Talk?"
     routing_error:
       cant_get_there: "You can't get where you're going from here."
       try_again: "Try again?"
+    forbidden:
+      oops: "Excuse me..."
+      nothing_here: "You don't have access to this page."
+      something_else: "There is not much else to say."

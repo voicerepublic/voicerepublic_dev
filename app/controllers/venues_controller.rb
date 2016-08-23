@@ -1,9 +1,5 @@
 class VenuesController < ApplicationController
 
-  ALLOWED_EVENTS = %w( become_available
-                       start_provisioning
-                       device_selected )
-
   layout 'velvet'
 
   load_and_authorize_resource
@@ -14,45 +10,24 @@ class VenuesController < ApplicationController
     redirect_to(@venues.first) if @venues.size == 1
   end
 
-  skip_before_action :verify_authenticity_token, only: [:update]
+  def show
+    render layout: "velvet_minimal"
+  end
 
-  # PUT /venues/:slug
-  #
-  # Responds to xhr requests. (Should hence problaby move to
-  # `Xhr::VenuesController`.)
-  #
-  # Accepts and performs regular updates like setting...
-  #
-  #  * device_id
-  #
-  # as well as optional information...
-  #
-  #  * emergency_phone_number
-  #  * street_address
-  #  * estimated_number_of_listeners
-  #
-  # Additionally takes a param `event` to issue on the given venue,
-  # e.g. `start_provisioning`
   def update
-    @venue.assign_attributes(venue_params)
+    @venue.update_attributes(venue_params)
 
-    method = :save
-    method = @venue.event+'!' if ALLOWED_EVENTS.include?(@venue.event)
-
-    @venue.send(method)
-    head :ok
-
-  rescue => e
-    render status: 409, text: e.message
+    redirect_to @venue
   end
 
   private
 
   def venue_params
-    params.required(:venue).permit(:event,
-                                   :device_id,
+    params.required(:venue).permit(:name,
                                    :emergency_phone_number,
                                    :street_address,
+                                   :lat,
+                                   :long,
                                    :estimated_number_of_listeners)
   end
 

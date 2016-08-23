@@ -25,7 +25,7 @@
       %h3.user-name=@user.name
       - if can? :manage, @user
         %p
-          = link_to [:edit, @user], class: 'button tiny hollow secondary' do
+          = link_to [:edit, @user], class: 'button tiny hollow' do
             -#= icon_tag 'pencil'
             = t('.edit_profile')
         %p#user-description
@@ -37,33 +37,19 @@
         %p#user-description
           = @user.summary
 
-        -#%p.website-link
-          -#= link_to @user.website do
-            -#= @user.website
-      -# TODO: get user's social links and post here?
-      -#%ul.social-links
-      -#  -# TODO: link these up, if they have provided the link, show the -#icon, make it go somewhere
-      -#  %li.list-item
-      -#    = icon_tag 'twitter'
-      -#    %p= t('.twitters')
-      -#  %li.list-item
-      -#    = icon_tag 'facebook'
-      -#  %li.list-item
-      -#    = icon_tag 'location'
       - if can? :manage, @user
         -# TODO: discuss. Can't we just have one path to the create talk page?
-        -# =link_to new_talk_path, class:'button hollow' do
-        -#   = t('.upload_talk')
+        =link_to new_upload_path, class:'button hollow publish-btn tiny' do
+          = icon_tag 'upload'
+          = t('.upload_talk')
         = link_to new_talk_path, class:'button hollow publish-btn tiny' do
-          = icon_tag 'megaphone'
-          = t('.publish_a_talk')
+          = icon_tag 'victrola'
+          = t('.create_live_talk')
 
 
       - else
         = link_to podcast_url(@user), class:'button hollow tiny' do
           = t('.subscribe_to_podcast')
-
-      -# TODO: make these prettier: put the value big, then underneath, the key in small text
       %hr
       %ul.user-meta-group.menu.expanded
         %li
@@ -81,10 +67,25 @@
       %hr/
 
 
+
     #user-about.row
       - unless @user.about.blank?
         %p.column-header= t('.about')
         %p= @user.about_as_html.html_safe
+      %ul.social-links.menu.vertical
+        - unless @user.website.blank?
+          %li.list-item
+            = link_to @user.website_url, target: '_blank', title: @user.website_url do
+              %p= naked_icon 'globe'
+        - unless @user.facebook.blank?
+          %li.list-item
+            = link_to @user.facebook_url, target: '_blank', title: @user.facebook_url do
+              %p= naked_icon 'facebook'
+        - unless @user.twitter.blank?
+          %li.list-item
+            = link_to @user.twitter_url, target: '_blank', title: @user.twitter_url do
+              %p= naked_icon 'twitter'
+              
 
   #right-column.clearfix
 

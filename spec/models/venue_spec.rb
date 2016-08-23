@@ -44,6 +44,24 @@ RSpec.describe Venue, type: :model do
     end
   end
 
+  describe 'storage related' do
+    it 'provides a method to infer relevant files' do
+      talk = FactoryGirl.build(:venue)
+      names = [
+        "dump_#{2.days.ago.to_i}",
+        "dump_#{2.hours.ago.to_i}",
+        "dump_#{61.minutes.ago.to_i}",
+        "dump_#{60.minutes.ago.to_i}",
+        "dump_#{59.minutes.ago.to_i}",
+        "dump_#{1.minute.ago.to_i}"
+      ]
+      started_at = 60.minutes.ago.to_i
+      ended_at = 30.minutes.ago.to_i
+      result = talk.relevant_files(started_at, ended_at, names)
+      expect(result.map(&:first).sort).to eq(names[2,3])
+    end
+  end
+
   describe 'streaming related' do
     describe 'built' do
       before do
@@ -59,7 +77,7 @@ RSpec.describe Venue, type: :model do
 
       it 'generates mount points' do
         mount_point = @venue.generate_mount_point
-        expect(mount_point).to match(uuid_regex)
+        expect(mount_point).to eq('live')#match(uuid_regex)
       end
 
       it 'generates passwords' do
@@ -134,6 +152,51 @@ RSpec.describe Venue, type: :model do
         expect(config).to include(@venue.port.to_s)
       end
     end
+  end
+
+  describe 'scopes' do
+    it 'provides not_offline' do
+      expected = [
+        FactoryGirl.create(:venue, :available),
+        FactoryGirl.create(:venue, :provisioning),
+        FactoryGirl.create(:venue, :device_required),
+        FactoryGirl.create(:venue, :awaiting_stream),
+        FactoryGirl.create(:venue, :connected),
+        FactoryGirl.create(:venue, :disconnect_required),
+        FactoryGirl.create(:venue, :disconnected)
+      ]
+      unexpected = [
+        FactoryGirl.create(:venue)
+      ]
+      venues = Venue.not_offline
+      expected.each do |expectation|
+        expect(venues).to include(expectation)
+      end
+      unexpected.each do |suprise|
+        expect(venues).not_to include(suprise)
+      end
+    end
+
+    it 'provides with_live_talks' do
+      venue = FactoryGirl.create(:venue)
+      FactoryGirl.create(:talk, :live, venue: venue)
+      unexpected = FactoryGirl.create(:venue)
+
+      venues = Venue.with_live_talks
+      expect(venues).to include(venue)
+      expect(venues).not_to include(unexpected)
+    end
+
+    it 'provides with_upcoming_talks' do
+      venue = FactoryGirl.create(:venue)
+      FactoryGirl.create(:talk, :prelive, venue: venue)
+      unexpected = FactoryGirl.create(:venue)
+
+      venues = Venue.with_upcoming_talks
+      expect(venues).to include(venue)
+      expect(venues).not_to include(unexpected)
+    end
+
   end
 
 end

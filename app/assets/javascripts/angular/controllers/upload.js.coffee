@@ -36,7 +36,7 @@ uploadFunc = ($scope, $log, FileUploader, validity, safetynet) ->
       fn: (item, options) ->
         type = item.type.split('/').pop()
         # fallback to file name, safari does not provide a type
-        type = item.name.split('.').pop() if !type
+        type = item.name.split('.').pop().toLowerCase() if !type
         type in filetypes
 
     uploader.filters.push
@@ -45,9 +45,11 @@ uploadFunc = ($scope, $log, FileUploader, validity, safetynet) ->
         item.size > 0
 
     uploader.onWhenAddingFileFailed = (file, filter, options) ->
+      $log.info 'adding failed'
       $scope.addingFailed = true
 
     uploader.onAfterAddingFile = (item) ->
+      $log.info 'after adding'
       $scope.state = 'uploading'
       $scope.addingFailed = false
       $scope.set_valid false
@@ -59,16 +61,20 @@ uploadFunc = ($scope, $log, FileUploader, validity, safetynet) ->
     #   file = item?.file
 
     uploader.onCancelItem = (item, response, status, headers) ->
+      $log.info 'cancel'
       safetynet.deactivate()
       file = item?.file # because here item is a FileItem
+      $scope.uploadFailed = true
 
     uploader.onErrorItem = (item, response, status, headers) ->
+      $log.info 'error item'
       $log.error "Uploading failed: " + JSON.stringify(response)
       safetynet.deactivate()
       file = item?.file # because here item is a FileItem
       $scope.uploadFailed = true
 
     uploader.onCompleteAll = ->
+      $log.info 'complete all'
       $scope.state = 'finished'
       $scope.set_valid true
       # call the success pseudo callback given via options by eval

@@ -1,5 +1,12 @@
 module ApplicationHelper
 
+  def body_classes
+    list = [ controller_name,
+             [controller_name, action_name] * '-' ]
+    list += @body_classes unless @body_classes.nil?
+    list * ' '
+  end
+
   def itunes_image_url(image)
     image.thumb('1400x1400#', format: 'png').url(name: 'image.png')
   end
@@ -19,6 +26,13 @@ module ApplicationHelper
   def render_footer?
     return false if controller_action == 'explore-index'
     return false if controller_action == 'users-edit'
+    return false if controller_action == 'venues-show'
+    true
+  end
+
+  # TODO: refactor into controllers
+  def render_top_loader?
+    return false if controller_action == 'talks-show'
     true
   end
 
@@ -100,7 +114,7 @@ module ApplicationHelper
       data: {
         confirm: I18n.t('.confirm_delete', default: 'Are you sure?')
       },
-      class: 'link-delete button hollow'
+      class: 'link-delete button hollow muted btn-hover-red'
     }
   end
 
@@ -135,6 +149,10 @@ module ApplicationHelper
     document = Nokogiri::HTML.parse(str)
     document.css("br").each { |node| node.replace("\n") }
     document.text
+  end
+
+  def unsecured_url(url)
+    url.gsub(/https:\/\//, 'http://')
   end
 
   def render_social_meta_tags(opts)
