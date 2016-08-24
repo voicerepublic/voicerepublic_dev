@@ -12,9 +12,11 @@
     environment = #{Rails.env.to_json};
     fayeUrl = #{Settings.faye.server.to_json};
 
-    fayeClient = new Faye.Client(fayeUrl);
-    fayeExtension = new FayeAuthentication(fayeClient);
-    fayeClient.addExtension(fayeExtension);
+    if (window.Faye != undefined) {
+      fayeClient = new Faye.Client(fayeUrl);
+      fayeExtension = new FayeAuthentication(fayeClient);
+      fayeClient.addExtension(fayeExtension);
+    }
 
     insider = #{!!current_user.try(:insider?)};
     console.off = #{!!(Settings.disable_js_debugging && !current_user.try(:insider?))};

@@ -10,9 +10,11 @@
   :javascript
     fayeUrl = #{Settings.faye.server.to_json};
 
-    fayeClient = new Faye.Client(fayeUrl);
-    fayeExtension = new FayeAuthentication(fayeClient);
-    fayeClient.addExtension(fayeExtension);
+    if (window.Faye != undefined) {
+      fayeClient = new Faye.Client(fayeUrl);
+      fayeExtension = new FayeAuthentication(fayeClient);
+      fayeClient.addExtension(fayeExtension);
+    }
 
     initialSnapshot = #{@venue.snapshot.to_json};
     translations = #{t('frontend.venues').to_json};
