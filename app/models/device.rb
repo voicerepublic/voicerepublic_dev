@@ -38,7 +38,7 @@ class Device < ActiveRecord::Base
     state :idle # online, paired & not streaming
     state :starting_stream, enter: :signal_start_stream
     state :streaming
-    state :restarting_stream, enter: :signal_restart_sream
+    state :restarting_stream, enter: :signal_restart_stream
     state :stopping_stream, enter: :signal_stop_stream
     state :starting
     state :offline

@@ -435,7 +435,7 @@ class Venue < ActiveRecord::Base
   def unprovision
     send("unprovision_#{Rails.env}")
 
-    device.reset! if device.present?
+    device.stop_stream! if device.present? and device.can_stop_stream?
   end
 
   def unprovision_production
