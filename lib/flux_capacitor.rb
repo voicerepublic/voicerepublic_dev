@@ -29,6 +29,8 @@ class FluxCapacitor
         client.subscribe('/event/devices') do |msg|
           identifier = msg['identifier']
           event = msg['event']
+          logger.debug "%s %s" % [identifier, event]
+          puts "%s %s" % [identifier, event]
           device = Device.find_by(identifier: identifier)
           device and device.send("#{event}!")
         end
