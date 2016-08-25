@@ -495,7 +495,8 @@ class Talk < ActiveRecord::Base
     begin
       process!
       # move operations to tmp dir
-      tmp_dir = FileUtils.mkdir_p("/tmp/archive_from_dump/#{id}").first
+      path = Rails.root.join("tmp/processing/archive_from_dump/#{id}")
+      tmp_dir = FileUtils.mkdir_p(path).first
       FileUtils.fileutils_output = logfile
       Rails.logger.info "--> Changeing to tmp dir #{tmp_dir}"
       Rails.logger.info relevant_files.inspect
@@ -523,7 +524,7 @@ class Talk < ActiveRecord::Base
       self.processing_error = message
       suspend!
     ensure
-      #FileUtils.remove_entry tmp_dir
+      FileUtils.remove_entry tmp_dir
     end
   end
 
