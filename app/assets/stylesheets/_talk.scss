@@ -15,6 +15,17 @@ body {
     text-align: center;
 }
 
+#nopush {
+    // color: $vr-purple;
+    // vertical-align: sub;
+    margin-left: 12px;
+    svg {
+        fill: currentColor;
+        width: 24px;
+        height: 24px;
+    }
+}
+
 audio {
     width: 100%;
 }
