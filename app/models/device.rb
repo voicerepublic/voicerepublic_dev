@@ -20,6 +20,8 @@ class Device < ActiveRecord::Base
 
   after_create :generate_pairing_code!
 
+  after_save :propagate_changes
+
   ONLINE = %w( pairing idle streaming )
 
   scope :online, -> { where(disappeared_at: nil).where('state IN (?)', ONLINE) }
@@ -38,7 +40,7 @@ class Device < ActiveRecord::Base
     state :idle # online, paired & not streaming
     state :starting_stream, enter: :signal_start_stream
     state :streaming
-    state :restarting_stream, enter: :signal_restart_sream
+    state :restarting_stream, enter: :signal_restart_stream
     state :stopping_stream, enter: :signal_stop_stream
     state :starting
     state :offline
@@ -182,6 +184,10 @@ class Device < ActiveRecord::Base
     self.save!
   rescue # catches violation of uniqueness constraint
     retry
+  end
+
+  def propagate_changes
+    Faye.publish_to '/admin/devices', attributes
   end
 
 end
