@@ -18,10 +18,7 @@ describe IcecastEndpoint do
 
     it 'should receive stats' do
       venue = FactoryGirl.create(:venue, :provisioning)
-      response = nil
-      VCR.use_cassette 'icecast stats' do
-        response = request.post("/icecast/stats/#{venue.client_token}")
-      end
+      response = request.post("/icecast/stats/#{venue.client_token}")
       expect(response.status).to eq(200)
     end
 
