@@ -15,7 +15,9 @@ class IcecastEndpoint < Struct.new(:app, :opts)
     _, action, token = path.match(ROUTE).to_a
     return app.call(env) unless _
 
-    Faye.publish_to '/server/heartbeat', token: token if action == 'stats'
+    if action == 'stats' && !Rails.env.test?
+      Faye.publish_to '/server/heartbeat', token: token
+    end
 
     json = env['rack.input'].read
     return OK if action == 'stats' && !json.match(/"source"/)
