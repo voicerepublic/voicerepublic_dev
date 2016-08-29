@@ -46,23 +46,40 @@ class Device < ActiveRecord::Base
     state :offline
 
     event :register do # remote
+      # unpaired devices
       transitions from: [:unpaired, :pairing], to: :pairing
+      # paired devices
       transitions from: Device.available_states, to: :idle
     end
 
     event :complete_pairing, timestamp: :paired_at do # local
+      # pairing while offline
       transitions from: :unpaired, to: :offline,
                   on_transition: :release_pairing_code
+      # pairing while online
       transitions from: :pairing, to: :idle,
                   on_transition: :release_pairing_code
     end
 
+    # start_stream should ALLWAYS work!
     event :start_stream do # local
-      transitions from: [:idle, :starting_stream, :streaming], to: :starting_stream
+      # the regular flow
+      transitions from: :idle, to: :starting_stream
+      # starting while streaming is actually restarting
+      transitions from: :streaming, to: :restarting_stream
+      # all other states should allow starting as well to recover from lost events
+      transitions from: [:starting_stream,
+                         :restart_stream,
+                         :stopping_stream], to: :starting_stream
     end
 
     event :stream_started do # remote
-      transitions from: [:starting_stream, :idle], to: :streaming
+      # the regular flow
+      transitions from: :starting_stream, to:streaming
+      # when the ruby process on the box restarts it might detect a
+      # pid file of a running darkice process, if so it issues a
+      # stream_started event, to get into state streaming
+      transitions from: :idle, to: :streaming
     end
 
     event :stop_stream do # local
