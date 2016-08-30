@@ -69,13 +69,13 @@ class Device < ActiveRecord::Base
       transitions from: :streaming, to: :restarting_stream
       # all other states should allow starting as well to recover from lost events
       transitions from: [:starting_stream,
-                         :restart_stream,
+                         :restarting_stream,
                          :stopping_stream], to: :starting_stream
     end
 
     event :stream_started do # remote
       # the regular flow
-      transitions from: :starting_stream, to:streaming
+      transitions from: :starting_stream, to: :streaming
       # when the ruby process on the box restarts it might detect a
       # pid file of a running darkice process, if so it issues a
       # stream_started event, to get into state streaming
