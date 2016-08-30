@@ -37,6 +37,14 @@ $panelOutlineColor: $tuatara;
         }
     }
 
+    .autostart-warning {
+    background: $vr-yellow;
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    padding: 6px 0;
+    }
+
 section#devices {
     padding: 24px;
     background: #f9f9f9;
