@@ -32,7 +32,7 @@ class FluxCapacitor
           logger.debug "%s %s" % [identifier, event]
           puts "%s %s" % [identifier, event]
           device = Device.find_by(identifier: identifier)
-          device and device.send("#{event}!")
+          device and device.send("can_#{event}?") and device.send("#{event}!")
         end
 
         logger.info "Subscribing to /heartbeat..."
