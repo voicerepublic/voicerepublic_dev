@@ -55,8 +55,8 @@ namespace :cleanup do
 
   desc 'reset abondoned venues'
   task reset_abandoned_venues: :environment do
-    Venue.awaiting_stream.where('awaiting_stream_at < ', 6.hours.ago).each(&:reset!)
-    Venue.disconnected.where('disconnected_at < ', 6.hours.ago).each(&:reset!)
+    Venue.awaiting_stream.where('awaiting_stream_at < ?', 6.hours.ago).each(&:reset!)
+    Venue.disconnected.where('disconnected_at < ?', 6.hours.ago).each(&:reset!)
   end
 
   desc 'Remove listener that has not visited during the Live phase'
