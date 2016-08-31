@@ -127,6 +127,7 @@ class Device < ActiveRecord::Base
     {
       name: name,
       state: state,
+      capture_device: capture_device,
       pairing_code: pairing_code,
       public_ip_address: public_ip_address,
       report_interval: report_interval,

@@ -20,7 +20,9 @@ class Api::DevicesController < ApplicationController
 
     loglevel = @device.try(:loglevel) || Logger::INFO
 
-    render json: { endpoint: endpoint, loglevel: loglevel }
+    branch = @device.try(:source_branch)
+
+    render json: { endpoint: endpoint, loglevel: loglevel, branch: branch }
   end
 
 
