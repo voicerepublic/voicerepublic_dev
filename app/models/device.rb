@@ -76,10 +76,6 @@ class Device < ActiveRecord::Base
     event :stream_started do # remote
       # the regular flow
       transitions from: :starting_stream, to: :streaming
-      # when the ruby process on the box restarts it might detect a
-      # pid file of a running darkice process, if so it issues a
-      # stream_started event, to get into state streaming
-      transitions from: :idle, to: :streaming
     end
 
     event :stop_stream do # local
@@ -105,6 +101,18 @@ class Device < ActiveRecord::Base
     event :restart do # remote
       transitions from: Device.available_states, to: :starting
     end
+
+    event :found_streaming do
+      # when the ruby process on the box restarts it might detect a
+      # pid file of a running darkice process, if so it issues a
+      # found_streaming, depending on the state of the venue this will
+      # trigger different transitions
+      transitions from: :idle, to: :streaming,
+                  guard: ->(d) { d.venue.try(:connected?) }
+      # else
+      transitions from: :idle, to: :restarting_stream
+    end
+
   end
 
   def manifestation
