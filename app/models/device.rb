@@ -38,10 +38,10 @@ class Device < ActiveRecord::Base
     state :unpaired # offline & unpaired (initial state)
     state :pairing # online & still unpaired
     state :idle # online, paired & not streaming
-    state :starting_stream, enter: :signal_start_stream
+    state :starting_stream#, enter: :signal_start_stream
     state :streaming
-    state :restarting_stream, enter: :signal_restart_stream
-    state :stopping_stream, enter: :signal_stop_stream
+    state :restarting_stream#, enter: :signal_restart_stream
+    state :stopping_stream#, enter: :signal_stop_stream
     state :starting
     state :offline
 
@@ -127,6 +127,7 @@ class Device < ActiveRecord::Base
     {
       name: name,
       state: state,
+      capture_device: capture_device,
       pairing_code: pairing_code,
       public_ip_address: public_ip_address,
       report_interval: report_interval,
@@ -175,20 +176,20 @@ class Device < ActiveRecord::Base
 
   # state machine callbacks
 
-  def signal_start_stream
-    Faye.publish_to(channel, event: 'start_stream', icecast: venue.icecast_params)
-    Rails.logger.info "Started Stream from device '#{name}' to '#{venue.stream_url}'"
-  end
-
-  def signal_stop_stream
-    Faye.publish_to(channel, event: 'stop_stream')
-    Rails.logger.info "Stopped Stream from device '#{name}' to '#{venue.stream_url}'"
-  end
-
-  def signal_restart_stream
-    Faye.publish_to(channel, event: 'restart_stream')
-    Rails.logger.info "Restarted Stream from device '#{name}' to '#{venue.stream_url}'"
-  end
+  # def signal_start_stream
+  #   Faye.publish_to(channel, event: 'start_stream', icecast: venue.icecast_params)
+  #   Rails.logger.info "Started Stream from device '#{name}' to '#{venue.stream_url}'"
+  # end
+  #
+  # def signal_stop_stream
+  #   Faye.publish_to(channel, event: 'stop_stream')
+  #   Rails.logger.info "Stopped Stream from device '#{name}' to '#{venue.stream_url}'"
+  # end
+  #
+  # def signal_restart_stream
+  #   Faye.publish_to(channel, event: 'restart_stream')
+  #   Rails.logger.info "Restarted Stream from device '#{name}' to '#{venue.stream_url}'"
+  # end
 
   def release_pairing_code
     self.pairing_code = nil

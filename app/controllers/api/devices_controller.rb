@@ -20,7 +20,9 @@ class Api::DevicesController < ApplicationController
 
     loglevel = @device.try(:loglevel) || Logger::INFO
 
-    render json: { endpoint: endpoint, loglevel: loglevel }
+    branch = @device.try(:source_branch)
+
+    render json: { endpoint: endpoint, loglevel: loglevel, branch: branch }
   end
 
 
@@ -49,6 +51,11 @@ class Api::DevicesController < ApplicationController
     Faye.publish_to '/heartbeat',
                     identifier: @device.identifier,
                     interval: @device.heartbeat_interval
+
+    # payload might carry an event
+    if event = params[:event]
+      @device.send("can_#{event}?") and @device.send("#{event}!")
+    end
 
     render json: @device.details
   end
