@@ -78,6 +78,8 @@ class Device < ActiveRecord::Base
     event :stream_started do # remote
       # the regular flow
       transitions from: :starting_stream, to: :streaming
+      # in case the box detects a situation it can recover from
+      transitions from: :idle, to: :streaming
     end
 
     event :stop_stream do # local
