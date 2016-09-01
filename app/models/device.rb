@@ -22,7 +22,7 @@ class Device < ActiveRecord::Base
 
   after_save :propagate_changes
 
-  ONLINE = %w( pairing idle streaming )
+  ONLINE = %w( pairing running )
 
   scope :online, -> { where(disappeared_at: nil).where('state IN (?)', ONLINE) }
   scope :unclaimed, -> { where(organization_id: nil) }
@@ -36,12 +36,8 @@ class Device < ActiveRecord::Base
   state_machine auto_scopes: true do
 
     state :unpaired # offline & unpaired (initial state)
-    state :pairing # online & still unpaired
-    state :idle # online, paired & not streaming
-    state :starting_stream#, enter: :signal_start_stream
-    state :streaming
-    state :restarting_stream#, enter: :signal_restart_stream
-    state :stopping_stream#, enter: :signal_stop_stream
+    state :pairing  # online & unpaired
+    state :running  # online & paired
     state :starting
     state :offline
 
@@ -51,7 +47,7 @@ class Device < ActiveRecord::Base
       # paired devices
       transitions from: Device.available_states, to: :starting_stream,
                   guard: ->(d) { d.venue.try(:disconnected?) }
-      transitions from: Device.available_states, to: :idle
+      transitions from: Device.available_states, to: :running
     end
 
     event :complete_pairing, timestamp: :paired_at do # local
@@ -59,43 +55,8 @@ class Device < ActiveRecord::Base
       transitions from: :unpaired, to: :offline,
                   on_transition: :release_pairing_code
       # pairing while online
-      transitions from: :pairing, to: :idle,
+      transitions from: :pairing, to: :running,
                   on_transition: :release_pairing_code
-    end
-
-    # start_stream should ALLWAYS work!
-    event :start_stream do # local
-      # the regular flow
-      transitions from: :idle, to: :starting_stream
-      # starting while streaming is actually restarting
-      transitions from: :streaming, to: :restarting_stream
-      # all other states should allow starting as well to recover from lost events
-      transitions from: [:starting_stream,
-                         :restarting_stream,
-                         :stopping_stream], to: :starting_stream
-    end
-
-    event :stream_started do # remote
-      # the regular flow
-      transitions from: :starting_stream, to: :streaming
-      # in case the box detects a situation it can recover from
-      transitions from: :idle, to: :streaming
-    end
-
-    event :stop_stream do # local
-      transitions from: :streaming, to: :stopping_stream
-    end
-
-    event :stream_stopped do # remote
-      transitions from: :stopping_stream, to: :idle
-    end
-
-    event :restart_stream do # local
-      transitions from: :streaming, to: :restarting_stream
-    end
-
-    event :stream_restarted do # remote
-      transitions from: :restarting_stream, to: :streaming
     end
 
     event :shutdown do # remote
@@ -104,17 +65,6 @@ class Device < ActiveRecord::Base
 
     event :restart do # remote
       transitions from: Device.available_states, to: :starting
-    end
-
-    event :found_streaming do
-      # when the ruby process on the box restarts it might detect a
-      # pid file of a running darkice process, if so it issues a
-      # found_streaming, depending on the state of the venue this will
-      # trigger different transitions
-      transitions from: :idle, to: :streaming,
-                  guard: ->(d) { d.venue.try(:connected?) }
-      # else
-      transitions from: :idle, to: :restarting_stream
     end
 
   end
@@ -185,23 +135,6 @@ class Device < ActiveRecord::Base
       name: name
     }
   end
-
-  # state machine callbacks
-
-  # def signal_start_stream
-  #   Faye.publish_to(channel, event: 'start_stream', icecast: venue.icecast_params)
-  #   Rails.logger.info "Started Stream from device '#{name}' to '#{venue.stream_url}'"
-  # end
-  #
-  # def signal_stop_stream
-  #   Faye.publish_to(channel, event: 'stop_stream')
-  #   Rails.logger.info "Stopped Stream from device '#{name}' to '#{venue.stream_url}'"
-  # end
-  #
-  # def signal_restart_stream
-  #   Faye.publish_to(channel, event: 'restart_stream')
-  #   Rails.logger.info "Restarted Stream from device '#{name}' to '#{venue.stream_url}'"
-  # end
 
   def release_pairing_code
     self.pairing_code = nil
