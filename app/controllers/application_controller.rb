@@ -16,6 +16,8 @@ class ApplicationController < ActionController::Base
   around_filter :user_time_zone, :if => :current_user
   after_filter :set_csrf_cookie_for_ng
 
+  after_filter :launch_servers
+
   # TODO: We do we not have this in the app, yet?
   #rescue_from CanCan::AccessDenied do |exception|
   #  redirect_to root_url, :alert => exception.message
@@ -132,6 +134,13 @@ class ApplicationController < ActionController::Base
 
   def set_csrf_cookie_for_ng
     cookies['XSRF-TOKEN'] = form_authenticity_token if protect_against_forgery?
+  end
+
+  def launch_servers
+    if current_user
+      current_user.venues.with_upcoming_talks.offline.each(&:become_available!)
+      current_user.venues.with_upcoming_talks.available.each(&:start_provisioning!)
+    end
   end
 
 end

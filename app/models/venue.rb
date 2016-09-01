@@ -34,6 +34,10 @@ class Venue < ActiveRecord::Base
       where('talks.starts_at <= ?', Time.now + PROVISIONING_WINDOW)
   end
 
+  scope :in_states, ->(states) do
+    where('venues.state IN (?)', states)
+  end
+
   state_machine auto_scopes: true do
 
     state :offline, enter: :reset_ephemeral_details # aka. unavailable
