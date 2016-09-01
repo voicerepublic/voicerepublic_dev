@@ -119,7 +119,7 @@ class Device < ActiveRecord::Base
     Hash.new.tap do |details|
       details[:name] = name
       details[:state] = state
-      details[:version] = 3
+      details[:version] = 4
       if venue.present?
         details[:venue] = {
           name: venue.name,
