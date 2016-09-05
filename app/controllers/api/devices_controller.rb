@@ -34,6 +34,7 @@ class Api::DevicesController < ApplicationController
     @device.public_ip_address = request.remote_ip
     @device.subtype = params[:device][:subtype]
 
+    @device.save! # CHECK required?
     @device.register!
 
     render json: @device.provisioning_data.to_json
@@ -52,10 +53,10 @@ class Api::DevicesController < ApplicationController
                     identifier: @device.identifier,
                     interval: @device.heartbeat_interval
 
-    # payload might carry an event
-    if event = params[:event]
-      @device.send("can_#{event}?") and @device.send("#{event}!")
-    end
+    # # payload might carry an event
+    # if event = params[:event]
+    #   @device.send("can_#{event}?") and @device.send("#{event}!")
+    # end
 
     render json: @device.details
   end
