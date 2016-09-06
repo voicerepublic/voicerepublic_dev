@@ -45,8 +45,6 @@ class Device < ActiveRecord::Base
       # unpaired devices
       transitions from: [:unpaired, :pairing], to: :pairing
       # paired devices
-      transitions from: Device.available_states, to: :starting_stream,
-                  guard: ->(d) { d.venue.try(:disconnected?) }
       transitions from: Device.available_states, to: :running
     end
 
