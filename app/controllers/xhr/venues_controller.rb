@@ -30,6 +30,12 @@ class Xhr::VenuesController < Xhr::BaseController
     @venue.device = nil if venue_params[:device_name]
     @venue.device_name = nil if venue_params[:device_id]
 
+    # HACK!, FIXME fix the domain model so this is not needed
+    if @venue.device.present?
+      Venue.where(device_id: @venue.device_id).
+        where.not(id: @venue.id).update_all(device_id: nil)
+    end
+
     # TODO move to model with `before_save :apply_event`
     if ALLOWED_EVENTS.include?(@venue.event)
       @venue.send(@venue.event)
