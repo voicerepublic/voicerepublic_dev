@@ -26,6 +26,10 @@ class Xhr::VenuesController < Xhr::BaseController
   def update
     @venue.assign_attributes(venue_params)
 
+    # this is one of those highlander situations
+    @venue.device = nil if venue_params[:device_name]
+    @venue.device_name = nil if venue_params[:device_id]
+
     # TODO move to model with `before_save :apply_event`
     if ALLOWED_EVENTS.include?(@venue.event)
       @venue.send(@venue.event)
