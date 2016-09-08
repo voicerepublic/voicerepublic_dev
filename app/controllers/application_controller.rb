@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
   around_filter :user_time_zone, :if => :current_user
   after_filter :set_csrf_cookie_for_ng
 
-  after_filter :launch_servers
+  before_action :launch_servers
 
   # TODO: We do we not have this in the app, yet?
   #rescue_from CanCan::AccessDenied do |exception|
