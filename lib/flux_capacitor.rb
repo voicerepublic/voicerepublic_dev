@@ -15,6 +15,7 @@ class FluxCapacitor
   def run
     logger.info 'FluxCapacitor started.'
     start_heart_monitor
+    start_auto_launcher
 
     extension = Faye::Authentication::ClientExtension.new(Settings.faye.secret_token)
     EM.run {
@@ -78,8 +79,27 @@ class FluxCapacitor
     end
   end
 
+  def start_auto_launcher
+    Thread.new do
+      loop do
+        User.active.each do |user|
+          user.venues.with_upcoming_talks.offline.each do |venue|
+            logger.debug "Venue.find(#{venue.id}).become_available!"
+            venue.become_available!
+          end
+          user.venues.with_upcoming_talks.available.each do |venue|
+            logger.debug "Venue.find(#{venue.id}).start_provisioning!"
+            venue.start_provisioning!
+            logger.debug "Venue.find(#{venue.id}).start_provisioning! complete"
+          end
+        end
+        sleep 1.minute
+      end
+    end
+  end
+
   def logger
-    path = Rails.root.join('log/flux_capacitor.log')
+    path = STDOUT # Rails.root.join('log/flux_capacitor.log')
     # FIXME Horrible Hack to make logging work on production
     path = '/home/app/app/shared/log/flux_capacitor.log' if Rails.env.production?
     @logger ||= Logger.new(path)

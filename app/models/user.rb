@@ -68,6 +68,12 @@ class User < ActiveRecord::Base
 
   acts_as_taggable
 
+  class << self
+    def active(since=nil)
+      where('last_request_at >= ?', since || 1.minute.ago)
+    end
+  end
+
   dragonfly_accessor :header do
     default Rails.root.join('app/assets/images/defaults/user-header.jpg')
   end
