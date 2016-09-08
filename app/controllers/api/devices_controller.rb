@@ -31,9 +31,14 @@ class Api::DevicesController < ApplicationController
   def create
     @device = Device.find_or_initialize_by(device_params)
 
-    @device.public_ip_address = request.remote_ip
-    @device.subtype = params[:device][:subtype]
+    @device.public_ip_address    = request.remote_ip
+    @device.subtype              = params[:device][:subtype]
+    @device.private_ip_address   = params[:device][:private_ip_address]
+    @device.mac_address_ethernet = params[:device][:mac_address_ethernet]
+    @device.mac_address_wifi     = params[:device][:mac_address_wifi]
+    @device.version              = params[:device][:version]
 
+    @device.save! # CHECK required?
     @device.register!
 
     render json: @device.provisioning_data.to_json
@@ -52,10 +57,10 @@ class Api::DevicesController < ApplicationController
                     identifier: @device.identifier,
                     interval: @device.heartbeat_interval
 
-    # payload might carry an event
-    if event = params[:event]
-      @device.send("can_#{event}?") and @device.send("#{event}!")
-    end
+    # # payload might carry an event
+    # if event = params[:event]
+    #   @device.send("can_#{event}?") and @device.send("#{event}!")
+    # end
 
     render json: @device.details
   end

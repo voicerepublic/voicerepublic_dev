@@ -40,7 +40,7 @@ class Venue < ActiveRecord::Base
     state :available
     state :provisioning, enter: :provision, exit: :complete_details
     state :device_required
-    state :awaiting_stream, enter: :start_streaming
+    state :awaiting_stream
     state :connected, enter: :on_connected # aka. streaming
     state :disconnect_required
     state :disconnected, enter: :on_disconnected # aka. lost connection
@@ -80,7 +80,7 @@ class Venue < ActiveRecord::Base
     end
 
     # issues by ended talks
-    event :require_disconnect, success: :restart_streaming do
+    event :require_disconnect do
       transitions from: :connected, to: :disconnect_required
     end
 
@@ -262,7 +262,7 @@ class Venue < ActiveRecord::Base
   end
 
   def push_snapshot
-    message = { event: 'snapshot', snapshot: snapshot }
+    message = { event: 'snapshot', snapshot: snapshot, now: Time.now.to_i }
     Faye.publish_to channel, message
     Faye.publish_to '/admin/venues', message[:snapshot]
   end
@@ -418,14 +418,6 @@ class Venue < ActiveRecord::Base
     Faye.publish_to '/admin/connections', details
   end
 
-  def start_streaming
-    device.present? and device.start_stream!
-  end
-
-  def restart_streaming
-    device.present? and device.restart_stream!
-  end
-
   # either a controlled device or a generic client set?
   def device_present?
     device.present? or device_name.present?
@@ -434,8 +426,6 @@ class Venue < ActiveRecord::Base
   # called on event shutdown
   def unprovision
     send("unprovision_#{Rails.env}")
-
-    device.stop_stream! if device.present? and device.can_stop_stream?
   end
 
   def unprovision_production
