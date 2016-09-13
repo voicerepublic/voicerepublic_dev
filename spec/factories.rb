@@ -7,6 +7,10 @@ include ActionDispatch::TestProcess
 # factories will only be picked up after you stopped spring!
 #
 FactoryGirl.define do
+  factory :device_report do
+    device nil
+    data "MyText"
+  end
 
   factory :series do
     title 'Series title'
