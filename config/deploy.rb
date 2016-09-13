@@ -37,9 +37,7 @@ set :deploy_to, '/home/app/app'
 set :linked_files, %w{ config/database.yml
                        config/bumpy_bridge.yml
                        config/settings.local.yml
-                       config/versions.edn
-                       config/streamboxx
-                       config/restream }
+                       config/versions.edn } # deprecated!
 
 # Default value for linked_dirs is []
 # set :linked_dirs, %w{bin log tmp/pids tmp/cache
@@ -47,7 +45,8 @@ set :linked_files, %w{ config/database.yml
 set :linked_dirs, %w{ log
                       tmp/processing
                       tmp/pids
-                      public/system }
+                      public/system
+                      public/versions }
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
