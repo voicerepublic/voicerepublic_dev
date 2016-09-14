@@ -65,6 +65,22 @@ class Api::DevicesController < ApplicationController
     render json: @device.details
   end
 
+  # PUT /api/device/:id/report
+  def report
+    @device = Device.find_by(identifier: params[:id])
+
+    return render status: 404, text: "404 - Not found" if @device.nil?
+
+    Faye.publish_to '/report',
+                    identifier: @device.identifier,
+                    interval: @device.report_interval,
+                    report: params
+
+    @device.device_reports.create!(data: params)
+
+    head :ok
+  end
+
   private
 
   def device_params

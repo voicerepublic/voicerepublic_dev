@@ -11,6 +11,7 @@ class Device < ActiveRecord::Base
 
   belongs_to :organization
   has_one :venue
+  has_many :device_reports
 
   validates :identifier, presence: true
   validates :pairing_code, uniqueness: true, allow_nil: true

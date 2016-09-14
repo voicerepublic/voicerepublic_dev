@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160907085310) do
+ActiveRecord::Schema.define(version: 20160912142726) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -89,6 +89,15 @@ ActiveRecord::Schema.define(version: 20160907085310) do
   end
 
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
+
+  create_table "device_reports", force: :cascade do |t|
+    t.integer  "device_id"
+    t.text     "data"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "device_reports", ["device_id"], name: "index_device_reports_on_device_id", using: :btree
 
   create_table "devices", force: :cascade do |t|
     t.string   "identifier"
@@ -478,6 +487,7 @@ ActiveRecord::Schema.define(version: 20160907085310) do
   add_index "venues", ["slug"], name: "index_venues_on_slug", using: :btree
   add_index "venues", ["user_id"], name: "index_venues_on_user_id", using: :btree
 
+  add_foreign_key "device_reports", "devices"
   add_foreign_key "devices", "organizations"
   add_foreign_key "memberships", "organizations"
   add_foreign_key "memberships", "users"
