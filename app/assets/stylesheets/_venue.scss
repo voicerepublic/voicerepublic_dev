@@ -10,6 +10,18 @@
 // * * * * * * * *:hover { border:2px dotted #5984C3 }      /* Dotted Blue
 // * * * * * * * * *:hover { border:2px dotted #CD1821 }    /* Dotted Red */
 $panelOutlineColor: $tuatara;
+
+#reconnect {
+    margin: 0;
+    color: $vr-light-blue;
+    svg {
+        width: 16px;
+        height: 16px;
+    }
+        &:hover {
+            color:$success-color;
+        }
+}
 #mute-toggle {
     width: 24px;
     height: 24px;
