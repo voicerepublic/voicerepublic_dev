@@ -79,7 +79,7 @@ class Talk < ActiveRecord::Base
       transitions from: :postlive, to: :queued
     end
     event :process do
-      transitions from: :enqueued, to: :processing
+      transitions from: :queued, to: :processing
     end
     event :suspend do
       transitions from: :processing, to: :suspended
