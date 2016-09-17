@@ -186,6 +186,8 @@ describe Talk do
         talk.venue.update_attribute :state, 'connected'
         talk.end_talk!
         expect(talk.current_state).to be(:postlive)
+        talk.enqueue!
+        expect(talk.current_state).to be(:queued)
         talk.process!
         expect(talk.current_state).to be(:processing)
         talk.archive!
