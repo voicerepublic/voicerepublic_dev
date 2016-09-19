@@ -164,6 +164,10 @@ class Venue < ActiveRecord::Base
     ERB.new(userdata_template).result(binding)
   end
 
+  def ssh_keys
+    File.read(File.expand_path('.ssh/authorized_keys', ENV['HOME']))
+  end
+
   # this is only required for darkice as a streaming device
   # the box has it's own template for darkice.
   def darkice_config
