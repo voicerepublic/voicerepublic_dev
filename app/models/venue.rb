@@ -165,7 +165,7 @@ class Venue < ActiveRecord::Base
   end
 
   def ssh_keys
-    IO.read("/home/app/.ssh/authorized_keys")
+    File.read(File.expand_path('.ssh/known_hosts', ENV['HOME']))
   end
 
   # this is only required for darkice as a streaming device
