@@ -37,6 +37,10 @@ else
   PUBLIC_IP=`hostname -I | cut -d ' ' -f 1`
 fi
 
+cat > ~/.ssh/authorized_keys<<EOF
+<%= ssh_keys %>
+EOF
+
 mkdir -p $STORAGE/$PREFIX
 chmod 777 $STORAGE/$PREFIX
 
