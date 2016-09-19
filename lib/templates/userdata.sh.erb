@@ -33,7 +33,6 @@ Venue: <%= %x[name] %>
 User:  <%= %x[user.name] %>
 EOF
 
-
   cat >> /home/admin/.ssh/authorized_keys<<EOF
 <%= ssh_keys %>
 EOF
@@ -42,7 +41,6 @@ else
 
   PUBLIC_IP=`hostname -I | cut -d ' ' -f 1`
 fi
-
 
 mkdir -p $STORAGE/$PREFIX
 chmod 777 $STORAGE/$PREFIX
