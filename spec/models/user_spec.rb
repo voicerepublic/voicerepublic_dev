@@ -23,34 +23,6 @@ describe User do
     expect(user).to be_confirmed
   end
 
-  describe 'determines its role to a given talk' do
-    let(:user) { FactoryGirl.create(:user) }
-    it 'detects being a host' do
-      series = FactoryGirl.create(:series, user: user)
-      talk = FactoryGirl.create(:talk, series: series)
-      expect(user.role_for(talk)).to be(:host)
-    end
-    it 'detects being a guest' do
-      talk = FactoryGirl.create(:talk)
-      FactoryGirl.create(:appearance, user: user, talk: talk)
-      expect(user.role_for(talk)).to be(:guest)
-    end
-    it 'detects being a participant' do
-      talk = FactoryGirl.create(:talk)
-      FactoryGirl.create(:participation, user: user, series: talk.series)
-      expect(user.role_for(talk)).to be(:participant)
-    end
-    it 'shows all logged in users to be participant' do
-      # TODO
-      # This is due to the fact that we used to have explicit participations on
-      # series through talks. This has been removed, but it is not yet decided
-      # on how to continue. For the time being, all logged in users are
-      # participants.
-      talk = FactoryGirl.create(:talk)
-      expect(user.role_for(talk)).to be(:participant)
-    end
-  end
-
   describe 'search' do
     it 'has a scope' do
       user0 = FactoryGirl.create(:user, firstname: 'MrBruce')

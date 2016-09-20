@@ -308,10 +308,13 @@ class Venue < ActiveRecord::Base
 
   # called by icecast middleware
   def synced!
-    # trigger archive of postlive talks on this venue
-    talks.postlive.each(&:schedule_archiving!)
-
     shutdown!
+
+    # trigger archive of postlive talks on this venue
+    #
+    # the transition from `postlive` to `queued` makes sure that each
+    # talk can only be enqueued once
+    talks.postlive.each(&:enqueue!)
   end
 
   # tricky shit
