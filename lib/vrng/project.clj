@@ -39,7 +39,7 @@
                        :min {:source-paths ["src"] ;; min -> prod
                              :compiler {:main vrng.core
                                         :output-to "public/js/app.js"
-                                        :language-in "ecmascript5-strict"
+                                        :language-in :ecmascript5-strict
                                         ;;:optimizations :advanced}}}}
                                         :optimizations :whitespace}}}}
 
