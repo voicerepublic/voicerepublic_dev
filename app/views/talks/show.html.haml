@@ -6,7 +6,7 @@
 
 - content_for :javascripts do
   %script{ src: '/javascripts/pdf.js' }
-  %script{ src: Settings.faye.server + '/client.js' }
+  %script{ src: Settings.faye.server + '/client.js', async: true }
   = javascript_include_tag 'faye-authentication'
   :javascript
     environment = #{Rails.env.to_json};
