@@ -701,3 +701,10 @@ Run fidelity
     fidelity run manifest.yml
 
 And see.
+
+
+Working with CLJS
+-----------------
+
+    lein upgrade
+    lein deps

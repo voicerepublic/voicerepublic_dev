@@ -5,7 +5,7 @@
             :url "http://voicerepublic.com"}
 
   :dependencies [[org.clojure/clojure "1.8.0" :scope "provided"]
-                 [org.clojure/clojurescript "1.7.228" :scope "provided"]
+                 [org.clojure/clojurescript "1.8.51" :scope "provided"]
                  [reagent "0.5.1"]
                  [reagent-forms "0.5.15"]
                  [reagent-utils "0.1.7"]
@@ -27,7 +27,9 @@
   :resource-paths ["public"]
 
   :cljsbuild {:builds {:app {:source-paths ["src"] ;; app -> dev
-                             :figwheel {:on-jsload vrng.core/fig-reload}
+                             :figwheel {:on-jsload vrng.core/fig-reload
+                                        :websocket-host :server-ip
+                                        }
                              :compiler {:main vrng.core
                                         :output-to "public/js/app.js"
                                         :output-dir "public/js/out"
@@ -43,23 +45,26 @@
                                         ;;:optimizations :advanced}}}}
                                         :optimizations :whitespace}}}}
 
-  :figwheel { :http-server-root "public"
-              :server-port 3449 ;; default
-              :nrepl-port 7002
-              :nrepl-middleware ["cemerick.piggieback/wrap-cljs-repl"]
-              :css-dirs ["public/css"]}
 
-  :profiles { :dev { :dependencies [[prone "1.0.2"]
-                                    [lein-doo "0.1.6"]
-                                    [pjstadig/humane-test-output "0.7.1"]
-                                    [lein-figwheel "0.5.0-6"]
-                                    [org.clojure/tools.nrepl "0.2.12"]
-                                    [com.cemerick/piggieback "0.2.1"]]
+  ;;:figwheel {:http-server-root "public"
+  ;;            :websocket-host "192.168.178.86"
+  ;;            :websocket-url "ws://192.168.178.86/figwheel-ws"
+  ;;            :server-port 3449 ;; default
+  ;;            :nrepl-port 7002
+  ;;            :nrepl-middleware ["cemerick.piggieback/wrap-cljs-repl"]
+  ;;            :css-dirs ["public/css"]}
 
-                    :plugins [[lein-figwheel "0.5.0-6"]
-                              [lein-doo "0.1.6"]]
+  :profiles {:dev {:dependencies [[prone "1.0.2"]
+                                  [lein-doo "0.1.6"]
+                                  [pjstadig/humane-test-output "0.7.1"]
+                                  [lein-figwheel "0.5.4-7"]
+                                  [org.clojure/tools.nrepl "0.2.12"]
+                                  [com.cemerick/piggieback "0.2.1"]]
 
-                    :doo {:build "test"}
+                   :plugins [[lein-figwheel "0.5.4-7"]
+                             [lein-doo "0.1.6"]]
 
-                    :injections [(require 'pjstadig.humane-test-output)
-                                 (pjstadig.humane-test-output/activate!)]}})
+                   :doo {:build "test"}
+
+                   :injections [(require 'pjstadig.humane-test-output)
+                                (pjstadig.humane-test-output/activate!)]}})
