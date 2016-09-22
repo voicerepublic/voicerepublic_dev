@@ -14,6 +14,7 @@
 $panelOutlineColor: $tuatara;
 $bgColor: #eee;
 $neutralColor: $charcoal;
+$success-color: #60BD70;
 
 #ui {
     background:$bgColor;
@@ -1324,62 +1325,7 @@ $neutralColor: $charcoal;
 //     }
 // }
 
-// .venues-index {
-//     background: url(../../images/background/erosion.jpg) no-repeat 50% 25%;
-//     background-size: cover;
-//     height: 100vh;
-//     .title-block svg {
-//         fill: $vr-red;
-//         height: 60px;
-//     }
-//     h2 {
-//         color: white;
-//         margin-top: 24px;
-//     }
-//     .talk-card a {
-//         padding: 0;
-//     }
-//     .talk-card-inside {
-//         .title {
-//             color: $talk-dark;
-//         }
-//         .talk-count, .venue-state {
-//             margin: 0 12px 12px 12px;
-//             font-size: rem-calc(14);
-//             color: $topbar-dark;
-//         }
-//         .venue-state {
-//             // font-size: rem-calc(12);
-//             font-weight: 200;
-//             text-transform: uppercase;
-//             letter-spacing: rem-calc(1);
-//             color: $oil;
-//         }
-//         &.available, &.connected {
-//             background: $success-color;
-//             &:hover {
-//                 background: $success-color;
-//             }
-//         }
-//         &.provisioning {
-//             background: $vr-yellow;
-//             &:hover {
-//                 background: $vr-yellow;
-//             }
-//         }
-//     }
-//     .help {
-//         background: $vr-beige;
-//         text-align: left;
-//         padding: 12px;
-//         font-size: 14px;
-//         svg {
-//             width: 24px;
-//             height: 24px;
-//             fill: currentColor;
-//         }
-//     }
-// }
+
 
 // #venue-dropdown {
 //     max-width: 300px;
@@ -1397,6 +1343,67 @@ $neutralColor: $charcoal;
 //     }
 // }
 
+
+.venues-index {
+    background: url(../../images/background/erosion.jpg) no-repeat 50% 25%;
+    background-size: cover;
+    height: 100vh;
+    .title-block svg {
+        fill: $vr-red;
+        height: 60px;
+    }
+    h2 {
+        color: white;
+        margin-top: 24px;
+    }
+    .talk-card a {
+        padding: 0;
+    }
+    .talk-card-inside {
+        .title {
+            color: $talk-dark;
+        }
+        .talk-count, .venue-state {
+            margin: 0 12px 12px 12px;
+            font-size: rem-calc(14);
+            color: $topbar-dark;
+        }
+        .venue-state {
+            // font-size: rem-calc(12);
+            font-weight: 200;
+            text-transform: uppercase;
+            letter-spacing: rem-calc(1);
+            color: $oil;
+        }
+        &.available, &.connected {
+            background: $success-color;
+            &:hover {
+                background: $success-color;
+            }
+        }
+        &.provisioning {
+            background: $vr-yellow;
+            &:hover {
+                background: $vr-yellow;
+            }
+        }
+    }
+    .help {
+        background: $vr-beige;
+        text-align: left;
+        padding: 12px;
+        font-size: 14px;
+        svg {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
+        }
+    }
+}
+
+.venues {
+    overflow: visible;
+}
 
 //New stuff:
 h4.section-title {
@@ -1558,7 +1565,7 @@ svg {
     box-shadow: 0 1px 2px rgba(18, 18, 20, 0.3);
     font-weight: 200;
     padding: 0;
-    position: absolute;
+    position: fixed;
     right: 24px;
     top: 24px;
 
@@ -1728,10 +1735,11 @@ hr {
     display: flex;
     align-items: center;
     justify-content: flex-start;
+    padding:0;
 }
 
 #dropdown {
-    padding: 11px 11px 0 0;
+    padding: 11px 0 0 0;
 }
 
 
@@ -1819,6 +1827,11 @@ hr {
         flex:1 0 44%;
     }
     }
+
+    .talkitem span, .talkitem a, .talkitem .series {
+        color: $topbar-dark;
+        background: none;
+    }
 }
 
 #list-toggle {
@@ -1890,22 +1903,34 @@ hr {
 
 .dayitem, .headeritem {
     height:24px;
-    background:$oil;
-    color:$silver;
     font-size:.8rem;
     padding: 2px 12px 0 12px;
 
     p span {
-        width:25%;
+        width:20%;
         display:inline-block;
         float:left;
+        &:first-child {
+            width: 40%;
+        }
     }
 
 }
 
+.dayitem {
+    background:$vr-light-blue;
+    color: white;
+    font-size: 1em;
+    padding:6px 12px;
+    height: 36px;
+}
+
 .headeritem {
     background:none;
-    color: $talk-dark;
+    color: $vr-light-blue;
+    margin-top:6px;
+    border-bottom:1px solid #ddd;
+    height: 28px;
 }
 
 #titlerow {
@@ -1918,22 +1943,33 @@ hr {
     margin: 0;
 }
 
+#listrow {
+    padding:0
+}
+
 .talkitem {
     font-size: .8rem;
     padding: 6px 12px;
-    border-bottom: 1px solid $charcoal;
+    border-bottom: 1px solid #ddd;
 
     p {
         margin: 0;
         span {
-            width:25%;
+            width:20%;
+        &:first-child  {
+            width: 40%;
         }
+        }
+    }
+
+    a {
+        color: $topbar-dark
     }
 }
 
 #dropdown .avatar {
-    width: 24px;
-    height: 24px;
+    width: 25px;
+    height: 25px;
     border-radius: 50%;
     background: url(../assets/tubes.png) no-repeat 50% 50%;
     background-size: cover;
