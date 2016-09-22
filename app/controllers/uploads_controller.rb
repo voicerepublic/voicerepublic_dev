@@ -15,6 +15,9 @@ class UploadsController < BaseController
     @talk = Talk.new(talk_params)
     @talk.series_user = current_user
 
+    # see https://www.pivotaltracker.com/story/show/129036165
+    @talk.venue = current_user.default_venue
+
     authorize! :create, @talk
 
     if @talk.save

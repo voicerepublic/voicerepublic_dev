@@ -11,6 +11,7 @@ class Device < ActiveRecord::Base
 
   belongs_to :organization
   has_one :venue
+  has_many :device_reports
 
   validates :identifier, presence: true
   validates :pairing_code, uniqueness: true, allow_nil: true
@@ -20,7 +21,9 @@ class Device < ActiveRecord::Base
 
   after_create :generate_pairing_code!
 
-  ONLINE = %w( pairing idle streaming )
+  after_save :propagate_changes
+
+  ONLINE = %w( pairing running )
 
   scope :online, -> { where(disappeared_at: nil).where('state IN (?)', ONLINE) }
   scope :unclaimed, -> { where(organization_id: nil) }
@@ -34,44 +37,35 @@ class Device < ActiveRecord::Base
   state_machine auto_scopes: true do
 
     state :unpaired # offline & unpaired (initial state)
-    state :pairing # online & still unpaired
-    state :idle # online, paired & not streaming
-    state :streaming, enter: :signal_start_stream
+    state :pairing  # online & unpaired
+    state :running  # online & paired
+    state :starting
     state :offline
 
     event :register do # remote
+      # unpaired devices
       transitions from: [:unpaired, :pairing], to: :pairing
-      transitions from: [:offline, :idle, :streaming], to: :idle
+      # paired devices
+      transitions from: Device.available_states, to: :running
     end
 
     event :complete_pairing, timestamp: :paired_at do # local
+      # pairing while offline
       transitions from: :unpaired, to: :offline,
                   on_transition: :release_pairing_code
-      transitions from: :pairing, to: :idle,
+      # pairing while online
+      transitions from: :pairing, to: :running,
                   on_transition: :release_pairing_code
     end
 
-    event :start_stream do # local
-      transitions from: [:idle, :streaming], to: :streaming
+    event :shutdown do # remote
+      transitions from: Device.available_states, to: :offline
     end
 
-    event :stop_stream do # local
-      transitions from: :streaming, to: :idle
+    event :restart do # remote
+      transitions from: Device.available_states, to: :starting
     end
 
-    event :restart_stream do
-      transitions from: :streaming, to: :streaming,
-                  on_transition: :signal_restart_stream
-    end
-
-    event :deregister do # remote
-      transitions from: [:idle, :streaming], to: :offline
-    end
-
-    event :reset do
-      transitions from: [:streaming, :idle], to: :idle,
-                  on_transition: :signal_stop_stream
-    end
   end
 
   def manifestation
@@ -94,6 +88,7 @@ class Device < ActiveRecord::Base
     {
       name: name,
       state: state,
+      capture_device: capture_device,
       pairing_code: pairing_code,
       public_ip_address: public_ip_address,
       report_interval: report_interval,
@@ -123,6 +118,7 @@ class Device < ActiveRecord::Base
     Hash.new.tap do |details|
       details[:name] = name
       details[:state] = state
+      details[:version] = 11
       if venue.present?
         details[:venue] = {
           name: venue.name,
@@ -140,25 +136,6 @@ class Device < ActiveRecord::Base
     }
   end
 
-
-
-  # state machine callbacks
-
-  def signal_start_stream
-    Faye.publish_to(channel, event: 'start_stream', icecast: venue.icecast_params)
-    Rails.logger.info "Started Stream from device '#{name}' to '#{venue.stream_url}'"
-  end
-
-  def signal_stop_stream
-    Faye.publish_to(channel, event: 'stop_stream')
-    Rails.logger.info "Stopped Stream from device '#{name}' to '#{venue.stream_url}'"
-  end
-
-  def signal_restart_stream
-    Faye.publish_to(channel, event: 'restart_stream')
-    Rails.logger.info "Restarted Stream from device '#{name}' to '#{venue.stream_url}'"
-  end
-
   def release_pairing_code
     self.pairing_code = nil
   end
@@ -170,6 +147,10 @@ class Device < ActiveRecord::Base
     self.save!
   rescue # catches violation of uniqueness constraint
     retry
+  end
+
+  def propagate_changes
+    Faye.publish_to '/admin/devices', attributes
   end
 
 end

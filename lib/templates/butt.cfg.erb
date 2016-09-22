@@ -1,8 +1,8 @@
-This is a configuration file for butt (broadcast using this tool)
+# This is a configuration file for butt (broadcast using this tool)
 
 [main]
-bg_color = 1394753536
-txt_color = -15805952
+bg_color = 690563840
+txt_color = -298890752
 server = Voice Republic
 srv_ent = <%= name %>
 icy =
@@ -18,24 +18,24 @@ log_file =
 [audio]
 device = 1
 samplerate = 44100
-bitrate = 128
-channel = 2
+bitrate = 48
+channel = 1
 codec = ogg
 resample_mode = 0
 buffer_ms = 50
 
 [record]
 bitrate = 192
-codec = wav
+codec = ogg
 start_rec = 0
-sync_to_hour  = 0
+sync_to_hour = 0
 split_time = 0
 filename = rec_%Y%m%d-%H%M%S_%i.wav
 
 [gui]
-attach = 0
+attach = 1
 ontop = 0
-lcd_auto = 0
+lcd_auto = 1
 
 [<%= name %>]
 address = <%= public_ip_address %>

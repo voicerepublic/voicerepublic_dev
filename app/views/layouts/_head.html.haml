@@ -1,7 +1,7 @@
 %head
   %meta{ charset: "utf-8" }/
   %meta{ content: "text/html; charset=UTF-8", "http-equiv" => "Content-Type" }/
-  %meta{ content: "width=device-width, initial-scale=1.0", name: "viewport" }/
+  %meta{ content: "width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0", name: "viewport" }/
 
   %title
     = content_for?(:title) ? yield(:title) : t(".title")
@@ -21,7 +21,10 @@
   %link{ href: "/images/apple-touch-icon-114x114.png", rel: "apple-touch-icon", sizes: "114x114" }/
 
   -# WEBFONTS
-  %link{ href: "//cloud.webtype.com/css/fa41b746-9201-4f1c-ab4a-a330eb0afb96.css", rel: "stylesheet", type: "text/css" }/
+  - if Rails.env.production?
+    %link{ href: "//cloud.webtype.com/css/fa41b746-9201-4f1c-ab4a-a330eb0afb96.css", rel: "stylesheet", type: "text/css" }/
+  - else
+    = stylesheet_link_tag :dev_webfonts
 
   = favicon_link_tag '/favicon.ico'
 

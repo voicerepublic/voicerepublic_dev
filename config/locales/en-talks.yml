@@ -150,9 +150,7 @@ en:
     fields:
       add_to_venue: Set the Stage
       venue_help_text: >-
-        Stages allow you to organize streams from multiple
-        locations. This is required if you want to stream multiple
-        streams at the same time.
+        Select the stage or location of your talk.
       upload_timings: >-
         Choose the date and time your talk took place. Please
         note that an uploaded talk must be set in the past.

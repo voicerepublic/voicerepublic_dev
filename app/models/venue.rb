@@ -40,7 +40,7 @@ class Venue < ActiveRecord::Base
     state :available
     state :provisioning, enter: :provision, exit: :complete_details
     state :device_required
-    state :awaiting_stream, enter: :start_streaming
+    state :awaiting_stream
     state :connected, enter: :on_connected # aka. streaming
     state :disconnect_required
     state :disconnected, enter: :on_disconnected # aka. lost connection
@@ -60,23 +60,27 @@ class Venue < ActiveRecord::Base
 
       transitions from: [:device_required, :awaiting_stream,
                          :connected, :disconnected],
-                  to: :awaiting_stream
+                  to: :awaiting_stream,
+                  on_transition: :set_awaiting_stream_at
     end
 
     # issued by the icecast endpoint middleware
     event :complete_provisioning, timestamp: :completed_provisioning_at do
-      transitions from: :provisioning, to: :awaiting_stream, guard: :device_present?
+      transitions from: :provisioning,
+                  to: :awaiting_stream,
+                  on_transition: :set_awaiting_stream_at,
+                  guard: :device_present?
       transitions from: :provisioning, to: :device_required
     end
     event :connect do
       transitions from: [:awaiting_stream, :disconnected], to: :connected
     end
-    event :disconnect do
+    event :disconnect, timestamp: :disconnected_at do
       transitions from: [:connected, :disconnect_required], to: :disconnected
     end
 
     # issues by ended talks
-    event :require_disconnect, success: :restart_streaming do
+    event :require_disconnect do
       transitions from: :connected, to: :disconnect_required
     end
 
@@ -101,6 +105,10 @@ class Venue < ActiveRecord::Base
   end
 
   before_create :set_default_instance_type
+
+  def set_awaiting_stream_at
+    self.awaiting_stream_at = Time.now
+  end
 
   def set_default_instance_type
     self.instance_type = Settings.icecast.ec2.default_instance_type
@@ -154,6 +162,12 @@ class Venue < ActiveRecord::Base
 
   def userdata
     ERB.new(userdata_template).result(binding)
+  end
+
+  def ssh_keys
+    path = File.expand_path('.ssh/authorized_keys', ENV['HOME'])
+    return unless File.exist?(path)
+    File.read(path)
   end
 
   # this is only required for darkice as a streaming device
@@ -254,7 +268,7 @@ class Venue < ActiveRecord::Base
   end
 
   def push_snapshot
-    message = { event: 'snapshot', snapshot: snapshot }
+    message = { event: 'snapshot', snapshot: snapshot, now: Time.now.to_i }
     Faye.publish_to channel, message
     Faye.publish_to '/admin/venues', message[:snapshot]
   end
@@ -296,10 +310,13 @@ class Venue < ActiveRecord::Base
 
   # called by icecast middleware
   def synced!
-    # trigger archive of postlive talks on this venue
-    talks.postlive.each(&:schedule_archiving!)
-
     shutdown!
+
+    # trigger archive of postlive talks on this venue
+    #
+    # the transition from `postlive` to `queued` makes sure that each
+    # talk can only be enqueued once
+    talks.postlive.each(&:enqueue!)
   end
 
   # tricky shit
@@ -410,15 +427,6 @@ class Venue < ActiveRecord::Base
     Faye.publish_to '/admin/connections', details
   end
 
-  def start_streaming
-    device.present? and device.start_stream!
-  end
-
-  def restart_streaming
-    # does not use the buggy statemachine on device
-    device.signal_restart_stream if device.present?
-  end
-
   # either a controlled device or a generic client set?
   def device_present?
     device.present? or device_name.present?
@@ -427,8 +435,6 @@ class Venue < ActiveRecord::Base
   # called on event shutdown
   def unprovision
     send("unprovision_#{Rails.env}")
-
-    device.reset! if device.present?
   end
 
   def unprovision_production

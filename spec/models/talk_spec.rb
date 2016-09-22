@@ -122,25 +122,6 @@ describe Talk do
 
       expect(related_talk.reload.featured_talk).to eq(featured_talk)
     end
-    context 'next talk' do
-      before do
-        @talk = FactoryGirl.create :talk
-      end
-      it 'returns nil when there is no next talk' do
-        expect(@talk.series.talks.count).to eq(1)
-        expect(@talk.next_talk).to be_nil
-      end
-
-      it 'returns the next talk' do
-        @talk.series.talks << FactoryGirl.create(:talk, title: 'first')
-        @talk.series.talks << FactoryGirl.create(:talk, title: 'second')
-        @talk.series.talks << FactoryGirl.create(:talk, title: 'third')
-
-        expect(@talk.next_talk.title).to                     eq('first')
-        expect(@talk.next_talk.next_talk.title).to           eq('second')
-        expect(@talk.next_talk.next_talk.next_talk.title).to eq('third')
-      end
-    end
   end
 
   describe 'on class level' do
@@ -205,6 +186,8 @@ describe Talk do
         talk.venue.update_attribute :state, 'connected'
         talk.end_talk!
         expect(talk.current_state).to be(:postlive)
+        talk.enqueue!
+        expect(talk.current_state).to be(:queued)
         talk.process!
         expect(talk.current_state).to be(:processing)
         talk.archive!
@@ -444,16 +427,6 @@ describe Talk do
       #expect(talk.user.venues.count).to eq(1)
     end
 
-    it 'finds the next talk via venue' do
-      venue = FactoryGirl.create(:venue)
-      talks = FactoryGirl.create_list(:talk, 3, venue: venue)
-      talks[0].update_attribute :starts_at_time, '15:00'
-      talks[1].update_attribute :starts_at_time, '14:00'
-      talks[2].update_attribute :starts_at_time, '13:00'
-      expect(talks[2].lined_up).to eq(talks[1])
-      expect(talks[1].lined_up).to eq(talks[0])
-      expect(talks[0].lined_up).to be_nil
-    end
   end
 
   describe 'urls' do

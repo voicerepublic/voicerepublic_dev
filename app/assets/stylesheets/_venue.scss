@@ -10,6 +10,18 @@
 // * * * * * * * *:hover { border:2px dotted #5984C3 }      /* Dotted Blue
 // * * * * * * * * *:hover { border:2px dotted #CD1821 }    /* Dotted Red */
 $panelOutlineColor: $tuatara;
+
+#reconnect {
+    margin: 0;
+    color: $vr-light-blue;
+    svg {
+        width: 16px;
+        height: 16px;
+    }
+        &:hover {
+            color:$success-color;
+        }
+}
 #mute-toggle {
     width: 24px;
     height: 24px;
@@ -35,6 +47,14 @@ $panelOutlineColor: $tuatara;
             // float: left !important;
             margin:0;
         }
+    }
+
+    .autostart-warning {
+    background: $vr-yellow;
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    padding: 6px 0;
     }
 
 section#devices {
@@ -323,6 +343,7 @@ section#devices {
     bottom: 0;
     background: rgba(0, 0, 0, 0.5);
     z-index: -1;
+    cursor: pointer;
 }
 
 #instructions, #talk-modal {
@@ -334,8 +355,23 @@ section#devices {
     box-shadow: 0 1px 10px rgba(0, 0, 0, 0.3);
     color: white;
     position: relative;
-    min-width: 400px;
-    max-width: 480px;
+    min-width: 100%;
+    max-width: 100%;
+    height: 100%;
+    @include breakpoint(medium){
+        min-width:480px;
+        position:relative;
+        height: auto;
+
+            h2 {
+        font-size: rem-calc(18);
+    }
+
+    }
+    h2 {
+        font-size: rem-calc(16);
+        margin-top: 6px;
+    }
     h4 {
         color: white;
         font-size: rem-calc(18);

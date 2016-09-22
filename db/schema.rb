@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160818143157) do
+ActiveRecord::Schema.define(version: 20160912142726) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -90,6 +90,15 @@ ActiveRecord::Schema.define(version: 20160818143157) do
 
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
+  create_table "device_reports", force: :cascade do |t|
+    t.integer  "device_id"
+    t.text     "data"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "device_reports", ["device_id"], name: "index_device_reports_on_device_id", using: :btree
+
   create_table "devices", force: :cascade do |t|
     t.string   "identifier"
     t.string   "type"
@@ -99,16 +108,22 @@ ActiveRecord::Schema.define(version: 20160818143157) do
     t.datetime "last_heartbeat_at"
     t.integer  "organization_id"
     t.datetime "paired_at"
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
     t.datetime "disappeared_at"
-    t.string   "target",             default: "live"
+    t.string   "target",               default: "live"
     t.string   "public_ip_address"
-    t.integer  "loglevel",           default: 1
-    t.integer  "report_interval",    default: 60
-    t.integer  "heartbeat_interval", default: 5
-    t.text     "options",            default: "--- {}"
+    t.integer  "loglevel",             default: 1
+    t.integer  "report_interval",      default: 60
+    t.integer  "heartbeat_interval",   default: 5
+    t.text     "options",              default: "--- {}"
     t.string   "pairing_code"
+    t.string   "source_branch",        default: "master"
+    t.string   "capture_device",       default: "dsnooped"
+    t.string   "private_ip_address"
+    t.string   "mac_address_ethernet"
+    t.string   "version"
+    t.string   "mac_address_wifi"
   end
 
   add_index "devices", ["organization_id"], name: "index_devices_on_organization_id", using: :btree
@@ -464,12 +479,15 @@ ActiveRecord::Schema.define(version: 20160818143157) do
     t.datetime "completed_provisioning_at"
     t.integer  "device_id"
     t.string   "device_name",                   default: "noop"
+    t.datetime "disconnected_at"
+    t.datetime "awaiting_stream_at"
   end
 
   add_index "venues", ["device_id"], name: "index_venues_on_device_id", using: :btree
   add_index "venues", ["slug"], name: "index_venues_on_slug", using: :btree
   add_index "venues", ["user_id"], name: "index_venues_on_user_id", using: :btree
 
+  add_foreign_key "device_reports", "devices"
   add_foreign_key "devices", "organizations"
   add_foreign_key "memberships", "organizations"
   add_foreign_key "memberships", "users"

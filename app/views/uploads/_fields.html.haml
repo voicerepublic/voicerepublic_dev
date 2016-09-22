@@ -47,18 +47,19 @@
   .hint= t('.series_help_text')
   %hr
 
-  .title-box.clearfix
-    %h3.form-title.left= t('.add_to_venue')
-  .row.pickers
-    .medium-6.columns
-      = f.association :venue, collection: current_user.venues,
-	include_blank: t('.create_new_stage'),
-        input_html: { 'data-on-blank-show' => '#wrapper_new_venue_name' }
-    .medium-6.columns
-      = f.input :new_venue_name, wrapper_html: { id: 'wrapper_new_venue_name' }
-    .medium-12.columns
-      .hint= t('.venue_help_text')
-  %hr
+  -# SEE https://www.pivotaltracker.com/story/show/129036165
+  -#.title-box.clearfix
+  -#  %h3.form-title.left= t('.add_to_venue')
+  -#.row.pickers
+  -#  .medium-6.columns
+  -#    = f.association :venue, collection: current_user.venues,
+  -# include_blank: t('.create_new_stage'),
+  -#      input_html: { 'data-on-blank-show' => '#wrapper_new_venue_name' }
+  -#  .medium-6.columns
+  -#    = f.input :new_venue_name, wrapper_html: { id: 'wrapper_new_venue_name' }
+  -#  .medium-12.columns
+  -#    .hint= t('.venue_help_text')
+  -#%hr
 
   .title-box.clearfix
     %h3.form-title.left= t('.illustrate_and_describe')

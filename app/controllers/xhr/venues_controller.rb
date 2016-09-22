@@ -2,7 +2,8 @@ class Xhr::VenuesController < Xhr::BaseController
 
   ALLOWED_EVENTS = %w( become_available
                        start_provisioning
-                       select_device )
+                       select_device
+                       require_disconnect )
 
   load_and_authorize_resource
 
@@ -26,6 +27,16 @@ class Xhr::VenuesController < Xhr::BaseController
   def update
     @venue.assign_attributes(venue_params)
 
+    # this is one of those highlander situations
+    @venue.device = nil if venue_params[:device_name]
+    @venue.device_name = nil if venue_params[:device_id]
+
+    # HACK!, FIXME fix the domain model so this is not needed
+    if @venue.device.present?
+      Venue.where(device_id: @venue.device_id).
+        where.not(id: @venue.id).update_all(device_id: nil)
+    end
+
     # TODO move to model with `before_save :apply_event`
     if ALLOWED_EVENTS.include?(@venue.event)
       @venue.send(@venue.event)
@@ -37,7 +48,7 @@ class Xhr::VenuesController < Xhr::BaseController
     head :ok
 
   rescue => e
-    render status: 409, text: e.message
+    render status: 409, text: e.message + "\n" + e.backtrace * "\n"
   end
 
 

@@ -15,6 +15,36 @@ body {
     text-align: center;
 }
 
+#nopush {
+    // color: $vr-purple;
+    // vertical-align: sub;
+    margin-left: 12px;
+    svg {
+        fill: currentColor;
+        width: 24px;
+        height: 24px;
+    }
+}
+
+#mobile-play-button {
+    color:white;
+    background: rgba(white,.2);
+    width: 100px;
+    height: 100px;
+    border-radius:50px;
+    margin:0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 24px;
+
+    svg {
+        width: 36px;
+        height: 36px;
+        margin-left: 8px;
+    }
+}
+
 audio {
     width: 100%;
 }
