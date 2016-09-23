@@ -385,6 +385,11 @@ en:
       contact: Contact
       careers: Careers
       imprint: Imprint
+      audio_upload: Audio Upload
+      live_stream: Live Stream
+      services: Services & Pricing
+      streamboxx: 'New Event Solution: The StreamBoxx'
+
     navbar:
       more_talks: More talks
       sign_up: Join For Free
