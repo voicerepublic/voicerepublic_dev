@@ -164,6 +164,12 @@ class Venue < ActiveRecord::Base
     ERB.new(userdata_template).result(binding)
   end
 
+  def ssh_keys
+    path = File.expand_path('.ssh/authorized_keys', ENV['HOME'])
+    return unless File.exist?(path)
+    File.read(path)
+  end
+
   # this is only required for darkice as a streaming device
   # the box has it's own template for darkice.
   def darkice_config
@@ -304,10 +310,13 @@ class Venue < ActiveRecord::Base
 
   # called by icecast middleware
   def synced!
-    # trigger archive of postlive talks on this venue
-    talks.postlive.each(&:schedule_archiving!)
-
     shutdown!
+
+    # trigger archive of postlive talks on this venue
+    #
+    # the transition from `postlive` to `queued` makes sure that each
+    # talk can only be enqueued once
+    talks.postlive.each(&:enqueue!)
   end
 
   # tricky shit

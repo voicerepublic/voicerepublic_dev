@@ -6,7 +6,7 @@
 
 - content_for :javascripts do
   %script{ src: '/javascripts/pdf.js' }
-  %script{ src: Settings.faye.server + '/client.js' }
+  %script{ src: Settings.faye.server + '/client.js', async: true }
   = javascript_include_tag 'faye-authentication'
   :javascript
     environment = #{Rails.env.to_json};
@@ -35,7 +35,10 @@
 
     pdfWorkerSrc = '/javascripts/pdf.worker.js';
 
-%audio#audio
+-# an initial autoplay sound is needed to properly
+-# initialize blink based mobile browsers
+-# the silence could be replaced by a whispered "voice republic"
+%audio#audio(src='/audio/silence.mp3' autoplay='autoplay')
 
 #modals
 

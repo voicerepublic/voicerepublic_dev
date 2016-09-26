@@ -81,7 +81,8 @@ module VoiceRepublic
     config.assets.precompile += %w( sencha.js
                                     embed_talk.js
                                     embed_talk.css
-                                    venues.js )
+                                    venues.js
+                                    dev_webfonts.css )
 
     # Handling exceptions dynamically using middleware.
     # Here a rack middleware app could be configured, instead we are using the

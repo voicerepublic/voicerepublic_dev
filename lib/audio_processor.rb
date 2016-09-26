@@ -19,12 +19,6 @@ class AudioProcessor < Fidelity::ChainRunner
     Emitter.audio_processing(event: 'before_chain', details: { id: talk.id })
     # TODO oldschool: remove (should by covered by talk_transitions)
     LiveServerMessage.call talk.public_channel, { event: 'Process' }
-    @t0 = Time.now.to_i
-
-    # uploading might take a while, so we'll take the time
-    t2 = Time.now.to_i
-    talk.send(:upload_flvs!)
-    delta_t2 = Time.now.to_i - t2
   end
 
   def before_strategy(index, name)
@@ -47,11 +41,8 @@ class AudioProcessor < Fidelity::ChainRunner
 
   def after_chain
     # uploading might take a while, so we'll take the time
-    t2 = Time.now.to_i
     talk.send(:upload_results!)
-    delta_t2 = Time.now.to_i - t2
 
-    delta_t0 = Time.now.to_i - @t0
     Emitter.audio_processing(event: 'after_chain', details: { id: talk.id })
     # TODO oldschool: remove (should by covered by talk_transitions)
     LiveServerMessage.call(talk.public_channel, { event: 'Archive',

@@ -2,7 +2,8 @@ class Xhr::VenuesController < Xhr::BaseController
 
   ALLOWED_EVENTS = %w( become_available
                        start_provisioning
-                       select_device )
+                       select_device
+                       require_disconnect )
 
   load_and_authorize_resource
 

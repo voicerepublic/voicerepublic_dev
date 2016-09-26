@@ -56,6 +56,7 @@ class Talk < ActiveRecord::Base
     state :prelive
     state :live
     state :postlive
+    state :queued
     state :processing
     state :archived
     state :suspended
@@ -74,8 +75,11 @@ class Talk < ActiveRecord::Base
     event :end_talk, timestamp: :ended_at, success: :after_end do
       transitions from: :live, to: :postlive
     end
+    event :enqueue, success: :schedule_archiving!  do
+      transitions from: :postlive, to: :queued
+    end
     event :process do
-      transitions from: :postlive, to: :processing
+      transitions from: :queued, to: :processing
     end
     event :suspend do
       transitions from: :processing, to: :suspended
@@ -85,7 +89,7 @@ class Talk < ActiveRecord::Base
       # or by user upload
       transitions from: :pending, to: :archived
       # in rare case we might to override a talk
-      # which has never been postprocessed
+      # which has never been enqueued
       transitions from: :postlive, to: :archived
       # or which was supposed to but has never even happended
       transitions from: :prelive, to: :archived
@@ -99,8 +103,6 @@ class Talk < ActiveRecord::Base
   belongs_to :series, inverse_of: :talks
   has_one :user, through: :series
   belongs_to :venue
-  has_many :appearances, dependent: :destroy
-  has_many :guests, through: :appearances, source: :user
   has_many :messages, dependent: :destroy
   has_many :social_shares, as: :shareable
   has_many :reminders, as: :rememberable, dependent: :destroy
@@ -146,7 +148,6 @@ class Talk < ActiveRecord::Base
   #after_create :create_and_process_debit_transaction!, unless: :dryrun?
   after_create :set_auto_destruct_mode, if: :dryrun?
   # TODO: important, these will be triggered after each PUT, optimize
-  after_save :set_guests
   after_save :generate_flyer!, if: :generate_flyer?
   after_save :process_slides!, if: :process_slides?
   after_save :schedule_user_override, if: :schedule_user_override?
@@ -214,16 +215,6 @@ class Talk < ActiveRecord::Base
                     series: [:title, :description_as_text, :teaser],
                     user: [:firstname, :lastname, :about_as_text, :summary]
                   }
-
-  # returns an array of json objects
-  def guest_list
-    guests.map(&:for_select).to_json
-  end
-
-  # accepts a string with a comma separated list of ids
-  def guest_list=(list)
-    @guest_list = list.split(',').sort
-  end
 
   def remaining_seconds
     return starts_in if prelive?
@@ -308,32 +299,20 @@ class Talk < ActiveRecord::Base
     self
   end
 
-  # this is only for user acceptance testing!
-  def reset_to_postlive!
-    raise 'reset_to_postlive! has to be fixed to work with s3'
-    self.reload
-    archive_raw = File.expand_path(Settings.rtmp.archive_raw_path, Rails.root)
-    base = File.dirname(File.join(archive_raw, recording.to_s))
-    target = Settings.rtmp.recordings_path
-    FileUtils.mv(Dir.glob("#{base}/t#{id}-u*.flv"), target)
-    self.recording = nil
-    self.state = :postlive
-    self.save!
-    self.reload
-    self
-  end
-
-  # returns the next talk (coming up next) talk in the series
-  def next_talk
-    #raise "next_talk DEPRECATED!"
-    begin
-      talks = series.talks.order(:starts_at)
-      talk_index = talks.find_index(self)
-      return talks[talk_index+1]
-    rescue
-      nil
-    end
-  end
+  # # this is only for user acceptance testing!
+  # def reset_to_postlive!
+  #   raise 'reset_to_postlive! has to be fixed to work with s3'
+  #   self.reload
+  #   archive_raw = File.expand_path(Settings.rtmp.archive_raw_path, Rails.root)
+  #   base = File.dirname(File.join(archive_raw, recording.to_s))
+  #   target = Settings.rtmp.recordings_path
+  #   FileUtils.mv(Dir.glob("#{base}/t#{id}-u*.flv"), target)
+  #   self.recording = nil
+  #   self.state = :postlive
+  #   self.save!
+  #   self.reload
+  #   self
+  # end
 
   def effective_duration # in seconds
     ended_at - started_at
@@ -375,7 +354,8 @@ class Talk < ActiveRecord::Base
 
     age_in_hours = ( ( Time.now - processed_at ) / 3600 ).to_i
 
-    rank = ( ( ( play_count - 1 ) ** 0.8 ).real / ( age_in_hours + 2 ) ** 1.8 ) * penalty
+    rank = ( ( ( play_count - 1 ) ** 0.8 ).real /
+             ( age_in_hours + 2 ) ** 1.8 ) * penalty
 
     self.popularity = rank
   end
@@ -386,40 +366,32 @@ class Talk < ActiveRecord::Base
     save!
   end
 
-  # for use on console only
-  def reinitiate_postprocess!
-    self.update_attribute :state, :postlive
-    self.postprocess!
-  end
-
   # used for mobile app
   def image_url
     image.url
   end
 
   def self_url
-    Rails.application.routes.url_helpers.talk_url(self)
+    url_helpers.talk_url(self)
   end
 
   def embed_self_url
-    Rails.application.routes.url_helpers.embed_talk_url(self)
+    url_helpers.embed_talk_url(self)
   end
 
   def edit_self_url
-    Rails.application.routes.url_helpers.edit_talk_url(self)
+    url_helpers.edit_talk_url(self)
+  end
+
+  def url_helpers
+    @url_helpers ||= Rails.application.routes.url_helpers
   end
 
   def create_message_url
-    url = Rails.application.routes.url_helpers.create_message_url(self)
+    url = url_helpers.create_message_url(self)
     # WTF? why does it generate a http message instead of https on staging
     url = url.sub('http://', 'https://') if Rails.env.production?
     url
-  end
-
-  def lined_up
-    #raise 'lined_up DEPRECATED!'
-    return nil unless venue.present?
-    venue.talks.where('starts_at > ?', starts_at).ordered.first
   end
 
   class << self
@@ -524,7 +496,7 @@ class Talk < ActiveRecord::Base
       self.processing_error = message
       suspend!
     ensure
-      FileUtils.remove_entry tmp_dir
+      FileUtils.remove_entry tmp_dir if tmp_dir
     end
   end
 
@@ -611,16 +583,6 @@ class Talk < ActiveRecord::Base
     end
   end
 
-  def set_guests
-    return if @guest_list.nil?
-    return if @guest_list == appearances.pluck(:user_id).sort
-
-    appearances.clear
-    @guest_list.each do |id|
-      appearances.create(user_id: id)
-    end
-  end
-
   def set_auto_destruct_mode
     delta = created_at + 24.hours
     Delayed::Job.enqueue(DestroyTalk.new(id: id), queue: 'trigger', run_at: delta)
@@ -638,48 +600,6 @@ class Talk < ActiveRecord::Base
     venue.require_disconnect! if venue.connected?
   end
 
-  def postprocess!(uat=false)
-    raise 'fail: postprocessing a talk with override' if recording_override?
-    return if archived? # silently guard against double processing
-
-    logfile.puts "\n\n# --- postprocess (#{Time.now}) ---"
-    begin
-      process!
-      chain = venue.opts.process_chain
-      chain ||= Setting.get('audio.process_chain')
-      chain = chain.split(/\s+/)
-      run_chain! chain, uat
-      archive!
-    rescue => e
-      message = ([e.message] + e.backtrace) * "\n"
-      Rails.logger.error message
-      self.processing_error = message
-      suspend!
-    end
-  end
-
-  def reprocess!(uat=false)
-    raise 'fail: reprocessing a talk with override' if recording_override?
-
-    logfile.puts "\n\n# --- reprocess (#{Time.now}) ---"
-
-    # move files back into position for processing
-    target = File.expand_path(Settings.rtmp.recordings_path, Rails.root)
-    # TODO optimize only pick the files referenced in `storage`
-    media_storage.files.each do |file|
-      next unless file.key =~ /^#{uri}\//
-      next unless file.key =~ /\.(flv|journal)$/
-      path = File.join(target, File.basename(file.key))
-      logfile.puts "#R# s3cmd get s3://#{media_storage.key}/#{file.key} #{path}"
-      File.open(path, 'wb') { |f| f.write(file.body) }
-    end
-
-    chain = venue.opts.process_chain
-    chain ||= Setting.get('audio.process_chain')
-    chain = chain.split(/\s+/)
-    run_chain! chain, uat
-  end
-
   # FIXME cleanup the wget/cp spec mess with
   # http://stackoverflow.com/questions/2263540
   def process_override!(uat=false)
@@ -687,7 +607,8 @@ class Talk < ActiveRecord::Base
     logfile.puts "\n\n# --- override (#{Time.now}) ---"
 
     # prepare override
-    tmp_dir = FileUtils.mkdir_p("/tmp/recording_override/#{id}").first
+    path = Rails.root.join("tmp/processing/process_override/#{id}")
+    tmp_dir = FileUtils.mkdir_p(path).first
     begin
       FileUtils.fileutils_output = logfile
       FileUtils.chdir(tmp_dir, verbose: true) do
@@ -759,8 +680,7 @@ class Talk < ActiveRecord::Base
   end
 
   # not obvious: the worker will call `upload_results!`
-  # from its `after_chain` callback and `upload_flvs!`
-  # from its `before_chain` callback.
+  # from its `after_chain` callback.
   def run_chain!(chain, uat=false)
     path = update_manifest_file!(chain)
     Rails.logger.info "manifest: #{path}"
@@ -785,23 +705,6 @@ class Talk < ActiveRecord::Base
                                             chain: chain do
       worker.run(Logger.new(logfile))
     end
-  end
-
-  # move flvs to fog storage whil removing empty files
-  def upload_flvs!
-    base = File.expand_path(Settings.rtmp.recordings_path, Rails.root)
-    files = Dir.glob("#{base}/t#{id}-u*.flv")
-    files.each do |file|
-      # remove empty files
-      next FileUtils.rm(file, verbose: true) if File.size?(file) == 0
-
-      cache_storage_metadata(file)
-      key = "#{uri}/#{File.basename(file)}"
-      upload_file(key, file)
-      # do not remove these files, we still need them for processing
-    end
-
-    save! # save `storage` field
   end
 
   # move results to fog storage
@@ -936,7 +839,7 @@ class Talk < ActiveRecord::Base
   def user_override!
     logger.info "Talk.find(#{id}).user_override! (with uuid #{user_override_uuid})"
 
-    # with the current policy there is not need to talk to aws
+    # with the current policy there is no need to talk to aws
     url = 'https://s3.amazonaws.com/%s/%s' %
           [ Settings.storage.upload_audio.split('@').first, user_override_uuid ]
 

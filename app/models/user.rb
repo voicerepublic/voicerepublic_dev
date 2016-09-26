@@ -36,7 +36,7 @@ class User < ActiveRecord::Base
   include LifecycleEmitter
 
   # this makes `url_for` available for use in `details_for`
-  include Rails.application.routes.url_helpers
+  # include Rails.application.routes.url_helpers
 
   # Send Welcome Instructions and Personal Welcome Mail
   include Welcomed
@@ -167,31 +167,6 @@ class User < ActiveRecord::Base
       url: self_url,
       image_url: avatar.thumb('36x36').url
     }
-  end
-
-  def details_for(talk)
-    {
-      id: id,
-      name: name,
-      role: role_for(talk),
-      image: avatar.thumb('100x100#nw').url,
-      stream: "t#{talk.id}-u#{id}",
-      downmsg: "/t#{talk.id}/u#{id}",
-      upmsg: "/live/up/t#{talk.id}/u#{id}",
-      link: url_for(controller: 'users',
-                    action: 'show',
-                    id: to_param,
-                    only_path: true)
-    }
-  end
-
-  def role_for(talk)
-    return :host if self == talk.user
-    return :guest if talk.guests.include?(self)
-    # TODO: check resulting db queries, maybe use eager loading
-    # TODO: Returning :participant is a temporary implementation. It is not yet
-    # dediced how to proceed since we removed the explicit participantion.
-    :participant
   end
 
   # helper for console
