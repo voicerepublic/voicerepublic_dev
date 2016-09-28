@@ -1,6 +1,8 @@
 en:
   frontend:
     talks:
+      embed_instructions: "Copy and paste the following code into your website:"
+      launch: Go to RSS Feed
       state:
         live: Live
         postlive: Finished...

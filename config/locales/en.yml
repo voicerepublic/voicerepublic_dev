@@ -340,26 +340,6 @@ en:
       notice: |
         You haven't confirmed your email address, yet. Please check
         your emails and follow the link we sent you.
-    how_to_use_vr:
-      create_talk: Create Talk
-      check_pricing: Check our pricing
-    hide_for_anon:
-      redirect_text: |
-        Please sign up or login to use this feature.
-      subscribe_to_podcast: Podcast
-    actionbar:
-      login: Sign In
-      sign_up: Join For Free
-      search: Search
-      explore: Explore
-      my_profile: My Profile
-      schedule_talk: Schedule A Live Talk
-      upload_talk: Upload A Recording To Voice Republic
-      pricing: Pricing
-      test_talk: 'Test A Talk'
-      logout: Log Out
-    check_flash:
-      no_flash_version_notice: Your current version of Flash-Plugin is not sufficient. Install Version 10.3 or higher. to use Video call.
     footer:
       description: "Voice Republic is the new platform for quality spoken content. Many thought leaders throughout Europe are streaming their Talks exclusively on our platform."
       about: About
@@ -443,8 +423,8 @@ en:
       search: Search
       explore: Explore
       my_profile: My Profile
-      schedule_talk: Schedule A Live Talk
-      upload_talk: Upload A Recording
+      schedule_talk: Create a Live Talk
+      upload_talk: Upload a Talk
       pricing: Pricing
       test_talk: 'Test A Talk'
       logout: Log Out

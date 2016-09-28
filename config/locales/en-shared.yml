@@ -1,5 +1,5 @@
 en:
-  shared:      
+  shared:
     free_pricing_banner:
       new: "New:"
       free_pricing: "Upload and stream your content for free!"
@@ -25,4 +25,4 @@ en:
         one: 'One Talk'
         other: '%{count} Talks'
     autoplay_warning:
-      autoplay_warning: "Warning! Audio may begin playing automatically."
+      autoplay_warning: "For your information: audio may begin playing automatically"

@@ -11,14 +11,14 @@ en:
       devices_found:
         one: "Redirecting... (you should actually never see this!)"
         zero: >-
-          Please connect your streaming source. If you’re using a Voice Republic StreamBoxx, 
+          Please connect your streaming source. If you’re using a Voice Republic StreamBoxx,
           make sure it is connected to the internet (LAN) and to power. Then reload this page.
 
         other: >-
           We found <span>%{count}</span> possible streaming sources. Please pair one of them now.
-          
-      
-      take_action: 
+
+
+      take_action:
         zero: "To pair your streaming source, please try the following:"
         other: "You have two options to pair your streaming source:"
 
@@ -51,8 +51,8 @@ en:
       claim_client: ! '%{type} found!'
       type: 'Type: %{type}'
       naming_advice:
-        box: |
-          <strong> Tip:</strong> If you are streaming from multiple stages, you need to unambiguously identify your streaming sources.
-          It will be helpful to give your streaming source a unique name now. If you’re using a Voice Republic Streamboxx, 
-          we suggest you write this name on its case.
+        box: >-
+          Give your StreamBoxx a name! This makes it easier to
+          identify it later. You can also write the name on the case
+          of your StreamBoxx.
         app: "<strong> Tip:</strong> The name will help you identify the app you are claiming. Feel free to rename it here."

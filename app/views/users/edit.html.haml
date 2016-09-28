@@ -40,7 +40,7 @@
       .row
         .medium-6.columns.input.slug
           %label{:for => "user_slug"}
-            Username & URL
+            = t('.url')
           .input-group
             %span.input-group-label voicerepublic.com/users/
             = f.input_field :slug, class: 'input-group-field'
