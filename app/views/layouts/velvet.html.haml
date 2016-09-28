@@ -24,7 +24,7 @@
       .top-bar-right
         %ul.dropdown.menu{"data-dropdown-menu" => "", "data-disable-hover" => "true", "data-click-open" => "true"}
           %li.can-hide.hide-for-small-only
-            = link_to explore_path do
+            = link_to explore_path, class: 'qa-explore' do
               = t('.explore')
           - if user_signed_in?
             %li.can-hide.hide-for-small-only

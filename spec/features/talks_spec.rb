@@ -222,12 +222,12 @@ describe "Talks as logged in user" do
     describe "as user on all pages" do
       it 'shows explore in talk_path' do
         visit talk_path(@talk)
-        expect(page).to have_content I18n.t('shared.actionbar.explore')
+        expect(page).to has_css('.qa-explore')
       end
 
       it 'shows explore in user_path' do
         visit user_path(@user)
-        expect(page).to have_content I18n.t('shared.actionbar.explore')
+        expect(page).to has_css('.qa-explore')
       end
     end
 
