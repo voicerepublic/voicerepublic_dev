@@ -28,7 +28,7 @@
 
   :cljsbuild {:builds {:app {:source-paths ["src"] ;; app -> dev
                              :figwheel {:on-jsload vrng.core/fig-reload
-                                        :websocket-host :server-ip
+                                        :websocket-host :server-hostname
                                         }
                              :compiler {:main vrng.core
                                         :output-to "public/js/app.js"
