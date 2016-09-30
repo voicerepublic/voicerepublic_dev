@@ -181,4 +181,10 @@ describe User do
     expect(slugs).to eq(Settings.default_pins)
   end
 
+  it 'has default after created' do
+    user = FactoryGirl.create(:user)
+    expect(user.default_series).to be_present
+    expect(user.default_venue).to be_present
+  end
+
 end
