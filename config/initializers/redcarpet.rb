@@ -66,7 +66,8 @@ MD2TEXT = Redcarpet::Markdown.new(Redcarpet::Render::VRStripDown.new)
 # a more permissive renderer
 
 options = {
-  hard_wrap: true
+  hard_wrap: true,
+  filter_html: false
 }
 
 extensions = {

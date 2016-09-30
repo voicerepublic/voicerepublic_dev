@@ -26,8 +26,7 @@ en:
           also add links, pictures and headlines.
         timings: |
           Choose the exact date and time when your talk will take
-          place. A live talk must be scheduled in the future; a
-          recording in the past.
+          place. A live talk must be scheduled in the future.
         tag_list: |
           Make your talk easy to find! Tags are keywords and should
           sum up the content. Separated by commas.
@@ -37,7 +36,7 @@ en:
           Use <a target='_blank' href='/r/md'>Markdown</a> to add
           links, pictures and headlines.
       series:
-        title: Give your series an expressive, comprehensible title.
+        title: Give your series an expressive title.
         teaser: >-
           Your teaser can be up to 140 characters long. If you have
           relevant keywords, use them here.

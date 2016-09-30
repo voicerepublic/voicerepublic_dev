@@ -62,6 +62,7 @@ en:
       opinion: Status
       edit_account: Edit profil
     edit:
+      url: URL
       title: "%{username} edit profile - Voice Republic"
       greeting: >-
 
@@ -90,7 +91,7 @@ en:
 
     # SHOW
     show:
-      create_live_talk: Create Live Talk
+      create_live_talk: Create a Live Talk
       you_have_x_credits_left:
         zero: |
           <h3>You have run out of credits.</h3>
@@ -127,7 +128,7 @@ en:
       listen_later: Listen later
       create_new_talk: Create new Talk
       publish_a_talk: Publish A Talk
-      upload_talk: Upload Talk
+      upload_talk: Upload a Talk
       edit_user: Edit Profile
       about: About
       reminders: Listen later
