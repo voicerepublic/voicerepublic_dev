@@ -16,7 +16,7 @@ class UploadsController < BaseController
     @talk.series_user = current_user
 
     # see https://www.pivotaltracker.com/story/show/129036165
-    @talk.venue = current_user.default_venue
+    @talk.venue_id = current_user.default_venue_id
 
     authorize! :create, @talk
 
