@@ -1485,19 +1485,19 @@ h4.section-title {
 #speakers {
     text-align: left;
 
-    a {
+    li {
         color: $topbar-dark;
         padding: 6px;
         background: #f4f4f4;
         margin: 3px 2px;
         border-radius: 2px;
-        box-shadow: 0 1px 1px rgba(0,0,0,.1);
+        //box-shadow: 0 1px 1px rgba(0,0,0,.1);
         font-size: .7rem;
 
-        &:hover {
-            background:#fff;
+        // &:hover {
+        //     background:#fff;
             
-        }
+        // }
 
         svg {
             fill: currentColor;
@@ -1509,6 +1509,7 @@ h4.section-title {
             vertical-align: baseline;
             margin-left: 6px;
             letter-spacing: rem-calc(1);
+            float: right;
         }
 
         &.active {
