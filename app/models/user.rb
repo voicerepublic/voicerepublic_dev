@@ -132,6 +132,7 @@ class User < ActiveRecord::Base
       attrs = Settings.default_venue_defaults[I18n.locale].to_hash
       attrs[:name] = attrs[:name].gsub('%{user}', name)
       create_default_venue!(attrs.merge(user: self))
+      save!
     end
   end
 
