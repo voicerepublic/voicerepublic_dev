@@ -2034,9 +2034,24 @@ hr {
     }
 
     li {
-        padding: 24px;
+        padding: 6px;
         width:50%;
         float:left;
+        cursor: pointer;
+
+        .itemwrapper {
+            padding:24px;
+            border:2px solid rgba(white,.5);
+            border-radius:4px;
+        transition: border .2s, background .2s;
+        }
+
+        &:hover {
+            .itemwrapper {
+                border:2px solid white;
+                background:rgba(black, .05);
+            }
+        }
     }
 
     svg {
@@ -2049,6 +2064,10 @@ hr {
         margin-bottom:12px;
         .close-btn {
             font-size: 3rem;
+            cursor: pointer;
+            &:hover {
+                color: $vr-yellow;
+            }
     padding: 0;
     line-height: 1.5rem;
     font-weight: 200;
