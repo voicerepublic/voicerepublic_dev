@@ -1479,7 +1479,7 @@ h4.section-title {
 
 
 .base {
-    stroke: rgba($topbar-dark, 0.1);
+    //stroke: rgba($topbar-dark, 0.1);
 }
 
 #speakers {
@@ -1989,7 +1989,7 @@ hr {
     }
 }
 
-#devices {
+#devices-wizard {
     text-align: center;
     background: $vr-purple;
 
