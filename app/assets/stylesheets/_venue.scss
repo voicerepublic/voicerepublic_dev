@@ -2014,13 +2014,13 @@ hr {
     overflow: auto;
     bottom: 12px;
 
-    @include breakpoint(medium) {
-        max-width: 45rem;
+    // @include breakpoint(medium) {
+    //     max-width: 45rem;
 
-        /* position: absolute;*/
-        left: 50%;
-        margin-left: -22.5rem;
-    }
+    //      position: absolute;
+    //     left: 50%;
+    //     margin-left: -22.5rem;
+    // }
 
 
     h3 {
@@ -2051,6 +2051,10 @@ hr {
                 border:2px solid white;
                 background:rgba(black, .05);
             }
+        }
+
+        @include breakpoint(medium){
+            width: 33.3333%;
         }
     }
 
