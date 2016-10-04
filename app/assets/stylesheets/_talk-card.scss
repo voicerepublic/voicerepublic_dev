@@ -45,6 +45,18 @@
             }
         }
     }
+    &.live {
+        .title:before {
+            content: "LIVE";
+            background: $vr-red;
+            color: white;
+            font-family: $body-font-family;
+            font-size: .8rem;
+            font-weight: 700;
+            padding: 2px 4px;
+            margin-right: 2px;
+        }
+    }
     &:last-child {
         //@extend .end;
    
@@ -198,6 +210,10 @@
         }
         &:hover > .title {
             text-decoration: underline;
+            color: $vr-purple;
+            &:before {
+                text-decoration: none;
+            }
         }
         &:hover .hover-info {
             display: block !important;
@@ -301,6 +317,15 @@ $lines-to-show: 2;
 
 .talk-card:hover .talk-card-inside h5.title, .series:hover .talk-card-inside h5.title {
     text-decoration: underline;
+    &:before {
+        text-decoration: none;
+    }
+}
+
+.talk-card:hover .talk-card-inside h5.title:before {
+    -moz-text-decoration-color: orange; /* Code for Firefox */
+    text-decoration-color: orange;
+    display: inline-block;
 }
 
 .series .talk-card-inside .meta {

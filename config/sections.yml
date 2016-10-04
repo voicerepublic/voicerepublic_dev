@@ -1,5 +1,13 @@
 # this file contains default content for sections (formatted in markdown)
 en:
+  venues:
+    index:
+      help_text: >-
+        Here you can see all your stages. Choose the stage you want to
+        stream from here and, if needed, open other ones in new
+        tabs. Learn how to set up new stages in our [help
+        area](http://blog.voicerepublic.com/support/stages/?lang=en).
+
   talks:
     dryrun:
       text: >-

@@ -511,6 +511,13 @@ button,
 
  }
 
+ // this is to fix event bubbling in mobile safari
+ // if the cursor attribute is not set, events are simply not generated
+ // source: http://www.shdon.com/blog/2013/06/07/why-your-click-events-don-t-work-on-mobile-safari
+ .jp-volume-bar, .jp-seek-bar {
+     cursor: pointer;
+ }
+
 .muted {
     background: $alert-color;
     &:hover, &:focus {
@@ -1339,7 +1346,7 @@ ul.share-links {
     .pager {
         text-align: center;
         color: $vr-beige;
-        min-width: 50%; 
+        min-width: 50%;
 
         button {
             background: none;

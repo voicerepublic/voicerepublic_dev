@@ -4,14 +4,6 @@ en:
       loading: loading stage
     index:
         please_select_a_venue: Please Choose A Stage
-        help_text: >-
-          Here you can see all your stages. A stage is the digital
-          counterpart to a real stage. For every stage you want to
-          stream, there is one stage page. Do you have more than one
-          stage? Please contact us under
-          <a href='mailtp:service@voicerepubloc.com'>service@voicerepublic.com</a>.
-          Choose the stage you want to stream from here and, if
-          needed, open other ones in new tabs.
         talks:
           zero: Talks
           one: Talk
