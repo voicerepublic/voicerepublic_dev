@@ -1942,10 +1942,12 @@ hr {
 #listrow, #titlerow {
     max-width: 100%;
     margin: 0;
+
 }
 
 #listrow {
-    padding:0
+    padding:0;
+    width: 100vw;
 }
 
 .talkitem {
