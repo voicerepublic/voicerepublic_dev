@@ -12,12 +12,12 @@
 
 /*vars:*/
 $panelOutlineColor: $tuatara;
-$bgColor: #eee;
+$bgColor: #eeeeee;
 $neutralColor: $charcoal;
-$success-color: #60BD70;
+$success-color: #60bd70;
 
 #ui {
-    background:$bgColor;
+    background: $bgColor;
     padding: 0;
 }
 
@@ -51,7 +51,6 @@ $success-color: #60BD70;
 //     }
 // }
 
-
 //     .autostart {
 //         input[type="checkbox"] {
 //             // float: left !important;
@@ -70,7 +69,6 @@ $success-color: #60BD70;
 // section#devices {
 //     padding: 24px;
 //     background: #f9f9f9;
-
 
 //     button svg {
 //         width: 12px;
@@ -162,7 +160,7 @@ $success-color: #60BD70;
 //             }
 //         }
 //     }
-    
+
 //     .graphic {
 //         width: 40%;
 //         float: left;
@@ -309,8 +307,6 @@ $success-color: #60BD70;
 //         }
 //     }
 // }
-
-
 
 // .talks .button svg {
 //     width: 16px;
@@ -957,7 +953,7 @@ $success-color: #60BD70;
 //                 border-bottom-left-radius: 0;
 //             }
 //         }
-//         /* NOTE phil: I couldn't read it */
+//         /* NOTE phil: I couldn't read it
 //         option {
 //             background-color: white;
 //             color: $talk-dark;
@@ -978,7 +974,7 @@ $success-color: #60BD70;
 //             //         text-decoration: underline;
 //             //     }
 //             // }
-//             /* HACK by phil */
+//             /* HACK by phil
 //             .stop-warning {
 //                 display: inline-block;
 //                 padding-left: 12px;
@@ -1074,7 +1070,6 @@ $success-color: #60BD70;
 //         }
 //     }
 // }
-
 
 // .bar-holder:nth-child(1) .bar {
 //     // left: 1px;
@@ -1175,7 +1170,6 @@ $success-color: #60BD70;
 //     }
 // }
 
-
 // @-o-keyframes flickerAnimation {
 //     0% {
 //         opacity: 1;
@@ -1187,7 +1181,6 @@ $success-color: #60BD70;
 //         opacity: 1;
 //     }
 // }
-
 
 // @-moz-keyframes flickerAnimation {
 //     0% {
@@ -1201,7 +1194,6 @@ $success-color: #60BD70;
 //     }
 // }
 
-
 // @-webkit-keyframes flickerAnimation {
 //     0% {
 //         opacity: 1;
@@ -1213,7 +1205,6 @@ $success-color: #60BD70;
 //         opacity: 1;
 //     }
 // }
-
 
 // .animate-flicker {
 //     -webkit-animation: flickerAnimation 1.5s infinite;
@@ -1269,7 +1260,7 @@ $success-color: #60BD70;
 //         width: 100%;
 //     }
 // }
-// */
+//
 // .callout {
 //     border: 0;
 //     position: absolute;
@@ -1325,8 +1316,6 @@ $success-color: #60BD70;
 //     }
 // }
 
-
-
 // #venue-dropdown {
 //     max-width: 300px;
 //     background: white;
@@ -1342,7 +1331,6 @@ $success-color: #60BD70;
 //         }
 //     }
 // }
-
 
 .venues-index {
     background: url(../../images/background/erosion.jpg) no-repeat 50% 25%;
@@ -1419,14 +1407,15 @@ h4.section-title {
     background: #eee;
     height: auto;
     padding-bottom: 24px;
-    @include breakpoint(medium){
-        float:left;
-    min-height: 100vh;
+    @include breakpoint(medium) {
+        float: left;
+        min-height: 100vh;
     }
 }
 
 #toggles {
     padding: 12px;
+    margin-bottom: 24px;
 }
 
 #circles {
@@ -1434,25 +1423,20 @@ h4.section-title {
     height: 50vw;
     margin: 0 auto;
     margin-bottom: 24px;
-
     // background:rgba(lemonchiffon,.2);
     @include breakpoint(medium) {
         width: 45vw;
         height: 45vw;
         max-width: 50vh;
         max-height: 50vh;
-
         // margin: 12px 2.5vw 24px 2.5vw;
     }
-
 
     @include breakpoint(large) {
         width: 40vw;
         height: 40vw;
-
         // margin: 12px 5vw 24px 5vw;
     }
-
 
     svg text {
         font-size: 8px;
@@ -1460,23 +1444,18 @@ h4.section-title {
         letter-spacing: 1px;
         pointer-events: none;
     }
-
     svg #ui-labels text {
-        font-size:6px;
-        letter-spacing:1px;
+        font-size: 6px;
+        letter-spacing: 1px;
     }
-
     #ui-labels {
-        opacity:0;
+        opacity: 0;
         transition: opacity .2s linear;
-
         &.shown {
-            opacity:1;
+            opacity: 1;
         }
     }
 }
-
-
 
 .base {
     //stroke: rgba($topbar-dark, 0.1);
@@ -1484,7 +1463,6 @@ h4.section-title {
 
 #speakers {
     text-align: left;
-
     li {
         color: $topbar-dark;
         padding: 6px;
@@ -1493,34 +1471,28 @@ h4.section-title {
         border-radius: 2px;
         //box-shadow: 0 1px 1px rgba(0,0,0,.1);
         font-size: .7rem;
-
         // &:hover {
         //     background:#fff;
-            
         // }
-
         svg {
             fill: currentColor;
             width: 12px;
             height: 12px;
         }
-
         .speaker-name {
             vertical-align: baseline;
             margin-left: 6px;
             letter-spacing: rem-calc(1);
             float: right;
         }
-
         &.active {
-        background:$success-color;
-        color:white;
+            background: $success-color;
+            color: white;
         }
     }
-.menu>li {
-display: inline-block; }
-
-
+    .menu>li {
+        display: inline-block;
+    }
 }
 
 svg {
@@ -1544,13 +1516,11 @@ svg {
     top: 0;
     padding-top: 60px;
     text-align: center;
-
     #helptext {
         max-width: 45em;
         margin: 0 auto;
         text-align: left;
         color: $talk-dark;
-
         p {
             color: $topbar-dark;
         }
@@ -1569,7 +1539,6 @@ svg {
     position: fixed;
     right: 24px;
     top: 24px;
-
     span {
         margin-top: -6px;
         display: block;
@@ -1589,7 +1558,6 @@ svg {
     font-weight: 200;
     color: $topbar-dark;
 }
-
 
 //Spotlight:
 #darkout {
@@ -1622,28 +1590,22 @@ svg {
     z-index: 1200;
     padding: 12px;
     border-radius: 4px;
-
     @include box-shadow(5px, 0.3);
-
     margin-top: 24px;
     margin-left: 24px;
-
     p {
         margin: 0;
         color: $talk-dark;
     }
-
     #msg {
         padding-bottom: 12px;
         margin-bottom: 12px;
         border-bottom: 1px solid $neutralColor;
     }
-
     .spotlight-btn {
         margin: 0;
         margin-left: 12px;
     }
-
     .cancel-btn {
         margin: 0;
         background: none;
@@ -1657,21 +1619,21 @@ svg {
     from {
         transform: scale(1);
     }
-
     to {
         transform: scale(0.9);
     }
 }
 
+
 @keyframes connecting {
     from {
         stroke-width: 10;
     }
-
     to {
         stroke-width: 5;
     }
 }
+
 
 hr {
     border-color: $vr-beige;
@@ -1699,14 +1661,12 @@ hr {
     background: $topbar-dark;
     height: 48px;
     color: $vr-light-blue;
-
     @include box-shadow(3px, 0.3);
-
     max-height: 80px;
     position: relative;
     z-index: 900;
     display: flex;
-    padding:0 15px;
+    padding: 0 15px;
 }
 
 #back-arrow, #dropdown, #list-toggle {
@@ -1715,19 +1675,16 @@ hr {
         font-size: .8rem;
         display: flex;
         //width:100%;
-
         &:hover {
             color: $vr-light-blue;
         }
     }
-
     // padding: 20px 24px;
-
     svg {
         width: 18px;
         height: 18px;
         margin-right: 6px;
-        float:left;
+        float: left;
     }
 }
 
@@ -1736,34 +1693,40 @@ hr {
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    padding:0;
+    padding: 0;
 }
 
 #dropdown {
     padding: 11px 0 0 0;
 }
 
-
 #toggles .button {
-    border:none;
+    border: none;
     margin: 0;
     &:hover {
-        background:none;
+        background: none;
         color: $success-color;
     }
     svg {
-        margin-right:6px;
-        width: 24px;
-        height: 24px;
-
+        margin-right: 12px;
+        width: 18px;
+        height: 18px;
     }
-            &:last-child {
-                svg {
-
-            margin-right:0;
-            margin-left:6px;
-                }
+    &:last-child {
+        svg {
+            margin-right: 0;
+            margin-left: 6px;
         }
+    }
+    &.device-button {
+        margin-left: -100px;
+        border: 1px solid $charcoal;
+        border-radius: 2px;
+        // text-transform: none;
+        &:hover {
+            border-color: $success-color;
+        }
+    }
 }
 
 #talkbar {
@@ -1774,61 +1737,55 @@ hr {
     overflow: hidden;
     width: 100%;
     margin-top: 0px;
-    max-width:100%;
-    min-width:100%;
-   
-
+    max-width: 100%;
+    min-width: 100%;
     @include box-shadow(3px, 0.3);
-
     @include breakpoint(medium) {
-         display:flex;
-         flex-flow:row wrap;
-    @include grid-row();
-        max-width:100%;
+        display: flex;
+        flex-flow: row wrap;
+        @include grid-row;
+        max-width: 100%;
         height: 36px;
         // border-bottom: 1px solid $charcoal;
     }
 
-
     a {
         color: white;
         font-weight: 500;
-
         &:hover {
             text-decoration: underline;
         }
     }
-
-    #list-toggle{
+    #list-toggle {
         width: 100%;
-        @include breakpoint(medium){
-         flex:1 0 20%;
-        float:left;
+        @include breakpoint(medium) {
+            flex: 1 0 20%;
+            float: left;
         }
-        @include breakpoint(large){
-            flex:1 0 12%;
+
+        @include breakpoint(large) {
+            flex: 1 0 12%;
         }
+
         a {
-            width:100%;
-             svg {
-                margin-left:auto;
-                float:right;
-             }
+            width: 100%;
+            svg {
+                margin-left: auto;
+                float: right;
+            }
         }
     }
-
     #current, #next {
         width: 100%;
-     @include breakpoint(medium){
-        flex:1 0 40%;
-        float:left;
-        }    
+        @include breakpoint(medium) {
+            flex: 1 0 40%;
+            float: left;
+        }
 
-    @include breakpoint(large){
-        flex:1 0 44%;
+        @include breakpoint(large) {
+            flex: 1 0 44%;
+        }
     }
-    }
-
     .talkitem span, .talkitem a, .talkitem .series {
         color: $topbar-dark;
         background: none;
@@ -1841,96 +1798,85 @@ hr {
     padding: 6px 14px;
     // border-bottom: 1px solid $charcoal;
     height: 30px;
-
-
     a.see-all {
         font-size: 0.6rem;
         text-align: center;
         padding: 0;
         text-transform: uppercase;
         font-weight: 600;
-        justify-content:center;
+        justify-content: center;
         color: $oil;
-        position:relative;
-        width:40%;
-        margin:0 auto;
+        position: relative;
+        width: 40%;
+        margin: 0 auto;
         &:after {
             content: '';
-    display: block;
-    width: 0;
-    height: 0;
-    border: inset 6px;
-    border-color: $oil transparent transparent;
-    border-top-style: solid;
-    border-bottom-width: 0;
-    position: absolute;
-    top: 50%;
-    margin-top: -4px;
-    right: 1rem;
+            display: block;
+            width: 0;
+            height: 0;
+            border: inset 6px;
+            border-color: $oil transparent transparent;
+            border-top-style: solid;
+            border-bottom-width: 0;
+            position: absolute;
+            top: 50%;
+            margin-top: -4px;
+            right: 1rem;
         }
-
         &.hide-all {
             &:after {
                 content: '';
-    display: block;
-    width: 0;
-    height: 0;
-    border: inset 6px;
-    border-color: transparent transparent $oil;
-    border-bottom-style: solid;
-    border-bottom-width: 6px;
-
-    margin-top: -8px;
+                display: block;
+                width: 0;
+                height: 0;
+                border: inset 6px;
+                border-color: transparent transparent $oil;
+                border-bottom-style: solid;
+                border-bottom-width: 6px;
+                margin-top: -8px;
             }
         }
-
     }
-
-
     a {
         color: #f4f4f4;
         &:hover {
-            color:white;
+            color: white;
         }
     }
-
     @include breakpoint(medium) {
         padding: 9px 14px;
         // background:$silver;
-        height:36px;
+        height: 36px;
     }
 }
 
-
 .dayitem, .headeritem {
-    height:24px;
-    font-size:.8rem;
+    height: 24px;
+    font-size: .8rem;
     padding: 2px 12px 0 12px;
-
     p span {
-        width:20%;
-        display:inline-block;
-        float:left;
+        width: 20%;
+        display: inline-block;
+        float: left;
         &:first-child {
             width: 40%;
         }
     }
-
 }
 
 .dayitem {
-    background:$vr-light-blue;
+    background: $vr-light-blue;
     color: white;
     font-size: 1em;
-    padding:6px 12px;
+    padding: 6px 12px;
     height: 36px;
 }
 
 .headeritem {
-    background:none;
+    background: none;
     color: $vr-light-blue;
-    margin-top:6px;
-    border-bottom:1px solid #ddd;
+    margin-top: 6px;
+    border-bottom: 1px solid #ddd;
     height: 28px;
 }
 
@@ -1942,11 +1888,10 @@ hr {
 #listrow, #titlerow {
     max-width: 100%;
     margin: 0;
-
 }
 
 #listrow {
-    padding:0;
+    padding: 0;
     width: 100vw;
 }
 
@@ -1954,19 +1899,17 @@ hr {
     font-size: .8rem;
     padding: 6px 12px;
     border-bottom: 1px solid #ddd;
-
     p {
         margin: 0;
         span {
-            width:20%;
-        &:first-child  {
-            width: 40%;
-        }
+            width: 20%;
+            &:first-child {
+                width: 40%;
+            }
         }
     }
-
     a {
-        color: $topbar-dark
+        color: $topbar-dark;
     }
 }
 
@@ -1977,14 +1920,10 @@ hr {
     background: url(../assets/tubes.png) no-repeat 50% 50%;
     background-size: cover;
     border: 1px solid $charcoal;
-
     @include box-shadow(2px, 0.3);
-
     cursor: pointer;
-
     &:hover {
         @include box-shadow(3px, 0.5);
-
         /* border: 1px solid $vr-light-blue;*/
     }
 }
@@ -1992,15 +1931,12 @@ hr {
 #devices-wizard {
     text-align: center;
     background: $vr-purple;
-
     a {
         color: white;
         padding-bottom: 0;
         height: 60px;
     }
-
     @include box-shadow(20px, 0.3);
-
     /* display: flex;*/
     /* justify-content: center;*/
     /* align-items: center;*/
@@ -2013,85 +1949,88 @@ hr {
     z-index: 900;
     overflow: auto;
     bottom: 12px;
-
     // @include breakpoint(medium) {
     //     max-width: 45rem;
-
     //      position: absolute;
     //     left: 50%;
     //     margin-left: -22.5rem;
     // }
-
-
     h3 {
         margin-bottom: 24px;
     }
-
     ul {
         @include breakpoint(medium) {
             @include menu-expand;
         }
     }
-
     li {
         padding: 6px;
-        width:50%;
-        float:left;
+        width: 50%;
+        float: left;
         cursor: pointer;
-
         .itemwrapper {
-            padding:24px;
-            border:2px solid rgba(white,.5);
-            border-radius:4px;
-        transition: border .2s, background .2s;
+            padding: 24px;
+            border: 2px solid rgba(white, 0.5);
+            border-radius: 4px;
+            transition: border .2s, background .2s;
         }
-
         &:hover {
             .itemwrapper {
-                border:2px solid white;
-                background:rgba(black, .05);
+                border: 2px solid white;
+                background: rgba(black, 0.05);
             }
         }
-
-        @include breakpoint(medium){
+        @include breakpoint(medium) {
             width: 33.3333%;
         }
     }
-
     svg {
         fill: currentColor;
         width: 60px;
         height: 60px;
     }
-
     .back-close {
-        margin-bottom:12px;
+        margin-bottom: 12px;
         .close-btn {
             font-size: 3rem;
             cursor: pointer;
             &:hover {
                 color: $vr-yellow;
             }
-    padding: 0;
-    line-height: 1.5rem;
-    font-weight: 200;
+            padding: 0;
+            line-height: 1.5rem;
+            font-weight: 200;
         }
-    .back-btn {
+        .back-btn {
+            svg {
+                width: 36px;
+                height: 36px;
+            }
+        }
+    }
+    .new-box {
+        .itemwrapper {
+            border-style: dashed;
+        }
         svg {
-            width:36px;
-            height:36px;
+            fill: rgba(white, 0.5);
+        }
+        &:hover {
+            .itemwrapper {
+                border-style: dashed;
+            }
         }
     }
-    }
-
-    .new-box svg {
-        fill: rgba(white,.5);
+    &.start {
+        .back-btn {
+            opacity: 0;
+        }
     }
 }
 
 .has-tip {
     border-bottom: none;
-    font-weight:normal;
+    font-weight: normal;
     position: relative;
     display: inline-block;
     cursor: pointer;
@@ -2108,11 +2047,12 @@ hr {
     right: 0;
     left: 0;
     bottom: 0;
-    background: rgba($talk-dark,.8);
+    background: rgba($talk-dark, 0.8);
     height: 100vh;
-    display:flex;
-    flex-flow:row nowrap;
+    display: flex;
+    flex-flow: row nowrap;
 }
+
 #modal-box {
     flex: 0 0 90%;
     background: white;
@@ -2120,11 +2060,12 @@ hr {
     padding: 24px 24px 0 24px;
     border-radius: 4px;
     align-self: center;
-    margin:0 auto;
-    @include breakpoint(medium){
-        flex:0 0 45%;
+    margin: 0 auto;
+    @include breakpoint(medium) {
+        flex: 0 0 45%;
     }
 }
+
 #controls {
     // background:yellow;
     // min-height: 100vh;
@@ -2143,8 +2084,6 @@ hr {
     margin-bottom: 48px;
 }
 
-
-
 .stopwatch {
     position: absolute;
     bottom: 20%;
@@ -2155,7 +2094,7 @@ hr {
 }
 
 #stopButton {
-    cursor:pointer;
+    cursor: pointer;
 }
 
 .panel-button {
@@ -2174,7 +2113,6 @@ hr {
     margin: 0 auto;
     font-size: rem-calc(14);
     line-height: rem-calc(12);
-
     @include box-shadow(5px, 0.3);
 }
 
@@ -2189,15 +2127,11 @@ svg#logo {
     margin: 24px 0;
 }
 
-
-
-
 #titlebar {
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
     align-items: center;
-
     /* margin-bottom: 60px;*/
     .label {
         background: $topbar-dark;
@@ -2207,12 +2141,10 @@ svg#logo {
         font-size: rem-calc(10);
         margin: 0;
     }
-
     h3 {
         color: $vr-light-blue;
         margin-bottom: 0;
     }
-
     #venue-title {
         color: $silver;
         font-weight: normal;
@@ -2223,7 +2155,6 @@ svg#logo {
         margin-bottom: 0;
         line-height: .8rem;
     }
-
     .talk-label {
         text-transform: uppercase;
         color: $oil;
@@ -2238,14 +2169,11 @@ svg#logo {
 
 #talk-titlebar {
     padding: 18px 24px 0 0;
-
     p {
         color: $oil;
     }
-
     a {
         color: $white;
-
         &:hover {
             text-decoration: underline;
         }
@@ -2255,13 +2183,13 @@ svg#logo {
 #current, #next {
     height: 36px;
     // border-bottom: 1px solid $charcoal;
-    background: rgba($topbar-dark,.4);
+    background: rgba($topbar-dark, 0.4);
     padding: 8px 12px;
     font-size: .8rem;
 }
 
 #current {
-    background: rgba($topbar-dark,.5);
+    background: rgba($topbar-dark, 0.5);
 }
 
 #help-link {
@@ -2276,8 +2204,8 @@ svg#logo {
         font-weight: 500;
         margin-right: 12px;
         &:hover {
-            background:$vr-yellow;
-            color:$talk-dark;
+            background: $vr-yellow;
+            color: $talk-dark;
         }
     }
 }
@@ -2285,71 +2213,63 @@ svg#logo {
 .talkitem {
     p {
         color: $oil;
-
         .time {
             font-weight: 200;
             color: $charcoal;
             // min-width: 160px;
             display: inline-block;
         }
-
         // .title {
         //     padding-left: 6px;
         // }
-
         &.header {
             font-weight: 500;
-
             .time {
                 font-weight: 500;
             }
         }
     }
-
     &.header {
         border-color: #bbb;
     }
 }
-
 
 //messages
 #message-container {
     padding: 12px 6px;
     background: #f8f8f8;
     min-height: 100vh;
-    padding-bottom:10px;
-    @include breakpoint(medium){
-        padding-bottom:60px;
+    padding-bottom: 10px;
+    @include breakpoint(medium) {
+        padding-bottom: 60px;
     }
-.message-row {
-    margin: 0;
-    padding:0;
-}
-}
 
-
+    .message-row {
+        margin: 0;
+        padding: 0;
+    }
+}
 
 .message-losenge {
-    background:$vr-beige;
-    margin:6px;
-    @include box-shadow(3px, .3);
+    background: $vr-beige;
+    margin: 6px;
+    @include box-shadow(3px, 0.3);
     border-radius: 4px;
     padding: 6px;
     font-size: .9rem;
     color: #333;
     padding-bottom: 21px;
     max-width: 60%;
-    position:relative;
+    position: relative;
     &.right {
-        background:white;
-
+        background: white;
     }
     .message-time {
         position: absolute;
-    bottom: 3px;
-    right: 6px;
-    font-size: .7rem;
-    color: #999;
+        bottom: 3px;
+        right: 6px;
+        font-size: .7rem;
+        color: #999;
     }
 }
 
@@ -2357,20 +2277,19 @@ svg#logo {
     position: absolute;
     bottom: 60px;
     left: 12px;
-    padding:0;
-    margin:0;
+    padding: 0;
+    margin: 0;
     .message-losenge {
-        background:$vr-yellow;
-        max-width:75%;
+        background: $vr-yellow;
+        max-width: 75%;
         .strong {
-            text-decoration:underline;
+            text-decoration: underline;
         }
     }
-
-    @include breakpoint(medium){
-        position:relative;
-        bottom:0;
-        left:0;
+    @include breakpoint(medium) {
+        position: relative;
+        bottom: 0;
+        left: 0;
     }
 }
 
@@ -2382,35 +2301,33 @@ svg#logo {
     right: 0;
     left: 0;
     height: 50px;
-    border-top:1px solid rgba($talk-dark,.3);
+    border-top: 1px solid rgba($talk-dark, 0.3);
     //box-shadow:0 -1px 3px rgba($talk-dark,.3);
-    float:left;
-    width:100%;
-    display:flex;
-    flex-flow:row nowrap;
+    float: left;
+    width: 100%;
+    display: flex;
+    flex-flow: row nowrap;
     align-items: center;
     justify-content: space-between;
-
-    @include breakpoint(medium){
-        position:fixed;
-        left:66.66667%;
-        width:33.33333%;
+    @include breakpoint(medium) {
+        position: fixed;
+        left: 66.66667%;
+        width: 33.33333%;
     }
+
     #chat-icon,#chat-send {
         padding: 12px;
         color: $charcoal;
-        flex:0 0 36px;
-        height:40px;
+        flex: 0 0 36px;
+        height: 40px;
         svg {
-            width:18px;
-            height:18px;
-
+            width: 18px;
+            height: 18px;
         }
     }
-
     #chat-input-field {
         flex: 1 1 100%;
         align-self: center;
-        height:36px;
+        height: 36px;
     }
 }
