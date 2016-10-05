@@ -257,7 +257,8 @@ class Venue < ActiveRecord::Base
         series: {
           title: talk.series.title,
           url: talk.series.self_url
-        }
+        },
+        speakers: talk.speakers.split(",").map(&:strip)
       }
     end
   end
