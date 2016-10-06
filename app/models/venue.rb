@@ -258,7 +258,7 @@ class Venue < ActiveRecord::Base
           title: talk.series.title,
           url: talk.series.self_url
         },
-        speakers: talks.speakers && talk.speakers.split(",").map(&:strip)
+        speakers: talks.speakers ? talk.speakers.split(",").map(&:strip) : []
       }
     end
   end
