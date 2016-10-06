@@ -150,7 +150,7 @@ describe User do
       ActionMailer::Base.deliveries.clear
       expect(ActionMailer::Base.deliveries).to be_empty
       FactoryGirl.create :user
-      expect(ActionMailer::Base.deliveries.last.to_s)
+      expect(ActionMailer::Base.deliveries.first.to_s)
       .to_not include I18n.t("devise.mailer.confirmation_instructions.subject")
     end
 
