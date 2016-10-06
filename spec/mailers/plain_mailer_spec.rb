@@ -21,7 +21,7 @@ describe PlainMailer do
 
   it 'sends personalised welcome emails from the email of the CEO' do
     user = FactoryGirl.create :user
-    email = ActionMailer::Base.deliveries.last
+    email = ActionMailer::Base.deliveries.first
     expect(email.from).to include('patrick.frank@voicerepublic.com')
   end
 
