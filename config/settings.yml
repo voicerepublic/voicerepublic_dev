@@ -6,8 +6,7 @@ target: local
 durations: [ 30, 45, 60, 90, 120, 240 ]
 priority_timezones: Berlin|Bern
 audio:
-  process_chain: precursor normalize_fragments kluuu_merge trim cut normalize compress jinglize m4a mp3 ogg copy_clean cleanup
-  override_chain: jinglize m4a mp3 ogg copy_clean cleanup
+  override_chain: jinglize m4a mp3 ogg cleanup
   archive_chain: wavify merge trim normalize jinglize m4a mp3 ogg cleanup
 rtmp:
   # all paths get expanded with `Rails.root`
