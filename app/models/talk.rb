@@ -921,4 +921,9 @@ class Talk < ActiveRecord::Base
     user_override_uuid_changed? and !user_override_uuid.to_s.empty?
   end
 
+  def durations
+    return Settings.durations unless duration
+    [duration].push(*Settings.durations)
+  end
+
 end

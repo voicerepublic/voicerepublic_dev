@@ -33,7 +33,7 @@
       .medium-4.columns
         = f.input :starts_at_time, opts.merge(input_html: {'data-picker' => 'time'}, disabled: disable)
       .medium-4.columns
-        = f.input :duration, opts.merge(collection: Settings.durations, include_blank: false, disabled: disable)
+        = f.input :duration, opts.merge(collection: @talk.durations, include_blank: false, disabled: disable)
 
       .medium-12.columns.hint
         = t('simple_form.hints.talk.timings')
