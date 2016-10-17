@@ -10,11 +10,19 @@ module PodcastHelper
     #   TODO Windows: Unknown (Test scenarios need to be defined)
     #
     # default
-    protocol = 'feed'
+    #protocol = 'feed'
     # mac
-    protocol = (browser.mac? && !(browser.mobile? || browser.tablet?)) ? 'itpc' : protocol
+    #protocol = (browser.mac? && !(browser.mobile? || browser.tablet?)) ? 'itpc' : protocol
     # linux
-    protocol = browser.linux? ? 'http' : protocol
+    #protocol = browser.linux? ? 'http' : protocol
+
+    if browser.firefox?
+      protocol = 'https'
+    else if browser.mac? && !browser.ios?
+      protocol = 'itpc'
+    else # browser.ios? || browser.android? || browser.chrome? || browser.ie? || browser.edge
+      protocol = 'feed'
+    end
 
     url_for controller: entity.class.model_name.plural,
             action: 'show',
