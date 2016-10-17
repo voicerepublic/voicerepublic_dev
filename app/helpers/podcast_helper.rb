@@ -18,7 +18,7 @@ module PodcastHelper
 
     if browser.firefox?
       https_url
-    else if browser.mac? && !browser.ios?
+    elsif browser.mac? && !browser.ios?
       itunes_url
     else # browser.ios? || browser.android? || browser.chrome? || browser.ie? || browser.edge
       feed_url
@@ -27,18 +27,18 @@ module PodcastHelper
   end
 
   def itunes_url(entity)
-    url entity, 'itpc'
+    protocol_url(entity, 'itpc')
   end
 
   def https_url(entity)
-    url entity, 'https'
+    protocol_url(entity, 'https')
   end
 
   def feed_url(entity)
-    url entity, 'feed'
+    protocol_url(entity, 'feed')
   end
 
-  def url(entity, protocol)
+  def protocol_url(entity, protocol)
     url_for controller: entity.class.model_name.plural,
             action: 'show',
             id: entity.to_param,
