@@ -27,15 +27,15 @@ module PodcastHelper
   end
 
   def itunes_url(entity)
-    url entity 'itpc'
+    url entity, 'itpc'
   end
 
   def https_url(entity)
-    url entity 'https'
+    url entity, 'https'
   end
 
   def feed_url(entity)
-    url entity 'feed'
+    url entity, 'feed'
   end
 
   def url(entity, protocol)
