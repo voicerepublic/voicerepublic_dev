@@ -210,7 +210,7 @@ Devise.setup do |config|
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', :scope => 'user,public_repo'
 
-  config.omniauth :facebook, "1452390208332135", "1d2e6c86455e527602187db7c2fb1021", scope: 'email', image: 'large'
+  config.omniauth :facebook, "1452390208332135", "1d2e6c86455e527602187db7c2fb1021", scope: 'email', image: 'large', info_fields: 'email,first_name,last_name,link'
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
@@ -244,6 +244,6 @@ Rails.application.config.to_prepare do
     Devise::SessionsController.layout "velvet_minimal"
     Devise::RegistrationsController.layout proc{ |controller| user_signed_in? ? "velvet"   : "velvet_minimal" }
     Devise::ConfirmationsController.layout "velvet_minimal"
-    Devise::UnlocksController.layout "velvet_minimal"            
-    Devise::PasswordsController.layout "velvet_minimal"        
+    Devise::UnlocksController.layout "velvet_minimal"
+    Devise::PasswordsController.layout "velvet_minimal"
 end
