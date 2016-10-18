@@ -17,7 +17,7 @@ module PodcastHelper
     #protocol = browser.linux? ? 'http' : protocol
 
     if browser.firefox?
-      https_url entity
+      podcast_url_new entity
     elsif browser.mac? && !browser.ios?
       itunes_url entity
     else # browser.ios? || browser.android? || browser.chrome? || browser.ie? || browser.edge
