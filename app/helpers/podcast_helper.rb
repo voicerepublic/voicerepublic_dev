@@ -27,24 +27,25 @@ module PodcastHelper
   end
 
   def itunes_url(entity)
-    protocol_url(entity, 'itpc')
+    podcast_url_for_protocol(entity, 'itpc')
   end
 
-  def https_url(entity)
-    protocol_url(entity, 'https')
+  def podcast_url_new(entity)
+    podcast_url_for_protocol(entity)
   end
 
   def feed_url(entity)
-    protocol_url(entity, 'feed')
+    podcast_url_for_protocol(entity, 'feed')
   end
 
-  def protocol_url(entity, protocol)
-    url_for controller: entity.class.model_name.plural,
-            action: 'show',
-            id: entity.to_param,
-            format: :rss,
-            only_path: false,
-            protocol: protocol
+  def podcast_url_for_protocol(entity, protocol = nil)
+    options = { controller: entity.class.model_name.plural,
+                action: 'show',
+                id: entity.to_param,
+                format: :rss,
+                only_path: false }
+    options[:protocol] = protocol if protocol
+    url_for options
   end
 
   def link_to_podcast(entity)
