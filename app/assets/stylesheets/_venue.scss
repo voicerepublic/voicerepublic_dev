@@ -1727,6 +1727,23 @@ hr {
             border-color: $success-color;
         }
     }
+
+    &.active {
+    background:none;
+    color:$success-color;
+    &:after {
+        content:"Keep this page open";
+        color: $oil;
+        background:$vr-yellow;
+        display:block;
+        position:absolute;
+        padding: 6px 7px;
+        border-radius: 3px;
+        @include box-shadow(1px, 0.3);
+        margin-top: 6px;
+        pointer-events:none;
+    }
+}
 }
 
 #talkbar {
