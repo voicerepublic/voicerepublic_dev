@@ -649,7 +649,7 @@ class Talk < ActiveRecord::Base
         raise 'Abort process override, override has 0 bytes.' if File.size(tmp) == 0
         # convert to ogg
         ogg = "override-#{id}.ogg"
-        cmd = "mplayer -quiet -vo null -vc dummy -ao pcm:waveheader:file='#{tmp}.wav' '#{tmp}'; oggenc -Q -o #{ogg} #{tmp}.wav"
+        cmd = "ffmpeg -n -loglevel panic -i #{tmp} #{tmp}.wav; oggenc -Q -o #{ogg} #{tmp}.wav"
         logfile.puts cmd
         %x[ #{cmd} ]
         # upload ogg to s3
