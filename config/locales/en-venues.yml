@@ -1,6 +1,7 @@
 en:
   venues:
     show:
+      title: '%{name} - Voice Republic Stage'
       loading: loading stage
     index:
         please_select_a_venue: Please Choose A Stage
