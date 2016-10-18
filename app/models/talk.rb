@@ -376,7 +376,7 @@ class Talk < ActiveRecord::Base
   end
 
   def embed_self_url
-    url_helpers.embed_talk_url(self)
+    url_helpers.embed_talk_url(self, protocol: 'https')
   end
 
   def edit_self_url
