@@ -25,4 +25,4 @@ en:
         one: 'One Talk'
         other: '%{count} Talks'
     autoplay_warning:
-      autoplay_warning: "For your information: audio may begin playing automatically"
+      autoplay_warning: "Audio may begin playing automatically"
