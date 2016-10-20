@@ -3,6 +3,9 @@
     overflow: auto;
   }
 
+- content_for :title do
+  = t('.title', name: @venue.name)
+
 -# TODO the 3 lines of faye setup could move to cljs
 - content_for :javascripts do
   = javascript_include_tag 'faye-authentication'
