@@ -660,21 +660,20 @@ class Talk < ActiveRecord::Base
         s3_path = "s3://#{media_storage.key}/#{key}"
         update_attribute :recording_override, s3_path
         cache_storage_metadata(ogg) and save!
-        # move wav to `recordings`
+        # rename wav
         wav = tmp + '.wav'
-        base = File.expand_path(Settings.rtmp.recordings_path, Rails.root)
-        target = File.join(base, "#{id}.wav")
+        target = File.join(wav, "#{id}.wav")
         FileUtils.mv(wav, target, verbose: true)
+        # offload fidelity
+        chain = venue.opts.override_chain
+        chain ||= Setting.get('audio.override_chain')
+        chain = chain.split(/\s+/)
+        run_chain! chain, uat
       end
       FileUtils.fileutils_output = $stderr
     ensure
       FileUtils.remove_entry tmp_dir
     end
-
-    chain = venue.opts.override_chain
-    chain ||= Setting.get('audio.override_chain')
-    chain = chain.split(/\s+/)
-    run_chain! chain, uat
 
     archive! unless archived?
   end
@@ -682,19 +681,19 @@ class Talk < ActiveRecord::Base
   # not obvious: the worker will call `upload_results!`
   # from its `after_chain` callback.
   def run_chain!(chain, uat=false)
-    path = update_manifest_file!(chain)
+    path = write_manifest_file!(chain)
     Rails.logger.info "manifest: #{path}"
     worker = AudioProcessor.new(path) # see lib/audio_processor.rb
     worker.talk = self
-    logfile = File.expand_path(File.join(Settings.rtmp.recordings_path,
-                                         "process-#{id}.log"), Rails.root)
-
+    logfile = "process.log"
     ActiveSupport::Notifications.instrument "run_chain.audio_process.vr",
                                             chain: chain do
       worker.run(Logger.new(logfile))
     end
   end
 
+  # not obvious: the worker will call `upload_ic_results!`
+  # from its `after_chain` callback.
   def run_ic_chain!(chain)
     path = write_manifest_file!(chain)
     worker = IcProcessor.new(path) # see lib/ic_processor.rb
@@ -707,25 +706,24 @@ class Talk < ActiveRecord::Base
     end
   end
 
+  # TODO rewrite to `upload everything` and do not delete anything,
+  # this is done in ensure block in process_override
+  #
   # move results to fog storage
   def upload_results!
-    base = File.expand_path(Settings.rtmp.recordings_path, Rails.root)
-    files = ( Dir.glob("#{base}/process-#{id}.log") +
-              Dir.glob("#{base}/#{id}.journal") +
-              Dir.glob("#{base}/#{id}.*") +
-              Dir.glob("#{base}/#{id}-*.*") ).uniq
+    files = ( Dir.glob("process.log") +
+              Dir.glob("#{id}.journal") +
+              Dir.glob("#{id}.*") +
+              Dir.glob("#{id}-*.*") ).uniq
     files.each do |file|
-      cache_storage_metadata(file)
       key = "#{uri}/#{File.basename(file)}"
       upload_file(key, file)
+      cache_storage_metadata(file)
       FileUtils.rm(file, verbose: true)
     end
 
-    # also remove flvs, these have been uploaded before
-    FileUtils.rm(Dir.glob("#{base}/t#{id}-u*.flv"))
-
     # also remove manifest
-    FileUtils.rm("#{base}/manifest-#{id}.yml")
+    FileUtils.rm("manifest.yml")
 
     save! # save `storage` field
   end
@@ -753,24 +751,17 @@ class Talk < ActiveRecord::Base
     data
   end
 
-  def update_manifest_file!(chain=nil)
-    base = File.expand_path(Settings.rtmp.recordings_path, Rails.root)
-    name = "manifest-#{id}.yml"
-    path, key = "#{base}/#{name}", "#{uri}/#{name}"
-    File.open(path, 'w') { |f| f.puts(manifest(chain).to_yaml) }
-    upload_file(key, path)
-    path
-  end
-
   def write_manifest_file!(chain=nil)
     # since archive_from_dump did a chdir this is easy...
     File.open('manifest.yml', 'w') { |f| f.puts(manifest(chain).to_yaml) }
+    # TODO upload manifest file to s3 (untested)
+    # path, key = "#{base}/#{name}", "#{uri}/#{name}"
+    # upload_file(key, path)
     'manifest.yml'
   end
 
   # collect information about what's stored via fog
   def cache_storage_metadata(file=nil)
-
     basename = File.basename(file)
     key = "#{uri}/#{basename}"
     self.storage ||= {}
