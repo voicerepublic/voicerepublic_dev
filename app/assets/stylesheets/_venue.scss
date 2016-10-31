@@ -343,82 +343,87 @@ $success-color: #60bd70;
     background: rgba(0, 0, 0, 0.8);
 }
 
-// .modal-background {
-//     position: fixed;
-//     top: 0;
-//     left: 0;
-//     right: 0;
-//     bottom: 0;
-//     background: rgba(0, 0, 0, 0.5);
-//     z-index: -1;
-//     cursor: pointer;
-// }
+.modal-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: -1;
+    cursor: pointer;
+}
+a.help-link {
+    font-weight: 700;
+    text-decoration: underline;
 
-// #instructions, #talk-modal {
-//     //@include reveal-overlay();
-//     // max-width: 26em;
-//     display: block;
-//     background: $vr-purple;
-//     padding: 24px;
-//     box-shadow: 0 1px 10px rgba(0, 0, 0, 0.3);
-//     color: white;
-//     position: relative;
-//     min-width: 100%;
-//     max-width: 100%;
-//     height: 100%;
-//     @include breakpoint(medium){
-//         min-width:480px;
-//         position:relative;
-//         height: auto;
+}
 
-//             h2 {
-//         font-size: rem-calc(18);
-//     }
+#instructions, #talk-modal {
+    //@include reveal-overlay();
+    // max-width: 26em;
+    display: block;
+    background: $vr-purple;
+    padding: 24px;
+    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.3);
+    color: white;
+    position: relative;
+    min-width: 100%;
+    max-width: 100%;
+    height: 100%;
+    @include breakpoint(medium){
+        min-width:480px;
+        position:relative;
+        height: auto;
 
-//     }
-//     h2 {
-//         font-size: rem-calc(16);
-//         margin-top: 6px;
-//     }
-//     h4 {
-//         color: white;
-//         font-size: rem-calc(18);
-//         text-transform: uppercase;
-//         letter-spacing: rem-calc(1);
-//     }
-//     code {
-//         background-color: #eee;
-//         padding: 12px;
-//         margin: 0 0 12px 0;
-//         display: inline-block;
-//         color: $vr-purple;
-//     }
-//     p.lead {
-//         font-size: rem-calc(14);
-//         font-weight: 300;
-//         color: white;
-//         margin-bottom: 12px;
-//     }
-//     // &:before {
-//     //     content: "";
-//     //     background: rgba(0, 0, 0, 0.5);
-//     //     position: fixed;
-//     //     top: 0;
-//     //     bottom: 0;
-//     //     left: 0;
-//     //     right: 0;
-//     //     z-index: -1;
-//     // }
-//     table {
-//         tbody {
-//             border: none;
-//             background: none;
-//             tr {
-//                 background: rgba(0, 0, 0, 0.1);
-//             }
-//         }
-//     }
-// }
+            h2 {
+        font-size: rem-calc(18);
+    }
+
+    }
+    h2 {
+        font-size: rem-calc(16);
+        margin-top: 6px;
+    }
+    h4 {
+        color: white;
+        font-size: rem-calc(18);
+        text-transform: uppercase;
+        letter-spacing: rem-calc(1);
+    }
+    code {
+        background-color: #eee;
+        padding: 12px;
+        margin: 0 0 12px 0;
+        display: inline-block;
+        color: $vr-purple;
+    }
+    p.lead {
+        font-size: rem-calc(14);
+        font-weight: 300;
+        color: white;
+        margin-bottom: 12px;
+    }
+    // &:before {
+    //     content: "";
+    //     background: rgba(0, 0, 0, 0.5);
+    //     position: fixed;
+    //     top: 0;
+    //     bottom: 0;
+    //     left: 0;
+    //     right: 0;
+    //     z-index: -1;
+    // }
+    table {
+        tbody {
+            border: none;
+            background: none;
+            tr {
+                background: rgba(0, 0, 0, 0.1);
+            }
+        }
+    }
+}
 
 // #talk-modal {
 //     background: $vr-purple;
@@ -1948,11 +1953,11 @@ hr {
 #devices-wizard {
     text-align: center;
     background: $vr-purple;
-    a {
-        color: white;
-        padding-bottom: 0;
-        height: 60px;
-    }
+    // a {
+    //     color: white;
+    //     padding-bottom: 0;
+    //     height: 60px;
+    // }
     @include box-shadow(20px, 0.3);
     /* display: flex;*/
     /* justify-content: center;*/
@@ -2001,11 +2006,11 @@ hr {
             width: 33.3333%;
         }
     }
-    svg {
+.itemwrapper {    svg {
         fill: currentColor;
         width: 60px;
         height: 60px;
-    }
+    }}
     .back-close {
         margin-bottom: 12px;
         .close-btn {

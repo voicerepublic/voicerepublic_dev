@@ -112,6 +112,10 @@ button, .button {
     }
     &.small {
         border-width: 2px;
+        svg {
+            width: 24px;
+            height: 24px;
+        }
     }
     &.large {
         border-width: 3px;
