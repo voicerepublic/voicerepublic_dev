@@ -163,6 +163,15 @@ describe User do
     end
   end
 
+  describe 'confirmation email' do
+    it 'should contain the correct confirmation_token' do
+      last_email = ActionMailer::Base.deliveries.last.body.raw_source
+      confirmation_token = $1 if last_email =~ /confirmation_token=([^'"]+)/
+      digested_token = Devise.token_generator.digest(user, :confirmation_token, confirmation_token)
+      expect(user.confirmation_token).to eq(digested_token)
+    end
+  end
+
   it 'should have a named venue if a new_venue_name is provided' do
     user = FactoryGirl.create(:user)
     talk = FactoryGirl.create(:talk,
