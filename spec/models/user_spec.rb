@@ -164,7 +164,7 @@ describe User do
   end
 
   describe 'confirmation email' do
-    before(:all) do
+    before :all do
       module Devise::Models::Confirmable
         def send_confirmation_notification?
           Thread.current["Devise.enable_confirmation_mails"] ||= true
@@ -172,7 +172,7 @@ describe User do
       end
     end
 
-    after(:all) do
+    after :all do
       module Devise::Models::Confirmable
         def send_confirmation_notification?
           Thread.current["Devise.enable_confirmation_mails"] ||= false
@@ -180,15 +180,22 @@ describe User do
       end
     end
 
+    before :example do
+      ActionMailer::Base.deliveries.clear
+      @user = FactoryGirl.create(:user, :unconfirmed)
+      @email = ActionMailer::Base.deliveries.select do |m|
+        m[:subject].to_s =~ /Confirmation/
+      end.first
+    end
+
+    it 'should be sent to the correct user' do
+      expect(@email[:to].to_s).to eq(@user.email)
+    end
+
     it 'should contain the correct confirmation_token' do
-      skip "for some reason, there is no confirmation mail being sent at all when testing"
-      user = FactoryGirl.create(:user, :unconfirmed)
-      email = ActionMailer::Base.deliveries.select do |m|
-        m[:to] == user.email && m[:subject] =~ /Confirmation/
-      end
-      confirmation_token = $1 if email =~ /confirmation_token=([^'"]+)/
-      digested_token = Devise.token_generator.digest(user, :confirmation_token, confirmation_token)
-      expect(user.confirmation_token).to eq(digested_token)
+      confirmation_token = $1 if @email.body.raw_source =~ /confirmation_token=([^'"]+)/
+      digested_token = Devise.token_generator.digest(@user, :confirmation_token, confirmation_token)
+      expect(@user.confirmation_token).to eq(digested_token)
     end
   end
 
