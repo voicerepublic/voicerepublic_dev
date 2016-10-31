@@ -165,6 +165,7 @@ describe User do
 
   describe 'confirmation email' do
     it 'should contain the correct confirmation_token' do
+      user = FactoryGirl.create(:user, :unconfirmed)
       last_email = ActionMailer::Base.deliveries.last.body.raw_source
       confirmation_token = $1 if last_email =~ /confirmation_token=([^'"]+)/
       digested_token = Devise.token_generator.digest(user, :confirmation_token, confirmation_token)
