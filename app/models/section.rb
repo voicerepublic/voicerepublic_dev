@@ -5,7 +5,7 @@ class Section < ActiveRecord::Base
   private
 
   def set_content_as_html
-    self.content_as_html = MD2PAGES.render(content)
+    self.content_as_html = MD2PAGES.render(content.to_s)
   end
 
 end

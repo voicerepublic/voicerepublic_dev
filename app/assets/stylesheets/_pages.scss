@@ -40,10 +40,64 @@
 
 
 /* hacks by phil */
-.markdown .buttons a { border: 2px solid; padding: 0.5em 1em; }
+.markdown .row:not(.expanded) {
+	max-width: 68rem;
+}
+.markdown .buttons a { 
+	//border: 2px solid; padding: 0.5em 1em; 
+		@include button-hollow;
+		font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: rem-calc(1);
+    border-width: 2px;
+    transition: border-color .2s ease;
+    transition: border .2s ease;
+    transition: all .2s ease;
+    padding:12px;
+    border: 2px solid $talk-dark;
+    color: $talk-dark;
+    //margin: 6px;
+    &:first-child {
+    	margin-right: 6px;
+    }
+
+    	&:hover {
+		border-color:$vr-light-blue;
+		background: $vr-light-blue;
+		color: white;
+	}
+}
 .markdown .blue .buttons a { color: yellow; }
 .markdown .blue { color: white; }
 .markdown .turquoise .buttons a { color: yellow; }
 .markdown .turquoise h2 { color: white; }
 .markdown section .row  { text-align: left; }
 .markdown section .row.center  { text-align: center; }
+
+.pages #claim {
+	.buttons a {
+		transition: background .2s, border-color .2s;
+		padding:12px;
+		color:$vr-yellow;
+		border-color:$vr-yellow;
+
+		&:hover {
+		border-color:$vr-light-blue;
+		background: $vr-light-blue;
+		color: white;
+	}
+	}
+
+}
+
+//tables
+.markdown {
+	table {
+		thead, tbody, tfoot {
+			border:none;
+		}
+		tr {
+			background:none;
+		}
+	}
+}
