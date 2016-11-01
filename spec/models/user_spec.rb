@@ -193,7 +193,7 @@ describe User do
     end
 
     it 'should not set the unconfirmed_email' do
-      expect(@user.unconfirmed_email).to be_empty
+      expect(@user.unconfirmed_email).to be_nil
     end
 
     it 'should contain the correct confirmation_token' do
