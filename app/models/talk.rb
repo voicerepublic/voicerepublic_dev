@@ -662,7 +662,7 @@ class Talk < ActiveRecord::Base
         cache_storage_metadata(ogg) and save!
         # rename wav
         wav = tmp + '.wav'
-        target = File.join(wav, "#{id}.wav")
+        target = "#{id}.wav"
         FileUtils.mv(wav, target, verbose: true)
         # offload fidelity
         chain = venue.opts.override_chain
