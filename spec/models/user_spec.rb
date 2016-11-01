@@ -192,6 +192,10 @@ describe User do
       expect(@email[:to].to_s).to eq(@user.email)
     end
 
+    it 'should not set the unconfirmed_email' do
+      expect(@user.unconfirmed_email).to be_empty
+    end
+
     it 'should contain the correct confirmation_token' do
       confirmation_token = $1 if @email.body.raw_source =~ /confirmation_token=([^'"]+)/
       digested_token = Devise.token_generator.digest(@user, :confirmation_token, confirmation_token)
