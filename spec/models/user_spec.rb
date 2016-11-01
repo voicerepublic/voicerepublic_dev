@@ -163,6 +163,79 @@ describe User do
     end
   end
 
+  describe 'confirmation email' do
+    before :all do
+      module Devise::Models::Confirmable
+        def send_confirmation_notification?
+          Thread.current["Devise.enable_confirmation_mails"] ||= true
+        end
+      end
+    end
+
+    after :all do
+      module Devise::Models::Confirmable
+        def send_confirmation_notification?
+          Thread.current["Devise.enable_confirmation_mails"] ||= false
+        end
+      end
+    end
+
+    before :example do
+      ActionMailer::Base.deliveries.clear
+      @user = FactoryGirl.create(:user, :unconfirmed)
+      @email = ActionMailer::Base.deliveries.select do |m|
+        m[:subject].to_s =~ /Confirmation/
+      end.first
+    end
+
+    it 'should be sent to the correct user' do
+      expect(@email[:to].to_s).to eq(@user.email)
+    end
+
+    it 'should not set the unconfirmed_email' do
+      expect(@user.unconfirmed_email).to be_nil
+    end
+
+
+    it 'should contain the correct confirmation_token' do
+      confirmation_token = $1 if @email.body.raw_source =~ /confirmation_token=([^'"]+)/
+      digested_token = Devise.token_generator.digest(@user, :confirmation_token, confirmation_token)
+      expect(@user.confirmation_token).to eq(digested_token)
+    end
+
+    describe 'User changes email address' do
+      before :example do
+        ActionMailer::Base.deliveries.clear
+        @user.confirm!
+        @old_email_address = @user.email
+        @new_email_address = @user.email.gsub(/example/, "examples")
+        @user.update_attributes(email: @new_email_address)
+
+        @email = ActionMailer::Base.deliveries.select do |m|
+          m[:subject].to_s =~ /Confirmation/
+        end.first
+
+      end
+
+      it 'should set unconfirmed_email to new email address if changed' do
+        expect(@user.unconfirmed_email).to eq(@new_email_address)
+      end
+
+      it 'should keep the old email address until confirmed' do
+        expect(@user.email).to eq(@old_email_address)
+      end
+
+      it 'should send a confirmation email to the new address' do
+        expect(@email[:to].to_s).to eq(@new_email_address)
+      end
+
+      it 'should set the new email address for the user on confirmation' do
+        @user.confirm!
+        expect(@user.email).to eq(@new_email_address)
+      end
+    end
+  end
+
   it 'should have a named venue if a new_venue_name is provided' do
     user = FactoryGirl.create(:user)
     talk = FactoryGirl.create(:talk,
