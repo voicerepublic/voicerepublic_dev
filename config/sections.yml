@@ -100,54 +100,7 @@ en:
 
         * [Download Internet Explorer](http://windows.microsoft.com/en-us/internet-explorer/download-ie)
           (If you have an older version of Windows, you need to upgrade to get a newer version of Internet explorer. It's easier to use Chrome or Firefox.)
-    # publish:
-      # head_1: "#Publish your own content online"
-      # text_1: >-
-
-      #   At Voice asdfasdf, your content is in good company. Our archive is growing
-      #   daily with high-class lectures, discussions
-      #   and readings from the fields of culture, sciences, politics
-      #   and business. Expand your reach beyond the venue walls to interested listeners around the world.
-      #   Thanks to our browser-based technology, you'll need no extra gear.
-      #   [Starting at 12€ per Talk](/pricing)
-      #   your own audio channel is only a few clicks away...
-
-      # head_2: "## The Voice Republic live stream"
-      # text_2: >-
-
-      #   Are you organizing a conference, discussion panel, or
-      #   holding lectures and workshops yourself? With Voice Republic
-      #   you can publish your content to the whole world and reach a
-      #   large audience.
-
-
-      #   Broadcasting your own live stream is easy with Voice Republic's
-      #   browser-based technology. You configure a talk
-      #   in your Voice Republic account and simply click
-      #   "Start" and "Stop" during the event. The technology you need on site is only
-      #   a computer with internet access and an audio source. The
-      #   comment feature gives you the opportunity to interact with
-      #   your online audience. Listeners can comment and ask questions
-      #   in real time.
-
-
-      #   After your event, your audio content is
-      #   in good hands with us. All Talks are stored on the Voice
-      #   Republic servers and are searchable in the archive immediately
-      #   after the live broadcast.
-
-
-
-      # head_3: "## The Voice Republic audio upload"
-      # text_3: >-
-
-      #   Already have existing
-      #   recordings? You can also use our audio archive. Just upload
-      #   your audio files and add your own photos, descriptive texts
-      #   and—if you want to—presentation slides. Everyone can now
-      #   listen to your content online or download it as a podcast. You
-      #   can easily embed the Voice Republic Player into your own web
-      #   page and share the Talks on social networks.
+    
 
     listen:
       text_1: |
