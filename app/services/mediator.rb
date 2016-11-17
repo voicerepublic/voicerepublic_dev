@@ -19,23 +19,24 @@ class Mediator
   BORING_DOMAINS = %w(
     aol.com aol.de
     bluewin.ch btinternet.com
+    comcast.net
     emailgo.de exemail.com.au
-    fadingemails.com freenet.de
-    gmail.com gmx.info gmx.ch gmx.us gmx.de gmx.net gmx.at googlemail.com
+    fadingemails.com free.fr freenet.de
+    gmail.com gmx.info gmx.ch gmx.org gmx.us gmx.de gmx.net gmx.at googlemail.com
     hotmail.de hotmail.com hotmail.co.uk
     icloud.com
     yahoo.co.uk yahoo.com yahoo.de yahoo.fr yopmail.com
     live.com live.co.uk live.ca
     mail.com me.com msn.com
     ncable.net.au ntlworld.com
-    outlook.com outlook.de
+    online.de outlook.com outlook.de
     posteo.de
-    sbcglobal.net
+    sbcglobal.net sezampro.rs
     t-online.de talk21.com
     versanet.de
     web.de
     xs4all.nl
-    yandex.com
+    yandex.com ymail.com
   )
 
   include Services::Subscriber  # provides `subscribe`
