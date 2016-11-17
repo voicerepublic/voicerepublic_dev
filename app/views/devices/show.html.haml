@@ -1,0 +1,17 @@
+%h2= @device.name
+
+%div.blabla= t('.help')
+
+.row(style='background: papayaWhip')
+  %table
+    %tr
+      %th= t('.filename')
+      %th= t('.date')
+      %th= t('.duration')
+      %th= t('.size')
+    - @device.recordings.each do |rec|
+      %tr
+        %td= link_to rec[:name], rec[:link]
+        %td= rec[:date]
+        %td= rec[:duration]
+        %td= number_to_human_size(rec[:size])

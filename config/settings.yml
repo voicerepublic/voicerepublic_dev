@@ -70,10 +70,11 @@ flyer:
 # * staging.voicerepublic.com  -> vr-audio-uploads-staging
 # * voicerepublic.com          -> vr-audio-uploads-live
 storage:
-  media:         vr-dev-media@us-east-1
-  import:        vr-dev-import@us-east-1
-  upload_audio:  vr-audio-uploads-dev@us-east-1
-  upload_slides: vr-slide-uploads-dev@us-east-1
+  media:             vr-dev-media@us-east-1
+  import:            vr-dev-import@us-east-1
+  upload_audio:      vr-audio-uploads-dev@us-east-1
+  upload_slides:     vr-slide-uploads-dev@us-east-1
+  backup_recordings: vr-euc1-dev-backup-recordings@eu-central-1
 paths:
   log: local/log
   jingles:
@@ -172,6 +173,17 @@ fog:
     aws_access_key_id: needs to be set
     aws_secret_access_key: needs to be set
     region: eu-central-1
+  storage:
+    provider: AWS
+    aws_access_key_id: AKIAIGKSA6ESEFZV4DQA
+    aws_secret_access_key: 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
+
+# delete this when Mailers#preview + inline attachment are fixed in rails
+no_attachments: true
+
+paths:
+  recordings: /tmp/recordings
+
 
 devices:
   endpoint:

@@ -153,4 +153,41 @@ class Device < ActiveRecord::Base
     Faye.publish_to '/admin/devices', attributes
   end
 
+  def recordings(period=14.days)
+    files.map do |file|
+      {
+        name: file.key.sub(prefix, ''),
+        date: Time.at(file.key.match(/_(\d+)(_\d+)?\.ogg$/)[1].to_i),
+        duration: hms(estimate_duration(file.content_length)),
+        size: file.content_length,
+        link: "/backup/#{file.key}"
+      }
+    end.reject do |rec|
+      rec[:date] < period.ago
+    end
+  end
+
+  private
+
+  def files
+    Storage.get(bucket, prefix).files.sort_by(&:key).reverse
+  end
+
+  def bucket
+    Settings.storage.backup_recordings
+  end
+
+  def prefix
+    identifier+'/'
+  end
+
+  def hms(total_seconds)
+    Time.at(total_seconds).utc.strftime("%H:%M:%S")
+  end
+
+  def estimate_duration(size)
+    # based on the observation 1 MB per 87 seconds
+    (size / 1024.0 ** 2) * 87
+  end
+
 end
