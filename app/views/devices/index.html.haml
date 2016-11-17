@@ -1,6 +1,8 @@
 .row.clearfix
-  .medium-8.medium-offset-2.columns(style='background: papayaWhip')
-    %h1= t('.streamboxxes')
-    %ul
+  %h1.text-center
+    = naked_icon "box"
+    = t('.streamboxxes')
+  .medium-6.medium-offset-3.columns
+    %ul.menu.vertical.expand.streambox-list
       - @devices.each do |device|
         %li= link_to device.name, device_path(device.identifier)

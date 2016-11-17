@@ -1,8 +1,12 @@
-%h2= @device.name
+%h1.text-center
+  = link_to devices_path do
+    = naked_icon "arrow-left"
+  = @device.name
 
-%div.blabla= t('.help')
+%div.explain-text.medium-8.medium-offset-2.large-offset-3.columns.large-6 
+  %p.text-center= t('.help').html_safe
 
-.row(style='background: papayaWhip')
+.row
   %table
     %tr
       %th= t('.filename')
