@@ -21,6 +21,8 @@ $success-color: #60bd70;
     padding: 0;
 }
 
+
+
 // #reconnect {
 //     margin: 0;
 //     color: $vr-light-blue;
@@ -1684,6 +1686,16 @@ hr {
     z-index: 900;
     display: flex;
     padding: 0 15px;
+
+    &.nopush {
+    background: repeating-linear-gradient(
+  -45deg,
+  $talk-dark,
+  $talk-dark 10px,
+  $topbar-dark 10px,
+  $topbar-dark 20px
+)
+}
 }
 
 #back-arrow, #dropdown, #list-toggle {
