@@ -35,6 +35,8 @@ body {
     }
 }
 
+
+
 audio {
     width: 100%;
 }
@@ -1322,4 +1324,11 @@ ul.share-links {
             }
         }
     }
+}
+
+input#podcast-link {
+    color: $talk-dark;
+    width: 100%;
+    padding:12px;
+    margin-bottom: 12px;
 }
