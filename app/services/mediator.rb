@@ -27,7 +27,7 @@ class Mediator
     icloud.com
     yahoo.co.uk yahoo.com yahoo.de yahoo.fr yopmail.com
     live.com live.co.uk live.ca
-    mail.com me.com msn.com
+    mail.com me.com msn.com mail.ru
     ncable.net.au ntlworld.com
     online.de outlook.com outlook.de
     posteo.de
