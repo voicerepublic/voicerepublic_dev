@@ -178,13 +178,6 @@ fog:
     aws_access_key_id: AKIAIGKSA6ESEFZV4DQA
     aws_secret_access_key: 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
 
-# delete this when Mailers#preview + inline attachment are fixed in rails
-no_attachments: true
-
-paths:
-  recordings: /tmp/recordings
-
-
 devices:
   endpoint:
     live: https://voicerepublic.com/api/devices
