@@ -501,7 +501,7 @@ class Talk < ActiveRecord::Base
   end
 
   def durations
-    return Settings.durations unless duration
+    return Settings.durations unless duration && !Settings.durations.include?(duration)
     [duration].push(*Settings.durations)
   end
 
