@@ -500,11 +500,6 @@ class Talk < ActiveRecord::Base
     end
   end
 
-  def durations
-    return Settings.durations unless duration && !Settings.durations.include?(duration)
-    [duration].push(*Settings.durations)
-  end
-
   private
 
   def process_description
