@@ -10,18 +10,42 @@ module PodcastHelper
     #   TODO Windows: Unknown (Test scenarios need to be defined)
     #
     # default
-    protocol = 'feed'
+    #protocol = 'feed'
     # mac
-    protocol = (browser.mac? && !(browser.mobile? || browser.tablet?)) ? 'itpc' : protocol
+    #protocol = (browser.mac? && !(browser.mobile? || browser.tablet?)) ? 'itpc' : protocol
     # linux
-    protocol = browser.linux? ? 'http' : protocol
+    #protocol = browser.linux? ? 'http' : protocol
 
-    url_for controller: entity.class.model_name.plural,
-            action: 'show',
-            id: entity.to_param,
-            format: :rss,
-            only_path: false,
-            protocol: protocol
+    if browser.firefox?
+      podcast_url_new entity
+    elsif browser.mac? && !browser.ios?
+      itunes_url entity
+    else # browser.ios? || browser.android? || browser.chrome? || browser.ie? || browser.edge
+      feed_url entity
+    end
+
+  end
+
+  def itunes_url(entity)
+    podcast_url_for_protocol(entity, 'itpc')
+  end
+
+  def podcast_url_new(entity)
+    podcast_url_for_protocol(entity)
+  end
+
+  def feed_url(entity)
+    podcast_url_for_protocol(entity, 'feed')
+  end
+
+  def podcast_url_for_protocol(entity, protocol = nil)
+    options = { controller: entity.class.model_name.plural,
+                action: 'show',
+                id: entity.to_param,
+                format: :rss,
+                only_path: false }
+    options[:protocol] = protocol if protocol
+    url_for options
   end
 
   def link_to_podcast(entity)

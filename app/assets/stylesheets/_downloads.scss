@@ -1,0 +1,122 @@
+.devices {
+    color: $talk-dark;
+    background: white;
+
+    svg {
+  fill:currentColor;
+}
+
+ul.streambox-list {
+  margin-bottom: 84px;
+  li {
+    border:1px solid $charcoal;
+    padding: 12px;
+    border-radius: 4px;
+    margin-bottom:6px;
+    // font-size: rem-calc(18);
+    font-weight: 700;
+
+    &:hover {
+      border-color: $talk-dark;
+    }
+  }
+}
+
+.explain-text {
+  color:$charcoal;
+}
+.optional-help-text div {
+        background: $vr-beige;
+        padding: 24px;
+        text-align: left;
+        .strong {
+            font-weight: 700;
+        }
+        svg {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
+        }
+        .close-button {
+            position: relative;
+            left:0;
+            top:-6px;
+        }}
+
+h1 {
+  font-size:2em;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin:24px 0 12px 0;
+  color:$talk-dark;
+  svg {
+    width: 30px;
+    height: 30px;
+    margin-left: -36px;
+    margin-right: 6px;
+    vertical-align: text-top;
+  }
+}
+    
+h5 {
+  padding:12px;
+  padding-bottom: 0;
+  margin-top:36px;
+
+  svg {
+      width: 24px;
+  height: 24px;
+  margin-right: 6px;
+  margin-bottom: -1px;
+  }
+}
+table {
+  //color: $charcoal;
+  svg {
+    // fill: currentColor;
+    width:18px;
+    height: 18px;
+    vertical-align:middle;
+  }
+  a {
+    color: $vr-light-blue;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  width: 100%;
+  font-size:.8em;
+  border:0;
+
+  tbody {
+    border:0;
+    background: none;
+
+  tr {
+    background:none;
+    border-bottom: 1px solid #ddd;
+    &:nth-child(even) {
+      background:none;
+    }
+  }
+  }
+
+  th {
+  text-align: left;
+  &:first-child {
+    width:36px;
+  }
+  &:last-child {
+    text-align:right;
+  }
+  }
+  td:first-child {
+    width:36px;
+  }
+  td:last-child {
+    text-align:right;
+  }
+
+
+}
+}

@@ -7,7 +7,20 @@ class DevicesController < BaseController
 
   layout 'velvet'
 
+
   # GET /devices
+  #
+  # Shows a list of paired devices.
+  #
+  # Automatically redirects to device if there is exactly one.
+  def index
+    @devices = current_user.organizations.map(&:devices).flatten
+
+    return redirect_to @devices.first if @devices.count == 1
+  end
+
+
+  # GET /devices/new
   #
   # Optionally takes a pairing code and redirects to show.
   #
@@ -15,7 +28,7 @@ class DevicesController < BaseController
   # were detected.
   #
   # Automatically redirects to device if there is exactly one.
-  def index
+  def new
     code = params[:device] && params[:device][:pairing_code]
     return redirect_to device_path(id: code) if code
 
@@ -28,15 +41,20 @@ class DevicesController < BaseController
 
   # GET /devices/:pairing_code
   #
-  # Used to search for devices by pairing code.
+  # Shows device and its recordings.
   #
-  # Redirects to edit if device was found.
+  # Additionally used to search for devices by pairing code.
+  # Redirects to edit if a device was found.
+  # Redirects to new if nothing was found.
   def show
-    @device = Device.find_by(pairing_code: params[:id])
+    if params[:id].match(/^\d{4}$/)
+      @device = Device.find_by(pairing_code: params[:id])
+      return redirect_to [:edit, @device] if @device
+      return redirect_to new_device_path, alert: I18n.t('alert.pairing_code_invalid')
+    end
 
-    return redirect_to [:edit, @device] if @device
-
-    redirect_to devices_path, alert: I18n.t('alert.pairing_code_invalid')
+    @device = Device.find_by(identifier: params[:id])
+    # TODO raise error if @device.nil?
   end
 
 

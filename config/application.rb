@@ -66,6 +66,8 @@ module VoiceRepublic
 
     config.middleware.use 'Slides'
 
+    config.middleware.use 'Backup'
+
     config.middleware.use 'IcecastEndpoint'
 
     config.middleware.use 'Rack::Affiliates'

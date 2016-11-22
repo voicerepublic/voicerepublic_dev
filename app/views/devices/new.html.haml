@@ -1,0 +1,79 @@
+-# if exaclty one device was detected, the user is redirected to claim
+-# that device. hence this page has to handle the two remaining cases:
+-#
+-# * no device found
+-# * multiple devices found
+
+#search-results-count.clearfix
+  .medium-8.medium-offset-2.columns
+    %p.lead.text-center= t('.devices_found', count: @devices.count, ip: request.remote_ip).html_safe
+%section#devices
+  .row.clearfix
+    .container.medium-10.medium-offset-1.large-8.large-offset-2.columns.text-left
+      %p.text-center= t('.take_action', count: @devices.count)
+
+  .row.clearfix
+    .device-method-box.medium-8.medium-offset-2.columns
+      %h4
+        =t('.method1_title').html_safe
+      .row.clearfix
+        = simple_form_for :device, method: 'GET' do |f|
+          .medium-6.columns.no-pad
+            = f.input :pairing_code, :autofocus => true, input_html: { maxlength: 4, placeholder: '0000', type: "number"}, class: 'large', label: false
+            = f.button :submit, 'find!', class: 'button hollow expanded btn-hover-green large'
+      .clearfix.help
+        %h5
+          = naked_icon "question"
+          = t('.where_to_find_code')
+        %p
+        -#.medium-6.columns.instruction
+          %h6= t('.vr_app')
+          = render "shared/code_app"
+          %p= t('.on_app').html_safe
+        .instruction
+          %h6= t('.vr_box')
+          .medium-6.columns.no-pad-left
+            = render "shared/code_monitor"
+            %p= t('.on_box1').html_safe
+          .medium-6.columns.no-pad-right
+            = render "shared/code_headphones"
+            %p= t('.on_box2').html_safe
+  - if @devices.any?
+    .row.clearfix
+      .device-method-divider.medium-8.medium-offset-2.columns
+        %h5.text-center Or
+    .row.clearfix
+      .device-method-box.medium-8.medium-offset-2.columns
+        %h4
+          =t('.method2_title').html_safe
+        .row.clearfix
+          %p
+            = t('we_detected')
+            -if @devices.survey["vr-restream"]
+              %span= t('.app_count', count: @devices.survey["vr-restream"]).html_safe
+            -if @devices.survey["vr-restream"] && @devices.survey["Streambox INGSOC"]
+              %span= t('.and')
+            -if @devices.survey["Streambox INGSOC"]
+              %span= t('.box_count', count: @devices.survey["Streambox INGSOC"]).html_safe
+            %span .
+            %span=t('.method2',count: @devices.count).html_safe
+        .row.clearfix.graphics
+          -if @devices.survey["vr-restream"]
+            = render "shared/unplugged_box"
+          -if @devices.survey["Streambox INGSOC"]
+            = render "shared/close_apps"
+          .graphic.interstitial
+            +
+          -if @devices.survey["vr-restream"]
+            = render "shared/plugged_box"
+          -if @devices.survey["vr-restream"] && @devices.survey["Streambox INGSOC"]
+            .graphic.interstitial
+              or
+          -if @devices.survey["Streambox INGSOC"]
+            = render "shared/open_app"
+
+        = link_to url_for(params), class: 'button hollow btn-hover-green' do
+          = naked_icon 'replay'
+          = t('.reload')
+
+

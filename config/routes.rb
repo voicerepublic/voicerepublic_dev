@@ -100,7 +100,7 @@ Rails.application.routes.draw do
   # get '/venues/:id', to: redirect(->(params, req) { '/series/'+params[:id] })
 
   resources :venues, only: [:index, :show, :edit, :update]
-  resources :devices, only: [:index, :edit, :update, :show]
+  resources :devices, only: [:index, :new, :edit, :update, :show]
   resources :reminders, only: [:show, :destroy]
 
   devise_scope :user do

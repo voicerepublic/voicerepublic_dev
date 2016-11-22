@@ -2,17 +2,8 @@ body {
     background: $talk-dark;
     height: auto;
     &.talks-new, &.talks-create, &.talks-edit, &.uploads, &.uploads-new {
-        background:$silver;
+        background: $silver;
     }
-}
-
-.autoplay-warning {
-    background: $vr-red;
-    padding: 12px;
-    color: white;
-    font-weight: 500;
-    margin: 0;
-    text-align: center;
 }
 
 #nopush {
@@ -27,17 +18,16 @@ body {
 }
 
 #mobile-play-button {
-    color:white;
-    background: rgba(white,.2);
+    color: white;
+    background: rgba(white, 0.2);
     width: 100px;
     height: 100px;
-    border-radius:50px;
-    margin:0 auto;
+    border-radius: 50px;
+    margin: 0 auto;
     display: flex;
     justify-content: center;
     align-items: center;
     margin-top: 24px;
-
     svg {
         width: 36px;
         height: 36px;
@@ -45,20 +35,22 @@ body {
     }
 }
 
+
+
 audio {
     width: 100%;
 }
 
-    .loading-message {
-        height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        svg {
-            width: 60px;
-            height: 60px;
-            margin-bottom: 24px;
-        }
+.loading-message {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    svg {
+        width: 60px;
+        height: 60px;
+        margin-bottom: 24px;
+    }
     h1 {
         font-size: rem-calc(18);
         text-transform: uppercase;
@@ -68,40 +60,40 @@ audio {
         margin-top: -60px;
     }
 }
-    // #main {
-    //     padding-top:24px;
-    //         }
+
+// #main {
+//     padding-top:24px;
+//         }
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
-  display: none !important;
+    display: none !important;
 }
 
 .test-talk-msg, #greeting {
-    background:$vr-yellow;
-    padding:24px;
+    background: $vr-yellow;
+    padding: 24px;
 }
 
 // TODO: This is a hack to get Foundation 6 styles on simple_form
 // elements with errors.
 .input.error {
-  label {
-    color:$vr-red;
-   //@extend .is-invalid-label;
-   //@include form-error;
-  }
-
-  input
-  textarea,
-  select {
-    // @extend .is-invalid-input;
-    @include form-input-error($vr-red, .1);
-
-  }
-
-  small.error {
-    @include form-error;
-    @extend .is-visible;
-  }
+    label {
+        color: $vr-red;
+        //@extend .is-invalid-label;
+        //@include form-error;
+   
+    }
+    input
+    textarea,
+    select {
+        // @extend .is-invalid-input;
+        @include form-input-error($vr-red, 0.1);
+    }
+    small.error {
+        @include form-error;
+        @extend .is-visible;
+    }
 }
+
 //end todo
 
 // .input.error {
@@ -109,29 +101,53 @@ audio {
 // }
 
 .label {
+    background: $vr-purple;
+    &.live {
+        background: $vr-red;
+    }
+    &.archived {
+        background: $topbar-dark;
+    }
+    &.processing {
+        background: $vr-yellow;
+        color: $talk-dark;
+    }
+}
 
-  background:$vr-purple;
-  &.live {
-    background: $vr-red;
-  }
-  &.archived {
-    background: $topbar-dark;
-  }
-  &.processing {
-    background:$vr-yellow;
-    color: $talk-dark;
-  }
+.talks svg {
+    fill: currentColor;
+    width: 16px;
+    height: 16px;
+    // max-height: 16px;
+    // max-width: 16px;
+}
+
+.talks .loading-graphic 
+{
+
+    svg {
+    width: 60px;
+    height: 60px;
+    }
+.autoplay-warning {
+    //background: $vr-red;
+    padding: 12px;
+    color: $vr-yellow;
+    font-weight: 500;
+    margin: 0;
+    text-align: center;
+    svg {
+        width: 24px;
+        height: 24px;
+        vertical-align: middle;
+        float: left;
+        margin-right: 12px;
+    }
+}
+
 }
 
 
-    .talks svg {
-        fill: currentColor;
-        width: 16px;
-        height: 16px;
-        // max-height: 16px;
-        // max-width: 16px;
-
-    }
 
 .breakpoint-viewer {
     position: absolute;
@@ -140,9 +156,7 @@ audio {
     background: white;
     color: black;
     padding: 10px;
-
 }
-
 
 body.talks {
     padding: 0;
@@ -158,8 +172,7 @@ body.talks {
     }
     &.talk-form, &.uploads-form {
         max-width: rem-calc(800);
-                padding-top:48px;
-
+        padding-top: 48px;
     }
 }
 
@@ -169,6 +182,7 @@ body.talks {
         padding-top: 24px;
         padding-bottom: 48px;
     }
+
     @include breakpoint(large) {
         width: calc(100% - 300px);
     }
@@ -180,7 +194,7 @@ body.talks {
         }
     }
     hr {
-        border-color: rgba(255,255,255,.08);
+        border-color: rgba(255, 255, 255, 0.08);
     }
 }
 
@@ -188,12 +202,10 @@ body.talks {
     max-width: 1024px;
     margin: 0 auto;
     padding: 0;
-    @include breakpoint(medium){
+    @include breakpoint(medium) {
         padding: 0 24px;
     }
 }
-
-
 
 button,
 .button {
@@ -224,6 +236,7 @@ button,
         // &:hover {
         //     text-decoration: underline;
         // }
+   
     }
     @include breakpoint(large) {
         margin-top: 0;
@@ -235,11 +248,11 @@ button,
     @include breakpoint(medium) {
         margin-top: 0;
     }
-    .media-object-section {
-    padding-bottom: 0;
-}
-}
 
+    .media-object-section {
+        padding-bottom: 0;
+    }
+}
 
 .pub-meta {
     font-size: rem-calc(10);
@@ -318,10 +331,10 @@ button,
         margin-bottom: 1rem;
         letter-spacing: normal;
         text-transform: none;
-        font-size:rem-calc(18)
+        font-size: rem-calc(18);
     }
     h1 {
-        font-size: rem-calc(24)
+        font-size: rem-calc(24);
     }
     // h6 {
     //     font-size: rem-calc(14)
@@ -389,7 +402,7 @@ button,
         width: 16px;
         max-width: 16px;
         height: 16px;
-        max-height:16px;
+        max-height: 16px;
     }
     .button-pin, .button-unpin {
         svg {
@@ -398,9 +411,7 @@ button,
             width: 24px;
             height: 24px;
         }
-
     }
-
 }
 
 #talk-playbar {
@@ -428,95 +439,88 @@ button,
         margin-bottom: 12px;
     }
 
-.button-playbar {
-    flex: 0 0 70px;
-    margin: 0;
-    border-radius: 0;
-    background: rgba($oil, 0.2);
-    height: 70px;
-    font-size: 1.4em;
-    outline: none;
-    border: 0;
-    padding: 0;
+    .button-playbar {
+        flex: 0 0 70px;
+        margin: 0;
+        border-radius: 0;
+        background: rgba($oil, 0.2);
+        height: 70px;
+        font-size: 1.4em;
+        outline: none;
+        border: 0;
+        padding: 0;
         svg {
-        width: 36px;
-        height: 36px;
-        margin:0;
-    }
-    span {
-        width: 100%;
-    }
-}
-
-.slides-button {
-    &:hover {
-        background:$vr-blue;
-    }
-}
-
-.button-play-pause {
-    // animation: pulse 2s infinite;
-    background: $vr-blue;
-    &:hover {
-        background:$vr-light-blue;
-    }
-}
-
-.button-pin, .button-unpin {
-    &:hover {
-            background:$vr-blue;
+            width: 36px;
+            height: 36px;
+            margin: 0;
         }
-}
-.button-pin {
-    font-size: rem-calc(10);
-    font-weight: 300;
-    // &:hover {
-    //     svg {
-
-    //     color:$success-color;
-    //     }
-    //    // color: $talk-dark;
-    // }
-}
-.button-unpin {
-    font-size: rem-calc(10);
-    font-weight:300;
-    svg {
-        color: $vr-light-blue;
+        span {
+            width: 100%;
+        }
     }
-    //background: $vr-light-blue;
-    // &:hover {
-    //     svg {
-    //     color:$vr-red;
-    //     }
-    // }
+    .slides-button {
+        &:hover {
+            background: $vr-blue;
+        }
+    }
+    .button-play-pause {
+        // animation: pulse 2s infinite;
+        background: $vr-blue;
+        &:hover {
+            background: $vr-light-blue;
+        }
+    }
+    .button-pin, .button-unpin {
+        &:hover {
+            background: $vr-blue;
+        }
+    }
+    .button-pin {
+        font-size: rem-calc(10);
+        font-weight: 300;
+        // &:hover {
+        //     svg {
+        //     color:$success-color;
+        //     }
+        //    // color: $talk-dark;
+        // }
+   
+    }
+    .button-unpin {
+        font-size: rem-calc(10);
+        font-weight: 300;
+        svg {
+            color: $vr-light-blue;
+        }
+        //background: $vr-light-blue;
+        // &:hover {
+        //     svg {
+        //     color:$vr-red;
+        //     }
+        // }
+   
+    }
 }
 
-}
-
- .player-container.prelive,
- .player-container.suspended,
- .player-container.pending,
- .player-container.postlive,
- .player-container.processing {
-
+.player-container.prelive,
+.player-container.suspended,
+.player-container.pending,
+.player-container.postlive,
+.player-container.processing {
     .button-play-pause, #meter, .timecode, .timeline {
-
         -webkit-filter: grayscale(100%);
         filter: grayscale(100%);
         opacity: .3;
         pointer-events: none;
-
     }
+}
 
- }
-
- // this is to fix event bubbling in mobile safari
- // if the cursor attribute is not set, events are simply not generated
- // source: http://www.shdon.com/blog/2013/06/07/why-your-click-events-don-t-work-on-mobile-safari
- .jp-volume-bar, .jp-seek-bar {
-     cursor: pointer;
- }
+// this is to fix event bubbling in mobile safari
+// if the cursor attribute is not set, events are simply not generated
+// source: http://www.shdon.com/blog/2013/06/07/why-your-click-events-don-t-work-on-mobile-safari
+.jp-volume-bar, .jp-seek-bar {
+    cursor: pointer;
+}
 
 .muted {
     background: $alert-color;
@@ -587,7 +591,7 @@ button,
 }
 
 .talk-title {
-    padding-bottom:0;
+    padding-bottom: 0;
     h1 {
         font-size: rem-calc(24);
         line-height: rem-calc(28);
@@ -595,22 +599,21 @@ button,
         color: $vr-light-blue;
         letter-spacing: rem-calc(1);
         text-align: center;
-
         @include breakpoint(medium) {
             // font-weight: 700;
-        display: inline-block;
-        // margin-right: 12px;
-        font-family: $header-font-family;
-        //wrapping and hyphenating:
-        overflow-wrap: break-word;
-        word-wrap: break-word;
-        -webkit-hyphens: auto;
-        -ms-hyphens: auto;
-        -moz-hyphens: auto;
-        hyphens: auto;
-        -ms-word-break: break-all;
-        word-break: break-word;
-        letter-spacing: 1;
+            display: inline-block;
+            // margin-right: 12px;
+            font-family: $header-font-family;
+            //wrapping and hyphenating:
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+            -webkit-hyphens: auto;
+            -ms-hyphens: auto;
+            -moz-hyphens: auto;
+            hyphens: auto;
+            -ms-word-break: break-all;
+            word-break: break-word;
+            letter-spacing: 1;
             font-size: rem-calc(48);
             line-height: rem-calc(48);
             margin-bottom: 18px;
@@ -619,46 +622,47 @@ button,
 
         .live-inline-label {
             color: white;
-    background: $vr-red;
-    padding: 7px;
-    font-size: 24px;
-    font-weight: 200;
-    vertical-align: middle;
-    line-height: 0;
-    margin-right: 6px;
-    text-transform: uppercase;
-    font-family: $body-font-family;
-    letter-spacing: rem-calc(3);
+            background: $vr-red;
+            padding: 7px;
+            font-size: 24px;
+            font-weight: 200;
+            vertical-align: middle;
+            line-height: 0;
+            margin-right: 6px;
+            text-transform: uppercase;
+            font-family: $body-font-family;
+            letter-spacing: rem-calc(3);
         }
     }
 }
-    .teaser {
-        font-size: rem-calc(14);
-        line-height: rem-calc(18);
-        font-weight: normal;
-        color: $info-color;
-        // max-width: 540px;
-        padding-bottom: 12px;
-        margin-bottom: 12px;
-        border-bottom: 1px solid rgba(white,.1);
-        @include breakpoint(medium) {
-            font-size: rem-calc(18);
-            line-height: rem-calc(24);
-            border-bottom:0;
-            padding-bottom:0;
-            // margin-bottom: 0;
-        }
 
-        .inline-speaker {
-            color: white;
-            font-weight: bold;
-            font-size: rem-calc(14);
-            a {
-                font-weight: normal;
-                color: $vr-light-blue;
-            }
+.teaser {
+    font-size: rem-calc(14);
+    line-height: rem-calc(18);
+    font-weight: normal;
+    color: $info-color;
+    // max-width: 540px;
+    padding-bottom: 12px;
+    margin-bottom: 12px;
+    border-bottom: 1px solid rgba(white, 0.1);
+    @include breakpoint(medium) {
+        font-size: rem-calc(18);
+        line-height: rem-calc(24);
+        border-bottom: 0;
+        padding-bottom: 0;
+        // margin-bottom: 0;
+    }
+
+    .inline-speaker {
+        color: white;
+        font-weight: bold;
+        font-size: rem-calc(14);
+        a {
+            font-weight: normal;
+            color: $vr-light-blue;
         }
     }
+}
 
 #date-playcount {
     padding: 12px;
@@ -677,8 +681,6 @@ button,
     @include breakpoint(medium) {
         text-align: right;
     }
-
-
 
     .menu {
         width: 100%;
@@ -738,21 +740,20 @@ button,
                     margin-left: 6px;
                     white-space: nowrap;
                     text-overflow: ellipsis;
-                    @include breakpoint(720px){
+                    @include breakpoint(720px) {
                         font-size: rem-calc(12);
-                    margin-left: 12px;
+                        margin-left: 12px;
                     }
+
                     @include breakpoint(small only) {
                         display: none;
                     }
                 }
-
                 svg {
                     margin-top: 6px;
                     vertical-align: text-bottom;
                 }
             }
-
             .unpin-btn {
                 background: $vr-blue;
             }
@@ -829,33 +830,30 @@ button,
     padding: 12px;
     margin-top: 48px;
     width: 100%;
-    max-width:100%;
+    max-width: 100%;
     @include breakpoint(medium) {
         padding: 24px;
     }
 
     #comment-container {
-        max-width:1024px;
-        margin:0 auto;
+        max-width: 1024px;
+        margin: 0 auto;
         padding: 24px 0;
-
         svg {
             vertical-align: middle;
         }
-
         h3 {
             color: $talk-dark;
             font-size: rem-calc(18);
-            text-transform:uppercase;
+            text-transform: uppercase;
             letter-spacing: rem-calc(1);
             margin-bottom: 12px;
         }
     }
-
     .comment-avatar {
         width: 42px;
         height: 42px;
-        border-radius:21px;
+        border-radius: 21px;
     }
     .previous-comments {
         margin-top: 48px;
@@ -925,8 +923,7 @@ ul.share-links {
     li {
         text-align: center;
         a {
-
-        color: white;
+            color: white;
         }
         a:hover {
             color: $vr-yellow;
@@ -948,7 +945,7 @@ ul.share-links {
     height: auto;
     padding: 12px 6px 200px 6px;
     transition: opacity 1s ease;
-    position:relative;
+    position: relative;
     z-index: 0;
     @include breakpoint(medium) {
         padding: 12px 6px 48px 6px;
@@ -958,14 +955,13 @@ ul.share-links {
     @include breakpoint(large) {
         position: absolute;
         right: 0;
-        max-width:300px;
+        max-width: 300px;
     }
 
     .talk-card {
         width: 100%;
-        margin:0;
+        margin: 0;
     }
-
     h3 {
         color: $vr-beige;
         font-family: $body-font-family;
@@ -989,11 +985,9 @@ ul.share-links {
             margin-bottom: 6px;
         }
         .title {
-
             display: inline-block;
             height: auto;
             margin: 0 auto;
-
             -webkit-line-clamp: auto;
             -webkit-box-orient: vertical;
             // overflow: auto;
@@ -1003,9 +997,6 @@ ul.share-links {
             padding: 12px;
             padding-bottom: 0;
             min-height: 0;
-
-
-
             color: rgba($light-gray, 0.4);
             font-family: $body-font-family;
             font-weight: bold;
@@ -1013,11 +1004,6 @@ ul.share-links {
             line-height: rem-calc(19);
             margin-top: 8px;
             margin-bottom: 2px;
-
-
-
-
-
         }
         // &:after {
         //     content: "333";
@@ -1037,26 +1023,24 @@ ul.share-links {
             margin-top: -48px;
             width: 100%;
         }
-
         .svg-icon {
             color: rgba($light-gray, 0.4);
         }
-
         .bottom-info .pin-btn {
             border-color: transparent;
             color: rgba($light-gray, 0.4);
             &:hover {
                 color: white;
-                border-color:rgba($light-gray, 0.4);
+                border-color: rgba($light-gray, 0.4);
             }
         }
     }
 }
 
 #publisher-options {
-    background: rgba(black,.1);
-    padding:30px;
-    box-shadow: inset 0px -1px 10px rgba(0,0,0, .2);
+    background: rgba(black, 0.1);
+    padding: 30px;
+    box-shadow: inset 0px -1px 10px rgba(0, 0, 0, 0.2);
     ul li {
         margin-right: 6px;
         &:last-child {
@@ -1066,20 +1050,18 @@ ul.share-links {
 }
 
 .shakeel {
-    @include reveal-overlay();
+    @include reveal-overlay;
     background-color: $vr-blue;
-    border:none;
-
+    border: none;
     ul li a {
         height: 60px;
     }
-
     svg {
         vertical-align: middle;
     }
     .flyer {
         max-height: 50vh;
-        box-shadow:0 1px 10px rgba(0,0,0,.3);
+        box-shadow: 0 1px 10px rgba(0, 0, 0, 0.3);
     }
     h2 {
         color: white;
@@ -1102,12 +1084,12 @@ ul.share-links {
         width: 24px;
         height: 24px;
         display: block;
-        background:none;
+        background: none;
     }
     .send-card {
-            position: absolute;
-    bottom: 20px;
-    right: 68px;
+        position: absolute;
+        bottom: 20px;
+        right: 68px;
     }
 }
 
@@ -1119,47 +1101,38 @@ ul.share-links {
         @include breakpoint(medium) {
             margin-bottom: 0;
             margin-right: 6px;
-            padding-right:6px;
+            padding-right: 6px;
         }
     }
+    .state-msg {
+        padding-top: 6px;
+        padding-bottom: 6px;
+        font-size: rem-calc(9);
+        letter-spacing: rem-calc(0);
+        text-transform: uppercase;
+        font-weight: 500;
+        text-align: center;
+        @include breakpoint(medium) {
+            padding-top: 10px;
+            padding-bottom: 10px;
+            font-size: rem-calc(9);
+            letter-spacing: rem-calc(1);
+        }
 
- .state-msg {
-    padding-top: 6px;
-    padding-bottom: 6px;
-    font-size: rem-calc(9);
-    letter-spacing: rem-calc(0);
-    text-transform: uppercase;
-    font-weight: 500;
-    text-align: center;
-    @include breakpoint(medium){
-         padding-top: 10px;
-    padding-bottom: 10px;
-    font-size: rem-calc(9);
-    letter-spacing: rem-calc(1);
-    }
-    &.prelive {
-        text-align: left;
-        @include breakpoint(medium){
-        min-width: 170px;
-
+        &.prelive {
+            text-align: left;
+            @include breakpoint(medium) {
+                min-width: 170px;
+            }
         }
     }
-
-
+    .button {
+        padding-top: 8px;
+        padding-bottom: 8px;
+        // margin-right: 6px;
+   
+    }
 }
-.button {
-    padding-top: 8px;
-    padding-bottom:8px;
-    // margin-right: 6px;
-}
-
-
-
-}
-
-
-
-
 
 //forms
 .talks-create, .talks-new, .talks-edit, .uploads, .uploads-create, .uploads-new .uploads-edit, .series-new, .series-update, .series-edit {
@@ -1171,22 +1144,22 @@ ul.share-links {
         margin-bottom: 48px;
     }
     .input input, .input textarea {
-        margin-bottom: 6px
+        margin-bottom: 6px;
     }
     .selectize-input {
         background: white;
-            border: 1px solid #cacaca;
+        border: 1px solid #cacaca;
     }
-            .selectize-dropdown .active {
-                background: $vr-yellow;
-                color: $talk-dark;
-            }
+    .selectize-dropdown .active {
+        background: $vr-yellow;
+        color: $talk-dark;
+    }
     .progress {
         height: 2px;
-        border-radius:2px;
-        background:#ddd;
+        border-radius: 2px;
+        background: #ddd;
         .progress-meter {
-            background:$vr-purple;
+            background: $vr-purple;
         }
     }
     .input {
@@ -1200,29 +1173,28 @@ ul.share-links {
         color: $tuatara;
     }
     .pickers {
-        padding:0;
+        padding: 0;
         .input {
             margin-bottom: 0;
         }
     }
     h3 {
         font-size: 16px;
-    font-family: sans-serif;
-    text-transform: uppercase;
-    font-weight: 700;
-    text-align: center;
-    letter-spacing: 1px;
-    color: $vr-light-blue;
-    margin-bottom: 24px;
+        font-family: sans-serif;
+        text-transform: uppercase;
+        font-weight: 700;
+        text-align: center;
+        letter-spacing: 1px;
+        color: $vr-light-blue;
+        margin-bottom: 24px;
     }
     label {
         font-weight: 700;
         abbr {
             color: inherit;
-            border:none;
+            border: none;
             cursor: auto;
         }
-
     }
     .image-box {
         width: 300px;
@@ -1232,15 +1204,15 @@ ul.share-links {
         margin-bottom: 12px;
     }
     [type='file'] {
-    width: auto;
-}
+        width: auto;
+    }
 }
 
 #ui-datepicker-div {
     background: $vr-purple;
     color: white;
     padding: 12px;
-    box-shadow:0 1px 20px rgba(0,0,0,.3);
+    box-shadow: 0 1px 20px rgba(0, 0, 0, 0.3);
     .ui-datepicker-header {
         margin-bottom: 12px;
     }
@@ -1250,7 +1222,7 @@ ul.share-links {
         color: white;
     }
     .ui-datepicker-prev {
-        float:left;
+        float: left;
     }
     .ui-datepicker-next {
         float: right;
@@ -1271,11 +1243,10 @@ ul.share-links {
         }
         tbody {
             font-weight: 500;
-
         }
-           td {
-                text-align: center;
-            }
+        td {
+            text-align: center;
+        }
     }
     .ui_tpicker_unit_hide {
         display: none;
@@ -1284,22 +1255,21 @@ ul.share-links {
         @include button(true, $vr-yellow, $vr-light-blue, $talk-dark, solid);
     }
     .ui-slider {
-        background:$vr-yellow;
+        background: $vr-yellow;
     }
     .ui-slider-handle {
         display: block;
         width: 24px;
         height: 24px;
         background: $vr-yellow;
-        border-radius:50%;
-        box-shadow:0 1px 2px rgba(0,0,0,.3);
+        border-radius: 50%;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
     }
     .ui-datepicker-today {
-    background: $vr-yellow;
-    color: $vr-purple;
+        background: $vr-yellow;
+        color: $vr-purple;
+    }
 }
-}
-
 
 .uploader-container {
     // background: $vr-beige;
@@ -1312,17 +1282,14 @@ ul.share-links {
     background-color: $vr-red;
 }
 
-
-
 //SLIDES VIEWER
 
 .slides {
-    background:rgba($almost-black, .3);
-    margin:12px;
-
+    background: rgba($almost-black, 0.3);
+    margin: 12px;
     button.close {
         font-family: $body-font-family;
-        background:none;
+        background: none;
         color: $vr-beige;
         font-size: 2rem;
         font-weight: 200;
@@ -1334,20 +1301,17 @@ ul.share-links {
             color: $vr-yellow;
         }
     }
-
-            h3 {
-            color: $vr-beige;
-            font-size: rem-calc(18);
-            text-transform:uppercase;
-            letter-spacing: rem-calc(1);
-            margin-bottom: 12px;
-        }
-
+    h3 {
+        color: $vr-beige;
+        font-size: rem-calc(18);
+        text-transform: uppercase;
+        letter-spacing: rem-calc(1);
+        margin-bottom: 12px;
+    }
     .pager {
         text-align: center;
         color: $vr-beige;
         min-width: 50%;
-
         button {
             background: none;
             vertical-align: middle;
@@ -1360,4 +1324,11 @@ ul.share-links {
             }
         }
     }
+}
+
+input#podcast-link {
+    color: $talk-dark;
+    width: 100%;
+    padding:12px;
+    margin-bottom: 12px;
 }

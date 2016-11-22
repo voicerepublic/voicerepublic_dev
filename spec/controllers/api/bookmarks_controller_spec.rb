@@ -58,9 +58,9 @@ describe Api::BookmarksController do
         expect(data.first['id']).to be(3)
       end
       it 'ignores invalid "order" arguments' do
-        get :index, credentials.merge(order: "i_do_not_belong_here", reverse: "true")
+        get :index, credentials.merge(order: "bogus")
         data = JSON.parse(response.body)
-        expect(data.first['id']).to be(3)
+        expect(data.size).to be(3)
       end
     end
 

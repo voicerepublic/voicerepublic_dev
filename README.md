@@ -708,3 +708,18 @@ Working with CLJS
 
     lein upgrade
     lein deps
+
+
+Creating new Pages
+------------------
+
+This is best described with an example:
+
+To create a page available as `/pages/desktop-live-streaming` you just
+need to create a symlink in `app/views/pages`
+
+    ln -s __basic.html.haml app/views/pages/desktop-live-streaming.html.haml
+
+Here we use the template `__basic.html.haml` which currently is the
+only template. Instances of sections to fill this page will be created
+after the new pages as been vistited at least once.

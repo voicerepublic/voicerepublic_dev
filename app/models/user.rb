@@ -111,7 +111,7 @@ class User < ActiveRecord::Base
   after_create :process_welcome_transaction
   after_create :add_default_pins
   after_create :create_first_organization
-  after_create :create_defaults!
+  after_commit :create_defaults!, on: :create
 
   before_save :normalize_website, if: :website_changed?
   before_save :normalize_twitter, if: :twitter_changed?

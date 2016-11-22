@@ -31,7 +31,8 @@
     initialSnapshot = #{@talk.snapshot.to_json};
 
     pinId = #{@reminder.try(:id) || 'null'};
-    podcastUrl = #{podcast_url(@talk.series).to_json};
+    podcastUrl = #{podcast_url_new(@talk.series).to_json};
+    itunesUrl = #{itunes_url(@talk.series).to_json};
 
     pdfWorkerSrc = '/javascripts/pdf.worker.js';
 

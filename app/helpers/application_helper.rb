@@ -53,7 +53,7 @@ module ApplicationHelper
       end
     end
     section = Section.find_or_create_by(key: key, locale: I18n.locale)
-    if section.content.nil? or Rails.env.development? # nil not blank!
+    if section.content.nil? # nil not blank!
       section.content = default_content(locale, key)
       section.save
       section.reload
