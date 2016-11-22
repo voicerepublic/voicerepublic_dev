@@ -1467,13 +1467,13 @@ h4.section-title {
         font-size: 6px;
         letter-spacing: 1px;
     }
-    #ui-labels {
-        opacity: 0;
-        transition: opacity .2s linear;
-        &.shown {
-            opacity: 1;
-        }
-    }
+    // #ui-labels {
+    //     opacity: 0;
+    //     transition: opacity .2s linear;
+    //     &.shown {
+    //         opacity: 1;
+    //     }
+    // }
 }
 
 .base {
@@ -2375,5 +2375,21 @@ svg#logo {
         flex: 1 1 100%;
         align-self: center;
         height: 36px;
+    }
+}
+
+.listener-info {
+    margin-left:12px;
+    background: rgba($topbar-dark,.5);
+    color: $ghost;
+      font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 12px;
+    svg {
+        width: 12px;
+        height: 12px;
+        vertical-align: middle;
+        margin-right: 2px;
+        margin-top:-3px;
     }
 }
