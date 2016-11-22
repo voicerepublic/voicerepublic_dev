@@ -500,6 +500,11 @@ class Talk < ActiveRecord::Base
     end
   end
 
+  def durations
+    return Settings.durations unless duration
+    [duration].push(*Settings.durations)
+  end
+
   private
 
   def process_description
@@ -910,11 +915,6 @@ class Talk < ActiveRecord::Base
 
   def schedule_user_override?
     user_override_uuid_changed? and !user_override_uuid.to_s.empty?
-  end
-
-  def durations
-    return Settings.durations unless duration
-    [duration].push(*Settings.durations)
   end
 
 end
