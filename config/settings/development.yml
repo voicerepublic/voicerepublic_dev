@@ -1,10 +1,10 @@
 # this cannot go in settings.yml since fog's providers will
 # check for allowed parameters
-fog:
-  storage:
-    provider: Local
-    local_root: public/system/cloud
-    endpoint: http://localhost:3000/system/cloud
+#fog:
+#  storage:
+#    provider: Local
+#    local_root: public/system/cloud
+#    endpoint: http://localhost:3000/system/cloud
 talk_upload_bucket: vr-audio-uploads-dev
 
 # delete this when Mailers#preview + inline attachment are fixed in rails
