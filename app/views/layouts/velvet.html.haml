@@ -70,6 +70,7 @@
                 %li= link_to t('.upload_talk'), new_upload_path
                 -#- if !current_user.is_pro?
                 -#  %li= link_to t('.pricing'), purchases_path
+                %li= link_to t('.streamboxx_recordings'), devices_path
                 %li
                   = link_to(destroy_user_session_path, method: :delete) do
                     = t('.logout')

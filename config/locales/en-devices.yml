@@ -3,8 +3,15 @@ en:
   alert:
     pairing_code_invalid: "Oops! We couldn't find that pairing code."
   devices:
+    show:
+      help: >-
+        You can download the backup recordings of this StreamBoxx. The
+        download links are available for 14 days. Please download your
+        files as soon as possible. If you need older files, please
+        contact
+        <a href="mailto:service@voicerepublic.com">service@voicerepublic.com</a>.
 
-    index:
+    new:
       reload: Reload
       headline: Claim Your Client
 
