@@ -1,6 +1,20 @@
 DEPLOYMENT NOTES
 ================
 
+cdist
+-----
+
+### Install OSX
+
+    brew install python3
+    sudo pip3 install cdist
+
+### Configure host
+
+See the `README` in the voicerepublic_dot_cdist repo:
+    https://bitbucket.org/voicerepublic/voicerepublic_dot_cdist/
+
+
 Issue 'missing ruby' -- Resolved
 --------------------------------
 

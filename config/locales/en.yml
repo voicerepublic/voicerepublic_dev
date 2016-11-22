@@ -429,8 +429,8 @@ en:
       test_talk: 'Test A Talk'
       logout: Log Out
       stream_now: Stream Now
-    velvet_minimal:
-      title: Voice Republic
+      streamboxx_recordings: StreamBoxx Recordings
+
 
   plain_mailer:
     welcome:
