@@ -3,14 +3,21 @@ en:
   alert:
     pairing_code_invalid: "Oops! We couldn't find that pairing code."
   devices:
+    index: 
+      no_boxes: >-
+        There is no StreamBoxx paired to your account yet. 
+        The StreamBoxx makes live streaming and archiving of conferences and other events easy and flexible. 
+        Find more information and <a href="https://voicerepublic.com/pages/streamboxx">order a StreamBoxx here</a>.<br><br><Br>
     show:
       help: >-
-        You can download the backup recordings of this StreamBoxx. The
+        These are the backup recordings from your StreamBoxx. The
         download links are available for 14 days. Please download your
         files as soon as possible. If you need older files, please
         contact
         <a href="mailto:service@voicerepublic.com">service@voicerepublic.com</a>.
-
+      no_recs: >-
+        This StreamBoxx is connected to your account and provides you automatic back up recordings. 
+        Currently, there are no recordings on this StreamBoxx. After live-streaming a Talk, the recording will be available here for 14 days. <br><Br>
     new:
       reload: Reload
       headline: Claim Your Client
