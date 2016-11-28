@@ -1667,6 +1667,13 @@ hr {
     animation-direction: alternate;
 }
 
+.zoomy {
+    animation-duration: .2s;
+    animation-name: zoomy;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
 .connecting {
     animation-duration: .5s;
     animation-name: connecting;
@@ -2395,3 +2402,11 @@ svg#logo {
         margin-top:-3px;
     }
 }
+
+// #devices-wizard ul li {
+//     transform: scale(0);
+
+//     &.zoomy {
+//         transform: scale(1);
+//     }
+// }
