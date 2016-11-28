@@ -422,14 +422,16 @@ a.help-link {
         margin-bottom: 1em;
         background: none;
         tbody {
-            border: none;
+            border: 1px solid white;
             background: none;
             tr {
                 text-align: left;
                 background: none;
+                border-bottom: 1px solid white;
                 td:first-child {
                     text-align: right;
                     font-weight: 700;
+                    border-right: 1px solid white;
                     &:after {
                         content: ":"
                     }
