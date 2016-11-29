@@ -2,11 +2,12 @@
 %p.text-center.no-margin
   %span.label.processing Downloads
 %h1.text-center
-  = link_to devices_path do
-    = naked_icon "arrow-left"
+  - if @devices_count > 1
+    = link_to devices_path do
+      = naked_icon "arrow-left"
   = @device.name
 - unless @device.recordings.empty?
-  %div.explain-text.medium-8.medium-offset-2.large-offset-3.columns.large-6 
+  %div.explain-text.medium-8.medium-offset-2.large-offset-3.columns.large-6
     %p.text-center= t('.help').html_safe
   .row
     %table
@@ -23,6 +24,6 @@
             %td= number_to_human_size(rec[:size])
   .row
 - else
-  %div.explain-text.medium-8.medium-offset-2.large-offset-3.columns.large-6.clearfix 
+  %div.explain-text.medium-8.medium-offset-2.large-offset-3.columns.large-6.clearfix
     %p.text-center= t('.no_recs').html_safe
   .row

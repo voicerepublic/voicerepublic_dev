@@ -39,6 +39,7 @@ class DevicesController < BaseController
   end
 
 
+  # GET /devices/:identifier
   # GET /devices/:pairing_code
   #
   # Shows device and its recordings.
@@ -46,6 +47,8 @@ class DevicesController < BaseController
   # Additionally used to search for devices by pairing code.
   # Redirects to edit if a device was found.
   # Redirects to new if nothing was found.
+  #
+  # TODO authorization!
   def show
     if params[:id].match(/^\d{4}$/)
       @device = Device.find_by(pairing_code: params[:id])
@@ -54,6 +57,7 @@ class DevicesController < BaseController
     end
 
     @device = Device.find_by(identifier: params[:id])
+    @devices_count = current_user.organizations.map(&:devices).flatten.count
     # TODO raise error if @device.nil?
   end
 
