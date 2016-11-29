@@ -1,21 +1,29 @@
+%p
+%p.text-center.no-margin
+  %span.label.processing Downloads
 %h1.text-center
-  = link_to devices_path do
-    = naked_icon "arrow-left"
+  - if @devices_count > 1
+    = link_to devices_path do
+      = naked_icon "arrow-left"
   = @device.name
-
-%div.explain-text.medium-8.medium-offset-2.large-offset-3.columns.large-6 
-  %p.text-center= t('.help').html_safe
-
-.row
-  %table
-    %tr
-      %th= t('.filename')
-      %th= t('.date')
-      %th= t('.duration')
-      %th= t('.size')
-    - @device.recordings.each do |rec|
+- unless @device.recordings.empty?
+  %div.explain-text.medium-8.medium-offset-2.large-offset-3.columns.large-6
+    %p.text-center= t('.help').html_safe
+  .row
+    %table
       %tr
-        %td= link_to rec[:name], rec[:link]
-        %td= rec[:date]
-        %td= rec[:duration]
-        %td= number_to_human_size(rec[:size])
+        %th= t('.filename')
+        %th= t('.date')
+        %th= t('.duration')
+        %th= t('.size')
+        - @device.recordings.each do |rec|
+          %tr
+            %td= link_to rec[:name], rec[:link]
+            %td= rec[:date]
+            %td= rec[:duration]
+            %td= number_to_human_size(rec[:size])
+  .row
+- else
+  %div.explain-text.medium-8.medium-offset-2.large-offset-3.columns.large-6.clearfix
+    %p.text-center= t('.no_recs').html_safe
+  .row
