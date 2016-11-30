@@ -46,10 +46,11 @@
 #main-column.clearfix
   #publisher-options-holder
   #app
-    .loading-message
+    .loading-message.medium-8.medium-offset-2.columns
       .loading-graphic
         = render partial: 'explore/loading'
-        %h1= t('.loading')
+        %p.text-center.loading= t('.loading')
+        %h1= @talk.title
         = render partial: 'shared/autoplay_warning' if @talk.live?
   #right-sidebar.float-right.medium-3.columns.clearfix.qa-related-talks.hide
     .row.collapse
