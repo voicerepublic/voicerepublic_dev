@@ -35,8 +35,4 @@ module TalksHelper
     number_to_human(count, units: {thousand:"k", million:"M"}, precision: 2)
   end
 
-  def durations
-    return Settings.durations unless @talk.duration && !Settings.durations.include?(@talk.duration)
-    [@talk.duration] + Settings.durations
-  end
 end
