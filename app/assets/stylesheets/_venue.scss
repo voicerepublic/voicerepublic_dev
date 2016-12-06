@@ -313,6 +313,18 @@ svg {
         margin: 0 auto;
         text-align: left;
         color: $talk-dark;
+
+        h3 {
+            text-transform: uppercase;
+            letter-spacing: .1rem;
+        }
+
+        h5 {
+            text-transform: uppercase;
+            font-family: $body-font-family;
+            font-weight: 700;
+            letter-spacing: .1rem;
+        }
         p {
             color: $topbar-dark;
         }
