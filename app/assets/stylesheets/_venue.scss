@@ -295,6 +295,18 @@ svg {
     box-shadow: 0 1px $blur rgba($almost-black, $opacity);
 }
 
+#mobile-nav {
+    @include breakpoint(medium){
+        position: absolute;
+        right:0;
+        top: 48px;
+        z-index: 999;        
+    }
+
+    li a:hover {
+        background: darken($vr-blue,5%);
+    }
+}
 #helpbar {
     margin: 0;
     padding: 24px;
