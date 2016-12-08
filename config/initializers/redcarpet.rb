@@ -19,7 +19,7 @@ class Redcarpet::Render::VRHTML < Redcarpet::Render::HTML
                  /https?:\/\/youtu\.be\/([^'"< ]+)/ ]
 
     patterns.map do |pattern|
-      if md = txt.match(pattern)
+      if md = doc.match(pattern)
         md.to_a[1..-1].each do |key|
           @youtube_keys ||= []
           @youtube_keys << key
@@ -46,7 +46,7 @@ class Redcarpet::Render::VRHTML < Redcarpet::Render::HTML
                "src='//www.youtube.com/embed/%s' " +
                "frameborder='0' allowfullscreen></iframe>"
 
-   result = @youtube_keys.reduce { |doc, key| doc + (template % key) }
+   result = @youtube_keys.reduce(txt) { |doc, key| doc + (template % key) }
    @youtube_keys = nil
    result
   end
