@@ -14,6 +14,8 @@ button, .button {
         //height: 12px;
         vertical-align: middle;
         margin-right: 6px;
+        max-width: 24px;
+        max-height: 24px;
     }
     &.secondary {
         background-color: $vr-light-blue;

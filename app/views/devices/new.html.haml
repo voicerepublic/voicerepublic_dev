@@ -57,20 +57,27 @@
               %span= t('.box_count', count: @devices.survey["Streambox INGSOC"]).html_safe
             %span .
             %span=t('.method2',count: @devices.count).html_safe
+        -# GRAPHICS:
         .row.clearfix.graphics
-          -if @devices.survey["vr-restream"]
-            = render "shared/unplugged_box"
-          -if @devices.survey["Streambox INGSOC"]
-            = render "shared/close_apps"
-          .graphic.interstitial
-            +
-          -if @devices.survey["vr-restream"]
-            = render "shared/plugged_box"
+          .row.clearfix
+            -if @devices.survey["vr-restream"]
+              .medium-3.columns
+                = render "shared/unplugged_box"
+            -if @devices.survey["Streambox INGSOC"]
+              .medium-3.columns
+                = render "shared/close_apps"
+            .graphic.interstitial.medium-3.column
+              +
+            -if @devices.survey["vr-restream"]
+              .medium-3.columns.end
+                = render "shared/plugged_box"
           -if @devices.survey["vr-restream"] && @devices.survey["Streambox INGSOC"]
-            .graphic.interstitial
-              or
+            .row
+              .graphic.interstitial.text-center.border-banner.no-pad
+                or
           -if @devices.survey["Streambox INGSOC"]
-            = render "shared/open_app"
+            .medium-4.columns.medium-offset-4
+              = render "shared/open_app"
 
         = link_to url_for(params), class: 'button hollow btn-hover-green' do
           = naked_icon 'replay'
