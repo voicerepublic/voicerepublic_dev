@@ -37,7 +37,7 @@ GIT
 
 GIT
   remote: git@github.com:munen/fidelity.git
-  revision: b3a9d86fca94556b763733701a93a42fe9cee736
+  revision: 5bf61a1014dca11e4ab3d0650f915c1bda1538c6
   specs:
     fidelity (1.0.1)
       auphonic
@@ -596,7 +596,7 @@ GEM
     thread_safe (0.3.5)
     tilt (2.0.2)
     timecop (0.8.0)
-    tins (1.12.0)
+    tins (1.13.0)
     trickery (0.0.8)
       systemu
     trollop (2.1.2)
