@@ -42,7 +42,7 @@ audio {
 }
 
 .loading-message {
-    height: 100vh;
+    height: 90vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -50,6 +50,14 @@ audio {
         width: 60px;
         height: 60px;
         margin-bottom: 24px;
+    }
+    p.loading {
+        color: $vr-beige;
+  text-transform: uppercase;
+  font-size: .8rem;
+  letter-spacing: .1rem;
+  margin-bottom: 6px;
+  font-weight: 100;
     }
     h1 {
         font-size: rem-calc(18);

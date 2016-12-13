@@ -7,7 +7,7 @@ en:
 
         %{started_at} - %{ended_at}
     show:
-      loading: Loading The Talk
+      loading: Loading
       sprecherin: "SprecherIn: "
       comments: Comments
       favorite: Favorite
