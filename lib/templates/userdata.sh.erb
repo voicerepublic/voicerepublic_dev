@@ -3,7 +3,7 @@
 # on ec2 this file can be found in
 # /var/lib/cloud/instance/scripts/part-001
 
-# this redirect everything to a log
+# this redirects everything to a log
 exec > /tmp/part-001.log 2>&1
 
 STORAGE=<%= recordings_path %>
@@ -29,8 +29,8 @@ if [ -f /sys/hypervisor/uuid ] && [ `head -c 3 /sys/hypervisor/uuid` == ec2 ]; t
   # ssh admin@<ip> cat INFO.txt
   cat > /home/admin/INFO.txt <<EOF
 Host:  <%= %x[hostname].chomp %>
-Venue: <%= %x[name] %>
-User:  <%= %x[user.name] %>
+Venue: <%= name %>
+User:  <%= user.name %>
 EOF
 
   cat >> /home/admin/.ssh/authorized_keys<<EOF
@@ -51,6 +51,12 @@ cat >$ENV_LIST <<EOF
 <%= env_list %>
 PUBLIC_IP=$PUBLIC_IP
 EOF
+
+# generate a new self signed key which is valid for 2 days
+openssl req -new -newkey rsa:2048 -days 2 -nodes -x509 \
+        -keyout $STORAGE/$PREFIX/icecast.key \
+        -out $STORAGE/$PREFIX/icecast.crt \
+        -subj "/C=CH/ST=Zürich/L=Zürich/O=Voice Republic Media AG/OU=R&D/CN=voicerepublic.com"
 
 # production
 docker run \
