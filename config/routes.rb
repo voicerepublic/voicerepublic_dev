@@ -8,6 +8,8 @@ Rails.application.routes.draw do
 
   get '/pages/outdated_browser', to: redirect('/')
 
+  get '/leipziger-buchmesse', to: redirect('https://voicerepublic.com/users/leipziger-buchmesse')
+
   # a bunch of redirects
   scope 'r' do
     get 'md',       to: redirect(blog_url('/how-to-format-text-with-markdown'))
