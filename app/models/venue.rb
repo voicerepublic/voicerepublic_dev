@@ -463,6 +463,7 @@ class Venue < ActiveRecord::Base
   end
 
   def provision_production
+    logger.info "Running EC2 instance with " + provisioning_parameters.to_yaml
     response = EC2.run_instances(*provisioning_parameters)
     self.instance_id = response.body["instancesSet"].first["instanceId"]
 
