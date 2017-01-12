@@ -95,6 +95,15 @@ make install
 cd
 ```
 
+```
+# generate a snake oil certificate
+
+openssl req -new -newkey rsa:2048 -days 2 -nodes -x509 -keyout icecast.pem -out icecast.pem -subj "/C=CH/ST=Zürich/L=Zürich/O=Voice Republic Media AG/OU=R&D/CN=voicerepublic.com"
+
+
+```
+
+
 Pull an AMI. Done. Add the AMIs id to `settings.yml`.
 
 

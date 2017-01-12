@@ -58,6 +58,7 @@ cat <<EOF
         <port>8000</port>
         <!-- <bind-address>127.0.0.1</bind-address> -->
         <!-- <shoutcast-mount>/stream</shoutcast-mount> -->
+        <ssl>1</ssl>
     </listen-socket>
     <!--
     <listen-socket>
@@ -165,6 +166,8 @@ cat <<EOF
           -->
         <!--<alias source="/" dest="/status.xsl"/>-->
         <alias source="/" dest="/redirect.html"/>
+
+        <ssl-certificate>/share/icecast.key</ssl-certificate>
     </paths>
 
     <logging>
