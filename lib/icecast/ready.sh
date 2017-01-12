@@ -4,7 +4,7 @@ echo `date` ready >> /share/actions.log
 
 JSON='{"public_ip_address":"'$PUBLIC_IP'"}'
 
-COMMAND="curl -X POST --data '$JSON' $CALLBACK_URL/ready/$CLIENT_TOKEN"
+COMMAND="curl -X POST --data $JSON $CALLBACK_URL/ready/$CLIENT_TOKEN"
 
 N=0
 until [ $N -ge 10 ]
