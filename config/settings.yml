@@ -151,11 +151,12 @@ icecast:
     #image: ami-d422cebb (icebox 3.2 - bad)
     #image: ami-d822ceb7 (icebox 3.3)
     #image: ami-b31cf3dc (icebox 3.4 - renamed endpoints)
-    #image: ami-b81cf3d7 (icebox 3.5 - update icecast to 2.4.2 + cors, defunct)
+    #image: ami-b81cf3d7 (icebox 3.5 - update icecast to 2.4.2 + cors, DEFUNCT)
     #image: ami-f21bf49d (icebox 3.6 - fixed ready)
-    #image: ami-63814d0c (icebox 3.7 - https, curl retries, upgrade, docker 1.12)
-    #image: ami-a2804ccd (icebox 3.8 - cleanup)
-    image: ami-a2804ccd
+    #image: ami-63814d0c (icebox 3.7 - https, curl retry, upgr., docker1.12, DEFUNKT)
+    #image: ami-a2804ccd (icebox 3.8 - cleanup DEFUNKT)
+    #image: ami-c1814dae (icebox 3.9)
+    image: ami-c1814dae
     default_instance_type: t2.micro
     security_group: Icecast Servers
     key_name: phil-ffm

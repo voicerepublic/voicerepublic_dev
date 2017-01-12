@@ -157,8 +157,7 @@ docker build -t branch14/icecast2 icecast/.
 rm /etc/passwd-s3fs
 rm /root/env.list
 rm /tmp/part-001.log
-rm /var/lib/cloud/instance/scripts/part-001
-
+rm -rf /var/lib/cloud/*
 ```
 
 More Notes
