@@ -155,8 +155,9 @@ icecast:
     #image: ami-f21bf49d (icebox 3.6 - fixed ready)
     #image: ami-63814d0c (icebox 3.7 - https, curl retry, upgr., docker1.12, DEFUNKT)
     #image: ami-a2804ccd (icebox 3.8 - cleanup DEFUNKT)
-    #image: ami-c1814dae (icebox 3.9)
-    image: ami-c1814dae
+    #image: ami-c1814dae (icebox 3.9 - DEFUNKT)
+    #image: ami-31834f5e (icebox 3.10)
+    image: ami-31834f5e
     default_instance_type: t2.micro
     security_group: Icecast Servers
     key_name: phil-ffm
