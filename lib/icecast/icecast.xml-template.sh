@@ -167,7 +167,7 @@ cat <<EOF
         <!--<alias source="/" dest="/status.xsl"/>-->
         <alias source="/" dest="/redirect.html"/>
 
-        <ssl-certificate>/share/icecast.key</ssl-certificate>
+        <ssl-certificate>/share/icecast.pem</ssl-certificate>
     </paths>
 
     <logging>
