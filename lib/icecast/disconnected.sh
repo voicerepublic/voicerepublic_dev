@@ -2,17 +2,17 @@
 
 echo `date` disconnected >> /share/actions.log
 
-command="curl -X POST $CALLBACK_URL/disconnect/$CLIENT_TOKEN"
+COMMAND="curl -X POST $CALLBACK_URL/disconnect/$CLIENT_TOKEN"
 
-n=0
-until [ $n -ge 10 ]
+N=0
+until [ $N -ge 10 ]
 do
-    $command && break
-    echo `date` "failed to report disconnected, retry" >> /share/actions.log
-    n=$[$n+1]
+    $COMMAND && break
+    N=$[$N+1]
+    echo `date` "failed to report disconnected, retry $N" >> /share/actions.log
 done
 
-if [ n = 10 ]
+if [ $N = 10 ]
 then
     echo `date` "failed to report disconnected, giving up" >> /share/actions.log
 fi
@@ -23,14 +23,14 @@ sync
 
 echo `date` synced >> /share/actions.log
 
-command="curl -X POST $CALLBACK_URL/synced/$CLIENT_TOKEN"
+COMMAND="curl -X POST $CALLBACK_URL/synced/$CLIENT_TOKEN"
 
-n=0
-until [ $n -ge 10 ]
+N=0
+until [ $N -ge 10 ]
 do
-    $command && exit
-    echo `date` "failed to report synced, retry" >> /share/actions.log
-    n=$[$n+1]
+    $COMMAND && exit
+    N=$[$N+1]
+    echo `date` "failed to report synced, retry $N" >> /share/actions.log
 done
 
 echo `date` "failed to report synced, giving up" >> /share/actions.log
