@@ -2,9 +2,12 @@
 
 # on ec2 this file can be found in
 # /var/lib/cloud/instance/scripts/part-001
+# now seems to have moved to
+# /var/lib/cloud/instance/user-data.txt
 
 # this redirects everything to a log
 exec > /tmp/part-001.log 2>&1
+
 
 STORAGE=<%= recordings_path %>
 PREFIX=<%= slug %>
