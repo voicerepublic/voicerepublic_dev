@@ -53,18 +53,14 @@ cat <<EOF
     listings. -->
     <hostname>localhost</hostname>
 
-    <!-- You may have multiple <listener> elements -->
     <listen-socket>
-        <port>8000</port>
-        <!-- <bind-address>127.0.0.1</bind-address> -->
-        <!-- <shoutcast-mount>/stream</shoutcast-mount> -->
+        <port>8080</port>
+    </listen-socket>
+
+    <listen-socket>
+        <port>8443</port>
         <ssl>1</ssl>
     </listen-socket>
-    <!--
-    <listen-socket>
-        <port>8001</port>
-    </listen-socket>
-    -->
 
     <!--<master-server>127.0.0.1</master-server>-->
     <!--<master-server-port>8001</master-server-port>-->

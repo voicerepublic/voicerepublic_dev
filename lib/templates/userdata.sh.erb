@@ -58,7 +58,7 @@ PUBLIC_IP=$PUBLIC_IP
 EOF
 
 # generate a new self signed key which is valid for 2 days
-openssl req -new -newkey rsa:2048 -days 2 -nodes -x509 \
+openssl req -new -newkey rsa:2048 -days 365 -nodes -x509 \
         -keyout $STORAGE/$PREFIX/icecast.pem \
         -out $STORAGE/$PREFIX/icecast.pem \
         -subj "/C=CH/ST=Zürich/L=Zürich/O=Voice Republic Media AG/OU=R&D/CN=voicerepublic.com"
@@ -69,7 +69,8 @@ docker run \
        --name=icecast \
        --env-file=$ENV_LIST \
        --expose=8000 \
-       --publish=<%= port %>:8000 \
+       --publish=80:8080 \
+       --publish=443:8443 \
        --restart=unless-stopped \
        --volume=$STORAGE/$PREFIX:/share \
        branch14/icecast2
