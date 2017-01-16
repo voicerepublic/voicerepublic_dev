@@ -61,7 +61,7 @@ EOF
 openssl req -new -newkey rsa:2048 -days 365 -nodes -x509 \
         -keyout $STORAGE/$PREFIX/icecast.pem \
         -out $STORAGE/$PREFIX/icecast.pem \
-        -subj "/C=CH/ST=Zürich/L=Zürich/O=Voice Republic Media AG/OU=R&D/CN=voicerepublic.com"
+        -subj "/C=CH/ST=Zurich/L=Zurich/O=Voice Republic Media AG/OU=R&D/CN=voicerepublic.com"
 
 # production
 docker run \
