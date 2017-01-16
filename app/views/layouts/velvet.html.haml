@@ -24,28 +24,16 @@
       .top-bar-right
         %ul.dropdown.menu{"data-dropdown-menu" => "", "data-disable-hover" => "true", "data-click-open" => "true"}
           %li.can-hide.hide-for-small-only
-            = link_to explore_path, class: 'qa-explore' do
-              = t('.explore')
-          - if user_signed_in?
-            %li.can-hide.hide-for-small-only
-              = link_to venues_path do
-                = t('.stream_now')
-          - else
-            %li.can-hide.hide-for-small-only
-              = link_to page_path action: 'publish' do
-                = t('.publish')
-            -# TODO: Add this back in someday?
-              %ul.submenu.menu.vertical{"data-submenu" => ""}
-                %li.drop-title= t('.categories')
-                - TagBundle.category.promoted.each do |category|
-                  %li
-                    = link_to explore_path(filter: {category: category.id}) do
-                      = category.title
-                %li.divider
-                -# TODO
-                -# %li= link_to t('.listen'), page_path('listen')
-                %li
-                  = link_to t('.explore'), explore_path
+            = link_to explore_path, class: 'qa-explore top-link-with-icon' do
+              = naked_icon "headphones"
+              = t('.listen_to_talks')
+          %li.can-hide.hide-for-small-only
+            - url = new_talk_path
+            - url = venues_path if user_signed_in? and current_user.talks.prelive.any?
+            = link_to url, class: 'top-link-with-icon' do
+              = naked_icon "megaphone"
+              = t('.publish')
+          
           -# TODO
           -# %li.can-hide= link_to t('.publish'), page_path('publish')
           - if !current_user
