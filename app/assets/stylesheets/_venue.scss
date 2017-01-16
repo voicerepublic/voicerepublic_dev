@@ -21,9 +21,6 @@ $success-color: #60bd70;
     padding: 0;
 }
 
-
-
-
 .instruction-container {
     position: fixed;
     top: 0;
@@ -47,10 +44,10 @@ $success-color: #60bd70;
     z-index: -1;
     cursor: pointer;
 }
+
 a.help-link {
     font-weight: 700;
     text-decoration: underline;
-
 }
 
 #instructions, #talk-modal {
@@ -58,15 +55,14 @@ a.help-link {
     padding: 24px;
     color: white;
     position: relative;
-    @include breakpoint(medium){
-        position:relative;
+    @include breakpoint(medium) {
+        position: relative;
         height: auto;
-
-            h2 {
-        font-size: rem-calc(18);
+        h2 {
+            font-size: rem-calc(18);
+        }
     }
 
-    }
     h2 {
         font-size: rem-calc(16);
         margin-top: 6px;
@@ -90,10 +86,9 @@ a.help-link {
         color: white;
         margin-bottom: 12px;
     }
-
     table {
         width: auto;
-        margin:0 auto;
+        margin: 0 auto;
         margin-bottom: 1em;
         background: none;
         tbody {
@@ -108,15 +103,13 @@ a.help-link {
                     font-weight: 700;
                     border-right: 1px solid white;
                     &:after {
-                        content: ":"
+                        content: ":";
                     }
                 }
             }
         }
     }
 }
-
-
 
 .venues-index {
     background: url(../../images/background/erosion.jpg) no-repeat 50% 25%;
@@ -296,17 +289,18 @@ svg {
 }
 
 #mobile-nav {
-    @include breakpoint(medium){
+    @include breakpoint(medium) {
         position: absolute;
-        right:0;
+        right: 0;
         top: 48px;
-        z-index: 999;        
+        z-index: 999;
     }
 
     li a:hover {
-        background: darken($vr-blue,5%);
+        background: darken($vr-blue, 5%);
     }
 }
+
 #helpbar {
     margin: 0;
     padding: 24px;
@@ -325,12 +319,10 @@ svg {
         margin: 0 auto;
         text-align: left;
         color: $talk-dark;
-
         h3 {
             text-transform: uppercase;
             letter-spacing: .1rem;
         }
-
         h5 {
             text-transform: uppercase;
             font-family: $body-font-family;
@@ -490,16 +482,9 @@ hr {
     z-index: 900;
     display: flex;
     padding: 0 15px;
-
     &.nopush {
-    background: repeating-linear-gradient(
-  -45deg,
-  $talk-dark,
-  $talk-dark 10px,
-  $topbar-dark 10px,
-  $topbar-dark 20px
-)
-}
+        background: repeating-linear-gradient(-45deg, $talk-dark, $talk-dark 10px, $topbar-dark 10px, $topbar-dark 20px);
+    }
 }
 
 #back-arrow, #dropdown, #list-toggle {
@@ -533,11 +518,23 @@ hr {
     padding: 11px 0 0 0;
 }
 
+#device-button {
+    border-radius: 2px;
+    height: 34px;
+    text-align: left;
+    svg {
+        width: 14px;
+        height: 14px;
+    }
+}
+
 #toggles .button {
     border: none;
     margin: 0;
+    border-radius: 2px;
+    box-shadow: 0 1px 2px rgba($talk-dark, 0.2);
     &:hover {
-        background: none;
+        background: rgba(white, 0.5);
         color: $success-color;
     }
     svg {
@@ -545,39 +542,31 @@ hr {
         width: 18px;
         height: 18px;
     }
-    // &:last-child {
-    //     svg {
-    //         margin-right: 0;
-    //         margin-left: 6px;
-    //     }
-    // }
-    &.device-button {
-        // margin-left: -100px;
-        border: 1px solid $charcoal;
-        border-radius: 2px;
-        text-align: left;
-        // text-transform: none;
-        &:hover {
-            border-color: $success-color;
+    &.active {
+        background: none;
+        color: $success-color;
+        &:after {
+            content: "Keep this page open";
+            color: $oil;
+            background: $vr-yellow;
+            display: block;
+            position: absolute;
+            padding: 6px 7px;
+            border-radius: 3px;
+            @include box-shadow(1px, 0.3);
+            margin-top: 14px;
+            margin-left: -10px;
+            pointer-events: none;
         }
     }
-
-    &.active {
-    background:none;
-    color:$success-color;
-    &:after {
-        content:"Keep this page open";
-        color: $oil;
-        background:$vr-yellow;
-        display:block;
-        position:absolute;
-        padding: 6px 7px;
-        border-radius: 3px;
-        @include box-shadow(1px, 0.3);
-        margin-top: 6px;
-        pointer-events:none;
+    &#device-label {
+        box-shadow: none;
+        pointer-events: none;
+        height: 30px;
+        svg {
+            margin-right: 6px;
+        }
     }
-}
 }
 
 #talkbar {
@@ -835,11 +824,13 @@ hr {
             width: 33.3333%;
         }
     }
-.itemwrapper {    svg {
-        fill: currentColor;
-        width: 60px;
-        height: 60px;
-    }}
+    .itemwrapper {
+        svg {
+            fill: currentColor;
+            width: 60px;
+            height: 60px;
+        }
+    }
     .back-close {
         margin-bottom: 12px;
         .close-btn {
@@ -1184,18 +1175,17 @@ svg#logo {
 }
 
 .listener-info {
-    margin-left:12px;
-    background: rgba($topbar-dark,.5);
+    margin-left: 12px;
+    background: rgba($topbar-dark, 0.5);
     color: $ghost;
-      font-size: 12px;
-  padding: 4px 8px;
-  border-radius: 12px;
+    font-size: 12px;
+    padding: 4px 8px;
+    border-radius: 12px;
     svg {
         width: 12px;
         height: 12px;
         vertical-align: middle;
         margin-right: 2px;
-        margin-top:-3px;
+        margin-top: -3px;
     }
 }
-
