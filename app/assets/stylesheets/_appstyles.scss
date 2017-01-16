@@ -2,6 +2,17 @@ body.pages-icons {
     background: #f9f9f9;
 }
 
+.top-link-with-icon {
+    svg {
+        fill: currentColor;
+        width: 18px;
+        height: 18px;
+        vertical-align: middle;
+        margin-right: 6px;
+
+    }
+}
+
 #icon-cheatsheet {
     padding: 24px;
     h1 {
