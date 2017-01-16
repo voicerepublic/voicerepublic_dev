@@ -19,7 +19,8 @@ RUN apt-get clean
 RUN mkdir /share && \
     chown -R icecast2:icecast /share
 
-EXPOSE 8000
+EXPOSE 8080
+EXPOSE 8443
 
 VOLUME /share
 
