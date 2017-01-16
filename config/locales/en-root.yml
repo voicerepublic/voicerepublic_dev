@@ -3,10 +3,17 @@ en:
   root:
     index:
       lead: "Take part in the most up-to-date conversations happening today. Exclusive lectures and discussions with thought leaders in the fields of"
+      we_specialize: |
+        We specialize in professional
+        live audio streaming &
+        archiving of events.
+      listen_to: |
+        Listen to exclusive lectures
+        and discussions with thought leaders.
       feed_title: Featured talks of Voice Republic
       publish: Publish
       listen: Listen
-      listen_now: Listen Now
+      listen_now: Recommended Talks
       lead_interstitial: |
         Listen to rich discussions and presentations on topics that interest you.
         A wide range of professional content is available for free in the Voice Republic Archive:
