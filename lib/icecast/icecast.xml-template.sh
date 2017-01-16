@@ -131,16 +131,13 @@ cat <<EOF
       <public>0</public>
     </mount>
 
+    <!-- * could be replaced with "voicerepublic.com, staging.voicerepublic.com" -->
+
     <http-headers>
-      <!-- could be replaced with "voicerepublic.com, staging.voicerepublic.com" -->
-      <header name="Access-Control-Allow-Origin"
-              value="*" />
-      <header name="Access-Control-Allow-Headers"
-              value="Origin, Accept, X-Requested-With, Content-Type, If-Modified-Since" />
-      <header name="Access-Control-Allow-Methods"
-              value="GET, OPTIONS, HEAD" />
-      <header name="X-Robots-Tag"
-              value="noindex, nofollow, noarchive" />
+      <header name="Access-Control-Allow-Origin" value="*" />
+      <header name="Access-Control-Allow-Headers" value="Origin, Accept, X-Requested-With, Content-Type, If-Modified-Since" />
+      <header name="Access-Control-Allow-Methods" value="GET, OPTIONS, HEAD" />
+      <header name="X-Robots-Tag" value="noindex, nofollow, noarchive" />
     </http-headers>
 
     <fileserve>1</fileserve>
