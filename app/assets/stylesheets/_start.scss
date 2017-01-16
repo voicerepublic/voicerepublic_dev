@@ -208,7 +208,6 @@ h1, h2 {
 .talk-collection, .talk-teasers {
     margin-bottom: 48px;
 }
-
 #claim {
     text-align: center;
     padding-bottom: 96px;
@@ -219,6 +218,9 @@ h1, h2 {
         position:relative;
         z-index: 100;
     }
+.feature {
+    padding-top:36px;
+}
     .down-arrow {
         width: 28px;
         height: 28px;
@@ -364,7 +366,7 @@ h1, h2 {
 #publishers {
     #publisher-collection {
         .publisher {
-            padding: 48px 24px;
+            padding: 24px 12px;
             h4 {
                 font-family: $body-font-family;
                 font-weight: 700;
