@@ -430,7 +430,7 @@ en:
       test_talk: 'Test A Talk'
       logout: Log Out
       stream_now: Stream Now
-      streamboxx_recordings: StreamBoxx Recordings
+      streamboxx_recordings: My Recordings
 
 
   plain_mailer:

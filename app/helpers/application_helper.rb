@@ -27,6 +27,8 @@ module ApplicationHelper
     return false if controller_action == 'explore-index'
     return false if controller_action == 'users-edit'
     return false if controller_action == 'venues-show'
+    return false if controller_action == 'talks-new'
+    return false if controller_action == 'uploads-new'
     true
   end
 

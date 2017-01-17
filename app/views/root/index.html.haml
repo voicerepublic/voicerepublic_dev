@@ -9,9 +9,9 @@
     -##particles
     .row.clearfix.claim-content
       %header.small-12.small-push-12.columns
-        .hide-for-small-only
-          = render 'shared/home_announcement'
+        %h1= t('.voice_republic')
         = s('.title')
+        = render 'shared/home_announcement'
       .container.medium-10.medium-offset-1.large-8.large-offset-2.columns
         - if !current_user
           = link_to t('.login'), new_user_session_path, class: 'hide-for-medium button hollow btn-light-blue btn-hover-yellow'
@@ -19,21 +19,20 @@
         .medium-6.columns.feature
           %p.lead
             = icon_tag 'megaphone'
-            = t('.we_specialize')
-          = link_to page_path action: 'publish' do
+            = t('.we_specialize').html_safe
+          - url = new_talk_path
+          - url = venues_path if user_signed_in? and current_user.talks.prelive.any?
+          = link_to url do
             %button.button.hollow.btn-white.btn-hover-yellow
               = t('.publish')
         .medium-6.columns.feature
           %p.lead              
             = icon_tag 'headphones'
-            = t('.listen_to')
+            = t('.listen_to').html_safe
           = link_to explore_path do
             %button.button.hollow.btn-white.btn-hover-yellow
               = t('.listen')
-    .row.clearfix
-      .show-for-small-only
-        %p.top-24
-          = render 'shared/home_announcement'
+    
 
   -# PUBLISHERS
   %section#publishers.white

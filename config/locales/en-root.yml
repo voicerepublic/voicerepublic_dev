@@ -6,13 +6,13 @@ en:
       we_specialize: |
         We specialize in professional
         live audio streaming &
-        archiving of events.
+        archiving of events. <a href="pages/publish">Learn more &raquo;</a>
       listen_to: |
         Listen to exclusive lectures
-        and discussions with thought leaders.
+        and discussions with thought leaders. <a href="pages/listen">Learn more &raquo;</a>
       feed_title: Featured talks of Voice Republic
-      publish: Publish
-      listen: Listen
+      publish: Publish Now
+      listen: Listen Now
       listen_now: Recommended Talks
       lead_interstitial: |
         Listen to rich discussions and presentations on topics that interest you.
