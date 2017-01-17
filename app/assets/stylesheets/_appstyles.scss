@@ -2,7 +2,8 @@ body.pages-icons {
     background: #f9f9f9;
 }
 
-.top-link-with-icon {
+.menu > li > a.top-link-with-icon {
+    line-height: 2;
     svg {
         fill: currentColor;
         width: 18px;
