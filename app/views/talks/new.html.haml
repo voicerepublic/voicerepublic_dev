@@ -1,5 +1,8 @@
+- render_footer = false
 - content_for :title do
   = t('.title')
+
+
 
 - form_opts = { 'ng-controller' => 'FormController' }
 = simple_form_for(@talk, html: form_opts) do |f|
