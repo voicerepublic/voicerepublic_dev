@@ -15,7 +15,7 @@
           %li.logo.show-for-medium
             = link_to '/' do
               %img{:src => "/images/logos/vr_red.svg", :width => "60"}/
-              %span.show-for-large-up VOICE REPUBLIC
+              %span.show-for-large VOICE REPUBLIC
           %li#mobile-logo.logo.show-for-small-only
             %a
               %img{:src => "/images/logos/vr_red.svg", :width => "60"}/
@@ -33,7 +33,12 @@
             = link_to url, class: 'top-link-with-icon' do
               = naked_icon "megaphone"
               = t('.publish')
-          
+          %li.can-hide.hide-for-small-only.hide-for-medium-only
+            %a{:href => "https://blog.voicerepublic.com"}
+              = t('.about')
+          %li.can-hide.hide-for-small-only.hide-for-medium-only
+            = link_to page_path('services') do
+              = t('.products_services')
           -# TODO
           -# %li.can-hide= link_to t('.publish'), page_path('publish')
           - if !current_user
@@ -76,13 +81,14 @@
           %li= link_to t('.home'), root_path
         - if !current_page?(explore_path)
           %li= link_to t('.explore_the_archive'), explore_path
+        %li= link_to t('.publish'), publish_talk_path
         - if current_user
           %li= link_to t('.my_profile'), current_user
+          %li= link_to t('.streamboxx_recordings'), devices_path
         - if !current_user
           %li= link_to t('.login'), new_user_session_path
           %li= link_to t('.sign_up'), new_user_registration_path
 
-        %li= link_to t('.create_a_talk'), new_talk_path
         -#%li= link_to t('.pricing'), purchases_path
         %li
           - if current_user
