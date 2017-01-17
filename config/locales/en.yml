@@ -7,6 +7,8 @@ en:
   pages:
     outdated_browser:
       oops: Oops!
+    publish_talk:
+      how_would_you_like_to_publish: How would you like to publish?
     publish:
       pricing: Pricing
       start_live_stream: "Start A Live Stream &raquo;"

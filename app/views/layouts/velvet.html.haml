@@ -28,7 +28,7 @@
               = naked_icon "headphones"
               = t('.listen_to_talks')
           %li.can-hide.hide-for-small-only
-            - url = new_talk_path
+            - url = publish_talk_path
             - url = venues_path if user_signed_in? and current_user.talks.prelive.any?
             = link_to url, class: 'top-link-with-icon' do
               = naked_icon "megaphone"
