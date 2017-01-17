@@ -1,0 +1,16 @@
+.row.clearfix#talk-selector
+  %h1.text-center
+    = t('.how_would_you_like_to_publish')
+  %ul
+    %li 
+      = link_to new_talk_path(talk: {dryrun: true}) do
+        = naked_icon "beaker" 
+        test a talk
+    %li 
+      %a 
+        = naked_icon "cloud-upload" 
+        upload a talk
+    %li 
+      %a 
+        = naked_icon "fireworks" 
+        go live

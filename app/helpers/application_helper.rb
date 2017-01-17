@@ -29,6 +29,7 @@ module ApplicationHelper
     return false if controller_action == 'venues-show'
     return false if controller_action == 'talks-new'
     return false if controller_action == 'uploads-new'
+    return false if controller_action == 'pages-publish_talk'
     true
   end
 
