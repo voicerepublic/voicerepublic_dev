@@ -84,6 +84,11 @@ en:
         welcome_and_see_you_soon: >-
           Welcome! Your next talk is not for a long time. You can
           create another talk [link], or come back later.
+        welcome_requesting_availability: >-
+          Welcome! Your next talk starts soon. Let me quickly request
+          availability of a dedicated server for you.
+        requesting_availability: >-
+          Requesting availability...
         welcome_launch_server: >-
           Welcome! It's time to launch a dedicated server for this
           stage. Click the green button to do so now.
@@ -93,6 +98,9 @@ en:
         welcome_launch_server_inactive_for_long: >-
           Still there? Your Talk needs a server. Launch it now for the
           win!
+        server_now_available: >-
+          It's done. Your dedicated server is ready to be
+          launched. Click the green button to do so now.
         server_starting: >-
           Great! The server is firing up. This will only take a few
           minutes.
