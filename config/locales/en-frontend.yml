@@ -77,6 +77,72 @@ en:
           will have gaps. You might want to consider uploading a local
           backup recording afterwards.
 
+      message:
+        welcome_create_a_talk: >-
+          Welcome! Here's where you control your live streams. But
+          first, you'll need to create a talk [link].
+        welcome_and_see_you_soon: >-
+          Welcome! Your next talk is not for a long time. You can
+          create another talk [link], or come back later.
+        welcome_launch_server: >-
+          Welcome! It's time to launch a dedicated server for this
+          stage. Click the green button to do so now.
+        welcome_launch_server_inactive: >-
+          Would you like me to launch it for you? Yes
+          [launch-server-action] / No [does nothing]
+        welcome_launch_server_inactive_for_long: >-
+          Still there? Your Talk needs a server. Launch it now for the
+          win!
+        server_starting: >-
+          Great! The server is firing up. This will only take a few
+          minutes.
+        server_ready_select_source: >-
+          Your server is ready! Please choose streaming source for
+          your stream.
+        server_ready_source_preselected: >-
+          Your server is ready and connected to [name of audio
+          source]. Change streaming source [activate the wizard].
+        connecting: >-
+          Connecting to [name of source]
+        connected: >-
+          [name of source] is connected! You're now hearing what the
+          audience will hear during the live stream. The few seconds
+          of latency is normal.
+        connected_inactive: >-
+          Don't forget to click the green button to start the live
+          stream.
+        streaming: >-
+          You're on the air! Everyone on the Talk Page [link in new
+          tab] can hear this.
+        stopped_create_talk: >-
+          Ready to broadcast another live stream? Schedule another
+          Talk [create talk].
+        stopped_with_next_talk: >-
+          You can start streaming your next Talk now.
+        connecting_inactive: >-
+          I'm having trouble connecting to [source name]. Tip: try
+          reselecting the streaming source. Find help here
+          (http://blog.voicerepublic.com/support/troubleshooting-2?lang=en).
+        waiting_for_reconnect: >-
+          Oops, we lost you! Please check your internet
+          connection. Find help here
+          (http://blog.voicerepublic.com/support/troubleshooting-2?lang=en).
+        connected_again: >-
+          Phew! You're back.
+        continue_streaming: >-
+          Phew! You're back. You're still on the air.
+        talk_overdue: >-
+          Don't forget to push the green button to start you live
+          stream.
+        time_to_start_server: >-
+          Don't forget to start your server. Should I do it for you?
+          Yes [launch-server-action] / No [does nothing]
+        disconnecting_action_required: >-
+          You'll have to disconnect your streaming source for me to
+          continue.
+        disconnecting_please_wait: >-
+          Just a second... I'm disconnecting the streaming source.
+
       start_provisioning: Start Setup
 
       initially_connected: >-
