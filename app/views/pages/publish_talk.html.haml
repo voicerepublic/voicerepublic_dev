@@ -1,19 +1,28 @@
 .row.clearfix#talk-selector
   %h1.text-center
     = t('.how_would_you_like_to_publish')
+  %div.explain-text.medium-8.medium-offset-2.large-offset-3.columns.large-6
+    %p.text-center.publish-advice= t('.help').html_safe
   %ul
-    %li 
-      = link_to new_talk_path(talk: {dryrun: true}) do
-        = naked_icon "beaker" 
-        test a talk
     %li 
       %a 
         = naked_icon "cloud-upload" 
         upload a talk
+      %p.publish-advice
+        = t('.advice_upload')
+
     %li 
       %a 
-        = naked_icon "fireworks" 
-        go live
+        = naked_icon "clock" 
+        schedule live talk
+      %p.publish-advice
+        = t('.advice_live')
+    %li 
+      = link_to new_talk_path(talk: {dryrun: true}) do
+        = naked_icon "beaker" 
+        test a talk
+      %p.publish-advice
+        = t('.advice_test')
 
 .row.clearfix.text-center
   = link_to :back do

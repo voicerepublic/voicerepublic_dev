@@ -9,10 +9,14 @@ en:
       oops: Oops!
     publish_talk:
       how_would_you_like_to_publish: How would you like to publish?
+      upload_a_recording: "Upload A Recording &raquo;"
+      help: Voice Republic is a public archive for spoken word content. You can stream your Talk live, or upload a recording. Choose Test A Talk if you just want to see how it works.
+      advice_test: If you just want to test a talk...
+      advice_live: If you want to broadcast (stream) your event live...
+      advice_upload: If you have a recording you want to upload...
     publish:
       pricing: Pricing
       start_live_stream: "Start A Live Stream &raquo;"
-      upload_a_recording: "Upload A Recording &raquo;"
   all_categories: All Categories
   validation:
     bad_chars_in_slug: |
