@@ -37,11 +37,18 @@ body {
 
 #talk-selector {
 
+    .publish-advice {
+        margin-top: 24px;
+        color: rgba($talk-dark,.5);
+        margin-bottom: 36px;
+    }
+
     h1 {
         color: $talk-dark;
         text-transform: uppercase;
         font-size: 1.5rem;
         margin-top: 48px;
+        margin-bottom: 0;
     }
     svg {
         width: 36px;
@@ -79,7 +86,10 @@ body {
             transition: all .2s;
             &:hover {
                 background:rgba($talk-dark,.05);
-                border: 2px solid $talk-dark;
+                background: $success-color;
+                color: white;
+                border: 2px solid $success-color;
+                box-shadow: 0 2px 5px rgba($talk-dark,.2);
             }
         }
     }
