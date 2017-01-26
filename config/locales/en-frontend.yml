@@ -45,45 +45,14 @@ en:
         awaiting_stream: Awaiting connection...
         connected: Connected
         disconnected: Disconnected
-      explanation:
-        offline: >-
-          The stage is currently offline. The provisioning window
-          opens 90 minutes before a scheduled live stream. Please
-          setup your stage as soon as the window opens. This will give
-          you enough time to setup your audio signal and contributes
-          to smooth operations.
-
-        ready_to_provision: >-
-          The provisioning window is now open. The stage is still
-          offline. Please start the setup process now.
-
-        provisioning: >-
-          We started provisioning a streaming server just for
-          you. This will take a couple of minutes. This is a good time
-          to grab a coffee or take a walk. We will be right with you.
-
-        ready_to_connect: >-
-          Your streaming server is ready now. Please connect with the
-          streaming client of your choice. We've a couple of options
-          for you.
-
-        connected: >-
-          Aye, you're connected!
-
-        disconnected: >-
-          Ooops. It appears your stream did disconnect. Please
-          reconnect with all the same settings to continue
-          streaming. This also means that the recording on our server
-          will have gaps. You might want to consider uploading a local
-          backup recording afterwards.
-
       message:
         welcome_create_a_talk: >-
           Welcome! Here's where you control your live streams. But
-          first, you'll need to create a talk [link].
+          first, you'll need to %{create-a-talk}.
         welcome_and_see_you_soon: >-
           Welcome! Your next talk is not for a long time. You can
-          create another talk [link], or come back later.
+          create another by clicking your profile in the top right, or
+          come back later.
         welcome_requesting_availability: >-
           Welcome! Your next talk starts soon. Let me quickly request
           availability of a dedicated server for you.
@@ -93,8 +62,8 @@ en:
           Welcome! It's time to launch a dedicated server for this
           stage. Click the green button to do so now.
         welcome_launch_server_inactive: >-
-          Would you like me to launch it for you? Yes
-          [launch-server-action] / No [does nothing]
+          It's time to launch the streaming server. Click the green
+          button.
         welcome_launch_server_inactive_for_long: >-
           Still there? Your Talk needs a server. Launch it now for the
           win!
@@ -108,55 +77,46 @@ en:
           Your server is ready! Please choose streaming source for
           your stream.
         server_ready_source_preselected: >-
-          Your server is ready and connected to [name of audio
-          source]. Change streaming source [activate the wizard].
+          Your server is ready and a streaming source has already been
+          selected. To change streaming source click on change.
         connecting: >-
-          Connecting to [name of source]
+          Connecting to the selected streaming source...
         connected: >-
-          [name of source] is connected! You're now hearing what the
-          audience will hear during the live stream. The few seconds
-          of latency is normal.
+          You streaming source is connected! You're now hearing what
+          the audience will hear during the live stream. The few
+          seconds of latency is normal.
         connected_inactive: >-
           Don't forget to click the green button to start the live
           stream.
         streaming: >-
-          You're on the air! Everyone on the Talk Page [link in new
-          tab] can hear this.
+          You're on the air! Everyone on the talk's page can hear this.
         stopped_create_talk: >-
           Ready to broadcast another live stream? Schedule another
-          Talk [create talk].
+          Talk by clicking on your profile picture in to top right.
         stopped_with_next_talk: >-
           You can start streaming your next Talk now.
         connecting_inactive: >-
-          I'm having trouble connecting to [source name]. Tip: try
-          reselecting the streaming source. Find help here
-          (http://blog.voicerepublic.com/support/troubleshooting-2?lang=en).
+          I'm having trouble connecting to you streaming source. Tip: try
+          reselecting the streaming source. Or find help here
+          http://blog.voicerepublic.com/support/troubleshooting-2
         waiting_for_reconnect: >-
           Oops, we lost you! Please check your internet
-          connection. Find help here
-          (http://blog.voicerepublic.com/support/troubleshooting-2?lang=en).
+          connection. Please find help here
+          http://blog.voicerepublic.com/support/troubleshooting-2
         connected_again: >-
           Phew! You're back.
         continue_streaming: >-
-          Phew! You're back. You're still on the air.
+          Phew! You're back and You're still on the air.
         talk_overdue: >-
           Don't forget to push the green button to start you live
           stream.
         time_to_start_server: >-
-          Don't forget to start your server. Should I do it for you?
-          Yes [launch-server-action] / No [does nothing]
+          Don't forget to start your server
         disconnecting_action_required: >-
           You'll have to disconnect your streaming source for me to
           continue.
         disconnecting_please_wait: >-
           Just a second... I'm disconnecting the streaming source.
-
-      start_provisioning: Start Setup
-
-      initially_connected: >-
-        Congratulations, you made it. We detected your stream. From
-        here on it should be smooth sailing. Now you're ready to start
-        a your first Talk for today.
 
       # http://www.goodreads.com/quotes/tag/joy
       end_quotes:

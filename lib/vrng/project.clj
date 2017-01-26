@@ -5,7 +5,8 @@
             :url "http://voicerepublic.com"}
 
   :dependencies [[org.clojure/clojure "1.8.0" :scope "provided"]
-                 [org.clojure/clojurescript "1.8.51" :scope "provided"]
+                 [org.clojure/clojurescript "1.9.293"]
+                 ;;[org.clojure/clojurescript "1.8.51" :scope "provided"]
                  [reagent "0.5.1" :exclusions [cljsjs/react]]
                  [cljsjs/react-with-addons "0.13.3-0"]
                  [reagent-forms "0.5.15"]
@@ -15,7 +16,8 @@
                  [cljs-ajax "0.5.4"]
                  [cljsjs/moment "2.10.6-4"]
                  [cljsjs/selectize "0.12.1-1"]
-                 [reanimated "0.5.0"]]
+                 [reanimated "0.5.0"]
+                 [eval-soup "1.2.0"]]
 
   :plugins [[lein-cljsbuild "1.1.1"]]
 
