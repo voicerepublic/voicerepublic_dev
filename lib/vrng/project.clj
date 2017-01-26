@@ -16,8 +16,7 @@
                  [cljs-ajax "0.5.4"]
                  [cljsjs/moment "2.10.6-4"]
                  [cljsjs/selectize "0.12.1-1"]
-                 [reanimated "0.5.0"]
-                 [eval-soup "1.2.0"]]
+                 [reanimated "0.5.0"]]
 
   :plugins [[lein-cljsbuild "1.1.1"]]
 
