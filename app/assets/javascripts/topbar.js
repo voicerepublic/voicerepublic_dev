@@ -1,3 +1,7 @@
+if (insider) {
+    console.log("loading topbar.");
+}
+
 var $searchLoupe = $('#search-loupe a')
 var $searchContainer = $('.search-container')
 var $canHide = $('.can-hide')

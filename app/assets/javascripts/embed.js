@@ -13,6 +13,10 @@
 //
 // TODO move init of player out of here into a more generic place (component)
 
+if (insider) {
+    console.log("loading embed.");
+}
+
 function doThatThing() {
     $(".share-panel .share-btn a").click(function(e) {
   var social_network;

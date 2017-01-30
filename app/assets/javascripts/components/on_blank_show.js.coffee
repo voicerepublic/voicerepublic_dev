@@ -8,6 +8,8 @@
 # to be shown which matches the selector provided as the value of the
 # attribute.
 #
+console.log("loading on blank show.") if insider
+
 attribute = 'data-on-blank-show'
 
 initialize = (node, selector) ->

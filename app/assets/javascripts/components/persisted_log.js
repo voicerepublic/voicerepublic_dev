@@ -4,12 +4,13 @@
 // use an immediate function to wrap `console.log` in another function
 // which is assigned to `console.log` overwriting the original, which
 // is captured within the closure of the wrapping function as `_super`
-console.log = function(_super) {
-  return function() {
-    if(window.console.off) return;
-    _super.apply(this, arguments);
-  };
-}(console.log);
+
+//console.log = function(_super) {
+//  return function() {
+//    if(window.console.off) return;
+//    _super.apply(this, arguments);
+//  };
+//}(console.log);
 
 // // use the same move to store messages in some storage
 // console.log = function(_super, _storage) {
