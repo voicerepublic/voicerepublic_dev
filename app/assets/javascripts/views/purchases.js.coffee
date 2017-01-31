@@ -1,3 +1,5 @@
+console.log("loading purchases") if insider
+
 return unless $('.purchases-index')
 
 $('.purchases-index input[type=\'radio\']').click (e) ->

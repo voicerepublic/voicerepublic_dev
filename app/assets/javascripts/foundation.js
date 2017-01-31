@@ -26,3 +26,7 @@
 // require foundation.util.timerAndImageLoader.js
 //= require foundation.util.touch.js
 //= require foundation.util.triggers.js
+
+if (insider) {
+  console.log("loading foundation.");
+}

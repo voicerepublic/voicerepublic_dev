@@ -1,3 +1,5 @@
+console.log("loading lang select.") if insider
+
 # activates `select2` on dropdowns with class `languageSelect`
 selector = '.languageSelect'
 

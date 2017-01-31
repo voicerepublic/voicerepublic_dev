@@ -1,5 +1,9 @@
 'use strict';
 
+if (insider) {
+  console.log("loading shame.");
+}
+
 //auto close the flash message:
 $('.flash-msg').delay(3000).fadeOut(1000);
 

@@ -35,6 +35,8 @@
 #
 # * https://developers.google.com/analytics/devguides/collection/gajs/eventTrackerGuide
 #
+console.log("loading ga.") if insider
+
 attribute = 'data-ga-event'
 
 initialize = (element, value) ->
