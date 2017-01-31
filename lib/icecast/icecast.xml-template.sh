@@ -53,17 +53,14 @@ cat <<EOF
     listings. -->
     <hostname>localhost</hostname>
 
-    <!-- You may have multiple <listener> elements -->
     <listen-socket>
-        <port>8000</port>
-        <!-- <bind-address>127.0.0.1</bind-address> -->
-        <!-- <shoutcast-mount>/stream</shoutcast-mount> -->
+        <port>8080</port>
     </listen-socket>
-    <!--
+
     <listen-socket>
-        <port>8001</port>
+        <port>8443</port>
+        <ssl>1</ssl>
     </listen-socket>
-    -->
 
     <!--<master-server>127.0.0.1</master-server>-->
     <!--<master-server-port>8001</master-server-port>-->
@@ -134,8 +131,12 @@ cat <<EOF
       <public>0</public>
     </mount>
 
+    <!-- * could be replaced with "voicerepublic.com, staging.voicerepublic.com" -->
+
     <http-headers>
       <header name="Access-Control-Allow-Origin" value="*" />
+      <header name="Access-Control-Allow-Headers" value="Origin, Accept, X-Requested-With, Content-Type, If-Modified-Since" />
+      <header name="Access-Control-Allow-Methods" value="GET, OPTIONS, HEAD" />
       <header name="X-Robots-Tag" value="noindex, nofollow, noarchive" />
     </http-headers>
 
@@ -165,6 +166,8 @@ cat <<EOF
           -->
         <!--<alias source="/" dest="/status.xsl"/>-->
         <alias source="/" dest="/redirect.html"/>
+
+        <ssl-certificate>/share/icecast.pem</ssl-certificate>
     </paths>
 
     <logging>

@@ -5,15 +5,18 @@
             :url "http://voicerepublic.com"}
 
   :dependencies [[org.clojure/clojure "1.8.0" :scope "provided"]
-                 [org.clojure/clojurescript "1.8.51" :scope "provided"]
-                 [reagent "0.5.1"]
+                 [org.clojure/clojurescript "1.9.293"]
+                 ;;[org.clojure/clojurescript "1.8.51" :scope "provided"]
+                 [reagent "0.5.1" :exclusions [cljsjs/react]]
+                 [cljsjs/react-with-addons "0.13.3-0"]
                  [reagent-forms "0.5.15"]
                  [reagent-utils "0.1.7"]
                  [secretary "1.2.3"]
                  [org.clojure/core.incubator "0.1.3"]
                  [cljs-ajax "0.5.4"]
                  [cljsjs/moment "2.10.6-4"]
-                 [cljsjs/selectize "0.12.1-1"]]
+                 [cljsjs/selectize "0.12.1-1"]
+                 [reanimated "0.5.0"]]
 
   :plugins [[lein-cljsbuild "1.1.1"]]
 
@@ -28,7 +31,7 @@
 
   :cljsbuild {:builds {:app {:source-paths ["src"] ;; app -> dev
                              :figwheel {:on-jsload vrng.core/fig-reload
-                                        :websocket-host :server-ip
+                                        :websocket-host :server-hostname
                                         }
                              :compiler {:main vrng.core
                                         :output-to "public/js/app.js"

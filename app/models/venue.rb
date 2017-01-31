@@ -257,7 +257,8 @@ class Venue < ActiveRecord::Base
         series: {
           title: talk.series.title,
           url: talk.series.self_url
-        }
+        },
+        speakers: talk.speakers ? talk.speakers.split(",").map(&:strip) : []
       }
     end
   end
@@ -462,6 +463,7 @@ class Venue < ActiveRecord::Base
   end
 
   def provision_production
+    logger.info "Running EC2 instance with " + provisioning_parameters.to_yaml
     response = EC2.run_instances(*provisioning_parameters)
     self.instance_id = response.body["instancesSet"].first["instanceId"]
 

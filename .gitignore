@@ -65,3 +65,4 @@ Thumbs.db
 /vendor/assets/bower_components/
 /dragonfly.log
 /userdata.sh
+/.byebug_history
