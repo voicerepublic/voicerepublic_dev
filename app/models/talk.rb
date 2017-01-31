@@ -500,6 +500,13 @@ class Talk < ActiveRecord::Base
     end
   end
 
+  def data_for_embed
+    {
+      title: title,
+      image_url: image.thumb('116x116#').url
+    }
+  end
+
   private
 
   def process_description

@@ -1,4 +1,17 @@
+:javascript
+  var embeddedTalk = #{talk.data_for_embed.to_json};
+
+  var talk_id = #{talk.id}
+  var msg_tiny= "#{t('.msg_tiny')}"
+  var msg_xs= "#{t('.msg_xs')}"
+  var msg_small= "#{t('.msg_small')}"
+  var msg_medium= "#{t('.msg_medium')}"
+  var msg_large= "#{t('.msg_large')}"
+
 = render partial: 'shared/embed_svg'
+
+#embedded-player
+
 .embed-player.clearfix
   .image-box
     %img{src: talk.image.thumb('116x116#').url}
@@ -27,13 +40,3 @@
             = naked_icon 'logotype'
     .player-box
       = render partial: 'shared/velvet_player', locals: { talk: talk }
--#.mySizerm a
-
-
-:javascript
-  var talk_id = #{talk.id}
-  var msg_tiny= "#{t('.msg_tiny')}"
-  var msg_xs= "#{t('.msg_xs')}"
-  var msg_small= "#{t('.msg_small')}"
-  var msg_medium= "#{t('.msg_medium')}"
-  var msg_large= "#{t('.msg_large')}"
