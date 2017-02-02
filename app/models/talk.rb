@@ -503,7 +503,10 @@ class Talk < ActiveRecord::Base
   def data_for_embed
     {
       title: title,
-      image_url: image.thumb('116x116#').url
+      image_url: image.thumb('116x116#').url,
+      self_url: self_url,
+      user_title: user.name,
+      user_url: user.self_url
     }
   end
 

@@ -10,33 +10,35 @@
 
 = render partial: 'shared/embed_svg'
 
+%audio#audio
+
 #embedded-player
 
-.embed-player.clearfix
-  .image-box
-    %img{src: talk.image.thumb('116x116#').url}
-    - if talk.live?
-      .live-badge
-        %p.live= t('.live')
-  .content-box
-    .top-box.clearfix
-      .info-box
-        = link_to talk, target: '_blank' do
-          %h4.title
-            - if talk.live?
-              %span.live live
-            = talk.title
-        .meta-info
-          = link_to talk.user, target: '_blank', class: 'user' do
-            %span= talk.user.name
-          %span.date.sm-up= ' / ' + time_ago_in_words(talk.starts_at) + ' ago / '
-          %span.play-count.sm-up= human_count(talk.play_count) + ' ' + t('.plays')
-
-      .branding-box
-        = link_to talk, target: '_blank' do
-          .brand-logo
-            = naked_icon 'logo'
-          .brand-words
-            = naked_icon 'logotype'
-    .player-box
-      = render partial: 'shared/velvet_player', locals: { talk: talk }
+-# .embed-player.clearfix
+-#   .image-box
+-#     %img{src: talk.image.thumb('116x116#').url}
+-#     - if talk.live?
+-#       .live-badge
+-#         %p.live= t('.live')
+-#   .content-box
+-#     .top-box.clearfix
+-#       .info-box
+-#         = link_to talk, target: '_blank' do
+-#           %h4.title
+-#             - if talk.live?
+-#               %span.live live
+-#             = talk.title
+-#         .meta-info
+-#           = link_to talk.user, target: '_blank', class: 'user' do
+-#             %span= talk.user.name
+-#           %span.date.sm-up= ' / ' + time_ago_in_words(talk.starts_at) + ' ago / '
+-#           %span.play-count.sm-up= human_count(talk.play_count) + ' ' + t('.plays')
+-#
+-#       .branding-box
+-#         = link_to talk, target: '_blank' do
+-#           .brand-logo
+-#             = naked_icon 'logo'
+-#           .brand-words
+-#             = naked_icon 'logotype'
+-#     .player-box
+-#       = render partial: 'shared/velvet_player', locals: { talk: talk }
