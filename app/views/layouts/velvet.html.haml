@@ -26,7 +26,7 @@
           %li.can-hide.hide-for-small-only
             = link_to explore_path, class: 'qa-explore top-link-with-icon' do
               = naked_icon "headphones"
-              = t('.listen_to_talks')
+              = t('.listen')
           %li.can-hide.hide-for-small-only
             - url = publish_talk_path
             - url = venues_path if user_signed_in? and current_user.talks.prelive.any?

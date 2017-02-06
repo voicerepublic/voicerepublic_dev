@@ -65,14 +65,14 @@ body {
         @include menu-direction(horizontal);
        }
 
-       margin-bottom: 96px;
+       margin-bottom: 84px;
 
     }
     li {
 
         padding: 6px;
 
-        a {
+        a.big-button {
             background: rgba($talk-dark, 0.1);
             border:2px solid rgba($talk-dark,.1);
             text-align: center;
