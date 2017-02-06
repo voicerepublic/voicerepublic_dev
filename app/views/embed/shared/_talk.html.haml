@@ -1,44 +1,8 @@
 :javascript
   var initialSnapshot = #{talk.snapshot.to_json};
 
-  var talk_id = #{talk.id}
-  var msg_tiny= "#{t('.msg_tiny')}"
-  var msg_xs= "#{t('.msg_xs')}"
-  var msg_small= "#{t('.msg_small')}"
-  var msg_medium= "#{t('.msg_medium')}"
-  var msg_large= "#{t('.msg_large')}"
-
 = render partial: 'shared/embed_svg'
 
 %audio#audio
 
 #embedded-player
-
--# .embed-player.clearfix
--#   .image-box
--#     %img{src: talk.image.thumb('116x116#').url}
--#     - if talk.live?
--#       .live-badge
--#         %p.live= t('.live')
--#   .content-box
--#     .top-box.clearfix
--#       .info-box
--#         = link_to talk, target: '_blank' do
--#           %h4.title
--#             - if talk.live?
--#               %span.live live
--#             = talk.title
--#         .meta-info
--#           = link_to talk.user, target: '_blank', class: 'user' do
--#             %span= talk.user.name
--#           %span.date.sm-up= ' / ' + time_ago_in_words(talk.starts_at) + ' ago / '
--#           %span.play-count.sm-up= human_count(talk.play_count) + ' ' + t('.plays')
--#
--#       .branding-box
--#         = link_to talk, target: '_blank' do
--#           .brand-logo
--#             = naked_icon 'logo'
--#           .brand-words
--#             = naked_icon 'logotype'
--#     .player-box
--#       = render partial: 'shared/velvet_player', locals: { talk: talk }
