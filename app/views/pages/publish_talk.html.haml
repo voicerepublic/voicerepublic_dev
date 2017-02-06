@@ -5,24 +5,24 @@
     %p.text-center.publish-advice= t('.help').html_safe
   %ul
     %li 
-      %a 
+      %a.big-button 
         = naked_icon "cloud-upload" 
         upload a talk
       %p.publish-advice
-        = t('.advice_upload')
+        = t('.advice_upload').html_safe
 
     %li 
-      %a 
+      %a.big-button 
         = naked_icon "clock" 
         schedule live talk
       %p.publish-advice
-        = t('.advice_live')
+        = t('.advice_live').html_safe
     %li 
-      = link_to new_talk_path(talk: {dryrun: true}) do
+      = link_to new_talk_path(talk: {dryrun: true}), class: 'big-button' do
         = naked_icon "beaker" 
         test a talk
       %p.publish-advice
-        = t('.advice_test')
+        = t('.advice_test').html_safe
 
 .row.clearfix.text-center
   = link_to :back do
