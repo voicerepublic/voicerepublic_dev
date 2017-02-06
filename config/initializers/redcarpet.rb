@@ -26,8 +26,8 @@ class Redcarpet::Render::VRHTML < Redcarpet::Render::HTML
                "src='//www.youtube.com/embed/%s' " +
                "frameborder='0' allowfullscreen></iframe>"
 
-    patterns = [ /https?:\/\/www\.youtube\.com\/watch\?v=(\S+)/,
-                 /https?:\/\/youtu\.be\/(\S+)/ ]
+    patterns = [ /https?:\/\/www\.youtube\.com\/watch\?v=([^'"< ]+)/,
+                 /https?:\/\/youtu\.be\/([^'"< ]+)/ ]
 
     patterns.map do |pattern|
       if md = txt.match(pattern)

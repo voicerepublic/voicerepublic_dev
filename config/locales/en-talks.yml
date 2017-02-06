@@ -138,6 +138,7 @@ en:
         Please sign up or login to use this feature.
 
     new:
+      how_would_you_like_to_publish: How would you like to publish?
       title: "Create Talk - Voice Republic"
       schedule_a_talk: Schedule A Live Talk
       billing_notice: |

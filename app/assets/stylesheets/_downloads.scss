@@ -22,6 +22,17 @@ ul.streambox-list {
   }
 }
 
+.interstitial {
+  font-size: 3rem;
+  font-weight: 200;
+  text-align: center;
+}
+
+.border-banner {
+  border-top: 1px solid $vr-beige;
+  border-bottom: 1px solid $vr-beige;
+}
+
 .explain-text {
   color:$charcoal;
 }
