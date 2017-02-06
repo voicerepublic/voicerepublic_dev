@@ -1,5 +1,7 @@
 :javascript
   var initialSnapshot = #{talk.snapshot.to_json};
+  var signedIn = #{user_signed_in?.to_s};
+
 
   var talk_id = #{talk.id}
   var msg_tiny= "#{t('.msg_tiny')}"
