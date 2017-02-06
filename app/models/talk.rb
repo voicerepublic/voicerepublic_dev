@@ -432,6 +432,8 @@ class Talk < ActiveRecord::Base
         edit_url: edit_self_url,
         create_message_url: create_message_url,
         image_url: image.url,
+        thumb_url: image.thumb('116x116#').url, # for embed
+        url: self_url, # for embed
         channel: channel,
         venue: {
           user: venue_user_attributes,
@@ -445,6 +447,16 @@ class Talk < ActiveRecord::Base
       },
       now: Time.now.to_i
     }
+    #   id: id,
+    #   state: state,
+    #   title: title,
+    #   self_url: self_url,
+    #   user_title: user.name,
+    #   user_url: user.self_url,
+    #   starts_at: starts_at,
+    #   play_count: play_count,
+    #   stream_url: venue.stream_url,
+    #   media_links: media_links
   end
 
   def venue_user_attributes
@@ -498,16 +510,6 @@ class Talk < ActiveRecord::Base
     ensure
       FileUtils.remove_entry tmp_dir if tmp_dir
     end
-  end
-
-  def data_for_embed
-    {
-      title: title,
-      image_url: image.thumb('116x116#').url,
-      self_url: self_url,
-      user_title: user.name,
-      user_url: user.self_url
-    }
   end
 
   private
