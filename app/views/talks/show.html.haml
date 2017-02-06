@@ -36,9 +36,13 @@
 
     pdfWorkerSrc = '/javascripts/pdf.worker.js';
 
--# an initial autoplay sound is needed to properly
--# initialize blink based mobile browsers
-%audio#audio(src='/audio/silence.mp3' autoplay='autoplay')
+-# An initial autoplay sound is needed to properly
+-# initialize blink based mobile browsers.
+-#
+-# If `crossOrigin='anonymous'` doesn't seem to work properly
+-# check if S3 has 'forgotten' about the CORS headers.
+-# Just happened to me and took me a while to figure it out.
+%audio#audio(src='/audio/silence.mp3' autoplay='autoplay' crossOrigin='anonymous')
 
 #modals
 
