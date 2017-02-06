@@ -1,10 +1,27 @@
-:javascript
-  var initialSnapshot = #{talk.snapshot.to_json};
-  var signedIn = #{user_signed_in?.to_s};
+- content_for :title do
+  = t('.title', title: @talk.title)
 
+- content_for :javascripts do
+  %script{ src: Settings.faye.server + '/client.js', async: true }
+  = javascript_include_tag 'faye-authentication'
+  :javascript
+    var environment = #{Rails.env.to_json};
+    var fayeUrl = #{Settings.faye.server.to_json};
+
+    if (window.Faye != undefined) {
+      var fayeClient = new Faye.Client(fayeUrl);
+      var fayeExtension = new FayeAuthentication(fayeClient);
+      fayeClient.addExtension(fayeExtension);
+    }
+
+    var insider = #{!!current_user.try(:insider?)};
+    var initialSnapshot = #{talk.snapshot.to_json};
+    var signedIn = #{user_signed_in?.to_s};
 
 = render partial: 'shared/embed_svg'
 
-%audio#audio
+%audio#audio(src='/audio/silence.mp3' autoplay='autoplay' crossOrigin='anonymous')
 
 #embedded-player
+
+#debug
