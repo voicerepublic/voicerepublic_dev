@@ -447,16 +447,6 @@ class Talk < ActiveRecord::Base
       },
       now: Time.now.to_i
     }
-    #   id: id,
-    #   state: state,
-    #   title: title,
-    #   self_url: self_url,
-    #   user_title: user.name,
-    #   user_url: user.self_url,
-    #   starts_at: starts_at,
-    #   play_count: play_count,
-    #   stream_url: venue.stream_url,
-    #   media_links: media_links
   end
 
   def venue_user_attributes
