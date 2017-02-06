@@ -6,6 +6,8 @@
 #
 #     https://github.com/trentrichardson/jQuery-Timepicker-Addon
 #
+console.log("loading picker.") if insider
+
 attribute = 'data-picker'
 
 initialize = (element, scope) ->
