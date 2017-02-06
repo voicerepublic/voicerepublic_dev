@@ -20,7 +20,7 @@
           %p.lead
             = icon_tag 'megaphone'
             = t('.we_specialize').html_safe
-          - url = new_talk_path
+          - url = publish_talk_path
           - url = venues_path if user_signed_in? and current_user.talks.prelive.any?
           = link_to url do
             %button.button.hollow.btn-white.btn-hover-yellow
