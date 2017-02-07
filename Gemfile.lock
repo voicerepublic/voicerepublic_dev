@@ -596,7 +596,7 @@ GEM
     thread_safe (0.3.5)
     tilt (2.0.2)
     timecop (0.8.0)
-    tins (1.13.0)
+    tins (1.13.2)
     trickery (0.0.8)
       systemu
     trollop (2.1.2)
