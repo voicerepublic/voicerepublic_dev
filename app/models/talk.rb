@@ -77,6 +77,7 @@ class Talk < ActiveRecord::Base
     end
     event :enqueue, success: :schedule_archiving!  do
       transitions from: :postlive, to: :queued
+      transitions from: :suspended, to: :queued
     end
     event :process do
       transitions from: :queued, to: :processing
