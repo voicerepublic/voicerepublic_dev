@@ -71,11 +71,9 @@ en:
           It's done. Your dedicated server is ready to be
           launched. Click the green button to do so now.
         server_starting: >-
-          Great! The server is firing up. This will only take a few
-          minutes.
+          Your server is starting. This will only take a few minutes.
         server_ready_select_source: >-
-          Your server is ready! Please choose streaming source for
-          your stream.
+          Your server is ready! Please choose a streaming source.
         server_ready_source_preselected: >-
           Your server is ready and a streaming source has already been
           selected. To change streaming source click on change.
