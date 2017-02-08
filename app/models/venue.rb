@@ -136,7 +136,7 @@ class Venue < ActiveRecord::Base
         "SecurityGroup" => Settings.icecast.ec2.security_group,
         "KeyName"       => Settings.icecast.ec2.key_name,
         "ClientToken"   => client_token,
-        "UserData"      => userdata.encode("ISO-8859-1")
+        "UserData"      => userdata
       }
     ]
   end
