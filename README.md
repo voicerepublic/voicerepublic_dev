@@ -651,6 +651,8 @@ Helpful
 
     Talk.suspended.order('id desc').limit(10).each(&:enqueue!)
 
+    Venue.not_offline.each(:reset!)
+
 
 ```
 venue = Venue.find('venue-of-senior-hofmann')
