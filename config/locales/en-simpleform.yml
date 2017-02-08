@@ -3,6 +3,8 @@ en:
     submit:
       device:
         update: Claim And Start Streaming
+      talk:
+        create: Next
   simple_form:
     placeholders:
       series:

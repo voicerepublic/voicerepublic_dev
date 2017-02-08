@@ -7,10 +7,16 @@ en:
   pages:
     outdated_browser:
       oops: Oops!
+    publish_talk:
+      how_would_you_like_to_publish: How would you like to publish?
+      upload_a_recording: "Upload A Recording &raquo;"
+      help: Voice Republic is a public archive for spoken word content. You can upload recordings or conduct audio live streams. If you want to see how it works, choose “TEST LIVE STREAM”.
+      advice_test: Test the live streaming function. <br><a href="#">More info...</a>
+      advice_live: Broadcast your event live.<br> <a href="#">More info...</a>
+      advice_upload: Upload your audio files for free. <br><a href="#">More info...</a>
     publish:
       pricing: Pricing
       start_live_stream: "Start A Live Stream &raquo;"
-      upload_a_recording: "Upload A Recording &raquo;"
   all_categories: All Categories
   validation:
     bad_chars_in_slug: |
@@ -411,6 +417,8 @@ en:
     support:
       title: Voice Republic - Support
     velvet:
+      about: About
+      products_services: Products & Services
       title: Welcome To Voice Republic
       publish: Publish
       listen: Listen
@@ -419,6 +427,7 @@ en:
       categories: Categories
       search_placeholder: "Search Voice Republic"
       explore: Explore
+      listen_to_talks: Listen To Talks
       login: Sign In
       search: Search
       explore: Explore
@@ -429,7 +438,7 @@ en:
       test_talk: 'Test A Talk'
       logout: Log Out
       stream_now: Stream Now
-      streamboxx_recordings: StreamBoxx Recordings
+      streamboxx_recordings: My Recordings
 
 
   plain_mailer:

@@ -1,0 +1,30 @@
+.row.clearfix#talk-selector
+  %h1.text-center
+    = t('.how_would_you_like_to_publish')
+  %div.explain-text.medium-8.medium-offset-2.large-offset-3.columns.large-6
+    %p.text-center.publish-advice= t('.help').html_safe
+  %ul
+    %li 
+      %a.big-button 
+        = naked_icon "cloud-upload" 
+        upload a talk
+      %p.publish-advice
+        = t('.advice_upload').html_safe
+
+    %li 
+      %a.big-button 
+        = naked_icon "clock" 
+        schedule live talk
+      %p.publish-advice
+        = t('.advice_live').html_safe
+    %li 
+      = link_to new_talk_path(talk: {dryrun: true}), class: 'big-button' do
+        = naked_icon "beaker" 
+        test a talk
+      %p.publish-advice
+        = t('.advice_test').html_safe
+
+.row.clearfix.text-center
+  = link_to :back do
+    %button.button.hollow.btn-gray.btn-hover-red
+      Cancel
