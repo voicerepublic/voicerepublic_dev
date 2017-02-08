@@ -39,12 +39,12 @@
 
       - if can? :manage, @user
         -# TODO: discuss. Can't we just have one path to the create talk page?
-        =link_to new_upload_path, class:'button hollow publish-btn tiny' do
-          = icon_tag 'upload'
-          = t('.upload_talk')
-        = link_to new_talk_path, class:'button hollow publish-btn tiny' do
-          = icon_tag 'victrola'
-          = t('.create_live_talk')
+        / =link_to new_upload_path, class:'button hollow publish-btn tiny' do
+        /   = icon_tag 'upload'
+        /   = t('.upload_talk')
+        = link_to publish_talk_path, class:'button hollow publish-btn tiny' do
+          = icon_tag 'megaphone'
+          = t('.publish')
 
 
       - else

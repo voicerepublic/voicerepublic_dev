@@ -35,7 +35,68 @@ body {
     }
 }
 
+#talk-selector {
 
+    .publish-advice {
+        margin-top: 24px;
+        color: rgba($talk-dark,.5);
+        margin-bottom: 36px;
+    }
+
+    h1 {
+        color: $talk-dark;
+        text-transform: uppercase;
+        font-size: 1.5rem;
+        margin-top: 48px;
+        margin-bottom: 0;
+    }
+    svg {
+        width: 36px;
+        height: 36px;
+        margin-right: 12px;
+        vertical-align: middle;
+    }
+    ul {
+    
+    @include menu-base;
+       @include menu-expand;
+       @include menu-direction(vertical);
+       @include breakpoint(medium) {
+        @include menu-direction(horizontal);
+       }
+
+       margin-bottom: 84px;
+
+    }
+    li {
+
+        padding: 6px;
+
+        a.big-button {
+            background: rgba($talk-dark, 0.1);
+            border:2px solid rgba($talk-dark,.1);
+            text-align: center;
+            
+            color: $talk-dark;
+            text-transform: uppercase;
+            font-weight: 500;
+            font-size: 1.2rem;
+            letter-spacing: .05rem;
+            border-radius: 4px;
+            transition: all .2s;
+            &:hover {
+                background:rgba($talk-dark,.05);
+                background: $success-color;
+                color: white;
+                border: 2px solid $success-color;
+                box-shadow: 0 2px 5px rgba($talk-dark,.2);
+            }
+        }
+    }
+    ul > li > a {
+        padding: 48px 24px;
+    }
+}
 
 audio {
     width: 100%;
@@ -53,11 +114,11 @@ audio {
     }
     p.loading {
         color: $vr-beige;
-  text-transform: uppercase;
-  font-size: .8rem;
-  letter-spacing: .1rem;
-  margin-bottom: 6px;
-  font-weight: 100;
+        text-transform: uppercase;
+        font-size: .8rem;
+        letter-spacing: .1rem;
+        margin-bottom: 6px;
+        font-weight: 100;
     }
     h1 {
         font-size: rem-calc(18);
@@ -130,32 +191,27 @@ audio {
     // max-width: 16px;
 }
 
-.talks .loading-graphic 
-{
-
+.talks .loading-graphic {
     svg {
-    width: 60px;
-    height: 60px;
+        width: 60px;
+        height: 60px;
     }
-.autoplay-warning {
-    //background: $vr-red;
-    padding: 12px;
-    color: $vr-yellow;
-    font-weight: 500;
-    margin: 0;
-    text-align: center;
-    svg {
-        width: 24px;
-        height: 24px;
-        vertical-align: middle;
-        float: left;
-        margin-right: 12px;
+    .autoplay-warning {
+        //background: $vr-red;
+        padding: 12px;
+        color: $vr-yellow;
+        font-weight: 500;
+        margin: 0;
+        text-align: center;
+        svg {
+            width: 24px;
+            height: 24px;
+            vertical-align: middle;
+            float: left;
+            margin-right: 12px;
+        }
     }
 }
-
-}
-
-
 
 .breakpoint-viewer {
     position: absolute;
@@ -1337,6 +1393,6 @@ ul.share-links {
 input#podcast-link {
     color: $talk-dark;
     width: 100%;
-    padding:12px;
+    padding: 12px;
     margin-bottom: 12px;
 }

@@ -30,14 +30,6 @@ if [ -f /sys/hypervisor/uuid ] && [ `head -c 3 /sys/hypervisor/uuid` == ec2 ]; t
   chmod 600 /etc/passwd-s3fs
   /usr/local/bin/s3fs $BUCKET $STORAGE -o allow_other
 
-  # FYI
-  # ssh admin@<ip> cat INFO.txt
-  cat > /home/admin/INFO.txt <<EOF
-Host:  <%= %x[hostname].chomp %>
-Venue: <%= name %>
-User:  <%= user.name %>
-EOF
-
   cat >> /home/admin/.ssh/authorized_keys<<EOF
 <%= ssh_keys %>
 EOF
