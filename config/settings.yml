@@ -7,7 +7,7 @@ durations: [ 30, 45, 60, 90, 120, 240 ]
 priority_timezones: Berlin|Bern
 audio:
   override_chain: jinglize m4a mp3 ogg cleanup
-  archive_chain: wavify merge trim normalize jinglize m4a mp3 ogg cleanup
+  archive_chain: select wavify merge trim normalize jinglize m4a mp3 ogg cleanup
 rtmp:
   # all paths get expanded with `Rails.root`
   # which doesn't affect absolute paths

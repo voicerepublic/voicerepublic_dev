@@ -649,6 +649,8 @@ Helpful
     reload!; Talk.find(4147).make_it_start_soon! 91.minutes; nil
 
 
+    Talk.suspended.order('id desc').limit(10).each(&:enqueue!)
+
 
 ```
 venue = Venue.find('venue-of-senior-hofmann')
