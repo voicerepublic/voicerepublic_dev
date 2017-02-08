@@ -77,6 +77,7 @@ class Talk < ActiveRecord::Base
     end
     event :enqueue, success: :schedule_archiving!  do
       transitions from: :postlive, to: :queued
+      transitions from: :suspended, to: :queued
     end
     event :process do
       transitions from: :queued, to: :processing
@@ -448,10 +449,8 @@ class Talk < ActiveRecord::Base
   end
 
   def venue_user_attributes
-    venue.user.attributes.tap do |attrs|
+    venue.user.details.tap do |attrs|
       attrs[:image_url] = venue.user.avatar.thumb("60x60#").url
-      attrs[:name] = venue.user.name
-      attrs[:url] = venue.user.self_url
     end
   end
 
@@ -498,6 +497,28 @@ class Talk < ActiveRecord::Base
     ensure
       FileUtils.remove_entry tmp_dir if tmp_dir
     end
+  end
+
+  def debug_processing
+    bucket0, region0 = Settings.storage.media.split('@')
+    prefix0 = uri
+    bucket1, region1 = venue.recordings_bucket.split('@')
+    prefix1 = venue.slug
+    chain = Settings.audio.archive_chain.split(/\s+/)
+    [
+      nil,
+      "aws s3 sync --region #{region0} s3://#{bucket0}/#{prefix0} #{prefix0}",
+      nil,
+      "aws s3 sync --region #{region1} s3://#{bucket1}/#{prefix1} #{prefix1}",
+      nil,
+      manifest(chain).to_yaml,
+      nil
+    ] * "\n"
+  end
+
+  def durations
+    return Settings.durations if Settings.durations.include?(duration)
+    [duration] + Settings.durations
   end
 
   private

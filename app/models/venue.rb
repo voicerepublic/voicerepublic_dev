@@ -229,9 +229,7 @@ class Venue < ActiveRecord::Base
         port: port,
         channel: channel,
         talks: talks_as_array,
-        user: user.attributes.merge(
-          image_url: user.avatar.thumb('36x36').url
-        ),
+        user: user.details,
         available_at: available_at
       ),
       devices: devices.map(&:for_venues),
@@ -400,7 +398,9 @@ class Venue < ActiveRecord::Base
     self.admin_password = nil
     self.started_provisioning_at = nil
     self.completed_provisioning_at = nil
-    # self.device = nil # do not reset!
+    # reset device! (no preselected device after server launched)
+    self.device = nil
+    self.device_name = nil
   end
 
   def complete_details

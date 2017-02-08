@@ -55,11 +55,11 @@ en:
           come back later.
         welcome_requesting_availability: >-
           Welcome! Your next talk starts soon. Let me quickly request
-          availability of a dedicated server for you.
+          availability of a streaming server for you.
         requesting_availability: >-
           Requesting availability...
         welcome_launch_server: >-
-          Welcome! It's time to launch a dedicated server for this
+          Welcome! It's time to launch a streaming server for this
           stage. Click the green button to do so now.
         welcome_launch_server_inactive: >-
           It's time to launch the streaming server. Click the green
@@ -68,14 +68,12 @@ en:
           Still there? Your Talk needs a server. Launch it now for the
           win!
         server_now_available: >-
-          It's done. Your dedicated server is ready to be
+          It's done. Your streaming server is ready to be
           launched. Click the green button to do so now.
         server_starting: >-
-          Great! The server is firing up. This will only take a few
-          minutes.
+          Your server is starting. This will only take a few minutes.
         server_ready_select_source: >-
-          Your server is ready! Please choose streaming source for
-          your stream.
+          Your server is ready! Please choose a streaming source.
         server_ready_source_preselected: >-
           Your server is ready and a streaming source has already been
           selected. To change streaming source click on change.

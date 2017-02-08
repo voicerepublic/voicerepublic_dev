@@ -62,6 +62,7 @@ class Mediator
       'prelive.live.start_talk'      => 'Now live',
       'live.postlive.end_talk'       => 'Has come to end',
       'postlive.queued.enqueue'      => 'Has been queued for processing',
+      'suspended.queued.enqueue'     => 'Suspended has been queued for reprocessing',
       'queued.processing.process'    => 'Started processing',
       'processing.archived.archive'  => 'Just archived recording',
       'pending.archived.archive'     => 'Just archived upload',
