@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   end
 
   get 'pages/:action' => 'pages', as: 'page'
+  get 'pages/publish_talk' => 'pages#publish_talk', as: 'publish_talk'
 
   get "/pricing", to: 'purchases#index', as: 'pricing'
   resources :purchases, only: [ :index, :new, :create, :show ] do
