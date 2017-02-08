@@ -400,7 +400,9 @@ class Venue < ActiveRecord::Base
     self.admin_password = nil
     self.started_provisioning_at = nil
     self.completed_provisioning_at = nil
-    # self.device = nil # do not reset!
+    # reset device! (no preselected device after server launched)
+    self.device = nil
+    self.device_name = nil
   end
 
   def complete_details
