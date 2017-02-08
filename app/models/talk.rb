@@ -500,6 +500,11 @@ class Talk < ActiveRecord::Base
     end
   end
 
+  def durations
+    return Settings.durations if Settings.durations.include?(duration)
+    [duration] + Settings.durations
+  end
+
   private
 
   def process_description
