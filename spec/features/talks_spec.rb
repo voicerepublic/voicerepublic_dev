@@ -268,7 +268,7 @@ describe "Talks as logged in user" do
       fill_in 'talk_starts_at_date', with: ''
       fill_in 'talk_starts_at_time', with: ''
 
-      click_button 'Save'
+      click_button 'Next'
       expect(page).to have_content(I18n.t(:invalid_date))
       expect(page).to have_content(I18n.t(:invalid_time))
     end
