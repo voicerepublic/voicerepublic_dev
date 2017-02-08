@@ -3,6 +3,8 @@
 #= require_self
 #= require_tree ./angular
 
+console.log("loading sencha.") if insider
+
 # inject angular file upload directives and service.
 window.sencha = angular.module 'sencha', ['angularFileUpload']
 

@@ -1,3 +1,5 @@
+console.log("loading taglist.") if insider
+
 selector = '.tagList'
 
 initialize = (node) ->
