@@ -449,10 +449,8 @@ class Talk < ActiveRecord::Base
   end
 
   def venue_user_attributes
-    venue.user.attributes.tap do |attrs|
+    venue.user.details.tap do |attrs|
       attrs[:image_url] = venue.user.avatar.thumb("60x60#").url
-      attrs[:name] = venue.user.name
-      attrs[:url] = venue.user.self_url
     end
   end
 

@@ -229,9 +229,7 @@ class Venue < ActiveRecord::Base
         port: port,
         channel: channel,
         talks: talks_as_array,
-        user: user.attributes.merge(
-          image_url: user.avatar.thumb('36x36').url
-        ),
+        user: user.details,
         available_at: available_at
       ),
       devices: devices.map(&:for_venues),
