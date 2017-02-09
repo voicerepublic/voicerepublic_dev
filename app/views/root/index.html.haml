@@ -21,18 +21,17 @@
             = icon_tag 'megaphone'
             = t('.we_specialize').html_safe
           - url = publish_talk_path
-          - url = venues_path if user_signed_in? and current_user.talks.prelive.any?
           = link_to url do
             %button.button.hollow.btn-white.btn-hover-yellow
               = t('.publish')
         .medium-6.columns.feature
-          %p.lead              
+          %p.lead
             = icon_tag 'headphones'
             = t('.listen_to').html_safe
           = link_to explore_path do
             %button.button.hollow.btn-white.btn-hover-yellow
               = t('.listen')
-    
+
 
   -# PUBLISHERS
   %section#publishers.white

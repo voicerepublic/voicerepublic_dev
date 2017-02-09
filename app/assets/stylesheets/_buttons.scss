@@ -14,6 +14,8 @@ button, .button {
         //height: 12px;
         vertical-align: middle;
         margin-right: 6px;
+        max-width: 24px;
+        max-height: 24px;
     }
     &.secondary {
         background-color: $vr-light-blue;
@@ -112,6 +114,10 @@ button, .button {
     }
     &.small {
         border-width: 2px;
+        svg {
+            width: 24px;
+            height: 24px;
+        }
     }
     &.large {
         border-width: 3px;
