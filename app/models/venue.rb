@@ -229,9 +229,7 @@ class Venue < ActiveRecord::Base
         port: port,
         channel: channel,
         talks: talks_as_array,
-        user: user.attributes.merge(
-          image_url: user.avatar.thumb('36x36').url
-        ),
+        user: user.details,
         available_at: available_at
       ),
       devices: devices.map(&:for_venues),
@@ -257,7 +255,8 @@ class Venue < ActiveRecord::Base
         series: {
           title: talk.series.title,
           url: talk.series.self_url
-        }
+        },
+        speakers: talk.speakers ? talk.speakers.split(",").map(&:strip) : []
       }
     end
   end
@@ -399,7 +398,9 @@ class Venue < ActiveRecord::Base
     self.admin_password = nil
     self.started_provisioning_at = nil
     self.completed_provisioning_at = nil
-    # self.device = nil # do not reset!
+    # reset device! (no preselected device after server launched)
+    self.device = nil
+    self.device_name = nil
   end
 
   def complete_details
@@ -462,6 +463,7 @@ class Venue < ActiveRecord::Base
   end
 
   def provision_production
+    logger.info "Running EC2 instance with " + provisioning_parameters.to_yaml
     response = EC2.run_instances(*provisioning_parameters)
     self.instance_id = response.body["instancesSet"].first["instanceId"]
 

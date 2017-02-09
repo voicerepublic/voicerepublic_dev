@@ -1,18 +1,26 @@
+# docker run -it branch14/icecast2 /bin/bash
+
 FROM debian:jessie-backports
 
 MAINTAINER Phil Hofmann "phil@voicerepublic.com"
 
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN apt-get -qq -y update && \
-    apt-get -qq -y install curl && \
-    apt-get -qq -y -t jessie-backports install icecast2 && \
-    apt-get clean
+RUN echo 'deb-src http://httpredir.debian.org/debian jessie-backports main' \
+    >> /etc/apt/sources.list.d/backports.list
+RUN apt-get -qq -y update
+RUN apt-get -qq -y install curl build-essential dpkg-dev libssl-dev
+RUN apt-get -qq -y -t jessie-backports build-dep icecast2
+RUN apt-get -qq -y -t jessie-backports source icecast2
+RUN (cd icecast2-2.4.2; dpkg-buildpackage -b)
+RUN dpkg -i icecast2_2.4.2-1~bpo8+1_amd64.deb
+RUN apt-get clean
 
 RUN mkdir /share && \
     chown -R icecast2:icecast /share
 
-EXPOSE 8000
+EXPOSE 8080
+EXPOSE 8443
 
 VOLUME /share
 

@@ -9,79 +9,28 @@
     -##particles
     .row.clearfix.claim-content
       %header.small-12.small-push-12.columns
-        .hide-for-small-only
-          = render 'shared/free_pricing_banner'
+        / %h1= t('.voice_republic')
         = s('.title')
+        = render 'shared/home_announcement'
       .container.medium-10.medium-offset-1.large-8.large-offset-2.columns
         - if !current_user
           = link_to t('.login'), new_user_session_path, class: 'hide-for-medium button hollow btn-light-blue btn-hover-yellow'
           = link_to t('.join'), new_user_registration_path, class: 'hide-for-medium button hollow btn-light-blue btn-hover-yellow'
-        %p.lead
-          = t('.lead')
-          - @categories.each do |cat|
-            - delim = (cat == @categories.last) ? '.' : ','
-            = succeed delim do
-              = link_to cat.title, explore_path(filter: {category: cat.id})
-        .claim-cta-half.small-6.columns
-          = link_to page_path action: 'publish' do
+        .medium-6.columns.feature
+          %p.lead
+            = icon_tag 'megaphone'
+            = t('.we_specialize').html_safe
+          - url = publish_talk_path
+          = link_to url do
             %button.button.hollow.btn-white.btn-hover-yellow
               = t('.publish')
-        .claim-cta-half.small-6.columns
+        .medium-6.columns.feature
+          %p.lead
+            = icon_tag 'headphones'
+            = t('.listen_to').html_safe
           = link_to explore_path do
-            -#= icon_tag 'megaphone'
             %button.button.hollow.btn-white.btn-hover-yellow
               = t('.listen')
-    .row.clearfix
-      .show-for-small-only
-        %p.top-24
-          = render 'shared/free_pricing_banner'
-
-
-  -# LISTEN NOW
-  %section#listen-now.light
-    .row
-
-      %h2= t('.listen_now')
-      .talk-teasers.clearfix
-        = render partial: 'shared/talk_card', collection: @talks_listen_now
-
-      .listen-interstitial
-        .row.clearfix
-          .medium-6.medium-offset-3.columns.clearfix
-            %h4= t('.categories')
-            %p= t('.lead_interstitial').html_safe
-        .category-buttons.clearfix
-          - @categories.each do |cat|
-            = link_to icon_tag(cat.icon) + cat.title,
-                explore_path(filter: {category: cat.id}), class: 'button'
-
-      .talk-collection.clearfix
-        = render partial: 'shared/talk_card', collection: @talks_popular
-      .row.clearfix
-        = link_to explore_path, class: 'button hollow large' do
-          = t('.more_talks')
-
-
-  -# UPCOMING
-  - unless @talks_upcoming.empty?
-    %section#coming-up.blue
-      .row.clearfix
-        .container
-          %h2= t('.coming_up_live')
-        .talk-collection.clearfix
-          = render partial: 'shared/talk_card', collection: @talks_upcoming
-      .row.clearfix
-        = link_to explore_path, class: 'button hollow large btn-hover-yellow' do
-          = t('.more')
-
-
-  -# CATEGORIES
-  %section#categories.yellow
-    .row
-      .container
-        %h2 Categories
-      .talk-collection.clearfix{"data-equalizer" => ""}
-        = render partial: 'category', collection: @categories
 
 
   -# PUBLISHERS
@@ -101,9 +50,58 @@
         class: 'button hollow large' do
         = t('.more_publishers')
 
+  -# LISTEN NOW
+  %section#listen-now.blue
+    .row
+
+      %h2= t('.listen_now')
+      .talk-teasers.clearfix
+        = render partial: 'shared/talk_card', collection: @talks_listen_now
+
+      -# .listen-interstitial
+        .row.clearfix
+          .medium-6.medium-offset-3.columns.clearfix
+            %h4= t('.categories')
+            %p= t('.lead_interstitial').html_safe
+        .category-buttons.clearfix
+          - @categories.each do |cat|
+            = link_to icon_tag(cat.icon) + cat.title,
+                explore_path(filter: {category: cat.id}), class: 'button'
+
+      -# .talk-collection.clearfix
+        = render partial: 'shared/talk_card', collection: @talks_popular
+      .row.clearfix
+        = link_to explore_path, class: 'button hollow large' do
+          = t('.more_talks')
+
+
+  -# UPCOMING
+  - unless @talks_upcoming.empty?
+    %section#coming-up.light
+      .row.clearfix
+        .container
+          %h2= t('.coming_up_live')
+        .talk-collection.clearfix
+          = render partial: 'shared/talk_card', collection: @talks_upcoming
+      .row.clearfix
+        = link_to explore_path, class: 'button hollow large btn-hover-yellow' do
+          = t('.more')
+
+
+  -# CATEGORIES
+  -# %section#categories.white
+    .row
+      .container
+        %h2 Categories
+      .talk-collection.clearfix{"data-equalizer" => ""}
+        = render partial: 'category', collection: @categories
+
+
+
+
 
   -# CONTACT
-  %section#cta.turquoise
+  -# %section#cta.turquoise
     .row
       .medium-6.medium-offset-3.columns
         %h2 Are you planning a conference or event?

@@ -8,6 +8,8 @@ Rails.application.routes.draw do
 
   get '/pages/outdated_browser', to: redirect('/')
 
+  get '/leipziger-buchmesse', to: redirect('https://voicerepublic.com/users/leipziger-buchmesse')
+
   # a bunch of redirects
   scope 'r' do
     get 'md',       to: redirect(blog_url('/how-to-format-text-with-markdown'))
@@ -15,6 +17,7 @@ Rails.application.routes.draw do
   end
 
   get 'pages/:action' => 'pages', as: 'page'
+  get 'pages/publish_talk' => 'pages#publish_talk', as: 'publish_talk'
 
   get "/pricing", to: 'purchases#index', as: 'pricing'
   resources :purchases, only: [ :index, :new, :create, :show ] do

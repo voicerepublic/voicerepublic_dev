@@ -7,7 +7,7 @@ durations: [ 30, 45, 60, 90, 120, 240 ]
 priority_timezones: Berlin|Bern
 audio:
   override_chain: jinglize m4a mp3 ogg cleanup
-  archive_chain: wavify merge trim normalize jinglize m4a mp3 ogg cleanup
+  archive_chain: select wavify merge trim normalize jinglize m4a mp3 ogg cleanup
 rtmp:
   # all paths get expanded with `Rails.root`
   # which doesn't affect absolute paths
@@ -151,9 +151,16 @@ icecast:
     #image: ami-d422cebb (icebox 3.2 - bad)
     #image: ami-d822ceb7 (icebox 3.3)
     #image: ami-b31cf3dc (icebox 3.4 - renamed endpoints)
-    #image: ami-b81cf3d7 (icebox 3.5 - update icecast to 2.4.2 + cors, defunct)
+    #image: ami-b81cf3d7 (icebox 3.5 - update icecast to 2.4.2 + cors, DEFUNCT)
     #image: ami-f21bf49d (icebox 3.6 - fixed ready)
-    image: ami-f21bf49d
+    #image: ami-63814d0c (icebox 3.7 - https, curl retry, upgr., docker1.12, DEFUNKT)
+    #image: ami-a2804ccd (icebox 3.8 - cleanup DEFUNKT)
+    #image: ami-c1814dae (icebox 3.9 - DEFUNKT)
+    #image: ami-31834f5e (icebox 3.10 - DEFUNKT)
+    #image: ami-659d510a (icebox 3.11)
+    #image: ami-bf24e8d0 (icebox 3.12 better cors, cors defunkt)
+    #image: ami-9826eaf7 (icebox 3.13 fixed cors)
+    image: ami-9826eaf7
     default_instance_type: t2.micro
     security_group: Icecast Servers
     key_name: phil-ffm

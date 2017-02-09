@@ -166,7 +166,8 @@ class User < ActiveRecord::Base
     {
       name: name,
       url: self_url,
-      image_url: avatar.thumb('36x36').url
+      image_url: avatar.thumb('36x36').url,
+      image_alt: image_alt
     }
   end
 
