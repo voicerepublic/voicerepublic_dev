@@ -5,7 +5,8 @@
             :url "http://voicerepublic.com"}
 
   :dependencies [[org.clojure/clojure "1.8.0" :scope "provided"]
-                 [org.clojure/clojurescript "1.8.51" :scope "provided"]
+                 [org.clojure/clojurescript "1.9.293"]
+                 ;;[org.clojure/clojurescript "1.8.51" :scope "provided"]
                  [reagent "0.5.1" :exclusions [cljsjs/react]]
                  [cljsjs/react-with-addons "0.13.3-0"]
                  [reagent-forms "0.5.15"]

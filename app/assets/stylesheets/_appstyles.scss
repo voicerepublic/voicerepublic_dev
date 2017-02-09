@@ -2,6 +2,11 @@ body.pages-icons {
     background: #f9f9f9;
 }
 
+.tiny-icon svg {
+    width: 24px;
+    height: 24px;
+}
+
 .menu > li > a.top-link-with-icon {
     line-height: 2;
     svg {
@@ -10,7 +15,6 @@ body.pages-icons {
         height: 18px;
         vertical-align: middle;
         margin-right: 6px;
-
     }
 }
 
@@ -63,9 +67,11 @@ body.pages-icons {
 .no-pad {
     padding: 0 !important;
 }
+
 .no-pad-right {
     padding-right: 0 !important;
 }
+
 .no-pad-left {
     padding-left: 0 !important;
 }
@@ -92,7 +98,6 @@ body.pages-icons {
         color: $color-hover;
     }
 }
-
 
 html {
     -webkit-font-smoothing: antialiased;

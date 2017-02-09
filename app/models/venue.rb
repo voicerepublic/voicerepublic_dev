@@ -398,7 +398,9 @@ class Venue < ActiveRecord::Base
     self.admin_password = nil
     self.started_provisioning_at = nil
     self.completed_provisioning_at = nil
-    # self.device = nil # do not reset!
+    # reset device! (no preselected device after server launched)
+    self.device = nil
+    self.device_name = nil
   end
 
   def complete_details
@@ -461,6 +463,7 @@ class Venue < ActiveRecord::Base
   end
 
   def provision_production
+    logger.info "Running EC2 instance with " + provisioning_parameters.to_yaml
     response = EC2.run_instances(*provisioning_parameters)
     self.instance_id = response.body["instancesSet"].first["instanceId"]
 

@@ -57,7 +57,7 @@ body {
         vertical-align: middle;
     }
     ul {
-    
+
     @include menu-base;
        @include menu-expand;
        @include menu-direction(vertical);
@@ -76,7 +76,7 @@ body {
             background: rgba($talk-dark, 0.1);
             border:2px solid rgba($talk-dark,.1);
             text-align: center;
-            
+
             color: $talk-dark;
             text-transform: uppercase;
             font-weight: 500;
@@ -90,6 +90,9 @@ body {
                 color: white;
                 border: 2px solid $success-color;
                 box-shadow: 0 2px 5px rgba($talk-dark,.2);
+            }
+            &.primary {
+                border-color: $success-color;
             }
         }
     }
@@ -149,7 +152,7 @@ audio {
         color: $vr-red;
         //@extend .is-invalid-label;
         //@include form-error;
-   
+
     }
     input
     textarea,
@@ -300,7 +303,7 @@ button,
         // &:hover {
         //     text-decoration: underline;
         // }
-   
+
     }
     @include breakpoint(large) {
         margin-top: 0;
@@ -548,7 +551,7 @@ button,
         //     }
         //    // color: $talk-dark;
         // }
-   
+
     }
     .button-unpin {
         font-size: rem-calc(10);
@@ -562,7 +565,7 @@ button,
         //     color:$vr-red;
         //     }
         // }
-   
+
     }
 }
 
@@ -1194,7 +1197,7 @@ ul.share-links {
         padding-top: 8px;
         padding-bottom: 8px;
         // margin-right: 6px;
-   
+
     }
 }
 

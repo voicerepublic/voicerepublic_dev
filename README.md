@@ -636,21 +636,27 @@ Icecast Dev
 Helpful
 -------
 
-    slug = ''
-
-    reload!; Venue.find(slug).reset!
-
-    reload!; Venue.find(slug).talks.prelive.first.make_it_start_soon! 91.minutes
-
-
-
-    reload!; Venue.find(124).reset!
-
-    reload!; Talk.find(4147).make_it_start_soon! 91.minutes; nil
-
-
-
 ```
+slug = ''
+
+reload!; Venue.find(slug).reset!
+
+reload!; Venue.find(slug).talks.prelive.first.make_it_start_soon! 91.minutes
+
+
+
+reload!; Venue.find(124).reset!
+
+reload!; Talk.find(4147).make_it_start_soon! 91.minutes; nil
+
+
+Talk.suspended.order('id desc').limit(10).each(&:enqueue!)
+
+Venue.not_offline.each(&:reset!)
+
+puts *Venue.not_offline.pluck(:slug, :state).map { |a| a.join("\t")}
+
+
 venue = Venue.find('venue-of-senior-hofmann')
 talk = venue.talks.suspended.last
 talk.title
