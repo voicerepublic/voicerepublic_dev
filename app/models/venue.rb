@@ -403,7 +403,10 @@ class Venue < ActiveRecord::Base
   def complete_details
     self.stream_url = build_stream_url
 
-    if Rails.env.development? and File.exist?(provisioning_file)
+    puts "provisioning complete #{Rails.env}"
+
+    if Rails.env.development? and
+      File.exist?(provisioning_file)
       FileUtils.rm(provisioning_file)
     end
   end
@@ -456,6 +459,7 @@ class Venue < ActiveRecord::Base
                        admin_password: generate_password,
                        client_token: generate_client_token,
                        mount_point: generate_mount_point )
+    puts "provision #{Rails.env}"
     send("provision_#{Rails.env}")
   end
 
