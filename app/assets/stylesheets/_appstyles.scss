@@ -2,9 +2,21 @@ body.pages-icons {
     background: #f9f9f9;
 }
 
-.tiny-icon svg {
-    width: 24px;
-    height: 24px;
+.menu > li > a.top-link-with-icon {
+    line-height: 2;
+    svg {
+        fill: currentColor;
+        width: 18px;
+        height: 18px;
+        vertical-align: middle;
+        margin-right: 6px;
+
+    }
+}
+
+#loading-svg {
+    width: 36px;
+    height: 36px;
 }
 
 #icon-cheatsheet {
@@ -88,7 +100,7 @@ html {
     //overflow: auto;
     font-weight: 300;
     color: $almost-black;
-    background: $vr-blue;
+    // background: $vr-blue;
 }
 
 body {

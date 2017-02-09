@@ -45,6 +45,7 @@
 }
 
 
+
 .top-bar {
     // @extend .sticky;
     background: rgba($talk-dark, 1);
@@ -102,13 +103,14 @@
         }
     }
     .top-bar-left {
-        .menu {
-            @include breakpoint(small only) {
-                // max-width: 50%;
-            }
-        }
-        @include breakpoint(medium only) {
-            max-width: 40%;
+        width: 120px;
+        // .menu {
+        //     @include breakpoint(small only) {
+        //         // max-width: 50%;
+        //     }
+        // }
+        @include breakpoint(large) {
+            width: 320px;
         }
 
         #mobile-logo {
@@ -416,5 +418,4 @@
     }
     
 }
-
 

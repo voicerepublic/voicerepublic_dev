@@ -61,7 +61,7 @@ class TalksController < BaseController
     authorize! :create, @talk
 
     if @talk.save
-      redirect_to @talk
+      redirect_to @talk.venue
     else
       render action: 'new'
     end

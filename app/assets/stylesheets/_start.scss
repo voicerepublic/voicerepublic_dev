@@ -18,6 +18,9 @@
 }
 .banner .label-new {
   color: $vr-yellow;
+  text-transform: uppercase;
+  letter-spacing: .05rem;
+  // font-weight: 200;
 }
 
 //Loading Triangle Animation
@@ -40,6 +43,7 @@
     & svg {
         display: block;
         height: 36px;
+        width: 36px;
         margin: 0 auto;
     }
     path {
@@ -147,6 +151,10 @@ button {
     
 }
 
+.pages-publish_talk {
+    background: #f4f4f4;
+}
+
 section {
         padding: 24px 0;
         &.light {
@@ -208,7 +216,6 @@ h1, h2 {
 .talk-collection, .talk-teasers {
     margin-bottom: 48px;
 }
-
 #claim {
     text-align: center;
     padding-bottom: 96px;
@@ -219,6 +226,9 @@ h1, h2 {
         position:relative;
         z-index: 100;
     }
+.feature {
+    padding-top:36px;
+}
     .down-arrow {
         width: 28px;
         height: 28px;
@@ -364,7 +374,7 @@ h1, h2 {
 #publishers {
     #publisher-collection {
         .publisher {
-            padding: 48px 24px;
+            padding: 24px 12px;
             h4 {
                 font-family: $body-font-family;
                 font-weight: 700;
@@ -381,7 +391,7 @@ h1, h2 {
                 font-size: rem-calc(16);
             }
             img {
-                max-width: 50vw;
+                // max-width: 50vw;
                 @include breakpoint(medium) {
                     max-width: 220px;
                 }

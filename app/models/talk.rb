@@ -448,10 +448,8 @@ class Talk < ActiveRecord::Base
   end
 
   def venue_user_attributes
-    venue.user.attributes.tap do |attrs|
+    venue.user.details.tap do |attrs|
       attrs[:image_url] = venue.user.avatar.thumb("60x60#").url
-      attrs[:name] = venue.user.name
-      attrs[:url] = venue.user.self_url
     end
   end
 
@@ -498,6 +496,11 @@ class Talk < ActiveRecord::Base
     ensure
       FileUtils.remove_entry tmp_dir if tmp_dir
     end
+  end
+
+  def durations
+    return Settings.durations if Settings.durations.include?(duration)
+    [duration] + Settings.durations
   end
 
   private

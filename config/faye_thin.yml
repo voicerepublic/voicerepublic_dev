@@ -3,5 +3,6 @@ port: 9292
 ssl: true
 ssl_key_file: /etc/nginx/ssl.key
 ssl_cert_file: /etc/nginx/ssl.crt
+ssl_disable_verify: true
 environment: production
 rackup: faye.ru

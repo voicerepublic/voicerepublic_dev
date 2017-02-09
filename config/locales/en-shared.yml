@@ -1,5 +1,7 @@
 en:
   shared:
+    home_announcement:
+      professional_live_streaming: Professional live audio streaming and archiving of events
     free_pricing_banner:
       new: "New:"
       free_pricing: "Upload and stream your content for free!"
