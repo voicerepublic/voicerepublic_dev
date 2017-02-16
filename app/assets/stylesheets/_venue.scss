@@ -1102,8 +1102,8 @@ svg#logo {
 }
 
 .message-losenge {
-    background: $vr-beige;
-    margin: 6px;
+    background: white;
+    margin: 12px;
     @include box-shadow(3px, 0.3);
     border-radius: 4px;
     padding: 6px;
