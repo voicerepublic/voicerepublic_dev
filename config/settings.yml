@@ -160,7 +160,8 @@ icecast:
     #image: ami-659d510a (icebox 3.11)
     #image: ami-bf24e8d0 (icebox 3.12 better cors, cors defunkt)
     #image: ami-9826eaf7 (icebox 3.13 fixed cors)
-    image: ami-9826eaf7
+    #image: ami-13e3367c (icebox 3.14 transcoding)
+    image: ami-13e3367c
     default_instance_type: t2.micro
     security_group: Icecast Servers
     key_name: phil-ffm

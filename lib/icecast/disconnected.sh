@@ -10,6 +10,7 @@ kill `cat /share/transcode_ogg.pid`
 rm /share/transcode_ogg.pid
 kill `cat /share/transcode_aac.pid`
 rm /share/transcode_aac.pid
+killall ffmpeg
 
 
 COMMAND="curl -X POST $CALLBACK_URL/disconnect/$CLIENT_TOKEN"
