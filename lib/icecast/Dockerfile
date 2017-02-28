@@ -27,6 +27,7 @@ VOLUME /share
 ADD ./*.sh /
 
 ADD redirect.html /usr/share/icecast2/web/
+ADD loop.mp3 /usr/share/icecast2/web/
 
 RUN chown -R icecast2 /etc/icecast2
 
