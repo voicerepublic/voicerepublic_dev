@@ -5,7 +5,7 @@
 format=$1
 password=$2
 
-transcode='ffmpeg -loglevel warning -re -i http://localhost/live -vn'
+transcode='ffmpeg -loglevel warning -re -i http://localhost:8080/live -vn'
 
 running=true
 
@@ -26,31 +26,31 @@ while [ $running = true ]; do
             $transcode \
                 -codec:a libmp3lame -b:a 64k -f mp3 \
                 -content_type audio/mpeg \
-                icecast://source:$password@localhost/live.mp3 &
+                icecast://source:$password@localhost:8080/live.mp3 &
             ;;
         ogg)
             $transcode \
                 -codec:a libvorbis -qscale:a 5 -f ogg \
                 -content_type audio/ogg \
-                icecast://source:$password@localhost/live.ogg &
+                icecast://source:$password@localhost:8080/live.ogg &
             ;;
         oga)
             $transcode \
                 -codec:a libvorbis -qscale:a 5 -f oga \
                 -content_type audio/ogg \
-                icecast://source:$password@localhost/live.oga &
+                icecast://source:$password@localhost:8080/live.oga &
             ;;
         acc)
             $transcode \
                 -b:a 128k -f adts \
-                -content_type audio/acc \
-                icecast://source:$password@localhost/live.acc &
+                -content_type audio/aac \
+                icecast://source:$password@localhost:8080/live.aac &
             ;;
         m4a)
             $transcode \
                 -b:a 128k -f adts \
                 -content_type audio/m4a \
-                icecast://source:$password@localhost/live.m4a &
+                icecast://source:$password@localhost:8080/live.m4a &
             ;;
     esac
 
