@@ -15,11 +15,11 @@ read
 
 echo "Activating root access..."
 ssh icebox 'sudo /root/icecast/allow_root.sh'
-echo "Copying file..."
+echo "Copying files..."
 scp -r lib/icecast root@icebox:
 echo "The files have been copied to the icebox."
 echo "Preparing Icebox for imaging... (This might take a while.)"
-ssh root@icebox ~/icecast/prepare_image.sh
+ssh root@icebox ./icecast/prepare_image.sh
 
 echo "Finished."
 echo "Now pull an image on EC2."
