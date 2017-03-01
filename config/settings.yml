@@ -163,7 +163,8 @@ icecast:
     #image: ami-13e3367c (icebox 3.14 transcoding defunkt)
     #image: ami-26e63349 (icebox 3.15 transcoding + ffmpeg)
     #image: ami-e5e1348a (icebox 3.16 fixed port)
-    image: ami-e5e1348a
+    #image: ami-7a0fda15 (icebox 3.17 log transcoding to s3)
+    image: ami-7a0fda15
     default_instance_type: t2.micro
     security_group: Icecast Servers
     key_name: phil-ffm
