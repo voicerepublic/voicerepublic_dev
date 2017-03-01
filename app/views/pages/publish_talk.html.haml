@@ -21,7 +21,7 @@
       %li
         = link_to new_talk_path, class: 'big-button' do
           = naked_icon "clock"
-          schedule live talk
+          schedule live stream
         %p.publish-advice
           = t('.advice_live').html_safe
       %li
@@ -48,13 +48,13 @@
       %li
         = link_to new_talk_path, class: 'big-button' do
           = naked_icon "clock"
-          schedule live talk
+          schedule live stream
         %p.publish-advice
           = t('.advice_live').html_safe
       %li
         = link_to new_talk_path(talk: {dryrun: true}), class: 'big-button' do
           = naked_icon "beaker"
-          test a talk
+          test live stream
         %p.publish-advice
           = t('.advice_test').html_safe
 
