@@ -18,9 +18,15 @@ ssh icebox 'sudo /root/icecast/allow_root.sh'
 echo "Copying file..."
 scp -r lib/icecast root@icebox:
 echo "The files have been copied to the icebox."
-echo
-echo "Any key to continue."
-read
+echo "Preparing Icebox for imaging... (This might take a while.)"
+ssh root@icebox ~/icecast/prepare_image.sh
 
-ssh root@icebox
+echo "Finished."
+echo "Now pull an image on EC2."
+echo
+echo "Then add the AMI key to `config/settings.yml`."
+echo "Commit, Push, Deploy & Test it!"
+echo
+
+
 

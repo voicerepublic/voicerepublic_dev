@@ -43,7 +43,7 @@ while [ $running = true ]; do
                 icecast://source:$password@localhost:8080/live.oga \
                 2>&1 >> /share/transcode_oga.log &
             ;;
-        acc)
+        aac)
             $transcode \
                 -b:a 128k -f adts \
                 -content_type audio/aac \
