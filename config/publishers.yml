@@ -20,8 +20,8 @@
     of Now” audible on Voice Republic.
 
 - url: https://voicerepublic.com/users/zentrum-geschichte-des-wissens-eth-universitat-zurich
-  img: images/sponsored_publishers/zgw.svg
-  name: ETH/University of Zurich
+  img: images/sponsored_publishers/zgw.png
+  name: ETH/University of Z&uuml;rich
   text: >-
     The Center “History of Knowledge” regularly streams its events
     live from the Cabaret Voltaire. The colloquia and symposia can
@@ -43,15 +43,6 @@
     theaters in the German-speaking area and publishes selected
     discussions, lectures and symposia on Voice Republic.
 
-- url: https://voicerepublic.com/users/mosselectures
-  img: images/sponsored_publishers/mosse.png
-  name: Mosse Lectures at Humboldt University
-  text: >-
-    The lecture series “Mosse Lectures” at the Humboldt University in
-    Berlin imparts knowledge on topics like history, politics,
-    economy, arts and literature. The lectures can be listened to on
-    Voice Republic.
-
 - url: https://voicerepublic.com/users/leipziger-buchmesse
   img: images/sponsored_publishers/leipziger.jpg
   name: Leipziger Buchmesse
@@ -59,3 +50,28 @@
     Every Spring, the literature and media business meets up in
     Leipzig and thousands of book fans hear their favourite authors
     read.
+
+- url: https://voicerepublic.com/users/deutscher-ethikrat
+  img: images/sponsored_publishers/deutscher-ethikrat.png
+  name: Deutscher Ethikrat
+  text: >-
+
+- url: https://voicerepublic.com/users/konrad-adenauer-stitung
+  img: images/sponsored_publishers/konrad-adenauer.png
+  name: Konrad Adenauer Stiftung
+  text: >-
+
+- url: https://voicerepublic.com/users/juedischesmuseumberlin
+  img: images/sponsored_publishers/juedisches-museum-berlin.png
+  name: J&uuml;disches Museum Berlin
+  text: >-
+
+- url: https://voicerepublic.com/users/slush-helsinki
+  img: images/sponsored_publishers/slush.png
+  name: Slush Con
+  text: >-
+
+- url: https://voicerepublic.com/users/nzzpodium-berlin
+  img: images/sponsored_publishers/nzz.png
+  name: NZZ Podium Berlin
+  text: >-
