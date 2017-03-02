@@ -29,15 +29,14 @@
               = t('.listen')
           %li.can-hide.hide-for-small-only
             - url = publish_talk_path
-            - url = venues_path if user_signed_in? and current_user.talks.prelive.any?
             = link_to url, class: 'top-link-with-icon' do
               = naked_icon "megaphone"
               = t('.publish')
           %li.can-hide.hide-for-small-only.hide-for-medium-only
-            %a{:href => "https://blog.voicerepublic.com"}
+            = link_to page_path('about') do
               = t('.about')
           %li.can-hide.hide-for-small-only.hide-for-medium-only
-            = link_to page_path('services') do
+            = link_to page_path('publish') do
               = t('.products_services')
           -# TODO
           -# %li.can-hide= link_to t('.publish'), page_path('publish')
