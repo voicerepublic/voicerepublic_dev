@@ -82,7 +82,7 @@ module VoiceRepublic
     # config.assets.precompile += %w( *.js *.png *.jpg *.eot *.woff *.ttf *.svg )
     config.assets.precompile += %w( sencha.js
                                     embed_talk.js
-                                    embed_talk.css
+                                    embed.css
                                     venues.js
                                     dev_webfonts.css )
 
