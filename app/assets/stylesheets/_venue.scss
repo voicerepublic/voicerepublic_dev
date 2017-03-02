@@ -55,6 +55,7 @@ a.help-link {
     padding: 24px;
     color: white;
     position: relative;
+    background: $vr-purple;
     @include breakpoint(medium) {
         position: relative;
         height: auto;
@@ -108,6 +109,13 @@ a.help-link {
                 }
             }
         }
+    }
+}
+
+#talk-modal .close-button {
+    color: rgba(white,.5);
+    &:hover {
+        color: white;
     }
 }
 
