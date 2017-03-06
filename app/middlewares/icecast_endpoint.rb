@@ -52,8 +52,8 @@ class IcecastEndpoint < Struct.new(:app, :opts)
         listener_count: 0,
         listener_peak: 0
       }
+      sources = (sources - [main])
       # sum up over remaining sources
-      # sources = (sources - [main])
       sources.each do |source|
         stats[:listener_count] += source['listeners']
         stats[:listener_peak] += source['listener_peak']
