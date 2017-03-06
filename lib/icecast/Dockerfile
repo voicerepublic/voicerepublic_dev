@@ -6,6 +6,11 @@ MAINTAINER Phil Hofmann "phil@voicerepublic.com"
 
 ENV DEBIAN_FRONTEND noninteractive
 
+# add our user and group first to make sure their IDs get assigned
+# consistently, regardless of whatever dependencies get added
+RUN groupadd -r icecast && \
+  useradd -r -g icecast icecast2
+
 RUN echo 'deb-src http://httpredir.debian.org/debian jessie-backports main' \
     >> /etc/apt/sources.list.d/backports.list
 RUN apt-get -qq -y update && \

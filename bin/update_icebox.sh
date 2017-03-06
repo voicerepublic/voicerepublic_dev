@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 echo "Add the following section to your `~/.ssh/config`."
 echo
@@ -27,6 +27,3 @@ echo
 echo "Then add the AMI key to `config/settings.yml`."
 echo "Commit, Push, Deploy & Test it!"
 echo
-
-
-
