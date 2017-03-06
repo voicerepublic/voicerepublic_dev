@@ -178,7 +178,7 @@ icecast:
   # TODO remove
   # this needs to be overridden by `app/shared/config/settings.local.yml`
   host: localhost
-  port: 8000
+  port: 8080
 
 fog:
   compute:
