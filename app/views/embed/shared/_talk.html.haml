@@ -17,7 +17,7 @@
     var insider = #{!!current_user.try(:insider?)};
     var initialSnapshot = #{talk.snapshot.to_json};
     var signedIn = #{user_signed_in?.to_s};
-    var userName = #{user_signed_in? ? current_user.name.inspect : "A friend"};
+    var userName = #{(user_signed_in? ? current_user.name : "A friend").inspect};
 
 = render partial: 'shared/embed_svg'
 

@@ -46,6 +46,11 @@ $dark-gray: #3d404d;
     -ms-flex-item-align: start;
     -webkit-align-self: flex-start;
             align-self: flex-start;
+    width: 116px;
+    height: 116px;
+    max-width: 116px;
+    max-height: 116px;
+    background: $vr-yellow;
 }
 
 .xs .image-box, .xs .live-badge{
@@ -68,8 +73,9 @@ $dark-gray: #3d404d;
 }
 
 
-.tiny .image-box, .token .image-box {
-  display: none;
+.tiny .image-box, .token .image-box, .tiny .action-panel, .token .action-panel {
+    display: none;
+    visibility: hidden;
 }
 
 .content-box {
@@ -178,8 +184,16 @@ h4.title:hover {
     text-decoration: underline;
 }
 
-.meta-info, .meta-info a {
+
+.meta-info {
+    position:absolute;
+    max-width: 100%;
+    overflow: hidden;
     color: $vr-blue;
+white-space: nowrap;
+    a {
+    color: $vr-blue;
+}
 }
 
 .user, span.play-count, span.date {
@@ -478,6 +492,11 @@ h4.title:hover {
     right: 0;
 }
 
+.token .jp-volume-bar {
+    display: none;
+    visibility: hidden;
+}
+
 .jp-progress {
     display: -webkit-flex;
     display: -ms-flexbox;
@@ -736,17 +755,26 @@ a.share-btn, .share-title {
     text-align: center;
     background: $vr-red;
     justify-content: center;
+
+    .action-btn {
+        background: $vr-red;
+        color: white;
+    }
+
+    .action-btn:hover {
+     background: $vr-red;
+     color: $vr-yellow;
+    }
+
 }
 
-.embed-msg .action-btn {
-    background: $vr-red;
-    color: white;
+.msg-holder {
+    display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  flex: 1 1 100%;
 }
 
-.embed-msg .action-btn:hover {
-    background: $vr-red;
-    color: $vr-yellow;
-}
 
 a.msg-text {
     display: -webkit-flex;
