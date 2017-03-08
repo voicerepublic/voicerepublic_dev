@@ -24,7 +24,6 @@
 //= require greensock/TweenMax
 //
 // --- VENDORED LIBRARIES
-//= require jquery.jplayer.min
 //= require nprogress
 //= require jquery-ui-timepicker-addon
 //
