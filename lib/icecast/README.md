@@ -21,7 +21,7 @@ echo 'deb https://apt.dockerproject.org/repo debian-jessie main' > /etc/apt/sour
 
 apt-get update
 
-apt-get -y install docker-engine
+apt-get -y install docker-engine psmisc
 ```
 
 
@@ -116,13 +116,17 @@ Then rebuild the docker image...
 docker build -t branch14/icecast2 icecast/.
 ```
 
-Before pulling the AMI make sure you stop and remove the current docker instance.
+Cleanup before pulling a new image
 
 ```
 docker stop icecast
 docker rm icecast
+docker build -t branch14/icecast2 icecast/.
+rm -f /etc/passwd-s3fs
+rm -f /root/env.list
+rm -f /tmp/part-001.log
+rm -rf /var/lib/cloud/*
 ```
-
 Now pull the AMI via [AWS Console](https://eu-central-1.console.aws.amazon.com/ec2/v2/home?region=eu-central-1#Instances:instanceState=running).
 
 
@@ -148,17 +152,6 @@ Other helpful commands
 * `docker restart icecast`
 * `docker exec -ti icecast bash`
 
-### cleanup when creating a new image
-
-```
-docker stop icecast
-docker rm icecast
-docker build -t branch14/icecast2 icecast/.
-rm -f /etc/passwd-s3fs
-rm -f /root/env.list
-rm -f /tmp/part-001.log
-rm -rf /var/lib/cloud/*
-```
 
 More Notes
 ----------
