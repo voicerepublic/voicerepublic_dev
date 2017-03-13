@@ -426,6 +426,7 @@ class Talk < ActiveRecord::Base
         slides_url: slides_url(false),
 
         # extended
+        scheduled_duration: duration * 60,
         archived_duration: podcast_file && podcast_file[:seconds],
         flyer_path: flyer.path,
         embed_url: embed_self_url,
