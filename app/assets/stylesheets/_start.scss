@@ -375,6 +375,8 @@ h1, h2 {
     #publisher-collection {
         .publisher {
             padding: 24px 12px;
+            float:left;
+            margin-bottom: 3px;
             h4 {
                 font-family: $body-font-family;
                 font-weight: 700;
@@ -393,7 +395,7 @@ h1, h2 {
             img {
                 // max-width: 50vw;
                 @include breakpoint(medium) {
-                    max-width: 220px;
+                    max-width: 215px;
                 }
             }
             hr {
@@ -402,12 +404,6 @@ h1, h2 {
                 margin: 0 auto;
                 margin-top: 48px;
             }
-        }
-        div:last-child {
-            @extend .end;
-        }
-        div:last-child:not(:nth-child(even)) {
-            @extend .medium-offset-3;
         }
     }
 }

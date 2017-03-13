@@ -2,6 +2,17 @@
 
 echo `date` disconnected >> /share/actions.log
 
+# TODO kill transcoders & remove pidfiles
+echo `date` kill transcoders `pwd` >> /share/actions.log
+kill `cat /share/transcode_mp3.pid`
+rm /share/transcode_mp3.pid
+kill `cat /share/transcode_ogg.pid`
+rm /share/transcode_ogg.pid
+kill `cat /share/transcode_aac.pid`
+rm /share/transcode_aac.pid
+killall ffmpeg
+
+
 COMMAND="curl -X POST $CALLBACK_URL/disconnect/$CLIENT_TOKEN"
 
 N=0

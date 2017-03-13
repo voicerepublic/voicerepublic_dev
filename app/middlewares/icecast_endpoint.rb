@@ -43,12 +43,22 @@ class IcecastEndpoint < Struct.new(:app, :opts)
       venue.synced!
 
     when :stats
-      source = JSON.parse(json)['icestats']['source']
+      sources = JSON.parse(json)['icestats']['source']
+      # find the main source
+      main = sources.find { |s| s['listenurl'].match(/\/live$/) }
+
       stats = {
-        bitrate: source['audio_bitrate'],
-        listener_count: source['listeners'],
-        listener_peak: source['listener_peak']
+        bitrate: main['audio_bitrate'],
+        listener_count: 0,
+        listener_peak: 0
       }
+      sources = (sources - [main])
+      # sum up over remaining sources
+      sources.each do |source|
+        stats[:listener_count] += source['listeners']
+        stats[:listener_peak] += source['listener_peak']
+      end
+
       StreamStat.create(stats.merge(venue_id: venue.id))
       Faye.publish_to venue.channel, event: 'stats', stats: stats
       Faye.publish_to '/admin/stats', stats: stats, slug: venue.slug
