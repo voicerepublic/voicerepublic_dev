@@ -235,7 +235,9 @@ class User < ActiveRecord::Base
   end
 
   def website_url
-    website.blank? ? nil : 'http://' + website
+    return nil if website.blank?
+    return 'http://' + website unless website.match(/^http/)
+    website
   end
 
   def twitter_url
