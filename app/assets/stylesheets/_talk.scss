@@ -58,19 +58,29 @@ body {
     }
     ul {
 
-    @include menu-base;
-       @include menu-expand;
-       @include menu-direction(vertical);
-       @include breakpoint(medium) {
-        @include menu-direction(horizontal);
-       }
+        width: 100%;
+        margin-left: 0;
+    // @include menu-base;
+    //    @include menu-expand;
+    //    @include menu-direction(vertical);
+    //    @include breakpoint(medium) {
+    //     @include menu-direction(horizontal);
+       // }
 
-       margin-bottom: 84px;
+       margin-bottom: 24px;
+       display: flex;
+        flex-flow: row wrap;
+        justify-content: center;
+        align-items: flex-start;
 
     }
     li {
 
         padding: 6px;
+        display: flex;
+        flex-flow: column nowrap;
+        flex: 1 1 25%;
+        min-width: 200px;
 
         a.big-button {
             background: rgba($talk-dark, 0.1);
@@ -84,6 +94,10 @@ body {
             letter-spacing: .05rem;
             border-radius: 4px;
             transition: all .2s;
+            flex: 0 0 179px;
+            align-items: center;
+            display: flex;
+            justify-content: center;
             &:hover {
                 background:rgba($talk-dark,.05);
                 background: $success-color;
