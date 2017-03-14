@@ -6,7 +6,7 @@
 #
 #     https://github.com/trentrichardson/jQuery-Timepicker-Addon
 #
-console.log("loading picker.") if insider
+console.log("loading picker.") if audit
 
 attribute = 'data-picker'
 

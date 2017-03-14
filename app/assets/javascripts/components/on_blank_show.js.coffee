@@ -8,7 +8,7 @@
 # to be shown which matches the selector provided as the value of the
 # attribute.
 #
-console.log("loading on blank show.") if insider
+console.log("loading on blank show.") if audit
 
 attribute = 'data-on-blank-show'
 

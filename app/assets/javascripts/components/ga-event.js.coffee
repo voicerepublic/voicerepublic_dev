@@ -35,7 +35,7 @@
 #
 # * https://developers.google.com/analytics/devguides/collection/gajs/eventTrackerGuide
 #
-console.log("loading ga.") if insider
+console.log("loading ga.") if audit
 
 attribute = 'data-ga-event'
 

@@ -1,4 +1,4 @@
-console.log("loading ajax filter.") if insider
+console.log("loading ajax filter.") if audit
 
 attribute = 'data-ajax-filters'
 

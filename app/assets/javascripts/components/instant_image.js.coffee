@@ -1,4 +1,4 @@
-console.log("loading instant image.") if insider
+console.log("loading instant image.") if audit
 
 attribute = 'data-instant-image'
 
