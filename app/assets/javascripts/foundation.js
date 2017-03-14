@@ -27,6 +27,6 @@
 //= require foundation.util.touch.js
 //= require foundation.util.triggers.js
 
-if (insider) {
+if (audit) {
   console.log("loading foundation.");
 }
