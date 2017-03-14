@@ -1,29 +1,29 @@
-/*BEIGE: #fef1de*/
-/*BLUE: #384f9e*/
-/*LIGHTBLUE: #54c6c6*/
-/*RED: #f82847*/
-/*Yellow: #ffed00*/
-/*Purple: #a339cd*/
+@import "settings";
+@import "foundation_and_overrides";
 
-@import url("https://cdn.jsdelivr.net/foundation/6.2.0/foundation.min.css");
+$dark-gray: #3d404d;
 
-@font-face {
-    font-family: 'Eagle';
-    src: url("../fonts/Eagle-Book.eot?-u70zge");
-    src: url("../fonts/Eagle-Book.eot?#iefix-u70zge") format("embedded-opentype"), url("../fonts/Eagle-Book.ttf?-u70zge") format("truetype"), url("../fonts/Eagle-Book.woff?-u70zge") format("woff"), url("../fonts/Eagle-Book.svg?-u70zge#Eagle-Book") format("svg");
-    font-weight: normal;
-    font-style: normal;
+/*more link*/
+.more-link {
+    color: white;
+    display: flex;
+    align-items: center;
+}
+
+.more-link:hover {
+    color: white;
+    text-decoration: underline;
 }
 
 
 .embed-player {
-    background: #29292b;
+    background: $talk-dark;
     overflow: hidden;
     padding: 12px;
     box-sizing: border-box;
     position: relative;
     height: 140px;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    font-family: $system-font-family;
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
@@ -46,6 +46,11 @@
     -ms-flex-item-align: start;
     -webkit-align-self: flex-start;
             align-self: flex-start;
+    width: 116px;
+    height: 116px;
+    max-width: 116px;
+    max-height: 116px;
+    background: $vr-yellow;
 }
 
 .xs .image-box, .xs .live-badge{
@@ -68,8 +73,9 @@
 }
 
 
-.tiny .image-box, .token .image-box {
-  display: none;
+.tiny .image-box, .token .image-box, .tiny .action-panel, .token .action-panel {
+    display: none;
+    visibility: hidden;
 }
 
 .content-box {
@@ -128,8 +134,8 @@
 }
 
 h4.title {
-    font-family: 'Eagle', sans-serif;
-    color: #54c6c6;
+    font-family: $header-font-family;
+    color: $vr-light-blue;
     font-size: 21px;
     line-height: 24px;
     letter-spacing: 1px;
@@ -157,7 +163,7 @@ h4.title .live {
 .tiny h4.title .live {
     text-transform: uppercase;
     color:white;
-    background: #f82847;
+    background: $vr-red;
     padding: 2px;
     font-size: 12px;
     display: inline;
@@ -178,8 +184,16 @@ h4.title:hover {
     text-decoration: underline;
 }
 
-.meta-info, .meta-info a {
-    color: #384f9e;
+
+.meta-info {
+    position:absolute;
+    max-width: 100%;
+    overflow: hidden;
+    color: $vr-blue;
+white-space: nowrap;
+    a {
+    color: $vr-blue;
+}
 }
 
 .user, span.play-count, span.date {
@@ -222,7 +236,7 @@ h4.title:hover {
     letter-spacing: 1px;
     color: white;
     text-transform: uppercase;
-    background: #f82847;
+    background: $vr-red;
     margin: 0;
     text-align: center;
     height: 36px;
@@ -234,7 +248,7 @@ h4.title:hover {
 }
 
 .live-badge p.live {
-    font-family: 'Eagle',sans-serif;
+    font-family: $header-font-family;
     line-height: 36px;
 }
 
@@ -269,7 +283,7 @@ h4.title:hover {
     position: absolute;
     width: inherit;
     height: inherit;
-    color: #f82847;
+    color: $vr-red;
     transition: opacity .5s ease;
 }
 
@@ -311,7 +325,7 @@ h4.title:hover {
 }
 
 .teaser-msg, .state-msg {
-    background: #f82847;
+    background: $vr-red;
 }
 
 .teaser-msg p, .state-msg p {
@@ -426,8 +440,8 @@ h4.title:hover {
     -webkit-align-items: center;
     -ms-flex-align: center;
     align-items: center;
-    background: #3d404d;
-    color: rgba(255, 255, 255, 0.5);
+    background: $dark-gray;
+    color: rgba(white, 0.5);
 }
 
 .jp-controls a svg {
@@ -435,12 +449,12 @@ h4.title:hover {
 }
 
 .jp-controls a:hover {
-    background: #384f9e;
+    background: $vr-blue;
     color: white;
 }
 
 .jp-state-playing .jp-controls a {
-    background: #f82847;
+    background: $vr-red;
 }
 
 .jp-state-playing .jp-controls a svg {
@@ -449,7 +463,6 @@ h4.title:hover {
 
 .not-ready  .jp-controls {
   display: none;
-  /*background: red*/
 }
 
 .jp-volume-bar {
@@ -463,7 +476,7 @@ h4.title:hover {
 
 .jp-volume-bar-value {
     background: rgba(0, 0, 0, 0.1);
-    border-top: 1px solid #ffde00;
+    border-top: 1px solid $vr-yellow;
     position: absolute;
     bottom: 0;
     left: 0;
@@ -472,13 +485,16 @@ h4.title:hover {
 
 .jp-volume-bar-value-dancing {
     position: absolute;
-    background: none;
-    background: #ffde00;
-    /*background: aliceblue;*/
+    background: $vr-yellow;
     width: 20px;
     bottom: 0;
     left: 0;
     right: 0;
+}
+
+.token .jp-volume-bar {
+    display: none;
+    visibility: hidden;
 }
 
 .jp-progress {
@@ -512,7 +528,7 @@ h4.title:hover {
 
 .jp-play-bar {
     height: 44px;
-    background: #384f9e;
+    background: $vr-blue;
 }
 
 .jp-time-holder, .loading-indicator {
@@ -522,7 +538,7 @@ h4.title:hover {
     top: 0;
     left: 0;
     right: 0;
-    color: #fef1de;
+    color: $vr-beige;
     font-size: 10px;
     letter-spacing: 1px;
     font-weight: 700;
@@ -542,7 +558,7 @@ h4.title:hover {
 }
 
 .time-divider {
-    color: #54c6c6;
+    color: $vr-light-blue;
 }
 
 .xs .time-divider, .xs .jp-duration, .tiny .time-divider, .tiny .jp-duration, .token .time-divider, .token .jp-duration {
@@ -614,9 +630,9 @@ h4.title:hover {
     align-items: center;
     width: 44px;
     height: 44px;
-    background: #3d404d;
+    background: $dark-gray;
     text-align: center;
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(white, 0.5);
     margin:0;
     border:0;
     padding: 0;
@@ -627,26 +643,34 @@ h4.title:hover {
 }
 
 .share-btn a:hover {
-    background: #a339cd;
+    background: $vr-purple;
     color:white;
 }
 
 .unpin-btn {
-    background:#54c6c6;
+    background: $vr-light-blue;
     color:white;
 }
 
 .unpin-btn:hover {
-    background: #f82847;
+    background: $vr-red;
 }
 
 a.action-btn:hover, .pin-btn:hover {
-    background: #384f9e;
+    background: $vr-blue;
     color: white;
 }
 
 a.action-btn svg {
     margin: 0 auto;
+}
+
+.pinboard button:hover {
+    background: $vr-blue;
+}
+
+.pinboard button:focus {
+    background: $dark-gray;
 }
 
 .replay-btn {
@@ -671,11 +695,11 @@ a.action-btn svg {
     vertical-align: middle;
     max-width: 150px;
     padding: 0 12px;
-    background: #54c6c6;
+    background: $vr-light-blue;
 }
 
 .replay-btn:hover {
-    color: #ffed00;
+    color: $vr-yellow;
 }
 
 .jp-spacer {
@@ -688,7 +712,7 @@ a.action-btn svg {
 }
 
 a.share-btn, .share-title {
-    background: #54c6c6;
+    background: $vr-light-blue;
     color: white;
 }
 
@@ -729,24 +753,34 @@ a.share-btn, .share-title {
     -ms-flex-align: stretch;
     align-items: stretch;
     text-align: center;
-    background: #f82847;
+    background: $vr-red;
+    justify-content: center;
+
+    .action-btn {
+        background: $vr-red;
+        color: white;
+    }
+
+    .action-btn:hover {
+     background: $vr-red;
+     color: $vr-yellow;
+    }
+
 }
 
-.embed-msg .action-btn {
-    background: #f82847;
-    color: white;
+.msg-holder {
+    display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  flex: 1 1 100%;
 }
 
-.embed-msg .action-btn:hover {
-    background: #f82847;
-    color: #ffed00;
-}
 
 a.msg-text {
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
-    background: #f82847;
+    background: $vr-red;
     padding: 0 12px;
     font-size: 12px;
     font-weight: 500;
@@ -775,15 +809,10 @@ a.msg-text:hover {
     line-height: 12px;
 }
 
-/*Unbranded Player:*/
-
-.unbranded.embed-player {
-    /*background: #eee;*/
-}
+// Unbranded Player:
 
 .unbranded h4.title {
     color: #f4f4f4;
-    /*background: #3d404d;*/
 }
 
 .unbranded .meta-info, .unbranded .meta-info a {

@@ -16,13 +16,6 @@
   %body.embed-show
     .container= yield
     #scripts
-      - if user_signed_in?
-        :javascript
-          var pinMap = #{current_user.pin_map.to_json};
-          var insider = #{@current_user.try(:insider?).inspect};
-      - else
-        :javascript
-          var insider = false;
-
+      = content_for :javascripts
       = javascript_include_tag :embed
       = render 'shared/google_analytics'

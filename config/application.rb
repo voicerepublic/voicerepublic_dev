@@ -74,11 +74,8 @@ module VoiceRepublic
     config.assets.paths << "#{config.root}/app/assets/fonts"
 
     # config.assets.precompile += %w( *.js *.png *.jpg *.eot *.woff *.ttf *.svg )
-    config.assets.precompile += %w( sencha.js
-                                    embed_talk.js
-                                    embed_talk.css
-                                    venues.js
-                                    dev_webfonts.css )
+    config.assets.precompile += %w( embed.js
+                                    embed.css )
 
     # Handling exceptions dynamically using middleware.
     # Here a rack middleware app could be configured, instead we are using the

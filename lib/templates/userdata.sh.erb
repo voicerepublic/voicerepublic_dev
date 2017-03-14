@@ -30,6 +30,9 @@ if [ -f /sys/hypervisor/uuid ] && [ `head -c 3 /sys/hypervisor/uuid` == ec2 ]; t
   chmod 600 /etc/passwd-s3fs
   /usr/local/bin/s3fs $BUCKET $STORAGE -o allow_other
 
+  # fix old permission issue
+  chown -R icecast2: $STORAGE/$PREFIX/
+
   cat >> /home/admin/.ssh/authorized_keys<<EOF
 <%= ssh_keys %>
 EOF
@@ -42,6 +45,12 @@ fi
 mkdir -p $STORAGE/$PREFIX
 chmod 777 $STORAGE/$PREFIX
 
+# generate a new self signed key which is valid for 2 days
+openssl req -new -newkey rsa:2048 -days 365 -nodes -x509 \
+        -keyout $STORAGE/$PREFIX/icecast.pem \
+        -out $STORAGE/$PREFIX/icecast.pem \
+        -subj "/C=CH/ST=Zurich/L=Zurich/O=Voice Republic Media AG/OU=R&D/CN=voicerepublic.com"
+
 ENV_LIST=$HOME/env.list
 
 cat >$ENV_LIST <<EOF
@@ -49,19 +58,12 @@ cat >$ENV_LIST <<EOF
 PUBLIC_IP=$PUBLIC_IP
 EOF
 
-# generate a new self signed key which is valid for 2 days
-openssl req -new -newkey rsa:2048 -days 365 -nodes -x509 \
-        -keyout $STORAGE/$PREFIX/icecast.pem \
-        -out $STORAGE/$PREFIX/icecast.pem \
-        -subj "/C=CH/ST=Zurich/L=Zurich/O=Voice Republic Media AG/OU=R&D/CN=voicerepublic.com"
-
 # production
 docker run \
        --detach=true \
        --name=icecast \
        --env-file=$ENV_LIST \
-       --expose=8000 \
-       --publish=80:8080 \
+       --publish=<%= port %>:8080 \
        --publish=443:8443 \
        --restart=unless-stopped \
        --volume=$STORAGE/$PREFIX:/share \

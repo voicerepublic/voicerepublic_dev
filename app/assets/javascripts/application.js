@@ -24,7 +24,6 @@
 //= require greensock/TweenMax
 //
 // --- VENDORED LIBRARIES
-//= require jquery.jplayer.min
 //= require nprogress
 //= require jquery-ui-timepicker-addon
 //
@@ -48,5 +47,6 @@
 // --- MISC
 //= require sencha
 //= require shame
+//= require browser
 //= require cljs
 //= require topbar

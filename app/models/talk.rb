@@ -426,6 +426,7 @@ class Talk < ActiveRecord::Base
         slides_url: slides_url(false),
 
         # extended
+        scheduled_duration: duration * 60,
         archived_duration: podcast_file && podcast_file[:seconds],
         flyer_path: flyer.path,
         embed_url: embed_self_url,
@@ -433,6 +434,8 @@ class Talk < ActiveRecord::Base
         edit_url: edit_self_url,
         create_message_url: create_message_url,
         image_url: image.url,
+        thumb_url: image.thumb('116x116#').url, # for embed
+        url: self_url, # for embed
         channel: channel,
         venue: {
           user: venue_user_attributes,
