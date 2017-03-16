@@ -836,8 +836,8 @@ class Talk < ActiveRecord::Base
     return if Rails.env.test?
     push_snapshot
 
-    # bubble up
-    venue.push_snapshot
+    # bubble up (reload required to not send outdated states)
+    venue.reload.push_snapshot
   end
 
   def push_snapshot
