@@ -24,6 +24,7 @@ describe PlainMailer do
   # emails and check if the one we're looking for is included in the
   # list.
   it 'sends personalised welcome emails from the email of the CEO' do
+    ActionMailer::Base.deliveries.clear
     expect(ActionMailer::Base.deliveries).to be_empty
     FactoryGirl.create(:user)
     emails = ActionMailer::Base.deliveries.map(&:from).flatten
