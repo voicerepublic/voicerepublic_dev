@@ -191,7 +191,8 @@ h4.title:hover {
     max-width: 100%;
     overflow: hidden;
     color: $vr-blue;
-white-space: nowrap;
+    white-space: nowrap;
+    line-height: 1;
     a {
     color: $vr-blue;
 }
@@ -257,6 +258,12 @@ white-space: nowrap;
     float: left;
     margin-right: 72px;
     line-height: 21px;
+}
+
+
+.xs .first-slash, .tiny .first-slash {
+    display: none;
+    visibility: hidden;
 }
 
 .small .info-box {
