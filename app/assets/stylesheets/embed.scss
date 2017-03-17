@@ -51,6 +51,7 @@ $dark-gray: #3d404d;
     max-width: 116px;
     max-height: 116px;
     background: $vr-yellow;
+    z-index: 999;
 }
 
 .xs .image-box, .xs .live-badge{
