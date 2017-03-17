@@ -51,6 +51,7 @@ $dark-gray: #3d404d;
     max-width: 116px;
     max-height: 116px;
     background: $vr-yellow;
+    z-index: 999;
 }
 
 .xs .image-box, .xs .live-badge{
@@ -190,7 +191,8 @@ h4.title:hover {
     max-width: 100%;
     overflow: hidden;
     color: $vr-blue;
-white-space: nowrap;
+    white-space: nowrap;
+    line-height: 1;
     a {
     color: $vr-blue;
 }
@@ -256,6 +258,12 @@ white-space: nowrap;
     float: left;
     margin-right: 72px;
     line-height: 21px;
+}
+
+
+.xs .first-slash, .tiny .first-slash {
+    display: none;
+    visibility: hidden;
 }
 
 .small .info-box {
@@ -422,6 +430,8 @@ white-space: nowrap;
     -webkit-flex: 0 1 auto;
     -ms-flex: 0 1 auto;
     flex: 0 1 auto;
+
+
 }
 
 .jp-controls a {
@@ -451,6 +461,17 @@ white-space: nowrap;
 .jp-controls a:hover {
     background: $vr-blue;
     color: white;
+}
+
+.jp-controls {
+    &.disabled {
+        cursor: not-allowed;
+        opacity: .4;
+        a {
+            // @include button-disabled;
+            pointer-events: none;
+        }
+    }
 }
 
 .jp-state-playing .jp-controls a {
@@ -671,6 +692,10 @@ a.action-btn svg {
 
 .pinboard button:focus {
     background: $dark-gray;
+}
+
+.pinboard button svg {
+    margin: 0 auto;
 }
 
 .replay-btn {
