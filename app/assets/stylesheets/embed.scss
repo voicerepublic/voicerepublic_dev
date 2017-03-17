@@ -422,6 +422,8 @@ white-space: nowrap;
     -webkit-flex: 0 1 auto;
     -ms-flex: 0 1 auto;
     flex: 0 1 auto;
+
+
 }
 
 .jp-controls a {
@@ -451,6 +453,17 @@ white-space: nowrap;
 .jp-controls a:hover {
     background: $vr-blue;
     color: white;
+}
+
+.jp-controls {
+    &.disabled {
+        cursor: not-allowed;
+        opacity: .4;
+        a {
+            // @include button-disabled;
+            pointer-events: none;
+        }
+    }
 }
 
 .jp-state-playing .jp-controls a {
