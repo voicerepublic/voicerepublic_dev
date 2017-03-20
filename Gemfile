@@ -63,6 +63,7 @@ gem 'inifile', require: false
 gem 'trickery'
 gem 'closeio', require: false
 gem 'greensock-rails'
+gem "autoprefixer-rails"
 
 
 group :development do

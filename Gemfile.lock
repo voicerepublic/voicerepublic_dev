@@ -102,6 +102,8 @@ GEM
     arel (6.0.3)
     auphonic (0.1.0)
       faraday
+    autoprefixer-rails (6.7.7)
+      execjs
     babel-source (5.8.35)
     babel-transpiler (0.7.0)
       babel-source (>= 4.0, < 6)
@@ -643,6 +645,7 @@ DEPENDENCIES
   airbrake (~> 5.0)
   angularjs-file-upload-rails (~> 1.1.0)
   annotator
+  autoprefixer-rails
   better_errors
   binding_of_caller
   browser

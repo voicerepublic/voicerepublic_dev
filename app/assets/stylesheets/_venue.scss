@@ -1114,13 +1114,16 @@ svg#logo {
     margin: 6px;
     @include box-shadow(3px, 0.3);
     border-radius: 4px;
-    padding: 6px;
+    padding: 12px;
     font-size: .9rem;
     color: #333;
     padding-bottom: 21px;
-    max-width: 60%;
+    max-width: 80%;
     position: relative;
-    animation: fadeLosenge 5s infinite;
+    background-color: white;
+    animation: 
+        fadeLosenge 5s,
+        bounce .5s;
     &.right {
         background: white;
     }
@@ -1213,12 +1216,12 @@ svg#logo {
     transition: darken .2s;
 }
 
-@-webkit-keyframes fadeLosenge {
+@keyframes fadeLosenge {
   0% {
     background-color: $vr-yellow;
   }
-  75% {
-    background-color: #fff;
+  60% {
+    background-color: $vr-yellow;
   }
 
   100% {
@@ -1226,3 +1229,10 @@ svg#logo {
   }
 }
 
+@keyframes bounce {
+  0% { transform: scale(.8); opacity: 0 }
+  50% { transform: scale(1.2); opacity: .7; }
+  60% { transform: scale(0.9); opacity: 1 }
+  80% { transform: scale(1.1) }
+  100% { transform: scale(1) }
+}
