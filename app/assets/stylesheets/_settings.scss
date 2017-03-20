@@ -114,7 +114,7 @@ $talk-dark: #29292b !default;
 $primary-color: #2c46b0 !default; // vr blue
 $secondary-color: #54c6c6 !default; // vr turq
 $alert-color: #f82847 !default; // vr red
-$success-color: #60BD70 !important; // vr greeen (new from nick)
+$success-color: #60BD70 !default; // vr greeen (new from nick)
 $warning-color: #ffed00 !default; // vr yellow
 $info-color: #fef1de !default; // vr beige
 $brand-purple: #a339cd !default; //vr-purple
@@ -129,6 +129,7 @@ $vr-red: $alert-color;
 $vr-purple: $brand-purple;
 $vr-yellow: $warning-color;
 $vr-beige: $info-color;
+$vr-green: $success-color;
 $topbar-dark: #35363b !default;
 
 $input-error-color: $vr-red;

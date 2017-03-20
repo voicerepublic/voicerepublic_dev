@@ -543,21 +543,7 @@ hr {
 }
 
 #toggles .button {
-    border: none;
-    margin: 0;
-    border-radius: 2px;
-    box-shadow: 0 1px 2px rgba($talk-dark, 0.2);
-    background: rgba(white, 0.5);
-    color: $success-color;
-    &:hover {
-        background: $success-color;
-        color: white;
-    }
-    svg {
-        margin-right: 12px;
-        width: 18px;
-        height: 18px;
-    }
+    
     &.active {
         background: none;
         color: $success-color;
@@ -575,15 +561,19 @@ hr {
             pointer-events: none;
         }
     }
-    &#device-label {
-        box-shadow: none;
-        pointer-events: none;
-        height: 30px;
-        background: none;
-        color: $oil;
-        svg {
-            margin-right: 6px;
-        }
+
+}
+
+#device-label {
+    box-shadow: none;
+    pointer-events: none;
+    height: 30px;
+    background: none;
+    color: $oil;
+    svg {
+        width: 36px;
+        height: 36px;
+        margin-right: 6px;
     }
 }
 

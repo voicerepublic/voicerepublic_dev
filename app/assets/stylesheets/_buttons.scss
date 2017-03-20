@@ -140,3 +140,22 @@ button, .button {
 .close-button {
     background: none;
 }
+
+.stage-button {
+    border: none;
+    margin: 0;
+    border-radius: 2px;
+    box-shadow: 0 1px 2px rgba($talk-dark, 0.2);
+    background: rgba(white, 0.5);
+    color: $vr-green;
+  
+    &:hover {
+        background: $vr-green;
+        color: $white;
+    }
+    svg {
+        margin-right: 12px;
+        width: 18px;
+        height: 18px;
+    }
+}
