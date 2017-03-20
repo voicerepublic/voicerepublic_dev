@@ -1206,3 +1206,8 @@ svg#logo {
         margin-top: -3px;
     }
 }
+
+#circleButton:hover {
+    fill:darken($success-color,10%);
+    transition: darken .2s;
+}
