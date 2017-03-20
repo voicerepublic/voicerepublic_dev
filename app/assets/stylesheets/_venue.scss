@@ -177,7 +177,8 @@ a.help-link {
 }
 
 .venues {
-    overflow: visible;
+    // overflow: hidden;
+    // max-height: 100vh;
 }
 
 //New stuff:
@@ -1098,6 +1099,8 @@ svg#logo {
     padding: 12px 6px;
     // background: #f8f8f8;
     min-height: 100vh;
+    max-height: 100vh;
+    overflow-y: scroll;
     padding-bottom: 10px;
     @include breakpoint(medium) {
         padding-bottom: 60px;
