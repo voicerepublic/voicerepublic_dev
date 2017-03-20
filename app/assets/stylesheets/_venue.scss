@@ -1096,7 +1096,7 @@ svg#logo {
 //messages
 #message-container {
     padding: 12px 6px;
-    background: #f8f8f8;
+    // background: #f8f8f8;
     min-height: 100vh;
     padding-bottom: 10px;
     @include breakpoint(medium) {
@@ -1110,7 +1110,7 @@ svg#logo {
 }
 
 .message-losenge {
-    background: $vr-beige;
+    
     margin: 6px;
     @include box-shadow(3px, 0.3);
     border-radius: 4px;
@@ -1120,6 +1120,7 @@ svg#logo {
     padding-bottom: 21px;
     max-width: 60%;
     position: relative;
+    animation: fadeLosenge 5s infinite;
     &.right {
         background: white;
     }
@@ -1211,3 +1212,17 @@ svg#logo {
     fill:darken($success-color,10%);
     transition: darken .2s;
 }
+
+@-webkit-keyframes fadeLosenge {
+  0% {
+    background-color: $vr-yellow;
+  }
+  75% {
+    background-color: #fff;
+  }
+
+  100% {
+    background-color: #fff;
+  }
+}
+
