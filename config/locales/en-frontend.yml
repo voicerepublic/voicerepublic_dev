@@ -1,6 +1,11 @@
 en:
   frontend:
     talks:
+      nag_lead: "When you join Voice Republic, you'll be able to:"
+      benefit1: Download Podcasts from the conference
+      benefit2: Bookmark talks for later listening
+      benefit3: Take part in discussions
+      benefit4: And of course, you'll also be able to host your own talks
       embed_instructions: "Copy and paste the following code into your website:"
       launch: Go to RSS Feed
       state:
