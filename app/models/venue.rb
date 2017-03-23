@@ -25,6 +25,8 @@ class Venue < ActiveRecord::Base
 
   include ActiveModel::Transitions
 
+  scope :ordered, -> { order('name ASC') }
+
   scope :not_offline, -> { where.not(state: 'offline') }
 
   scope :with_live_talks, -> { joins(:talks).where("talks.state = 'live'") }

@@ -22,7 +22,7 @@
             %button.close-button{'data-close' => ''}
               %span.float-right &times;
           %p= s('.help_text')
-      - @venues.each do |venue|
+      - @venues.ordered.each do |venue|
         .talk-card.driftup.small-12.medium-3.large-4.columns
           = link_to venue do
             .talk-card-inside{class: venue.state}
