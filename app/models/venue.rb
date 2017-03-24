@@ -401,7 +401,7 @@ class Venue < ActiveRecord::Base
     self.started_provisioning_at = nil
     self.completed_provisioning_at = nil
     # reset device! (no preselected device after server launched)
-    self.device = nil
+    # self.device = nil # but remember streamboxes
     self.device_name = nil
   end
 
