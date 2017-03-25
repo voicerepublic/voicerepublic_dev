@@ -1,7 +1,8 @@
-def venues
-  Venue.not_offline.order('state').each do |v|
-    puts "%20s %40s" % [v.state, v.name]
+def list_venues
+  Venue.not_offline.order('slug').each do |v|
+    puts "%-10s %-45s %s" % [v.state, v.slug, v.stream_url]
   end
+  nil
 end
 
 def restart_streaming_server!(v)
