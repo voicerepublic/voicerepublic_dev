@@ -490,7 +490,7 @@ class Talk < ActiveRecord::Base
 
         run_ic_chain! chain # ic as in icecast
 
-        archive! unless archived?
+        archived? ? save! : archive!
       end
     rescue => e
       message = ([e.message] + e.backtrace) * "\n"
