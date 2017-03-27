@@ -8,7 +8,7 @@
 # * pager - a css selector, pointing to the node the holds the
 #   paging information
 #
-console.log("loading infinite scroll.") if insider
+console.log("loading infinite scroll.") if audit
 
 attribute = 'data-infinite-scroll'
 

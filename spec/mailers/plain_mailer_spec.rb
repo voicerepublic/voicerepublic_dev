@@ -19,10 +19,16 @@ describe PlainMailer do
     Delayed::Worker.delay_jobs = false
   end
 
+  # Once an for all: The order in which emails are send is not
+  # predictable, hence we'll collect all the addresses from all the
+  # emails and check if the one we're looking for is included in the
+  # list.
   it 'sends personalised welcome emails from the email of the CEO' do
-    user = FactoryGirl.create :user
-    email = ActionMailer::Base.deliveries.first
-    expect(email.from).to include('patrick.frank@voicerepublic.com')
+    ActionMailer::Base.deliveries.clear
+    expect(ActionMailer::Base.deliveries).to be_empty
+    FactoryGirl.create(:user)
+    emails = ActionMailer::Base.deliveries.map(&:from).flatten
+    expect(emails).to include('patrick.frank@voicerepublic.com')
   end
 
 end

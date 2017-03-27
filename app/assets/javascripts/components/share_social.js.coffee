@@ -1,4 +1,4 @@
-console.log("loading social share.") if insider
+console.log("loading social share.") if audit
 
 attribute = '#social_share .share'
 

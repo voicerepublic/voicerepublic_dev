@@ -1,4 +1,4 @@
-console.log("loading pinboard.") if insider
+console.log("loading pinboard.") if audit
 
 pinMap = [] unless pinMap?
 

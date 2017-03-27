@@ -16,6 +16,8 @@
   %body.embed-show
     .container= yield
     #scripts
+      :javascript
+        var audit = false;
       = content_for :javascripts
       = javascript_include_tag :embed
       = render 'shared/google_analytics'

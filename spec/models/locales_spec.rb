@@ -36,10 +36,11 @@ describe I18n do
       File.read(file).split("\n").each do |line|
         next unless line.match(/^\s+\w+:\s*(.+)\s*$/)
         next if line.match(/https?:\/\//)
+        next if line.match(/|$/)
         begin
-          value = YAML.load($1)
-        rescue
-          puts 'ERROR PARSING...'
+          value = YAML.load(line.strip)
+        rescue => e
+          puts 'ERROR PARSING WITH '+e.message
           puts line
         end
         # and check if these exist in the translations

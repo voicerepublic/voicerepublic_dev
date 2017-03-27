@@ -467,7 +467,7 @@ class Talk < ActiveRecord::Base
 
   def archive_from_dump!
     begin
-      process!
+      process! unless archived?
       # move operations to tmp dir
       path = Rails.root.join("tmp/processing/archive_from_dump/#{id}")
       tmp_dir = FileUtils.mkdir_p(path).first
@@ -490,13 +490,13 @@ class Talk < ActiveRecord::Base
 
         run_ic_chain! chain # ic as in icecast
 
-        archive!
+        archive! unless archived?
       end
     rescue => e
       message = ([e.message] + e.backtrace) * "\n"
       Rails.logger.error message
       self.processing_error = message
-      suspend!
+      suspend! unless archived?
     ensure
       FileUtils.remove_entry tmp_dir if tmp_dir
     end
@@ -836,8 +836,8 @@ class Talk < ActiveRecord::Base
     return if Rails.env.test?
     push_snapshot
 
-    # bubble up
-    venue.push_snapshot
+    # bubble up (reload required to not send outdated states)
+    venue.reload.push_snapshot
   end
 
   def push_snapshot

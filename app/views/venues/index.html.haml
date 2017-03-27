@@ -22,7 +22,7 @@
             %button.close-button{'data-close' => ''}
               %span.float-right &times;
           %p= s('.help_text')
-      - @venues.each do |venue|
+      - @venues.ordered.each do |venue|
         .talk-card.driftup.small-12.medium-3.large-4.columns
           = link_to venue do
             .talk-card-inside{class: venue.state}
@@ -32,3 +32,5 @@
                   = human_count(venue.talks.count)
                   = t('.talks', count: venue.talks.count)
                 %span.venue-state.float-right= venue.state
+      .columns
+        = link_to '(Download as playlist)', format: 'm3u8', title: "Allows checking the streams in your favorite media player"

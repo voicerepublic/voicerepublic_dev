@@ -31,7 +31,7 @@ if [ -f /sys/hypervisor/uuid ] && [ `head -c 3 /sys/hypervisor/uuid` == ec2 ]; t
   /usr/local/bin/s3fs $BUCKET $STORAGE -o allow_other
 
   # fix old permission issue
-  chown -R icecast2: $STORAGE/$PREFIX/
+  # chown -R icecast2: $STORAGE/$PREFIX/
 
   cat >> /home/admin/.ssh/authorized_keys<<EOF
 <%= ssh_keys %>
