@@ -99,8 +99,8 @@ en:
           http://blog.voicerepublic.com/support/troubleshooting-2
         waiting_for_reconnect: >-
           Oops, we lost you! Please check your internet
-          connection. Please find help here
-          http://blog.voicerepublic.com/support/troubleshooting-2
+          connection. Please find help %{visit-troubleshooting}.
+          
         connected_again: >-
           Phew! You're back.
         continue_streaming: >-
