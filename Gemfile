@@ -6,9 +6,8 @@ gem 'rails', '4.2.0'
 #gem 'turbolinks'
 
 gem 'rails-i18n'
-gem 'pg'
-# https://github.com/collectiveidea/delayed_job
-gem "daemons"
+gem 'pg'                           # postgres
+gem "daemons"                      # delayed job wants daemons
 gem 'delayed_job'
 gem 'delayed_job_active_record'
 
@@ -20,14 +19,14 @@ gem 'uglifier'#, '>= 1.0.3'
 # gem 'bcrypt', '~> 3.1.7'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
-gem 'bunny'
+gem 'bunny'                        # rmq client
 gem 'bumpy_bridge', '~> 0.0.4'
-gem 'faker'
+gem 'faker'                        # mock data
 gem 'rack-affiliates'
-gem 'config'
+gem 'config'                       # THE rails settings solution
 gem 'foundation-rails', '6.2.0.1'
 gem 'jquery-rails'
-gem 'devise', '~> 3.4.0'
+gem 'devise', '~> 3.4.0'           # authentication/iam lib for rails
 gem 'simple_token_authentication', github: 'branch14/simple_token_authentication'
 gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
@@ -38,7 +37,7 @@ gem 'angularjs-file-upload-rails', '~> 1.1.0'
 gem 'acts-as-taggable-on', '3.4.2' # tag-system
 gem 'cancan'                       # authorization/privileges
 gem 'thin'                         # faster development-server
-gem 'whenever'
+gem 'whenever'                     # rubyesque interface to cron jobs
 gem 'haml-rails'
 gem 'simple_form'
 gem 'unicorn'
@@ -53,17 +52,14 @@ gem 'browser'
 gem 'fog'
 #gem 'fog-aws'
 #gem 'fog-local'
-gem 'excon', '~> 0.45.4'
-gem 'slick_rails'
+gem 'excon', '~> 0.45.4'           # http client
 gem 'mailgun_rails'
 gem 'activemerchant'
 gem 'faye-authentication', github: 'branch14/faye-authentication'
-gem 'redcarpet' # markdown parser & renderer
+gem 'redcarpet'                    # markdown parser & renderer
 gem 'inifile', require: false
 gem 'trickery'
-gem 'closeio', require: false
 gem 'greensock-rails'
-
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
