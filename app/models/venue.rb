@@ -424,6 +424,16 @@ class Venue < ActiveRecord::Base
     Faye.publish_to '/admin/connections', details
   end
 
+  def force_disconnect!
+    options = {
+      admin_password: admin_password,
+      public_ip_address: public_ip_address,
+      port: port,
+      mount_point: mount_point
+    }
+    IcecastRemote.new(options).disconnect!
+  end
+
   def on_disconnected
     return if Rails.env.test?
     details = { event: 'disconnected', slug: slug }

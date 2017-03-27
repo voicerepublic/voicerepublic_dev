@@ -622,6 +622,9 @@ class Talk < ActiveRecord::Base
   def after_end
     # to make the dump file of icecast appear on s3, we need to disconnect
     venue.require_disconnect! if venue.connected?
+
+    # experimental
+    venue.force_disconnect!
   end
 
   # FIXME cleanup the wget/cp spec mess with
