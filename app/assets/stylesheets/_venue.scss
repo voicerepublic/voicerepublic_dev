@@ -570,10 +570,19 @@ hr {
     height: 30px;
     background: none;
     color: $oil;
+    font-size: .8rem;
+    text-transform: uppercase;
+    letter-spacing: .05rem;
+    display: inline-block;
+    margin-right: 12px;
+    .strong {
+        font-weight: 700;
+    }
     svg {
-        width: 36px;
-        height: 36px;
+        width: 30px;
+        height: 30px;
         margin-right: 6px;
+        vertical-align: middle;
     }
 }
 
