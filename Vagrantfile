@@ -88,7 +88,7 @@ Vagrant.configure(2) do |config|
     ssh_pub_key = File.readlines("#{Dir.home}/.ssh/id_rsa.pub").first.strip
     s.inline = <<-SHELL
       echo #{ssh_pub_key} >> /home/vagrant/.ssh/authorized_keys
-      sudo mkdir /root/.ssh
+      sudo mkdir -p /root/.ssh
       sudo echo #{ssh_pub_key} >> /root/.ssh/authorized_keys
     SHELL
   end
