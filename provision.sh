@@ -5,7 +5,7 @@ echo 'deb http://ftp.debian.org/debian jessie-backports main' > \
 
 apt-get update
 
-apt-get install -y git
+apt-get install -y zsh i3 xinit roxterm git
 
 # auto login
 mkdir -p /etc/systemd/system/getty@tty1.service.d/
@@ -15,8 +15,7 @@ ExecStart=
 ExecStart=-/sbin/agetty --autologin vagrant --noclear %I \$TERM
 EOF
 
-apt-get install -y zsh i3
-
+# zsh
 chsh -s /usr/bin/zsh vagrant
 
 cat >~vagrant/.zprofile <<EOF
