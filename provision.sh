@@ -34,3 +34,11 @@ mkdir -p ~vagrant/src
 ln -s /vagrant ~vagrant/src/vr
 
 chown -R vagrant: ~vagrant
+
+# TODO
+su -c 'ssh-keygen -b 2048 -t rsa -f .ssh/id_rsa -N ""'
+echo '=== IMPORT THIS KEY TO GITHUB ==='
+echo
+cat ~vagrant/.ssh/id_rsa.pub
+echo
+echo '==='
