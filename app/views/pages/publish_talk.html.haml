@@ -1,0 +1,64 @@
+- if user_signed_in? and current_user.talks.prelive.any?
+  .row.clearfix#talk-selector
+    %h1.text-center
+      = t('.you_have_x_talks_scheduled', count: current_user.talks.prelive.count)
+    %div.explain-text.medium-8.medium-offset-2.large-offset-3.columns.large-6
+      %p.text-center.publish-advice= t('.help_scheduled').html_safe
+    %ul
+      %li
+        = link_to venues_path, class: 'big-button primary' do
+          = naked_icon "megaphone"
+          stream now
+        %p.publish-advice
+          = t('.advice_stream').html_safe
+      %li
+        = link_to new_upload_path, class: 'big-button' do
+          = naked_icon "cloud-upload"
+          upload a talk
+        %p.publish-advice
+          = t('.advice_upload').html_safe
+
+      %li
+        = link_to new_talk_path, class: 'big-button' do
+          = naked_icon "clock"
+          schedule live stream
+        %p.publish-advice
+          = t('.advice_live').html_safe
+      %li
+        = link_to new_talk_path(talk: {dryrun: true}), class: 'big-button' do
+          = naked_icon "beaker"
+          test live stream
+        %p.publish-advice
+          = t('.advice_test').html_safe
+
+- else
+  .row.clearfix#talk-selector
+    %h1.text-center
+      = t('.how_would_you_like_to_publish')
+    %div.explain-text.medium-8.medium-offset-2.large-offset-3.columns.large-6
+      %p.text-center.publish-advice= t('.help').html_safe
+    %ul
+      %li
+        = link_to new_upload_path, class: 'big-button' do
+          = naked_icon "cloud-upload"
+          upload a talk
+        %p.publish-advice
+          = t('.advice_upload').html_safe
+
+      %li
+        = link_to new_talk_path, class: 'big-button' do
+          = naked_icon "clock"
+          schedule live stream
+        %p.publish-advice
+          = t('.advice_live').html_safe
+      %li
+        = link_to new_talk_path(talk: {dryrun: true}), class: 'big-button' do
+          = naked_icon "beaker"
+          test live stream
+        %p.publish-advice
+          = t('.advice_test').html_safe
+
+.row.clearfix.text-center
+  = link_to :back do
+    %button.button.hollow.btn-gray.btn-hover-red
+      Cancel

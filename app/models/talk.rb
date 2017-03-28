@@ -77,6 +77,7 @@ class Talk < ActiveRecord::Base
     end
     event :enqueue, success: :schedule_archiving!  do
       transitions from: :postlive, to: :queued
+      transitions from: :suspended, to: :queued
     end
     event :process do
       transitions from: :queued, to: :processing
@@ -425,6 +426,7 @@ class Talk < ActiveRecord::Base
         slides_url: slides_url(false),
 
         # extended
+        scheduled_duration: duration * 60,
         archived_duration: podcast_file && podcast_file[:seconds],
         flyer_path: flyer.path,
         embed_url: embed_self_url,
@@ -432,6 +434,8 @@ class Talk < ActiveRecord::Base
         edit_url: edit_self_url,
         create_message_url: create_message_url,
         image_url: image.url,
+        thumb_url: image.thumb('116x116#').url, # for embed
+        url: self_url, # for embed
         channel: channel,
         venue: {
           user: venue_user_attributes,
@@ -448,10 +452,8 @@ class Talk < ActiveRecord::Base
   end
 
   def venue_user_attributes
-    venue.user.attributes.tap do |attrs|
+    venue.user.details.tap do |attrs|
       attrs[:image_url] = venue.user.avatar.thumb("60x60#").url
-      attrs[:name] = venue.user.name
-      attrs[:url] = venue.user.self_url
     end
   end
 
@@ -465,7 +467,7 @@ class Talk < ActiveRecord::Base
 
   def archive_from_dump!
     begin
-      process!
+      process! unless archived?
       # move operations to tmp dir
       path = Rails.root.join("tmp/processing/archive_from_dump/#{id}")
       tmp_dir = FileUtils.mkdir_p(path).first
@@ -488,16 +490,38 @@ class Talk < ActiveRecord::Base
 
         run_ic_chain! chain # ic as in icecast
 
-        archive!
+        archived? ? save! : archive!
       end
     rescue => e
       message = ([e.message] + e.backtrace) * "\n"
       Rails.logger.error message
       self.processing_error = message
-      suspend!
+      suspend! unless archived?
     ensure
       FileUtils.remove_entry tmp_dir if tmp_dir
     end
+  end
+
+  def debug_processing
+    bucket0, region0 = Settings.storage.media.split('@')
+    prefix0 = uri
+    bucket1, region1 = venue.recordings_bucket.split('@')
+    prefix1 = venue.slug
+    chain = Settings.audio.archive_chain.split(/\s+/)
+    [
+      nil,
+      "aws s3 sync --region #{region0} s3://#{bucket0}/#{prefix0} #{prefix0}",
+      nil,
+      "aws s3 sync --region #{region1} s3://#{bucket1}/#{prefix1} #{prefix1}",
+      nil,
+      manifest(chain).to_yaml,
+      nil
+    ] * "\n"
+  end
+
+  def durations
+    return Settings.durations if Settings.durations.include?(duration)
+    [duration] + Settings.durations
   end
 
   private
@@ -598,6 +622,9 @@ class Talk < ActiveRecord::Base
   def after_end
     # to make the dump file of icecast appear on s3, we need to disconnect
     venue.require_disconnect! if venue.connected?
+
+    # experimental
+    venue.force_disconnect!
   end
 
   # FIXME cleanup the wget/cp spec mess with
@@ -812,8 +839,8 @@ class Talk < ActiveRecord::Base
     return if Rails.env.test?
     push_snapshot
 
-    # bubble up
-    venue.push_snapshot
+    # bubble up (reload required to not send outdated states)
+    venue.reload.push_snapshot
   end
 
   def push_snapshot

@@ -1,3 +1,5 @@
+console.log("loading pinboard.") if audit
+
 pinMap = [] unless pinMap?
 
 selector = '.pinboard'

@@ -21,7 +21,7 @@ echo 'deb https://apt.dockerproject.org/repo debian-jessie main' > /etc/apt/sour
 
 apt-get update
 
-apt-get -y install docker-engine
+apt-get -y install docker-engine psmisc
 ```
 
 
@@ -97,19 +97,45 @@ cd
 
 Pull an AMI. Done. Add the AMIs id to `settings.yml`.
 
+Updating an image
+-----------------
 
-Working on the image
---------------------
+When updating an image consider updating the software...
+
+```
+apt-get update
+apt-get upgrade
+apt-get install docker-engine
+```
+
+Maybe also update s3fs.
+
+Then rebuild the docker image...
+
+```
+docker build -t branch14/icecast2 icecast/.
+```
+
+Cleanup before pulling a new image
+
+```
+docker stop icecast
+docker rm icecast
+docker build -t branch14/icecast2 icecast/.
+rm -f /etc/passwd-s3fs
+rm -f /root/env.list
+rm -f /tmp/part-001.log
+rm -rf /var/lib/cloud/*
+```
+Now pull the AMI via [AWS Console](https://eu-central-1.console.aws.amazon.com/ec2/v2/home?region=eu-central-1#Instances:instanceState=running).
 
 
-
+Notes on Working on the image
+-----------------------------
 
 ```
 scp -r lib/icecast root@icebox:
 ```
-
-
-
 
 ```
 export VENUE_SLUG=<your venue's slug>
@@ -127,24 +153,8 @@ Other helpful commands
 * `docker exec -ti icecast bash`
 
 
-
-### cleanup when creating a new image
-
-```
-docker stop icecast
-docker rm icecast
-docker build -t branch14/icecast2 icecast/.
-rm /etc/passwd-s3fs
-rm /root/env.list
-rm /tmp/part-001.log
-rm /var/lib/cloud/instance/scripts/part-001
-
-```
-
-
-
-Notes
------
+More Notes
+----------
 
 ```
 docker stop icecast

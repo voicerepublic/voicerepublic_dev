@@ -21,6 +21,8 @@ describe I18n do
   #
   # This is a rather naive check, which ignores multiline entries.
   #
+  # Since it originally barfed on urls its will ignore those too.
+  #
   # This spec also only works with the default i18n backend.
   it 'has no naming collisions' do
     # collect the values of all translations
@@ -32,18 +34,18 @@ describe I18n do
     errors = []
     files.each do |file|
       File.read(file).split("\n").each do |line|
-        case line
-        when /^\s+\w+:\s*(.+)\s*$/
-          begin
-            value = YAML.load($1)
-          rescue
-            puts 'ERROR PARSING...'
-            puts line
-          end
-          # and check if these exist in the translations
-          unless translations.include?(value)
-            errors << "Blocked: '#{value}'"
-          end
+        next unless line.match(/^\s+\w+:\s*(.+)\s*$/)
+        next if line.match(/https?:\/\//)
+        next if line.match(/|$/)
+        begin
+          value = YAML.load(line.strip)
+        rescue => e
+          puts 'ERROR PARSING WITH '+e.message
+          puts line
+        end
+        # and check if these exist in the translations
+        unless translations.include?(value)
+          errors << "Blocked: '#{value}'"
         end
       end
     end

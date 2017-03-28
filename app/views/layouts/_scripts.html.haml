@@ -1,13 +1,19 @@
 #scripts
+  :javascript
+    var audit = false;
   - if user_signed_in?
     :javascript
       var pinMap = #{current_user.pin_map.to_json};
+      var insider = #{@current_user.try(:insider?).inspect};
+  - else
+    :javascript
+      var insider = false;
 
-  = content_for :javascripts
-  = javascript_include_tag :application
+  = content_for :javascripts unless params[:nocfjs]
+  = javascript_include_tag :application unless params[:noapp]
 
   - if Rails.env.production?
-    = render 'shared/tawk'
-    - unless @current_user.try(:insider?)
+    = render 'shared/tawk' unless params[:nott]
+    - unless @current_user.try(:insider?) or params[:noga]
       = render 'shared/google_analytics'
       = render 'shared/google_remarketing'

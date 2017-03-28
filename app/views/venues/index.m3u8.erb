@@ -1,0 +1,6 @@
+#EXTM3U
+# https://en.wikipedia.org/wiki/M3U
+<% @venues.ordered.select { |v| v.stream_url.present? }.each do |v| %>
+#EXTINF:-1,<%= v.name.html_safe %>
+<%= v.stream_url %>
+<% end %>

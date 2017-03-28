@@ -18,13 +18,11 @@
 //= require jquery_ujs
 //= require foundation
 //= require selectize
-//= require slick
 //= require jquery-ui/datepicker
 //= require jquery-ui/slider
 //= require greensock/TweenMax
 //
 // --- VENDORED LIBRARIES
-//= require jquery.jplayer.min
 //= require nprogress
 //= require jquery-ui-timepicker-addon
 //
@@ -48,5 +46,6 @@
 // --- MISC
 //= require sencha
 //= require shame
+//= require browser
 //= require cljs
 //= require topbar

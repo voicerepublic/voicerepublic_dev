@@ -15,7 +15,7 @@ module TalksHelper
       description: @talk.description_as_text.empty? ?
         @talk.teaser : @talk.description_as_text,
       title:    @talk.title,
-      image:    "https://#{request.host}#{@talk.flyer.path}",
+      image:    @talk.image.url,
       keywords: @talk.try(:tag_list),
       author:   author,
       url:      talk_url(@talk),
@@ -34,6 +34,5 @@ module TalksHelper
   def human_count(count)
     number_to_human(count, units: {thousand:"k", million:"M"}, precision: 2)
   end
-
 
 end

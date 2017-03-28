@@ -13,9 +13,6 @@
  *
  *= require_self
  *= require foundation
-
-
- *= require slick
  */
 
 @import "settings";
@@ -63,3 +60,4 @@
 @import "pages";
 @import "publish";
 @import "downloads";
+// @import "embed";

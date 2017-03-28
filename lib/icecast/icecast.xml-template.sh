@@ -53,17 +53,14 @@ cat <<EOF
     listings. -->
     <hostname>localhost</hostname>
 
-    <!-- You may have multiple <listener> elements -->
     <listen-socket>
-        <port>8000</port>
-        <!-- <bind-address>127.0.0.1</bind-address> -->
-        <!-- <shoutcast-mount>/stream</shoutcast-mount> -->
+        <port>8080</port>
     </listen-socket>
-    <!--
+
     <listen-socket>
-        <port>8001</port>
+        <port>8443</port>
+        <ssl>1</ssl>
     </listen-socket>
-    -->
 
     <!--<master-server>127.0.0.1</master-server>-->
     <!--<master-server-port>8001</master-server-port>-->
@@ -113,29 +110,44 @@ cat <<EOF
     </mount>
     -->
 
-    <mount>
-      <mount-name>/live.ogg</mount-name>
-      <dump-file>/share/dump_%s.ogg</dump-file>
-      <on-connect>/share/stream-start</on-connect>
-      <on-disconnect>/share/stream-stop</on-disconnect>
+    <!-- mounts for transcoded streams -->
+    <mount type='default'>
       <public>0</public>
-      <!--<authentication type="url">
-        <option name="mount_add"    value="http://localhost:3000/ice/auth"/>
-        <option name="mount_remove" value="http://localhost:3000/ice/auth"/>
-        <option name="stream_auth"  value="http://localhost:3000/ice/auth"/>
+      <fallback-mount>/loop.mp3</fallback-mount>
+      <fallback-override>1</fallback-override>
+      <fallback-when-full>1</fallback-when-full>
+      <!--
+        <dump-file>/share/dump_%s.ogg</dump-file>
+        <on-connect>/share/stream-start</on-connect>
+        <on-disconnect>/share/stream-stop</on-disconnect>
+        <authentication type="url">
+          <option name="mount_add"    value="http://localhost:3000/ice/auth"/>
+          <option name="mount_remove" value="http://localhost:3000/ice/auth"/>
+          <option name="stream_auth"  value="http://localhost:3000/ice/auth"/>
         </authentication>
-        -->
+      -->
     </mount>
 
-    <mount type='default'>
+    <!-- the original input mount -->
+    <mount>
+      <mount-name>/live</mount-name>
       <dump-file>/share/dump_%s</dump-file>
       <on-connect>/connected.sh</on-connect>
       <on-disconnect>/disconnected.sh</on-disconnect>
       <public>0</public>
+      <!--
+        <fallback-mount>/loop.mp3</fallback-mount>
+        <fallback-override>1</fallback-override>
+        <fallback-when-full>1</fallback-when-full>
+      -->
     </mount>
+
+    <!-- * could be replaced with "voicerepublic.com, staging.voicerepublic.com" -->
 
     <http-headers>
       <header name="Access-Control-Allow-Origin" value="*" />
+      <header name="Access-Control-Allow-Headers" value="Origin, Accept, X-Requested-With, Content-Type, If-Modified-Since" />
+      <header name="Access-Control-Allow-Methods" value="GET, OPTIONS, HEAD" />
       <header name="X-Robots-Tag" value="noindex, nofollow, noarchive" />
     </http-headers>
 
@@ -165,6 +177,8 @@ cat <<EOF
           -->
         <!--<alias source="/" dest="/status.xsl"/>-->
         <alias source="/" dest="/redirect.html"/>
+
+        <ssl-certificate>/share/icecast.pem</ssl-certificate>
     </paths>
 
     <logging>

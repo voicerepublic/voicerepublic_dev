@@ -1,3 +1,5 @@
+console.log("loading instant image.") if audit
+
 attribute = 'data-instant-image'
 
 initialize = (element, selector) ->

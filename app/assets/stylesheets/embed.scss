@@ -1,0 +1,853 @@
+@import "settings";
+@import "foundation_and_overrides";
+
+$dark-gray: #3d404d;
+
+/*more link*/
+.more-link {
+    color: white;
+    display: flex;
+    align-items: center;
+}
+
+.more-link:hover {
+    color: white;
+    text-decoration: underline;
+}
+
+
+.embed-player {
+    background: $talk-dark;
+    overflow: hidden;
+    padding: 12px;
+    box-sizing: border-box;
+    position: relative;
+    height: 140px;
+    font-family: $system-font-family;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-flow: row nowrap;
+    -ms-flex-flow: row nowrap;
+    flex-flow: row nowrap;
+    -webkit-justify-content: space-between;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -webkit-align-items: stretch;
+    -ms-flex-align: stretch;
+    align-items: stretch;
+}
+
+.image-box {
+    position: relative;
+    -webkit-flex: 0 0 auto;
+    -ms-flex: 0 0 auto;
+    flex: 0 0 auto;
+    -ms-flex-item-align: start;
+    -webkit-align-self: flex-start;
+            align-self: flex-start;
+    width: 116px;
+    height: 116px;
+    max-width: 116px;
+    max-height: 116px;
+    background: $vr-yellow;
+    z-index: 999;
+}
+
+.xs .image-box, .xs .live-badge{
+    height: 60px;
+    width: 60px;
+    max-height: 60px;
+    max-width: 60px;
+}
+
+.xs .live-badge {
+    top:0;
+    left:0;
+    right:0;
+    bottom: 0;
+    margin:0;
+}
+
+.xs .live-badge p.live {
+    line-height: 44px;
+}
+
+
+.tiny .image-box, .token .image-box, .tiny .action-panel, .token .action-panel {
+    display: none;
+    visibility: hidden;
+}
+
+.content-box {
+    -webkit-flex: 1 1 auto;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    /*border: 1px solid green;*/
+    padding-left: 12px;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-flow: column nowrap;
+    -ms-flex-flow: column nowrap;
+    flex-flow: column nowrap;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-align-items: stretch;
+    -ms-flex-align: stretch;
+    align-items: stretch;
+}
+
+.xs .content-box, .tiny .content-box, .token .content-box {
+    position: absolute;
+    left: 0;
+    right: 12px;
+}
+
+.xs .top-box {
+    margin-left: 71px;
+    height: 72px;
+    max-height: 72px;
+    margin-bottom: 0;
+}
+
+.tiny .top-box {
+  margin-left: 0;
+}
+
+.small .top-box, .medium .top-box, .large .top-box {
+    height: 72px;
+    max-height: 72px;
+}
+
+.xs .info-box, .tiny .info-box, .token .info-box {
+    margin-right: 65px;
+}
+
+.tiny .info-box, .token .info-box {
+  margin-bottom: 6px;
+  height: 65px;
+}
+
+.tiny .action-panel {
+  /*display: none;*/
+}
+
+h4.title {
+    font-family: $header-font-family;
+    color: $vr-light-blue;
+    font-size: 21px;
+    line-height: 24px;
+    letter-spacing: 1px;
+    margin: 0;
+    max-height: 48px;
+    line-limit: 2;
+    display: block;
+    display: -webkit-box;
+    max-height: 36px;
+    margin: 0 auto;
+    font-size: 18px;
+    line-height: 18px;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 4px;
+    margin-top: 0px;
+}
+
+h4.title .live {
+    display: none;
+}
+
+.tiny h4.title .live {
+    text-transform: uppercase;
+    color:white;
+    background: $vr-red;
+    padding: 2px;
+    font-size: 12px;
+    display: inline;
+}
+
+.xs h4.title, .tiny h4.title, .token h4.title {
+    font-size: 16px;
+    line-height: 16px;
+}
+
+.small h4.title {
+    font-size: 18px;
+    line-height: 18px;
+    margin-top: 0;
+}
+
+h4.title:hover {
+    text-decoration: underline;
+}
+
+
+.meta-info {
+    position:absolute;
+    max-width: 100%;
+    overflow: hidden;
+    color: $vr-blue;
+    white-space: nowrap;
+    line-height: 1;
+    a {
+    color: $vr-blue;
+}
+}
+
+.user, span.play-count, span.date {
+    margin-bottom: 0;
+    font-size: 14px;
+    /*letter-spacing: 1px;*/
+}
+
+.xs .user, .tiny .user, .token .user {
+    display: block;
+    margin-top: -1px;
+}
+
+.small .user {
+    display: inline-block;
+    margin-top: -3px;
+    font-size: 12px;
+}
+
+.user {
+    font-weight: 700;
+}
+
+.user:hover {
+    text-decoration: underline;
+}
+
+.xs span.user, .tiny span.user, .token span.user {
+    font-size: 12px;
+}
+
+.small .meta-info {
+    display: block;
+    margin-top: -3px;
+}
+
+.live-badge {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: white;
+    text-transform: uppercase;
+    background: $vr-red;
+    margin: 0;
+    text-align: center;
+    height: 36px;
+    padding: 0;
+    width: 60px;
+    margin-left: 20px;
+    position: absolute;
+    top: 36px;
+}
+
+.live-badge p.live {
+    font-family: $header-font-family;
+    line-height: 36px;
+}
+
+.info-box {
+    float: left;
+    margin-right: 72px;
+    line-height: 21px;
+}
+
+
+.xs .first-slash, .tiny .first-slash {
+    display: none;
+    visibility: hidden;
+}
+
+.small .info-box {
+    height: 56px;
+    max-height: 56px;
+}
+
+.branding-box {
+    width: 60px;
+    height: 60px;
+    float: right;
+    position: absolute;
+    right: 12px;
+    top: 4px;
+}
+
+.xs .branding-box, .tiny .branding-box , .token .branding-box {
+    width: 36px;
+    height: 36px;
+    right: 0;
+    top: -4px;
+}
+
+.brand-logo, .brand-words {
+    position: absolute;
+    width: inherit;
+    height: inherit;
+    color: $vr-red;
+    transition: opacity .5s ease;
+}
+
+.brand-logo svg, .brand-words svg {
+    width: 60px;
+    height: 60px;
+    fill: currentColor;
+}
+
+.xs .brand-logo svg, .xs .brand-words svg, .tiny .brand-logo svg, .tiny .brand-words svg, .token .brand-logo svg, .token .brand-words svg {
+    width: 36px;
+    height: 36px;
+}
+
+.brand-logo {
+    opacity: 1;
+}
+
+.brand-words {
+    opacity: 0;
+}
+
+.branding-box:hover .brand-logo {
+    opacity: 0;
+}
+
+.branding-box:hover .brand-words {
+    opacity: 1;
+}
+
+/*JP*/
+.player-box, .teaser-msg, .state-msg {
+    -webkit-flex: 1 1 auto;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.teaser-msg, .state-msg {
+    background: $vr-red;
+}
+
+.teaser-msg p, .state-msg p {
+    margin: 0;
+    margin-left: 12px;
+    line-height: 12px;
+}
+
+
+.teaser-link {
+    color: white;
+    font-weight: 500;
+    text-align: center;
+    font-size: 14px;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex: 1 1 auto;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.teaser-link p {
+    margin: 0;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex: 1 1 auto;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    text-align: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.teaser-link:hover p {
+  color: white;
+  text-decoration: underline;
+}
+
+.jp-audio {
+    height: 44px;
+    -webkit-flex: 1 1 auto;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    /*border:1px solid red;*/
+}
+
+.jp-audio a {
+    transition: background .2s ease;
+    transition: color .2s ease;
+}
+
+.jp-interface {
+    -webkit-flex: 1 1 auto;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    height: 100%;
+    -webkit-flex-flow: row nowrap;
+    -ms-flex-flow: row nowrap;
+    flex-flow: row nowrap;
+    -webkit-justify-content: space-between;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -webkit-align-items: stretch;
+    -ms-flex-align: stretch;
+    align-items: stretch;
+    /*border:1px solid yellow;*/
+}
+
+
+
+.jp-controls {
+    min-width: 44px;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex: 0 1 auto;
+    -ms-flex: 0 1 auto;
+    flex: 0 1 auto;
+
+
+}
+
+.jp-controls a {
+    -webkit-flex: 1 1 auto;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-flow: row nowrap;
+    -ms-flex-flow: row nowrap;
+    flex-flow: row nowrap;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    background: $dark-gray;
+    color: rgba(white, 0.5);
+}
+
+.jp-controls a svg {
+    margin-left: 5px;
+}
+
+.jp-controls a:hover {
+    background: $vr-blue;
+    color: white;
+}
+
+.jp-controls {
+    &.disabled {
+        cursor: not-allowed;
+        opacity: .4;
+        a {
+            // @include button-disabled;
+            pointer-events: none;
+        }
+    }
+}
+
+.jp-state-playing .jp-controls a {
+    background: $vr-red;
+}
+
+.jp-state-playing .jp-controls a svg {
+    margin-left: 3px;
+}
+
+.not-ready  .jp-controls {
+  display: none;
+}
+
+.jp-volume-bar {
+    -webkit-flex: 0 0 20px;
+    -ms-flex: 0 0 20px;
+    flex: 0 0 20px;
+    display: block;
+    position: relative;
+    margin-right: 2px;
+}
+
+.jp-volume-bar-value {
+    background: rgba(0, 0, 0, 0.1);
+    border-top: 1px solid $vr-yellow;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 20px;
+}
+
+.jp-volume-bar-value-dancing {
+    position: absolute;
+    background: $vr-yellow;
+    width: 20px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.token .jp-volume-bar {
+    display: none;
+    visibility: hidden;
+}
+
+.jp-progress {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-flow: row nowrap;
+    -ms-flex-flow: row nowrap;
+    flex-flow: row nowrap;
+    -webkit-justify-content: flex-start;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
+    -webkit-align-items: stretch;
+    -ms-flex-align: stretch;
+    align-items: stretch;
+    -webkit-flex: 1 1 auto;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    position: relative;
+}
+
+.jp-seek-bar {
+    display: block;
+    position: relative;
+    width: 100%;
+}
+
+.jp-seek-bar {
+    background: rgba(18, 18, 20, 0.4);
+}
+
+.jp-play-bar {
+    height: 44px;
+    background: $vr-blue;
+}
+
+.jp-time-holder, .loading-indicator {
+    display: block;
+    position: absolute;
+    height: 22px;
+    top: 0;
+    left: 0;
+    right: 0;
+    color: $vr-beige;
+    font-size: 10px;
+    letter-spacing: 1px;
+    font-weight: 700;
+    line-height: 44px;
+    text-align: center;
+    pointer-events: none;
+}
+
+.loading-indicator p {
+  /*flex: 1 1 auto;*/
+  margin-bottom: 0;
+  line-height: 44px;
+}
+
+.tiny .jp-time-holder.sharing, .xs .jp-time-holder.sharing, .token .jp-time-holder.sharing {
+  display: none;
+}
+
+.time-divider {
+    color: $vr-light-blue;
+}
+
+.xs .time-divider, .xs .jp-duration, .tiny .time-divider, .tiny .jp-duration, .token .time-divider, .token .jp-duration {
+    display: none;
+}
+
+.token .info-box {
+  display: none;
+}
+
+.token .jp-time-holder {
+  display: none;
+}
+
+.token .action-panel {
+  display: none;
+}
+
+.token .branding-box {
+  display: block;
+  position: relative;
+  text-align: center;
+  width: 100%;
+  height: 50px;
+  margin-bottom: 20px;
+}
+
+.token .branding-box svg, .token .branding-box .brand-logo, .token .branding-box .brand-words {
+  width: 50px;
+  height: 50px;
+  position: relative;
+  float:none;
+  margin:0 auto;
+}
+
+.token .branding-box .brand-words {
+  margin-top: -48px;
+}
+
+
+.jp-audio  svg, .teaser-msg svg {
+    fill: currentColor;
+    width: 16px;
+    height: 16px;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.token .teaser-msg {
+    display: none;
+}
+.token .jp-controls {
+    min-width: 100%;
+}
+
+.button, .action-btn, .share-title, .pinboard, .share a {
+    -webkit-flex: 0 0 44px;
+    -ms-flex: 0 0 44px;
+    flex: 0 0 44px;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    width: 44px;
+    height: 44px;
+    background: $dark-gray;
+    text-align: center;
+    color: rgba(white, 0.5);
+    margin:0;
+    border:0;
+    padding: 0;
+}
+
+.share-btn svg, .share-btn svg * {
+    pointer-events: none;
+}
+
+.share-btn a:hover {
+    background: $vr-purple;
+    color:white;
+}
+
+.unpin-btn {
+    background: $vr-light-blue;
+    color:white;
+}
+
+.unpin-btn:hover {
+    background: $vr-red;
+}
+
+a.action-btn:hover, .pin-btn:hover {
+    background: $vr-blue;
+    color: white;
+}
+
+a.action-btn svg {
+    margin: 0 auto;
+}
+
+.pinboard button:hover {
+    background: $vr-blue;
+}
+
+.pinboard button:focus {
+    background: $dark-gray;
+}
+
+.pinboard button svg {
+    margin: 0 auto;
+}
+
+.replay-btn {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex: 1 1 auto;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    -webkit-flex-flow: row nowrap;
+    -ms-flex-flow: row nowrap;
+    flex-flow: row nowrap;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    color: white;
+    font-size: 12px;
+    text-transform: uppercase;
+    vertical-align: middle;
+    max-width: 150px;
+    padding: 0 12px;
+    background: $vr-light-blue;
+}
+
+.replay-btn:hover {
+    color: $vr-yellow;
+}
+
+.jp-spacer {
+    width: 2px;
+    min-width: 2px;
+    max-width: 2px;
+    -webkit-flex: 0 0 2px;
+    -ms-flex: 0 0 2px;
+    flex: 0 0 2px;
+}
+
+a.share-btn, .share-title {
+    background: $vr-light-blue;
+    color: white;
+}
+
+.share-title {
+    -webkit-flex: 1 1 auto;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    font-size: 12px;
+    padding: 0 12px;
+    min-width: 60px;
+}
+
+.share-title p {
+    margin: 0;
+    margin-bottom: 2px;
+    text-transform: uppercase;
+}
+
+.sh4r3-panel, .action-panel {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.close-share, .close-msg {
+    font-size: 21px;
+    font-weight: 200;
+}
+
+.embed-msg {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex: 1 1 auto;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    -webkit-align-items: stretch;
+    -ms-flex-align: stretch;
+    align-items: stretch;
+    text-align: center;
+    background: $vr-red;
+    justify-content: center;
+
+    .action-btn {
+        background: $vr-red;
+        color: white;
+    }
+
+    .action-btn:hover {
+     background: $vr-red;
+     color: $vr-yellow;
+    }
+
+}
+
+.msg-holder {
+    display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  flex: 1 1 100%;
+}
+
+
+a.msg-text {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    background: $vr-red;
+    padding: 0 12px;
+    font-size: 12px;
+    font-weight: 500;
+    color: white;
+    -webkit-flex: 1 1 auto;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+
+a.msg-text:hover {
+    text-decoration: underline;
+}
+
+.msg-text p {
+    margin: 0;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    text-align: center;
+    line-height: 12px;
+}
+
+// Unbranded Player:
+
+.unbranded h4.title {
+    color: #f4f4f4;
+}
+
+.unbranded .meta-info, .unbranded .meta-info a {
+    color: #999999;
+}
+
+.unbranded .jp-time-holder {
+    color: #999;
+}
+
+.unbranded .time-divider {
+    color: #ddd;
+}

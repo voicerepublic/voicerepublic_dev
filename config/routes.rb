@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get '/404', to: 'application#not_found'
   get '/500', to: 'application#internal_server_error'
 
+  get '/pages/', to: redirect('/')
   get '/pages/outdated_browser', to: redirect('/')
 
   get '/leipziger-buchmesse', to: redirect('https://voicerepublic.com/users/leipziger-buchmesse')
@@ -16,7 +17,9 @@ Rails.application.routes.draw do
     get 'terms',    to: redirect(blog_url('/terms-of-use'))
   end
 
-  get 'pages/:action' => 'pages', as: 'page'
+  get '/pages/:action' => 'pages', as: 'page'
+  # named
+  get '/pages/publish_talk' => 'pages#publish_talk', as: 'publish_talk'
 
   get "/pricing", to: 'purchases#index', as: 'pricing'
   resources :purchases, only: [ :index, :new, :create, :show ] do

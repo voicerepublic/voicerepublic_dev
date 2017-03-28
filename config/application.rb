@@ -48,16 +48,10 @@ module VoiceRepublic
     config.middleware.use 'EnforceRobotsTxt',
                           source: Rails.root.join('public/robots.txt')
 
-    # authenticate access to rtmp against rack middleware
-    config.middleware.use 'RtmpAuth'
-
     config.middleware.use 'Tts'
 
     # has to be wrapped in `config.before_initialize` in order to use Settings
     config.before_initialize do
-      opts = { :log => Settings.rtmp.log_notifications? }
-      config.middleware.use 'RtmpNotifications', opts
-
       config.middleware.use 'FayeAuth', secret: Settings.faye.secret_token
     end
 
@@ -80,11 +74,8 @@ module VoiceRepublic
     config.assets.paths << "#{config.root}/app/assets/fonts"
 
     # config.assets.precompile += %w( *.js *.png *.jpg *.eot *.woff *.ttf *.svg )
-    config.assets.precompile += %w( sencha.js
-                                    embed_talk.js
-                                    embed_talk.css
-                                    venues.js
-                                    dev_webfonts.css )
+    config.assets.precompile += %w( embed.js
+                                    embed.css )
 
     # Handling exceptions dynamically using middleware.
     # Here a rack middleware app could be configured, instead we are using the

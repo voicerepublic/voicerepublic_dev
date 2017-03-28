@@ -15,7 +15,7 @@
           %li.logo.show-for-medium
             = link_to '/' do
               %img{:src => "/images/logos/vr_red.svg", :width => "60"}/
-              %span.show-for-large-up VOICE REPUBLIC
+              %span.show-for-large VOICE REPUBLIC
           %li#mobile-logo.logo.show-for-small-only
             %a
               %img{:src => "/images/logos/vr_red.svg", :width => "60"}/
@@ -24,28 +24,20 @@
       .top-bar-right
         %ul.dropdown.menu{"data-dropdown-menu" => "", "data-disable-hover" => "true", "data-click-open" => "true"}
           %li.can-hide.hide-for-small-only
-            = link_to explore_path, class: 'qa-explore' do
-              = t('.explore')
-          - if user_signed_in?
-            %li.can-hide.hide-for-small-only
-              = link_to venues_path do
-                = t('.stream_now')
-          - else
-            %li.can-hide.hide-for-small-only
-              = link_to page_path action: 'publish' do
-                = t('.publish')
-            -# TODO: Add this back in someday?
-              %ul.submenu.menu.vertical{"data-submenu" => ""}
-                %li.drop-title= t('.categories')
-                - TagBundle.category.promoted.each do |category|
-                  %li
-                    = link_to explore_path(filter: {category: category.id}) do
-                      = category.title
-                %li.divider
-                -# TODO
-                -# %li= link_to t('.listen'), page_path('listen')
-                %li
-                  = link_to t('.explore'), explore_path
+            = link_to explore_path, class: 'qa-explore top-link-with-icon' do
+              = naked_icon "headphones"
+              = t('.listen')
+          %li.can-hide.hide-for-small-only
+            - url = publish_talk_path
+            = link_to url, class: 'top-link-with-icon' do
+              = naked_icon "megaphone"
+              = t('.publish')
+          %li.can-hide.hide-for-small-only.hide-for-medium-only
+            = link_to page_path('about') do
+              = t('.about')
+          %li.can-hide.hide-for-small-only.hide-for-medium-only
+            = link_to page_path('publish') do
+              = t('.products_services')
           -# TODO
           -# %li.can-hide= link_to t('.publish'), page_path('publish')
           - if !current_user
@@ -65,9 +57,9 @@
               %ul.submenu.menu.vertical{"data-submenu" => ""}
                 %li= link_to t('.my_profile'), current_user
                 -#%li= link_to t('.stream_now'), venues_path
-                %li= link_to t('.test_talk'), test_talk_path
-                %li= link_to t('.schedule_talk'), new_talk_path
-                %li= link_to t('.upload_talk'), new_upload_path
+                -#%li= link_to t('.test_talk'), test_talk_path
+                -#%li= link_to t('.schedule_talk'), new_talk_path
+                -#%li= link_to t('.upload_talk'), new_upload_path
                 -#- if !current_user.is_pro?
                 -#  %li= link_to t('.pricing'), purchases_path
                 %li= link_to t('.streamboxx_recordings'), devices_path
@@ -88,13 +80,14 @@
           %li= link_to t('.home'), root_path
         - if !current_page?(explore_path)
           %li= link_to t('.explore_the_archive'), explore_path
+        %li= link_to t('.publish'), publish_talk_path
         - if current_user
           %li= link_to t('.my_profile'), current_user
+          %li= link_to t('.streamboxx_recordings'), devices_path
         - if !current_user
           %li= link_to t('.login'), new_user_session_path
           %li= link_to t('.sign_up'), new_user_registration_path
 
-        %li= link_to t('.create_a_talk'), new_talk_path
         -#%li= link_to t('.pricing'), purchases_path
         %li
           - if current_user

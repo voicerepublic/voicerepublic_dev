@@ -17,13 +17,13 @@ class Mediator
 
   # a never complete list of boring domains
   BORING_DOMAINS = %w(
-    aol.com aol.de
+    aol.com aol.de att.net
     bluewin.ch btinternet.com
-    comcast.net
+    comcast.net cox.com
     emailgo.de exemail.com.au
     fadingemails.com free.fr freenet.de
     gmail.com gmx.info gmx.ch gmx.org gmx.us gmx.de gmx.net gmx.at googlemail.com
-    hotmail.de hotmail.com hotmail.co.uk
+    hotmail.de hotmail.com hotmail.co.uk hotmail.co.ul hotmail.cl.uk
     icloud.com
     yahoo.co.uk yahoo.com yahoo.de yahoo.fr yopmail.com
     live.com live.co.uk live.ca
@@ -31,7 +31,7 @@ class Mediator
     ncable.net.au ntlworld.com
     online.de outlook.com outlook.de
     posteo.de
-    sbcglobal.net sezampro.rs
+    sbcglobal.net sezampro.rs sohu.com
     t-online.de talk21.com
     versanet.de
     web.de
@@ -62,6 +62,7 @@ class Mediator
       'prelive.live.start_talk'      => 'Now live',
       'live.postlive.end_talk'       => 'Has come to end',
       'postlive.queued.enqueue'      => 'Has been queued for processing',
+      'suspended.queued.enqueue'     => 'Suspended has been queued for reprocessing',
       'queued.processing.process'    => 'Started processing',
       'processing.archived.archive'  => 'Just archived recording',
       'pending.archived.archive'     => 'Just archived upload',

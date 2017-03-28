@@ -8,12 +8,15 @@ button, .button {
     transition: border .2s ease;
     transition: all .2s ease;
     background-color: $vr-blue;
+    margin: 0;
     svg {
         fill: currentColor;
         //width: 12px;
         //height: 12px;
         vertical-align: middle;
         margin-right: 6px;
+        max-width: 24px;
+        max-height: 24px;
     }
     &.secondary {
         background-color: $vr-light-blue;
@@ -112,6 +115,10 @@ button, .button {
     }
     &.small {
         border-width: 2px;
+        svg {
+            width: 18px;
+            height: 18px;
+        }
     }
     &.large {
         border-width: 3px;
@@ -129,6 +136,9 @@ button, .button {
     //     border-color: $charcoal;
     //     color: $charcoal;
     // }
+    &.space-left {
+        margin-left: 1em;
+    }
 }
 
 .close-button {

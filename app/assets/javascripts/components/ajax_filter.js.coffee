@@ -1,3 +1,5 @@
+console.log("loading ajax filter.") if audit
+
 attribute = 'data-ajax-filters'
 
 initialize = (node, target) ->
