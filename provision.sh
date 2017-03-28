@@ -12,10 +12,19 @@ mkdir -p /etc/systemd/system/getty@tty1.service.d/
 cat > /etc/systemd/system/getty@tty1.service.d/override.conf <<EOF
 [Service]
 ExecStart=
-ExecStart=-/usr/bin/agetty --autologin vagrant --noclear %I \$TERM
+ExecStart=-/sbin/agetty --autologin vagrant --noclear %I \$TERM
 EOF
 
 apt-get install -y zsh i3
+
+chsh -s /usr/bin/zsh
+
+cat >~vagrant/.zprofile <<EOF
+autoload -Uz compinit promptinit
+compinit
+promptinit
+prompt walters
+EOF
 
 # auto start x
 echo '[ "$(tty)" = "/dev/tty1" ] && exec startx' >> ~vagrant/.zprofile
