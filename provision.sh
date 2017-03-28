@@ -17,7 +17,7 @@ EOF
 
 apt-get install -y zsh i3
 
-chsh -s /usr/bin/zsh
+chsh -s /usr/bin/zsh vagrant
 
 cat >~vagrant/.zprofile <<EOF
 autoload -Uz compinit promptinit

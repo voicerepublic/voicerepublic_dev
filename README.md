@@ -735,3 +735,11 @@ Vagrant
 -------
 
 Run `(cd lib/vrng; lein figwheel)` then run `vagrant up`.
+
+Update the image
+
+```
+git pull
+vagrant provision
+vagrant reload
+```
