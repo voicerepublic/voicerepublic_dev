@@ -27,3 +27,10 @@ EOF
 
 # auto start x
 echo '[ "$(tty)" = "/dev/tty1" ] && exec startx' >> ~vagrant/.zprofile
+
+
+# setup vr
+mkdir -p ~vagrant/src
+ln -s /vagrant ~vagrant/src/vr
+
+chown -R vagrant: ~vagrant
