@@ -37,9 +37,9 @@ GIT
 
 GIT
   remote: git@github.com:munen/fidelity.git
-  revision: f881c5b5a33a61c4447518149e988405c527d7e1
+  revision: 29ef2623c1eaf3bec8e7d932a9cd7d2efefe8248
   specs:
-    fidelity (2.0.1)
+    fidelity (2.1.0)
       auphonic
       fileutils_logger
       systemu
@@ -577,7 +577,7 @@ GEM
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
     systemu (2.6.5)
-    term-ansicolor (1.4.0)
+    term-ansicolor (1.5.0)
       tins (~> 1.0)
     thin (1.6.4)
       daemons (~> 1.0, >= 1.0.9)
