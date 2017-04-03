@@ -123,17 +123,7 @@ namespace :deploy do
 
   task :clear_old_caches do
     on roles(:app) do
-      path = "/home/app/app"
-      within path do
-        active_release = capture :readlink, '-f', 'current'
-        active_timestamp = capture :basename, active_release
-      end
-      within path + "/releases" do
-        old_releases = capture(:ls, '--hide', active_timestamp).split
-        old_releases.each do |old_release|
-          execute :rm, '-rf', "#{old_release}/tmp/cache/*"
-        end
-      end
+      execute :rake, "deploy:cleanup:clear_old_caches"
     end
   end
   after :finishing, :clear_old_caches
