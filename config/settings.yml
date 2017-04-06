@@ -166,7 +166,8 @@ icecast:
     #image: ami-7a0fda15 (icebox 3.17 log transcoding to s3)
     #image: ami-2d0dd842 (icebox 3.18 fixed typo for aac)
     #image: ami-fbc21694 (icebox 3.19 consistent uid/gid)
-    image: ami-fbc21694
+    #image: ami-ecd60583 (icebox 3.20 liquidsoap)
+    image: ami-ecd60583
     default_instance_type: t2.micro
     security_group: Icecast Servers
     key_name: phil-ffm
