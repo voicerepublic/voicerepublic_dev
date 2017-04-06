@@ -1,6 +1,11 @@
 ICECAST DOCKER SETUP
 ====================
 
+
+0. Updates
+
+Run `bin/update_icebox.sh`.
+
 1. Prerequisites
 2. Setup development
 3. Setup production (AWS EC2)

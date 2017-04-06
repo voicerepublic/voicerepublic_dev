@@ -64,6 +64,8 @@ module VoiceRepublic
 
     config.middleware.use 'IcecastEndpoint'
 
+    config.middleware.use 'StreamboxxEndpoint'
+
     config.middleware.use 'Rack::Affiliates'
 
     config.middleware.use 'PhpResponder'

@@ -12,6 +12,7 @@ class Device < ActiveRecord::Base
   belongs_to :organization
   has_one :venue
   has_many :device_reports
+  has_many :events, as: :source
 
   validates :identifier, presence: true
   validates :pairing_code, uniqueness: true, allow_nil: true
@@ -84,6 +85,7 @@ class Device < ActiveRecord::Base
     update_attribute :disappeared_at, nil
   end
 
+  # this is returned on registering
   def provisioning_data
     {
       name: name,
@@ -93,10 +95,7 @@ class Device < ActiveRecord::Base
       public_ip_address: public_ip_address,
       report_interval: report_interval,
       heartbeat_interval: heartbeat_interval,
-
-      faye_url: opts.faye_url || Settings.devices.faye.server,
-      faye_secret: opts.faye_secret || Settings.devices.faye.secret_token,
-
+      # FIXME add security
       storage: Settings.devices.storage.to_hash
     }
   end
