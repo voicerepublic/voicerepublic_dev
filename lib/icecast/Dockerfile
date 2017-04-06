@@ -15,7 +15,6 @@ RUN echo 'deb-src http://httpredir.debian.org/debian jessie-backports main' \
     >> /etc/apt/sources.list.d/backports.list
 RUN apt-get -qq -y update && \
   apt-get -qq -y install curl build-essential dpkg-dev libssl-dev && \
-  apt-get -qq -y -t jessie-backports install ffmpeg && \
   apt-get -qq -y -t jessie-backports build-dep icecast2 && \
   apt-get -qq -y -t jessie-backports source icecast2
 RUN (cd icecast2-2.4.2; dpkg-buildpackage -b)
