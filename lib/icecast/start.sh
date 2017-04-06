@@ -22,6 +22,7 @@ echo Icecast start with pid $ICECAST_PID
 sleep 3
 
 # start live transcoder
+# TODO maybe wrap into a restart routine
 /usr/bin/liquidsoap -v ./icebox.liq &
 
 # send ready signal
