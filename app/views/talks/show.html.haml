@@ -18,12 +18,10 @@
       fayeClient.addExtension(fayeExtension);
     }
 
-    insider = #{!!current_user.try(:insider?)};
     console.off = #{!!(Settings.disable_js_debugging && !current_user.try(:insider?))};
 
     translations = #{t('frontend.talks').to_json};
 
-    signedIn = #{user_signed_in?.to_s};
     isHost = #{(current_user == @talk.user).to_s};
     currentUser = #{current_user.try(:details).to_json || 'null'};
 

@@ -1,10 +1,11 @@
 #scripts
   :javascript
     var audit = false;
+    var signedIn = #{user_signed_in?.to_s};
   - if user_signed_in?
     :javascript
       var pinMap = #{current_user.pin_map.to_json};
-      var insider = #{@current_user.try(:insider?).inspect};
+      var insider = #{@current_user.insider?.to_s};
   - else
     :javascript
       var insider = false;

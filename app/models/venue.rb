@@ -25,6 +25,8 @@ class Venue < ActiveRecord::Base
 
   include ActiveModel::Transitions
 
+  scope :ordered, -> { order('name ASC') }
+
   scope :not_offline, -> { where.not(state: 'offline') }
 
   scope :with_live_talks, -> { joins(:talks).where("talks.state = 'live'") }
@@ -399,7 +401,7 @@ class Venue < ActiveRecord::Base
     self.started_provisioning_at = nil
     self.completed_provisioning_at = nil
     # reset device! (no preselected device after server launched)
-    self.device = nil
+    # self.device = nil # but remember streamboxes
     self.device_name = nil
   end
 
@@ -420,6 +422,16 @@ class Venue < ActiveRecord::Base
       slug: slug
     }
     Faye.publish_to '/admin/connections', details
+  end
+
+  def force_disconnect!
+    options = {
+      admin_password: admin_password,
+      public_ip_address: public_ip_address,
+      port: port,
+      mount_point: mount_point
+    }
+    IcecastRemote.new(options).disconnect!
   end
 
   def on_disconnected

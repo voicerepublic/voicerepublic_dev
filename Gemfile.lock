@@ -37,9 +37,9 @@ GIT
 
 GIT
   remote: git@github.com:munen/fidelity.git
-  revision: f881c5b5a33a61c4447518149e988405c527d7e1
+  revision: 29ef2623c1eaf3bec8e7d932a9cd7d2efefe8248
   specs:
-    fidelity (2.0.1)
+    fidelity (2.1.0)
       auphonic
       fileutils_logger
       systemu
@@ -153,11 +153,6 @@ GEM
     ci_reporter (2.0.0)
       builder (>= 2.1.2)
     cliver (0.3.2)
-    closeio (2.4.7)
-      faraday
-      faraday_middleware
-      hashie
-      json
     coderay (1.1.0)
     coffee-rails (4.1.1)
       coffee-script (>= 2.2.0)
@@ -216,8 +211,6 @@ GEM
       i18n (~> 0.5)
     faraday (0.9.2)
       multipart-post (>= 1.2, < 3)
-    faraday_middleware (0.10.0)
-      faraday (>= 0.7.4, < 0.10)
     faye (1.1.2)
       cookiejar (>= 0.3.0)
       em-http-request (>= 0.3.0)
@@ -567,8 +560,6 @@ GEM
       multi_json (~> 1.0)
       simplecov-html (~> 0.7.1)
     simplecov-html (0.7.1)
-    slick_rails (1.5.9)
-      railties (>= 3.1)
     slop (3.6.0)
     spring (1.6.2)
     spring-commands-rspec (1.0.4)
@@ -588,7 +579,7 @@ GEM
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
     systemu (2.6.5)
-    term-ansicolor (1.4.0)
+    term-ansicolor (1.5.0)
       tins (~> 1.0)
     thin (1.6.4)
       daemons (~> 1.0, >= 1.0.9)
@@ -659,7 +650,6 @@ DEPENDENCIES
   capistrano-rbenv (~> 2.0)
   capybara (= 2.4.4)
   ci_reporter
-  closeio
   coffee-rails (~> 4.1.0)
   config
   daemons
@@ -707,7 +697,6 @@ DEPENDENCIES
   simple_form
   simple_token_authentication!
   simplecov (~> 0.7.1)
-  slick_rails
   spring
   spring-commands-rspec
   thin
