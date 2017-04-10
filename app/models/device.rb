@@ -152,8 +152,8 @@ class Device < ActiveRecord::Base
     Faye.publish_to '/admin/devices', attributes
   end
 
-  def recordings(period=14.days)
-    files.map do |file|
+  def old_recordings
+    files.select { |f| f.key.match(/recording_\d+_\d+\.ogg$/) }.map do |file|
       {
         name: file.key.sub(prefix, ''),
         date: Time.at(file.key.match(/_(\d+)(_\d+)?\.ogg$/)[1].to_i),
@@ -161,7 +161,24 @@ class Device < ActiveRecord::Base
         size: file.content_length,
         link: "/backup/#{file.key}"
       }
-    end.reject do |rec|
+    end
+  end
+
+  def new_recordings
+    files.select { |f| f.key.match(/rec_\d+_\d+\.ogg$/) }.map do |file|
+      key = file.key.sub(prefix, '')
+      {
+        name: key,
+        date: DateTime.strptime(key, 'rec_%Y%m%d_%H%M%S.ogg').to_time,
+        duration: hms(estimate_duration(file.content_length)),
+        size: file.content_length,
+        link: "/backup/#{file.key}"
+      }
+    end
+  end
+
+  def recordings(period=14.days)
+    (new_recordings + old_recordings).reject do |rec|
       rec[:date] < period.ago
     end
   end
