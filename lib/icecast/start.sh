@@ -18,12 +18,8 @@ ICECAST_ADMIN_USER="${ICECAST_ADMIN_USER:-admin}"
 ICECAST_PID=$!
 echo Icecast start with pid $ICECAST_PID
 
-# give icecast time to settle
-sleep 3
-
 # start live transcoder
-# TODO maybe wrap into a restart routine
-/usr/bin/liquidsoap -v ./icebox.liq &
+./run_liquidsoap.sh &
 
 # send ready signal
 ./ready.sh

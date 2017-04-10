@@ -62,7 +62,7 @@ module VoiceRepublic
 
     config.middleware.use 'Backup'
 
-    config.middleware.use 'IcecastEndpoint'
+    config.middleware.use 'IceboxEndpoint'
 
     config.middleware.use 'StreamboxxEndpoint'
 

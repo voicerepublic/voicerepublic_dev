@@ -2,7 +2,7 @@
 
 echo `date` disconnected >> /share/actions.log
 
-COMMAND="curl -X POST $CALLBACK_URL/disconnect/$CLIENT_TOKEN"
+COMMAND="curl -X POST $CALLBACK_URL/$CLIENT_TOKEN/disconnect"
 
 N=0
 until [ $N -ge 10 ]
@@ -23,7 +23,7 @@ sync
 
 echo `date` synced >> /share/actions.log
 
-COMMAND="curl -X POST $CALLBACK_URL/synced/$CLIENT_TOKEN"
+COMMAND="curl -X POST $CALLBACK_URL/$CLIENT_TOKEN/synced"
 
 N=0
 until [ $N -ge 10 ]
