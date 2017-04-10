@@ -1,0 +1,30 @@
+default_pins: []
+
+# required by microservices
+bunny:
+  enabled: true
+slack:
+  channel: '@phil'
+  token: VtybT1KujQ6EKstsIEjfZ4AX
+
+icecast:
+  # url the docker container uses for callbacks
+  callback_url: http://192.168.178.21:3000/icecast
+  #callback_url: http://192.168.0.19:3000/icecast
+
+  # this overrides the public ip address that is reported for the
+  # running icecast server and will be used in icep to set it on
+  # the venue
+  #
+  # your local ip or even 'localhost' are good options here
+  #
+  url:
+    host: 192.168.178.21
+    port: 80
+
+# faye.ru reads its configuration from here!
+faye:
+  # server: http://localhost:9292/faye
+  server: http://192.168.178.21:9292/faye
+  #server: http://192.168.0.19:9292/faye
+  secret_token: 7650981269q2871928631823791287e
