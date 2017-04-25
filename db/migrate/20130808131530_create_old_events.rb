@@ -1,4 +1,4 @@
-class CreateEvents < ActiveRecord::Migration
+class CreateOldEvents < ActiveRecord::Migration
   def change
     create_table :events do |t|
       t.datetime :start_time

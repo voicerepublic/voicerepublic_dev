@@ -467,7 +467,7 @@ class Talk < ActiveRecord::Base
 
   def archive_from_dump!
     begin
-      process!
+      process! unless archived?
       # move operations to tmp dir
       path = Rails.root.join("tmp/processing/archive_from_dump/#{id}")
       tmp_dir = FileUtils.mkdir_p(path).first
@@ -490,13 +490,13 @@ class Talk < ActiveRecord::Base
 
         run_ic_chain! chain # ic as in icecast
 
-        archive!
+        archived? ? save! : archive!
       end
     rescue => e
       message = ([e.message] + e.backtrace) * "\n"
       Rails.logger.error message
       self.processing_error = message
-      suspend!
+      suspend! unless archived?
     ensure
       FileUtils.remove_entry tmp_dir if tmp_dir
     end
@@ -622,6 +622,9 @@ class Talk < ActiveRecord::Base
   def after_end
     # to make the dump file of icecast appear on s3, we need to disconnect
     venue.require_disconnect! if venue.connected?
+
+    # experimental
+    venue.force_disconnect!
   end
 
   # FIXME cleanup the wget/cp spec mess with

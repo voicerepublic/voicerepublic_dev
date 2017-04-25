@@ -729,3 +729,15 @@ need to create a symlink in `app/views/pages`
 Here we use the template `__basic.html.haml` which currently is the
 only template. Instances of sections to fill this page will be created
 after the new pages as been vistited at least once.
+
+
+Vagrant
+-------
+
+Run `(cd lib/vrng; lein figwheel)` then run `vagrant up`.
+
+Update the image
+
+```
+git pull && vagrant provision && vagrant reload
+```

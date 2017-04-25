@@ -18,7 +18,6 @@
 //= require jquery_ujs
 //= require foundation
 //= require selectize
-//= require slick
 //= require jquery-ui/datepicker
 //= require jquery-ui/slider
 //= require greensock/TweenMax

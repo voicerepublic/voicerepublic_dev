@@ -18,6 +18,9 @@ ICECAST_ADMIN_USER="${ICECAST_ADMIN_USER:-admin}"
 ICECAST_PID=$!
 echo Icecast start with pid $ICECAST_PID
 
+# start live transcoder
+./run_liquidsoap.sh &
+
 # send ready signal
 ./ready.sh
 
