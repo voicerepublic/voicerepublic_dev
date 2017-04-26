@@ -10,8 +10,8 @@
     :javascript
       var insider = false;
 
-  = content_for :javascripts unless params[:nocfjs]
   = javascript_include_tag :application unless params[:noapp]
+  = content_for :javascripts unless params[:nocfjs]
 
   - if Rails.env.production?
     = render 'shared/tawk' unless params[:nott]
