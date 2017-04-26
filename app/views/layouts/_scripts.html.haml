@@ -1,6 +1,6 @@
 #scripts
   :javascript
-    var audit = false;
+    var audit = #{(!!params[:audit]).to_s};
     var signedIn = #{user_signed_in?.to_s};
   - if user_signed_in?
     :javascript
