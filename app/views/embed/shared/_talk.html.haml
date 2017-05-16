@@ -2,7 +2,7 @@
   = t('.title', title: @talk.title)
 
 - content_for :javascripts do
-  %script{ src: Settings.faye.server + '/client.js', async: true }
+  %script{ src: Settings.faye.server + '/client.js' }
   = javascript_include_tag 'faye-authentication'
   :javascript
     var environment = #{Rails.env.to_json};
