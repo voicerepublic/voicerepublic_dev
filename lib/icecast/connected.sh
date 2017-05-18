@@ -1,8 +1,10 @@
 #!/bin/sh
 
+killall liquidsoap
+
 echo `date` connected >> /share/actions.log
 
-COMMAND="curl -X POST $CALLBACK_URL/connect/$CLIENT_TOKEN"
+COMMAND="curl -X POST $CALLBACK_URL/$CLIENT_TOKEN/connect"
 
 N=0
 until [ $N -ge 10 ]

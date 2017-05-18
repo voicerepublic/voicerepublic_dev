@@ -9,8 +9,8 @@ slack:
 
 icecast:
   # url the docker container uses for callbacks
-  callback_url: http://192.168.178.21:3000/icecast
-  #callback_url: http://192.168.0.19:3000/icecast
+  callback_url: http://192.168.178.21:3000/icebox
+  #callback_url: http://192.168.0.19:3000/icebox
 
   # this overrides the public ip address that is reported for the
   # running icecast server and will be used in icep to set it on

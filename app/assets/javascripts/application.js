@@ -47,5 +47,4 @@
 //= require sencha
 //= require shame
 //= require browser
-//= require cljs
 //= require topbar

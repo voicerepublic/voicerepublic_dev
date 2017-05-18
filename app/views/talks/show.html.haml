@@ -6,7 +6,7 @@
 
 - content_for :javascripts do
   %script{ src: '/javascripts/pdf.js' }
-  %script{ src: Settings.faye.server + '/client.js', async: true }
+  %script{ src: Settings.faye.server + '/client.js' }
   = javascript_include_tag 'faye-authentication'
   :javascript
     environment = #{Rails.env.to_json};
@@ -33,6 +33,7 @@
     itunesUrl = #{itunes_url(@talk.series).to_json};
 
     pdfWorkerSrc = '/javascripts/pdf.worker.js';
+  = javascript_include_tag 'cljs' unless params[:nocljs]
 
 -# An initial autoplay sound is needed to properly
 -# initialize blink based mobile browsers.

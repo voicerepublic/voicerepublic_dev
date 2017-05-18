@@ -87,7 +87,7 @@ Rails.application.configure do
   class BypassableUglifier
 
     # list the assets which should bypass the uglifier here
-    LIST = %w( venues.js )
+    LIST = %w( cljs.js )
 
     attr_accessor :pathname, :result
 

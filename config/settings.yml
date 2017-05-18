@@ -167,14 +167,15 @@ icecast:
     #image: ami-2d0dd842 (icebox 3.18 fixed typo for aac)
     #image: ami-fbc21694 (icebox 3.19 consistent uid/gid)
     #image: ami-ecd60583 (icebox 3.20 liquidsoap)
-    image: ami-ecd60583
+    #image: ami-bf4d9ed0 (icebox 3.21 improved live transcoding)
+    image: ami-bf4d9ed0
     default_instance_type: t2.micro
     security_group: Icecast Servers
     key_name: phil-ffm
   url:
     protocol: http
     port: 80
-  callback_url: http://change.in.your.local.settings.file/icecast
+  callback_url: http://change.in.your.local.settings.file/icebox
 
   # TODO remove
   # this needs to be overridden by `app/shared/config/settings.local.yml`
