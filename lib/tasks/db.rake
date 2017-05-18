@@ -16,7 +16,7 @@ namespace :db do
       CREATE EXTENSION pg_trgm;
       CREATE EXTENSION unaccent;
     SQL
-    system 'psql', database, '-c', sql
+    system 'psql', '-h', 'localhost','-U','postgres', database, '-c', sql
   end
 
   namespace :sync do

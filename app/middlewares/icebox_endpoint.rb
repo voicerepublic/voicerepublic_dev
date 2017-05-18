@@ -1,6 +1,6 @@
-class IcecastEndpoint < Struct.new(:app, :opts)
+class IceboxEndpoint < Struct.new(:app, :opts)
 
-  ROUTE = %r{/icecast/(\w+)/([\w-]+)}
+  ROUTE = %r{/icebox/([\w-]+)/(\w+)}
 
   OK               = [200, {}, ['200 - OK']]
   NOT_FOUND        = [404, {}, ['404 - Not found']]
@@ -10,9 +10,9 @@ class IcecastEndpoint < Struct.new(:app, :opts)
     path = env['PATH_INFO']
 
     return app.call(env) unless env['REQUEST_METHOD'] == 'POST'
-    return app.call(env) unless path.match(%r{\A/icecast/})
+    return app.call(env) unless path.match(%r{\A/icebox/})
 
-    _, action, token = path.match(ROUTE).to_a
+    _, token, action = path.match(ROUTE).to_a
     return app.call(env) unless _
 
     if action == 'stats' && !Rails.env.test?
@@ -48,6 +48,12 @@ class IcecastEndpoint < Struct.new(:app, :opts)
       Faye.publish_to venue.channel, event: 'stats', stats: stats
       Faye.publish_to '/admin/stats', stats: stats, slug: venue.slug
       return OK
+
+    when :icebox_output_connect
+    when :icebox_output_disconnect
+    when :icebox_output_error
+    when :icebox_output_start
+    when :icebox_output_stop
 
     else
       return [ 721, {}, ['721 - Known Unknowns', path] ]

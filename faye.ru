@@ -16,11 +16,15 @@
 #    rackup faye.ru -E production
 #
 require 'yaml'
+require 'term/ansicolor'
 require 'faye'
 require 'faye/authentication'
 require File.expand_path('../lib/faye_squasher', __FILE__)
 require File.expand_path('../lib/faye_sifter', __FILE__)
 
+class String
+  include Term::ANSIColor
+end
 
 # INSTANCIATE
 
@@ -53,13 +57,21 @@ faye.add_extension FayeSifter.new
 
 env = ENV['RAILS_ENV'] || 'development'
 if env == 'development'
-  puts "We're in dev mode, showing logs..."
+  puts "We're in dev mode, showing logs...".cyan
+
+  # black, red, green, yellow, blue, magenta, cyan, white
+
   faye.on(:publish) do |client_id, channel, data|
-    puts "publish #{client_id} #{channel} #{data.inspect}"
+    puts ["publish".green,
+          channel.yellow,
+          client_id,
+          data.to_yaml] * ' '
   end
 
   faye.on(:subscribe) do |client_id, channel|
-    puts "subscribe #{client_id} #{channel}"
+    puts ["subscribe".red,
+          channel.cyan,
+          client_id]
   end
 end
 
