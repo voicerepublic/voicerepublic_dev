@@ -11,7 +11,7 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN groupadd -r icecast && \
   useradd -r -g icecast icecast2
 
-RUN echo 'deb-src http://httpredir.debian.org/debian jessie-backports main' \
+RUN echo 'deb-src http://deb.debian.org/debian/ jessie-backports main' \
     >> /etc/apt/sources.list.d/backports.list
 RUN apt-get -qq -y update && \
   apt-get -qq -y install curl build-essential dpkg-dev libssl-dev && \
