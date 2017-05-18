@@ -3,6 +3,9 @@ require 'faraday'
 class IcecastRemote < Struct.new(:options)
 
   def disconnect!
+    raise "Cannot disconnect without proper address." if
+      options[:public_ip_address].nil?
+
     faraday.basic_auth('admin', options[:admin_password])
     faraday.get(url)
   end
