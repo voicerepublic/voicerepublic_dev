@@ -1,17 +1,10 @@
 #!/bin/sh
 
+killall liquidsoap
+
 echo `date` connected >> /share/actions.log
 
-# TODO start transcoders & write pid files
-echo `date` start transcoders `pwd` >> /share/actions.log
-./transcode.sh mp3 $ICECAST_SOURCE_PASSWORD &
-echo -n $! > /share/transcode_mp3.pid
-./transcode.sh ogg $ICECAST_SOURCE_PASSWORD &
-echo -n $! > /share/transcode_ogg.pid
-./transcode.sh aac $ICECAST_SOURCE_PASSWORD &
-echo -n $! > /share/transcode_aac.pid
-
-COMMAND="curl -X POST $CALLBACK_URL/connect/$CLIENT_TOKEN"
+COMMAND="curl -X POST $CALLBACK_URL/$CLIENT_TOKEN/connect"
 
 N=0
 until [ $N -ge 10 ]

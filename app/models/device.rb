@@ -12,6 +12,7 @@ class Device < ActiveRecord::Base
   belongs_to :organization
   has_one :venue
   has_many :device_reports
+  has_many :events, as: :source
 
   validates :identifier, presence: true
   validates :pairing_code, uniqueness: true, allow_nil: true
@@ -84,6 +85,7 @@ class Device < ActiveRecord::Base
     update_attribute :disappeared_at, nil
   end
 
+  # this is returned on registering
   def provisioning_data
     {
       name: name,
@@ -93,10 +95,7 @@ class Device < ActiveRecord::Base
       public_ip_address: public_ip_address,
       report_interval: report_interval,
       heartbeat_interval: heartbeat_interval,
-
-      faye_url: opts.faye_url || Settings.devices.faye.server,
-      faye_secret: opts.faye_secret || Settings.devices.faye.secret_token,
-
+      # FIXME add security
       storage: Settings.devices.storage.to_hash
     }
   end
@@ -153,8 +152,8 @@ class Device < ActiveRecord::Base
     Faye.publish_to '/admin/devices', attributes
   end
 
-  def recordings(period=14.days)
-    files.map do |file|
+  def old_recordings
+    files.select { |f| f.key.match(/recording_\d+_\d+\.ogg$/) }.map do |file|
       {
         name: file.key.sub(prefix, ''),
         date: Time.at(file.key.match(/_(\d+)(_\d+)?\.ogg$/)[1].to_i),
@@ -162,7 +161,24 @@ class Device < ActiveRecord::Base
         size: file.content_length,
         link: "/backup/#{file.key}"
       }
-    end.reject do |rec|
+    end
+  end
+
+  def new_recordings
+    files.select { |f| f.key.match(/rec_\d+_\d+\.ogg$/) }.map do |file|
+      key = file.key.sub(prefix, '')
+      {
+        name: key,
+        date: DateTime.strptime(key, 'rec_%Y%m%d_%H%M%S.ogg').to_time,
+        duration: hms(estimate_duration(file.content_length)),
+        size: file.content_length,
+        link: "/backup/#{file.key}"
+      }
+    end
+  end
+
+  def recordings(period=14.days)
+    (new_recordings + old_recordings).reject do |rec|
       rec[:date] < period.ago
     end
   end

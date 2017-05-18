@@ -17,6 +17,10 @@ Rails.application.routes.draw do
     get 'terms',    to: redirect(blog_url('/terms-of-use'))
   end
 
+  # old rss links
+  get '/venues/:id.rss', redirect('/root/index.rss')
+
+
   get '/pages/:action' => 'pages', as: 'page'
   # named
   get '/pages/publish_talk' => 'pages#publish_talk', as: 'publish_talk'

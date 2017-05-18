@@ -2,7 +2,7 @@
   = t('.title', title: @talk.title)
 
 - content_for :javascripts do
-  %script{ src: Settings.faye.server + '/client.js', async: true }
+  %script{ src: Settings.faye.server + '/client.js' }
   = javascript_include_tag 'faye-authentication'
   :javascript
     var environment = #{Rails.env.to_json};
@@ -19,6 +19,7 @@
     var signedIn = #{user_signed_in?.to_s};
     var userName = #{(user_signed_in? ? current_user.name : "A friend").inspect};
     var pinId = #{@reminder.try(:id) || 'null'};
+  = javascript_include_tag 'cljs' unless params[:nocljs]
 
 = render partial: 'shared/embed_svg'
 

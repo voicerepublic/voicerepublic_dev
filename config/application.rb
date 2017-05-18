@@ -62,7 +62,9 @@ module VoiceRepublic
 
     config.middleware.use 'Backup'
 
-    config.middleware.use 'IcecastEndpoint'
+    config.middleware.use 'IceboxEndpoint'
+
+    config.middleware.use 'StreamboxxEndpoint'
 
     config.middleware.use 'Rack::Affiliates'
 
@@ -74,7 +76,8 @@ module VoiceRepublic
     config.assets.paths << "#{config.root}/app/assets/fonts"
 
     # config.assets.precompile += %w( *.js *.png *.jpg *.eot *.woff *.ttf *.svg )
-    config.assets.precompile += %w( embed.js
+    config.assets.precompile += %w( cljs.js
+                                    embed.js
                                     embed.css )
 
     # Handling exceptions dynamically using middleware.

@@ -2,18 +2,7 @@
 
 echo `date` disconnected >> /share/actions.log
 
-# TODO kill transcoders & remove pidfiles
-echo `date` kill transcoders `pwd` >> /share/actions.log
-kill `cat /share/transcode_mp3.pid`
-rm /share/transcode_mp3.pid
-kill `cat /share/transcode_ogg.pid`
-rm /share/transcode_ogg.pid
-kill `cat /share/transcode_aac.pid`
-rm /share/transcode_aac.pid
-killall ffmpeg
-
-
-COMMAND="curl -X POST $CALLBACK_URL/disconnect/$CLIENT_TOKEN"
+COMMAND="curl -X POST $CALLBACK_URL/$CLIENT_TOKEN/disconnect"
 
 N=0
 until [ $N -ge 10 ]
@@ -34,7 +23,7 @@ sync
 
 echo `date` synced >> /share/actions.log
 
-COMMAND="curl -X POST $CALLBACK_URL/synced/$CLIENT_TOKEN"
+COMMAND="curl -X POST $CALLBACK_URL/$CLIENT_TOKEN/synced"
 
 N=0
 until [ $N -ge 10 ]
