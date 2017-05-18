@@ -60,6 +60,7 @@ gem 'redcarpet'                    # markdown parser & renderer
 gem 'inifile', require: false
 gem 'trickery'
 gem 'greensock-rails'
+gem "autoprefixer-rails"
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
