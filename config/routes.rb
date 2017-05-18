@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   end
 
   # old rss links
-  get '/venues/:id.rss', redirect('/root/index.rss')
+  get '/venues/:id.rss', to: redirect('/root/index.rss')
 
 
   get '/pages/:action' => 'pages', as: 'page'
