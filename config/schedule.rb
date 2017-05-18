@@ -22,6 +22,7 @@
 # rbenv setup
 set :job_template, "bash -l -c 'export PATH=/home/app/.rbenv/shims:$PATH && :job'"
 set :output, "/home/app/app/shared/log/whenever-cron.log"
+job_type :bin, "cd :path/bin && ruby :task :output"
 
 # Task invokation should be once in an hour
 every 40.minutes, :roles => [:app] do
@@ -59,4 +60,8 @@ end
 every 24.hours, at: '3:00 am', roles: [:app] do
   rake 'cleanup:stop_disused_streaming_servers'
   rake 'cleanup:reset_abandoned_venues'
+end
+
+every 24.hours, at: '2:00 am', roles: [:app] do
+  bin 'backup_database'
 end
