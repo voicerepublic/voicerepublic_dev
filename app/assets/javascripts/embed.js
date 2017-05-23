@@ -8,4 +8,3 @@
 //
 // --- MISC
 //= require browser
-//= require cljs

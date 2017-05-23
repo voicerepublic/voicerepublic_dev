@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170405095115) do
+ActiveRecord::Schema.define(version: 20170503094637) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -124,6 +124,7 @@ ActiveRecord::Schema.define(version: 20170405095115) do
     t.string   "mac_address_ethernet"
     t.string   "version"
     t.string   "mac_address_wifi"
+    t.string   "release"
   end
 
   add_index "devices", ["organization_id"], name: "index_devices_on_organization_id", using: :btree

@@ -119,6 +119,17 @@ namespace :deploy do
     # end
   end
 
+
+
+  task :clear_old_caches do
+    on roles(:app) do
+      within release_path do
+        execute :rake, "deploy:cleanup:clear_old_caches"
+      end
+    end
+  end
+  after :finishing, :clear_old_caches
+
 end
 
 

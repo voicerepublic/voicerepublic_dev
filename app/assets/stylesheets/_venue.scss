@@ -177,7 +177,8 @@ a.help-link {
 }
 
 .venues {
-    overflow: visible;
+    // overflow: hidden;
+    // max-height: 100vh;
 }
 
 //New stuff:
@@ -542,21 +543,7 @@ hr {
 }
 
 #toggles .button {
-    border: none;
-    margin: 0;
-    border-radius: 2px;
-    box-shadow: 0 1px 2px rgba($talk-dark, 0.2);
-    background: rgba(white, 0.5);
-    color: $success-color;
-    &:hover {
-        background: $success-color;
-        color: white;
-    }
-    svg {
-        margin-right: 12px;
-        width: 18px;
-        height: 18px;
-    }
+    
     &.active {
         background: none;
         color: $success-color;
@@ -574,15 +561,28 @@ hr {
             pointer-events: none;
         }
     }
-    &#device-label {
-        box-shadow: none;
-        pointer-events: none;
+
+}
+
+#device-label {
+    box-shadow: none;
+    pointer-events: none;
+    height: 30px;
+    background: none;
+    color: $oil;
+    font-size: .8rem;
+    text-transform: uppercase;
+    letter-spacing: .05rem;
+    display: inline-block;
+    margin-right: 12px;
+    .strong {
+        font-weight: 700;
+    }
+    svg {
+        width: 30px;
         height: 30px;
-        background: none;
-        color: $oil;
-        svg {
-            margin-right: 6px;
-        }
+        margin-right: 6px;
+        vertical-align: middle;
     }
 }
 
@@ -1096,8 +1096,10 @@ svg#logo {
 //messages
 #message-container {
     padding: 12px 6px;
-    background: #f8f8f8;
+    // background: #f8f8f8;
     min-height: 100vh;
+    max-height: 100vh;
+    overflow-y: scroll;
     padding-bottom: 10px;
     @include breakpoint(medium) {
         padding-bottom: 60px;
@@ -1110,16 +1112,20 @@ svg#logo {
 }
 
 .message-losenge {
-    background: $vr-beige;
+    
     margin: 6px;
     @include box-shadow(3px, 0.3);
     border-radius: 4px;
-    padding: 6px;
+    padding: 12px;
     font-size: .9rem;
     color: #333;
     padding-bottom: 21px;
-    max-width: 60%;
+    // max-width: 80%;
     position: relative;
+    background-color: white;
+    animation: 
+        fadeLosenge 5s,
+        bounce .5s;
     &.right {
         background: white;
     }
@@ -1205,4 +1211,30 @@ svg#logo {
         margin-right: 2px;
         margin-top: -3px;
     }
+}
+
+#circleButton:hover {
+    fill:darken($success-color,10%);
+    transition: darken .2s;
+}
+
+@keyframes fadeLosenge {
+  0% {
+    background-color: $vr-yellow;
+  }
+  60% {
+    background-color: $vr-yellow;
+  }
+
+  100% {
+    background-color: #fff;
+  }
+}
+
+@keyframes bounce {
+  0% { transform: scale(.8); opacity: 0 }
+  50% { transform: scale(1.2); opacity: .7; }
+  60% { transform: scale(0.9); opacity: 1 }
+  80% { transform: scale(1.1) }
+  100% { transform: scale(1) }
 }

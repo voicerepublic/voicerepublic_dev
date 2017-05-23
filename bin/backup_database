@@ -1,0 +1,24 @@
+#!/usr/bin/env ruby
+
+require 'yaml'
+require 'fileutils'
+
+config_path = File.expand_path(File.join(%w(.. .. config settings.local.yml)), __FILE__)
+
+config = YAML.load(File.read(config_path))
+
+access_key_id = config['fog']['storage']['aws_access_key_id']
+secret_access_key = config['fog']['storage']['aws_secret_access_key']
+
+bucket, region = config['storage']['database_backups'].split('@')
+
+backup_name = "dumpall-#{Date.today.strftime('%Y%m%d')}.sql.gz"
+
+backup_path = File.expand_path(File.join(%w(.. .. tmp db)), __FILE__)
+
+FileUtils.mkdir_p backup_path
+
+Dir.chdir backup_path do
+  system("sudo -u postgres pg_dumpall | gzip > #{backup_name}")
+  system("AWS_ACCESS_KEY_ID=#{access_key_id};AWS_SECRET_ACCESS_KEY=#{secret_access_key};aws s3 mv #{backup_name} s3://#{bucket}/ --region #{region}")
+end
