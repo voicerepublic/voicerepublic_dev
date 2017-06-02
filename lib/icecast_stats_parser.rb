@@ -14,6 +14,9 @@ module IcecastStatsParser
     # find the main source
     main = sources.find { |s| s['listenurl'].match(/\/live$/) }
 
+    # TODO find out why main is sometimes nil
+    return {} if main.nil?
+
     # initialize
     stats = {
       bitrate: main['audio_bitrate'],

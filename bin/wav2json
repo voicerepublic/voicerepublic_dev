@@ -1,0 +1,18 @@
+#!/bin/bash
+
+DIR="$(cd "$(dirname "$0")" && pwd)"
+
+# if the docker image does not exist build it
+if [[ "$(docker images -q branch14/wav2json 2> /dev/null)" == "" ]]; then
+    docker build -t branch14/wav2json $DIR/../lib/wav2json
+fi
+
+# then run it
+docker run --name wav2json \
+       -v `pwd`:/share \
+       -e INPUT=$1 \
+       -e PRECISION=6 \
+       branch14/wav2json
+
+# and cleanup afterwards
+docker rm wav2json

@@ -624,7 +624,7 @@ class Talk < ActiveRecord::Base
     venue.require_disconnect! if venue.connected?
 
     # experimental
-    venue.force_disconnect!
+    venue.force_disconnect! unless venue.public_ip_address.nil?
   end
 
   # FIXME cleanup the wget/cp spec mess with

@@ -57,6 +57,9 @@ class DevicesController < BaseController
     end
 
     @device = Device.find_by(identifier: params[:id])
+
+    not_found if @device.nil?
+
     @devices_count = current_user.organizations.map(&:devices).flatten.count
     # TODO raise error if @device.nil?
   end
