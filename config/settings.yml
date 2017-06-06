@@ -168,8 +168,8 @@ icecast:
     #image: ami-fbc21694 (icebox 3.19 consistent uid/gid)
     #image: ami-ecd60583 (icebox 3.20 liquidsoap)
     #image: ami-bf4d9ed0 (icebox 3.21 improved live transcoding)
-    #image: ami-b5ca6fda (icebox 3.22 fix transc. stereo signals + pull icebox.liq)
-    image: ami-b5ca6fda
+    #image: ami-1ed57071 (icebox 3.22 fix transc. stereo signals + pull icebox.liq)
+    image: ami-1ed57071
     default_instance_type: t2.micro
     security_group: Icecast Servers
     key_name: phil-ffm
