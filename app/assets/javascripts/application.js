@@ -44,7 +44,6 @@
 //= require views/purchases
 //
 // --- MISC
-//= require sencha
 //= require shame
 //= require browser
 //= require topbar

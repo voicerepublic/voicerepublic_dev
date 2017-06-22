@@ -502,21 +502,31 @@ class Talk < ActiveRecord::Base
     end
   end
 
-  def debug_processing
+  def puts_dbg
+    puts "Started at:         #{started_at}"
+    puts "Ended at:           #{ended_at}"
+    puts "Effective duration: #{effective_duration}s"
+    puts "Relevant files:"
+    relevant_files.each do |file|
+      puts "  %s - %s" % [file.first, DateTime.strptime(file.last,'%s')]
+    end
+    puts
+
     bucket0, region0 = Settings.storage.media.split('@')
     prefix0 = uri
     bucket1, region1 = venue.recordings_bucket.split('@')
     prefix1 = venue.slug
     chain = Settings.audio.archive_chain.split(/\s+/)
-    [
-      nil,
-      "aws s3 sync --region #{region0} s3://#{bucket0}/#{prefix0} #{prefix0}",
-      nil,
-      "aws s3 sync --region #{region1} s3://#{bucket1}/#{prefix1} #{prefix1}",
-      nil,
-      manifest(chain).to_yaml,
-      nil
-    ] * "\n"
+
+    puts "Command to pull talk media (archive):"
+    puts "  aws s3 sync --region #{region0} s3://#{bucket0}/#{prefix0} #{prefix0}"
+    puts
+    puts "Command to pull venue media (recordings):"
+    puts "  aws s3 sync --region #{region1} s3://#{bucket1}/#{prefix1} #{prefix1}"
+    puts
+    puts "Manifest file:"
+    puts manifest(chain).to_yaml
+    puts
   end
 
   def durations
