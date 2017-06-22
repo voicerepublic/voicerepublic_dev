@@ -1,5 +1,14 @@
 target: local
 
+instance:
+  default:
+    type: t2.micro
+    key_name: phil-ffm
+  jumphost:
+    type: t2.nano
+
+
+
 # this file reflects standard settings for development
 # overrides for production can be found in
 # `config/settings/production.yml`

@@ -183,6 +183,14 @@ class Device < ActiveRecord::Base
     end
   end
 
+  def start_jumphost
+    self.jumphost_private_key,
+    self.jumphost_public_key = SshKeypair.generate
+    save!
+
+    JumphostInstance.create(device: self).launch!
+  end
+
   private
 
   def files
