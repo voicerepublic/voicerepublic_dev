@@ -18,6 +18,11 @@ ICECAST_ADMIN_USER="${ICECAST_ADMIN_USER:-admin}"
 ICECAST_PID=$!
 echo Icecast start with pid $ICECAST_PID
 
+# pull recent transcoding script from app server
+# this allows fine tuning the transcoding script
+# without having to roll out a new icebox
+curl $TRANSCODING_SCRIPT_URL > icebox.liq
+
 # start live transcoder
 ./run_liquidsoap.sh &
 

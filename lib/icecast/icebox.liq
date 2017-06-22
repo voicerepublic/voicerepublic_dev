@@ -56,7 +56,7 @@ stream0 = input.http(url,
                      # on_disconnect=input_disconnect
                      )
 
-stream1 = fallback(track_sensitive=false, [stream0, interlude1])
+stream1 = fallback(track_sensitive=false, [stream0, mean(stream0), interlude1])
 
 stream2 = strip_blank(stream1, max_blank=10.)
 #stream2 = strip_blank(stream1, max_blank=10., threshold=-50.)

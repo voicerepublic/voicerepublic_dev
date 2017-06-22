@@ -1,11 +1,23 @@
 namespace :talks do
 
-  desc "Save all archived talks to update popularity"
+  # NEWSCHOOL
   task popularity: :environment do
-    Talk.archived.find_each do |talk|
-      talk.save! # tiggers: `before_save :set_popularity`
-    end
+    sql = <<-EOF
+      UPDATE talks
+      SET popularity = (((play_count - 1) ^ 0.8)::real / (((floor((floor(extract(epoch from current_timestamp)) - floor(extract(epoch from processed_at)))/3600)) + 2) ^ 1.8)) * penalty
+      WHERE processed_at IS NOT NULL
+      AND play_count > 0;
+    EOF
+    ActiveRecord::Base.connection.execute(sql)
   end
+
+  # OLDSCHOOL
+  # desc "Save all archived talks to update popularity"
+  # task popularity: :environment do
+  #   Talk.archived.find_each do |talk|
+  #     talk.save! # tiggers: `before_save :set_popularity`
+  #   end
+  # end
 
   desc "Notify all participants of event about upcoming talk"
   task remind: :environment do
