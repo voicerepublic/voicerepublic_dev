@@ -504,7 +504,7 @@ class Talk < ActiveRecord::Base
 
   # venue.stored_file('dump_1481635942').content_length
   def debug_processing
-    puts "Startet at:         #{sarted_at}"
+    puts "Startet at:         #{started_at}"
     puts "Ended at:           #{ended_at}"
     puts "Effective duration: #{effective_duration}"
     puts
