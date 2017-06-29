@@ -457,12 +457,31 @@ class Talk < ActiveRecord::Base
     end
   end
 
+  def archive_job_details
+    rbucket, rregion = venue.recordings_bucket.split('@')
+    abucket, aregion = Settings.storage.media.split('@')
+    {
+      recording: {
+        bucket: rbucket,
+        region: rregion,
+        prefix: venue.slug
+      },
+      archive: {
+        bucket: abucket,
+        region: aregion,
+        prefix: uri
+      }
+    }
+  end
+
   def schedule_archiving!
     # OLDSCHOOL
     # Delayed::Job.enqueue(ArchiveJob.new(id: id), queue: 'audio')
     # NEWSCHOOL
     Job::Archive.create(context: self,
-                        details: {}) # TODO
+                        details: archive_job_details)
+    # TODO maybe check if it is nescessary to spawn one
+    Instance::AudioWorker.create.launch!
   end
 
   def relevant_files
@@ -519,17 +538,17 @@ class Talk < ActiveRecord::Base
       puts '  %s / %s / %s' % [file.first, time, offset]
     end
 
-    bucket0, region0 = Settings.storage.media.split('@')
-    prefix0 = uri
     bucket1, region1 = venue.recordings_bucket.split('@')
     prefix1 = venue.slug
+    bucket0, region0 = Settings.storage.media.split('@')
+    prefix0 = uri
     chain = Settings.audio.archive_chain.split(/\s+/)
     puts
     puts "Sync Venue"
-    puts "  aws s3 sync --region #{region0} s3://#{bucket0}/#{prefix0} #{prefix0}"
+    puts "  aws s3 sync --region #{region1} s3://#{bucket1}/#{prefix1} #{prefix1}"
     puts
     puts "Sync Talk"
-    puts "  aws s3 sync --region #{region1} s3://#{bucket1}/#{prefix1} #{prefix1}"
+    puts "  aws s3 sync --region #{region0} s3://#{bucket0}/#{prefix0} #{prefix0}"
     puts
     puts "MANIFEST"
     puts
@@ -790,7 +809,8 @@ class Talk < ActiveRecord::Base
       talk_start: started_at.to_i,
       talk_stop:  ended_at.to_i,
       jingle_in:  locate(venue.opts.jingle_in  || Settings.paths.jingles.in),
-      jingle_out: locate(venue.opts.jingle_out || Settings.paths.jingles.out)
+      jingle_out: locate(venue.opts.jingle_out || Settings.paths.jingles.out),
+      relevant_files: relevant_files
     }
     data[:cut_conf] = edit_config.last['cutConfig'] unless edit_config.blank?
     data

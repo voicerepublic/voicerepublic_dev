@@ -71,7 +71,7 @@ def s3fs_umount(path)
 end
 
 # find the first mp3 in path, convert it to wav and return its name
-def prepare_file(path)
+def prepare_wave(path)
   wav = nil
   Dir.chdir(path) do
     mp3 = Dir.glob('*.mp3').first
@@ -88,14 +88,48 @@ end
 
 def run(job)
   puts "Running job #{job}..."
-  path = Dir.tmpdir
-  bucket = job # TODO get bucket from job
-  s3fs_mount(bucket, path)
-  fidelity(path)
-  file = prepare_file(path)
-  wav2json(path, file)
-  s3fs_umount(path)
-  FileUtils.rm_rf(path)
+
+  source = Dir.tmpdir
+  local  = Dir.tmpdir
+  target = Dir.tmpdir
+
+  source_bucket = [ job['details']['recording']['bucket'],
+                    job['details']['recording']['prefix'] ] * '/'
+  target_bucket = [ job['details']['archive']['bucket'],
+                    job['details']['archive']['prefix'] ] * '/'
+
+  s3fs_mount(source_bucket, source)
+  s3fs_mount(target_bucket, target)
+
+  manifest_path = "#{target}/manifest.yml"
+
+  # copy relevant files from source to local
+  manifest = YAML.load(File.read(manifest_path))
+  manifest[:relevant_files].each do |file|
+    FileUtils.cp(File.join(source, file.first), local)
+  end
+
+  # copy relevant files from target to local
+  system "cp #{manifest_path} #{local}"
+
+  fidelity(local)
+  wave = prepare_wave(local)
+  wav2json(path, wave)
+
+  # cleanup
+  File.unlink(wave)
+  system "rm #{local}/dump_*"
+
+  # copy relevant files from local to target
+  system "cp #{local}/* #{target}"
+
+  s3fs_umount(source)
+  s3fs_umount(target)
+
+  FileUtils.rm_rf(source)
+  FileUtils.rm_rf(local)
+  FileUtils.rm_rf(target)
+
   complete(job)
 end
 
