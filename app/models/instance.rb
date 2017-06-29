@@ -79,13 +79,13 @@ class Instance < ActiveRecord::Base
   end
 
   def default_image
-    Settings.instance[base_class_name].try(:security_group) ||
-      Settings.instance.default.try(:security_group)
+    Settings.instance[base_class_name].try(:image) ||
+      Settings.instance.default.try(:image)
   end
 
   def default_key_name
-    Settings.instance[base_class_name].try(:security_group) ||
-      Settings.instance.default.try(:security_group)
+    Settings.instance[base_class_name].try(:key_name) ||
+      Settings.instance.default.try(:key_name)
   end
 
   def default_client_token

@@ -6,8 +6,14 @@ instance:
     key_name: phil-ffm
   jumphost:
     type: t2.nano
+    security_group: Jumphosts
+    image: ami-bf4d9ed0
   audio_worker:
-    type: t2.micro
+    security_group: AudioWorkers
+    image: ami-bf4d9ed0
+  icebox:
+    security_group: Icecast Servers
+    image: ami-bf4d9ed0
 
 # this file reflects standard settings for development
 # overrides for production can be found in
@@ -17,6 +23,7 @@ priority_timezones: Berlin|Bern
 audio:
   override_chain: jinglize m4a mp3 ogg cleanup
   archive_chain: select wavify merge trim desilence normalize jinglize m4a mp3 ogg cleanup
+
 rtmp:
   # all paths get expanded with `Rails.root`
   # which doesn't affect absolute paths
