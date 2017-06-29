@@ -12,10 +12,10 @@ instance:
   jumphost:
     type: t2.nano
     security_group: Jumphosts
-    image: ami-bf4d9ed0
+    image: ami-24b3124b
   audio_worker:
     security_group: AudioWorkers
-    image: ami-bf4d9ed0
+    image: ami-23b0114c
   icebox:
     security_group: Icecast Servers
     image: ami-bf4d9ed0
