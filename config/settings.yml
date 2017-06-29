@@ -1,5 +1,8 @@
 target: local
 
+# needs to be set locally
+# job_queue_endpoint: https://voicerepublic.com/prapi/jobs
+
 instance:
   default:
     type: t2.micro

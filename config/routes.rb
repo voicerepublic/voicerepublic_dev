@@ -59,8 +59,8 @@ Rails.application.routes.draw do
     end
   end
 
-  namespace 'queue' do
-    resources :jobs, only: [:index, :update, :destroy]
+  namespace 'prapi' do
+    resources :jobs, only: [:index, :update]
   end
 
   namespace 'api' do

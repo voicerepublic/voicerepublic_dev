@@ -458,7 +458,11 @@ class Talk < ActiveRecord::Base
   end
 
   def schedule_archiving!
-    Delayed::Job.enqueue(ArchiveJob.new(id: id), queue: 'remote')
+    # OLDSCHOOL
+    # Delayed::Job.enqueue(ArchiveJob.new(id: id), queue: 'remote')
+    # NEWSCHOOL
+    Job::Archive.create(context: self,
+                        details: {}) # TODO
   end
 
   def relevant_files

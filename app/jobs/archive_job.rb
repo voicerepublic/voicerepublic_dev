@@ -1,7 +1,7 @@
-class ArchiveJob < Struct.new(:opts)
+class ArchiveJob < MonitoredJob
 
   def perform
-    # this will be performed remotely
+    Talk.find(opts[:id]).send(:archive_from_dump!)
   end
 
 end

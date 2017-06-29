@@ -8,7 +8,7 @@ class Prapi::JobsController < ApplicationController
   # claim & start, finish
   def update
     job = Job.find(params[:id])
-    job.attributes.merge!(job_params)
+    job.assign_attributes(job_params)
     event = params[:event].to_sym
     event = :save unless Job.available_events.include?(event)
     job.send("#{event}!")
