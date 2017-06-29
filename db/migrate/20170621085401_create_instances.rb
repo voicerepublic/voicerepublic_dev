@@ -11,7 +11,7 @@ class CreateInstances < ActiveRecord::Migration
       t.string  :key_name
       t.string  :client_token
       t.string  :name
-      t.string  :userdata_template
+      t.string  :userdata_template_path
       t.text    :userdata
       t.string  :identifier
       t.string  :public_ip_address

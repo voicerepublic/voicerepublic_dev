@@ -38,7 +38,7 @@ class Instance < ActiveRecord::Base
                 :image,
                 :key_name,
                 :client_token,
-                :userdata_template,
+                :userdata_template_path,
                 :name,
                 :userdata)
   end
@@ -89,25 +89,29 @@ class Instance < ActiveRecord::Base
   end
 
   def default_client_token
-    raise 'needs to be implemented in subclass'
+    [base_class_name, generate_password(4), Time.now.to_i] * '-'
   end
 
   def default_name
-    raise 'needs to be implemented in subclass'
+    [base_class_name, generate_password(4)] * '-'
   end
 
-  def default_userdata_template
+  def default_userdata_template_path
     rel = File.join(%w(lib templates), "#{base_class_name}.sh.erb")
     File.expand_path(rel, Rails.root)
   end
 
   def default_userdata
-    raise "Template not found: #{userdata_template}" unless
-      File.exist?(userdata_template)
-    ERB.new(File.read(userdata_template)).result(binding)
+    ERB.new(userdata_template).result(binding)
   end
 
   # helpers
+
+  def userdata_template
+    raise "Template not found: #{userdata_template_path}" unless
+      File.exist?(userdata_template_path)
+    File.read(userdata_template_path)
+  end
 
   def base_class_name
     self.class.name.underscore.split('/').last
