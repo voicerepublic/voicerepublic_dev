@@ -148,7 +148,7 @@ button {
         text-align: center;
     }
     background: $talk-dark;
-    
+
 }
 
 .pages-publish_talk {
@@ -374,9 +374,9 @@ h1, h2 {
 #publishers {
     #publisher-collection {
         .publisher {
-            padding: 24px 12px;
+            /*padding: 24px 12px;*/
             float:left;
-            margin-bottom: 3px;
+            /*margin-bottom: 3px;*/
             h4 {
                 font-family: $body-font-family;
                 font-weight: 700;
@@ -527,5 +527,5 @@ h1, h2 {
                 // button {
                 //     height: 60px;
                 // }
-           
+
             }

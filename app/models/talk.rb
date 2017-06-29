@@ -502,21 +502,35 @@ class Talk < ActiveRecord::Base
     end
   end
 
+  # venue.stored_file('dump_1481635942').content_length
   def debug_processing
+    puts "Startet at:         #{started_at}"
+    puts "Ended at:           #{ended_at}"
+    puts "Effective duration: #{effective_duration}"
+    puts
+    puts "Relevant Files"
+    relevant_files.each do |file|
+      time = Time.strptime(file.last, '%s')
+      offset = time - started_at
+      puts '  %s / %s / %s' % [file.first, time, offset]
+    end
+
     bucket0, region0 = Settings.storage.media.split('@')
     prefix0 = uri
     bucket1, region1 = venue.recordings_bucket.split('@')
     prefix1 = venue.slug
     chain = Settings.audio.archive_chain.split(/\s+/)
-    [
-      nil,
-      "aws s3 sync --region #{region0} s3://#{bucket0}/#{prefix0} #{prefix0}",
-      nil,
-      "aws s3 sync --region #{region1} s3://#{bucket1}/#{prefix1} #{prefix1}",
-      nil,
-      manifest(chain).to_yaml,
-      nil
-    ] * "\n"
+    puts
+    puts "Sync Venue"
+    puts "  aws s3 sync --region #{region0} s3://#{bucket0}/#{prefix0} #{prefix0}"
+    puts
+    puts "Sync Talk"
+    puts "  aws s3 sync --region #{region1} s3://#{bucket1}/#{prefix1} #{prefix1}"
+    puts
+    puts "MANIFEST"
+    puts
+    puts manifest(chain).to_yaml
+    puts
   end
 
   def durations
