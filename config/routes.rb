@@ -59,6 +59,10 @@ Rails.application.routes.draw do
     end
   end
 
+  namespace 'queue' do
+    resources :jobs, only: [:index, :update, :destroy]
+  end
+
   namespace 'api' do
     get 'oembed(.:format)' => 'oembed#show'
     resources :devices, only: [:show, :create, :update] do
