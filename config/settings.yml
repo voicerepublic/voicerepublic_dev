@@ -4,6 +4,8 @@ target: local
 # job_queue_endpoint: https://voicerepublic.com/prapi/jobs
 
 instance:
+  # needs to be set locally
+  # endpoint: https://voicerepublic.com/prapi/instances
   default:
     type: t2.micro
     key_name: phil-ffm

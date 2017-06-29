@@ -3,6 +3,8 @@ class Instance < ActiveRecord::Base
   include PasswordGenerator
   include ActiveModel::Transitions
 
+  attr_accessor :event
+
   state_machine auto_scopes: true do
     state :created
     state :pending, enter: :provision
@@ -47,11 +49,12 @@ class Instance < ActiveRecord::Base
     [ image,
       1, # min
       1, # max
-      { "InstanceType"  => ec2_type,
-        "SecurityGroup" => security_group,
-        "KeyName"       => key_name,
-        "ClientToken"   => client_token,
-        "UserData"      => userdata } ]
+      { 'InstanceType'                      => ec2_type,
+        'SecurityGroup'                     => security_group,
+        'KeyName'                           => key_name,
+        'ClientToken'                       => client_token,
+        'UserData'                          => userdata,
+        'InstanceInitiatedShutdownBehavior' => 'terminate' } ]
   end
 
   def provision
@@ -115,6 +118,10 @@ class Instance < ActiveRecord::Base
 
   def base_class_name
     self.class.name.underscore.split('/').last
+  end
+
+  def instance_endpoint
+    Settings.instance.endpoint
   end
 
 end

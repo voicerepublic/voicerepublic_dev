@@ -5,7 +5,8 @@ require 'json'
 require 'tmpdir'
 require 'fileutils'
 
-ENDPOINT = ENV['QUEUE']
+ENDPOINT = ENV['ENDPOINT']
+INSTANCE = ENV['INSTANCE']
 
 job_count = 0
 
@@ -34,8 +35,6 @@ end
 def terminate
   puts "Terminate!"
   exit
-  # https://stackoverflow.com/questions/10541363/self-terminating-aws-ec2-instance
-  #%x[sudo shutdown -h now]
 end
 
 def url(job)
@@ -44,7 +43,7 @@ end
 
 def claim(job)
   puts "Claiming job #{job}..."
-  response = faraday.post(url(job), worker_id: INSTANCE)
+  response = faraday.put(url(job), event: 'start', job: {locked_by: INSTANCE})
   response.status == 200
 end
 
@@ -82,6 +81,11 @@ def prepare_file(path)
   wav
 end
 
+def complete(job)
+  puts "Marking job #{job} as complete."
+  faraday.put(url(job), event: 'complete')
+end
+
 def run(job)
   puts "Running job #{job}..."
   path = Dir.tmpdir
@@ -92,8 +96,7 @@ def run(job)
   wav2json(path, file)
   s3fs_umount(path)
   FileUtils.rm_rf(path)
-  puts "Job complete, deleting job #{job}..."
-  faraday.delete(url(job))
+  complete(job)
 end
 
 def wait

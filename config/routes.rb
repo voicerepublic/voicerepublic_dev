@@ -60,6 +60,7 @@ Rails.application.routes.draw do
   end
 
   namespace 'prapi' do
+    resources :instances, only: [:index, :update]
     resources :jobs, only: [:index, :update]
   end
 
