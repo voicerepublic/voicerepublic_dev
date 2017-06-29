@@ -6,8 +6,8 @@ instance:
     key_name: phil-ffm
   jumphost:
     type: t2.nano
-
-
+  audio_worker:
+    type: t2.micro
 
 # this file reflects standard settings for development
 # overrides for production can be found in

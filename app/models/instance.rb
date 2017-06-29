@@ -1,15 +1,18 @@
 class Instance < ActiveRecord::Base
 
+  include PasswordGenerator
+  include ActiveModel::Transitions
+
   state_machine auto_scopes: true do
-    state :prospecting
-    state :provisioning, enter: :provision
-    state :running
+    state :created
+    state :pending, enter: :provision
+    state :running, leave: :unprovision
     state :terminated
 
     event :launch do
-      transitions from: :prospecting, to: :pending, on_transition: :prepare
+      transitions from: :created, to: :pending, on_transition: :prepare
     end
-    event :completed_launching do
+    event :complete do
       transitions from: :pending, to: :running
     end
     event :terminate do
@@ -19,9 +22,14 @@ class Instance < ActiveRecord::Base
 
   private
 
+  # stm callbacks
+
   def set_default(*fields)
-    self.send(field.to_s + '||=', send('default_' + field.to_s))
-    raise "Field #{field} not set and doesn't have a default." if send(field.to_s).nil?
+    fields.each do field
+      self.send("#{field}||=", send("default_#{field}"))
+      raise "Field #{field} not set and doesn't have a default." if
+        send(field.to_s).nil?
+    end
   end
 
   def prepare
@@ -53,41 +61,56 @@ class Instance < ActiveRecord::Base
     EC2.tags.create(resource_id: identifier, key: 'Target', value: Settings.target)
   end
 
+  def unprovision
+    instance = EC2.servers.get(instance_id)
+    instance.destroy unless instance.nil?
+  end
+
+  # defaults
+
   def default_ec2_type
-    Settings.instance[self.class.name.underscore].try(:ec2_type) ||
+    Settings.instance[base_class_name].try(:ec2_type) ||
       Settings.instance.default.try(:ec2_type)
   end
 
   def default_security_group
-    Settings.instance[self.class.name.underscore].try(:security_group) ||
+    Settings.instance[base_class_name].try(:security_group) ||
       Settings.instance.default.try(:security_group)
   end
 
   def default_image
-    Settings.instance[self.class.name.underscore].try(:security_group) ||
+    Settings.instance[base_class_name].try(:security_group) ||
       Settings.instance.default.try(:security_group)
   end
 
   def default_key_name
-    Settings.instance[self.class.name.underscore].try(:security_group) ||
+    Settings.instance[base_class_name].try(:security_group) ||
       Settings.instance.default.try(:security_group)
   end
 
   def default_client_token
-    raise 'not implemented'
+    raise 'needs to be implemented in subclass'
   end
 
   def default_name
-    raise 'not implemented'
+    raise 'needs to be implemented in subclass'
   end
 
   def default_userdata_template
-    File.expand_path(File.join(%w(lib templates), self.class.name.underscore + '.sh.erb'), Rails.root)
+    rel = File.join(%w(lib templates), "#{base_class_name}.sh.erb")
+    File.expand_path(rel, Rails.root)
   end
 
-  def generate_userdata
-    raise "Template not found: #{userdata_template}" unless File.exist?(userdata_template)
+  def default_userdata
+    raise "Template not found: #{userdata_template}" unless
+      File.exist?(userdata_template)
     ERB.new(File.read(userdata_template)).result(binding)
+  end
+
+  # helpers
+
+  def base_class_name
+    self.class.name.underscore.split('/').last
   end
 
 end

@@ -4,6 +4,8 @@
 #
 class Venue < ActiveRecord::Base
 
+  include PasswordGenerator
+
   PROVISIONING_WINDOW = 3.hours
   PROVISIONING_DURATION = 150.seconds
 
@@ -122,10 +124,6 @@ class Venue < ActiveRecord::Base
 
   def generate_mount_point
     'live' # SecureRandom.uuid
-  end
-
-  def generate_password(length=8)
-    ('a'..'z').to_a.shuffle[0,length].join
   end
 
   def provisioning_parameters
