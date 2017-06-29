@@ -9,7 +9,7 @@ class Prapi::JobsController < ApplicationController
   def update
     job = Job.find(params[:id])
     job.assign_attributes(job_params)
-    event = params[:event].to_sym
+    event = job.event.to_sym
     event = :save unless Job.available_events.include?(event)
     job.send("#{event}!")
     head :ok
@@ -20,7 +20,7 @@ class Prapi::JobsController < ApplicationController
   private
 
   def job_params
-    params.require(:job).permit(:locked_by)
+    params.require(:job).permit(:event, :locked_by)
   end
 
   def available_jobs

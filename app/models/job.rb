@@ -6,6 +6,8 @@ class Job < ActiveRecord::Base
 
   serialize :details
 
+  attr_accessor :event
+
   state_machine auto_scopes: true do
     state :pending
     state :running
