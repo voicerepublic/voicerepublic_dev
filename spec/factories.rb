@@ -7,6 +7,17 @@ include ActionDispatch::TestProcess
 # factories will only be picked up after you stopped spring!
 #
 FactoryGirl.define do
+  factory :job do
+    type ""
+    state "MyString"
+    context_type "MyString"
+    context_id "MyString"
+    details "MyText"
+    locked_at "2017-06-29 14:33:14"
+    started_at "2017-06-29 14:33:14"
+    finished_at "2017-06-29 14:33:14"
+    locked_by "MyString"
+  end
   factory :instance do
     identifier "MyString"
     type ""

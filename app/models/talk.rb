@@ -458,7 +458,7 @@ class Talk < ActiveRecord::Base
   end
 
   def schedule_archiving!
-    Delayed::Job.enqueue(ArchiveJob.new(id: id), queue: 'audio')
+    Delayed::Job.enqueue(ArchiveJob.new(id: id), queue: 'remote')
   end
 
   def relevant_files
