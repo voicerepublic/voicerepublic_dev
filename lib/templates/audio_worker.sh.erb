@@ -13,7 +13,7 @@ apt-get install -y curl
 
 # report ready
 JSON='{"instance":{"public_ip_address":"'$PUBLIC_IP'","event":"complete"}}'
-COMMAND="curl -X PUT --data $JSON $ENDPOINT/$CLIENT_TOKEN"
+COMMAND="curl -X PUT -d "$JSON" $ENDPOINT/$CLIENT_TOKEN.json"
 N=0
 until [ $N -ge 10 ]
 do
