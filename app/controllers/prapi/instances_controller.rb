@@ -5,8 +5,8 @@ class Prapi::InstancesController < ApplicationController
   def update
     instance = Instance.find_by(client_token: params[:id])
     instance.assign_attributes(instance_params)
-    event = instance.event.to_sym
-    event = :save unless Instance.available_events.include?(event)
+    event = instance.event
+    event = :save unless Instance.available_events.include?(event.to_sym)
     instance.send("#{event}!")
     head :ok
   rescue

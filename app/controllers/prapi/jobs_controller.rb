@@ -11,8 +11,8 @@ class Prapi::JobsController < ApplicationController
   def update
     job = Job.find(params[:id])
     job.assign_attributes(job_params)
-    event = job.event.to_sym
-    event = :save unless Job.available_events.include?(event)
+    event = job.event
+    event = :save unless Job.available_events.include?(event.to_sym)
     job.send("#{event}!")
     head :ok
   rescue

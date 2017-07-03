@@ -42,6 +42,7 @@ class Instance < ActiveRecord::Base
   # stm callbacks
 
   def on_reset
+    unprovision
     EPHEMERAL_FIELDS.each do |field|
       send("#{field}=", nil)
     end
@@ -79,7 +80,7 @@ class Instance < ActiveRecord::Base
   end
 
   def unprovision
-    instance = EC2.servers.get(instance_id)
+    instance = EC2.servers.get(identifier)
     instance.destroy unless instance.nil?
   end
 

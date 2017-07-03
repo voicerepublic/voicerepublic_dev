@@ -43,7 +43,7 @@ end
 
 def claim(job)
   puts "Claiming job #{job}..."
-  response = faraday.put(url(job), event: 'start', job: {locked_by: INSTANCE})
+  response = faraday.put(url(job), job: {event: 'start', locked_by: INSTANCE})
   response.status == 200
 end
 
