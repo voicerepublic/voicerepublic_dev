@@ -22,6 +22,9 @@ do
     echo `date` "failed to report ready, retry $N" >> ~/actions.log
 done
 
+# update (this is a hack, remove once it's stable)
+curl -o /home/admin/audio_worker/runner.rb ${$ENDPOINT/prapi\/instances/runner.rb}
+
 # run
 su -c 'INSTANCE=<%= client_token %> ENDPOINT=<%= queue_endpoint %> ruby /home/admin/audio_worker/runner.rb' admin
 
