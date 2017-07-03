@@ -8,15 +8,7 @@ include ActionDispatch::TestProcess
 #
 FactoryGirl.define do
   factory :job do
-    type ""
-    state "MyString"
-    context_type "MyString"
-    context_id "MyString"
-    details "MyText"
-    locked_at "2017-06-29 14:33:14"
-    started_at "2017-06-29 14:33:14"
-    finished_at "2017-06-29 14:33:14"
-    locked_by "MyString"
+    details "---\n{}"
   end
   factory :instance do
     identifier "MyString"
