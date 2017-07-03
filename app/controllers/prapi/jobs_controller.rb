@@ -1,5 +1,7 @@
 class Prapi::JobsController < ApplicationController
 
+  skip_before_action :verify_authenticity_token
+
   # list available jobs
   def index
     render json: available_jobs

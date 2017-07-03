@@ -1,5 +1,16 @@
 class Instance < ActiveRecord::Base
 
+  EPHEMERAL_FIELDS = [
+    :ec2_type,
+    :security_group,
+    :image,
+    :key_name,
+    :client_token,
+    :userdata_template_path,
+    :name,
+    :userdata
+  ]
+
   include PasswordGenerator
   include ActiveModel::Transitions
 
@@ -20,29 +31,32 @@ class Instance < ActiveRecord::Base
     event :terminate do
       transitions from: :running, to: :terminated
     end
+    event :reset do # only to be used for debugging
+      transitions from: [:pending, :running, :terminated],
+                  to: :created, on_transition: :on_reset
+    end
   end
 
   private
 
   # stm callbacks
 
+  def on_reset
+    EPHEMERAL_FIELDS.each do |field|
+      send("#{field}=", nil)
+    end
+  end
+
   def set_default(*fields)
-    fields.each do field
-      self.send("#{field}||=", send("default_#{field}"))
+    fields.each do |field|
+      self.send("#{field}=", send("default_#{field}")) if send(field).nil?
       raise "Field #{field} not set and doesn't have a default." if
-        send(field.to_s).nil?
+        send(field).nil?
     end
   end
 
   def prepare
-    set_default(:ec2_type,
-                :security_group,
-                :image,
-                :key_name,
-                :client_token,
-                :userdata_template_path,
-                :name,
-                :userdata)
+    set_default(*EPHEMERAL_FIELDS)
   end
 
   def provisioning_parameters

@@ -7,10 +7,10 @@ instance:
   # needs to be set locally
   # endpoint: https://voicerepublic.com/prapi/instances
   default:
-    type: t2.micro
+    ec2_type: t2.micro
     key_name: phil-ffm
   jumphost:
-    type: t2.nano
+    ec2_type: t2.nano
     security_group: Jumphosts
     image: ami-24b3124b
   audio_worker:

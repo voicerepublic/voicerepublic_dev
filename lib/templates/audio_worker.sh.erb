@@ -8,6 +8,9 @@ AWS_CREDENTIALS=<%= aws_credentials %>
 echo $AWS_CREDENTIALS > /etc/passwd-s3fs
 chmod 600 /etc/passwd-s3fs
 
+# TODO move to image
+apt-get install -y curl
+
 # report ready
 JSON='{"instance":{"public_ip_address":"'$PUBLIC_IP'","event":"complete"}}'
 COMMAND="curl -X PUT --data $JSON $CALLBACK_URL/$CLIENT_TOKEN"

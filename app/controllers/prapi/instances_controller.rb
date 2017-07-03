@@ -1,5 +1,7 @@
 class Prapi::InstancesController < ApplicationController
 
+  skip_before_action :verify_authenticity_token
+
   def update
     instance = Instance.find_by(client_token: params[:id])
     instance.assign_attributes(instance_params)
