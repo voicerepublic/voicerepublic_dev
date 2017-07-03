@@ -13,7 +13,7 @@ apt-get install -y curl
 
 # report ready
 JSON='{"instance":{"public_ip_address":"'$PUBLIC_IP'","event":"complete"}}'
-COMMAND="curl -X PUT --data $JSON $CALLBACK_URL/$CLIENT_TOKEN"
+COMMAND="curl -X PUT --data $JSON $ENDPOINT/$CLIENT_TOKEN"
 N=0
 until [ $N -ge 10 ]
 do
@@ -23,14 +23,14 @@ do
 done
 
 # update (this is a hack, remove once it's stable)
-curl -o /home/admin/audio_worker/runner.rb ${$ENDPOINT/prapi\/instances/runner.rb}
+curl -o /home/admin/audio_worker/runner.rb ${ENDPOINT/prapi\/instances/runner.rb}
 
 # run
 su -c 'INSTANCE=<%= client_token %> ENDPOINT=<%= queue_endpoint %> ruby /home/admin/audio_worker/runner.rb' admin
 
 # report terminate
 JSON='{"instance":{"public_ip_address":"'$PUBLIC_IP'","event":"terminate"}}'
-COMMAND="curl -X PUT --data $JSON $CALLBACK_URL/$CLIENT_TOKEN"
+COMMAND="curl -X PUT --data $JSON $ENDPOINT/$CLIENT_TOKEN"
 N=0
 until [ $N -ge 10 ]
 do
@@ -40,4 +40,5 @@ do
 done
 
 # https://stackoverflow.com/questions/10541363/self-terminating-aws-ec2-instance
-shutdown -h now
+echo Done. Shutting down...
+#shutdown -h now

@@ -1,5 +1,7 @@
 class Prapi::InstancesController < ApplicationController
 
+  respond_to :json
+
   skip_before_action :verify_authenticity_token
 
   def update
@@ -9,8 +11,8 @@ class Prapi::InstancesController < ApplicationController
     event = :save unless Instance.available_events.include?(event.to_sym)
     instance.send("#{event}!")
     head :ok
-  rescue
-    head :conflict
+  #rescue
+    #head :conflict
   end
 
   private
