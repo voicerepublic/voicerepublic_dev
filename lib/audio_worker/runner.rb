@@ -4,6 +4,7 @@ require 'faraday'
 require 'json'
 require 'tmpdir'
 require 'fileutils'
+require 'yaml'
 
 INSTANCE_ENDPOINT = ENV['INSTANCE_ENDPOINT']
 QUEUE_ENDPOINT = ENV['QUEUE_ENDPOINT']
@@ -90,9 +91,11 @@ end
 def run(job)
   puts "Running job #{job}..."
 
-  source = Dir.tmpdir
-  local  = Dir.tmpdir
-  target = Dir.tmpdir
+  prefix = "job_#{job['id']}_"
+
+  source = Dir.mktmpdir([prefix, '_source'])
+  local  = Dir.mktmpdir([prefix, '_local'])
+  target = Dir.mktmpdir([prefix, '_target'])
 
   source_bucket = [ job['details']['recording']['bucket'],
                     job['details']['recording']['prefix'] ] * '/'
