@@ -97,6 +97,9 @@ class Talk < ActiveRecord::Base
       # or which failed while processing and got suspended
       transitions from: :suspended, to: :archived
     end
+    event :reset do
+      transitions from: :processing, to: :queued
+    end
   end
 
   acts_as_taggable

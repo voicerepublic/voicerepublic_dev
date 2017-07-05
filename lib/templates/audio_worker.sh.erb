@@ -23,7 +23,7 @@ chmod 600 /etc/passwd-s3fs
 # 	ruby /home/admin/audio_worker/runner.rb --post complete
 
 # update (this is a hack, remove once it's stable)
-curl -o /home/admin/audio_worker/runner.rb ${ENDPOINT/prapi\/instances/runner.rb}
+curl -o /home/admin/audio_worker/runner.rb <%= runner_endpoint %>
 
 # run
 su -c 'INSTANCE=<%= client_token %> INSTANCE_ENDPOINT=<%= instance_endpoint %> QUEUE_ENDPOINT=<%= queue_endpoint %> ruby /home/admin/audio_worker/runner.rb' admin

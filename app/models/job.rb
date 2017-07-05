@@ -21,6 +21,13 @@ class Job < ActiveRecord::Base
     event :complete, timestamp: :completed_at do
       transitions from: :running, to: :completed
     end
+    event :reset do
+      transitions from: :running, to: :pending, on_transition: :on_reset
+    end
+  end
+
+  def on_reset
+    # not implemented
   end
 
   def event_fired(current_state, new_state, event)
