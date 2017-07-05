@@ -28,7 +28,7 @@ def die(response)
 end
 
 def job_list
-  puts "Retrieving job list..."
+  puts "Retrieving job list"
   response = faraday.get
   die(response) unless response.status == 200
   JSON.parse(response.body)
@@ -44,31 +44,31 @@ def queue_url(job)
 end
 
 def claim(job)
-  puts "Claiming job #{job}..."
+  puts "Claiming job #{job['id']}"
   response = faraday.put(queue_url(job), job: {event: 'start', locked_by: INSTANCE})
   response.status == 200
 end
 
 def s3fs_mount(bucket, path)
-  puts "Mounting bucket to #{path}..."
-  system "/usr/local/bin/s3fs #{bucket} #{path}"
+  puts "Mounting bucket #{bucket} to #{path}"
+  puts %x[/usr/local/bin/s3fs #{bucket} #{path} -o passwd_file=~/passwd-s3fs]
 end
 
 def fidelity(path)
-  puts "Running fidelity..."
-  system "docker run --name fidelity -v #{path}:/audio branch14/fidelity"
-  system "docker rm fidelity"
+  puts "Running fidelity"
+  puts %x[docker run --name fidelity -v #{path}:/audio branch14/fidelity]
+  puts %x[docker rm fidelity]
 end
 
 def wav2json(path)
-  puts "Running wav2json..."
+  puts "Running wav2json"
   system "docker run --name wav2json -v #{path}:/share "+
          "-e INPUT=#{file} -e PRECISION=6 branch14/wav2json"
   system "docker rm wav2json"
 end
 
 def s3fs_umount(path)
-  puts "Umounting bucket..."
+  puts "Umounting bucket"
   system "umount #{path}"
 end
 
@@ -84,12 +84,17 @@ def prepare_wave(path)
 end
 
 def complete(job)
-  puts "Marking job #{job} as complete."
+  puts "Marking job #{job['id']} as complete."
   faraday.put(queue_url(job), event: 'complete')
 end
 
+def sync(bucket, path)
+  puts "Syncing bucket #{bucket} to #{path}"
+  puts %x[s4cmd sync #{bucket} #{path}]
+end
+
 def run(job)
-  puts "Running job #{job}..."
+  puts "Running job #{job['id']}"
 
   prefix = "job_#{job['id']}_"
 
@@ -98,12 +103,14 @@ def run(job)
   target = Dir.mktmpdir([prefix, '_target'])
 
   source_bucket = [ job['details']['recording']['bucket'],
-                    job['details']['recording']['prefix'] ] * '/'
+                    job['details']['recording']['prefix'] ] * ':/'
   target_bucket = [ job['details']['archive']['bucket'],
-                    job['details']['archive']['prefix'] ] * '/'
+                    job['details']['archive']['prefix'] ] * ':/'
 
-  s3fs_mount(source_bucket, source)
-  s3fs_mount(target_bucket, target)
+  #s3fs_mount(source_bucket, source)
+  #s3fs_mount(target_bucket, target)
+  sync(target_bucket, target)
+  #sync(source_bucket, source)
 
   manifest_path = "#{target}/manifest.yml"
 

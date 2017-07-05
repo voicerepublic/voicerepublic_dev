@@ -5,8 +5,9 @@ INSTANCE_ENDPOINT=<%= instance_endpoint %>
 PUBLIC_IP=$(curl http://169.254.169.254/latest/meta-data/public-ipv4)
 
 AWS_CREDENTIALS=<%= aws_credentials %>
-echo $AWS_CREDENTIALS > /etc/passwd-s3fs
-chmod 600 /etc/passwd-s3fs
+echo $AWS_CREDENTIALS > ~admin/passwd-s3fs
+chown admin: ~admin/passwd-s3fs
+chmod 600 ~admin/passwd-s3fs
 
 # report ready
 #JSON='{"instance":{"public_ip_address":"'$PUBLIC_IP'","event":"complete"}}'

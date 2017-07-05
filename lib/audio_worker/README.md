@@ -48,17 +48,20 @@ apt-get -y install docker-engine psmisc
 ### Install git, ruby, s3fs,... & add admin to docker
 
 ```
-apt-get -y install git ruby sox
+apt-get -y install git ruby sox python-pip
 
-apt-get -y install automake autotools-dev g++ git libcurl4-gnutls-dev libfuse-dev libssl-dev libxml2-dev make pkg-config
-wget https://github.com/s3fs-fuse/s3fs-fuse/archive/v1.79.tar.gz -O s3fs.tgz
-tar xfvz s3fs.tgz
-cd s3fs-fuse-1.79
-./autogen.sh
-./configure
-make
-make install
-cd
+pip install s4cmd
+
+# OBSOLETE
+# apt-get -y install automake autotools-dev g++ git libcurl4-gnutls-dev libfuse-dev libssl-dev libxml2-dev make pkg-config fuse
+# wget https://github.com/s3fs-fuse/s3fs-fuse/archive/v1.79.tar.gz -O s3fs.tgz
+# tar xfvz s3fs.tgz
+# cd s3fs-fuse-1.79
+# ./autogen.sh
+# ./configure
+# make
+# make install
+# cd
 
 adduser admin docker
 ```
