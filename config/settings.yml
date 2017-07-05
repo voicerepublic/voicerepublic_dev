@@ -15,7 +15,7 @@ instance:
     image: ami-24b3124b
   audio_worker:
     security_group: AudioWorkers
-    image: ami-23b0114c
+    image: ami-b1b919de
   icebox:
     security_group: Icecast Servers
     image: ami-bf4d9ed0

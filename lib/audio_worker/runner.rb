@@ -5,15 +5,16 @@ require 'json'
 require 'tmpdir'
 require 'fileutils'
 
-ENDPOINT = ENV['ENDPOINT']
+INSTANCE_ENDPOINT = ENV['INSTANCE_ENDPOINT']
+QUEUE_ENDPOINT = ENV['QUEUE_ENDPOINT']
 INSTANCE = ENV['INSTANCE']
 
 job_count = 0
 
 def faraday
-  @faraday ||= Faraday.new(url: ENDPOINT) do |f|
-    puts "Setup Faraday with endpoint #{ENDPOINT}"
-    uri = URI.parse(ENDPOINT)
+  @faraday ||= Faraday.new(url: QUEUE_ENDPOINT) do |f|
+    puts "Setup Faraday with endpoint #{QUEUE_ENDPOINT}"
+    uri = URI.parse(QUEUE_ENDPOINT)
     f.basic_auth(uri.user, uri.password)
     f.request :url_encoded
     f.adapter Faraday.default_adapter
@@ -37,13 +38,13 @@ def terminate
   exit
 end
 
-def url(job)
-  [ENDPOINT, job['id']] * '/'
+def queue_url(job)
+  [QUEUE_ENDPOINT, job['id']] * '/'
 end
 
 def claim(job)
   puts "Claiming job #{job}..."
-  response = faraday.put(url(job), job: {event: 'start', locked_by: INSTANCE})
+  response = faraday.put(queue_url(job), job: {event: 'start', locked_by: INSTANCE})
   response.status == 200
 end
 
@@ -83,7 +84,7 @@ end
 
 def complete(job)
   puts "Marking job #{job} as complete."
-  faraday.put(url(job), event: 'complete')
+  faraday.put(queue_url(job), event: 'complete')
 end
 
 def run(job)
@@ -138,11 +139,33 @@ def wait
   sleep 60
 end
 
+def instance_url
+  [INSTANCE_ENDPOINT, INSTANCE] * '/'
+end
+
+def public_ip_address
+  faraday.get('http://169.254.169.254/latest/meta-data/public-ipv4').body
+end
+
+def report_ready
+  faraday.put(instance_url, instance:
+                              { public_ip_address: public_ip_address,
+                                event: 'complete'})
+end
+
+def report_terminate
+  faraday.put(instance_url, instance: { event: 'terminate' })
+end
+
+# args = Hash[ ARGV.join(' ').scan(/--?([^=\s]+)(?:=(\S+))?/) ]
+
+report_ready
 while true
   jobs = job_list
   if jobs.empty?
     puts "Job list empty."
     if job_count > 0
+      report_terminate
       terminate
     else
       wait
