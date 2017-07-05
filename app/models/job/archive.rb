@@ -1,6 +1,4 @@
-class Archive < Job
-
-  belongs_to :context, polymorphic: true
+class Job::Archive < Job
 
   def on_start
     context.process!

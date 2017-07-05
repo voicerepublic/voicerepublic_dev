@@ -2,6 +2,8 @@ class Job < ActiveRecord::Base
 
   include ActiveModel::Transitions
 
+  belongs_to :context, polymorphic: true
+
   scope :ordered, -> { order('created_at ASC') }
 
   serialize :details
