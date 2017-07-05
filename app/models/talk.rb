@@ -107,6 +107,7 @@ class Talk < ActiveRecord::Base
   has_many :messages, dependent: :destroy
   has_many :social_shares, as: :shareable
   has_many :reminders, as: :rememberable, dependent: :destroy
+  has_many :jobs, as: :context
 
   has_one :featured_talk, class_name: "Talk", foreign_key: :related_talk_id
   belongs_to :related_talk, class_name: "Talk", foreign_key: :related_talk_id

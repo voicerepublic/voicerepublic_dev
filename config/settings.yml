@@ -1,11 +1,12 @@
 target: local
 
 # needs to be set locally
-# job_queue_endpoint: https://voicerepublic.com/prapi/jobs
+# endpoint:
+#   job_queue: https://voicerepublic.com/prapi/jobs
+#   instance: https://voicerepublic.com/prapi/instances
+#   runner: https://voicerepublic.com/runner.rb
 
 instance:
-  # needs to be set locally
-  # endpoint: https://voicerepublic.com/prapi/instances
   default:
     ec2_type: t2.micro
     key_name: phil-ffm

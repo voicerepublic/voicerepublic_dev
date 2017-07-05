@@ -136,7 +136,7 @@ class Instance < ActiveRecord::Base
   end
 
   def instance_endpoint
-    Settings.instance.endpoint
+    Settings.endpoint.instances
   end
 
 end
