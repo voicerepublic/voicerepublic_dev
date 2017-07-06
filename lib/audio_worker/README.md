@@ -45,23 +45,14 @@ apt-get update
 apt-get -y install docker-engine psmisc
 ```
 
-### Install git, ruby, s3fs,... & add admin to docker
+### Install git, ruby, s4cmd,... & add admin to docker
 
 ```
-apt-get -y install git ruby sox python-pip
+apt-get -y install git ruby sox python-pip libsox-fmt-mp3
 pip install s4cmd
 chmod a+x /usr/local/bin/s4cmd
 
-# OBSOLETE
-# apt-get -y install automake autotools-dev g++ git libcurl4-gnutls-dev libfuse-dev libssl-dev libxml2-dev make pkg-config fuse
-# wget https://github.com/s3fs-fuse/s3fs-fuse/archive/v1.79.tar.gz -O s3fs.tgz
-# tar xfvz s3fs.tgz
-# cd s3fs-fuse-1.79
-# ./autogen.sh
-# ./configure
-# make
-# make install
-# cd
+ln -s `which avconv` /usr/local/bin/ffmpeg
 
 adduser admin docker
 ```
