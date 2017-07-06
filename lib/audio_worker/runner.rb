@@ -84,10 +84,12 @@ def sync(bucket, path)
 end
 
 def s3_get(source, target)
+  puts "Downloading #{target} from #{source}"
   puts %x[s4cmd get #{source} #{target}]
 end
 
 def s3_put(source, target)
+  puts "Uploading #{source} to #{target}"
   puts %x[s4cmd put #{source} #{target}]
 end
 
