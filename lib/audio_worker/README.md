@@ -49,8 +49,8 @@ apt-get -y install docker-engine psmisc
 
 ```
 apt-get -y install git ruby sox python-pip
-
 pip install s4cmd
+chmod a+x /usr/local/bin/s4cmd
 
 # OBSOLETE
 # apt-get -y install automake autotools-dev g++ git libcurl4-gnutls-dev libfuse-dev libssl-dev libxml2-dev make pkg-config fuse

@@ -28,7 +28,7 @@ def die(response)
 end
 
 def job_list
-  puts "Retrieving job list"
+  puts "Retrieving job list..."
   response = faraday.get
   die(response) unless response.status == 200
   JSON.parse(response.body)
@@ -44,32 +44,22 @@ def queue_url(job)
 end
 
 def claim(job)
-  puts "Claiming job #{job['id']}"
+  puts "Claiming job #{job['id']}..."
   response = faraday.put(queue_url(job), job: {event: 'start', locked_by: INSTANCE})
   response.status == 200
 end
 
-def s3fs_mount(bucket, path)
-  puts "Mounting bucket #{bucket} to #{path}"
-  puts %x[/usr/local/bin/s3fs #{bucket} #{path} -o passwd_file=~/passwd-s3fs]
-end
-
 def fidelity(path)
-  puts "Running fidelity"
+  puts "Running fidelity..."
   puts %x[docker run --name fidelity -v #{path}:/audio branch14/fidelity]
   puts %x[docker rm fidelity]
 end
 
 def wav2json(path)
-  puts "Running wav2json"
+  puts "Running wav2json..."
   system "docker run --name wav2json -v #{path}:/share "+
          "-e INPUT=#{file} -e PRECISION=6 branch14/wav2json"
   system "docker rm wav2json"
-end
-
-def s3fs_umount(path)
-  puts "Umounting bucket"
-  system "umount #{path}"
 end
 
 # find the first mp3 in path, convert it to wav and return its name
@@ -93,35 +83,45 @@ def sync(bucket, path)
   puts %x[s4cmd sync #{bucket} #{path}]
 end
 
+def s3_get(source, target)
+  puts %x[s4cmd get #{source} #{target}]
+end
+
+def s3_put(source, target)
+  puts %x[s4cmd put #{source} #{target}]
+end
+
+
 def run(job)
-  puts "Running job #{job['id']}"
+  puts "Running job #{job['id']}..."
 
   prefix = "job_#{job['id']}_"
 
-  source = Dir.mktmpdir([prefix, '_source'])
-  local  = Dir.mktmpdir([prefix, '_local'])
-  target = Dir.mktmpdir([prefix, '_target'])
+  path = Dir.mktmpdir([prefix])
 
-  source_bucket = [ job['details']['recording']['bucket'],
-                    job['details']['recording']['prefix'] ] * ':/'
-  target_bucket = [ job['details']['archive']['bucket'],
-                    job['details']['archive']['prefix'] ] * ':/'
+  source_bucket = [ 's3:/',
+                    job['details']['recording']['bucket'],
+                    job['details']['recording']['prefix'] ] * '/'
+  target_bucket = [ 's3:/',
+                    job['details']['archive']['bucket'],
+                    job['details']['archive']['prefix'] ] * '/'
 
-  #s3fs_mount(source_bucket, source)
-  #s3fs_mount(target_bucket, target)
-  sync(target_bucket, target)
-  #sync(source_bucket, source)
+  p path
+  p source_bucket
+  p target_bucket
 
-  manifest_path = "#{target}/manifest.yml"
+  # pull manifest file
+  manifest_url = "#{target_bucket}/manifest.yml"
+  s3_get(manifest_url, path)
 
-  # copy relevant files from source to local
+  # based on content pull source files
+  manifest_path = File.join(path, 'manifest.yml')
   manifest = YAML.load(File.read(manifest_path))
   manifest[:relevant_files].each do |file|
-    FileUtils.cp(File.join(source, file.first), local)
+    p file
+    s3_url = "#{source_bucket}/#{file.first}"
+    s3_get(s3_url, path)
   end
-
-  # copy relevant files from target to local
-  system "cp #{manifest_path} #{local}"
 
   fidelity(local)
   wave = prepare_wave(local)
@@ -131,15 +131,9 @@ def run(job)
   File.unlink(wave)
   system "rm #{local}/dump_*"
 
-  # copy relevant files from local to target
-  system "cp #{local}/* #{target}"
+  # TODO upload relevant files from path to target_bucket
 
-  s3fs_umount(source)
-  s3fs_umount(target)
-
-  FileUtils.rm_rf(source)
-  FileUtils.rm_rf(local)
-  FileUtils.rm_rf(target)
+  FileUtils.rm_rf(path)
 
   complete(job)
 end

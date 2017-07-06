@@ -1,47 +1,14 @@
 #!/bin/bash
 
-CLIENT_TOKEN=<%= client_token %>
-INSTANCE_ENDPOINT=<%= instance_endpoint %>
-PUBLIC_IP=$(curl http://169.254.169.254/latest/meta-data/public-ipv4)
+cat >>~admin/.3cfg <<EOF
+[default]
+access_key = <%= aws_access_key %>
+secret_key = <%= aws_secret_key %>
+EOF
 
-AWS_CREDENTIALS=<%= aws_credentials %>
-echo $AWS_CREDENTIALS > ~admin/passwd-s3fs
-chown admin: ~admin/passwd-s3fs
-chmod 600 ~admin/passwd-s3fs
-
-# report ready
-#JSON='{"instance":{"public_ip_address":"'$PUBLIC_IP'","event":"complete"}}'
-#COMMAND="curl -X PUT --data-binary $JSON $ENDPOINT/$CLIENT_TOKEN.json"
-#N=0
-#until [ $N -ge 10 ]
-#do
-#    $COMMAND && break
-#    N=$[$N+1]
-#    echo `date` "failed to report ready, retry $N" >> ~/actions.log
-#done
-# INSTANCE=<%= client_token %> \
-# 	ENDPOINT=<%= instance_endpoint %> \
-# 	ruby /home/admin/audio_worker/runner.rb --post complete
-
-# update (this is a hack, remove once it's stable)
 curl -o /home/admin/audio_worker/runner.rb <%= runner_endpoint %>
 
-# run
 su -c 'INSTANCE=<%= client_token %> INSTANCE_ENDPOINT=<%= instance_endpoint %> QUEUE_ENDPOINT=<%= queue_endpoint %> ruby /home/admin/audio_worker/runner.rb' admin
-
-# report terminate
-# JSON='{"instance":{"public_ip_address":"'$PUBLIC_IP'","event":"terminate"}}'
-# COMMAND="curl -X PUT --data $JSON $ENDPOINT/$CLIENT_TOKEN"
-# N=0
-# until [ $N -ge 10 ]
-# do
-#     $COMMAND && break
-#     N=$[$N+1]
-#     echo `date` "failed to report ready, retry $N" >> ~/actions.log
-# done
-# INSTANCE=<%= client_token %> \
-# 	ENDPOINT=<%= instance_endpoint %> \
-# 	ruby /home/admin/audio_worker/runner.rb --post terminate
 
 # https://stackoverflow.com/questions/10541363/self-terminating-aws-ec2-instance
 echo Done. Shutting down...
