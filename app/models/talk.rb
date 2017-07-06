@@ -482,7 +482,7 @@ class Talk < ActiveRecord::Base
     # OLDSCHOOL
     # Delayed::Job.enqueue(ArchiveJob.new(id: id), queue: 'audio')
     # NEWSCHOOL
-    prepare_mainfest_file!
+    prepare_manifest_file!
     Job::Archive.create(context: self,
                         details: archive_job_details)
     # TODO maybe check if it is nescessary to spawn one
@@ -493,13 +493,13 @@ class Talk < ActiveRecord::Base
     venue.relevant_files(started_at, ended_at)
   end
 
-  def prepare_mainfest_file!
+  def prepare_manifest_file!
     chain = venue.opts.archive_chain
     chain ||= Settings.audio.archive_chain
-    chain = chain.split(/\s+/)
-    path = write_manifest_file!(chain)
-    upload_file('manifest.yml', path)
-    FileUtils.rm(path)
+    p chain = chain.split(/\s+/)
+    p path = write_manifest_file!(chain)
+    p upload_file('manifest.yml', path)
+    p FileUtils.rm(path)
   end
 
   def archive_from_dump!
@@ -611,9 +611,9 @@ class Talk < ActiveRecord::Base
     # Fog will use MIME::Types to determine the content type
     # and MIME::Types is a horrible, horrible beast.
     ctype = Mime::Type.lookup_by_extension(ext)
-    #puts "[DBG] Uploading %s to %s..." % [file, key]
+    puts "[DBG] Uploading %s to %s..." % [file, key]
     media_storage.files.create key: key, body: handle, content_type: ctype
-    #puts "[DBG] Uploading %s to %s complete." % [file, key]
+    puts "[DBG] Uploading %s to %s complete." % [file, key]
   rescue => e
     failcount ||= 0
     failcount += 1
