@@ -498,7 +498,7 @@ class Talk < ActiveRecord::Base
     chain ||= Settings.audio.archive_chain
     p chain = chain.split(/\s+/)
     p path = write_manifest_file!(chain)
-    p upload_file('manifest.yml', path)
+    p upload_file("#{uri}/manifest.yml", path)
     p FileUtils.rm(path)
   end
 
