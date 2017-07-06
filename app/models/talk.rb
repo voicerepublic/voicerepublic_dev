@@ -482,6 +482,7 @@ class Talk < ActiveRecord::Base
     # OLDSCHOOL
     # Delayed::Job.enqueue(ArchiveJob.new(id: id), queue: 'audio')
     # NEWSCHOOL
+    prepare_mainfest_file!
     Job::Archive.create(context: self,
                         details: archive_job_details)
     # TODO maybe check if it is nescessary to spawn one
@@ -490,6 +491,15 @@ class Talk < ActiveRecord::Base
 
   def relevant_files
     venue.relevant_files(started_at, ended_at)
+  end
+
+  def prepare_mainfest_file!
+    chain = venue.opts.archive_chain
+    chain ||= Settings.audio.archive_chain
+    chain = chain.split(/\s+/)
+    path = write_manifest_file!(chain)
+    upload_file('manifest.yml', path)
+    FileUtils.rm(path)
   end
 
   def archive_from_dump!
