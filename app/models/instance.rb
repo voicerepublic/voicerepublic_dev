@@ -115,7 +115,7 @@ class Instance < ActiveRecord::Base
   end
 
   def default_userdata_template_path
-    rel = File.join(%w(lib templates), "#{base_class_name}.sh.erb")
+    rel = File.join(%w(lib userdata), "#{base_class_name}.sh.erb")
     File.expand_path(rel, Rails.root)
   end
 

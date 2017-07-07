@@ -525,7 +525,7 @@ class Venue < ActiveRecord::Base
   end
 
   def userdata_template
-    File.read(Rails.root.join('lib/templates/userdata.sh.erb'))
+    File.read(Rails.root.join('lib/userdata/icebox.sh.erb'))
   end
 
   def darkice_config_template
