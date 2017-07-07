@@ -76,7 +76,7 @@ end
 
 def complete(job)
   puts "Marking job #{job['id']} as complete."
-  faraday.put(queue_url(job), event: 'complete')
+  faraday.put(queue_url(job), job: {event: 'complete'})
 end
 
 def s3_get(source, target)
