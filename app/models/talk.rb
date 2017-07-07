@@ -85,7 +85,7 @@ class Talk < ActiveRecord::Base
     event :suspend do
       transitions from: :processing, to: :suspended
     end
-    event :archive, timestamp: :processed_at do
+    event :archive, timestamp: :processed_at, success: :after_archive do
       transitions from: :processing, to: :archived
       # or by user upload
       transitions from: :pending, to: :archived
@@ -639,6 +639,27 @@ class Talk < ActiveRecord::Base
 
     # experimental
     venue.force_disconnect! unless venue.public_ip_address.nil?
+  end
+
+  def after_archive
+    # pull media file
+    file = media_storage.files.get("#{uri}/#{id}.mp3")
+    mp3 = Tempfile.new(["peaks-#{id}", '.mp3'])
+    File.open(mp3, 'wb') { |f| f.write(file.body) }
+    # convert to wave
+    wav = Tempfile.new(["peaks-#{id}", '.wav'])
+    %x[sox #{mp3.path} #{wav.path}]
+    File.unlink(mp3)
+    # calculate peaks
+    wav2json = File.expand_path('bin/wav2json', Rails.root)
+    %x[#{wav2json} #{wav.path}]
+    File.unlink(wav)
+    json = wav.path.gsub('.wav', '.wav.json')
+    # read peaks
+    self.peaks = File.read(json)
+    File.unlink(json)
+    # store peaks
+    save!
   end
 
   # FIXME cleanup the wget/cp spec mess with
