@@ -37,7 +37,7 @@ end
 def terminate
   faraday.put(instance_url, instance: { event: 'terminate' })
   puts "Terminate!"
-  exit
+  exit 0
 end
 
 def queue_url(job)
@@ -78,6 +78,10 @@ end
 def complete(job)
   puts "Marking job #{job['id']} as complete."
   faraday.put(queue_url(job), job: {event: 'complete'})
+
+  File.open(File.join(ENV['HOME'], 'job.log'), 'a') do |f|
+    f.puts "Marked job #{job['id']} as completed."
+  end
 end
 
 def s3_get(source, target)
@@ -115,6 +119,10 @@ end
 
 def run(job)
   puts "Running job #{job['id']}..."
+
+  File.open(File.join(ENV['HOME'], 'job.log'), 'a') do |f|
+    f.puts "Claimed job #{job['id']}."
+  end
 
   tmp_prefix = "job_#{job['id']}_"
 

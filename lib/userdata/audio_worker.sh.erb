@@ -8,8 +8,24 @@ EOF
 
 curl -o /home/admin/audio_worker/runner.rb <%= runner_endpoint %>
 
-su -c 'INSTANCE=<%= client_token %> INSTANCE_ENDPOINT=<%= instance_endpoint %> QUEUE_ENDPOINT=<%= queue_endpoint %> ruby /home/admin/audio_worker/runner.rb' admin
+cat >>~admin/run.sh<<EOF
+#!/bin/bash
+INSTANCE=<%= client_token %> \
+  INSTANCE_ENDPOINT=<%= instance_endpoint %> \
+  QUEUE_ENDPOINT=<%= queue_endpoint %> \
+  ruby /home/admin/audio_worker/runner.rb
+EOF
 
-# https://stackoverflow.com/questions/10541363/self-terminating-aws-ec2-instance
-echo Done. Shutting down...
-shutdown -h now
+chmod a+x ~admin/run.sh
+
+su -c '~admin/run.sh; exit $?' admin
+
+if [ $? -eq 0 ]; then
+    # https://stackoverflow.com/questions/10541363
+    echo Done. Shutting down...
+    shutdown -h now
+fi
+
+# If the system did not self shutdown at this point something bad
+# happened. The system keeps running for inspection & completeion of
+# the failed task. It needs to be shutdown manually.
