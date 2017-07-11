@@ -157,12 +157,12 @@ ActiveRecord::Schema.define(version: 20170703090158) do
     t.string   "key_name"
     t.string   "client_token"
     t.string   "name"
-    t.string   "userdata_template"
+    t.string   "userdata_template_path"
     t.text     "userdata"
     t.string   "identifier"
     t.string   "public_ip_address"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "jobs", force: :cascade do |t|
