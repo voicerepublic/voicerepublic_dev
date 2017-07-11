@@ -140,19 +140,32 @@ def aws
 
   s3cmd_path = File.join(ENV['HOME'], '.s3cfg')
   awscli_path = File.join(ENV['HOME'], '.aws', 'credentials')
+  awscli_path2 = File.join(ENV['HOME'], '.aws', 'config')
 
   if File.exist?(s3cmd_path)
-    puts 'Found %s' % s3cmd_path
+    puts 'Reading credentials from %s' % s3cmd_path
     config = IniFile.load(s3cmd_path)
     access_key = config['default']['access_key']
     secret_key = config['default']['secret_key']
   elsif File.exist?(awscli_path)
-    puts 'Found %s' % awscli_path
+    puts 'Reading credentials from %s' % awscli_path
     config = IniFile.load(awscli_path)
     access_key = config['default']['aws_access_key_id']
     secret_key = config['default']['aws_secret_access_key']
+  elsif File.exist?(awscli_path2)
+    puts 'Reading credentials from %s' % awscli_path2
+    config = IniFile.load(awscli_path2)
+    access_key = config['default']['aws_access_key_id']
+    secret_key = config['default']['aws_secret_access_key']
   else
-    raise "could read neither #{s3cmd_path} nor #{awscli_path}"
+    puts "could read neither #{s3cmd_path} nor #{awscli_path}"
+    puts
+    puts "  sudo apt-get install python-pip libyaml-dev"
+    puts "  pip install --upgrade --user awscli"
+    puts "  aws configure"
+    puts "  aws configure set default.s3.signature_version s3v4"
+    puts
+    exit
   end
 
   @aws = Fog::Storage.new(provider: 'AWS',

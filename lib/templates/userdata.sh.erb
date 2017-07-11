@@ -28,7 +28,7 @@ if [ -f /sys/hypervisor/uuid ] && [ `head -c 3 /sys/hypervisor/uuid` == ec2 ]; t
 
   echo $AWS_CREDENTIALS > /etc/passwd-s3fs
   chmod 600 /etc/passwd-s3fs
-  /usr/local/bin/s3fs $BUCKET $STORAGE -o allow_other
+  /usr/local/bin/s3fs $BUCKET $STORAGE -o allow_other,nonempty
 
   # fix old permission issue
   # chown -R icecast2: $STORAGE/$PREFIX/

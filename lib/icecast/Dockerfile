@@ -11,12 +11,14 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN groupadd -r icecast && \
   useradd -r -g icecast icecast2
 
-RUN echo 'deb-src http://deb.debian.org/debian/ jessie-backports main' \
+RUN echo 'deb-src http://httpredir.debian.org/debian/ jessie-backports main' \
     >> /etc/apt/sources.list.d/backports.list
+
 RUN apt-get -qq -y update && \
   apt-get -qq -y install curl build-essential dpkg-dev libssl-dev && \
   apt-get -qq -y -t jessie-backports build-dep icecast2 && \
   apt-get -qq -y -t jessie-backports source icecast2
+
 RUN (cd icecast2-2.4.2; dpkg-buildpackage -b)
 RUN dpkg -i icecast2_2.4.2-1~bpo8+1_amd64.deb
 

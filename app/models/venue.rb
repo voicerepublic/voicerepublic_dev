@@ -194,6 +194,10 @@ class Venue < ActiveRecord::Base
     Settings.icecast.callback_url
   end
 
+  def transcoding_script_url
+    Settings.icecast.transcoding_script_url
+  end
+
   def icecast_params
     {
       public_ip_address: public_ip_address,
@@ -467,7 +471,8 @@ class Venue < ActiveRecord::Base
   end
 
   def provision
-    assign_attributes( source_password: generate_password,
+    assign_attributes( source_password:
+                         Settings.icecast.stoical_password || generate_password,
                        admin_password: generate_password,
                        client_token: generate_client_token,
                        mount_point: generate_mount_point )
