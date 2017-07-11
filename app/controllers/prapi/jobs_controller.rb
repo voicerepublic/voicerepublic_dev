@@ -17,8 +17,8 @@ class Prapi::JobsController < ApplicationController
     event = :save unless Job.available_events.include?(event.to_sym)
     job.send("#{event}!")
     head :ok
-  #rescue
-    #head :conflict
+  rescue
+    head :conflict
   end
 
   private
