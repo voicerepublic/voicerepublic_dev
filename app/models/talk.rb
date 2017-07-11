@@ -483,6 +483,8 @@ class Talk < ActiveRecord::Base
     # OLDSCHOOL
     # Delayed::Job.enqueue(ArchiveJob.new(id: id), queue: 'audio')
     # NEWSCHOOL
+    return if Rails.env.test?
+
     prepare_manifest_file!
     Job::Archive.create(context: self,
                         details: archive_job_details)
@@ -612,10 +614,10 @@ class Talk < ActiveRecord::Base
     # Fog will use MIME::Types to determine the content type
     # and MIME::Types is a horrible, horrible beast.
     ctype = Mime::Type.lookup_by_extension(ext)
-    puts "[DBG] Bucket: #{Settings.storage.media}"
-    puts "[DBG] Uploading %s to %s..." % [file, key]
+    #puts "[DBG] Bucket: #{Settings.storage.media}"
+    #puts "[DBG] Uploading %s to %s..." % [file, key]
     media_storage.files.create key: key, body: handle, content_type: ctype
-    puts "[DBG] Uploading %s to %s complete." % [file, key]
+    #puts "[DBG] Uploading %s to %s complete." % [file, key]
   rescue => e
     failcount ||= 0
     failcount += 1
@@ -828,7 +830,7 @@ class Talk < ActiveRecord::Base
       jingle_out: locate(venue.opts.jingle_out || Settings.paths.jingles.out)
     }
     data[:cut_conf] = edit_config.last['cutConfig'] unless edit_config.blank?
-    data[:relevant_files] = relevant_files unless Rails.env.test?
+    data[:relevant_files] = relevant_files
     data
   end
 

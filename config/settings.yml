@@ -1,10 +1,10 @@
 target: local
 
 # needs to be set locally
-# endpoint:
-#   job_queue: https://voicerepublic.com/prapi/jobs
-#   instance: https://voicerepublic.com/prapi/instances
-#   runner: https://voicerepublic.com/runner.rb
+endpoint:
+  job_queue: https://voicerepublic.com/prapi/jobs
+  instance: https://voicerepublic.com/prapi/instances
+  runner: https://voicerepublic.com/runner.rb
 
 instance:
   default:
