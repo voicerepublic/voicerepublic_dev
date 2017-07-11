@@ -11,12 +11,6 @@ FactoryGirl.define do
     details "---\n{}"
   end
   factory :instance do
-    identifier "MyString"
-    type ""
-    image "MyString"
-    name "MyString"
-    public_ip_address "MyString"
-    state "MyString"
   end
   factory :event do
     name "MyString"
