@@ -35,6 +35,7 @@ def job_list
 end
 
 def terminate
+  faraday.put(instance_url, instance: { event: 'terminate' })
   puts "Terminate!"
   exit
 end
@@ -89,13 +90,35 @@ def s3_put(source, target)
   puts %x[s4cmd -f put #{source} #{target}]
 end
 
+def probe_duration(path)
+  cmd = "ffmpeg -i #{path} 2>&1 | grep Duration"
+  output = %x[ #{cmd} ]
+  md = output.match(/\d+:\d\d:\d\d/)
+  md ? md[0] : nil
+end
+
+def metadata(file)
+  duration = probe_duration(file)
+  result = {
+    basename: File.basename(file),
+    ext:      File.extname(file),
+    size:     File.size(file),
+    duration: duration
+  }
+  # add duration in seconds
+  if duration
+    h, m, s = duration.split(':').map(&:to_i)
+    result[:seconds] = (h * 60 + m) * 60 + s
+  end
+  result
+end
 
 def run(job)
   puts "Running job #{job['id']}..."
 
-  prefix = "job_#{job['id']}_"
+  tmp_prefix = "job_#{job['id']}_"
 
-  path = Dir.mktmpdir(prefix)
+  path = Dir.mktmpdir(tmp_prefix)
 
   source_bucket = [ 's3:/',
                     job['details']['recording']['bucket'],
@@ -120,28 +143,42 @@ def run(job)
     s3_get(s3_url, path)
   end
 
+  # bulk work
   fidelity(path)
   wave = prepare_wave(path)
   wav2json(path, wave)
 
-  # cleanup
+  # cleanup: delete dump files
   File.unlink(File.join(path, wave))
   manifest[:relevant_files].each do |file|
     dump = File.join(path, file.first)
     File.unlink(dump)
-    #%x["rm #{path}/#{file.first}"]
   end
 
-  # upload relevant files from path to target_bucket
+  # collect index data
+  index = {}
+  prefix = job['details']['archive']['prefix']
+  Dir.glob(File.join(path, '*')).each do |file|
+    index["#{prefix}/#{file}"] = metadata(file)
+  end
+
+  # write index file
+  File.open(File.join(path, 'index.yml')) do |f|
+    f.write(YAML.dump(index))
+  end
+
+  # upload all files from path to target_bucket
   s3_put(File.join(path, '*'), target_bucket+'/')
 
+  # cleanup: delete everything
   FileUtils.rm_rf(path)
 
+  # mark job as completed
   complete(job)
 end
 
 def wait
-  puts "Sleeping for 1 min."
+  puts 'Sleeping for 1 min. Then poll queue again...'
   sleep 60
 end
 
@@ -159,19 +196,13 @@ def report_ready
                                 event: 'complete'})
 end
 
-def report_terminate
-  faraday.put(instance_url, instance: { event: 'terminate' })
-end
-
-# args = Hash[ ARGV.join(' ').scan(/--?([^=\s]+)(?:=(\S+))?/) ]
-
+# main
 report_ready
 while true
   jobs = job_list
   if jobs.empty?
     puts "Job list empty."
     if job_count > 0
-      report_terminate
       terminate
     else
       wait

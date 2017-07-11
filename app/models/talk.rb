@@ -57,7 +57,7 @@ class Talk < ActiveRecord::Base
     state :live
     state :postlive
     state :queued
-    state :processing
+    state :processing, leave: :after_processing
     state :archived
     state :suspended
     event :prepare do
@@ -175,6 +175,7 @@ class Talk < ActiveRecord::Base
   serialize :session # TODO remove
   serialize :storage
   serialize :social_links
+  # serialize :peaks # it's json
 
   dragonfly_accessor :image do
     default Rails.root.join('app/assets/images/defaults/talk-image.jpg')
@@ -989,6 +990,25 @@ class Talk < ActiveRecord::Base
 
   def schedule_user_override?
     user_override_uuid_changed? and !user_override_uuid.to_s.empty?
+  end
+
+  def after_processing
+    # pull metadata from storage
+    key = "#{uri}/index.yml"
+    self.storage = YAML.load(fetch(key))
+    # pull waveform from storage
+    key = "#{uri}/#{id}.wav.json"
+    self.peaks = fetch(key)
+  end
+
+  def fetch(key, target=nil)
+    file = media_storage.files.get(key)
+    if target.nil?
+      file.body
+    else
+      File.open(target, 'wb') { |f| f.write(file.body) }
+      target
+    end
   end
 
 end
