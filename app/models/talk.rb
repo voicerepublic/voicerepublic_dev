@@ -495,12 +495,12 @@ class Talk < ActiveRecord::Base
   end
 
   def prepare_manifest_file!
-    chain = venue.opts.archive_chain
-    chain ||= Settings.audio.archive_chain
-    p chain = chain.split(/\s+/)
-    p path = write_manifest_file!(chain)
-    p upload_file("#{uri}/manifest.yml", path)
-    p FileUtils.rm(path)
+    chain = venue.opts.archive_chain || Settings.audio.archive_chain
+    chain = chain.split(/\s+/)
+    # write to a controlled dir, otherwise it could be overwritten
+    path = write_manifest_file!(chain)
+    upload_file("#{uri}/manifest.yml", path)
+    FileUtils.rm(path)
   end
 
   def archive_from_dump!
