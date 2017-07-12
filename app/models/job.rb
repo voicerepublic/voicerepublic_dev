@@ -14,6 +14,7 @@ class Job < ActiveRecord::Base
     state :pending
     state :running
     state :completed
+    state :suspended
 
     event :start, timestamp: :started_at do
       transitions from: :pending, to: :running
@@ -21,8 +22,12 @@ class Job < ActiveRecord::Base
     event :complete, timestamp: :completed_at do
       transitions from: :running, to: :completed
     end
+    event :failed do
+      transitions from: :running, to: :suspended
+    end
     event :reset do
-      transitions from: :running, to: :pending, on_transition: :on_reset
+      transitions from: [:running, :suspended],
+                  to: :pending, on_transition: :on_reset
     end
   end
 

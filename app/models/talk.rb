@@ -57,7 +57,7 @@ class Talk < ActiveRecord::Base
     state :live
     state :postlive
     state :queued
-    state :processing, leave: :after_processing
+    state :processing
     state :archived
     state :suspended
     event :prepare do
@@ -86,7 +86,8 @@ class Talk < ActiveRecord::Base
       transitions from: :processing, to: :suspended
     end
     event :archive, timestamp: :processed_at do
-      transitions from: :processing, to: :archived
+      transitions from: :processing, to: :archived,
+                  on_transition: :after_processing
       # or by user upload
       transitions from: :pending, to: :archived
       # in rare case we might to override a talk

@@ -171,7 +171,7 @@ def run(job)
   end
 
   # write index file
-  File.open(File.join(path, 'index.yml')) do |f|
+  File.open(File.join(path, 'index.yml'), 'w') do |f|
     f.write(YAML.dump(index))
   end
 

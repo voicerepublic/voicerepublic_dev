@@ -18,7 +18,7 @@ EOF
 
 chmod a+x ~admin/run.sh
 
-su -c '~admin/run.sh; exit $?' admin
+su -c '~/run.sh >> ~/job-output.log; exit $?' admin
 
 if [ $? -eq 0 ]; then
     # https://stackoverflow.com/questions/10541363
