@@ -999,7 +999,8 @@ class Talk < ActiveRecord::Base
   def after_processing
     # pull metadata from storage
     key = "#{uri}/index.yml"
-    self.storage = YAML.load(fetch(key))
+    metadata = fetch(key)
+    self.storage = YAML.load(metadata) unless metadata.nil?
     # pull waveform from storage
     key = "#{uri}/#{id}.wav.json"
     self.peaks = fetch(key)

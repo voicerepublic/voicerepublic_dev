@@ -204,22 +204,31 @@ def report_ready
                                 event: 'complete'})
 end
 
+def report_ready
+  faraday.put(instance_url, instance: { event: 'failed' })
+end
+
 # main
-report_ready
-while true
-  jobs = job_list
-  if jobs.empty?
-    puts "Job list empty."
-    if job_count > 0
-      terminate
+begin
+  report_ready
+  while true
+    jobs = job_list
+    if jobs.empty?
+      puts "Job list empty."
+      if job_count > 0
+        terminate
+      else
+        wait
+      end
     else
-      wait
-    end
-  else
-    job = jobs.first
-    if claim(job)
-      run(job)
-      job_count += 1
+      job = jobs.first
+      if claim(job)
+        run(job)
+        job_count += 1
+      end
     end
   end
+rescue
+  report_failure
+  exit 1
 end
