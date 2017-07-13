@@ -1,0 +1,38 @@
+#!/bin/bash
+
+cat >>~admin/.3cfg <<EOF
+[default]
+access_key = <%= aws_access_key %>
+secret_key = <%= aws_secret_key %>
+EOF
+
+curl -o /home/admin/audio_worker/runner.rb <%= runner_endpoint %>
+
+# TODO when updateing the image make .bashrc source .aliases
+cat >>~admin/.aliases<<EOF
+alias job-log='tail -f ~/job.log'
+alias job-output='tail -f ~/job-output.log'
+alias run='~/run.sh''
+EOF
+
+cat >>~admin/run.sh<<EOF
+#!/bin/bash
+INSTANCE=<%= client_token %> \
+INSTANCE_ENDPOINT=<%= instance_endpoint %> \
+QUEUE_ENDPOINT=<%= queue_endpoint %> \
+ruby /home/admin/audio_worker/runner.rb
+EOF
+
+chmod a+x ~admin/run.sh
+
+su -c '~/run.sh >> ~/job-output.log; exit $?' admin
+
+if [ $? -eq 0 ]; then
+    # https://stackoverflow.com/questions/10541363
+    echo Done. Shutting down...
+    shutdown -h now
+fi
+
+# If the system did not self shutdown at this point something bad
+# happened. The system keeps running for inspection & completeion of
+# the failed task. It needs to be shutdown manually.

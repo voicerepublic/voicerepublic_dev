@@ -37,6 +37,7 @@ class Api::DevicesController < ApplicationController
     @device.mac_address_ethernet = params[:device][:mac_address_ethernet]
     @device.mac_address_wifi     = params[:device][:mac_address_wifi]
     @device.version              = params[:device][:version]
+    @device.box_public_key       = params[:device][:public_key]
 
     @device.save! # CHECK required?
     @device.register!

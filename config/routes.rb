@@ -59,6 +59,11 @@ Rails.application.routes.draw do
     end
   end
 
+  namespace 'prapi' do
+    resources :instances, only: [:index, :update]
+    resources :jobs, only: [:index, :update]
+  end
+
   namespace 'api' do
     get 'oembed(.:format)' => 'oembed#show'
     resources :devices, only: [:show, :create, :update] do

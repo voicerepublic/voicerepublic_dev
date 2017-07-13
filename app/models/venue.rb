@@ -4,6 +4,8 @@
 #
 class Venue < ActiveRecord::Base
 
+  include PasswordGenerator
+
   PROVISIONING_WINDOW = 3.hours
   PROVISIONING_DURATION = 150.seconds
 
@@ -122,10 +124,6 @@ class Venue < ActiveRecord::Base
 
   def generate_mount_point
     'live' # SecureRandom.uuid
-  end
-
-  def generate_password(length=8)
-    ('a'..'z').to_a.shuffle[0,length].join
   end
 
   def provisioning_parameters
@@ -527,7 +525,7 @@ class Venue < ActiveRecord::Base
   end
 
   def userdata_template
-    File.read(Rails.root.join('lib/templates/userdata.sh.erb'))
+    File.read(Rails.root.join('lib/userdata/icebox.sh.erb'))
   end
 
   def darkice_config_template
