@@ -1007,6 +1007,7 @@ class Talk < ActiveRecord::Base
 
   def fetch(key, target=nil)
     file = media_storage.files.get(key)
+    return nil if file.nil?
     if target.nil?
       file.body
     else
