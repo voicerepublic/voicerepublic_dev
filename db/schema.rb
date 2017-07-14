@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170503094637) do
+ActiveRecord::Schema.define(version: 20170713103457) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -61,6 +61,17 @@ ActiveRecord::Schema.define(version: 20170503094637) do
   add_index "appearances", ["talk_id"], name: "index_appearances_on_talk_id", using: :btree
   add_index "appearances", ["user_id"], name: "index_appearances_on_user_id", using: :btree
 
+  create_table "artifacts", force: :cascade do |t|
+    t.string   "url"
+    t.string   "context_type"
+    t.integer  "context_id"
+    t.integer  "size"
+    t.string   "content_type"
+    t.text     "metadata"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
   create_table "comments", force: :cascade do |t|
     t.text     "content"
     t.integer  "user_id",                      null: false
@@ -90,11 +101,43 @@ ActiveRecord::Schema.define(version: 20170503094637) do
 
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
+  create_table "delayed_jobs_backup", id: false, force: :cascade do |t|
+    t.integer  "id"
+    t.integer  "priority"
+    t.integer  "attempts"
+    t.text     "handler"
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by",  limit: 255
+    t.string   "queue",      limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "device_reports", force: :cascade do |t|
     t.integer  "device_id"
     t.text     "data"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.integer  "uptime"
+    t.integer  "users"
+    t.float    "load1"
+    t.float    "load5"
+    t.float    "load15"
+    t.float    "temperature"
+    t.integer  "memory_free"
+    t.integer  "memory_total"
+    t.integer  "memory_used"
+    t.float    "heartbeat_response_time"
+    t.integer  "disk_available"
+    t.integer  "disk_total"
+    t.integer  "disk_used"
+    t.float    "bandwidth"
+    t.integer  "current_recording_size"
+    t.integer  "number_of_audio_devices"
+    t.integer  "number_of_usb_devices"
   end
 
   add_index "device_reports", ["device_id"], name: "index_device_reports_on_device_id", using: :btree

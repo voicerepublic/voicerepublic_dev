@@ -20,6 +20,16 @@ namespace :db do
   end
 
   namespace :sync do
+
+    task :live_images do
+      host = 'app@voicerepublic.com'
+      puts 'Sync production images... (This might take a while.)'
+      source = 'app/shared/public/system/dragonfly/production/'
+      target = 'public/system/dragonfly/development/'
+      sh "mkdir -p #{target}"
+      sh "rsync -az --progress #{host}:#{source} #{target}"
+    end
+
     task :live do
       puts <<-EOF
 
@@ -32,6 +42,8 @@ namespace :db do
 
       dump = "pgdump_production_2_#{ `hostname`.chomp }.sql"
       database = Rails.configuration.database_configuration[Rails.env]["database"]
+      localhost = Rails.configuration.database_configuration[Rails.env]["host"]
+      username = Rails.configuration.database_configuration[Rails.env]["username"]
       host = 'app@voicerepublic.com'
 
       puts 'Sync production database...'
@@ -42,13 +54,8 @@ namespace :db do
       sh "scp #{host}:#{ dump }.gz ."
       sh "ssh #{host} 'rm #{ dump }.gz'"
       sh "gunzip #{ dump }.gz"
-      sh "psql #{database} < #{ dump }"
+      sh "psql -U #{username} -h #{localhost} #{database} < #{ dump }"
       sh "rm #{ dump }*"
-
-      puts 'Sync production images... (This might take a while.)'
-      source = 'app/shared/public/system/dragonfly/production/'
-      target = 'public/system/dragonfly/development/'
-      sh "rsync -az --progress #{host}:#{source} #{target}"
     end
 
     # TODO make this task use db:sync:live with another host set
