@@ -10,7 +10,6 @@
 # this redirects everything to a log
 exec > /tmp/part-001.log 2>&1
 
-
 STORAGE=<%= recordings_path %>
 PREFIX=<%= slug %>
 
@@ -21,10 +20,6 @@ if [ -f /sys/hypervisor/uuid ] && [ `head -c 3 /sys/hypervisor/uuid` == ec2 ]; t
   PUBLIC_IP=$(curl http://169.254.169.254/latest/meta-data/public-ipv4)
 
   HOME=/root
-
-  aws configure set aws_access_key_id <%= aws_credentials.split(':').first %>
-  aws configure set aws_secret_access_key <%= aws_credentials.split(':').last %>
-  aws configure set default.region <%= recordings_bucket.split('@').last %>
 
   cat >> /home/admin/.ssh/authorized_keys<<EOF
 <%= ssh_keys %>
