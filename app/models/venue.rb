@@ -517,7 +517,7 @@ class Venue < ActiveRecord::Base
   end
 
   def storage_url
-    [ 's3:/', aws_bucket_name, slug ] * '/'
+    [ 's3:/', aws_bucket_name, slug, nil ] * '/'
   end
 
   def aws_access_key
