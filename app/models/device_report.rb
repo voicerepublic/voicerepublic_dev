@@ -3,11 +3,13 @@ class DeviceReport < ActiveRecord::Base
   UPTIME_REGEX = /up\s+(.+?),\s+(\d+)\s+users,\s+load\s+average:\s+([\d.]+),\s+([\d.]+),\s+([\d.]+)/
 
   belongs_to :device
+  has_many :artifacts, as: :context
 
   serialize :data
 
-  scope :aggregated, -> { where(load1: nil) }
-  scope :disaggregated, -> { where('load1 IS NOT NULL') }
+  scope :ordered, -> { order('created_at ASC') }
+  scope :aggregated, -> { where(uptime: nil).ordered }
+  scope :disaggregated, -> { where('uptime IS NOT NULL') }
 
   def self.disaggregate_missing!
     self.aggregated.find_each(&:disaggregate!)
@@ -51,14 +53,16 @@ class DeviceReport < ActiveRecord::Base
   end
 
   def disaggregate!
+    p id
     _, _uptime, _users, _load1, _load5, _load15 =
       self.data['uptime'].match(UPTIME_REGEX).to_a
+    self.data['_uptime'] = _uptime # TODO remove
     self.uptime = parse_uptime(_uptime)
     self.users = _users
     self.load1 = _load1
     self.load5 = _load5
     self.load15 = _load15
-    #self.data.delete('uptime')
+    #self.data.delete('uptime') $ TODO use
 
     self.temperature = self.data.delete('temperature')
     self.heartbeat_response_time = self.data.delete('heartbeat_response_time')
@@ -78,9 +82,16 @@ class DeviceReport < ActiveRecord::Base
     self.number_of_audio_devices = self.data['devices'].size
     self.number_of_usb_devices = self.data['usb'] && self.data['usb'].size
 
-    #self.data['recordings'].each do |key, details|
-    #  url =
-    #end
+    unless self.data['recordings'].nil?
+      self.data['recordings'].each do |key, details|
+        url = 's3://%s/%s/%s' % [device.bucket, device.identifier, key]
+        artifact = artifacts.find_or_initialize_by(url: url, context: device)
+        artifact.metadata ||= {}
+        artifact.metadata.merge!(details)
+        artifact.save!
+      end
+      self.data.delete('recordings')
+    end
 
     self.data.delete('id')
     self.data.delete('action')

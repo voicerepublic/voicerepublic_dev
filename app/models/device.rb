@@ -183,14 +183,14 @@ class Device < ActiveRecord::Base
     end
   end
 
+  def bucket
+    Settings.storage.backup_recordings
+  end
+
   private
 
   def files
     Storage.get(bucket, prefix).files.sort_by(&:key).reverse
-  end
-
-  def bucket
-    Settings.storage.backup_recordings
   end
 
   def prefix
