@@ -19,7 +19,7 @@ instance:
     image: ami-d48427bb
   icebox:
     security_group: Icecast Servers
-    image: ami-0013b16f
+    image: ami-ea0daf85
 
 # this file reflects standard settings for development
 # overrides for production can be found in
@@ -195,7 +195,8 @@ icecast:
     #image: ami-d6ca6fb9 (icebox 3.23 fixed docker issue)
     #image: ami-ac12b0c3 (icebox 3.24 awscli instead of s3fs, defunkt)
     #image: ami-0013b16f (icebox 3.25 fix typo in filename)
-    image: ami-0013b16f
+    #image: ami-ea0daf85 (icebox 3.26 fix permissions, upload works)
+    image: ami-ea0daf85
     default_instance_type: t2.micro
     security_group: Icecast Servers
     key_name: phil-ffm
