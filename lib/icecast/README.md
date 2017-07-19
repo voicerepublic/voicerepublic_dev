@@ -87,9 +87,6 @@ apt-get -y install curl
 # install docker as described above, then...
 
 docker build -t branch14/icecast2 icecast/.
-
-apt-get install jq python-pip
-pip install awscli
 ```
 
 Pull an AMI. Done. Add the AMIs id to `settings.yml`.
