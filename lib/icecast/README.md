@@ -98,6 +98,9 @@ cd s3fs-fuse-1.79
 make
 make install
 cd
+
+apt-get install jq python-pip
+pip install awscli
 ```
 
 Pull an AMI. Done. Add the AMIs id to `settings.yml`.

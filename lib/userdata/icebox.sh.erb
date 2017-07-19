@@ -22,16 +22,9 @@ if [ -f /sys/hypervisor/uuid ] && [ `head -c 3 /sys/hypervisor/uuid` == ec2 ]; t
 
   HOME=/root
 
-  # mount the bucket
-  BUCKET=<%= recordings_bucket.split('@').first %>
-  AWS_CREDENTIALS=<%= aws_credentials %>
-
-  echo $AWS_CREDENTIALS > /etc/passwd-s3fs
-  chmod 600 /etc/passwd-s3fs
-  /usr/local/bin/s3fs $BUCKET $STORAGE -o allow_other,nonempty
-
-  # fix old permission issue
-  # chown -R icecast2: $STORAGE/$PREFIX/
+  aws configure set aws_access_key_id <%= aws_credentials.split(':').first %>
+  aws configure set aws_secret_access_key <%= aws_credentials.split(':').last %>
+  aws configure set default.region <%= recordings_bucket.split('@').last %>
 
   cat >> /home/admin/.ssh/authorized_keys<<EOF
 <%= ssh_keys %>
