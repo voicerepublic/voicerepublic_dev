@@ -49,7 +49,8 @@ ADD ./*.wav /
 ADD redirect.html /usr/share/icecast2/web/
 ADD loop.mp3 /usr/share/icecast2/web/
 
-RUN chown -R icecast2 /etc/icecast2
+RUN chown -R icecast2: /etc/icecast2
+RUN chown -R icecast2: /home/icecast2
 
 USER icecast2
 
