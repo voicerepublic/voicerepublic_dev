@@ -514,6 +514,10 @@ class Venue < ActiveRecord::Base
     Rails.application.routes.url_helpers.venue_url(self)
   end
 
+  def storage_url
+    [ 's3:/', recordings_bucket, slug ] * '/'
+  end
+
   private
 
   def event_fired(*args)
