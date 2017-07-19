@@ -304,13 +304,6 @@ class Venue < ActiveRecord::Base
     Settings.paths.recordings
   end
 
-  # This is used in userdata to mount the s3 bucket with s3fs.
-  #
-  def aws_credentials
-    [ Settings.fog.storage.aws_access_key_id,
-      Settings.fog.storage.aws_secret_access_key ] * ':'
-  end
-
   # called by icecast middleware
   def synced!
     shutdown!
@@ -514,8 +507,25 @@ class Venue < ActiveRecord::Base
     Rails.application.routes.url_helpers.venue_url(self)
   end
 
+  # TODO move next 5 methods to Instance::Icebox
+  def aws_region
+    Settings.storage.recordings.split('@').last
+  end
+
+  def aws_bucket_name
+    Settings.storage.recordings.split('@').first
+  end
+
   def storage_url
-    [ 's3:/', recordings_bucket, slug ] * '/'
+    [ 's3:/', aws_bucket_name, slug ] * '/'
+  end
+
+  def aws_access_key
+    Settings.fog.storage.aws_access_key_id
+  end
+
+  def aws_secret_key
+    Settings.fog.storage.aws_secret_access_key
   end
 
   private
