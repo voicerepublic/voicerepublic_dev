@@ -17,7 +17,7 @@ then
     echo `date` "failed to report disconnected, giving up" >> /share/actions.log
 fi
 
-sync.sh
+./sync.sh
 
 echo `date` synced >> /share/actions.log
 
