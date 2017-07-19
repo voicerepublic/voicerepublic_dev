@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# FIXME the filename is very likely a typo, and it still works since
+# the image has a file with credentials that work :(
+# TODO use awscli instead of s4cmd anyways!
 cat >>~admin/.3cfg <<EOF
 [default]
 access_key = <%= aws_access_key %>
