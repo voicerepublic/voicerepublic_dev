@@ -225,6 +225,9 @@ begin
       if claim(job)
         run(job)
         job_count += 1
+      else
+        puts "Failed to claim job #{job['id']}"
+        sleep 5
       end
     end
   end
