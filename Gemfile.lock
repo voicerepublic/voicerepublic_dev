@@ -37,7 +37,7 @@ GIT
 
 GIT
   remote: git@github.com:munen/fidelity.git
-  revision: 29ef2623c1eaf3bec8e7d932a9cd7d2efefe8248
+  revision: e464d7cd7326a9886fda664baec1a496eba115d0
   specs:
     fidelity (2.1.0)
       auphonic
@@ -579,7 +579,7 @@ GEM
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
     systemu (2.6.5)
-    term-ansicolor (1.5.0)
+    term-ansicolor (1.6.0)
       tins (~> 1.0)
     thin (1.6.4)
       daemons (~> 1.0, >= 1.0.9)
@@ -589,7 +589,7 @@ GEM
     thread_safe (0.3.5)
     tilt (2.0.2)
     timecop (0.8.0)
-    tins (1.13.2)
+    tins (1.15.0)
     trickery (0.0.8)
       systemu
     trollop (2.1.2)
@@ -710,3 +710,6 @@ DEPENDENCIES
   webmock (~> 1.15.0)
   whenever
   will_paginate
+
+BUNDLED WITH
+   1.15.1
