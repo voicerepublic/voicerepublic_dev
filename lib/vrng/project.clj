@@ -59,6 +59,7 @@
 
   :profiles {:dev {:dependencies [[prone "1.0.2"]
                                   [lein-doo "0.1.6"]
+                                  [figwheel-sidecar "0.5.4-7"]
                                   [pjstadig/humane-test-output "0.7.1"]
                                   [lein-figwheel "0.5.4-7"]
                                   [org.clojure/tools.nrepl "0.2.12"]
