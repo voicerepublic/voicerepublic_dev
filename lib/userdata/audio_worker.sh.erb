@@ -1,41 +1,46 @@
 #!/bin/bash
 
-# FIXME the filename is very likely a typo, and it still works since
-# the image has a file with credentials that work :(
-# TODO use awscli instead of s4cmd anyways!
-cat >>~admin/.3cfg <<EOF
-[default]
-access_key = <%= aws_access_key %>
-secret_key = <%= aws_secret_key %>
+ENV_LIST=$(mktemp --tmpdir env.list.XXXXX)
+
+cat >$ENV_LIST <<EOF
+RUNNER_ENDPOINT=<%= runner_endpoint %>
+AWS_ACCESS_KEY=<%= aws_access_key %>
+AWS_SECRET_KEY=<%= aws_secret_key %>
+INSTANCE=<%= client_token %>
+INSTANCE_ENDPOINT=<%= instance_endpoint %>
+QUEUE_ENDPOINT=<%= queue_endpoint %>
 EOF
 
-curl -o /home/admin/audio_worker/runner.rb <%= runner_endpoint %>
+RUN_SH=$(mktemp --tmpdir run.sh.XXXXX)
 
-# TODO when updateing the image make .bashrc source .aliases
-cat >>~admin/.aliases<<EOF
-alias job-log='tail -f ~/job.log'
-alias job-output='tail -f ~/job-output.log'
-alias run='~/run.sh''
+cat >$RUN_SH <<EOF
+docker run \
+       --name=audio_worker \
+       --env-file=$ENV_LIST \
+       branch14/audio_worker
 EOF
 
-cat >>~admin/run.sh<<EOF
-#!/bin/bash
-INSTANCE=<%= client_token %> \
-INSTANCE_ENDPOINT=<%= instance_endpoint %> \
-QUEUE_ENDPOINT=<%= queue_endpoint %> \
-ruby /home/admin/audio_worker/runner.rb
-EOF
+chmod a+x $RUN_SH
 
-chmod a+x ~admin/run.sh
-
-su -c '~/run.sh >> ~/job-output.log; exit $?' admin
+./$RUN_SH
 
 if [ $? -eq 0 ]; then
-    # https://stackoverflow.com/questions/10541363
-    echo Done. Shutting down...
+    <% if Rails.env.production? %>
+    echo "Success. Shutting down..."
     shutdown -h now
-fi
+    # https://stackoverflow.com/questions/10541363
+    <% else %>
+    echo "Success. Cleaning up..."
+    rm $ENV_LIST
+    rm $RUN_SH
+    <% end %>
+else
+    # If the system (spawned from a production instance) did not
+    # shutdown itself at this point something bad happened (the docker
+    # returned with a non-zero exit code). The system keeps running
+    # for inspection & completeion of the failed task. It needs to be
+    # shutdown manually. At this point it should trigger a slack
+    # message or a similar notification.
 
-# If the system did not self shutdown at this point something bad
-# happened. The system keeps running for inspection & completeion of
-# the failed task. It needs to be shutdown manually.
+    echo "Failed to run $RUN_SH"
+fi
