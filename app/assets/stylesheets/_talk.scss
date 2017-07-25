@@ -649,23 +649,22 @@ button,
 .timeline {
     align-self: center;
     flex: 1 1 auto;
-    height: 12px;
-    background: rgba($jet, 0.4);
+    height: 70px;
     border-radius: 2px;
     margin: 0 12px;
 }
 
 .track-playing {
-    height: 12px;
-    background: $vr-light-blue;
+    height: 70px;
+    background: $dark-gray;
     width: 0%;
     border-radius: 2px;
+    mix-blend-mode: darken;
 }
 
 .track-buffered {
     width: 18%;
-    background: $oil;
-    height: 12px;
+    height: 70px;
     position: absolute;
     z-index: -1;
     border-radius: 2px;
