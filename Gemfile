@@ -10,6 +10,7 @@ gem 'pg'                           # postgres
 gem "daemons"                      # delayed job wants daemons
 gem 'delayed_job'
 gem 'delayed_job_active_record'
+gem 'term-ansicolor'
 
 gem 'sass-rails'
 gem 'coffee-rails', '~> 4.1.0'
@@ -55,7 +56,7 @@ gem 'fog'
 gem 'excon', '~> 0.45.4'           # http client
 gem 'mailgun_rails'
 gem 'activemerchant'
-gem 'faye-authentication', github: 'branch14/faye-authentication'
+gem 'faye-authentication', github: 'branch14/faye-authentication', branch: 'master'
 gem 'redcarpet'                    # markdown parser & renderer
 gem 'inifile', require: false
 gem 'trickery'

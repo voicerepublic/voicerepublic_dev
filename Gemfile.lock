@@ -7,6 +7,7 @@ GIT
 GIT
   remote: git://github.com/branch14/faye-authentication.git
   revision: 33dcf8bb47604bc739485fecc5eba551b0c0190a
+  branch: master
   specs:
     faye-authentication (1.8.0)
       faye (>= 1.0)
@@ -37,7 +38,7 @@ GIT
 
 GIT
   remote: git@github.com:munen/fidelity.git
-  revision: 29ef2623c1eaf3bec8e7d932a9cd7d2efefe8248
+  revision: aeced7207881d87871fdab1ce1b631988367a3ba
   specs:
     fidelity (2.1.0)
       auphonic
@@ -579,7 +580,7 @@ GEM
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
     systemu (2.6.5)
-    term-ansicolor (1.5.0)
+    term-ansicolor (1.6.0)
       tins (~> 1.0)
     thin (1.6.4)
       daemons (~> 1.0, >= 1.0.9)
@@ -589,7 +590,7 @@ GEM
     thread_safe (0.3.5)
     tilt (2.0.2)
     timecop (0.8.0)
-    tins (1.13.2)
+    tins (1.15.0)
     trickery (0.0.8)
       systemu
     trollop (2.1.2)
@@ -699,6 +700,7 @@ DEPENDENCIES
   simplecov (~> 0.7.1)
   spring
   spring-commands-rspec
+  term-ansicolor
   thin
   timecop
   transitions!
@@ -710,3 +712,6 @@ DEPENDENCIES
   webmock (~> 1.15.0)
   whenever
   will_paginate
+
+BUNDLED WITH
+   1.15.1
