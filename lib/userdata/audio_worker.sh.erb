@@ -33,6 +33,8 @@ if [ $? -eq 0 ]; then
     echo "Success. Cleaning up..."
     rm $ENV_LIST
     rm $RUN_SH
+    docker rm <%= base_class_name %>
+
     <% end %>
 else
     # If the system (spawned from a production instance) did not
