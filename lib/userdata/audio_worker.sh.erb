@@ -14,6 +14,7 @@ EOF
 RUN_SH=$(mktemp --tmpdir run.sh.XXXXX)
 
 cat >$RUN_SH <<EOF
+# TODO check if container with name exists and delete it
 docker run \
        --name=<%= base_class_name %> \
        --env-file=$ENV_LIST \

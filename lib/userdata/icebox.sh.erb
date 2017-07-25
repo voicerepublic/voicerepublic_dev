@@ -46,6 +46,10 @@ cat >$ENV_LIST <<EOF
 PUBLIC_IP=$PUBLIC_IP
 EOF
 
+if [ "$(docker ps -q -f name=icecast)" ]; then
+    docker rm icecast
+fi
+
 # production
 docker run \
        --detach=true \
