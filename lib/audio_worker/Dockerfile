@@ -1,21 +1,8 @@
-# docker run -it branch14/worker /bin/bash
-
 FROM debian:jessie-backports
 
 MAINTAINER Phil Hofmann "phil@voicerepublic.com"
 
 ENV DEBIAN_FRONTEND noninteractive
-
-# files
-ADD ./*.sh /
-ADD ./*.rb /
-ADD ./Gemfile /
-
-# directories
-ADD ./fidelity /fidelity
-
-# fidelity
-RUN cd fidelity && ./install_dependencies.sh
 
 # wav2json
 RUN apt-get update && apt-get install -y wget make sudo g++
@@ -26,7 +13,15 @@ RUN cd wav2json-master/build && make install_dependencies && make all
 # aws cli
 RUN apt-get -qq -y install curl python-pip && pip install awscli
 
-RUN mkdir /share
-VOLUME /share
+# fidelity
+RUN cd fidelity && ./install_dependencies.sh
+
+# directories
+ADD ./fidelity /fidelity
+
+# files
+ADD ./*.sh /
+ADD ./*.rb /
+ADD ./Gemfile /
 
 CMD ["/run.sh"]
