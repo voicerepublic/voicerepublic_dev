@@ -182,6 +182,7 @@ end
 
 def wait
   puts 'Sleeping for 1 min. Then poll queue again...'
+  $stdout.flush
   sleep 60
 end
 
@@ -191,6 +192,8 @@ end
 
 def public_ip_address
   faraday.get('http://169.254.169.254/latest/meta-data/public-ipv4').body
+rescue
+  nil
 end
 
 def report_ready
