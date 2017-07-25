@@ -4,6 +4,8 @@
 
 Run `lib/audio_worker/build.sh`
 
+The rest of this file is outdated and needs to be rewritten!
+
 # OLDSCHOOL
 
 ## Setup
