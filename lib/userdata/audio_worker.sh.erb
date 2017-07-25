@@ -15,14 +15,14 @@ RUN_SH=$(mktemp --tmpdir run.sh.XXXXX)
 
 cat >$RUN_SH <<EOF
 docker run \
-       --name=audio_worker \
+       --name=<%= base_class_name %> \
        --env-file=$ENV_LIST \
        branch14/audio_worker
 EOF
 
 chmod a+x $RUN_SH
 
-./$RUN_SH
+$RUN_SH
 
 if [ $? -eq 0 ]; then
     <% if Rails.env.production? %>
