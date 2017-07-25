@@ -430,6 +430,7 @@ class Talk < ActiveRecord::Base
         image_alt: image_alt,
         duration: duration,
         slides_url: slides_url(false),
+        peaks: peaks,
 
         # extended
         scheduled_duration: duration * 60,

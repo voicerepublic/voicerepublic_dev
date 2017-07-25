@@ -7,6 +7,7 @@ GIT
 GIT
   remote: git://github.com/branch14/faye-authentication.git
   revision: 33dcf8bb47604bc739485fecc5eba551b0c0190a
+  branch: master
   specs:
     faye-authentication (1.8.0)
       faye (>= 1.0)
@@ -37,7 +38,7 @@ GIT
 
 GIT
   remote: git@github.com:munen/fidelity.git
-  revision: e464d7cd7326a9886fda664baec1a496eba115d0
+  revision: aeced7207881d87871fdab1ce1b631988367a3ba
   specs:
     fidelity (2.1.0)
       auphonic
@@ -699,6 +700,7 @@ DEPENDENCIES
   simplecov (~> 0.7.1)
   spring
   spring-commands-rspec
+  term-ansicolor
   thin
   timecop
   transitions!
