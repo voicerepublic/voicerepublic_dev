@@ -199,7 +199,7 @@ def report_ready
                                 event: 'complete'})
 end
 
-def report_ready
+def report_failure
   faraday.put(instance_url, instance: { event: 'failed' })
 end
 

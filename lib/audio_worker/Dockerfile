@@ -24,7 +24,7 @@ RUN tar xfvz master.tar.gz
 RUN cd wav2json-master/build && make install_dependencies && make all
 
 # aws cli
-RUN apt-get -qq -y install python-pip && pip install awscli
+RUN apt-get -qq -y install curl python-pip && pip install awscli
 
 RUN mkdir /share
 VOLUME /share

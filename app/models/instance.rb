@@ -73,15 +73,49 @@ class Instance < ActiveRecord::Base
   end
 
   def provision
+    send("provision_#{Rails.env}")
+  end
+
+  def provision_production
     response = EC2.run_instances(*provisioning_parameters)
     self.identifier = response.body["instancesSet"].first["instanceId"]
     EC2.tags.create(resource_id: identifier, key: 'Name', value: name)
     EC2.tags.create(resource_id: identifier, key: 'Target', value: Settings.target)
   end
 
+  def provision_development
+    tmp = Tempfile.new(["userdata_#{base_class_name}", '.sh'])
+    path = tmp.path
+    tmp.unlink
+    f = File.open(path, 'w', 0700)
+    f.write(userdata)
+    f.close
+    # cp file to project root for inspection
+    FileUtils.cp path, "userdata_#{base_class_name}.sh"
+    puts 'Running provisioning file...'
+    spawn path
+  end
+
+  def provision_test
+  end
+
   def unprovision
+    send("provision_#{Rails.env}")
+  end
+
+  def unprovision_production
     instance = EC2.servers.get(identifier)
     instance.destroy unless instance.nil?
+  end
+
+  def unprovision_development
+    puts "Stopping icecast docker container #{base_class_name}..."
+    system "docker stop #{base_class_name}"
+    puts "Removing icecast docker container #{base_class_name}..."
+    system "docker rm #{base_class_name}"
+  end
+
+  def unprovision_test
   end
 
   # defaults

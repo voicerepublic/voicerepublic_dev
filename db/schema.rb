@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170703090158) do
+ActiveRecord::Schema.define(version: 20170713103457) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,12 +19,12 @@ ActiveRecord::Schema.define(version: 20170703090158) do
   enable_extension "unaccent"
 
   create_table "active_admin_comments", force: :cascade do |t|
-    t.string   "namespace"
+    t.string   "namespace",     limit: 255
     t.text     "body"
-    t.string   "resource_id",   null: false
-    t.string   "resource_type", null: false
+    t.string   "resource_id",   limit: 255, null: false
+    t.string   "resource_type", limit: 255, null: false
     t.integer  "author_id"
-    t.string   "author_type"
+    t.string   "author_type",   limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -34,16 +34,16 @@ ActiveRecord::Schema.define(version: 20170703090158) do
   add_index "active_admin_comments", ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id", using: :btree
 
   create_table "admin_users", force: :cascade do |t|
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
-    t.string   "reset_password_token"
+    t.string   "email",                  limit: 255, default: "", null: false
+    t.string   "encrypted_password",     limit: 255, default: "", null: false
+    t.string   "reset_password_token",   limit: 255
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",                      default: 0,  null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
+    t.string   "current_sign_in_ip",     limit: 255
+    t.string   "last_sign_in_ip",        limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -61,13 +61,24 @@ ActiveRecord::Schema.define(version: 20170703090158) do
   add_index "appearances", ["talk_id"], name: "index_appearances_on_talk_id", using: :btree
   add_index "appearances", ["user_id"], name: "index_appearances_on_user_id", using: :btree
 
+  create_table "artifacts", force: :cascade do |t|
+    t.string   "url"
+    t.string   "context_type"
+    t.integer  "context_id"
+    t.integer  "size"
+    t.string   "content_type"
+    t.text     "metadata"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
   create_table "comments", force: :cascade do |t|
     t.text     "content"
-    t.integer  "user_id",          null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.integer  "user_id",                      null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
     t.integer  "commentable_id"
-    t.string   "commentable_type"
+    t.string   "commentable_type", limit: 255
   end
 
   add_index "comments", ["commentable_id"], name: "index_comments_on_commentable_id", using: :btree
@@ -75,26 +86,58 @@ ActiveRecord::Schema.define(version: 20170703090158) do
   add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
 
   create_table "delayed_jobs", force: :cascade do |t|
-    t.integer  "priority",   default: 0, null: false
-    t.integer  "attempts",   default: 0, null: false
-    t.text     "handler",                null: false
+    t.integer  "priority",               default: 0, null: false
+    t.integer  "attempts",               default: 0, null: false
+    t.text     "handler",                            null: false
     t.text     "last_error"
     t.datetime "run_at"
     t.datetime "locked_at"
     t.datetime "failed_at"
-    t.string   "locked_by"
-    t.string   "queue"
+    t.string   "locked_by",  limit: 255
+    t.string   "queue",      limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
+  create_table "delayed_jobs_backup", id: false, force: :cascade do |t|
+    t.integer  "id"
+    t.integer  "priority"
+    t.integer  "attempts"
+    t.text     "handler"
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by",  limit: 255
+    t.string   "queue",      limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "device_reports", force: :cascade do |t|
     t.integer  "device_id"
     t.text     "data"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.integer  "uptime"
+    t.integer  "users"
+    t.float    "load1"
+    t.float    "load5"
+    t.float    "load15"
+    t.float    "temperature"
+    t.integer  "memory_free"
+    t.integer  "memory_total"
+    t.integer  "memory_used"
+    t.float    "heartbeat_response_time"
+    t.integer  "disk_available"
+    t.integer  "disk_total"
+    t.integer  "disk_used"
+    t.float    "bandwidth"
+    t.integer  "current_recording_size"
+    t.integer  "number_of_audio_devices"
+    t.integer  "number_of_usb_devices"
   end
 
   add_index "device_reports", ["device_id"], name: "index_device_reports_on_device_id", using: :btree
@@ -128,8 +171,6 @@ ActiveRecord::Schema.define(version: 20170703090158) do
     t.text     "box_public_key"
     t.text     "jumphost_public_key"
     t.text     "jumphost_private_key"
-    t.string   "jumphost_ipaddress"
-    t.string   "jumphost_instance_id"
   end
 
   add_index "devices", ["organization_id"], name: "index_devices_on_organization_id", using: :btree
@@ -200,13 +241,10 @@ ActiveRecord::Schema.define(version: 20170703090158) do
   add_index "messages", ["user_id"], name: "index_messages_on_user_id", using: :btree
 
   create_table "metrics", force: :cascade do |t|
-    t.string   "key"
+    t.string   "key",        limit: 255
     t.float    "value"
     t.datetime "created_at"
   end
-
-  add_index "metrics", ["created_at"], name: "index_metrics_on_created_at", using: :btree
-  add_index "metrics", ["key"], name: "index_metrics_on_key", using: :btree
 
   create_table "organizations", force: :cascade do |t|
     t.string   "name"
@@ -233,8 +271,8 @@ ActiveRecord::Schema.define(version: 20170703090158) do
   create_table "participations", force: :cascade do |t|
     t.integer  "series_id"
     t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_index "participations", ["series_id"], name: "index_participations_on_series_id", using: :btree
@@ -243,7 +281,7 @@ ActiveRecord::Schema.define(version: 20170703090158) do
   create_table "pg_search_documents", force: :cascade do |t|
     t.text     "content"
     t.integer  "searchable_id"
-    t.string   "searchable_type"
+    t.string   "searchable_type", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -269,12 +307,12 @@ ActiveRecord::Schema.define(version: 20170703090158) do
   create_table "reminders", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "rememberable_id"
-    t.string   "rememberable_type"
+    t.string   "rememberable_type", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "reminders", ["rememberable_type", "rememberable_id"], name: "index_reminders_on_rememberable_type_and_rememberable_id", using: :btree
+  add_index "reminders", ["rememberable_id", "rememberable_type"], name: "index_reminders_on_rememberable_id_and_rememberable_type", using: :btree
   add_index "reminders", ["user_id"], name: "index_reminders_on_user_id", using: :btree
 
   create_table "sections", force: :cascade do |t|
@@ -291,19 +329,20 @@ ActiveRecord::Schema.define(version: 20170703090158) do
 
   create_table "series", force: :cascade do |t|
     t.text     "description"
-    t.string   "title"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "teaser"
+    t.string   "title",               limit: 255
+    t.datetime "created_at",                                           null: false
+    t.datetime "updated_at",                                           null: false
+    t.string   "teaser",              limit: 255
     t.integer  "user_id"
-    t.text     "options",             default: "--- {}\n"
-    t.string   "image_uid"
-    t.string   "uri"
-    t.string   "slug"
-    t.float    "penalty",             default: 1.0
-    t.text     "description_as_html", default: ""
-    t.string   "image_alt",           default: ""
-    t.text     "description_as_text", default: ""
+    t.text     "options",                         default: "--- {}\n"
+    t.string   "image_uid",           limit: 255
+    t.string   "uri",                 limit: 255
+    t.string   "slug",                limit: 255
+    t.float    "penalty",                         default: 1.0
+    t.text     "description_as_html",             default: ""
+    t.boolean  "is_hidden",                       default: false
+    t.string   "image_alt",                       default: ""
+    t.text     "description_as_text",             default: ""
   end
 
   add_index "series", ["slug"], name: "index_series_on_slug", unique: true, using: :btree
@@ -311,8 +350,8 @@ ActiveRecord::Schema.define(version: 20170703090158) do
   add_index "series", ["user_id"], name: "index_series_on_user_id", using: :btree
 
   create_table "settings", force: :cascade do |t|
-    t.string   "key"
-    t.string   "value"
+    t.string   "key",        limit: 255
+    t.string   "value",      limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -321,13 +360,13 @@ ActiveRecord::Schema.define(version: 20170703090158) do
 
   create_table "social_shares", force: :cascade do |t|
     t.integer  "shareable_id"
-    t.string   "shareable_type"
-    t.string   "request_ip"
-    t.string   "user_agent"
+    t.string   "shareable_type", limit: 255
+    t.string   "request_ip",     limit: 255
+    t.string   "user_agent",     limit: 255
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "social_network"
+    t.string   "social_network", limit: 255
   end
 
   add_index "social_shares", ["shareable_id", "shareable_type"], name: "index_social_shares_on_shareable_id_and_shareable_type", using: :btree
@@ -360,9 +399,9 @@ ActiveRecord::Schema.define(version: 20170703090158) do
   create_table "taggings", force: :cascade do |t|
     t.integer  "tag_id"
     t.integer  "taggable_id"
-    t.string   "taggable_type"
+    t.string   "taggable_type", limit: 255
     t.integer  "tagger_id"
-    t.string   "tagger_type"
+    t.string   "tagger_type",   limit: 255
     t.string   "context",       limit: 128
     t.datetime "created_at"
   end
@@ -370,9 +409,9 @@ ActiveRecord::Schema.define(version: 20170703090158) do
   add_index "taggings", ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true, using: :btree
 
   create_table "tags", force: :cascade do |t|
-    t.string  "name"
-    t.boolean "promoted",       default: false
-    t.integer "taggings_count", default: 0
+    t.string  "name",           limit: 255
+    t.boolean "promoted",                   default: false
+    t.integer "taggings_count",             default: 0
   end
 
   add_index "tags", ["name"], name: "index_tags_on_name", unique: true, using: :btree
@@ -380,33 +419,33 @@ ActiveRecord::Schema.define(version: 20170703090158) do
   add_index "tags", ["taggings_count"], name: "index_tags_on_taggings_count", using: :btree
 
   create_table "talks", force: :cascade do |t|
-    t.string   "title"
+    t.string   "title",               limit: 255
     t.integer  "series_id"
     t.datetime "starts_at"
     t.datetime "ends_at"
     t.datetime "ended_at"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "teaser"
+    t.string   "teaser",              limit: 255
     t.text     "description"
     t.integer  "duration",                         default: 30
-    t.string   "image_uid"
+    t.string   "image_uid",           limit: 255
     t.text     "session"
     t.datetime "featured_from"
-    t.string   "state"
+    t.string   "state",               limit: 255
     t.datetime "started_at"
     t.datetime "processed_at"
     t.integer  "play_count",                       default: 0
-    t.string   "starts_at_date"
-    t.string   "starts_at_time"
-    t.string   "uri"
+    t.string   "starts_at_date",      limit: 255
+    t.string   "starts_at_time",      limit: 255
+    t.string   "uri",                 limit: 255
     t.string   "recording_override",  limit: 1024
     t.integer  "related_talk_id"
     t.text     "storage",                          default: "--- {}\n"
-    t.string   "language",                         default: "en"
-    t.string   "slug"
-    t.string   "speakers"
-    t.string   "user_override_uuid"
+    t.string   "language",            limit: 255,  default: "en"
+    t.string   "slug",                limit: 255
+    t.string   "speakers",            limit: 255
+    t.string   "user_override_uuid",  limit: 255
     t.text     "edit_config"
     t.float    "popularity",                       default: 1.0
     t.float    "penalty",                          default: 1.0
@@ -416,6 +455,7 @@ ActiveRecord::Schema.define(version: 20170703090158) do
     t.text     "description_as_html",              default: ""
     t.string   "slides_uuid",         limit: 1024
     t.integer  "venue_id"
+    t.boolean  "is_hidden",                        default: false
     t.string   "icon",                             default: "default"
     t.string   "image_alt"
     t.text     "description_as_text",              default: ""
@@ -444,46 +484,51 @@ ActiveRecord::Schema.define(version: 20170703090158) do
   add_index "transactions", ["source_type", "source_id"], name: "index_transactions_on_source_type_and_source_id", using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.string   "firstname"
-    t.string   "lastname"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "email",                  default: "",    null: false
-    t.string   "encrypted_password",     default: "",    null: false
-    t.string   "reset_password_token"
+    t.string   "firstname",              limit: 255
+    t.string   "lastname",               limit: 255
+    t.datetime "created_at",                                         null: false
+    t.datetime "updated_at",                                         null: false
+    t.string   "email",                  limit: 255, default: "",    null: false
+    t.string   "encrypted_password",     limit: 255, default: "",    null: false
+    t.string   "reset_password_token",   limit: 255
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0
+    t.integer  "sign_in_count",                      default: 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
-    t.string   "provider"
-    t.string   "uid"
+    t.string   "current_sign_in_ip",     limit: 255
+    t.string   "last_sign_in_ip",        limit: 255
+    t.string   "provider",               limit: 255
+    t.string   "uid",                    limit: 255
     t.string   "slug"
     t.datetime "last_request_at"
-    t.string   "header_uid"
-    t.string   "avatar_uid"
-    t.text     "about",                  default: ""
-    t.string   "timezone"
-    t.string   "website"
-    t.string   "authentication_token"
+    t.string   "image_file_name",        limit: 255
+    t.string   "image_content_type",     limit: 255
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+    t.string   "header_uid",             limit: 255
+    t.string   "avatar_uid",             limit: 255
+    t.text     "about",                              default: ""
+    t.string   "timezone",               limit: 255
+    t.string   "website",                limit: 255
+    t.string   "authentication_token",   limit: 255
     t.integer  "default_series_id"
-    t.string   "summary"
-    t.float    "penalty",                default: 1.0
-    t.string   "confirmation_token"
+    t.string   "summary",                limit: 255
+    t.float    "penalty",                            default: 1.0
+    t.string   "confirmation_token",     limit: 255
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
-    t.string   "unconfirmed_email"
-    t.integer  "credits",                default: 0
-    t.integer  "purchases_count",        default: 0
+    t.string   "unconfirmed_email",      limit: 255
+    t.integer  "credits",                            default: 0
+    t.integer  "purchases_count",                    default: 0
     t.string   "referrer"
-    t.text     "about_as_html",          default: ""
-    t.boolean  "paying",                 default: false
+    t.text     "about_as_html",                      default: ""
+    t.boolean  "paying",                             default: false
+    t.boolean  "is_hidden",                          default: false
     t.datetime "featured_from"
     t.datetime "featured_until"
-    t.string   "image_alt",              default: ""
-    t.text     "about_as_text",          default: ""
+    t.string   "image_alt",                          default: ""
+    t.text     "about_as_text",                      default: ""
     t.string   "contact_email"
     t.string   "facebook"
     t.string   "twitter"
