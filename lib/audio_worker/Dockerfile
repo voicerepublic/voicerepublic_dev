@@ -13,15 +13,17 @@ RUN cd wav2json-master/build && make install_dependencies && make all
 # aws cli
 RUN apt-get -qq -y install curl python-pip && pip install awscli
 
-# fidelity
-RUN cd fidelity && ./install_dependencies.sh
-
 # directories
 ADD ./fidelity /fidelity
+
+# fidelity
+RUN cd fidelity && ./install_dependencies.sh
 
 # files
 ADD ./*.sh /
 ADD ./*.rb /
 ADD ./Gemfile /
+
+RUN bundle install
 
 CMD ["/run.sh"]

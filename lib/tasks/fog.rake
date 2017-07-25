@@ -46,6 +46,7 @@ namespace :fog do
     { key: 'vr-euc1-dev-import',                location: 'eu-central-1' },
     { key: 'vr-euc1-dev-logs',                  location: 'eu-central-1' },
     { key: 'vr-euc1-dev-media',                 location: 'eu-central-1' },
+    { key: 'vr-euc1-dev-recordings',            location: 'eu-central-1' },
     { key: 'vr-euc1-dev-slides-uploads',        location: 'eu-central-1' },
     { key: 'vr-euc1-dev-backup-recordings',     location: 'eu-central-1' },
 
