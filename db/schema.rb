@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170713103457) do
+ActiveRecord::Schema.define(version: 20170726125056) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -138,6 +138,7 @@ ActiveRecord::Schema.define(version: 20170713103457) do
     t.integer  "current_recording_size"
     t.integer  "number_of_audio_devices"
     t.integer  "number_of_usb_devices"
+    t.datetime "measured_at"
   end
 
   add_index "device_reports", ["device_id"], name: "index_device_reports_on_device_id", using: :btree
