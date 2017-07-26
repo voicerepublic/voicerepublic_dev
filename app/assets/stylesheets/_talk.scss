@@ -649,14 +649,14 @@ button,
 .timeline {
     align-self: center;
     flex: 1 1 auto;
-    height: 12px;
+    height: 66px;
     background: rgba($jet, 0.4);
     border-radius: 2px;
     margin: 0 12px;
 }
 
 .track-playing {
-    height: 12px;
+    height: 66px;
     background: $vr-light-blue;
     width: 0%;
     border-radius: 2px;
@@ -665,7 +665,7 @@ button,
 .track-buffered {
     width: 18%;
     background: $oil;
-    height: 12px;
+    height: 66px;
     position: absolute;
     z-index: -1;
     border-radius: 2px;
