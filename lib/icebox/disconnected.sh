@@ -17,9 +17,7 @@ then
     echo `date` "failed to report disconnected, giving up" >> /share/actions.log
 fi
 
-# TODO does it work for s3fs (fuse)
-# if not ditch s3fs and use s3/4cmd to upload here
-sync
+./sync.sh
 
 echo `date` synced >> /share/actions.log
 

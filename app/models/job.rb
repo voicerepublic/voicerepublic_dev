@@ -46,4 +46,13 @@ class Job < ActiveRecord::Base
     end
   end
 
+  # to be used on console
+  def self.list
+    self.ordered.each do |j|
+      puts '%-4s %-10s %-30s %-10s %-4s' %
+           [j.id, j.state, j.type, j.context_type, j.context_id]
+    end
+    nil
+  end
+
 end

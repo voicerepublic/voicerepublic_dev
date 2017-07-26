@@ -10,7 +10,6 @@
 # this redirects everything to a log
 exec > /tmp/part-001.log 2>&1
 
-
 STORAGE=<%= recordings_path %>
 PREFIX=<%= slug %>
 
@@ -21,17 +20,6 @@ if [ -f /sys/hypervisor/uuid ] && [ `head -c 3 /sys/hypervisor/uuid` == ec2 ]; t
   PUBLIC_IP=$(curl http://169.254.169.254/latest/meta-data/public-ipv4)
 
   HOME=/root
-
-  # mount the bucket
-  BUCKET=<%= recordings_bucket.split('@').first %>
-  AWS_CREDENTIALS=<%= aws_credentials %>
-
-  echo $AWS_CREDENTIALS > /etc/passwd-s3fs
-  chmod 600 /etc/passwd-s3fs
-  /usr/local/bin/s3fs $BUCKET $STORAGE -o allow_other,nonempty
-
-  # fix old permission issue
-  # chown -R icecast2: $STORAGE/$PREFIX/
 
   cat >> /home/admin/.ssh/authorized_keys<<EOF
 <%= ssh_keys %>
@@ -58,6 +46,10 @@ cat >$ENV_LIST <<EOF
 PUBLIC_IP=$PUBLIC_IP
 EOF
 
+if [ "$(docker ps -q -f name=icecast)" ]; then
+    docker rm icecast
+fi
+
 # production
 docker run \
        --detach=true \
@@ -76,8 +68,7 @@ docker run \
 # docker run \
 #        --name=icecast \
 #        --env-file=$ENV_LIST \
-#        --expose=8000 \
-#        --publish=<%= port %>:8000 \
+#        --publish=<%= port %>:8080 \
 #        --volume=$STORAGE/$PREFIX:/share \
 #        branch14/icecast2
 

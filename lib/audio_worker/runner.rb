@@ -52,15 +52,12 @@ end
 
 def fidelity(path)
   puts "Running fidelity..."
-  puts %x[docker run --name fidelity -v #{path}:/audio branch14/fidelity]
-  puts %x[docker rm fidelity]
+  puts %x[./fidelity/bin/fidelity run #{path}/manifest.yml]
 end
 
 def wav2json(path, file)
   puts "Running wav2json..."
-  puts %x[docker run --name wav2json -v #{path}:/share \
-          -e INPUT=#{file} -e PRECISION=6 branch14/wav2json]
-  puts %x[docker rm wav2json]
+  puts %x[./wav2json.sh #{path}/#{file}]
 end
 
 # find the first mp3 in path, convert it to wav and return its name
@@ -84,14 +81,12 @@ def complete(job)
   end
 end
 
-def s3_get(source, target)
-  #puts "Downloading #{source} to #{target}"
-  puts %x[s4cmd -f get #{source} #{target}]
+def s3_cp(source, target)
+  puts %x[aws s3 cp #{source} #{target}]
 end
 
-def s3_put(source, target)
-  #puts "Uploading #{source} to #{target}"
-  puts %x[s4cmd -f put #{source} #{target}]
+def s3_sync(source, target)
+  puts %x[aws s3 sync #{source} #{target}]
 end
 
 def probe_duration(path)
@@ -141,14 +136,14 @@ def run(job)
 
   # pull manifest file
   manifest_url = "#{target_bucket}/manifest.yml"
-  s3_get(manifest_url, path)
+  s3_cp(manifest_url, path)
 
   # based on content pull source files
   manifest_path = File.join(path, 'manifest.yml')
   manifest = YAML.load(File.read(manifest_path))
   manifest[:relevant_files].each do |file|
     s3_url = "#{source_bucket}/#{file.first}"
-    s3_get(s3_url, path)
+    s3_cp(s3_url, path)
   end
 
   # bulk work
@@ -176,7 +171,7 @@ def run(job)
   end
 
   # upload all files from path to target_bucket
-  s3_put(File.join(path, '*'), target_bucket+'/')
+  s3_sync(path, target_bucket+'/')
 
   # cleanup: delete everything
   FileUtils.rm_rf(path)
@@ -187,6 +182,7 @@ end
 
 def wait
   puts 'Sleeping for 1 min. Then poll queue again...'
+  $stdout.flush
   sleep 60
 end
 
@@ -196,6 +192,8 @@ end
 
 def public_ip_address
   faraday.get('http://169.254.169.254/latest/meta-data/public-ipv4').body
+rescue
+  nil
 end
 
 def report_ready
@@ -204,7 +202,7 @@ def report_ready
                                 event: 'complete'})
 end
 
-def report_ready
+def report_failure
   faraday.put(instance_url, instance: { event: 'failed' })
 end
 
@@ -225,6 +223,9 @@ begin
       if claim(job)
         run(job)
         job_count += 1
+      else
+        puts "Failed to claim job #{job['id']}"
+        sleep 5
       end
     end
   end

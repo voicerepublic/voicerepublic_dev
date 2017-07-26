@@ -17,7 +17,8 @@ class Prapi::JobsController < ApplicationController
     event = :save unless Job.available_events.include?(event.to_sym)
     job.send("#{event}!")
     head :ok
-  rescue
+  rescue => e
+    logger.error "Error updating Job #{job.id}: #{e.message}"
     head :conflict
   end
 
