@@ -82,29 +82,29 @@ Setup
 -----
 
     bundle
+    cp config/settings.local.yml.sample \
+       config/settings.local.yml
     cp config/database.yml.example \
        config/database.yml             # use an appropriate db config
+
+    # edit template files
+
     rake db:setup                      # this requires an internet connection, also
                                        # [also see note below]
     rake db:migrate                    # also requires an internet connection
-    rake rtmp:build
-    rake setup
 
-Above the step `rake db:setup` probably fails, if the connecting user in database.yml
-doesn't have 'superuser' rights when connecting to the psql server. So you might want
-to replace that step by:
+
+    rake db:sync:live
+    rake db:sync:live_images
+
+Above the step `rake db:setup` probably fails, if the connecting user
+in database.yml doesn't have 'superuser' rights when connecting to the
+psql server. So you might want to replace that step by:
 
     $ sudo su
     # su - postgres
     $ psql
     postgres=# create database vr_development owner your_db_user;
-
-
-Create `config/settings.local.yml`; the following settings are required:
-
-    faye:
-      server: http://localhost:9292/faye
-      secret_token: 1234567890987654321
 
 
 ### New Search
@@ -141,10 +141,8 @@ Run App
 ### voicerepublic_dev
 
 * `rails s -b 0.0.0.0`
-* `rake rtmp:start` (will daemonize)
 * `rackup -E production faye.ru -o 0.0.0.0`
 * `lib/flux_capacitor.rb run`
-* `lib/rtmp_watcher.rb run`
 * `rake jobs:work`
 * `DEBUG=1 bumpy_bridge run -- config/bumpy_bridge.yml`
 * `cd lib/vrng && rlwrap lein figwheel`
@@ -198,20 +196,6 @@ Setup: Install karma & coffee-script
 Run Jasmine specs for Angular with Karma
 
     karma start spec/javascripts/livepage.conf.js.coffee
-
-
-Compile Flash
--------------
-
-Install Flex
-
-    http://www.adobe.com/devnet/flex/flex-sdk-download.html
-
-Unpack and make `bin` available in your PATH.
-
-Run
-
-    rake build:flash
 
 
 Run Audio Strategies
@@ -444,20 +428,6 @@ Audio Cheat Sheet
     mediainfo -f <file>
 
 
-Javascript Console Cheat Sheet
-------------------------------
-
-### Listen into a prestream
-
-As any user you can currently hack the prestream by looking up the
-publisher's user id and subscribe the prestream manually. E.g.
-
-    Blackbox.subscribe('t1054-u701956')
-
-Note: As soon as the stream goes live, your client will subscribe a
-2nd time and you will here an echo.
-
-
 Rails Console Cheat Sheet
 -------------------------
 
@@ -505,25 +475,6 @@ Rails Console Cheat Sheet
 ### Manually asses talks
 
     puts *Talk.where("uri like 'lt%'").order(:id).map { |t| '% 4s % 5s % 5s %s' % [t.id, t.storage.values.select { |f| f[:ext]=='.flv' }.inject(0) {|r,s| r + s[:seconds].to_i }, t.recording_override?, t.teaser ] }
-
-### RE(P)L into remote brwoser session
-
-Value of `exec` has to be native JavaScript and will be evaluated in
-the scope of instance of Angular's `session` service.
-
-At this point the P in REPL is still missing.
-
-#### Log an error to the console
-
-    PrivatePub.publish_to '/t981/u1', { exec: '$log.error("hello")' }
-
-#### Force a reload of the page
-
-    PrivatePub.publish_to '/t981/u1', { exec: 'window.location.reload()' }
-
-### Delete all guest users
-
-    User.where(guest: true).destroy_all
 
 
 Embed player to Facebook
@@ -668,26 +619,6 @@ talk.archive_from_dump!
 
 ```
 
-New Pages
----------
-
-* listen
-* audio-upload
-* livestream
-* conferences-fairs
-* science-education
-* culture
-* companies
-* independents
-* foundations
-* universities
-* speakers
-* topics
-* publishers
-* media-journalism
-
-
-
 Troubleshooting Audio Processing
 --------------------------------
 
@@ -729,15 +660,3 @@ need to create a symlink in `app/views/pages`
 Here we use the template `__basic.html.haml` which currently is the
 only template. Instances of sections to fill this page will be created
 after the new pages as been vistited at least once.
-
-
-Vagrant
--------
-
-Run `(cd lib/vrng; lein figwheel)` then run `vagrant up`.
-
-Update the image
-
-```
-git pull && vagrant provision && vagrant reload
-```

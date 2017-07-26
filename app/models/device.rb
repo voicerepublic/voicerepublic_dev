@@ -183,6 +183,10 @@ class Device < ActiveRecord::Base
     end
   end
 
+  def bucket
+    Settings.storage.backup_recordings
+  end
+
   def start_jumphost
     self.jumphost_private_key,
     self.jumphost_public_key = SshKeypair.generate
@@ -195,10 +199,6 @@ class Device < ActiveRecord::Base
 
   def files
     Storage.get(bucket, prefix).files.sort_by(&:key).reverse
-  end
-
-  def bucket
-    Settings.storage.backup_recordings
   end
 
   def prefix
