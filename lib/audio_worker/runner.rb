@@ -162,7 +162,8 @@ def run(job)
   index = {}
   prefix = job['details']['archive']['prefix']
   Dir.glob(File.join(path, '*')).each do |file|
-    index["#{prefix}/#{file}"] = metadata(file)
+    base = File.basename(file)
+    index["#{prefix}/#{base}"] = metadata(file)
   end
 
   # write index file
