@@ -9,7 +9,6 @@
   %script{ src: Settings.faye.server + '/client.js' }
   = javascript_include_tag 'faye-authentication'
   :javascript
-    peaks = "#{talk.peaks || '{}'}";
     environment = #{Rails.env.to_json};
     fayeUrl = #{Settings.faye.server.to_json};
 
