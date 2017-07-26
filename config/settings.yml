@@ -1,5 +1,26 @@
 target: local
 
+# needs to be set locally
+endpoint:
+  jobs: https://voicerepublic.com/prapi/jobs
+  instances: https://voicerepublic.com/prapi/instances
+  runner: https://voicerepublic.com/runner.rb
+
+instance:
+  default:
+    ec2_type: t2.micro
+    key_name: phil-ffm
+  jumphost:
+    ec2_type: t2.nano
+    security_group: Jumphosts
+    image: ami-24b3124b
+  audio_worker:
+    security_group: AudioWorkers
+    image: ami-7ad87415
+  icebox:
+    security_group: Icecast Servers
+    image: ami-ed13b182
+
 # this file reflects standard settings for development
 # overrides for production can be found in
 # `config/settings/production.yml`
@@ -7,7 +28,8 @@ durations: [ 30, 45, 60, 90, 120, 240 ]
 priority_timezones: Berlin|Bern
 audio:
   override_chain: jinglize m4a mp3 ogg cleanup
-  archive_chain: select wavify merge trim desilence normalize jinglize m4a mp3 ogg cleanup
+  archive_chain: select wavify merge trim normalize desilence jinglize m4a mp3 ogg cleanup
+
 rtmp:
   # all paths get expanded with `Rails.root`
   # which doesn't affect absolute paths
@@ -75,6 +97,7 @@ storage:
   upload_audio:      vr-audio-uploads-dev@us-east-1
   upload_slides:     vr-slide-uploads-dev@us-east-1
   backup_recordings: vr-euc1-dev-backup-recordings@eu-central-1
+  recordings:        vr-euc1-dev-recordings@eu-central-1
 paths:
   log: local/log
   jingles:
@@ -170,7 +193,11 @@ icecast:
     #image: ami-bf4d9ed0 (icebox 3.21 improved live transcoding)
     #image: ami-1ed57071 (icebox 3.22 fix transc. stereo signals + pull icebox.liq)
     #image: ami-d6ca6fb9 (icebox 3.23 fixed docker issue)
-    image: ami-d6ca6fb9
+    #image: ami-ac12b0c3 (icebox 3.24 awscli instead of s3fs, defunkt)
+    #image: ami-0013b16f (icebox 3.25 fix typo in filename)
+    #image: ami-ea0daf85 (icebox 3.26 fix permissions)
+    #image: ami-ed13b182 (icebox 3.27 fix path to sync script)
+    image: ami-ed13b182
     default_instance_type: t2.micro
     security_group: Icecast Servers
     key_name: phil-ffm

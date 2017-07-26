@@ -4,6 +4,8 @@
 #
 class Venue < ActiveRecord::Base
 
+  include PasswordGenerator
+
   PROVISIONING_WINDOW = 3.hours
   PROVISIONING_DURATION = 150.seconds
 
@@ -122,10 +124,6 @@ class Venue < ActiveRecord::Base
 
   def generate_mount_point
     'live' # SecureRandom.uuid
-  end
-
-  def generate_password(length=8)
-    ('a'..'z').to_a.shuffle[0,length].join
   end
 
   def provisioning_parameters
@@ -304,13 +302,6 @@ class Venue < ActiveRecord::Base
   #
   def recordings_path
     Settings.paths.recordings
-  end
-
-  # This is used in userdata to mount the s3 bucket with s3fs.
-  #
-  def aws_credentials
-    [ Settings.fog.storage.aws_access_key_id,
-      Settings.fog.storage.aws_secret_access_key ] * ':'
   end
 
   # called by icecast middleware
@@ -516,6 +507,27 @@ class Venue < ActiveRecord::Base
     Rails.application.routes.url_helpers.venue_url(self)
   end
 
+  # TODO move next 5 methods to Instance::Icebox
+  def aws_region
+    Settings.storage.recordings.split('@').last
+  end
+
+  def aws_bucket_name
+    Settings.storage.recordings.split('@').first
+  end
+
+  def storage_url
+    [ 's3:/', aws_bucket_name, slug, nil ] * '/'
+  end
+
+  def aws_access_key
+    Settings.fog.storage.aws_access_key_id
+  end
+
+  def aws_secret_key
+    Settings.fog.storage.aws_secret_access_key
+  end
+
   private
 
   def event_fired(*args)
@@ -527,7 +539,7 @@ class Venue < ActiveRecord::Base
   end
 
   def userdata_template
-    File.read(Rails.root.join('lib/templates/userdata.sh.erb'))
+    File.read(Rails.root.join('lib/userdata/icebox.sh.erb'))
   end
 
   def darkice_config_template

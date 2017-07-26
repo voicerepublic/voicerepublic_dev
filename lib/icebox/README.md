@@ -87,17 +87,6 @@ apt-get -y install curl
 # install docker as described above, then...
 
 docker build -t branch14/icecast2 icecast/.
-
-# install s3fs as follows...
-apt-get install automake autotools-dev g++ git libcurl4-gnutls-dev libfuse-dev libssl-dev libxml2-dev make pkg-config
-wget https://github.com/s3fs-fuse/s3fs-fuse/archive/v1.79.tar.gz -O s3fs.tgz
-tar xfvz s3fs.tgz
-cd s3fs-fuse-1.79
-./autogen.sh
-./configure
-make
-make install
-cd
 ```
 
 Pull an AMI. Done. Add the AMIs id to `settings.yml`.

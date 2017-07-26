@@ -13,6 +13,10 @@ FactoryGirl.define do
     context_id 1
     size 1
     content_type "MyString"
+  factory :job do
+    details "---\n{}"
+  end
+  factory :instance do
   end
   factory :event do
     name "MyString"

@@ -168,6 +168,9 @@ ActiveRecord::Schema.define(version: 20170713103457) do
     t.string   "version"
     t.string   "mac_address_wifi"
     t.string   "release"
+    t.text     "box_public_key"
+    t.text     "jumphost_public_key"
+    t.text     "jumphost_private_key"
   end
 
   add_index "devices", ["organization_id"], name: "index_devices_on_organization_id", using: :btree
@@ -183,6 +186,38 @@ ActiveRecord::Schema.define(version: 20170713103457) do
   end
 
   add_index "events", ["source_type", "source_id"], name: "index_events_on_source_type_and_source_id", using: :btree
+
+  create_table "instances", force: :cascade do |t|
+    t.string   "type"
+    t.string   "state"
+    t.string   "context_type"
+    t.integer  "context_id"
+    t.string   "ec2_type"
+    t.string   "image"
+    t.string   "security_group"
+    t.string   "key_name"
+    t.string   "client_token"
+    t.string   "name"
+    t.string   "userdata_template_path"
+    t.text     "userdata"
+    t.string   "identifier"
+    t.string   "public_ip_address"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  create_table "jobs", force: :cascade do |t|
+    t.string   "type"
+    t.string   "state"
+    t.string   "context_type"
+    t.string   "context_id"
+    t.text     "details"
+    t.datetime "started_at"
+    t.datetime "completed_at"
+    t.string   "locked_by"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
 
   create_table "memberships", force: :cascade do |t|
     t.integer  "user_id"
@@ -426,6 +461,7 @@ ActiveRecord::Schema.define(version: 20170713103457) do
     t.text     "description_as_text",              default: ""
     t.text     "processing_error"
     t.string   "forward_url"
+    t.text     "peaks"
   end
 
   add_index "talks", ["popularity"], name: "index_talks_on_popularity", using: :btree
