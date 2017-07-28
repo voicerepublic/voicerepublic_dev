@@ -6,6 +6,9 @@ require 'tmpdir'
 require 'fileutils'
 require 'yaml'
 
+# make it autoflush
+STDOUT.sync = true
+
 INSTANCE_ENDPOINT = ENV['INSTANCE_ENDPOINT']
 QUEUE_ENDPOINT = ENV['QUEUE_ENDPOINT']
 INSTANCE = ENV['INSTANCE']
@@ -183,7 +186,6 @@ end
 
 def wait
   puts 'Sleeping for 1 min. Then poll queue again...'
-  $stdout.flush
   sleep 60
 end
 
