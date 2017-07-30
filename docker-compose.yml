@@ -1,0 +1,21 @@
+version: '3'
+services:
+  runtime-vault:
+    image: dockito/vault 
+    volumes:
+      - .:/usr/src/app
+      - ~/.ssh:/vault/.ssh
+    ports:
+      - 3000
+  dev:
+    build: . 
+    working_dir: /app
+    entrypoint: ./ONVAULT
+    command: bundle exec rails s -p 3000 -b '0.0.0.0' 
+    volumes:
+      - .:/app
+    links:
+      - runtime-vault:vault
+    ports:
+      - "3000:3000"
+      
