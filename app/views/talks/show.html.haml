@@ -6,11 +6,11 @@
 
 - content_for :javascripts do
   %script{ src: '/javascripts/pdf.js' }
-  %script{ src: Settings.faye.server + '/client.js' }
+  %script{ src: Settings.faye.server_external + '/client.js' }
   = javascript_include_tag 'faye-authentication'
   :javascript
     environment = #{Rails.env.to_json};
-    fayeUrl = #{Settings.faye.server.to_json};
+    fayeUrl = #{Settings.faye.server_external.to_json};
 
     if (window.Faye != undefined) {
       fayeClient = new Faye.Client(fayeUrl);
