@@ -26,20 +26,7 @@ RUN curl https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein
 RUN curl -sL https://deb.nodesource.com/setup_7.x | bash && \
     apt-get install -y nodejs 
 
-# Ruby 2.1.2 install ruby dependencies
-#RUN git clone https://github.com/rbenv/rbenv.git ~/.rbenv && \
-#    echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc && \
-#    echo 'eval "$(rbenv init - $SHELL)"' >> ~/.bashrc && \
-#    export PATH="$HOME/.rbenv/bin:$PATH" && \
-#    eval "$(rbenv init - $SHELL)" && \
-#    git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build && \
-#    apt-get install -y build-essential bzip2 libssl-dev libreadline-dev zlib1g-dev 
-
-#RUN rbenv install -s 2.1.2 && \
-#    rbenv global 2.1.2 && \
-#    gem install bundler && \
-#    rbenv rehash
-# Install ruby-build
+## Ruby 2.1.2
 RUN apt-get update && apt-get install -y curl \
   autoconf \
   bison \
@@ -77,3 +64,7 @@ RUN apt-get update -y && \
 
 RUN ONVAULT bundle install
 
+RUN apt-get install -y libav-tools sox vorbis-tools lame && \
+    ln -s /usr/bin/avconv /usr/bin/ffmpeg
+
+ADD . /usr/src/app/
