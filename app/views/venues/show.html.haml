@@ -9,9 +9,9 @@
 -# TODO the 3 lines of faye setup could move to cljs
 - content_for :javascripts do
   = javascript_include_tag 'faye-authentication'
-  %script{ src: Settings.faye.server + '/client.js' }
+  %script{ src: Settings.faye.server_external + '/client.js' }
   :javascript
-    fayeUrl = #{Settings.faye.server.to_json};
+    fayeUrl = #{Settings.faye.server_external.to_json};
 
     if (window.Faye != undefined) {
       fayeClient = new Faye.Client(fayeUrl);
