@@ -1,17 +1,22 @@
 version: '3'
-services:
+#volumes:
+#  postgres-data:
+#    driver: local
 
+services:
   vr-postgres:
     image: postgres:9.4.5
     environment:
       POSTGRES_USER: app
     ports:
       - '5432:5432'
+    #volumes:
+    #  - postgres-data:/var/lib/postgresql/data
 
   vr-faye:
     image: vr/dev:latest
     working_dir: /usr/src/app
-    command: rackup -E production faye.ru -o 0.0.0.0:9292
+    command: bundle exec rackup -E production faye.ru -o 0.0.0.0
     ports:
       - '9292:9292'
 
@@ -23,10 +28,16 @@ services:
       - '5671:5671'
       - '5672:5672'
       - '25672:25672'
+
   dev:
     image: vr/dev:latest
     working_dir: /usr/src/app
-    command: bundle exec rails s -p 3000 -b '0.0.0.0' 
+    command:
+      - /bin/sh
+      - -c
+      - |
+          bundle exec rake db:create db:setup db:migrate 
+          bundle exec rails s -p 3000 -b '0.0.0.0' 
     environment:
       RAILS_ENV: development
     links:
@@ -37,5 +48,5 @@ services:
       - .:/usr/src/app
     ports:
       - '3000:3000'
-
-      
+    depends_on:
+      - vr-postgres
