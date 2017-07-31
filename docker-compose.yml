@@ -1,21 +1,41 @@
 version: '3'
 services:
-  runtime-vault:
-    image: dockito/vault 
+
+  vr-postgres:
+    image: postgres:9.4.5
+    environment:
+      POSTGRES_USER: app
+    ports:
+      - '5432:5432'
+
+  vr-faye:
+    image: vr/dev:latest
+    working_dir: /usr/src/app
+    command: rackup -E production faye.ru -o 0.0.0.0:9292
+    ports:
+      - '9292:9292'
+
+  vr-rabbitmq:
+    image: rabbitmq:3.6.6-management
+    ports:
+      - '15672:15672'
+      - '4369:4369'
+      - '5671:5671'
+      - '5672:5672'
+      - '25672:25672'
+  dev:
+    image: vr/dev:latest
+    working_dir: /usr/src/app
+    command: bundle exec rails s -p 3000 -b '0.0.0.0' 
+    environment:
+      RAILS_ENV: development
+    links:
+      - vr-postgres
+      - vr-faye
+      - vr-rabbitmq
     volumes:
       - .:/usr/src/app
-      - ~/.ssh:/vault/.ssh
     ports:
-      - 3000
-  dev:
-    build: . 
-    working_dir: /app
-    entrypoint: ./ONVAULT
-    command: bundle exec rails s -p 3000 -b '0.0.0.0' 
-    volumes:
-      - .:/app
-    links:
-      - runtime-vault:vault
-    ports:
-      - "3000:3000"
+      - '3000:3000'
+
       
