@@ -26,7 +26,6 @@ RUN curl https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein
 RUN curl -sL https://deb.nodesource.com/setup_7.x | bash && \
     apt-get install -y nodejs 
 
-## Ruby 2.1.2
 RUN apt-get update && apt-get install -y curl \
   autoconf \
   bison \
