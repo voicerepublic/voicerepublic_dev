@@ -647,7 +647,7 @@ button,
 }
 
 .timeline {
-    height: 12px;
+    height: 66px;
     background: rgba($jet, 0.4);
     align-self: center;
     flex: 1 1 auto;
@@ -656,12 +656,14 @@ button,
 }
 
 .track-playing {
+    height: 66px;
     width: 0%;
     border-radius: 2px;
     mix-blend-mode: darken;
 }
 
 .track-buffered {
+    height: 66px;
     width: 18%;
     position: absolute;
     z-index: -1;
