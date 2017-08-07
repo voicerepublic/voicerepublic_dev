@@ -90,3 +90,27 @@ services:
       - '3000:3000'
     depends_on:
       - vr-postgres
+
+  bo:
+    container_name: voicerepublic_bo
+    image: vr/bo:latest
+    working_dir: /usr/src/app
+    command:
+      - /bin/sh
+      - -c
+      - |
+          bundle exec rails s -p 3001 -b '0.0.0.0' 
+    environment:
+      RAILS_ENV: development
+    links:
+      - vr-postgres
+      - vr-faye
+      - vr-rabbitmq
+    volumes:
+      - ../bo:/usr/src/app
+    ports:
+      - '3001:3001'
+    depends_on:
+      - vr-postgres
+      - dev
+
