@@ -577,12 +577,12 @@ ClojureScript
 	
 or in order to use fighweel with cider add this to your .emacs
 
+
 ```el
 (setq cider-cljs-lein-repl
       "(do (require 'figwheel-sidecar.repl-api)
            (figwheel-sidecar.repl-api/start-figwheel!)
            (figwheel-sidecar.repl-api/cljs-repl))")
-
 ```
 
 then run 
