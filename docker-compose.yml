@@ -89,6 +89,7 @@ services:
       RAILS_ENV: development
     volumes:
       - .:/usr/src/app
+      - /var/run/docker.sock:/var/run/docker.sock
     ports:
       - '3000:3000'
     depends_on:

@@ -66,4 +66,6 @@ RUN ONVAULT bundle install
 RUN apt-get install -y libav-tools sox vorbis-tools lame && \
     ln -s /usr/bin/avconv /usr/bin/ffmpeg
 
+RUN curl -sSL https://get.docker.com/ | sh
+
 ADD . /usr/src/app/
