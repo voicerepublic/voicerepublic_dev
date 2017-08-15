@@ -589,6 +589,17 @@ then run
 	
 	cider-jack-in-clojurescript
 
+```el
+(setq cider-cljs-lein-repl
+      "(do (require 'figwheel-sidecar.repl-api)
+           (figwheel-sidecar.repl-api/start-figwheel!)
+           (figwheel-sidecar.repl-api/cljs-repl))")
+```
+
+then run 
+	
+	cider-jack-in-clojurescript
+
 Icecast Dev
 -----------
 
