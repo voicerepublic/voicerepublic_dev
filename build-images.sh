@@ -3,10 +3,21 @@
 # [Josef Erben] Docker Image Builder for Voicerepublic
 # ------------------------------------------------------------------
 
-VERSION=0.0.1
-SUBJECT=some-unique-id
-USAGE="Usage: command -ihv args"
+VERSION=0.0.2
+USAGE="build-images.sh"
 
-docker run --name vault -p 172.17.0.1:14242:3000 -v ~/.ssh:/vault/.ssh dockito/vault &
-docker build -t vr/dev .
+ssh_location="/home/josef/.ssh"
+
+# Clean up, temporary network creation
+docker network create --driver=bridge buildnetwork
 docker stop vault && docker rm vault
+
+# Creates a secret provider in the 'buildnetwork' network
+docker run --name vault --network=buildnetwork -p 14242:3000 -v "$ssh_location":/vault/.ssh -d dockito/vault  
+
+# Actual image building
+docker build -t vr/dev --network=buildnetwork .
+
+# Clean up
+docker stop vault && docker rm vault
+docker network rm buildnetwork
