@@ -14,15 +14,15 @@ RUN cd wav2json-master/build && make install_dependencies && make all
 RUN apt-get -qq -y install curl python-pip && pip install awscli
 
 # directories
-ADD ./fidelity /fidelity
+ADD fidelity /fidelity
 
 # fidelity
 RUN cd fidelity && ./install_dependencies.sh
 
 # files
-ADD ./*.sh /
-ADD ./*.rb /
-ADD ./Gemfile /
+ADD *.sh /
+ADD *.rb /
+ADD Gemfile /
 
 RUN bundle install
 

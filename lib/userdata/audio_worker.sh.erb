@@ -15,7 +15,10 @@ RUN_SH=$(mktemp --tmpdir run.sh.XXXXX)
 
 cat >$RUN_SH <<EOF
 # TODO check if container with name exists and delete it
+docker kill audio_worker
+docker rm audio_worker
 docker run \
+       --network=voicerepublicdev_network \
        --name=<%= base_class_name %> \
        --env-file=$ENV_LIST \
        branch14/audio_worker

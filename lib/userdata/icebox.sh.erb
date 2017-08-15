@@ -8,7 +8,7 @@
 # http://stackoverflow.com/questions/27086639/user-data-scripts-is-not-running-on-my-custom-ami-but-working-in-standard-amazo
 
 # this redirects everything to a log
-exec > /tmp/part-001.log 2>&1
+#exec > /tmp/part-001.log 2>&1
 
 STORAGE=<%= recordings_path %>
 PREFIX=<%= slug %>
@@ -51,26 +51,27 @@ if [ "$(docker ps -q -f name=icecast)" ]; then
 fi
 
 # production
-docker run \
-       --detach=true \
-       --name=icecast \
-       --env-file=$ENV_LIST \
-       --publish=<%= port %>:8080 \
-       --publish=443:8443 \
-       --restart=unless-stopped \
-       --volume=$STORAGE/$PREFIX:/share \
-       branch14/icecast2
+#docker run \
+#       --detach=true \
+#       --name=icecast \
+#       --env-file=$ENV_LIST \
+#       --publish=<%= port %>:8080 \
+#       --publish=443:8443 \
+#       --restart=unless-stopped \
+#       --volume=$STORAGE/$PREFIX:/share \
+#       branch14/icecast2
 
 # in dev this helps
 #
-# docker stop icecast
-# docker rm icecast
-# docker run \
-#        --name=icecast \
-#        --env-file=$ENV_LIST \
-#        --publish=<%= port %>:8080 \
-#        --volume=$STORAGE/$PREFIX:/share \
-#        branch14/icecast2
+ docker stop icecast
+ docker rm icecast
+ docker run \
+        --name=icecast \
+	--network=voicerepublicdev_network \
+        --env-file=$ENV_LIST \
+        --publish=<%= port %>:8080 \
+        --volume=$STORAGE/$PREFIX:/share \
+        branch14/icecast2
 
 
 # callback to slack -- for debugging only
