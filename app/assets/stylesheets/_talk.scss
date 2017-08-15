@@ -647,6 +647,8 @@ button,
 }
 
 .timeline {
+    height: 70px;
+    background: rgba($jet, 0.4);
     align-self: center;
     flex: 1 1 auto;
     height: 12px;
@@ -657,12 +659,13 @@ button,
 
 .track-playing {
     height: 12px;
-    background: $vr-light-blue;
+    height: 66px;
     width: 0%;
     border-radius: 2px;
 }
 
 .track-buffered {
+    height: 66px;
     width: 18%;
     background: $oil;
     height: 12px;
