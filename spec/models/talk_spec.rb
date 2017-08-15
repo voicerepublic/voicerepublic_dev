@@ -11,6 +11,15 @@ describe Talk do
     Timecop.return
   end
 
+  describe 'scope by_ended_at' do
+    it 'lists talks ordered by ended_at' do
+      venue = FactoryGirl.create :venue
+      talks = FactoryGirl.create_list :talk, 2, :postlive, venue: venue
+
+      expect(venue.talks.by_ended_at.first.ended_at).to eq(talks.map(&:ended_at).max)
+    end
+  end
+
   describe 'user uploads a talk' do
     describe 'with user upload' do
       it 'allows only a time of the past' do

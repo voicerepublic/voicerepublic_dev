@@ -312,7 +312,8 @@ class Venue < ActiveRecord::Base
     #
     # the transition from `postlive` to `queued` makes sure that each
     # talk can only be enqueued once
-    talks.postlive.each(&:enqueue!)
+
+    talks.by_ended_at.last.enqueue!
   end
 
   # tricky shit

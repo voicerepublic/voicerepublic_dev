@@ -142,6 +142,11 @@ FactoryGirl.define do
       state 'live'
     end
 
+    trait :postlive do
+      state 'postlive'
+      ended_at 2.minutes.ago
+    end
+
     trait :archived do
       state 'archived'
       processed_at { 2.hours.ago }
