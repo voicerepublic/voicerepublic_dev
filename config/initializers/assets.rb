@@ -14,6 +14,7 @@ Rails.application.config.assets.precompile += %w( application.js
                                                   embed.css
                                                   modernizr.js
                                                   dev_webfonts.css
+                                                  cljs.js
                                                   faye-authentication.js )
 
 if Rails.env.development?

@@ -11,7 +11,7 @@ module Services
     end
 
     def reconnect
-      self.bunny = Bunny.new read_timeout: 11, heartbeat: 30
+      self.bunny = Bunny.new hostname: "vr-rabbitmq", read_timeout: 11, heartbeat: 30
       bunny.start
       bunny.create_channel
     end

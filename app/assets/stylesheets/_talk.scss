@@ -202,8 +202,8 @@ audio {
 
 .talks svg {
     fill: currentColor;
-    width: 16px;
-    height: 16px;
+    //width: 16px;
+    //height: 16px;
     // max-height: 16px;
     // max-width: 16px;
 }
@@ -480,10 +480,10 @@ button,
     padding: 0 12px;
     svg {
         fill: currentColor;
-        width: 16px;
-        max-width: 16px;
-        height: 16px;
-        max-height: 16px;
+       // width: 16px;
+        //max-width: 16px;
+        //height: 16px;
+        //max-height: 16px;
     }
     .button-pin, .button-unpin {
         svg {
@@ -647,25 +647,24 @@ button,
 }
 
 .timeline {
+    height: 66px;
+    background: rgba($jet, 0.4);
     align-self: center;
     flex: 1 1 auto;
-    height: 12px;
-    background: rgba($jet, 0.4);
     border-radius: 2px;
     margin: 0 12px;
 }
 
 .track-playing {
-    height: 12px;
-    background: $vr-light-blue;
+    height: 66px;
     width: 0%;
     border-radius: 2px;
+    mix-blend-mode: darken;
 }
 
 .track-buffered {
+    height: 66px;
     width: 18%;
-    background: $oil;
-    height: 12px;
     position: absolute;
     z-index: -1;
     border-radius: 2px;

@@ -7,6 +7,7 @@ GIT
 GIT
   remote: git://github.com/branch14/faye-authentication.git
   revision: 33dcf8bb47604bc739485fecc5eba551b0c0190a
+  branch: master
   specs:
     faye-authentication (1.8.0)
       faye (>= 1.0)
@@ -699,6 +700,7 @@ DEPENDENCIES
   simplecov (~> 0.7.1)
   spring
   spring-commands-rspec
+  term-ansicolor
   thin
   timecop
   transitions!

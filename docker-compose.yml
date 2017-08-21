@@ -1,0 +1,92 @@
+version: '3'
+#volumes:
+#  postgres-data:
+#    driver: local
+
+services:
+  vr-postgres:
+    container_name: postgres
+    image: postgres:9.4.5
+    environment:
+      POSTGRES_USER: app
+    ports:
+      - '5432:5432'
+    #volumes:
+    #  - postgres-data:/var/lib/postgresql/data
+
+  vr-faye:
+    container_name: faye
+    image: vr/dev:latest
+    working_dir: /usr/src/app
+    command: bundle exec rackup -E production faye.ru -o 0.0.0.0
+    ports:
+      - '9292:9292'
+
+  vr-rabbitmq:
+    container_name: rabbitmq
+    image: rabbitmq:3.6.6-management
+    ports:
+      - '15672:15672'
+      - '4369:4369'
+      - '5671:5671'
+      - '5672:5672'
+      - '25672:25672'
+
+  bumpy-bridge:
+    container_name: bumpy_bridge
+    image: vr/dev:latest
+    working_dir: /usr/src/app
+    command:
+      - /bin/sh
+      - -c
+      - |
+          DEBUG=1 bumpy_bridge run -- config/bumpy_bridge.yml
+    environment:
+      RAILS_ENV: development
+    volumes:
+      - .:/usr/src/app
+    depends_on:
+      - dev 
+
+  flux-compensator:
+    container_name: flux_compensator
+    image: vr/dev:latest
+    working_dir: /usr/src/app
+    command:
+      - /bin/sh
+      - -c
+      - |
+          bundle exec lib/flux_capacitor.rb run
+    environment:
+      RAILS_ENV: development
+    links:
+      - vr-faye
+      - vr-postgres
+    volumes:
+      - .:/usr/src/app
+    depends_on:
+      - vr-faye
+      - vr-postgres
+
+  dev:
+    container_name: voicerepublic_dev
+    image: vr/dev:latest
+    working_dir: /usr/src/app
+    command:
+      - /bin/sh
+      - -c
+      - |
+          bundle exec rake db:create db:setup db:migrate 
+          bundle exec rails s -p 3000 -b '0.0.0.0' 
+    environment:
+      RAILS_ENV: development
+    links:
+      - vr-postgres
+      - vr-faye
+      - vr-rabbitmq
+    volumes:
+      - .:/usr/src/app
+    ports:
+      - '3000:3000'
+    depends_on:
+      - vr-postgres
