@@ -1,4 +1,4 @@
-# upload_signer
+# vrfun
 
 FIXME: description
 

@@ -1,2 +1,0 @@
-{:duct.core/environment :development
- :duct.core/include ["upload_signer/config"]}

@@ -1,11 +1,10 @@
-{:duct.core/project-ns  upload-signer
+{:duct.core/project-ns  vrfun
  :duct.core/environment :production
 
  :duct.module/logging {}
  :duct.module.web/api {}
 
  :duct.module/ataraxy
- {[:get "/example"] [:example]}
+ {[:get "/sign" {params :params}] [:sign params]}
 
- :upload-signer.handler/example
- {}}
+ :vrfun.handler/sign {}}
