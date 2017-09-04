@@ -7,4 +7,9 @@
  :duct.module/ataraxy
  {[:get "/sign" {params :params}] [:sign params]}
 
+ :duct.core/handler
+ {:middleware [#ig/ref :vrfun.middleware/cors]}
+
+ :vrfun.middleware/cors {}
+ 
  :vrfun.handler/sign {}}
