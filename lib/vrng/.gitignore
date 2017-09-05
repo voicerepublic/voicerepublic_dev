@@ -16,3 +16,4 @@ pom.xml.asc
 
 /public/js/out
 /public/js/app.js
+/.cljs_rhino_repl
