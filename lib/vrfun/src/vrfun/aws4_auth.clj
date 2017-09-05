@@ -55,11 +55,18 @@
 (declare aws4-auth-canonical-request aws4-auth-canonical-headers sha-256 hmac-256
   to-utf8)
 
-(defn auth-header [mime-type bucket aws-zone access-key secret-key] 
+(defn auth-header [file-name mime-type bucket aws-zone access-key secret-key] 
   (let [headers {"Host" bucket
+                 "x-amz-content-sha256" "UNSIGNED-PAYLOAD" 
                  "x-amz-date" (.format iso8601-date-format (Date.))}]
 
-    (aws4-authorisation "POST" "/" headers aws-zone "s3" access-key secret-key)))
+    {:headers
+     {:Authorization (aws4-authorisation "POST" "/" headers aws-zone "s3" access-key secret-key)
+      :Host bucket
+      :x-amz-content-sha256 "UNSIGNED-PAYLOAD"
+      :x-amz-date (.format iso8601-date-format (Date.))}
+     :upload-url (str "https://s3-eu-central-1.amazonaws.com/vr-euc1-dev-audio-uploads/" file-name)
+     }))
 
 (defn aws4-authorisation [method uri headers region service access-key-id secret-key]
   (let [canonical-headers (aws4-auth-canonical-headers headers)

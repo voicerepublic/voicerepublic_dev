@@ -5,10 +5,11 @@
             [vrfun.aws4-auth :refer [auth-header]]))
 
 (defn- s3-sign-aws4 [bucket aws-zone access-key secret-key]
-  (fn [{{mime-type :mime-type} :params}]
+  (fn [{{:keys [mime-type file-name]} :params}]
+    (prn mime-type)
+    (prn file-name)
     {:status 200
-     :body (pr-str {:authorization
-                    (auth-header mime-type bucket aws-zone access-key secret-key)})}))
+     :body (pr-str (auth-header file-name mime-type bucket aws-zone access-key secret-key))}))
 
 (defn- s3-sign []
   (let [bucket (or (System/getenv "BUCKET") "vr-euc1-dev-audio-uploads")

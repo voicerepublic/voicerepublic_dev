@@ -16,7 +16,8 @@
                  [cljs-ajax "0.5.4"]
                  [cljsjs/moment "2.10.6-4"]
                  [cljsjs/selectize "0.12.1-1"]
-                 [org.martinklepsch/s3-beam "0.6.0-alpha3"]
+                 [org.martinklepsch/s3-beam "0.6.0-alpha4"]
+
                  [reanimated "0.5.0"]]
 
   :plugins [[lein-cljsbuild "1.1.1"]]
@@ -30,7 +31,7 @@
 
   :resource-paths ["public"]
 
-  :cljsbuild {:builds {:app {:source-paths ["src"] ;; app -> dev
+  :cljsbuild {:builds {:app {:source-paths ["src" "checkouts/s3-beam/src"] ;; app -> dev
                              :figwheel {:on-jsload vrng.core/fig-reload
                                         :websocket-host :server-hostname
                                         }
