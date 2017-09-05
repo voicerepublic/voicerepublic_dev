@@ -15,6 +15,7 @@ class Venue < ActiveRecord::Base
   belongs_to :user #:organization
   belongs_to :device
   has_many :talks
+  has_many :iceboxes, as: :context
 
   validates :name, :user_id, presence: true
   validates :client_token, uniqueness: true, allow_blank: true
@@ -108,41 +109,12 @@ class Venue < ActiveRecord::Base
     end
   end
 
-  before_create :set_default_instance_type
-
   def set_awaiting_stream_at
     self.awaiting_stream_at = Time.now
   end
 
-  def set_default_instance_type
-    self.instance_type = Settings.icecast.ec2.default_instance_type
-  end
-
-  def generate_client_token
-    [ slug[0, 64-16], Time.now.to_i, generate_password(4) ] * '-'
-  end
-
   def generate_mount_point
     'live' # SecureRandom.uuid
-  end
-
-  def provisioning_parameters
-    [
-      Settings.icecast.ec2.image,
-      1, # min
-      1, # max
-      {
-        "InstanceType"  => instance_type || set_default_instance_type,
-        "SecurityGroup" => Settings.icecast.ec2.security_group,
-        "KeyName"       => Settings.icecast.ec2.key_name,
-        "ClientToken"   => client_token,
-        "UserData"      => userdata
-      }
-    ]
-  end
-
-  def provisioning_file
-    "/tmp/userdata_#{id}.sh"
   end
 
   def port
@@ -151,23 +123,13 @@ class Venue < ActiveRecord::Base
 
   def build_stream_url
     protocol = Settings.icecast.url.protocol
-    url = [ protocol, public_ip_address ] * '://'
+    url = [ protocol, icebox.public_ip_address ] * '://'
 
     regular = [['80', 'http'], ['443', 'https']]
 
-    url = [ url, port ] * ':' unless  regular.include?([port.to_s, protocol])
+    url = [ url, port ] * ':' unless regular.include?([port.to_s, protocol])
 
     [ url, mount_point ] * '/'
-  end
-
-  def userdata
-    ERB.new(userdata_template).result(binding)
-  end
-
-  def ssh_keys
-    path = File.expand_path('.ssh/authorized_keys', ENV['HOME'])
-    return unless File.exist?(path)
-    File.read(path)
   end
 
   # this is only required for darkice as a streaming device
@@ -402,10 +364,6 @@ class Venue < ActiveRecord::Base
 
   def complete_details
     self.stream_url = build_stream_url
-
-    if Rails.env.development? and File.exist?(provisioning_file)
-      FileUtils.rm(provisioning_file)
-    end
   end
 
   def on_connected
@@ -419,6 +377,12 @@ class Venue < ActiveRecord::Base
     Faye.publish_to '/admin/connections', details
   end
 
+  def on_disconnected
+    return if Rails.env.test?
+    details = { event: 'disconnected', slug: slug }
+    Faye.publish_to '/admin/connections', details
+  end
+
   def force_disconnect!
     options = {
       admin_password: admin_password,
@@ -429,12 +393,6 @@ class Venue < ActiveRecord::Base
     IcecastRemote.new(options).disconnect!
   end
 
-  def on_disconnected
-    return if Rails.env.test?
-    details = { event: 'disconnected', slug: slug }
-    Faye.publish_to '/admin/connections', details
-  end
-
   # either a controlled device or a generic client set?
   def device_present?
     device.present? or device_name.present?
@@ -442,23 +400,7 @@ class Venue < ActiveRecord::Base
 
   # called on event shutdown
   def unprovision
-    send("unprovision_#{Rails.env}")
-  end
-
-  def unprovision_production
-    instance = EC2.servers.get(instance_id)
-    instance.destroy unless instance.nil?
-  end
-
-  def unprovision_development
-    puts 'Stopping icecast docker container...'
-    system 'docker stop icecast'
-    puts 'Removing icecast docker container...'
-    system 'docker rm icecast'
-  end
-
-  def unprovision_test
-    # anything to do here?
+    icebox.terminate!
   end
 
   def provision
@@ -467,34 +409,8 @@ class Venue < ActiveRecord::Base
                        admin_password: generate_password,
                        client_token: generate_client_token,
                        mount_point: generate_mount_point )
-    send("provision_#{Rails.env}")
-  end
 
-  def provision_production
-    logger.info "Running EC2 instance with " + provisioning_parameters.to_yaml
-    response = EC2.run_instances(*provisioning_parameters)
-    self.instance_id = response.body["instancesSet"].first["instanceId"]
-
-    # set name of instance
-    EC2.tags.create(resource_id: instance_id, key: 'Name', value: slug)
-    EC2.tags.create(resource_id: instance_id, key: 'Target', value: Settings.target)
-  end
-
-  def provision_development
-    f = File.open(provisioning_file, 'w', 0700)
-    f.write(userdata)
-    f.close
-
-    # for debugging
-    # puts userdata
-    FileUtils.cp f.path, 'userdata.sh'
-
-    puts 'Running provisioning file...'
-    spawn provisioning_file
-  end
-
-  def provision_test
-    # TODO find a way
+    Instance::Icebox.create(context: self).launch!
   end
 
   def shutdown?
@@ -507,27 +423,6 @@ class Venue < ActiveRecord::Base
     Rails.application.routes.url_helpers.venue_url(self)
   end
 
-  # TODO move next 5 methods to Instance::Icebox
-  def aws_region
-    Settings.storage.recordings.split('@').last
-  end
-
-  def aws_bucket_name
-    Settings.storage.recordings.split('@').first
-  end
-
-  def storage_url
-    [ 's3:/', aws_bucket_name, slug, nil ] * '/'
-  end
-
-  def aws_access_key
-    Settings.fog.storage.aws_access_key_id
-  end
-
-  def aws_secret_key
-    Settings.fog.storage.aws_secret_access_key
-  end
-
   private
 
   def event_fired(*args)
@@ -536,10 +431,6 @@ class Venue < ActiveRecord::Base
 
   def slug_candidates
     [ :name, [:id, :name] ]
-  end
-
-  def userdata_template
-    File.read(Rails.root.join('lib/userdata/icebox.sh.erb'))
   end
 
   def darkice_config_template
