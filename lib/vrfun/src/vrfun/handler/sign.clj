@@ -20,3 +20,7 @@
 
 (defmethod ig/init-key :vrfun.handler/sign [_ options]
   (s3-sign))
+
+(defmethod ig/init-key :vrfun.handler/options [_ options]
+  (fn [_]
+    {:status 200}))

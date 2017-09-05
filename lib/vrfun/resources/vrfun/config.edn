@@ -8,11 +8,14 @@
  :duct.module.web/api {}
 
  :duct.module/ataraxy
- {[:get "/sign" {params :params}] [:sign params]}
+ {[:get "/sign" {params :params}] [:sign params]
+ :options [:options]} 
+
 
  :duct.core/handler
  {:middleware [#ig/ref :vrfun.middleware/cors]}
 
  :vrfun.middleware/cors {}
  
- :vrfun.handler/sign {}}
+ :vrfun.handler/sign {}
+ :vrfun.handler/options {}}
