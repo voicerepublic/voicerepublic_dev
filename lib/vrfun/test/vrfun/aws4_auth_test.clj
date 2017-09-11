@@ -13,6 +13,7 @@
         region "us-east-1"
         service "service"
         secret-key "wJalrXUtnFEMI/K7MDENG+bPxRfiCYEXAMPLEKEY"
+        access-key-id "AKIDEXAMPLE"
         headers {"HOST" "example.amazonaws.com"
                  "X-Amz-Date" "20150830T123600Z"}
         canonical-headers (sut/aws4-auth-canonical-headers headers)]
@@ -35,5 +36,9 @@
                                              short-timestamp region service canonical-headers)]
       (is
        (= "5da7c1a2acd57cee7505fc6676e4e544621c30862966e37dddb68e92efbe5d6b"
-          (sut/signature secret-key short-timestamp region service string-to-sign
-                         )))))))
+          (sut/signature secret-key short-timestamp region service string-to-sign)))))
+
+    (testing "post-vanilla: authorization header")
+    (is
+     (= (slurp (clojure.java.io/resource "vrfun/suite/post-vanilla/post-vanilla.authz"))
+        (sut/aws4-authorisation method uri headers region service access-key-id secret-key)))))

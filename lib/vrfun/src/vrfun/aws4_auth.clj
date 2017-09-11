@@ -94,18 +94,13 @@
         short-timestamp (.substring ^String timestamp 0 8)
         string-to-sign (string-to-sign timestamp method uri short-timestamp region service
                                            canonical-headers)
-        signing-key (-> (hmac-256 (to-utf8 (str "AWS4" secret-key)) short-timestamp)
-                        (hmac-256 region)
-                        (hmac-256 service)
-                        (hmac-256 "aws4_request"))
-
-        signature (hmac-256 signing-key string-to-sign)]
+        signature (signature secret-key short-timestamp region service string-to-sign)]
     (str
      "AWS4-HMAC-SHA256 "
      "Credential=" access-key-id "/" short-timestamp "/" region "/" service
      "/aws4_request, "
      "SignedHeaders=" (str/join ";" (keys canonical-headers)) ", "
-     "Signature=" (as-hex-str signature))))
+     "Signature=" signature)))
 
 (declare stringify-headers)
 
