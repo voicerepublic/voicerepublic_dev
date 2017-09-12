@@ -12,13 +12,26 @@
   (let [[key val] (s/split next #":")]
     (assoc acc key val)))
 
+(defn extract-path
+  [path]
+  (s/split path #"\?"))
+
+(defn extract-uri
+  [path]
+  (first (extract-path path)))
+
+(defn extract-query
+  [path]
+  (last (extract-path path)))
+
 (defn parse-request
   "returns parsed request from .req file strings"
   [req]
   (let [line-wise (s/split req #"\n")
-        [method uri] (s/split (first line-wise) #" ")]
+        [method path] (s/split (first line-wise) #" ")]
     (merge {:method method
-            :uri uri}
+            :uri (extract-uri path)
+            :query (extract-query path)}
            (assoc {} :headers (reduce to-header {} (rest line-wise))))))
 
 (defn parse-signature
@@ -42,9 +55,8 @@
 (def secret-key "wJalrXUtnFEMI/K7MDENG+bPxRfiCYEXAMPLEKEY")
 (def access-key-id "AKIDEXAMPLE")
 
-(def test-cases '(
-                  "get-header-key-duplicate"
-                  ;"get-header-value-multiline"
+(def test-cases '("get-header-key-duplicate"
+                  "get-header-value-multiline"
                   "get-header-value-order"
                   "get-header-value-trim"
                   "get-unreserved"
@@ -63,39 +75,48 @@
                   "post-vanilla"
                   "post-vanilla-empty-query-value"
                   "post-vanilla-query"
-                  ;"post-x-www-form-urlencoded"
-                  ;"post-x-www-form-urlencoded-parameters"
-                  ))
+                  "post-x-www-form-urlencoded"
+                  "post-x-www-form-urlencoded-parameters"))
 
-(deftest post-vanilla
-  (let [{:keys [method uri headers]} (parse-request (resource-string "post-vanilla" "req"))
-        canonical-headers (sut/aws4-auth-canonical-headers headers)]
-
-    (testing "creating canoncial request"
-      (doseq [name test-cases]
-        (prn name)
+(deftest signature-tests
+  (testing "AWS V4 signature:"
+    (doseq [name test-cases]
+      (testing (str "creating canonical request for " name)
         (let [input-string (resource-string name "req")
-              {:keys [method uri headers]} (parse-request input-string)]
+              output-string (resource-string name "creq")
+              {:keys [method uri headers query]} (parse-request input-string)]
           (is
-           (= input-string)
-           (sut/aws4-auth-canonical-request method uri (sut/aws4-auth-canonical-headers headers)))
-          (str "Returns valid canonical request for " name))))
+           (= output-string
+              (sut/aws4-auth-canonical-request method uri (sut/aws4-auth-canonical-headers headers))))
+          (str "Returns valid canonical request for " name)))))
 
-    (testing "creating string-to-sign"
-      (is
-       (= (slurp (clojure.java.io/resource "vrfun/suite/post-vanilla/post-vanilla.sts"))
-          (sut/string-to-sign timestamp method uri short-timestamp
-                              region service canonical-headers))))
-
-    (testing "creating signature"
-      (let [string-to-sign (sut/string-to-sign timestamp method uri
+    (doseq [name test-cases]
+      (testing (str "creating string-to-sign" name
+        (let [input-string (resource-string name "req")
+              output-string (resource-string name "sts")
+              {:keys [method uri headers]} (parse-request input-string)
+              canonical-headers (sut/aws4-auth-canonical-headers headers)]
+          (is
+           (= output-string
+              (sut/string-to-sign timestamp method uri short-timestamp
+                                  region service canonical-headers)))))))
+  (doseq [name test-cases]
+    (testing (str "creating signature" name)
+      (let [input-string (resource-string name "req")
+            output-string (resource-string name "authz")
+            {:keys [method uri headers]} (parse-request input-string)
+            canonical-headers (sut/aws4-auth-canonical-headers headers)
+            string-to-sign (sut/string-to-sign timestamp method uri
                                                short-timestamp region service canonical-headers)]
         (is
-         (= (parse-signature
-             (slurp (clojure.java.io/resource "vrfun/suite/post-vanilla/post-vanilla.authz")))
-            (sut/signature secret-key short-timestamp region service string-to-sign)))))
+         (= output-string
+            (sut/signature secret-key short-timestamp region service string-to-sign))))))
 
-    (testing "creating authorization header")
+  (doseq [name test-cases]
+   (testing "creating authorization header"
+     (let [input-string (resource-string name "req")
+           {:keys [method uri headers]} (parse-request input-string)
+           output-string (resource-string name "authz")]
     (is
-     (= (slurp (clojure.java.io/resource "vrfun/suite/post-vanilla/post-vanilla.authz"))
-        (sut/aws4-authorisation method uri headers region service access-key-id secret-key)))))
+     (= output-string
+        (sut/aws4-authorisation method uri headers region service access-key-id secret-key)))))))
