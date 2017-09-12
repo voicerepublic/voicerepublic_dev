@@ -6,31 +6,33 @@
   (:import [java.text DateFormat SimpleDateFormat]
            [java.util UUID Date TimeZone]))
 
+(def method "PUT")
+(def service "s3")
+
 (def ^DateFormat iso8601-date-format
   (doto (SimpleDateFormat. "yyyyMMdd'T'HHmmss'Z'")
     (.setTimeZone (TimeZone/getTimeZone "UTC"))))
 
-(defn- generate-uri
+(defn- generate-random-uri
   [file-name bucket]
   (clojure.string/join "/" (list "" bucket (UUID/randomUUID) file-name)))
 
 (defn- auth-header [file-name mime-type bucket aws-zone access-key secret-key]
-  (let [headers {"Host" "s3-eu-central-1.amazonaws.com"
+  (let [headers {"Host" (zone->host aws-zone)
                  "x-amz-content-sha256" "UNSIGNED-PAYLOAD"
                  "x-amz-date" (.format iso8601-date-format (Date.))}
-        uri (generate-uri file-name bucket)]
+        uri (generate-random-uri file-name bucket)]
 
-    (prn uri)
     {:headers
-     (merge
-      {:Authorization (aws4-authorisation "PUT" uri "" headers aws-zone "s3" access-key secret-key)} headers)
-     :upload-url (str "https://s3-eu-central-1.amazonaws.com" uri)
+     (merge {:Authorization
+             (aws4-authorisation method uri "" headers
+                                 aws-zone service access-key secret-key)}
+            headers)
+     :upload-url (str "https://" (zone->host aws-zone) uri)
      :uri uri}))
 
 (defn- s3-sign-aws4 [bucket aws-zone access-key secret-key]
   (fn [{{:keys [mime-type file-name]} :params}]
-    (prn mime-type)
-    (prn file-name)
     {:status 200
      :body (pr-str (auth-header file-name mime-type bucket aws-zone access-key secret-key))}))
 
