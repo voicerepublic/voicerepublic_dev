@@ -114,8 +114,9 @@
    (get canonical-headers "x-amz-content-sha256" EMPTY_SHA256)))
 
 (defn aws4-auth-canonical-headers [headers]
+  (prn headers)
   (into (sorted-map)
-        (map (fn [[k v]] [(str/lower-case k) (str/trim v)]) headers)))
+        (map (fn [[k v]] [(str/lower-case k) (str/trim (or v ""))]) headers)))
 
 (defn stringify-headers [headers]
   (let [s (StringBuilder.)]
