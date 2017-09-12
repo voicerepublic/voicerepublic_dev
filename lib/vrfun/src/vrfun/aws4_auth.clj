@@ -108,7 +108,8 @@
   (str
    method \newline
    uri    \newline
-   query  \newline                          ; query string
+   (if (clojure.string/blank? query) "" (str query \newline))  
+   \newline
    (stringify-headers canonical-headers)   \newline
    (str/join ";" (keys canonical-headers)) \newline
    (get canonical-headers "x-amz-content-sha256" EMPTY_SHA256)))
