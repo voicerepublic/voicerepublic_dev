@@ -61,19 +61,19 @@
                  "x-amz-date" (.format iso8601-date-format (Date.))}]
 
     {:headers
-     {:Authorization (aws4-authorisation "POST" "/" headers aws-zone "s3" access-key secret-key)
+     {:Authorization (aws4-authorisation "POST" "/" "" headers aws-zone "s3" access-key secret-key)
       :Host bucket
       :x-amz-content-sha256 "UNSIGNED-PAYLOAD"
       :x-amz-date (.format iso8601-date-format (Date.))}
      :upload-url (str "https://s3-eu-central-1.amazonaws.com/vr-euc1-dev-audio-uploads/" file-name)}))
 
 (defn string-to-sign
-  [timestamp method uri short-timestamp region service canonical-headers]
+  [timestamp method uri query short-timestamp region service canonical-headers]
   (str
    "AWS4-HMAC-SHA256\n"
    timestamp "\n"
    short-timestamp "/" region "/" service "/aws4_request" "\n"
-   (sha-256 (to-utf8 (aws4-auth-canonical-request method uri
+   (sha-256 (to-utf8 (aws4-auth-canonical-request method uri query
                                                   canonical-headers)))))
 (defn signing-key
   [secret-key short-timestamp region service]
@@ -88,11 +88,11 @@
       (hmac-256 string-to-sign)
       (as-hex-str)))
 
-(defn aws4-authorisation [method uri headers region service access-key-id secret-key]
+(defn aws4-authorisation [method uri query headers region service access-key-id secret-key]
   (let [canonical-headers (aws4-auth-canonical-headers headers)
         timestamp (get canonical-headers "x-amz-date")
         short-timestamp (.substring ^String timestamp 0 8)
-        string-to-sign (string-to-sign timestamp method uri short-timestamp region service
+        string-to-sign (string-to-sign timestamp method uri query short-timestamp region service
                                            canonical-headers)
         signature (signature secret-key short-timestamp region service string-to-sign)]
     (str
@@ -104,17 +104,16 @@
 
 (declare stringify-headers)
 
-(defn aws4-auth-canonical-request [method uri canonical-headers]
+(defn aws4-auth-canonical-request [method uri query canonical-headers]
   (str
    method \newline
    uri    \newline
-   \newline                          ; query string
+   query  \newline                          ; query string
    (stringify-headers canonical-headers)   \newline
    (str/join ";" (keys canonical-headers)) \newline
    (get canonical-headers "x-amz-content-sha256" EMPTY_SHA256)))
 
 (defn aws4-auth-canonical-headers [headers]
-  (prn headers)
   (into (sorted-map)
         (map (fn [[k v]] [(str/lower-case k) (str/trim (or v ""))]) headers)))
 
