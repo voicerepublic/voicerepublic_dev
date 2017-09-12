@@ -20,52 +20,27 @@
 
 (declare aws4-authorisation as-hex-str)
 
-(defn s3-bucket-get-request [url bucket region access-key-id secret-key]
-  (let [uri (str "/" url)
-        headers {"Content-Length" "0"
-                 "Host" bucket
-                 "x-amz-content-sha256" EMPTY_SHA256
-                 "x-amz-date" (.format iso8601-date-format (Date.))}
-        request (DefaultFullHttpRequest. HttpVersion/HTTP_1_1 HttpMethod/GET uri)
-        request-headers (.headers request)]
-    (doseq [[k v] headers]
-      (.set request-headers ^String k ^String v))
-    (.set request-headers "Authorization"
-          (aws4-authorisation "GET" uri headers region "s3" access-key-id secret-key))
-    request))
-
-(defn s3-bucket-put-request [url content-sha256 content-length mime-type bucket
-                             region access-key-id secret-key]
-  (let [uri (str "/" url)
-        headers {"Host" bucket
-                 "Content-Length" (str content-length)
-                 "Content-Type" mime-type
-                 "x-amz-content-sha256" content-sha256
-                 "x-amz-date" (.format iso8601-date-format (Date.))}
-        request (DefaultHttpRequest. HttpVersion/HTTP_1_1 HttpMethod/PUT uri)
-        request-headers (.headers request)]
-    (doseq [[k v] headers]
-      (.set request-headers ^String k ^String v))
-    (.set request-headers "Authorization"
-          (aws4-authorisation "PUT" uri headers region "s3" access-key-id secret-key))
-    request))
-
 ;; ---------- AWS authentication
 
 (declare aws4-auth-canonical-request aws4-auth-canonical-headers sha-256 hmac-256
          to-utf8)
 
-(defn auth-header [file-name mime-type bucket aws-zone access-key secret-key]
-  (let [headers {"Host" bucket
-                 "x-amz-content-sha256" "UNSIGNED-PAYLOAD"
-                 "x-amz-date" (.format iso8601-date-format (Date.))}]
+(def zone->endpoints
+  "Mapping of AWS zones to S3 endpoints as documented here:
+   http://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region"
+  {"us-east-1"      "s3"
+   "us-west-1"      "s3-us-west-1"
+   "us-west-2"      "s3-us-west-2"
+   "eu-west-1"      "s3-eu-west-1"
+   "eu-central-1"   "s3-eu-central-1"
+   "ap-southeast-1" "s3-ap-southeast-1"
+   "ap-southeast-2" "s3-ap-southeast-2"
+   "ap-northeast-1" "s3-ap-northeast-1"
+   "sa-east-1"      "s3-sa-east-1"})
 
-    {:headers
-     {:Authorization (aws4-authorisation "POST" "/" "" headers aws-zone "s3" access-key secret-key)
-      :Host bucket
-      :x-amz-content-sha256 "UNSIGNED-PAYLOAD"
-      :x-amz-date (.format iso8601-date-format (Date.))}
-     :upload-url (str "https://s3-eu-central-1.amazonaws.com/vr-euc1-dev-audio-uploads/" file-name)}))
+(defn zone->host
+  [zone]
+  (str (get zone->endpoints zone) "amazonaws.com"))
 
 (defn string-to-sign
   [timestamp method uri query short-timestamp region service canonical-headers]
@@ -108,8 +83,7 @@
   (str
    method \newline
    uri    \newline
-   (if (clojure.string/blank? query) "" (str query \newline))  
-   \newline
+   (if (clojure.string/blank? query) "" (str query \newline))  \newline
    (stringify-headers canonical-headers)   \newline
    (str/join ";" (keys canonical-headers)) \newline
    (get canonical-headers "x-amz-content-sha256" EMPTY_SHA256)))
