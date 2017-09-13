@@ -6,11 +6,18 @@
 (deftest smoke-test
   (is (+ 2 2) 4))
 
+(defn append-header
+  [old to-append]
+  (if (nil? old)
+    to-append
+    (str old "," to-append)))
+
 (defn to-header
   "returns header map entry from string"
   [acc next]
+  (prn acc)
   (let [[key val] (s/split next #":")]
-    (assoc acc key val)))
+    (update acc key append-header val)))
 
 (defn extract-uri
   [path]
