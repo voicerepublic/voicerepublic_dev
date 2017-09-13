@@ -15,13 +15,12 @@
 (defn to-header
   "returns header map entry from string"
   [acc next]
-  (prn acc)
   (let [[key val] (s/split next #":")]
-    (update acc key append-header val)))
+    (update acc key append-header (s/replace (or val "") #"\s+" " "))))
 
 (defn extract-uri
   [path]
-  (s/join "" (drop-last (or (re-find #"\S+\?" path) "/?"))))
+  (s/join "" (drop-last (or (re-find #"\S+\?" path) (str path "?")))))
 
 (defn extract-query
   [path]
