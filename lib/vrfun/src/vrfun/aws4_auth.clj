@@ -1,5 +1,6 @@
 (ns vrfun.aws4-auth
-  (:require [clojure.string :as str])
+  (:require [clojure.string :as str]
+            [ring.util.codec :as codec])
   (:import [io.netty.handler.codec.http DefaultHttpRequest
             DefaultFullHttpRequest DefaultHttpResponse
             HttpMethod HttpVersion LastHttpContent DefaultFullHttpResponse
@@ -44,12 +45,12 @@
   (str (get zone->endpoints zone) ".amazonaws.com"))
 
 (defn string-to-sign
-  [timestamp method uri query short-timestamp region service canonical-headers]
+  [timestamp method uri query payload short-timestamp region service canonical-headers]
   (str
    "AWS4-HMAC-SHA256\n"
    timestamp "\n"
    short-timestamp "/" region "/" service "/aws4_request" "\n"
-   (sha-256 (to-utf8 (aws4-auth-canonical-request method uri query
+   (sha-256 (to-utf8 (aws4-auth-canonical-request method uri query payload
                                                   canonical-headers)))))
 (defn signing-key
   [secret-key short-timestamp region service]
@@ -64,11 +65,19 @@
       (hmac-256 string-to-sign)
       (as-hex-str)))
 
-(defn aws4-authorisation [method uri query headers region service access-key-id secret-key]
+(defn query->string 
+  [query]
+  (->> query
+      (sort (fn [[k1 v1] [k2 v2]] (compare v1 v2)))
+      (map #(map codec/url-encode %))
+      (#(map (fn [pair] (str/join "=" pair)) %))
+      (str/join "&")))
+
+(defn aws4-authorisation [method uri query headers payload region service access-key-id secret-key]
   (let [canonical-headers (aws4-auth-canonical-headers headers)
         timestamp (get canonical-headers "x-amz-date")
         short-timestamp (.substring ^String timestamp 0 8)
-        string-to-sign (string-to-sign timestamp method uri query short-timestamp region service
+        string-to-sign (string-to-sign timestamp method uri query payload short-timestamp region service
                                            canonical-headers)
         signature (signature secret-key short-timestamp region service string-to-sign)]
     (str
@@ -80,14 +89,71 @@
 
 (declare stringify-headers)
 
-(defn aws4-auth-canonical-request [method uri query canonical-headers]
+(defn change-directory
+  [segments]
+  (let [change-amount (get (frequencies segments) ".." 0)]
+    (if (> change-amount 0)
+      (change-directory (drop-last (rest segments)))
+      segments)))
+
+(defn both
+  [f1 f2]
+  #(and (f1 %) (f2 %)))
+
+(defn not-blank?
+  [str]
+  (and (not (= "" str))
+       (not (nil? str))))
+
+(defn not-dot?
+  [str]
+  (not= str "."))
+
+(defn remove-spaces
+  [str]
+  (str/replace str #" " ""))
+
+(defn resolve-path
+  [path]
+  (->> (str/split path #"/")
+      (filter (both not-blank? not-dot?))
+      (change-directory)
+      (str/join "/")
+      (str "/")))
+
+(defn encode-uri
+  [uri]
+  (->> (str/split uri #"/")
+       (map codec/url-encode)
+       (str/join "/")
+       (#(if (str/blank? %) "/" %))))
+
+(defn append-slash
+  [uri raw]
+  (str uri (and (re-matches #".*/$" raw) "/")))
+
+(defn replace-double-slash
+  [uri]
+  (str/replace uri #"//" "/"))
+
+(defn normalize-uri
+  [uri]
+  (-> uri
+      (resolve-path)
+      (encode-uri)
+      (append-slash uri)
+      (replace-double-slash)))
+
+(defn aws4-auth-canonical-request [method uri query payload canonical-headers]
   (str
    method \newline
-   uri    \newline
-   (if (clojure.string/blank? query) "" (str query \newline))  \newline
+   (normalize-uri uri) \newline
+   (query->string query) \newline
    (stringify-headers canonical-headers)   \newline
    (str/join ";" (keys canonical-headers)) \newline
-   (get canonical-headers "x-amz-content-sha256" EMPTY_SHA256)))
+   (or (get canonical-headers "x-amz-content-sha256")
+       (sha-256 (to-utf8 payload))
+       EMPTY_SHA256)))
 
 (defn aws4-auth-canonical-headers [headers]
   (into (sorted-map)
