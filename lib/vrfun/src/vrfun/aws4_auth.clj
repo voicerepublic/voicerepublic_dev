@@ -1,5 +1,6 @@
 (ns vrfun.aws4-auth
-  (:require [clojure.string :as str])
+  (:require [clojure.string :as str]
+            [ring.util.codec :as codec])
   (:import [io.netty.handler.codec.http DefaultHttpRequest
             DefaultFullHttpRequest DefaultHttpResponse
             HttpMethod HttpVersion LastHttpContent DefaultFullHttpResponse
@@ -80,10 +81,17 @@
 
 (declare stringify-headers)
 
+(defn encode-uri
+  [uri]
+  (->> (clojure.string/split uri #"/")
+       (map codec/url-encode)
+       (clojure.string/join "/")
+       (#(if (clojure.string/blank? %) "/" %))))
+
 (defn aws4-auth-canonical-request [method uri query canonical-headers]
   (str
    method \newline
-   uri    \newline
+   (encode-uri uri) \newline
    (if (clojure.string/blank? query) "" (str query \newline))  \newline
    (stringify-headers canonical-headers)   \newline
    (str/join ";" (keys canonical-headers)) \newline

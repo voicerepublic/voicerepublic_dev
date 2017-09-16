@@ -20,7 +20,9 @@
 
 (defn extract-uri
   [path]
-  (s/join "" (drop-last (or (re-find #"\S+\?" path) (str path "?")))))
+  (->> (or (re-find #"\S+\?" path) (str path "?"))
+       (drop-last)
+       (s/join "")))
 
 (defn extract-query
   [path]
@@ -87,21 +89,22 @@
         (let [input-string (resource-string name "req")
               output-string (resource-string name "creq")
               {:keys [method uri headers query]} (parse-request input-string)]
+          (prn (parse-request input-string))
           (is
            (= output-string
               (sut/aws4-auth-canonical-request method uri query (sut/aws4-auth-canonical-headers headers))))
           (str "Returns valid canonical request for " name)))))
 
-    (doseq [name test-cases]
-      (testing (str "creating string-to-sign for " name
-        (let [input-string (resource-string name "req")
-              output-string (resource-string name "sts")
-              {:keys [method uri headers query]} (parse-request input-string)
-              canonical-headers (sut/aws4-auth-canonical-headers headers)]
-          (is
-           (= output-string
-              (sut/string-to-sign timestamp method uri query short-timestamp
-                                  region service canonical-headers)))))))
+  (doseq [name test-cases]
+    (testing (str "creating string-to-sign for " name
+                  (let [input-string (resource-string name "req")
+                        output-string (resource-string name "sts")
+                        {:keys [method uri headers query]} (parse-request input-string)
+                        canonical-headers (sut/aws4-auth-canonical-headers headers)]
+                    (is
+                     (= output-string
+                        (sut/string-to-sign timestamp method uri query short-timestamp
+                                            region service canonical-headers)))))))
   (doseq [name test-cases]
     (testing (str "creating signature for " name)
       (let [input-string (resource-string name "req")
@@ -115,10 +118,10 @@
             (sut/signature secret-key short-timestamp region service string-to-sign))))))
 
   (doseq [name test-cases]
-   (testing (str "creating authorization header for " name)
-     (let [input-string (resource-string name "req")
-           {:keys [method uri headers query]} (parse-request input-string)
-           output-string (resource-string name "authz")]
-    (is
-     (= output-string
-        (sut/aws4-authorisation method uri query headers region service access-key-id secret-key)))))))
+    (testing (str "creating authorization header for " name)
+      (let [input-string (resource-string name "req")
+            {:keys [method uri headers query]} (parse-request input-string)
+            output-string (resource-string name "authz")]
+        (is
+         (= output-string
+            (sut/aws4-authorisation method uri query headers region service access-key-id secret-key)))))))
