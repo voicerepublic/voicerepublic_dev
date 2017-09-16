@@ -25,7 +25,7 @@
 
     {:headers
      (merge {:Authorization
-             (aws4-authorisation method uri "" headers
+             (aws4-authorisation method uri "" headers ""
                                  aws-zone service access-key secret-key)}
             headers)
      :upload-url (str "https://" (zone->host aws-zone) uri)

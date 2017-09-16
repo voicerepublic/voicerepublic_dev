@@ -15,8 +15,16 @@
 (defn to-header
   "returns header map entry from string"
   [acc next]
-  (let [[key val] (s/split next #":")]
-    (update acc key append-header (s/replace (or val "") #"\s+" " "))))
+  (if (re-matches #"\S*=\S*" next)
+    acc
+    (let [[key val] (s/split next #":")]
+      (update acc key append-header (s/replace (or val "") #"\s+" " ")))))
+
+(defn to-payload
+  [acc next]
+  (if (re-matches #"\S*=\S*" next)
+    next
+    acc))
 
 (defn extract-uri
   [path]
@@ -37,12 +45,13 @@
 (defn parse-request
   "returns parsed request from .req file strings"
   [req]
-  (let [line-wise (s/split req #"\n")
+  (let [line-wise (filter #(not (s/blank? %)) (s/split req #"\n"))
         [method path] (s/split (first line-wise) #" ")]
     (merge {:method method
             :uri (extract-uri path)
             :query (query->pair (extract-query path))}
-           (assoc {} :headers (reduce to-header {} (rest line-wise))))))
+           (assoc {} :headers (reduce to-header {} (rest line-wise)))
+           (assoc {} :payload (reduce to-payload "" (rest line-wise))))))
 
 (defn parse-signature
   [authz]
@@ -94,29 +103,30 @@
       (testing (str "creating canonical request for " name)
         (let [input-string (resource-string name "req")
               output-string (resource-string name "creq")
-              {:keys [method uri headers query]} (parse-request input-string)]
+              {:keys [method uri headers query payload]} (parse-request input-string)]
           (is
            (= output-string
-              (sut/aws4-auth-canonical-request method uri query (sut/aws4-auth-canonical-headers headers))))
+              (sut/aws4-auth-canonical-request method uri query payload (sut/aws4-auth-canonical-headers headers))))
           (str "Returns valid canonical request for " name)))))
 
   (doseq [name test-cases]
-    (testing (str "creating string-to-sign for " name
+    (testing (str "creating string-to-sign for " name)
                   (let [input-string (resource-string name "req")
                         output-string (resource-string name "sts")
-                        {:keys [method uri headers query]} (parse-request input-string)
+                        {:keys [method uri headers query payload]} (parse-request input-string)
                         canonical-headers (sut/aws4-auth-canonical-headers headers)]
+                    (prn (parse-request input-string))
                     (is
                      (= output-string
-                        (sut/string-to-sign timestamp method uri query short-timestamp
-                                            region service canonical-headers)))))))
+                        (sut/string-to-sign timestamp method uri query payload short-timestamp
+                                            region service canonical-headers))))))
   (doseq [name test-cases]
     (testing (str "creating signature for " name)
       (let [input-string (resource-string name "req")
             output-string (resource-string name "authz")
-            {:keys [method uri headers query]} (parse-request input-string)
+            {:keys [method uri headers query payload]} (parse-request input-string)
             canonical-headers (sut/aws4-auth-canonical-headers headers)
-            string-to-sign (sut/string-to-sign timestamp method uri query
+            string-to-sign (sut/string-to-sign timestamp method uri query payload
                                                short-timestamp region service canonical-headers)]
         (is
          (= output-string
@@ -125,8 +135,8 @@
   (doseq [name test-cases]
     (testing (str "creating authorization header for " name)
       (let [input-string (resource-string name "req")
-            {:keys [method uri headers query]} (parse-request input-string)
+            {:keys [method uri headers query payload]} (parse-request input-string)
             output-string (resource-string name "authz")]
         (is
          (= output-string
-            (sut/aws4-authorisation method uri query headers region service access-key-id secret-key)))))))
+            (sut/aws4-authorisation method uri query headers payload region service access-key-id secret-key)))))))

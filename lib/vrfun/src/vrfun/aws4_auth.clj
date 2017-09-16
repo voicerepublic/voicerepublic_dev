@@ -45,13 +45,13 @@
   (str (get zone->endpoints zone) ".amazonaws.com"))
 
 (defn string-to-sign
-  [timestamp method uri query short-timestamp region service canonical-headers]
+  [timestamp method uri query payload short-timestamp region service canonical-headers]
   (str
    "AWS4-HMAC-SHA256\n"
    timestamp "\n"
    short-timestamp "/" region "/" service "/aws4_request" "\n"
    (sha-256 (to-utf8 (aws4-auth-canonical-request method uri query
-                                                  canonical-headers)))))
+                                                  canonical-headers payload)))))
 (defn signing-key
   [secret-key short-timestamp region service]
   (-> (hmac-256 (to-utf8 (str "AWS4" secret-key)) short-timestamp)
@@ -73,11 +73,11 @@
       (#(map (fn [pair] (clojure.string/join "=" pair)) %))
       (clojure.string/join "&")))
 
-(defn aws4-authorisation [method uri query headers region service access-key-id secret-key]
+(defn aws4-authorisation [method uri query headers payload region service access-key-id secret-key]
   (let [canonical-headers (aws4-auth-canonical-headers headers)
         timestamp (get canonical-headers "x-amz-date")
         short-timestamp (.substring ^String timestamp 0 8)
-        string-to-sign (string-to-sign timestamp method uri query short-timestamp region service
+        string-to-sign (string-to-sign timestamp method uri query payload short-timestamp region service
                                            canonical-headers)
         signature (signature secret-key short-timestamp region service string-to-sign)]
     (str
@@ -96,14 +96,16 @@
        (clojure.string/join "/")
        (#(if (clojure.string/blank? %) "/" %))))
 
-(defn aws4-auth-canonical-request [method uri query canonical-headers]
+(defn aws4-auth-canonical-request [method uri query payload canonical-headers]
   (str
    method \newline
    (encode-uri uri) \newline
    (query->string query) \newline
    (stringify-headers canonical-headers)   \newline
    (str/join ";" (keys canonical-headers)) \newline
-   (get canonical-headers "x-amz-content-sha256" EMPTY_SHA256)))
+   (or (get canonical-headers "x-amz-content-sha256")
+       (sha-256 (to-utf8 payload))
+       EMPTY_SHA256)))
 
 (defn aws4-auth-canonical-headers [headers]
   (into (sorted-map)
