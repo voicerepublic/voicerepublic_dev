@@ -107,7 +107,7 @@
           (is
            (= output-string
               (sut/aws4-auth-canonical-request method uri query payload (sut/aws4-auth-canonical-headers headers))))
-          (str "Returns valid canonical request for " name)))))
+          (str "Returns valid canonical request for " name))))
 
   (doseq [name test-cases]
     (testing (str "creating string-to-sign for " name)
@@ -123,11 +123,13 @@
   (doseq [name test-cases]
     (testing (str "creating signature for " name)
       (let [input-string (resource-string name "req")
-            output-string (resource-string name "authz")
+            output-string (parse-signature (resource-string name "authz"))
             {:keys [method uri headers query payload]} (parse-request input-string)
             canonical-headers (sut/aws4-auth-canonical-headers headers)
             string-to-sign (sut/string-to-sign timestamp method uri query payload
                                                short-timestamp region service canonical-headers)]
+
+           (prn (parse-request input-string))
         (is
          (= output-string
             (sut/signature secret-key short-timestamp region service string-to-sign))))))
@@ -137,6 +139,8 @@
       (let [input-string (resource-string name "req")
             {:keys [method uri headers query payload]} (parse-request input-string)
             output-string (resource-string name "authz")]
+
+           (prn (parse-request input-string))
         (is
          (= output-string
-            (sut/aws4-authorisation method uri query headers payload region service access-key-id secret-key)))))))
+            (sut/aws4-authorisation method uri query headers payload region service access-key-id secret-key))))))))

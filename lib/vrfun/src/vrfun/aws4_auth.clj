@@ -50,8 +50,8 @@
    "AWS4-HMAC-SHA256\n"
    timestamp "\n"
    short-timestamp "/" region "/" service "/aws4_request" "\n"
-   (sha-256 (to-utf8 (aws4-auth-canonical-request method uri query
-                                                  canonical-headers payload)))))
+   (sha-256 (to-utf8 (aws4-auth-canonical-request method uri query payload
+                                                  canonical-headers)))))
 (defn signing-key
   [secret-key short-timestamp region service]
   (-> (hmac-256 (to-utf8 (str "AWS4" secret-key)) short-timestamp)
