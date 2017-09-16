@@ -65,6 +65,13 @@
       (hmac-256 string-to-sign)
       (as-hex-str)))
 
+(defn query->string 
+  [query]
+  (->> query
+      (sort (fn [[k1 v1] [k2 v2]] (compare v1 v2)))
+      (#(map (fn [pair] (clojure.string/join "=" pair)) %))
+      (clojure.string/join "&")))
+
 (defn aws4-authorisation [method uri query headers region service access-key-id secret-key]
   (let [canonical-headers (aws4-auth-canonical-headers headers)
         timestamp (get canonical-headers "x-amz-date")
@@ -92,7 +99,7 @@
   (str
    method \newline
    (encode-uri uri) \newline
-   (if (clojure.string/blank? query) "" (str query \newline))  \newline
+   (query->string query) \newline
    (stringify-headers canonical-headers)   \newline
    (str/join ";" (keys canonical-headers)) \newline
    (get canonical-headers "x-amz-content-sha256" EMPTY_SHA256)))

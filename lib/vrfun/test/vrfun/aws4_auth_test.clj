@@ -28,6 +28,12 @@
   [path]
   (s/join "" (rest (or (re-find #"\?\S+" path) ""))))
 
+(defn query->pair
+  [query]
+  (->> (s/split query #"&")
+       (map #(s/split % #"="))
+       (into [])))
+
 (defn parse-request
   "returns parsed request from .req file strings"
   [req]
@@ -35,7 +41,7 @@
         [method path] (s/split (first line-wise) #" ")]
     (merge {:method method
             :uri (extract-uri path)
-            :query (extract-query path)}
+            :query (query->pair (extract-query path))}
            (assoc {} :headers (reduce to-header {} (rest line-wise))))))
 
 (defn parse-signature
@@ -89,7 +95,6 @@
         (let [input-string (resource-string name "req")
               output-string (resource-string name "creq")
               {:keys [method uri headers query]} (parse-request input-string)]
-          (prn (parse-request input-string))
           (is
            (= output-string
               (sut/aws4-auth-canonical-request method uri query (sut/aws4-auth-canonical-headers headers))))
