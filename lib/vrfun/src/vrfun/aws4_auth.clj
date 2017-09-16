@@ -69,6 +69,7 @@
   [query]
   (->> query
       (sort (fn [[k1 v1] [k2 v2]] (compare v1 v2)))
+      (map #(map codec/url-encode %))
       (#(map (fn [pair] (clojure.string/join "=" pair)) %))
       (clojure.string/join "&")))
 
