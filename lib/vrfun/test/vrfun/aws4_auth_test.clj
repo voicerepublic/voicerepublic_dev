@@ -18,7 +18,9 @@
   (if (re-matches #"\S*=\S*" next)
     acc
     (let [[key val] (s/split next #":")]
-      (update acc key append-header (s/replace (or val "") #"\s+" " ")))))
+      (if (nil? val)
+      (update acc (last (keys acc)) append-header (s/replace (or key "") #"\s+" ""))
+      (update acc key append-header (s/replace (or val "") #"\s+" " "))))))
 
 (defn to-payload
   [acc next]
@@ -115,7 +117,6 @@
                         output-string (resource-string name "sts")
                         {:keys [method uri headers query payload]} (parse-request input-string)
                         canonical-headers (sut/aws4-auth-canonical-headers headers)]
-                    (prn (parse-request input-string))
                     (is
                      (= output-string
                         (sut/string-to-sign timestamp method uri query payload short-timestamp
@@ -128,8 +129,6 @@
             canonical-headers (sut/aws4-auth-canonical-headers headers)
             string-to-sign (sut/string-to-sign timestamp method uri query payload
                                                short-timestamp region service canonical-headers)]
-
-           (prn (parse-request input-string))
         (is
          (= output-string
             (sut/signature secret-key short-timestamp region service string-to-sign))))))
@@ -139,8 +138,6 @@
       (let [input-string (resource-string name "req")
             {:keys [method uri headers query payload]} (parse-request input-string)
             output-string (resource-string name "authz")]
-
-           (prn (parse-request input-string))
         (is
          (= output-string
             (sut/aws4-authorisation method uri query headers payload region service access-key-id secret-key))))))))
