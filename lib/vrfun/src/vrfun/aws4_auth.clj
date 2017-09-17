@@ -70,8 +70,8 @@
   (->> query
       (sort (fn [[k1 v1] [k2 v2]] (compare v1 v2)))
       (map #(map codec/url-encode %))
-      (#(map (fn [pair] (clojure.string/join "=" pair)) %))
-      (clojure.string/join "&")))
+      (#(map (fn [pair] (str/join "=" pair)) %))
+      (str/join "&")))
 
 (defn aws4-authorisation [method uri query headers payload region service access-key-id secret-key]
   (let [canonical-headers (aws4-auth-canonical-headers headers)
@@ -89,17 +89,65 @@
 
 (declare stringify-headers)
 
+(defn change-directory
+  [segments]
+  (let [change-amount (get (frequencies segments) ".." 0)]
+    (if (> change-amount 0)
+      (change-directory (drop-last (rest segments)))
+      segments)))
+
+(defn both
+  [f1 f2]
+  #(and (f1 %) (f2 %)))
+
+(defn not-blank?
+  [str]
+  (and (not (= "" str))
+       (not (nil? str))))
+
+(defn not-dot?
+  [str]
+  (not= str "."))
+
+(defn remove-spaces
+  [str]
+  (str/replace str #" " ""))
+
+(defn resolve-path
+  [path]
+  (->> (str/split path #"/")
+      (filter (both not-blank? not-dot?))
+      (change-directory)
+      (str/join "/")
+      (str "/")))
+
 (defn encode-uri
   [uri]
-  (->> (clojure.string/split uri #"/")
+  (->> (str/split uri #"/")
        (map codec/url-encode)
-       (clojure.string/join "/")
-       (#(if (clojure.string/blank? %) "/" %))))
+       (str/join "/")
+       (#(if (str/blank? %) "/" %))))
+
+(defn append-slash
+  [uri raw]
+  (str uri (and (re-matches #".*/$" raw) "/")))
+
+(defn replace-double-slash
+  [uri]
+  (str/replace uri #"//" "/"))
+
+(defn normalize-uri
+  [uri]
+  (-> uri
+      (resolve-path)
+      (encode-uri)
+      (append-slash uri)
+      (replace-double-slash)))
 
 (defn aws4-auth-canonical-request [method uri query payload canonical-headers]
   (str
    method \newline
-   (encode-uri uri) \newline
+   (normalize-uri uri) \newline
    (query->string query) \newline
    (stringify-headers canonical-headers)   \newline
    (str/join ";" (keys canonical-headers)) \newline
