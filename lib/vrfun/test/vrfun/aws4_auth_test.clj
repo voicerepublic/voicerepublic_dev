@@ -15,7 +15,7 @@
 (defn to-header
   "returns header map entry from string"
   [acc next]
-  (if (re-matches #"\S*=\S*" next)
+  (if (and (re-matches #"\S*=\S*" next) (not (re-matches #"\S+==" next)))
     acc
     (let [[key val] (s/split next #":")]
       (if (nil? val)
@@ -24,7 +24,7 @@
 
 (defn to-payload
   [acc next]
-  (if (re-matches #"\S*=\S*" next)
+  (if (and (re-matches #"\S*=\S*" next) (not (re-matches #"\S+==" next)))
     next
     acc))
 
@@ -76,7 +76,7 @@
 (def secret-key "wJalrXUtnFEMI/K7MDENG+bPxRfiCYEXAMPLEKEY")
 (def access-key-id "AKIDEXAMPLE")
 
-(def test-cases '("get-header-key-duplicate"
+(def test-requests '("get-header-key-duplicate"
                   "get-header-value-multiline"
                   "get-header-value-order"
                   "get-header-value-trim"
@@ -93,6 +93,8 @@
                   "post-header-key-case"
                   "post-header-key-sort"
                   "post-header-value-case"
+                  "post-sts-header-before"
+                  "post-sts-header-after"
                   "post-vanilla"
                   "post-vanilla-empty-query-value"
                   "post-vanilla-query"
@@ -101,17 +103,16 @@
 
 (deftest signature-tests
   (testing "AWS V4 signature:"
-    (doseq [name test-cases]
+    (doseq [name test-requests]
       (testing (str "creating canonical request for " name)
         (let [input-string (resource-string name "req")
               output-string (resource-string name "creq")
               {:keys [method uri headers query payload]} (parse-request input-string)]
           (is
            (= output-string
-              (sut/aws4-auth-canonical-request method uri query payload (sut/aws4-auth-canonical-headers headers))))
+              (sut/aws4-auth-canonical-request method uri query payload (sut/aws4-auth-canonical-headers headers)))
           (str "Returns valid canonical request for " name))))
 
-  (doseq [name test-cases]
     (testing (str "creating string-to-sign for " name)
                   (let [input-string (resource-string name "req")
                         output-string (resource-string name "sts")
@@ -120,8 +121,7 @@
                     (is
                      (= output-string
                         (sut/string-to-sign timestamp method uri query payload short-timestamp
-                                            region service canonical-headers))))))
-  (doseq [name test-cases]
+                                            region service canonical-headers)))))
     (testing (str "creating signature for " name)
       (let [input-string (resource-string name "req")
             output-string (parse-signature (resource-string name "authz"))
@@ -131,9 +131,8 @@
                                                short-timestamp region service canonical-headers)]
         (is
          (= output-string
-            (sut/signature secret-key short-timestamp region service string-to-sign))))))
+            (sut/signature secret-key short-timestamp region service string-to-sign)))))
 
-  (doseq [name test-cases]
     (testing (str "creating authorization header for " name)
       (let [input-string (resource-string name "req")
             {:keys [method uri headers query payload]} (parse-request input-string)
