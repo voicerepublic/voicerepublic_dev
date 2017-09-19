@@ -30,7 +30,7 @@
 
   :resource-paths ["public"]
 
-  :cljsbuild {:builds {:app {:source-paths ["src" "checkouts/s3-beam/src"] ;; app -> dev
+  :cljsbuild {:builds {:app {:source-paths ["src"] ;; app -> dev
                              :figwheel {:on-jsload vrng.core/fig-reload
                                         :websocket-host :server-hostname
                                         }
