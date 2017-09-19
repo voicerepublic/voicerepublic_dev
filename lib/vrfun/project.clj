@@ -8,7 +8,6 @@
                  [duct/module.logging "0.3.0"]
                  [duct/module.web "0.6.0"]
                  [duct/module.ataraxy "0.2.0"]
-                 [org.martinklepsch/s3-beam "0.6.0-alpha3"]
                  [io.netty/netty-all "4.0.27.Final"]]
   :plugins [[duct/lein-duct "0.10.0"]]
   :main ^:skip-aot vrfun.main

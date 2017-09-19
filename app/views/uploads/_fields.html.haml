@@ -28,9 +28,9 @@
 %h3.form-title= t('.choose_date_and_time')
 .date-time-picker-row.row.pickers
   .medium-6.columns
-    = f.input :starts_at_date, opts.merge(input_html: {'data-picker' => 'date'})
+    = f.input :starts_at_date, opts.merge(input_html: {'data-picker' => 'date'}, :required => true)
   .medium-6.columns
-    = f.input :starts_at_time, opts.merge(input_html: {'data-picker' => 'time'})
+    = f.input :starts_at_time, opts.merge(input_html: {'data-picker' => 'time'}, :required => true)
   .medium-12.columns.hint
     = t('.upload_timings')
 %hr
