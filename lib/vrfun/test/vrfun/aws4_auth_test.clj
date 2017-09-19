@@ -119,7 +119,7 @@
           (is
            (= output-string
               (sut/aws4-auth-canonical-request method uri query payload (sut/aws4-auth-canonical-headers headers)))
-           (str "Returns valid canonical request for " name))))
+           (str "returns valid canonical request for " name))))
 
       (testing (str "creating string-to-sign for " name)
         (let [input-string (resource-string name "req")
@@ -129,7 +129,8 @@
           (is
            (= output-string
               (sut/string-to-sign timestamp method uri query payload short-timestamp
-                                  region service canonical-headers)))))
+                                  region service canonical-headers))
+           (str "returns valid string-to-sign for " name))))
       (testing (str "creating signature for " name)
         (let [input-string (resource-string name "req")
               output-string (parse-signature (resource-string name "authz"))
@@ -139,7 +140,8 @@
                                                  short-timestamp region service canonical-headers)]
           (is
            (= output-string
-              (sut/signature secret-key short-timestamp region service string-to-sign)))))
+              (sut/signature secret-key short-timestamp region service string-to-sign))
+           (str "returns valid signature for " name))))
 
       (testing (str "creating authorization header for " name)
         (let [input-string (resource-string name "req")
@@ -147,4 +149,5 @@
               output-string (resource-string name "authz")]
           (is
            (= output-string
-              (sut/aws4-authorisation method uri query headers payload region service access-key-id secret-key))))))))
+              (sut/aws4-authorisation method uri query headers payload region service access-key-id secret-key))
+           (str "returns valid authorization header for " name)))))))

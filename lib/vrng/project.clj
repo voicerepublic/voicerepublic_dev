@@ -17,8 +17,6 @@
                  [cljs-ajax "0.7.2"]
                  [cljsjs/moment "2.10.6-4"]
                  [cljsjs/selectize "0.12.1-1"]
-                 [org.martinklepsch/s3-beam "0.6.0-alpha4"]
-
                  [reanimated "0.5.0"]]
 
   :plugins [[lein-cljsbuild "1.1.1"]]
