@@ -8,7 +8,8 @@
                  [duct/module.logging "0.3.0"]
                  [duct/module.web "0.6.0"]
                  [duct/module.ataraxy "0.2.0"]
-                 [io.netty/netty-all "4.0.27.Final"]]
+                 [io.netty/netty-all "4.0.27.Final"]
+                 [clj-aws-sign "0.1.1"]]
   :plugins [[duct/lein-duct "0.10.0"]]
   :main ^:skip-aot vrfun.main
   :resource-paths ["resources" "target/resources"]
