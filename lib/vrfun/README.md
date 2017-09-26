@@ -1,6 +1,6 @@
 # vrfun
 
-FIXME: description
+This is a container project for microservices built on top of duct.
 
 ## Developing
 
@@ -34,11 +34,11 @@ Run `go` to prep and initiate the system.
 
 ```clojure
 dev=> (go)
-:duct.server.http.jetty/starting-server {:port 3000}
+:duct.server.http.jetty/starting-server {:port 3002}
 :initiated
 ```
 
-By default this creates a web server at <http://localhost:3000>.
+By default this creates a web server at <http://localhost:3002> since the other ports are used by the rails applications.
 
 When you make changes to your source files, use `reset` to reload any
 modified files and reset the server.
@@ -65,6 +65,22 @@ But you can also run tests through Leiningen.
 lein test
 ```
 
+### Production
+
+In order to build the production image run following script:
+
+```sh
+./build.sh
+```
+
+This will create the `jerben/vrfun` image.
+
+By editing `docker-compose.yml` you can easily configure port mapping or set envirnoment variables. Finally start up the services:
+
+```sh
+docker-compose up
+```
+
 ## Legal
 
-Copyright © 2017 FIXME
+Copyright © 2017 Voicerepublic
