@@ -2,7 +2,7 @@
   (:require [ataraxy.core :as ataraxy]
             [ataraxy.response :as response]
             [integrant.core :as ig]
-            [vrfun.aws4.auth :refer [authorize zone->host]])
+            [clj-aws-sign.core :refer [authorize zone->host]])
   (:import [java.text DateFormat SimpleDateFormat]
            [java.util UUID Date TimeZone]))
 
