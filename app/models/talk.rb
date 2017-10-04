@@ -182,7 +182,7 @@ class Talk < ActiveRecord::Base
     default Rails.root.join('app/assets/images/defaults/talk-image.jpg')
   end
 
-  scope :by_ended_at, -> { postlive.where("ended_at is not null").reorder(:ended_at) }
+  scope :by_ended_at, -> { postlive.where("ended_at is not null").reorder('ended_at DESC') }
   scope :no_penalty, -> { where(penalty: 1) }
   scope :nodryrun, -> { where(dryrun: false) }
   scope :publicly_live, -> { nodryrun.live }

@@ -14,7 +14,7 @@ describe Talk do
   describe 'scope by_ended_at' do
     it 'lists talks ordered by ended_at' do
       venue = FactoryGirl.create :venue
-      unexpected = FactoryGirl.create :talk, :postlive, venue: venue, ended_at: 2.minutes.ago
+      FactoryGirl.create :talk, :postlive, venue: venue, ended_at: 2.minutes.ago
       expected = FactoryGirl.create :talk, :postlive, venue: venue, ended_at: 1.minute.ago
 
       expect(venue.talks.by_ended_at.first).to eq(expected)
