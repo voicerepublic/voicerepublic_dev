@@ -16,7 +16,7 @@ describe Talk do
       venue = FactoryGirl.create :venue
       talks = FactoryGirl.create_list :talk, 2, :postlive, venue: venue
 
-      expect(venue.talks.by_ended_at.first.ended_at).to eq(talks.map(&:ended_at).max)
+      expect(venue.talks.by_ended_at.first.ended_at).to eq(talks.map(&:ended_at).min)
     end
   end
 
