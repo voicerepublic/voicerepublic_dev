@@ -3,7 +3,7 @@ FROM jrottenberg/ffmpeg
 MAINTAINER Josef Erben "josef@voicerepublic.com"
 
 RUN apt-get install wget -y && \
-    wget -O /home/image.png https://www.seeklogo.net/wp-content/uploads/2016/06/Facebook-Live-logo.png
+    wget -O /home/image.png https://voicerepublic.com/images/vr-fb-live.png
 
 CMD         ["--help"]
 ENTRYPOINT  ["ffmpeg"]
