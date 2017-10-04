@@ -58,7 +58,7 @@ docker run \
        --name=ffmpeg \
        --net=host \
        --restart=unless-stopped \
-       jerben/ffmpeg -stats -loop 1 -i /home/image.png -i http://localhost/.aac -acodec aac -ar 44100 -b:a 128k -s 835x288 -bufsize 6000k -vb 400k -maxrate 1500k -deinterlace -vcodec libx264 -preset fast -g 30 -r 30 -f flv '<%= facebook_live_url %>'
+       jerben/ffmpeg -stats -loop 1 -i /home/image.png -i http://localhost/live.aac -acodec aac -ar 44100 -b:a 128k -s 835x288 -bufsize 6000k -vb 400k -maxrate 1500k -deinterlace -vcodec libx264 -preset fast -g 30 -r 30 -f flv '<%= facebook_live_url %>'
 <% end %>
 
 # production
