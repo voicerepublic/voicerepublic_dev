@@ -22,12 +22,15 @@ RUN apt-get -qq -y update && \
 RUN (cd icecast2-2.4.2; dpkg-buildpackage -b)
 RUN dpkg -i icecast2_2.4.2-1~bpo8+1_amd64.deb
 
-RUN apt-get -qq -y install liquidsoap\
+RUN apt-get -qq -y install liquidsoap \
   liquidsoap-plugin-mad \
   liquidsoap-plugin-lame \
   liquidsoap-plugin-vorbis \
   liquidsoap-plugin-icecast \
   liquidsoap-plugin-faad
+
+RUN apt-get -qq -y install python-pip && \
+    pip install awscli
 
 RUN apt-get clean
 
@@ -46,7 +49,9 @@ ADD ./*.wav /
 ADD redirect.html /usr/share/icecast2/web/
 ADD loop.mp3 /usr/share/icecast2/web/
 
-RUN chown -R icecast2 /etc/icecast2
+RUN chown -R icecast2: /etc/icecast2
+RUN mkdir -p /home/icecast2
+RUN chown -R icecast2: /home/icecast2
 
 USER icecast2
 

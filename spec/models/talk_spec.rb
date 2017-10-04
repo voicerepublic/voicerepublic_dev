@@ -210,109 +210,109 @@ describe Talk do
     expect(url).to match(/^http.*\.mp3$/)
   end
 
-  # TODO resolve code duplication in this section
-  describe 'nicely processes audio' do
-
-    it 'in state postlive', slow: true do
-      skip 'omit in CI' if ENV['CI']
-      VCR.use_cassette 'postprocess_talk_dummy' do
-        talk = FactoryGirl.create(:talk)
-
-        # move fixtures in place
-        fixbase = File.expand_path("../../support/fixtures/talk_a", __FILE__)
-        fixglob = "#{fixbase}/*.flv"
-        fixflvs = Dir.glob(fixglob)
-        target = File.expand_path(Settings.rtmp.recordings_path, Rails.root)
-        flvs = fixflvs.map { |f| f.sub(fixbase, target).sub("t1-", "t#{talk.id}-") }
-        fixflvs.each_with_index { |fixflv, idx| FileUtils.cp(fixflv, flvs[idx]) }
-
-        # prepare talk
-        t_base = flvs.map { |f| f.match(/-(\d+)\./)[1].to_i }
-        talk.update_attribute :started_at, Time.at(t_base.min).to_datetime
-        talk.update_attribute :ended_at, Time.at(t_base.max + 1).to_datetime
-        talk.update_current_state :postlive, true
-
-        # run
-        talk.send :postprocess!
-
-        # assert
-        base = File.expand_path(Settings.fog.storage.local_root, Rails.root)
-        bucket = Settings.storage.media.split('@').first
-        result = File.join(base, bucket, talk.uri, talk.id.to_s + '.m4a')
-        expect(File.exist?(result)).to be_truthy
-      end
-    end
-
-    it 'in state archived', slow: true do
-      skip 'omit in CI' if ENV['CI']
-      VCR.use_cassette 'reprocess_talk_dummy' do
-        talk = FactoryGirl.create(:talk)
-
-        # move fixtures in place
-        fixbase = File.expand_path("../../support/fixtures/talk_a", __FILE__)
-        fixglob = "#{fixbase}/*.flv"
-        fixflvs = Dir.glob(fixglob)
-        target = File.expand_path(Settings.rtmp.recordings_path, Rails.root)
-        flvs = fixflvs.map { |f| f.sub(fixbase, target).sub("t1-", "t#{talk.id}-") }
-        fixflvs.each_with_index { |fixflv, idx| FileUtils.cp(fixflv, flvs[idx]) }
-
-        # prepare talk
-        t_base = flvs.map { |f| f.match(/-(\d+)\./)[1].to_i }
-        talk.update_attribute :started_at, Time.at(t_base.min).to_datetime
-        talk.update_attribute :ended_at, Time.at(t_base.max + 1).to_datetime
-        talk.update_current_state :postlive, true
-        talk.send :postprocess!
-        base = File.expand_path(Settings.fog.storage.local_root, Rails.root)
-        bucket = Settings.storage.media.split('@').first
-        result = File.join(base, bucket, talk.uri, talk.id.to_s + '.m4a')
-        ctime = File.ctime(result)
-
-        # no we are in state `archived`, so we can do a `reprocess`
-        talk.send :reprocess!
-
-        # assert
-        expect(File.ctime(result)).not_to eq(ctime)
-      end
-    end
-
-    it 'in state archived with override', slow: true do
-      skip 'omit in CI' if ENV['CI']
-      VCR.use_cassette 'process_override_talk_dummy' do
-        talk = FactoryGirl.create(:talk)
-
-        # move fixtures in place
-        fixbase = File.expand_path("../../support/fixtures/talk_a", __FILE__)
-        fixglob = "#{fixbase}/*.flv"
-        fixflvs = Dir.glob(fixglob)
-        target = File.expand_path(Settings.rtmp.recordings_path, Rails.root)
-        flvs = fixflvs.map { |f| f.sub(fixbase, target).sub("t1-", "t#{talk.id}-") }
-        fixflvs.each_with_index { |fixflv, idx| FileUtils.cp(fixflv, flvs[idx]) }
-
-        # prepare talk
-        t_base = flvs.map { |f| f.match(/-(\d+)\./)[1].to_i }
-        talk.update_attribute :started_at, Time.at(t_base.min).to_datetime
-        talk.update_attribute :ended_at, Time.at(t_base.max + 1).to_datetime
-        talk.update_current_state :postlive, true
-        talk.send :postprocess!
-        base = File.expand_path(Settings.fog.storage.local_root, Rails.root)
-        bucket = Settings.storage.media.split('@').first
-        result = File.join(base, bucket, talk.uri, talk.id.to_s + '.m4a')
-        ctime = File.ctime(result)
-        # all of these should work, but for speed we only resort to the local file
-        override = 'https://staging.voicerepublic.com/sonar.ogg'
-        override = 'https://www.dropbox.com/s/z5sur3qt65xybav/testfoo.wav'
-        override = File.expand_path('spec/support/fixtures/sonar.ogg', Rails.root)
-        talk.update_attribute :recording_override, override
-
-        # no we are in state `archived`, so we can do a `process_override`
-        talk.send :process_override!
-
-        # assert
-        expect(File.ctime(result)).not_to eq(ctime)
-        expect(talk.recording_override).not_to eq(override)
-      end
-    end
-  end
+  # # TODO resolve code duplication in this section
+  # describe 'nicely processes audio' do
+  #
+  #   it 'in state postlive', slow: true do
+  #     skip 'omit in CI' if ENV['CI']
+  #     VCR.use_cassette 'postprocess_talk_dummy' do
+  #       talk = FactoryGirl.create(:talk)
+  #
+  #       # move fixtures in place
+  #       fixbase = File.expand_path("../../support/fixtures/talk_a", __FILE__)
+  #       fixglob = "#{fixbase}/*.flv"
+  #       fixflvs = Dir.glob(fixglob)
+  #       target = File.expand_path(Settings.rtmp.recordings_path, Rails.root)
+  #       flvs = fixflvs.map { |f| f.sub(fixbase, target).sub("t1-", "t#{talk.id}-") }
+  #       fixflvs.each_with_index { |fixflv, idx| FileUtils.cp(fixflv, flvs[idx]) }
+  #
+  #       # prepare talk
+  #       t_base = flvs.map { |f| f.match(/-(\d+)\./)[1].to_i }
+  #       talk.update_attribute :started_at, Time.at(t_base.min).to_datetime
+  #       talk.update_attribute :ended_at, Time.at(t_base.max + 1).to_datetime
+  #       talk.update_current_state :postlive, true
+  #
+  #       # run
+  #       talk.send :postprocess!
+  #
+  #       # assert
+  #       base = File.expand_path(Settings.fog.storage.local_root, Rails.root)
+  #       bucket = Settings.storage.media.split('@').first
+  #       result = File.join(base, bucket, talk.uri, talk.id.to_s + '.m4a')
+  #       expect(File.exist?(result)).to be_truthy
+  #     end
+  #   end
+  #
+  #   it 'in state archived', slow: true do
+  #     skip 'omit in CI' if ENV['CI']
+  #     VCR.use_cassette 'reprocess_talk_dummy' do
+  #       talk = FactoryGirl.create(:talk)
+  #
+  #       # move fixtures in place
+  #       fixbase = File.expand_path("../../support/fixtures/talk_a", __FILE__)
+  #       fixglob = "#{fixbase}/*.flv"
+  #       fixflvs = Dir.glob(fixglob)
+  #       target = File.expand_path(Settings.rtmp.recordings_path, Rails.root)
+  #       flvs = fixflvs.map { |f| f.sub(fixbase, target).sub("t1-", "t#{talk.id}-") }
+  #       fixflvs.each_with_index { |fixflv, idx| FileUtils.cp(fixflv, flvs[idx]) }
+  #
+  #       # prepare talk
+  #       t_base = flvs.map { |f| f.match(/-(\d+)\./)[1].to_i }
+  #       talk.update_attribute :started_at, Time.at(t_base.min).to_datetime
+  #       talk.update_attribute :ended_at, Time.at(t_base.max + 1).to_datetime
+  #       talk.update_current_state :postlive, true
+  #       talk.send :postprocess!
+  #       base = File.expand_path(Settings.fog.storage.local_root, Rails.root)
+  #       bucket = Settings.storage.media.split('@').first
+  #       result = File.join(base, bucket, talk.uri, talk.id.to_s + '.m4a')
+  #       ctime = File.ctime(result)
+  #
+  #       # no we are in state `archived`, so we can do a `reprocess`
+  #       talk.send :reprocess!
+  #
+  #       # assert
+  #       expect(File.ctime(result)).not_to eq(ctime)
+  #     end
+  #   end
+  #
+  #   it 'in state archived with override', slow: true do
+  #     skip 'omit in CI' if ENV['CI']
+  #     VCR.use_cassette 'process_override_talk_dummy' do
+  #       talk = FactoryGirl.create(:talk)
+  #
+  #       # move fixtures in place
+  #       fixbase = File.expand_path("../../support/fixtures/talk_a", __FILE__)
+  #       fixglob = "#{fixbase}/*.flv"
+  #       fixflvs = Dir.glob(fixglob)
+  #       target = File.expand_path(Settings.rtmp.recordings_path, Rails.root)
+  #       flvs = fixflvs.map { |f| f.sub(fixbase, target).sub("t1-", "t#{talk.id}-") }
+  #       fixflvs.each_with_index { |fixflv, idx| FileUtils.cp(fixflv, flvs[idx]) }
+  #
+  #       # prepare talk
+  #       t_base = flvs.map { |f| f.match(/-(\d+)\./)[1].to_i }
+  #       talk.update_attribute :started_at, Time.at(t_base.min).to_datetime
+  #       talk.update_attribute :ended_at, Time.at(t_base.max + 1).to_datetime
+  #       talk.update_current_state :postlive, true
+  #       talk.send :postprocess!
+  #       base = File.expand_path(Settings.fog.storage.local_root, Rails.root)
+  #       bucket = Settings.storage.media.split('@').first
+  #       result = File.join(base, bucket, talk.uri, talk.id.to_s + '.m4a')
+  #       ctime = File.ctime(result)
+  #       # all of these should work, but for speed we only resort to the local file
+  #       override = 'https://staging.voicerepublic.com/sonar.ogg'
+  #       override = 'https://www.dropbox.com/s/z5sur3qt65xybav/testfoo.wav'
+  #       override = File.expand_path('spec/support/fixtures/sonar.ogg', Rails.root)
+  #       talk.update_attribute :recording_override, override
+  #
+  #       # no we are in state `archived`, so we can do a `process_override`
+  #       talk.send :process_override!
+  #
+  #       # assert
+  #       expect(File.ctime(result)).not_to eq(ctime)
+  #       expect(talk.recording_override).not_to eq(override)
+  #     end
+  #   end
+  # end
 
   describe 'nicely handles callbacks' do
 

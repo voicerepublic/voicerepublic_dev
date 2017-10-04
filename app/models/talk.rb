@@ -86,7 +86,8 @@ class Talk < ActiveRecord::Base
       transitions from: :processing, to: :suspended
     end
     event :archive, timestamp: :processed_at do
-      transitions from: :processing, to: :archived
+      transitions from: :processing, to: :archived,
+                  on_transition: :after_processing
       # or by user upload
       transitions from: :pending, to: :archived
       # in rare case we might to override a talk
@@ -96,6 +97,9 @@ class Talk < ActiveRecord::Base
       transitions from: :prelive, to: :archived
       # or which failed while processing and got suspended
       transitions from: :suspended, to: :archived
+    end
+    event :reset do
+      transitions from: :processing, to: :queued
     end
   end
 
@@ -107,6 +111,7 @@ class Talk < ActiveRecord::Base
   has_many :messages, dependent: :destroy
   has_many :social_shares, as: :shareable
   has_many :reminders, as: :rememberable, dependent: :destroy
+  has_many :jobs, as: :context
 
   has_one :featured_talk, class_name: "Talk", foreign_key: :related_talk_id
   belongs_to :related_talk, class_name: "Talk", foreign_key: :related_talk_id
@@ -171,6 +176,7 @@ class Talk < ActiveRecord::Base
   serialize :session # TODO remove
   serialize :storage
   serialize :social_links
+  # serialize :peaks # it's json
 
   dragonfly_accessor :image do
     default Rails.root.join('app/assets/images/defaults/talk-image.jpg')
@@ -424,6 +430,7 @@ class Talk < ActiveRecord::Base
         image_alt: image_alt,
         duration: duration,
         slides_url: slides_url(false),
+        peaks: peaks,
 
         # extended
         scheduled_duration: duration * 60,
@@ -457,12 +464,47 @@ class Talk < ActiveRecord::Base
     end
   end
 
+  def archive_job_details
+    rbucket, rregion = venue.recordings_bucket.split('@')
+    abucket, aregion = Settings.storage.media.split('@')
+    {
+      recording: {
+        bucket: rbucket,
+        region: rregion,
+        prefix: venue.slug
+      },
+      archive: {
+        bucket: abucket,
+        region: aregion,
+        prefix: uri
+      }
+    }
+  end
+
   def schedule_archiving!
-    Delayed::Job.enqueue(ArchiveJob.new(id: id), queue: 'audio')
+    # OLDSCHOOL
+    # Delayed::Job.enqueue(ArchiveJob.new(id: id), queue: 'audio')
+    # NEWSCHOOL
+    return if Rails.env.test?
+
+    prepare_manifest_file!
+    Job::Archive.create(context: self,
+                        details: archive_job_details)
+    # TODO maybe check if it is nescessary to spawn one
+    Instance::AudioWorker.create.launch!
   end
 
   def relevant_files
     venue.relevant_files(started_at, ended_at)
+  end
+
+  def prepare_manifest_file!
+    chain = venue.opts.archive_chain || Settings.audio.archive_chain
+    chain = chain.split(/\s+/)
+    # write to a controlled dir, otherwise it could be overwritten
+    path = write_manifest_file!(chain)
+    upload_file("#{uri}/manifest.yml", path)
+    FileUtils.rm(path)
   end
 
   def archive_from_dump!
@@ -515,17 +557,17 @@ class Talk < ActiveRecord::Base
       puts '  %s / %s / %s' % [file.first, time, offset]
     end
 
-    bucket0, region0 = Settings.storage.media.split('@')
-    prefix0 = uri
     bucket1, region1 = venue.recordings_bucket.split('@')
     prefix1 = venue.slug
+    bucket0, region0 = Settings.storage.media.split('@')
+    prefix0 = uri
     chain = Settings.audio.archive_chain.split(/\s+/)
     puts
     puts "Sync Venue"
-    puts "  aws s3 sync --region #{region0} s3://#{bucket0}/#{prefix0} #{prefix0}"
+    puts "  aws s3 sync --region #{region1} s3://#{bucket1}/#{prefix1} #{prefix1}"
     puts
     puts "Sync Talk"
-    puts "  aws s3 sync --region #{region1} s3://#{bucket1}/#{prefix1} #{prefix1}"
+    puts "  aws s3 sync --region #{region0} s3://#{bucket0}/#{prefix0} #{prefix0}"
     puts
     puts "MANIFEST"
     puts
@@ -574,6 +616,7 @@ class Talk < ActiveRecord::Base
     # Fog will use MIME::Types to determine the content type
     # and MIME::Types is a horrible, horrible beast.
     ctype = Mime::Type.lookup_by_extension(ext)
+    #puts "[DBG] Bucket: #{Settings.storage.media}"
     #puts "[DBG] Uploading %s to %s..." % [file, key]
     media_storage.files.create key: key, body: handle, content_type: ctype
     #puts "[DBG] Uploading %s to %s complete." % [file, key]
@@ -634,6 +677,10 @@ class Talk < ActiveRecord::Base
   end
 
   def after_end
+    # if the talk is ended and the venue is not connected we can
+    # process right away
+    enqueue! unless venue.connected?
+
     # to make the dump file of icecast appear on s3, we need to disconnect
     venue.require_disconnect! if venue.connected?
 
@@ -789,6 +836,7 @@ class Talk < ActiveRecord::Base
       jingle_out: locate(venue.opts.jingle_out || Settings.paths.jingles.out)
     }
     data[:cut_conf] = edit_config.last['cutConfig'] unless edit_config.blank?
+    data[:relevant_files] = relevant_files
     data
   end
 
@@ -951,6 +999,27 @@ class Talk < ActiveRecord::Base
 
   def schedule_user_override?
     user_override_uuid_changed? and !user_override_uuid.to_s.empty?
+  end
+
+  def after_processing
+    # pull metadata from storage
+    key = "#{uri}/index.yml"
+    metadata = fetch(key)
+    self.storage = YAML.load(metadata) unless metadata.nil?
+    # pull waveform from storage
+    key = "#{uri}/#{id}.wav.json"
+    self.peaks = fetch(key)
+  end
+
+  def fetch(key, target=nil)
+    file = media_storage.files.get(key)
+    return nil if file.nil?
+    if target.nil?
+      file.body
+    else
+      File.open(target, 'wb') { |f| f.write(file.body) }
+      target
+    end
   end
 
 end

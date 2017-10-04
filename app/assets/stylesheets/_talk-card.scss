@@ -59,7 +59,7 @@
     }
     &:last-child {
         //@extend .end;
-   
+
     }
     .talk-card-inside {
         background: $ghost;
@@ -115,7 +115,7 @@
             // .play-count {
             //   //@extend .float-right;
             // }
-       
+
         }
         .date {
             margin: 0;
@@ -128,7 +128,7 @@
             strong {
                 font-weight: 500;
                 // color: rgba($talk-dark, 0.8);
-           
+
             }
         }
         .image-box-holder {
@@ -277,7 +277,7 @@
             }
             .talk-count {
                 //@extend .float-left;
-           
+
             }
             .meta {
                 margin-bottom: 0;
@@ -431,9 +431,6 @@ $lines-to-show: 2;
             border-color: $vr-red;
             color: white;
         }
-    }
-    .pin-placeholder {
-        border: none;
     }
 }
 

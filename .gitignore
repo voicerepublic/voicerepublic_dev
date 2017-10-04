@@ -64,6 +64,10 @@ Thumbs.db
 /bower_components/
 /vendor/assets/bower_components/
 /dragonfly.log
-/userdata.sh
 /.vagrant/
 /.byebug_history
+
+/userdata.sh
+/userdata_audio_worker.sh
+/userdata_icebox.sh
+/userdata_jumphost.sh

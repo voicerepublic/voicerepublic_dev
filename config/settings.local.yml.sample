@@ -1,15 +1,21 @@
 default_pins: []
 
+endpoint:
+  jobs: http://192.168.178.59:3000/prapi/jobs
+  instances: http://192.168.178.59:3000/prapi/instances
+  runner: http://192.168.178.59:3000/runner.rb
+
 # required by microservices
 bunny:
   enabled: true
+
 slack:
   channel: '@phil'
   token: VtybT1KujQ6EKstsIEjfZ4AX
 
 icecast:
   # url the docker container uses for callbacks
-  callback_url: http://192.168.178.21:3000/icebox
+  callback_url: http://192.168.178.59:3000/icebox
   #callback_url: http://192.168.0.19:3000/icebox
 
   # this overrides the public ip address that is reported for the
@@ -19,12 +25,12 @@ icecast:
   # your local ip or even 'localhost' are good options here
   #
   url:
-    host: 192.168.178.21
+    host: 192.168.178.59
     port: 80
 
 # faye.ru reads its configuration from here!
 faye:
   # server: http://localhost:9292/faye
-  server: http://192.168.178.21:9292/faye
+  server: http://192.168.178.59:9292/faye
   #server: http://192.168.0.19:9292/faye
   secret_token: 7650981269q2871928631823791287e

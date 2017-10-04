@@ -52,5 +52,5 @@
       - else
         -# display a fake pin button
         .pinboard
-          = link_to talk do
-            .pin-placeholder
+          = link_to new_user_session_path, class: 'button pin-placeholder' do
+            = naked_icon('pin')

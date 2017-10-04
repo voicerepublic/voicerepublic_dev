@@ -183,14 +183,22 @@ class Device < ActiveRecord::Base
     end
   end
 
+  def bucket
+    Settings.storage.backup_recordings
+  end
+
+  def start_jumphost
+    self.jumphost_private_key,
+    self.jumphost_public_key = SshKeypair.generate
+    save!
+
+    JumphostInstance.create(device: self).launch!
+  end
+
   private
 
   def files
     Storage.get(bucket, prefix).files.sort_by(&:key).reverse
-  end
-
-  def bucket
-    Settings.storage.backup_recordings
   end
 
   def prefix

@@ -20,7 +20,6 @@ gem 'uglifier'#, '>= 1.0.3'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'bunny'                        # rmq client
-gem 'bumpy_bridge', '~> 0.0.4'
 gem 'faker'                        # mock data
 gem 'rack-affiliates'
 gem 'config'                       # THE rails settings solution

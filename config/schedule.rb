@@ -65,3 +65,7 @@ end
 every 24.hours, at: '2:00 am', roles: [:app] do
   bin 'backup_database'
 end
+
+every 24.hours, at: '3:03 am', roles: [:app] do
+  runner 'DeviceReport.disaggregate_missing!'
+end
