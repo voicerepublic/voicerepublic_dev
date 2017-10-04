@@ -2,7 +2,7 @@ FROM jrottenberg/ffmpeg
 
 MAINTAINER Josef Erben "josef@voicerepublic.com"
 
-RUN apt-get install wget -y && \
+RUN apt-get update && apt-get install wget -y && \
     wget -O /home/image.png https://voicerepublic.com/images/vr-fb-live.png
 
 CMD         ["--help"]
