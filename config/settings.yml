@@ -19,7 +19,7 @@ instance:
     image: ami-7ad87415
   icebox:
     security_group: Icecast Servers
-    image: ami-ed13b182
+    image: ami-fb09bb94
 
 # this file reflects standard settings for development
 # overrides for production can be found in
