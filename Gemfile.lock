@@ -118,12 +118,6 @@ GEM
       debug_inspector (>= 0.0.1)
     browser (1.1.0)
     builder (3.2.2)
-    bumpy_bridge (0.0.4)
-      bunny
-      daemons
-      faye
-      faye-authentication
-      trickery
     bunny (2.2.2)
       amq-protocol (>= 2.0.1)
     byebug (8.2.2)
@@ -641,7 +635,6 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   browser
-  bumpy_bridge (~> 0.0.4)
   bunny
   byebug
   cancan

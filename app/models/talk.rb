@@ -677,6 +677,10 @@ class Talk < ActiveRecord::Base
   end
 
   def after_end
+    # if the talk is ended and the venue is not connected we can
+    # process right away
+    enqueue! unless venue.connected?
+
     # to make the dump file of icecast appear on s3, we need to disconnect
     venue.require_disconnect! if venue.connected?
 

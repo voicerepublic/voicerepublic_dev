@@ -144,7 +144,6 @@ Run App
 * `rackup -E production faye.ru -o 0.0.0.0`
 * `lib/flux_capacitor.rb run`
 * `rake jobs:work`
-* `DEBUG=1 bumpy_bridge run -- config/bumpy_bridge.yml`
 * `cd lib/vrng && rlwrap lein figwheel`
 * `docker start rabbitmq`
 

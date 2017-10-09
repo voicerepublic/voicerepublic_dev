@@ -647,7 +647,14 @@ button,
 }
 
 .timeline {
+<<<<<<< HEAD
     height: 12px;
+=======
+    height: 70px;
+    background: rgba($jet, 0.4);
+    align-self: center;
+    flex: 1 1 auto;
+>>>>>>> integration
     background: rgba($jet, 0.4);
     align-self: center;
     flex: 1 1 auto;
@@ -656,12 +663,17 @@ button,
 }
 
 .track-playing {
+<<<<<<< HEAD
+=======
+    height: 66px;
+>>>>>>> integration
     width: 0%;
     border-radius: 2px;
     mix-blend-mode: darken;
 }
 
 .track-buffered {
+    height: 66px;
     width: 18%;
     position: absolute;
     z-index: -1;
@@ -1352,7 +1364,7 @@ ul.share-links {
 .uploader-container {
     // background: $vr-beige;
     // border: 2px solid $vr-purple;
-    height: 220px;
+    height: 110px;
 }
 
 .slides .progress .meter {
