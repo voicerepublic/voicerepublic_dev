@@ -27,7 +27,7 @@ gem 'foundation-rails', '6.2.0.1'
 gem 'jquery-rails'
 gem 'devise', '~> 3.4.0'           # authentication/iam lib for rails
 gem 'simple_token_authentication', github: 'branch14/simple_token_authentication'
-gem 'omniauth-facebook'
+gem 'omniauth-facebook', '4.0.0'
 gem 'omniauth-google-oauth2'
 gem 'friendly_id'                  # make urls more friendly
 gem 'will_paginate'                # pagination-extension to active-record
