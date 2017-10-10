@@ -6,7 +6,7 @@ class CdnWatcher
   include Services::Publisher
 
   DELAY = 60 # every minute
-  CDN_RESOURCES = ['http://ccloud.webtype.com/css/fa41b746-9201-4f1c-ab4a-a330eb0afb96.css']
+  CDN_RESOURCES = ['http://cloud.webtype.com/css/fa41b746-9201-4f1c-ab4a-a330eb0afb96.css']
   OK = 200
 
   def run

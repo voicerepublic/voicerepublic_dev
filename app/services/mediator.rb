@@ -54,9 +54,9 @@ class Mediator
 
   def cdn_status(*args)
     args.shift['cdn_status'].each do |cdn|
-      text = 'CDN resource %s failed with error code %s' %
+      text = 'CDN: Failed to fetch resource %s error code %s' %
                                  [cdn['resource'], cdn['status']]
-      publish x: 'notification', channel: 'voicerepulic_dev', text: text
+      publish x: 'notification', channel: 'voicerepublic_dev', text: text
     end
   end
 
