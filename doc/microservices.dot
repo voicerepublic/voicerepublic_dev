@@ -18,6 +18,8 @@ digraph G {
   ]
   
   Ec2Metrics
+
+  CdnWatcher
     
   SiteObserver
     
@@ -36,9 +38,11 @@ digraph G {
   node [
     shape = "oval"
   ]
-  
+
+  cdn_status
+
   cloud_metrics
-  
+
   observe_site
   
   sites_observed
@@ -90,6 +94,8 @@ digraph G {
   ]
   
   Ec2Metrics -> cloud_metrics
+
+  CdnWatcher -> notification 
   
   observe_site -> SiteObserver
   
