@@ -95,7 +95,7 @@ digraph G {
   
   Ec2Metrics -> cloud_metrics
 
-  CdnWatcher -> notification 
+  CdnWatcher -> cdn_status 
   
   observe_site -> SiteObserver
   

@@ -13,7 +13,7 @@ class CdnWatcher
     loop do
       cdn_results = CDN_RESOURCES
                       .map { |res| {resource: res,
-                                               status: Faraday.new(:url => res).get('/').status}}
+                                    status: Faraday.new(:url => res).get('/').status}}
                       .select { |cdn| cdn[:status] != OK }
       puts cdn_results
                                                 
