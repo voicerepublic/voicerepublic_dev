@@ -48,8 +48,17 @@ class Mediator
   subscribe x: 'talk_transition'
   subscribe x: 'lifecycle_user'
   subscribe x: 'lifecycle_message'
-
+  subscribe x: 'cdn_status'
   subscribe x: 'transaction_transition'
+
+
+  def cdn_status(*args)
+    args.shift['cdn_status'].each do |cdn|
+      text = 'CDN resource %s failed with error code %s' %
+                                 [cdn['resource'], cdn['status']]
+      publish x: 'notification', channel: 'voicerepulic_dev', text: text
+    end
+  end
 
   def talk_transition(*args)
     body = args.shift
