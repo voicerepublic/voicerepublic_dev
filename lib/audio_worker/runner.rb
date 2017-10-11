@@ -210,6 +210,20 @@ def report_failure
   faraday.put(instance_url, instance: { event: 'failed' })
 end
 
+def slack(message)
+  url = "https://voicerepublic.slack.com/services/hooks/incoming-webhook"+
+        "?token=VtybT1KujQ6EKstsIEjfZ4AX"
+  payload = {
+    channel: '#voicerepublic_tech',
+    username: 'audio_worker',
+    text: message,
+    icon_emoji: ':zombie:'
+  }
+  json = JSON.unparse(payload)
+  cmd = "curl -X POST --data-urlencode 'payload=#{json}' '#{url}' 2>&1"
+  %x[ #{cmd} ]
+end
+
 job_count = 0
 wait_count = 0
 
@@ -220,12 +234,15 @@ begin
     jobs = job_list
     if jobs.empty?
       puts "Job list empty."
-      if job_count > 0 or wait_count >= MAX_WAIT_COUNT
+      if job_count > 0
         terminate
-      else
-        wait
-        wait_count += 1
       end
+      if wait_count >= MAX_WAIT_COUNT
+        slack "#{INSTANCE} terminating after 6 hours idle time."
+        terminate
+      end
+      wait
+      wait_count += 1
     else
       job = jobs.first
       if claim(job)
@@ -237,7 +254,9 @@ begin
       end
     end
   end
-rescue
+rescue => e
   report_failure
+  slack "Something went wrong: #{e.message}"
+  slack "#{INSTANCE} not terminating. Action required!"
   exit 1
 end
