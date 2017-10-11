@@ -13,7 +13,8 @@ INSTANCE_ENDPOINT = ENV['INSTANCE_ENDPOINT']
 QUEUE_ENDPOINT = ENV['QUEUE_ENDPOINT']
 INSTANCE = ENV['INSTANCE']
 
-job_count = 0
+# terminate if there is nothing to do for 6 hours
+MAX_WAIT_COUNT = 60 * 6
 
 def faraday
   @faraday ||= Faraday.new(url: QUEUE_ENDPOINT) do |f|
@@ -209,6 +210,9 @@ def report_failure
   faraday.put(instance_url, instance: { event: 'failed' })
 end
 
+job_count = 0
+wait_count = 0
+
 # main
 begin
   report_ready
@@ -216,10 +220,11 @@ begin
     jobs = job_list
     if jobs.empty?
       puts "Job list empty."
-      if job_count > 0
+      if job_count > 0 or wait_count >= MAX_WAIT_COUNT
         terminate
       else
         wait
+        wait_count += 1
       end
     else
       job = jobs.first
