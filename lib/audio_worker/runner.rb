@@ -227,6 +227,9 @@ end
 job_count = 0
 wait_count = 0
 
+# this is just a test
+slack "#{INSTANCE} up and running..."
+
 # main
 begin
   report_ready
