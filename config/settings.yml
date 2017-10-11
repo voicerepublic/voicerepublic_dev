@@ -98,6 +98,8 @@ storage:
   upload_slides:     vr-slide-uploads-dev@us-east-1
   backup_recordings: vr-euc1-dev-backup-recordings@eu-central-1
   recordings:        vr-euc1-dev-recordings@eu-central-1
+stream_stats:
+  log_path: log/stream_stat.log
 paths:
   log: local/log
   jingles:
