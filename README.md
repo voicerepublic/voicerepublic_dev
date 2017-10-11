@@ -670,6 +670,7 @@ Repo Mapping (Github -> Gitlab)
 | fidelity.git                 | fidelity.git                  |
 | pdf-viewer.git               | pdf-viewer.git                |
 | voicerepublic_backoffice.git | backoffice.git                |
+| voicerepublic_mobile.git     | mobile.git                    |
 | voicerepublic_dev.git        | (still on github)             |
 ```
 
