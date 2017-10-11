@@ -47,3 +47,12 @@ will run the docker container as root.)
 Done.
 
 Pull an AMI, add reference to AMI to `settings.yml`, deploy, test.
+
+## Cheat Sheet
+
+```
+sudo -i
+cat /var/lib/cloud/instance/user-data.txt
+ls /tmp/run.sh.*
+ls -la /var/log/cloud-init*
+```

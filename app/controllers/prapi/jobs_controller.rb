@@ -15,10 +15,16 @@ class Prapi::JobsController < ApplicationController
     job.assign_attributes(job_params)
     event = job.event
     event = :save unless Job.available_events.include?(event.to_sym)
-    job.send("#{event}!")
-    head :ok
+    if job.send("can_#{event}?")
+      job.send("#{event}!")
+      head :ok
+    else
+      logger.error "Failed to claim #{job.id}, already claimed."
+      head :conflict
+    end
   rescue => e
     logger.error "Error updating Job #{job.id}: #{e.message}"
+    job.failed!
     head :conflict
   end
 
