@@ -251,6 +251,7 @@ begin
       if claim(job)
         run(job)
         job_count += 1
+        wait_count = 0
       else
         puts "Failed to claim job #{job['id']}"
         sleep 5
