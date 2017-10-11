@@ -32,7 +32,7 @@ module IcecastStatsParser
       stats[:listener_peak] += (source['listener_peak'] || 0)
     end
 
-    stats
+    return stats.values.join(",")
   end
 
   # for debugging

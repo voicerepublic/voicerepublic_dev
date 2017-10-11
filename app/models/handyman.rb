@@ -16,6 +16,14 @@ class Handyman
 
   class Tasks
 
+    def move_stream_stats_from_db_to_log
+      log '-> Moving stream stats to log file...'
+      logger = Logger.new(Rails.root.join(Settings.stream_stats.log_path))
+      StreamStat.all.each do |stream_stat|
+        logger.info { stream_stat.attributes.values.join(",") }
+      end
+    end
+
     def fix_too_short_slugs
       log '-> Check for users with too short slug...'
       query = User.where('LENGTH(slug) < 5')
