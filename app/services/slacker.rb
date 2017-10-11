@@ -20,7 +20,7 @@ class Slacker
     return if message['text'].nil? # nothing to say
 
     defaults = {
-      'channel' => config.slack.channel,
+      'channel' => message['channel'] || config.slack.channel,
       'username' => config.slack.username || 'Simon',
       'icon_emoji' => config.slack.icon_emoji || ':squirrel:'
     }
