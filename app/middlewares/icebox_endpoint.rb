@@ -7,6 +7,7 @@ class IceboxEndpoint < Struct.new(:app, :opts)
   COMPUTER_SAYS_NO = [740, {}, ['740 - Computer says no']]
 
   def call(env)
+    logger = Logger.new(Rails.root.join(Settings.stream_stats.log_path))
     path = env['PATH_INFO']
 
     return app.call(env) unless env['REQUEST_METHOD'] == 'POST'
@@ -44,7 +45,7 @@ class IceboxEndpoint < Struct.new(:app, :opts)
 
     when :stats
       stats = IcecastStatsParser.call(json)
-      StreamStat.create(stats.merge(venue_id: venue.id))
+      logger.info { stats }
       Faye.publish_to venue.channel, event: 'stats', stats: stats
       Faye.publish_to '/admin/stats', stats: stats, slug: venue.slug
       return OK
