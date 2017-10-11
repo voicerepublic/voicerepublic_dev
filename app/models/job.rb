@@ -23,7 +23,7 @@ class Job < ActiveRecord::Base
       transitions from: :running, to: :completed
     end
     event :failed do
-      transitions from: :running, to: :suspended
+      transitions from: [:pending, :running], to: :suspended
     end
     event :reset do
       transitions from: [:running, :suspended],
