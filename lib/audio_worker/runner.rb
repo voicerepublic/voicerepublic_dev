@@ -13,7 +13,8 @@ INSTANCE_ENDPOINT = ENV['INSTANCE_ENDPOINT']
 QUEUE_ENDPOINT = ENV['QUEUE_ENDPOINT']
 INSTANCE = ENV['INSTANCE']
 
-job_count = 0
+# terminate if there is nothing to do for 6 hours
+MAX_WAIT_COUNT = 60 * 6
 
 def faraday
   @faraday ||= Faraday.new(url: QUEUE_ENDPOINT) do |f|
@@ -209,6 +210,26 @@ def report_failure
   faraday.put(instance_url, instance: { event: 'failed' })
 end
 
+def slack(message)
+  url = "https://voicerepublic.slack.com/services/hooks/incoming-webhook"+
+        "?token=VtybT1KujQ6EKstsIEjfZ4AX"
+  payload = {
+    channel: '#voicerepublic_tech',
+    username: 'audio_worker',
+    text: message,
+    icon_emoji: ':zombie:'
+  }
+  json = JSON.unparse(payload)
+  cmd = "curl -X POST --data-urlencode 'payload=#{json}' '#{url}' 2>&1"
+  %x[ #{cmd} ]
+end
+
+job_count = 0
+wait_count = 0
+
+# this is just a test
+slack "#{INSTANCE} up and running..."
+
 # main
 begin
   report_ready
@@ -218,21 +239,28 @@ begin
       puts "Job list empty."
       if job_count > 0
         terminate
-      else
-        wait
       end
+      if wait_count >= MAX_WAIT_COUNT
+        slack "#{INSTANCE} terminating after 6 hours idle time."
+        terminate
+      end
+      wait
+      wait_count += 1
     else
       job = jobs.first
       if claim(job)
         run(job)
         job_count += 1
+        wait_count = 0
       else
         puts "Failed to claim job #{job['id']}"
         sleep 5
       end
     end
   end
-rescue
+rescue => e
   report_failure
+  slack "Something went wrong: #{e.message}"
+  slack "#{INSTANCE} not terminating. Action required!"
   exit 1
 end
