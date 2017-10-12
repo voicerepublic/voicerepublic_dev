@@ -19,4 +19,15 @@
 #
 class StreamStat < ActiveRecord::Base
   belongs_to :venue
+
+  def values
+    [
+      venue_id,
+      bitrate,
+      listener_count,
+      listener_peak,
+      created_at
+    ]
+  end
+
 end

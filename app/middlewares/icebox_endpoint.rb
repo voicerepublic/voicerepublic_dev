@@ -45,7 +45,9 @@ class IceboxEndpoint < Struct.new(:app, :opts)
 
     when :stats
       stats = IcecastStatsParser.call(json)
-      logger.info { stats }
+      # this produces the same order as StreamStat#values
+      values = [venue.id] + stats.to_a.sort_by(&:first).map(&:last)
+      logger.info(values.join(','))
       Faye.publish_to venue.channel, event: 'stats', stats: stats
       Faye.publish_to '/admin/stats', stats: stats, slug: venue.slug
       return OK

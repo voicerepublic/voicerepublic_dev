@@ -19,8 +19,13 @@ class Handyman
     def move_stream_stats_from_db_to_log
       log '-> Moving stream stats to log file...'
       logger = Logger.new(Rails.root.join(Settings.stream_stats.log_path))
+      total = StreamStat.count
+      counter = 0
       StreamStat.find_each do |stream_stat|
-        logger.info { stream_stat.attributes.values.join(",") }
+        logger.info(stream_stat.values.join(','))
+        stream_stat.destroy!
+        log '%s/%s StreamStat dumped to log & destroyed.' % [counter, total]
+        counter += 1
       end
     end
 
