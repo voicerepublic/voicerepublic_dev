@@ -331,3 +331,25 @@ TODO
 ### Setup localeapp
 
 ### Deploy 2nd app (backoffice) to same host or share db
+
+
+2017-10-12 Moved Postregs to Home
+=================================
+
+```
+mkdir -p /home/postgres/9.1/main
+chown -R postgres: /home/postgres/
+rsync -av /var/lib/postgresql/9.1/main/ /home/postgres/9.1/main
+
+sed -i.bak 's|/var/lib/postgresql/9.1/main|/home/postgres/9.1/main|' /etc/postgresql/9.1/main/postgresql.conf
+
+diff /etc/postgresql/9.1/main/postgresql.conf /etc/postgresql/9.1/main/postgresql.conf.bak
+
+# stop all services (unicorn, backoffice, djs)
+
+/etc/init.d/postgresql stop
+rsync -av /var/lib/postgresql/9.1/main/ /home/postgres/9.1/main
+/etc/init.d/postgresql start
+
+# start all services
+```
