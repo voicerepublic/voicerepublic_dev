@@ -7,7 +7,7 @@ cd $DIR
 if [ -d fidleity ]; then
     (cd fidleity && git pull)
 else
-    git clone git@github.com:munen/fidelity.git
+    git clone git@gitlab.com:voicerepublic/fidelity.git
 fi
 
 docker build -t branch14/audio_worker .

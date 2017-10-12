@@ -50,6 +50,17 @@ if [ "$(docker ps -q -f name=icecast)" ]; then
     docker rm icecast
 fi
 
+<% if facebook_live_url %>
+docker stop ffmpeg
+docker rm ffmpeg
+docker run \
+       -d \
+       --name=ffmpeg \
+       --net=host \
+       --restart=unless-stopped \
+       jerben/ffmpeg -stats -loop 1 -i /home/image.png -i http://localhost/live.aac -acodec aac -ar 44100 -b:a 128k -s 835x288 -bufsize 6000k -vb 400k -maxrate 1500k -deinterlace -vcodec libx264 -preset fast -g 30 -r 30 -f flv '<%= facebook_live_url %>'
+<% end %>
+
 # production
 docker run \
        --detach=true \
@@ -71,7 +82,6 @@ docker run \
 #        --publish=<%= port %>:8080 \
 #        --volume=$STORAGE/$PREFIX:/share \
 #        branch14/icecast2
-
 
 # callback to slack -- for debugging only
 # CLIENT_TOKEN=<%= client_token %>
