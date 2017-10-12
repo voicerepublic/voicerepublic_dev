@@ -144,7 +144,7 @@ Rails.application.routes.draw do
   end
 
   # redirect really old embeds
-  get '/embed_talk', redirect(->(params, req) { "/embed/talks#{params[:id]}" })
+  get '/embed_talk', to: redirect(->(params, req) { "/embed/talks#{params[:id]}" })
 
   get "root/index"
   root :to => "root#index"
