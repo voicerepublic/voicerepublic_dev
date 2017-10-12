@@ -21,11 +21,15 @@ class Handyman
       logger = Logger.new(Rails.root.join(Settings.stream_stats.log_path))
       total = StreamStat.count
       counter = 0
+      start = Time.now
       StreamStat.find_each do |stream_stat|
         logger.info(stream_stat.values.join(','))
         stream_stat.destroy!
-        log '%s/%s StreamStat dumped to log & destroyed.' % [counter, total]
         counter += 1
+        delta = Time.now - start
+        estimate = (total * delta) / counter
+        log '%s/%s StreamStat dumped to log & destroyed. (%d / %d)' %
+            [counter, total, delta, estimate]
       end
     end
 
