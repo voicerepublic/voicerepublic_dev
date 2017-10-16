@@ -464,7 +464,7 @@ class Talk < ActiveRecord::Base
     end
   end
 
-  def archive_job_details
+  def job_details
     rbucket, rregion = venue.recordings_bucket.split('@')
     abucket, aregion = Settings.storage.media.split('@')
     {
@@ -487,9 +487,11 @@ class Talk < ActiveRecord::Base
     # NEWSCHOOL
     return if Rails.env.test?
 
-    prepare_manifest_file!
+    chain = venue.opts.archive_chain || Settings.audio.archive_chain
+    prepare_manifest_file! chain
+
     Job::Archive.create(context: self,
-                        details: archive_job_details)
+                        details: job_details)
     # TODO maybe check if it is nescessary to spawn one
     Instance::AudioWorker.create.launch!
   end
@@ -498,8 +500,7 @@ class Talk < ActiveRecord::Base
     venue.relevant_files(started_at, ended_at)
   end
 
-  def prepare_manifest_file!
-    chain = venue.opts.archive_chain || Settings.audio.archive_chain
+  def prepare_manifest_file!(chain)
     chain = chain.split(/\s+/)
     # write to a controlled dir, otherwise it could be overwritten
     path = write_manifest_file!(chain)
@@ -994,7 +995,15 @@ class Talk < ActiveRecord::Base
   end
 
   def schedule_user_override
-    Delayed::Job.enqueue(UserOverride.new(id: id), queue: 'audio')
+    # Delayed::Job.enqueue(UserOverride.new(id: id), queue: 'audio')
+
+    chain = venue.opts.override_chain || Settings.audio.override_chain
+    prepare_manifest_file! chain
+
+    details = job_details.merge(upload_url: recording_override)
+    Job::ProcessUpload.create(context: self,
+                              details: details)
+    Instance::AudioWorker.create.launch!
   end
 
   def schedule_user_override?
