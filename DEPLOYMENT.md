@@ -386,6 +386,23 @@ rm /etc/munin/plugins/du_home_app_app_shared_recordings
 rm /etc/munin/plugins/rtmp
 
 ln -s /home/app/app/current/bin/munin/du_ /etc/munin/plugins/du_tmp
+ln -s /home/app/app/current/bin/munin/du_ /etc/munin/plugins/du_home_postgres
 
 /etc/init.d/munin-node restart
+```
+
+2017-10-18 Cronjob to remove imagemagick leftovers from /tmp
+============================================================
+
+```
+$ chmod a+x bin/cleanup-imagemagick-turds.sh
+$ cat bin/cleanup-imagemagick-turds.sh
+#!/bin/sh
+
+find /tmp -name magick-\*.pam -mmin +60 -delete
+```
+
+```
+$ crontab -l
+0 * * * * /root/bin/cleanup-imagemagick-turds.sh
 ```
