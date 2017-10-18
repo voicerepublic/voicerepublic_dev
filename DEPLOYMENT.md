@@ -376,3 +376,25 @@ rsync -av /var/lib/postgresql/9.1/main/ /home/postgres/9.1/main
 
 # start all services
 ```
+
+2017-10-18 Cronjob to store Rails logs on S3 
+=================================
+
+```
+cat /home/app/bin/sync-logs-to-s3.sh
+#!/bin/bash
+
+aws s3 sync /home/app/app/shared/log/ s3://vr-euc1-live-misc/home/app/app/shared/log/ && \
+  rm /home/app/app/shared/log/*.gz
+
+crontab -l
+5 3 * * * /home/app/bin/sync-logs-to-s3.sh
+
+cat .aws/credentials
+[default]
+aws_secret_access_key = 3ODDCm1Q0n0AT9IFWhFEq7zjZ4hle+rxTzD15uFU
+aws_access_key_id = AKIAIGKSA6ESEFZV4DQA
+region = eu-central-1
+s3 =
+    signature_version = s3v4
+```
