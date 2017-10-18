@@ -376,3 +376,16 @@ rsync -av /var/lib/postgresql/9.1/main/ /home/postgres/9.1/main
 
 # start all services
 ```
+
+2017-10-18 Change Munin Configuration
+=====================================
+
+```
+rm /etc/munin/plugins/port_1935
+rm /etc/munin/plugins/du_home_app_app_shared_recordings
+rm /etc/munin/plugins/rtmp
+
+ln -s /home/app/app/current/bin/munin/du_ /etc/munin/plugins/du_tmp
+
+/etc/init.d/munin-node restart
+```
