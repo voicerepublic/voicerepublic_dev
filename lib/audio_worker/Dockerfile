@@ -16,7 +16,7 @@ RUN apt-get -qq -y install curl python-pip && pip install awscli
 # directories
 ADD ./fidelity /fidelity
 
-# fidelity
+# fidelity (ffmpeg & vorbis-tools already come with fidelity)
 RUN cd fidelity && ./install_dependencies.sh
 
 # files

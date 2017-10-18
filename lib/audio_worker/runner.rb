@@ -116,6 +116,16 @@ def metadata(file)
   result
 end
 
+def whatever2ogg(path)
+  wav = "#{path}.wav"
+  ogg = "#{path}.ogg"
+
+  %x[ ffmpeg -n -loglevel panic -i #{path} #{wav}; \
+      oggenc -Q -o #{ogg} #{wav}]
+
+  [wav, ogg]
+end
+
 def run(job)
   puts "Running job #{job['id']}..."
 
@@ -138,16 +148,48 @@ def run(job)
   puts "Source bucket:     #{source_bucket}"
   puts "Target bucket:     #{target_bucket}"
 
-  # pull manifest file
-  manifest_url = "#{target_bucket}/manifest.yml"
-  s3_cp(manifest_url, path)
+  case job['type']
 
-  # based on content pull source files
-  manifest_path = File.join(path, 'manifest.yml')
-  manifest = YAML.load(File.read(manifest_path))
-  manifest[:relevant_files].each do |file|
-    s3_url = "#{source_bucket}/#{file.first}"
-    s3_cp(s3_url, path)
+  when "Job::Archive"
+
+    # pull manifest file
+    manifest_url = "#{target_bucket}/manifest.yml"
+    s3_cp(manifest_url, path)
+
+    # based on content pull source files
+    manifest_path = File.join(path, 'manifest.yml')
+    manifest = YAML.load(File.read(manifest_path))
+    manifest[:relevant_files].each do |file|
+      s3_url = "#{source_bucket}/#{file.first}"
+      s3_cp(s3_url, path)
+    end
+
+  when "Job::ProcessUpload"
+
+    url = job['upload_url']
+    filename = url.split('/').last
+
+    if url.match(/^s3:\/\//)
+      s3_cp(url, path)
+    else
+      %x[ cd #{path}; wget --no-check-certificate -q '#{url}' ]
+    end
+
+    upload = File.join(path, filename)
+
+    wav, ogg = whatever2ogg(upload)
+    File.unlink(upload)
+    File.rename(ogg, "#{path}/override.ogg")
+
+    # TODO the oldschool way of uploading stuff would have set
+    # `recording_override` to the s3 url of the ogg file
+
+    manifest_path = File.join(path, 'manifest.yml')
+    manifest = YAML.load(File.read(manifest_path))
+    name = manifest[:id]
+
+    File.rename(wav, "#{path}/#{name}.wav")
+
   end
 
   # bulk work
