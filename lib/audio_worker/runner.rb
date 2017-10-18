@@ -302,7 +302,14 @@ begin
   end
 rescue => e
   report_failure
-  slack "Something went wrong: #{e.message}"
-  slack "#{INSTANCE} not terminating. Action required!"
-  exit 1
+  case e.message
+  when "no inputs?"
+    slack "Something went wrong: #{e.message}"
+    slack "#{INSTANCE} terminated."
+    exit 0
+  else
+    slack "Something went wrong: #{e.message}"
+    slack "#{INSTANCE} NOT terminating. Action required!"
+    exit 1
+  end
 end
