@@ -34,7 +34,13 @@ end
 def job_list
   puts "Retrieving job list..."
   response = faraday.get
-  die(response) unless response.status == 200
+  while response.status != 200 do
+    puts "Response Status #{response.status}, endpoint unavailable?"
+    puts "Waiting for 10 seconds then retry..."
+    sleep 10
+    puts "Retrying..."
+    response = faraday.get
+  end
   JSON.parse(response.body)
 end
 
@@ -66,6 +72,7 @@ end
 
 # find the first mp3 in path, convert it to wav and return its name
 def prepare_wave(path)
+  puts "Preparing wave file..."
   wav = nil
   Dir.chdir(path) do
     mp3 = Dir.glob('*.mp3').first
@@ -85,12 +92,18 @@ def complete(job)
   end
 end
 
-def s3_cp(source, target)
-  puts %x[aws s3 cp #{source} #{target}]
+def s3_cp(source, target, region=nil)
+  cmd = "aws s3 cp #{source} #{target}"
+  cmd += " --region #{region}" unless region.nil?
+  puts cmd
+  puts %x[#{cmd}]
 end
 
-def s3_sync(source, target)
-  puts %x[aws s3 sync #{source} #{target}]
+def s3_sync(source, target, region=nil)
+  cmd = "aws s3 sync #{source} #{target}"
+  cmd += " --region #{region}" unless region.nil?
+  puts cmd
+  puts %x[#{cmd}]
 end
 
 def probe_duration(path)
@@ -144,9 +157,13 @@ def run(job)
                     job['details']['archive']['bucket'],
                     job['details']['archive']['prefix'] ] * '/'
 
+  source_region = job['details']['recording']['region']
+  target_region = job['details']['archive']['region']
+
   puts "Working directory: #{path}"
   puts "Source bucket:     #{source_bucket}"
   puts "Target bucket:     #{target_bucket}"
+  puts "Job Type:          #{job['type']}"
 
   case job['type']
 
@@ -154,14 +171,15 @@ def run(job)
 
     # pull manifest file
     manifest_url = "#{target_bucket}/manifest.yml"
-    s3_cp(manifest_url, path)
+    s3_cp(manifest_url, path, target_region)
 
     # based on content pull source files
     manifest_path = File.join(path, 'manifest.yml')
+    raise "No manifest file!" unless File.exist?(manifest_path)
     manifest = YAML.load(File.read(manifest_path))
     manifest[:relevant_files].each do |file|
       s3_url = "#{source_bucket}/#{file.first}"
-      s3_cp(s3_url, path)
+      s3_cp(s3_url, path, source_region)
     end
 
   when "Job::ProcessUpload"
@@ -170,7 +188,7 @@ def run(job)
     filename = url.split('/').last
 
     if url.match(/^s3:\/\//)
-      s3_cp(url, path)
+      s3_cp(url, path, source_region)
     else
       %x[ cd #{path}; wget --no-check-certificate -q '#{url}' ]
     end
@@ -218,7 +236,7 @@ def run(job)
   end
 
   # upload all files from path to target_bucket
-  s3_sync(path, target_bucket+'/')
+  s3_sync(path, target_bucket+'/', target_region)
 
   # cleanup: delete everything
   FileUtils.rm_rf(path)
@@ -270,7 +288,10 @@ job_count = 0
 wait_count = 0
 
 # this is just a test
-slack "#{INSTANCE} up and running..."
+slack "`#{INSTANCE}` up and running..."
+
+# with a region given this should always work
+%x[aws configure set default.s3.signature_version s3v4]
 
 # main
 begin
@@ -283,7 +304,7 @@ begin
         terminate
       end
       if wait_count >= MAX_WAIT_COUNT
-        slack "#{INSTANCE} terminating after 6 hours idle time."
+        slack "`#{INSTANCE}` terminating after 6 hours idle time."
         terminate
       end
       wait
@@ -304,12 +325,13 @@ rescue => e
   report_failure
   case e.message
   when "no inputs?"
-    slack "Something went wrong: #{e.message}"
-    slack "#{INSTANCE} terminated."
+    slack "Something went wrong: `#{e.message}`"
+    slack "`#{INSTANCE}` terminated."
     exit 0
   else
-    slack "Something went wrong: #{e.message}"
-    slack "#{INSTANCE} NOT terminating. Action required!"
+    slack "Something went wrong: `#{e.message}`"
+    slack "`#{INSTANCE}` on `#{public_ip_address}`" +
+          " NOT terminating. Action required!"
     exit 1
   end
 end
