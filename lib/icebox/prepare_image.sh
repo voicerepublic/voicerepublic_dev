@@ -2,7 +2,7 @@
 
 docker stop icecast
 docker rm icecast
-docker build -t branch14/icecast2 ~/icecast/.
+docker build -t branch14/icecast2 ~/icebox/.
 
 docker stop ffmpeg
 docker rm ffmpeg
