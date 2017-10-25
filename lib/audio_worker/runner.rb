@@ -160,12 +160,14 @@ def run(job)
   source_region = job['details']['recording']['region']
   target_region = job['details']['archive']['region']
 
+  type = job['type']
+
   puts "Working directory: #{path}"
   puts "Source bucket:     #{source_bucket}"
   puts "Target bucket:     #{target_bucket}"
-  puts "Job Type:          #{job['type']}"
+  puts "Job Type:          #{type}"
 
-  case job['type']
+  case type
 
   when "Job::Archive"
 
@@ -207,6 +209,11 @@ def run(job)
     name = manifest[:id]
 
     File.rename(wav, "#{path}/#{name}.wav")
+
+  else
+
+    slack "Unknown job type: #{type}, job: `#{job.inspect}`"
+    terminate
 
   end
 

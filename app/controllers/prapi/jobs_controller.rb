@@ -6,7 +6,7 @@ class Prapi::JobsController < ApplicationController
 
   # list available jobs
   def index
-    render json: available_jobs
+    render json: available_jobs.to_json(methods: :type)
   end
 
   # claim & start, finish
