@@ -89,7 +89,8 @@ class Talk < ActiveRecord::Base
       transitions from: :processing, to: :archived,
                   on_transition: :after_processing
       # or by user upload
-      transitions from: :pending, to: :archived
+      transitions from: :pending, to: :archived,
+                  on_transition: :after_processing
       # in rare case we might to override a talk
       # which has never been enqueued
       transitions from: :postlive, to: :archived

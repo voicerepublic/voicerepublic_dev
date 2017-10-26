@@ -167,13 +167,13 @@ def run(job)
   puts "Target bucket:     #{target_bucket}"
   puts "Job Type:          #{type}"
 
+  # pull manifest file
+  manifest_url = "#{target_bucket}/manifest.yml"
+  s3_cp(manifest_url, path, target_region)
+
   case type
 
   when "Job::Archive"
-
-    # pull manifest file
-    manifest_url = "#{target_bucket}/manifest.yml"
-    s3_cp(manifest_url, path, target_region)
 
     # based on content pull source files
     manifest_path = File.join(path, 'manifest.yml')
