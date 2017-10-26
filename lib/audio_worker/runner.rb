@@ -187,17 +187,27 @@ def run(job)
   when "Job::ProcessUpload"
 
     url = job['upload_url']
+    puts "Upload URL:        #{url}"
+
     filename = url.split('/').last
+    puts "Filename:          #{filename}"
 
     if url.match(/^s3:\/\//)
+      puts "Copy from S3..."
       s3_cp(url, path, source_region)
     else
-      %x[ cd #{path}; wget --no-check-certificate -q '#{url}' ]
+      cmd = "cd #{path}; wget --no-check-certificate -q '#{url}'"
+      puts cmd
+      %x[#{cmd}]
     end
 
     upload = File.join(path, filename)
+    puts "Source:            #{upload}"
 
     wav, ogg = whatever2ogg(upload)
+    puts "Wav file:          #{wav}"
+    puts "Ogg File:          #{ogg}"
+
     File.unlink(upload)
     File.rename(ogg, "#{path}/override.ogg")
 
@@ -208,11 +218,13 @@ def run(job)
     manifest = YAML.load(File.read(manifest_path))
     name = manifest[:id]
 
-    File.rename(wav, "#{path}/#{name}.wav")
+    expected = "#{path}/#{name}.wav"
+    puts "Expected wav:      #{expected}"
+    File.rename(wav, expected)
 
   else
 
-    slack "Unknown job type: #{type}, job: `#{job.inspect}`"
+    slack "Unknown job type: `#{type}`, job: `#{job.inspect}`"
     terminate
 
   end
@@ -238,14 +250,18 @@ def run(job)
   end
 
   # write index file
-  File.open(File.join(path, 'index.yml'), 'w') do |f|
+  index_yaml = File.join(path, 'index.yml')
+  puts "Writing #{index_yaml}"
+  File.open(index_yaml, 'w') do |f|
     f.write(YAML.dump(index))
   end
 
   # upload all files from path to target_bucket
+  puts "Syncing to #{target_bucket} in region #{target_region}..."
   s3_sync(path, target_bucket+'/', target_region)
 
   # cleanup: delete everything
+  puts "Cleaning up..."
   FileUtils.rm_rf(path)
 
   # mark job as completed
