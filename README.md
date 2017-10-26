@@ -659,3 +659,31 @@ need to create a symlink in `app/views/pages`
 Here we use the template `__basic.html.haml` which currently is the
 only template. Instances of sections to fill this page will be created
 after the new pages as been vistited at least once.
+
+
+Repo Mapping (Github -> Gitlab)
+-------------------------------
+
+```
+| git@github.com:munen/        | git@gitlab.com:voicerepublic/ |
+|------------------------------+-------------------------------|
+| fidelity.git                 | fidelity.git                  |
+| pdf-viewer.git               | pdf-viewer.git                |
+| voicerepublic_backoffice.git | backoffice.git                |
+| voicerepublic_mobile.git     | mobile.git                    |
+| voicerepublic_dev.git        | (still on github)             |
+```
+
+### Transition to Gitlab
+
+```
+REPO=fidelity.git
+
+git remote rm origin
+git remote add origin git@gitlab.com:voicerepublic/$REPO
+git branch --set-upstream-to=origin/master master
+git branch --set-upstream-to=origin/integration integration
+git pull
+git push
+
+```

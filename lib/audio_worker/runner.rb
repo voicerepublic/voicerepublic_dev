@@ -13,7 +13,8 @@ INSTANCE_ENDPOINT = ENV['INSTANCE_ENDPOINT']
 QUEUE_ENDPOINT = ENV['QUEUE_ENDPOINT']
 INSTANCE = ENV['INSTANCE']
 
-job_count = 0
+# terminate if there is nothing to do for 6 hours
+MAX_WAIT_COUNT = 60 * 6
 
 def faraday
   @faraday ||= Faraday.new(url: QUEUE_ENDPOINT) do |f|
@@ -33,7 +34,13 @@ end
 def job_list
   puts "Retrieving job list..."
   response = faraday.get
-  die(response) unless response.status == 200
+  while response.status != 200 do
+    puts "Response Status #{response.status}, endpoint unavailable?"
+    puts "Waiting for 10 seconds then retry..."
+    sleep 10
+    puts "Retrying..."
+    response = faraday.get
+  end
   JSON.parse(response.body)
 end
 
@@ -65,6 +72,7 @@ end
 
 # find the first mp3 in path, convert it to wav and return its name
 def prepare_wave(path)
+  puts "Preparing wave file..."
   wav = nil
   Dir.chdir(path) do
     mp3 = Dir.glob('*.mp3').first
@@ -84,12 +92,18 @@ def complete(job)
   end
 end
 
-def s3_cp(source, target)
-  puts %x[aws s3 cp #{source} #{target}]
+def s3_cp(source, target, region=nil)
+  cmd = "aws s3 cp #{source} #{target}"
+  cmd += " --region #{region}" unless region.nil?
+  puts cmd
+  puts %x[#{cmd}]
 end
 
-def s3_sync(source, target)
-  puts %x[aws s3 sync #{source} #{target}]
+def s3_sync(source, target, region=nil)
+  cmd = "aws s3 sync #{source} #{target}"
+  cmd += " --region #{region}" unless region.nil?
+  puts cmd
+  puts %x[#{cmd}]
 end
 
 def probe_duration(path)
@@ -115,6 +129,16 @@ def metadata(file)
   result
 end
 
+def whatever2ogg(path)
+  wav = "#{path}.wav"
+  ogg = "#{path}.ogg"
+
+  %x[ ffmpeg -n -loglevel panic -i #{path} #{wav}; \
+      oggenc -Q -o #{ogg} #{wav}]
+
+  [wav, ogg]
+end
+
 def run(job)
   puts "Running job #{job['id']}..."
 
@@ -133,20 +157,76 @@ def run(job)
                     job['details']['archive']['bucket'],
                     job['details']['archive']['prefix'] ] * '/'
 
+  source_region = job['details']['recording']['region']
+  target_region = job['details']['archive']['region']
+
+  type = job['type']
+
   puts "Working directory: #{path}"
   puts "Source bucket:     #{source_bucket}"
   puts "Target bucket:     #{target_bucket}"
+  puts "Job Type:          #{type}"
 
   # pull manifest file
   manifest_url = "#{target_bucket}/manifest.yml"
-  s3_cp(manifest_url, path)
+  s3_cp(manifest_url, path, target_region)
 
-  # based on content pull source files
-  manifest_path = File.join(path, 'manifest.yml')
-  manifest = YAML.load(File.read(manifest_path))
-  manifest[:relevant_files].each do |file|
-    s3_url = "#{source_bucket}/#{file.first}"
-    s3_cp(s3_url, path)
+  case type
+
+  when "Job::Archive"
+
+    # based on content pull source files
+    manifest_path = File.join(path, 'manifest.yml')
+    raise "No manifest file!" unless File.exist?(manifest_path)
+    manifest = YAML.load(File.read(manifest_path))
+    manifest[:relevant_files].each do |file|
+      s3_url = "#{source_bucket}/#{file.first}"
+      s3_cp(s3_url, path, source_region)
+    end
+
+  when "Job::ProcessUpload"
+
+    url = job['details']['upload_url']
+    puts "Upload URL:        #{url}"
+
+    filename = url.split('/').last
+    puts "Filename:          #{filename}"
+
+    if url.match(/^s3:\/\//)
+      puts "Copy from S3..."
+      s3_cp(url, path, source_region)
+    else
+      cmd = "cd #{path}; wget --no-check-certificate -q '#{url}'"
+      puts cmd
+      %x[#{cmd}]
+    end
+
+    upload = File.join(path, filename)
+    puts "Source:            #{upload}"
+
+    wav, ogg = whatever2ogg(upload)
+    puts "Wav file:          #{wav}"
+    puts "Ogg File:          #{ogg}"
+
+    File.unlink(upload)
+    File.rename(ogg, "#{path}/override.ogg")
+
+    # TODO the oldschool way of uploading stuff would have set
+    # `recording_override` to the s3 url of the ogg file
+
+    manifest_path = File.join(path, 'manifest.yml')
+    manifest = YAML.load(File.read(manifest_path))
+    name = manifest[:id]
+
+    expected = "#{path}/#{name}.wav"
+    puts "Expected wav:      #{expected}"
+    File.rename(wav, expected)
+
+  else
+
+    slack "Unknown job type: `#{type}`, job: `#{job.inspect}`"
+    terminate
+
   end
 
   # bulk work
@@ -170,14 +250,18 @@ def run(job)
   end
 
   # write index file
-  File.open(File.join(path, 'index.yml'), 'w') do |f|
+  index_yaml = File.join(path, 'index.yml')
+  puts "Writing #{index_yaml}"
+  File.open(index_yaml, 'w') do |f|
     f.write(YAML.dump(index))
   end
 
   # upload all files from path to target_bucket
-  s3_sync(path, target_bucket+'/')
+  puts "Syncing to #{target_bucket} in region #{target_region}..."
+  s3_sync(path, target_bucket+'/', target_region)
 
   # cleanup: delete everything
+  puts "Cleaning up..."
   FileUtils.rm_rf(path)
 
   # mark job as completed
@@ -209,6 +293,29 @@ def report_failure
   faraday.put(instance_url, instance: { event: 'failed' })
 end
 
+def slack(message)
+  url = "https://voicerepublic.slack.com/services/hooks/incoming-webhook"+
+        "?token=VtybT1KujQ6EKstsIEjfZ4AX"
+  payload = {
+    channel: '#voicerepublic_tech',
+    username: 'audio_worker',
+    text: message,
+    icon_emoji: ':zombie:'
+  }
+  json = JSON.unparse(payload)
+  cmd = "curl -X POST --data-urlencode 'payload=#{json}' '#{url}' 2>&1"
+  %x[ #{cmd} ]
+end
+
+job_count = 0
+wait_count = 0
+
+# this is just a test
+slack "`#{INSTANCE}` up and running..."
+
+# with a region given this should always work
+%x[aws configure set default.s3.signature_version s3v4]
+
 # main
 begin
   report_ready
@@ -218,21 +325,36 @@ begin
       puts "Job list empty."
       if job_count > 0
         terminate
-      else
-        wait
       end
+      if wait_count >= MAX_WAIT_COUNT
+        slack "`#{INSTANCE}` terminating after 6 hours idle time."
+        terminate
+      end
+      wait
+      wait_count += 1
     else
       job = jobs.first
       if claim(job)
         run(job)
         job_count += 1
+        wait_count = 0
       else
         puts "Failed to claim job #{job['id']}"
         sleep 5
       end
     end
   end
-rescue
+rescue => e
   report_failure
-  exit 1
+  case e.message
+  when "no inputs?"
+    slack "Something went wrong: `#{e.message}`"
+    slack "`#{INSTANCE}` terminated."
+    exit 0
+  else
+    slack "Something went wrong: `#{e.message}`"
+    slack "`#{INSTANCE}` on `#{public_ip_address}`" +
+          " NOT terminating. Action required!"
+    exit 1
+  end
 end

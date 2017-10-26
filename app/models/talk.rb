@@ -89,7 +89,8 @@ class Talk < ActiveRecord::Base
       transitions from: :processing, to: :archived,
                   on_transition: :after_processing
       # or by user upload
-      transitions from: :pending, to: :archived
+      transitions from: :pending, to: :archived,
+                  on_transition: :after_processing
       # in rare case we might to override a talk
       # which has never been enqueued
       transitions from: :postlive, to: :archived
@@ -464,7 +465,7 @@ class Talk < ActiveRecord::Base
     end
   end
 
-  def archive_job_details
+  def job_details
     rbucket, rregion = venue.recordings_bucket.split('@')
     abucket, aregion = Settings.storage.media.split('@')
     {
@@ -487,9 +488,11 @@ class Talk < ActiveRecord::Base
     # NEWSCHOOL
     return if Rails.env.test?
 
-    prepare_manifest_file!
+    chain = venue.opts.archive_chain || Settings.audio.archive_chain
+    prepare_manifest_file! chain
+
     Job::Archive.create(context: self,
-                        details: archive_job_details)
+                        details: job_details)
     # TODO maybe check if it is nescessary to spawn one
     Instance::AudioWorker.create.launch!
   end
@@ -498,8 +501,7 @@ class Talk < ActiveRecord::Base
     venue.relevant_files(started_at, ended_at)
   end
 
-  def prepare_manifest_file!
-    chain = venue.opts.archive_chain || Settings.audio.archive_chain
+  def prepare_manifest_file!(chain)
     chain = chain.split(/\s+/)
     # write to a controlled dir, otherwise it could be overwritten
     path = write_manifest_file!(chain)
@@ -994,7 +996,19 @@ class Talk < ActiveRecord::Base
   end
 
   def schedule_user_override
-    Delayed::Job.enqueue(UserOverride.new(id: id), queue: 'audio')
+    # Delayed::Job.enqueue(UserOverride.new(id: id), queue: 'audio')
+
+    chain = venue.opts.override_chain || Settings.audio.override_chain
+    prepare_manifest_file! chain
+
+    url = 'https://s3.amazonaws.com/%s/%s' %
+          [ Settings.storage.upload_audio.split('@').first,
+            user_override_uuid ]
+
+    details = job_details.merge(upload_url: url)
+    Job::ProcessUpload.create(context: self,
+                              details: details)
+    Instance::AudioWorker.create.launch!
   end
 
   def schedule_user_override?

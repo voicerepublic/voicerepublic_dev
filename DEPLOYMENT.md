@@ -331,3 +331,100 @@ TODO
 ### Setup localeapp
 
 ### Deploy 2nd app (backoffice) to same host or share db
+
+2017-10-10 Cronjob to store Nginx logs on S3
+============================================
+
+The S3 bucket vr-euc1-live-misc has been created with `rake fog:setup`.
+
+```
+cat bin/sync-logs-to-s3.sh
+#!/bin/bash
+
+aws s3 sync /var/log/nginx/ s3://vr-euc1-live-misc/var/log/nginx/ && \
+  rm /var/log/nginx/*.gz
+
+crontab -l
+0 3 * * * /root/bin/sync-logs-to-s3.sh
+
+cat .aws/credentials
+[default]
+aws_secret_access_key = 3ODDCm1Q0n0AT9IFWhFEq7zjZ4hle+rxTzD15uFU
+aws_access_key_id = AKIAIGKSA6ESEFZV4DQA
+region = eu-central-1
+s3 =
+    signature_version = s3v4
+```
+
+2017-10-12 Moved Postregs to Home
+=================================
+
+```
+mkdir -p /home/postgres/9.1/main
+chown -R postgres: /home/postgres/
+rsync -av /var/lib/postgresql/9.1/main/ /home/postgres/9.1/main
+
+sed -i.bak 's|/var/lib/postgresql/9.1/main|/home/postgres/9.1/main|' /etc/postgresql/9.1/main/postgresql.conf
+
+diff /etc/postgresql/9.1/main/postgresql.conf /etc/postgresql/9.1/main/postgresql.conf.bak
+
+# stop all services (unicorn, backoffice, djs)
+
+/etc/init.d/postgresql stop
+rsync -av /var/lib/postgresql/9.1/main/ /home/postgres/9.1/main
+/etc/init.d/postgresql start
+
+# start all services
+```
+
+2017-10-18 Change Munin Configuration
+=====================================
+
+```
+rm /etc/munin/plugins/port_1935
+rm /etc/munin/plugins/du_home_app_app_shared_recordings
+rm /etc/munin/plugins/rtmp
+
+ln -s /home/app/app/current/bin/munin/du_ /etc/munin/plugins/du_tmp
+ln -s /home/app/app/current/bin/munin/du_ /etc/munin/plugins/du_home_postgres
+
+/etc/init.d/munin-node restart
+```
+
+2017-10-18 Cronjob to remove imagemagick leftovers from /tmp
+============================================================
+
+```
+$ chmod a+x bin/cleanup-imagemagick-turds.sh
+$ cat bin/cleanup-imagemagick-turds.sh
+#!/bin/sh
+
+find /tmp -name magick-\*.pam -mmin +60 -delete
+```
+
+```
+$ crontab -l
+0 * * * * /root/bin/cleanup-imagemagick-turds.sh
+```
+
+2017-10-18 Cronjob to store Rails logs on S3
+============================================
+
+```
+cat /home/app/bin/sync-logs-to-s3.sh
+#!/bin/bash
+
+aws s3 sync /home/app/app/shared/log/ s3://vr-euc1-live-misc/home/app/app/shared/log/ && \
+  rm /home/app/app/shared/log/*.gz
+
+crontab -l
+5 3 * * * /home/app/bin/sync-logs-to-s3.sh
+
+cat .aws/credentials
+[default]
+aws_secret_access_key = 3ODDCm1Q0n0AT9IFWhFEq7zjZ4hle+rxTzD15uFU
+aws_access_key_id = AKIAIGKSA6ESEFZV4DQA
+region = eu-central-1
+s3 =
+    signature_version = s3v4
+```

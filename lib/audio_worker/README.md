@@ -56,4 +56,6 @@ cat /var/lib/cloud/instance/user-data.txt
 ls /tmp/run.sh.*
 ls -la /var/log/cloud-init*
 tail -f /var/log/cloud-init-output.log
+
+ssh vraw 'sudo less /var/log/cloud-init-output.log'
 ```

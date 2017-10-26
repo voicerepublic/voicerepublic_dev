@@ -19,7 +19,7 @@ instance:
     image: ami-7ad87415
   icebox:
     security_group: Icecast Servers
-    image: ami-ed13b182
+    image: ami-59962d36
 
 # this file reflects standard settings for development
 # overrides for production can be found in
@@ -135,8 +135,7 @@ default_series_defaults:
   en:
     title: My Talks
     teaser: Various talks
-    description: |
-      Various talks, that don't belong to any particular series
+    description: "Various talks, that don't belong to any particular series"
     tag_list: default
 default_venue_defaults:
   en:
@@ -199,7 +198,7 @@ icecast:
     #image: ami-0013b16f (icebox 3.25 fix typo in filename)
     #image: ami-ea0daf85 (icebox 3.26 fix permissions)
     #image: ami-ed13b182 (icebox 3.27 fix path to sync script)
-    image: ami-ed13b182
+    image: ami-59962d36
     default_instance_type: t2.micro
     security_group: Icecast Servers
     key_name: phil-ffm

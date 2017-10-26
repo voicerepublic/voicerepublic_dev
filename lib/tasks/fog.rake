@@ -57,6 +57,7 @@ namespace :fog do
     { key: 'vr-euc1-live-slides-uploads',       location: 'eu-central-1' },
     { key: 'vr-euc1-live-backup-recordings',    location: 'eu-central-1' },
     { key: 'vr-euc1-live-db-backups',           location: 'eu-central-1' },
+    { key: 'vr-euc1-live-misc',                 location: 'eu-central-1' },
 
     { key: 'vr-euc1-staging-audio-uploads',     location: 'eu-central-1' },
     { key: 'vr-euc1-staging-import',            location: 'eu-central-1' },
