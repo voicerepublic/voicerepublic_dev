@@ -1000,6 +1000,11 @@ class Talk < ActiveRecord::Base
     chain = venue.opts.override_chain || Settings.audio.override_chain
     prepare_manifest_file! chain
 
+    url = 'https://s3.amazonaws.com/%s/%s' %
+          [ Settings.storage.upload_audio.split('@').first,
+            user_override_uuid ]
+    update_attribute :recording_override, url
+
     details = job_details.merge(upload_url: recording_override)
     Job::ProcessUpload.create(context: self,
                               details: details)

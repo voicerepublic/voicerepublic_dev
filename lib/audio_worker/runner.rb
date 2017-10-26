@@ -186,7 +186,7 @@ def run(job)
 
   when "Job::ProcessUpload"
 
-    url = job['upload_url']
+    url = job['details']['upload_url']
     puts "Upload URL:        #{url}"
 
     filename = url.split('/').last
