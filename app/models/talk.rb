@@ -88,7 +88,8 @@ class Talk < ActiveRecord::Base
     event :archive, timestamp: :processed_at, success: :after_processing do
       transitions from: :processing, to: :archived
       # or by user upload
-      transitions from: :pending, to: :archived
+      transitions from: :pending, to: :archived,
+                  on_transition: :after_processing
       # in rare case we might to override a talk
       # which has never been enqueued
       transitions from: :postlive, to: :archived
@@ -1002,9 +1003,8 @@ class Talk < ActiveRecord::Base
     url = 'https://s3.amazonaws.com/%s/%s' %
           [ Settings.storage.upload_audio.split('@').first,
             user_override_uuid ]
-    update_attribute :recording_override, url
 
-    details = job_details.merge(upload_url: recording_override)
+    details = job_details.merge(upload_url: url)
     Job::ProcessUpload.create(context: self,
                               details: details)
     Instance::AudioWorker.create.launch!
