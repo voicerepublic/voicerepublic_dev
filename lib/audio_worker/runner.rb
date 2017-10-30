@@ -238,7 +238,7 @@ def run(job)
   File.unlink(File.join(path, wave))
   manifest[:relevant_files].each do |file|
     dump = File.join(path, file.first)
-    File.unlink(dump)
+    File.unlink(dump) if File.exist?(dump)
   end
 
   # collect index data
