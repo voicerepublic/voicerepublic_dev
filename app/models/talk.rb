@@ -85,12 +85,10 @@ class Talk < ActiveRecord::Base
     event :suspend do
       transitions from: :processing, to: :suspended
     end
-    event :archive, timestamp: :processed_at do
-      transitions from: :processing, to: :archived,
-                  on_transition: :after_processing
+    event :archive, timestamp: :processed_at, success: :after_processing do
+      transitions from: :processing, to: :archived
       # or by user upload
-      transitions from: :pending, to: :archived,
-                  on_transition: :after_processing
+      transitions from: :pending, to: :archived
       # in rare case we might to override a talk
       # which has never been enqueued
       transitions from: :postlive, to: :archived
