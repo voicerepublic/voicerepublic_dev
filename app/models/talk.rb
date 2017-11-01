@@ -85,7 +85,7 @@ class Talk < ActiveRecord::Base
     event :suspend do
       transitions from: :processing, to: :suspended
     end
-    event :archive, timestamp: :processed_at, success: :after_processing do
+    event :archive, timestamp: :processed_at, success: :after_processing! do
       transitions from: :processing, to: :archived
       # or by user upload
       transitions from: :pending, to: :archived
@@ -1013,7 +1013,7 @@ class Talk < ActiveRecord::Base
     user_override_uuid_changed? and !user_override_uuid.to_s.empty?
   end
 
-  def after_processing
+  def after_processing!
     # pull metadata from storage
     key = "#{uri}/index.yml"
     metadata = fetch(key)
@@ -1021,6 +1021,7 @@ class Talk < ActiveRecord::Base
     # pull waveform from storage
     key = "#{uri}/#{id}.wav.json"
     self.peaks = fetch(key)
+    save!
   end
 
   def fetch(key, target=nil)
