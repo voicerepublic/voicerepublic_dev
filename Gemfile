@@ -55,6 +55,7 @@ gem 'excon', '~> 0.45.4'           # http client
 gem 'mailgun_rails'
 gem 'activemerchant'
 gem 'faye-authentication', github: 'branch14/faye-authentication'
+gem 'term-ansicolor'
 gem 'redcarpet'                    # markdown parser & renderer
 gem 'inifile', require: false
 gem 'trickery'
