@@ -43,7 +43,7 @@ gem 'unicorn'
 gem 'selectize-rails'
 gem "transitions", github: 'troessner/transitions',
     require: ["transitions", "active_model/transitions"]
-gem 'fidelity', git: 'git@github.com:munen/fidelity.git'
+#gem 'fidelity', git: 'git@github.com:munen/fidelity.git'
 #gem 'fidelity', path: '../fidelity'
 gem 'pg_search'
 gem 'jquery-ui-rails'
