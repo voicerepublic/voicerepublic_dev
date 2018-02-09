@@ -20,6 +20,8 @@ class UsersController < BaseController
 
   before_filter :authenticate_user!, :only => [:edit,:update,:destroy]
 
+  caches_action :show, if: -> { request.format.rss? }
+
   layout "velvet"
 
   # GET /users

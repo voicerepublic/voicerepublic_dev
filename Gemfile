@@ -60,6 +60,7 @@ gem 'inifile', require: false
 gem 'trickery'
 gem 'greensock-rails'
 gem "autoprefixer-rails"
+gem 'actionpack-action_caching'
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views

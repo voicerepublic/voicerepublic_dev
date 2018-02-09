@@ -2,6 +2,8 @@ class RootController < BaseController
 
   layout 'velvet'
 
+  caches_action :index, if: -> { request.format.rss? }
+
   def index
     respond_to do |format|
       format.html do
