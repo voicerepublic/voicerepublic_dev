@@ -353,8 +353,16 @@ rescue => e
     exit 0
   else
     slack "Something went wrong: `#{e.message}`"
-    slack "`#{INSTANCE}` on `#{public_ip_address}`" +
-          " NOT terminating. Action required!"
-    exit 1
+    # NOTE ideally this would not terminate the worker to keep it
+    # running for inspection
+    #
+    # slack "`#{INSTANCE}` on `#{public_ip_address}`" +
+    #       " NOT terminating. Action required!"
+    # exit 1
+    #
+    # But since VR is not developed actively anymore, this will result
+    # in a lot of orphaned servers running on EC2, so instead we will
+    # return exit code 0, to make the server shut down.
+    exit 0
   end
 end
