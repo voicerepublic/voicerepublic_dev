@@ -35,16 +35,6 @@ GIT
   specs:
     transitions (1.1.1)
 
-GIT
-  remote: git@github.com:munen/fidelity.git
-  revision: e464d7cd7326a9886fda664baec1a496eba115d0
-  specs:
-    fidelity (2.1.0)
-      auphonic
-      fileutils_logger
-      systemu
-      term-ansicolor
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -100,8 +90,6 @@ GEM
     annotator (0.0.10)
       activerecord (>= 3.0)
     arel (6.0.3)
-    auphonic (0.1.0)
-      faraday
     autoprefixer-rails (6.7.7)
       execjs
     babel-source (5.8.35)
@@ -217,7 +205,6 @@ GEM
       eventmachine (>= 0.12.0)
       websocket-driver (>= 0.5.1)
     ffi (1.9.10)
-    fileutils_logger (0.0.1)
     fission (0.5.0)
       CFPropertyList (~> 2.2)
     fog (1.38.0)
@@ -573,8 +560,6 @@ GEM
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
     systemu (2.6.5)
-    term-ansicolor (1.6.0)
-      tins (~> 1.0)
     thin (1.6.4)
       daemons (~> 1.0, >= 1.0.9)
       eventmachine (~> 1.0, >= 1.0.4)
@@ -583,7 +568,6 @@ GEM
     thread_safe (0.3.5)
     tilt (2.0.2)
     timecop (0.8.0)
-    tins (1.15.0)
     trickery (0.0.8)
       systemu
     trollop (2.1.2)
@@ -655,7 +639,6 @@ DEPENDENCIES
   factory_girl_rails (~> 4.0)
   faker
   faye-authentication!
-  fidelity!
   fog
   foundation-rails (= 6.2.0.1)
   friendly_id
