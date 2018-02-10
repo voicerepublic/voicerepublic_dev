@@ -145,7 +145,7 @@ Run App
 * `lib/flux_capacitor.rb run`
 * `rake jobs:work`
 * `cd lib/vrng && rlwrap lein figwheel`
-* `docker start rabbitmq`
+* `docker run rabbitmq`
 
 ### or optionally voicerepublic_dev with tmux
 
