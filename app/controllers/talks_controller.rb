@@ -4,6 +4,8 @@ class TalksController < BaseController
   before_action :authenticate_user!, except: [:show]
   #before_action :redirect_if_low_on_credits, only: :new
 
+  caches_action :show, if: -> { request.format.rss? }
+
   # GET /talks/1
   def show
     return redirect_to(@talk.forward_url) unless @talk.forward_url.blank? or current_user == @talk.user

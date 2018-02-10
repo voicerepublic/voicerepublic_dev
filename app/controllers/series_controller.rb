@@ -6,6 +6,8 @@ class SeriesController < BaseController
 
   layout 'velvet'
 
+  caches_action :show, if: -> { request.format.rss? }
+
   # GET /series/1
   # GET /series/1.json
   def show
