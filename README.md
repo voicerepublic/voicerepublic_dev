@@ -89,10 +89,18 @@ Setup
 
     # edit template files
 
+### Database
+
     rake db:setup                      # this requires an internet connection, also
                                        # [also see note below]
     rake db:migrate                    # also requires an internet connection
 
+### Build docker images for icebox & worker (this will take a while!)
+
+    lib/icebox/build.sh
+    lib/audio_worker/build.sh
+
+### Optionally sync data from live (this will take even longer!)
 
     rake db:sync:live
     rake db:sync:live_images
