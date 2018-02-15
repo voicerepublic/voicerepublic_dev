@@ -82,8 +82,8 @@ Setup
 -----
 
     bundle
-    cp config/settings.local.yml.sample \
-       config/settings.local.yml
+	bin/update-local-settings
+
     cp config/database.yml.example \
        config/database.yml             # use an appropriate db config
 
