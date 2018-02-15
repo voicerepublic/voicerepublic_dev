@@ -34,6 +34,8 @@ RUN apt-get -qq -y install liquidsoap \
 RUN apt-get -qq -y install python-pip && \
     pip install awscli
 
+RUN apt-get -qq -y install procps
+
 RUN apt-get clean
 
 RUN mkdir /share && \
