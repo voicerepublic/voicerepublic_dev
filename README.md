@@ -309,7 +309,9 @@ If you don't have it already you realy should install `tree`.
 
     % sudo apt-get install tree
 
-TODO: Document how to run a streaming server locally.
+To stream locally, build the docker container:
+    
+    docker build -t branch14/icecast2 lib/icebox
 
 Open two browser windows (with different sessions, one should be the
 host) and direct them to show the same talk. In a terminal start
