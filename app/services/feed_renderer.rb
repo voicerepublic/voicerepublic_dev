@@ -78,7 +78,7 @@ end
 # SERVICE FeedRenderer
 # render_feed_for_talk ->
 # render_feed_for_series ->
-# render_feed_for_user_published ->
-# render_feed_for_user_pinned ->
+# render_feed_for_users_published ->
+# render_feed_for_users_pinned ->
 # render_feed_for_featured ->
 # -> feed_rendered
