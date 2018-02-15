@@ -1,0 +1,15 @@
+# VR uses a pretty custom version of PG. This would probably go best
+# into it's own image.
+# postgres:
+#   image: postgres:9.3
+#   restart: always
+#   environment:
+#     POSTGRES_PASSWORD: example
+#   ports:
+#     - 5432:5432
+
+
+rabbitmq:
+  image: rabbitmq:3.7.3
+  ports:
+    - 5672:5672

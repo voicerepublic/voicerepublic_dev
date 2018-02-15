@@ -145,7 +145,7 @@ Run App
 * `lib/flux_capacitor.rb run`
 * `rake jobs:work`
 * `cd lib/vrng && rlwrap lein figwheel`
-* `docker start rabbitmq`
+* `docker run rabbitmq`
 
 ### or optionally voicerepublic_dev with tmux
 
@@ -309,16 +309,9 @@ If you don't have it already you realy should install `tree`.
 
     % sudo apt-get install tree
 
-Start a local rtmp server.
-
-    % rake rtmp:start
-
-Configure Rails to use the local rtmp server. Create a file
-`config/settings.local.yml` with the following content. This will
-override the configuration in `config/settings.yml`.
-
-    rtmp:
-      record: "rtmp://localhost/record"
+To stream locally, build the docker container:
+    
+    docker build -t branch14/icecast2 lib/icebox
 
 Open two browser windows (with different sessions, one should be the
 host) and direct them to show the same talk. In a terminal start
