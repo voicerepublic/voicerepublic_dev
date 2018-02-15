@@ -203,7 +203,7 @@ class User < ActiveRecord::Base
   def generate_flyers!
     series.reload
     talks.reload.each do |talk|
-      Delayed::Job.enqueue GenerateFlyer.new(id: talk.id), queue: 'audio'
+      Delayed::Job.enqueue GenerateFlyer.new(id: talk.id), queue: 'mail'
     end
   end
 
