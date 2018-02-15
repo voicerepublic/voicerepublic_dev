@@ -14,6 +14,13 @@ module Emitter
   # make all methods statically available
   extend self
 
+  # e.g.
+  #   Emitter.render_feed(:user_published, id: user.id)
+  def render_feed(type, opts={})
+    x = "render_feed_for_#{type}"
+    emit(opts.merge(x: x))
+  end
+
   def venue_transition(venue, transition)
     emit x: 'venue_transition',
          transition: transition,
