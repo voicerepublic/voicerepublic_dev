@@ -1,0 +1,31 @@
+#!/usr/bin/env ruby
+
+require 'erb'
+require 'ostruct'
+require 'pp'
+
+class ErbBinding < OpenStruct
+  def get_binding
+    return binding()
+  end
+end
+
+data = {
+  localip: %x[hostname -I | cut -d' ' -f 1].chomp,
+  username: %x[whoami].chomp
+}
+
+pp data
+
+source = "config/settings.local.yml.erb"
+source = File.expand_path(File.join(%w(.. ..), source), __FILE__)
+
+template = File.read(source)
+output = ERB.new(template).result(ErbBinding.new(data).get_binding)
+
+target = "config/settings.local.yml"
+target = File.expand_path(File.join(%w(.. ..), target), __FILE__)
+
+File.open(target, 'w') { |f| f.write(output) }
+
+puts "Done."

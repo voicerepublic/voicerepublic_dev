@@ -58,8 +58,7 @@ stream0 = input.http(url,
 
 stream1 = fallback(track_sensitive=false, [stream0, mean(stream0), interlude1])
 
-stream2 = strip_blank(stream1, max_blank=10.)
-#stream2 = strip_blank(stream1, max_blank=10., threshold=-50.)
+stream2 = strip_blank(stream1, max_blank=60.)
 
 stream3 = fallback(track_sensitive=false, [stream2, interlude2])
 
