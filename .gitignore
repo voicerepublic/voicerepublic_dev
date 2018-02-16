@@ -45,6 +45,8 @@ local/
 .*.swo
 /public/sitemap.xml
 
+/public/feeds/**
+
 #########################
 # Emacs temporary files #
 #########################

@@ -686,6 +686,3 @@ DEPENDENCIES
   webmock (~> 1.15.0)
   whenever
   will_paginate
-
-BUNDLED WITH
-   1.15.3

@@ -7,8 +7,8 @@ class Podcaster
     @template = Tilt.new('app/views/shared/_podcast.rss.builder')
   end
 
-  def render(model, id)
-    talk = model.find(id)
+  def render_for_talk(id)
+    talk = Talk.find(id)
 
     metadata = OpenStruct.new({talks: [talk],
 
@@ -30,11 +30,15 @@ class Podcaster
                                rss_url:     Rails.application.routes.url_helpers.talk_url(talk, format: :rss),
                                image:       talk.image})
 
-    @template.render metadata
+    podcast_str = @template.render metadata
+    File.open(Rails.root.join('public/feeds/talks', "#{id}.rss"), 'wb') do |file|
+      file << podcast_str
+    end
+
   end
-
-
 end
 
-podcaster = Podcaster.new
-podcaster.render(Talk, 1)
+
+# podcaster = Podcaster.new
+# podcaster.render_for_talk(1)
+# Emitter.render_feed(:talk, id: 1)

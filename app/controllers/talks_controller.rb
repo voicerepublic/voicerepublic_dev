@@ -21,7 +21,7 @@ class TalksController < BaseController
       format.png { send_file @talk.flyer.path(true) }
       format.ics
       format.rss do
-        @podcast = OpenStruct.new(talks: [@talk])
+        render file: Rails.root.join('public/feeds/talks', "#{id}.rss")
       end
     end
   end

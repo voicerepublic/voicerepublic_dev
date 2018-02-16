@@ -157,6 +157,7 @@ class Talk < ActiveRecord::Base
   after_save :process_slides!, if: :process_slides?
   after_save :schedule_user_override, if: :schedule_user_override?
   after_save :propagate_changes
+  after_save :render_feed!, if: :render_feed?
 
   validates_each :starts_at_date, :starts_at_time do |record, attr, value|
     # guard against submissions where no upload occured or no starts_at
@@ -934,6 +935,16 @@ class Talk < ActiveRecord::Base
     process_override!
 
     # TODO: Delete the object only when process_override! was successfull
+  end
+
+  def render_feed?
+    category_changed? or title_changed? or image_title_changed? or
+    description_changed? or author_changed? or subtitle_changed? or
+    image_link_changed? or image_changed?
+  end
+
+  def render_feed!
+    Emitter.render_feed(:talk, id: id)
   end
 
   def generate_flyer?

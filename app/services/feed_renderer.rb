@@ -40,7 +40,10 @@ class FeedRenderer
     opts = args.shift
     id = opts['id']
     puts "Received render_feed_for_talk with id #{id} (find me in #{__FILE__}:#{__LINE__})"
-    # TODO render & store the feed
+
+    # TODO: render & store the feed
+    Podcaster.new.render_for_talk(id)
+
     publish x: 'feed_rendered',
             any_further: 'details'
   end
