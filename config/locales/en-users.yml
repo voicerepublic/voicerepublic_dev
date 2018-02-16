@@ -91,6 +91,7 @@ en:
 
     # SHOW
     show:
+      more: "Show me all %{count} talks..."
       create_live_talk: Create a Live Talk
       you_have_x_credits_left:
         zero: |

@@ -22,8 +22,7 @@ class ExploreController < ApplicationController
       end
       # TODO publisher might actually be tagged on users
       unless (publisher = filter[:publisher]).blank?
-        bundle = TagBundle.find(publisher)
-        @talks = @talks.tagged_in_bundle(bundle)
+        @talks = @talks.joins(:series).where('series.user_id = ?', publisher.to_i)
       end
       # TODO format might actualy be tagged on series
       unless (format = filter[:format]).blank?
