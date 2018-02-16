@@ -36,48 +36,48 @@ xml.rss namespaces.merge(version: '2.0') do
   xml.channel do
 
     # title
-    xml.title { xml.cdata! @podcast.title }
-    xml.dc(:title) { xml.cdata! @podcast.title }
+    xml.title { xml.cdata! title }
+    xml.dc(:title) { xml.cdata! title }
 
     xml.description do
-      xml.cdata! @podcast.description + I18n.t(:podcast_branding)
+      xml.cdata! description + I18n.t(:podcast_branding)
     end
-    xml.link @podcast.url
-    langs = @podcast.talks.map(&:language).compact
+    xml.link url
+    langs = talks.map(&:language).compact
     langs = %w(en) if langs.empty?
     main_lang = langs.inject(Hash.new { |h, k| h[k] = 0 }) { |h, l| h[l]+=1; h }.to_a.sort_by { |e| e.last }.last.first
     xml.language main_lang
     xml.image do
-      xml.url unsecured_url(@podcast.image_url || itunes_image_url(@podcast.image))
+      xml.url unsecured_url(image_url || itunes_image_url(image))
       xml.title do
-        xml.cdata! @podcast.image_title
+        xml.cdata! image_title
       end
-      xml.link @podcast.image_link
+      xml.link image_link
     end
 
     # http://validator.w3.org/feed/docs/warning/MissingAtomSelfLink.html
     xml.tag! 'atom:link', rel: 'self',
              type: 'application/rss+xml',
-             href: request.url
+             href: rss_url
 
-    xml.itunes :image, href: unsecured_url(@podcast.image_url || itunes_image_url(@podcast.image))
-    xml.itunes :category, text: @podcast.category
-    xml.itunes :subtitle, @podcast.subtitle
+    xml.itunes :image, href: unsecured_url(image_url || itunes_image_url(image))
+    xml.itunes :category, text: category
+    xml.itunes :subtitle, subtitle
     xml.itunes :summary do
-      xml.cdata! @podcast.description + I18n.t(:podcast_branding)
+      xml.cdata! description + I18n.t(:podcast_branding)
     end
     xml.itunes :explicit, 'no'
 
     # author
-    xml.itunes :author, @podcast.author
-    xml.dc :creator, @podcast.author
+    xml.itunes :author, author
+    xml.dc :creator, author
 
     xml.itunes :owner do
       xml.itunes :name, 'VoiceRepublic Service'
       xml.itunes :email, 'service@voicerepublic.com'
     end
 
-    talks = @podcast.talks || []
+    talks = talks || []
     talks.each do |talk|
       # skip talks where media is missing for whatever reason
       next unless talk.podcast_file
