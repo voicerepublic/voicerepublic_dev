@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>VR Troubleshooting</h1>
+
+    <h2>Loop1 (Streamboxx)</h2>
+    <audio controls="true" loop="true" src="loop1.wav"></audio>
+    <p>
+      Loop1 is played by a Streamboxx that receives silence or very
+      low input levels.
+
+      (See <a href="https://gitlab.com/voicerepublic/streambox/blob/development/streamboxx.liq.erb#L74-75">https://gitlab.com/voicerepublic/streambox/blob/development/streamboxx.liq.erb#L74-75</a>)
+    </p>
+
+    <h2>Loop2 (Icebox)</h2>
+    <audio controls="true" loop="true" src="loop2.wav"></audio>
+    <p>
+      Loop2 is played by the Icebox (streaming server) as long as no
+      input stream is detected.
+
+      (See <a href="https://github.com/munen/voicerepublic_dev/blob/integration/lib/icebox/icebox.liq#L59">https://github.com/munen/voicerepublic_dev/blob/integration/lib/icebox/icebox.liq#L59</a>)
+    </p>
+
+    <h2>Loop3 (Icebox)</h2>
+    <audio controls="true" loop="true" src="loop3.wav"></audio>
+    <p>
+      Loop3 is played by the Icebox (streaming server) if the incoming
+      stream is silent or has very low input levels.
+
+      (See <a href="https://github.com/munen/voicerepublic_dev/blob/integration/lib/icebox/icebox.liq#L64">https://github.com/munen/voicerepublic_dev/blob/integration/lib/icebox/icebox.liq#L64</a>)
+    </p>
+  </body>
+</html>

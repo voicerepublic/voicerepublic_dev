@@ -560,6 +560,8 @@ GEM
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
     systemu (2.6.5)
+    term-ansicolor (1.3.2)
+      tins (~> 1.0)
     thin (1.6.4)
       daemons (~> 1.0, >= 1.0.9)
       eventmachine (~> 1.0, >= 1.0.4)
@@ -568,6 +570,7 @@ GEM
     thread_safe (0.3.5)
     tilt (2.0.2)
     timecop (0.8.0)
+    tins (1.6.0)
     trickery (0.0.8)
       systemu
     trollop (2.1.2)
@@ -675,6 +678,7 @@ DEPENDENCIES
   simplecov (~> 0.7.1)
   spring
   spring-commands-rspec
+  term-ansicolor
   thin
   timecop
   transitions!
