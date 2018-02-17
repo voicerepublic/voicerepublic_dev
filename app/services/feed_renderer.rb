@@ -42,7 +42,7 @@ class FeedRenderer
   # from Delayed Job:
   # https://github.com/collectiveidea/delayed_job/blob/ce88693429188a63793b16daaab67056a4e4e0bf/lib/delayed/worker.rb#L77
   def self.before_fork
-    return unless @files_to_reopen
+    return if @files_to_reopen
 
     @files_to_reopen = []
     ObjectSpace.each_object(File) do |file|
