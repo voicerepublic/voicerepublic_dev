@@ -68,11 +68,8 @@ class FeedRenderer
   def render_feed_for_talk(*args)
     opts = args.shift
     id = opts['id']
-    puts "Received render_feed_for_talk with id #{id} (find me in #{__FILE__}:#{__LINE__})"
+    Rails.logger.info "Received render_feed_for_talk with id #{id} (find me in #{__FILE__}:#{__LINE__})"
 
-    Rails.logger.info "Will render the Podcast Feed, now"
-
-    # TODO: render & store the feed
     Podcaster.new.render_for_talk(id)
 
     publish x: 'feed_rendered',

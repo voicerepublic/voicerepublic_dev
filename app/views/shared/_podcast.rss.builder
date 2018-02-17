@@ -48,7 +48,7 @@ xml.rss namespaces.merge(version: '2.0') do
     main_lang = langs.inject(Hash.new { |h, k| h[k] = 0 }) { |h, l| h[l]+=1; h }.to_a.sort_by { |e| e.last }.last.first
     xml.language main_lang
     xml.image do
-      xml.url unsecured_url(image_url || itunes_image_url(image))
+      xml.url Podcaster.unsecured_url(image_url || Podcaster.itunes_image_url(image))
       xml.title do
         xml.cdata! image_title
       end
@@ -60,7 +60,7 @@ xml.rss namespaces.merge(version: '2.0') do
              type: 'application/rss+xml',
              href: rss_url
 
-    xml.itunes :image, href: unsecured_url(image_url || itunes_image_url(image))
+    xml.itunes :image, href: Podcaster.unsecured_url(image_url || Podcaster.itunes_image_url(image))
     xml.itunes :category, text: category
     xml.itunes :subtitle, subtitle
     xml.itunes :summary do
@@ -98,11 +98,11 @@ xml.rss namespaces.merge(version: '2.0') do
         xml.itunes :author, talk.series.user.name
         xml.itunes :duration, talk.podcast_file[:duration]
         xml.itunes :explicit, 'no'
-        xml.itunes :image, href: unsecured_url(itunes_image_url(talk.image))
+        xml.itunes :image, href: Podcaster.unsecured_url(Podcaster.itunes_image_url(talk.image))
         xml.pubDate talk.processed_at.try(:to_s, :rfc822)
         xml.link talk_url(talk)
         xml.guid talk_url(talk), isPermaLink: true
-        xml.enclosure url: unsecured_url(vrmedia_url(talk)),
+        xml.enclosure url: Podcaster.unsecured_url(vrmedia_url(talk)),
                       type: "audio/mpeg",
                       length: talk.podcast_file[:size]
       end

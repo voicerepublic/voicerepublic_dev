@@ -938,9 +938,8 @@ class Talk < ActiveRecord::Base
   end
 
   def render_feed?
-    category_changed? or title_changed? or image_title_changed? or
-    description_changed? or author_changed? or subtitle_changed? or
-    image_link_changed? or image_changed?
+    title_changed? or description_changed? or
+    teaser_changed? or image_changed?
   end
 
   def render_feed!
