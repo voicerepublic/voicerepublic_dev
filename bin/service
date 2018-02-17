@@ -29,8 +29,11 @@ Signal.trap('INT') do
   exit
 end
 
+DAEMON_CLASS.try(:before_fork)
 Daemons.run_proc(DAEMON, dir: PIDDIR) do
   Dir.chdir(BASE)
+
+  DAEMON_CLASS.try(:after_fork)
   puts "Running %s..." % DAEMON
   daemon = DAEMON_CLASS.new.run
 end

@@ -21,6 +21,7 @@ require File.expand_path(File.join(%w(.. .. .. lib services)), __FILE__)
 # booting rails
 require File.expand_path(File.join(%w(.. .. .. config environment)), __FILE__)
 
+
 class FeedRenderer
 
   include Services::Subscriber
@@ -32,6 +33,34 @@ class FeedRenderer
   subscribe x: 'render_feed_for_users_pinned' # (4)
   subscribe x: 'render_feed_for_featured' # (5)
 
+  def initialize
+    Rails.logger.info "FeedRenderer Service started"
+  end
+
+  # Save open files so that they can be re-opened after daemonizing
+  # the process (see `self.after_fork`). This implementation is copied
+  # from Delayed Job:
+  # https://github.com/collectiveidea/delayed_job/blob/ce88693429188a63793b16daaab67056a4e4e0bf/lib/delayed/worker.rb#L77
+  def self.before_fork
+    unless @files_to_reopen
+      @files_to_reopen = []
+      ObjectSpace.each_object(File) do |file|
+        @files_to_reopen << file unless file.closed?
+      end
+    end
+  end
+
+  def self.after_fork
+    # Re-open file handles
+    @files_to_reopen.each do |file|
+      begin
+        file.reopen file.path, 'a+'
+        file.sync = true
+      rescue ::Exception # rubocop:disable HandleExceptions, RescueException
+      end
+    end
+  end
+
   # This will be triggered by, e.g.
   #
   #   Emitter.render_feed(:talk, id: 1)
@@ -40,6 +69,8 @@ class FeedRenderer
     opts = args.shift
     id = opts['id']
     puts "Received render_feed_for_talk with id #{id} (find me in #{__FILE__}:#{__LINE__})"
+
+    Rails.logger.info "Will render the Podcast Feed, now"
 
     # TODO: render & store the feed
     Podcaster.new.render_for_talk(id)
