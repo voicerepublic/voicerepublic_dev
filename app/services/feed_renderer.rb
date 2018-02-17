@@ -16,14 +16,14 @@
 # - app/views/series/show.rss.builder      - series' feed (5)
 
 # the basics for services
-require File.expand_path(File.join(%w(.. .. .. lib services)), __FILE__)
+require File.expand_path(File.join(%w[.. .. .. lib services]), __FILE__)
 
 # booting rails
-require File.expand_path(File.join(%w(.. .. .. config environment)), __FILE__)
+require File.expand_path(File.join(%w[.. .. .. config environment]), __FILE__)
 
-
+# Service worker connected to RMQ handling rendering of RSS Podcast
+# feeds
 class FeedRenderer
-
   include Services::Subscriber
   include Services::Publisher
 
@@ -34,7 +34,7 @@ class FeedRenderer
   subscribe x: 'render_feed_for_featured' # (5)
 
   def initialize
-    Rails.logger.info "FeedRenderer Service started"
+    Rails.logger.info 'FeedRenderer Service started'
   end
 
   # Save open files so that they can be re-opened after daemonizing
@@ -42,11 +42,11 @@ class FeedRenderer
   # from Delayed Job:
   # https://github.com/collectiveidea/delayed_job/blob/ce88693429188a63793b16daaab67056a4e4e0bf/lib/delayed/worker.rb#L77
   def self.before_fork
-    unless @files_to_reopen
-      @files_to_reopen = []
-      ObjectSpace.each_object(File) do |file|
-        @files_to_reopen << file unless file.closed?
-      end
+    return unless @files_to_reopen
+
+    @files_to_reopen = []
+    ObjectSpace.each_object(File) do |file|
+      @files_to_reopen << file unless file.closed?
     end
   end
 
@@ -78,32 +78,31 @@ class FeedRenderer
 
   def render_feed_for_series(*args)
     opts = args.shift
-    # TODO render & store the feed
+    # TODO: render & store the feed
     publish x: 'feed_rendered',
             any_further: 'details'
   end
 
   def render_feed_for_users_published(*args)
     opts = args.shift
-    # TODO render & store the feed
+    # TODO: render & store the feed
     publish x: 'feed_rendered',
             any_further: 'details'
   end
 
   def render_feed_for_users_pinned(*args)
     opts = args.shift
-    # TODO render & store the feed
+    # TODO: render & store the feed
     publish x: 'feed_rendered',
             any_further: 'details'
   end
 
   def render_feed_for_featured(*args)
     opts = args.shift
-    # TODO render & store the feed
+    # TODO: render & store the feed
     publish x: 'feed_rendered',
             any_further: 'details'
   end
-
 end
 
 # SERVICE FeedRenderer
