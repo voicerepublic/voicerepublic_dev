@@ -6,6 +6,14 @@ class Podcaster
     @template = Tilt.new('app/views/shared/_podcast.rss.builder')
   end
 
+  def self.url_helpers
+    Rails.application.routes.url_helpers
+  end
+
+  def url_helpers
+    self.class.url_helpers
+  end
+
   def render_for_talk(id)
     talk = Talk.find(id)
 
@@ -24,9 +32,9 @@ class Podcaster
                               subtitle:    talk.teaser,
 
                               # urls
-                              url:         Rails.application.routes.url_helpers.talk_url(talk),
-                              image_link:  Rails.application.routes.url_helpers.talk_url(talk),
-                              rss_url:     Rails.application.routes.url_helpers.talk_url(talk, format: :rss),
+                              url:         url_helpers.talk_url(talk),
+                              image_link:  url_helpers.talk_url(talk),
+                              rss_url:     url_helpers.talk_url(talk, format: :rss),
                               image:       talk.image)
 
     podcast_str = @template.render metadata
@@ -57,9 +65,9 @@ class Podcaster
                               subtitle:    series.teaser,
 
                               # urls
-                              url:         Rails.application.routes.url_helpers.series_url(series),
-                              image_link:  Rails.application.routes.url_helpers.series_url(series),
-                              rss_url:     Rails.application.routes.url_helpers.series_url(series, format: :rss),
+                              url:         url_helpers.series_url(series),
+                              image_link:  url_helpers.series_url(series),
+                              rss_url:     url_helpers.series_url(series, format: :rss),
                               image:       series.image)
 
 
@@ -79,6 +87,11 @@ class Podcaster
   def self.unsecured_url(url)
     url.gsub(%r{https:\/\/}, 'http://')
   end
+
+  def self.vrmedia_url(talk, fmt='mp3')
+    url_helpers.root_url + 'vrmedia/' + talk.id.to_s + '.' + fmt
+  end
+
 end
 
 # podcaster = Podcaster.new

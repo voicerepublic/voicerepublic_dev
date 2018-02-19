@@ -74,11 +74,9 @@ module ApplicationHelper
   end
   alias_method :s, :section
 
-
   def blog_url(path)
     "http://blog.voicerepublic.com#{path}?lang=#{I18n.locale}"
   end
-
 
   def icon_tag(topic, opts={})
     title = opts[:title] || topic
@@ -89,13 +87,8 @@ module ApplicationHelper
     "<svg><use xlink:href='#icon-#{topic}'></use></svg>".html_safe
   end
 
-
   def test_talk_path
     new_talk_path talk: { dryrun: true }
-  end
-
-  def vrmedia_url(talk, fmt='mp3')
-    root_url + 'vrmedia/' + talk.id.to_s + '.' + fmt
   end
 
   def rss_link_tag(title, url=nil)

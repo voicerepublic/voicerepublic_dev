@@ -77,13 +77,13 @@ xml.rss namespaces.merge(version: '2.0') do
       xml.itunes :email, 'service@voicerepublic.com'
     end
 
-    talks = talks || []
-    talks.each do |talk|
+    associated_talks = talks || []
+    associated_talks.each do |talk|
       # skip talks where media is missing for whatever reason
       next unless talk.podcast_file
 
       xml.item do
-        xml.title h talk.title
+        xml.title ERB::Util#html_escape(talk.title)
 
         # description
         xml.description do
@@ -100,10 +100,11 @@ xml.rss namespaces.merge(version: '2.0') do
         xml.itunes :explicit, 'no'
         xml.itunes :image, href: Podcaster.unsecured_url(Podcaster.itunes_image_url(talk.image))
         xml.pubDate talk.processed_at.try(:to_s, :rfc822)
-        xml.link talk_url(talk)
-        xml.guid talk_url(talk), isPermaLink: true
-        xml.enclosure url: Podcaster.unsecured_url(vrmedia_url(talk)),
-                      type: "audio/mpeg",
+        xml.link Podcaster.url_helpers.talk_url(talk)
+        xml.guid Podcaster.url_helpers.talk_url(talk),
+                 isPermaLink: true
+        xml.enclosure url: Podcaster.unsecured_url(Podcaster.vrmedia_url(talk)),
+                      type: 'audio/mpeg',
                       length: talk.podcast_file[:size]
       end
     end

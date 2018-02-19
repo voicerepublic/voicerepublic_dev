@@ -40,7 +40,7 @@ class Api::OembedController < ApplicationController
                        thumbnail_url: talk.image.url,
                        thumbnail_width: talk.image.width,
                        thumbnail_height: talk.image.height )
-      response[:url] = vrmedia_url(talk) if talk.archived?
+      response[:url] = Podcaster.vrmedia_url(talk) if talk.archived?
     end
 
     render json: response.to_json
