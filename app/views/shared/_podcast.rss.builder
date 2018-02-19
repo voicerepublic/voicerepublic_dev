@@ -83,7 +83,7 @@ xml.rss namespaces.merge(version: '2.0') do
       next unless talk.podcast_file
 
       xml.item do
-        xml.title ERB::Util#html_escape(talk.title)
+        xml.title ERB::Util.html_escape(talk.title)
 
         # description
         xml.description do
