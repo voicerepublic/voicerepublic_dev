@@ -165,7 +165,7 @@ class Talk < ActiveRecord::Base
   after_save :process_slides!, if: :process_slides?
   after_save :schedule_user_override, if: :schedule_user_override?
   after_save :propagate_changes
-  after_save :remember_to_render_feed!, if: :render_feed?
+  after_save :remember_to_render_feed
   after_commit :render_feed!, if: :emit_render_feed
 
   validates_each :starts_at_date, :starts_at_time do |record, attr, value|
@@ -946,7 +946,8 @@ class Talk < ActiveRecord::Base
     # TODO: Delete the object only when process_override! was successfull
   end
 
-  def render_feed?
+
+  def remember_to_render_feed
     # XXX: During Code Review - what's our preferred way of checking
     # for many changed attributes? There's at least these three
     # options out there:
@@ -961,13 +962,11 @@ class Talk < ActiveRecord::Base
     # Alternative 2
     # Not super readable, but logic could be extracted out to
     # ActiveRecord::Base
-    changed_attributes.keys.map do |attr|
+    should_render_feed = changed_attributes.keys.map do |attr|
       %w[title description teaser image].include?(attr)
     end.include?(true)
-  end
 
-  def remember_to_render_feed!
-    self.emit_render_feed = true
+    self.emit_render_feed = should_render_feed
   end
 
   def render_feed!
