@@ -22,8 +22,8 @@ require File.expand_path(File.join(%w[.. .. .. lib services]), __FILE__)
 require File.expand_path(File.join(%w[.. .. .. config environment]), __FILE__)
 
 # Logic:
-# Talk.save -> Render Talk, TODO Series, TODO UsersPublished, TODO UsersPinned, TODO Featured
-# Series.save -> Render TODO Series
+# Talk.save -> Render Talk, Series, TODO UsersPublished, TODO UsersPinned, TODO Featured
+# Series.save -> Render Series
 # User.save -> Render TODO User
 # TODO: translate titles for all feeds analogous to talks
 # TODO: Write an integration test for all feeds with an exported
@@ -79,6 +79,9 @@ class FeedRenderer
     Rails.logger.info "Received render_feed_for_talk with id #{id} (find me in #{__FILE__}:#{__LINE__})"
 
     Podcaster.new.render_for_talk(id)
+
+    talk = Talk.find(id)
+    Podcaster.new.render_for_series(talk.series.id)
 
     publish x: 'feed_rendered',
             any_further: 'details'
