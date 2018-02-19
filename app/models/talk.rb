@@ -946,7 +946,6 @@ class Talk < ActiveRecord::Base
     # TODO: Delete the object only when process_override! was successfull
   end
 
-
   def remember_to_render_feed
     # XXX: During Code Review - what's our preferred way of checking
     # for many changed attributes? There's at least these three

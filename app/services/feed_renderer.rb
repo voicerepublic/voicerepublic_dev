@@ -21,6 +21,14 @@ require File.expand_path(File.join(%w[.. .. .. lib services]), __FILE__)
 # booting rails
 require File.expand_path(File.join(%w[.. .. .. config environment]), __FILE__)
 
+# Logic:
+# Talk.save -> Render Talk, TODO Series, TODO UsersPublished, TODO UsersPinned, TODO Featured
+# Series.save -> Render TODO Series
+# User.save -> Render TODO User
+# TODO: translate titles for all feeds analogous to talks
+# TODO: Write an integration test for all feeds with an exported
+#       example from the old code and test it against the new code
+
 # Service worker connected to RMQ handling rendering of RSS Podcast
 # feeds
 class FeedRenderer
@@ -78,7 +86,12 @@ class FeedRenderer
 
   def render_feed_for_series(*args)
     opts = args.shift
-    # TODO: render & store the feed
+    id = opts['id']
+
+    Rails.logger.info "Received render_feed_for_series with id #{id} (find me in #{__FILE__}:#{__LINE__})"
+
+    Podcaster.new.render_for_series(id)
+
     publish x: 'feed_rendered',
             any_further: 'details'
   end
