@@ -941,10 +941,13 @@ class Talk < ActiveRecord::Base
     # Standard, but verbose
     # title_changed? || description_changed? || teaser_changed? || image_changed?
 
-    # Crazy
+    # Crazy 1
     # %w[title description teaser image].map { |attr| eval("#{attr}_changed?") }.flatten.first
 
-    changed_attributes.keys.include?(%w[title description teaser image])
+    # Crazy 2
+    changed_attributes.keys.map do |attr|
+      %w[title description teaser image].include?(attr)
+    end.include?(true)
   end
 
   def render_feed!
