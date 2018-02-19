@@ -40,7 +40,8 @@ class Podcaster
   def render_for_series(id)
     series = Series.find(id)
 
-    metadata = OpenStruct.new(talks: series.talks,
+
+    metadata = OpenStruct.new(talks: series.talks.archived.ordered,
 
                               # TODO
                               category:    'Society & Culture',

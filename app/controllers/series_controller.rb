@@ -28,11 +28,6 @@ class SeriesController < BaseController
       format.json { render json: @series }
 
       format.rss do
-        talks = @series.talks.archived.ordered
-        @podcast = OpenStruct.new(talks: talks)
-      end
-
-      format.rss do
         render file: Rails.root.join('public/feeds/series', "#{@series.id}.rss")
       end
 
