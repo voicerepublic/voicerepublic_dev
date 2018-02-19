@@ -947,13 +947,20 @@ class Talk < ActiveRecord::Base
   end
 
   def render_feed?
+    # XXX: During Code Review - what's our preferred way of checking
+    # for many changed attributes? There's at least these three
+    # options out there:
+
     # Standard, but verbose
     # title_changed? || description_changed? || teaser_changed? || image_changed?
 
-    # Crazy 1
+    # Alternative 1
+    # Quite readable, but uses `eval`
     # %w[title description teaser image].map { |attr| eval("#{attr}_changed?") }.flatten.first
 
-    # Crazy 2
+    # Alternative 2
+    # Not super readable, but logic could be extracted out to
+    # ActiveRecord::Base
     changed_attributes.keys.map do |attr|
       %w[title description teaser image].include?(attr)
     end.include?(true)
