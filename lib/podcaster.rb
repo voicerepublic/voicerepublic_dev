@@ -1,18 +1,5 @@
 require 'tilt/builder'
 
-# FIXME: `render_for_talk` renders a previous version of the talk
-# XXX: It's not a DB issue. In the after_save model Talk hook, the title is
-# set correcly. Also, it's immediately correct in the next line after
-# `update_attribute`. Only in the Podcaster daemon, the title is stale.
-
-# It also shouldn't be a caching issue, because:
-#  1. The daemon actually does a `select * from talks where id == x`
-#  2. The daemon receives stale _even if_ the daemon is restarted! The
-#  object shouldn't be cached in between killing and restarting Ruby.
-
-
-# TODO: Change `puts` to `Rails.logger.info`
-
 # Renders and persists RSS Podcast feeds
 class Podcaster
   def initialize
@@ -20,14 +7,7 @@ class Podcaster
   end
 
   def render_for_talk(id)
-    # talk = Talk.find(id).reload
-    # talk = ActiveRecord::Base.uncached { Talk.find(id) }
-    # https://apidock.com/rails/ActiveRecord/QueryCache/ClassMethods/uncached
-    talk = Talk.uncached do
-      Talk.find(id)
-    end
-
-    puts "Retrieved talk with title #{talk.reload.title}"
+    talk = Talk.find(id)
 
     metadata = OpenStruct.new(talks: [talk],
 
@@ -53,6 +33,8 @@ class Podcaster
     File.open(Rails.root.join('public/feeds/talks', "#{id}.rss"), 'wb') do |f|
       f << podcast_str
     end
+
+    Rails.logger.info "Rendered podcast feed for Talk ID #{id}"
   end
 
   def self.itunes_image_url(image)
@@ -67,8 +49,8 @@ end
 # podcaster = Podcaster.new
 # podcaster.render_for_talk(2)
 
-Emitter.render_feed(:talk, id: 2)
+# Emitter.render_feed(:talk, id: 2)
 
-t = Talk.find(2)
-t.update_attribute :title, "1"
-Talk.find(2).title
+# t = Talk.find(2)
+# t.update_attribute :title, '2'
+# Talk.find(2).title

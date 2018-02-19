@@ -49,6 +49,14 @@ class Talk < ActiveRecord::Base
 
   attr_accessor :event
 
+  # On `after_save`, remember in `emit_render_feed` if podcast feed
+  # needs to be rendered. On `after_commit` emit message to RMQ.
+  # Rational is that the event _cannot_ be emitted in `after_save`
+  # itself, because the saving transaction is still going on there. If
+  # the event was emitted there, the RMQ worker has a high chance to
+  # get stale data (from before the transaction was commited).
+  attr_accessor :emit_render_feed
+
   # https://github.com/troessner/transitions
   state_machine auto_scopes: true do
     state :created # initial
@@ -157,7 +165,8 @@ class Talk < ActiveRecord::Base
   after_save :process_slides!, if: :process_slides?
   after_save :schedule_user_override, if: :schedule_user_override?
   after_save :propagate_changes
-  after_save :render_feed!, if: :render_feed?
+  after_save :remember_to_render_feed!, if: :render_feed?
+  after_commit :render_feed!, if: :emit_render_feed
 
   validates_each :starts_at_date, :starts_at_time do |record, attr, value|
     # guard against submissions where no upload occured or no starts_at
@@ -948,6 +957,10 @@ class Talk < ActiveRecord::Base
     changed_attributes.keys.map do |attr|
       %w[title description teaser image].include?(attr)
     end.include?(true)
+  end
+
+  def remember_to_render_feed!
+    self.emit_render_feed = true
   end
 
   def render_feed!
