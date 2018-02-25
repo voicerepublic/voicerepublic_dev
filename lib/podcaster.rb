@@ -99,12 +99,10 @@ end
 
 # Emitter.render_feed(:talk, id: 2)
 
-# t = Talk.find(2)
+# t = Talk.find(3)
 # t.update_attribute :title, '2'
-# Talk.find(2).title
 
-s = Series.first
-s.talks.pluck(:language)
-# s.update_attribute :title, '1'
+# s = Series.find(2)
+# s.update_attribute :title, '3'
 
-Emitter.render_feed(:series, id: 2)
+# Emitter.render_feed(:series, id: 2)

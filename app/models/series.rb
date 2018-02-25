@@ -22,6 +22,9 @@ class Series < ActiveRecord::Base
   # RECORDINGS_ARCHIVE_PATH = "#{Rails.root}/public/system/recordings_raw_archive"
   RECORDINGS_ARCHIVE_PATH = Settings.rtmp.archive_path
 
+  # See `emit_render_feed` in Talk model
+  attr_accessor :emit_render_feed
+
   acts_as_taggable
 
   # TODO: rename to host
@@ -48,6 +51,9 @@ class Series < ActiveRecord::Base
   before_save :clean_taglist # prevent vollpfosten from adding hash-tag to tag-names
   before_save :process_description, if: :description_changed?
   before_save :set_image_alt, unless: :image_alt?
+
+  after_save :remember_to_render_feed
+  after_commit :render_feed!, if: :emit_render_feed
 
   accepts_nested_attributes_for :talks
 
@@ -111,6 +117,17 @@ class Series < ActiveRecord::Base
 
   def inherit_penalty
     self.penalty = user.penalty
+  end
+
+  def remember_to_render_feed
+    should_render_feed = title_changed? || description_changed? ||
+                         teaser_changed?
+
+    self.emit_render_feed = should_render_feed
+  end
+
+  def render_feed!
+    Emitter.render_feed(:series, id: id)
   end
 
 end

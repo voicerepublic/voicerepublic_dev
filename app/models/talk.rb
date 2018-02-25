@@ -165,6 +165,7 @@ class Talk < ActiveRecord::Base
   after_save :process_slides!, if: :process_slides?
   after_save :schedule_user_override, if: :schedule_user_override?
   after_save :propagate_changes
+
   after_save :remember_to_render_feed
   after_commit :render_feed!, if: :emit_render_feed
 

@@ -24,7 +24,7 @@ require File.expand_path(File.join(%w[.. .. .. config environment]), __FILE__)
 # Logic:
 # Talk.save -> Render Talk, Series, TODO UsersPublished, TODO UsersPinned, TODO Featured
 # Series.save -> Render Series
-# User.save -> Render TODO User
+# User.save -> Render TODO User, TODO Series, TODO Talks
 # TODO: Write Series.save hooks analogous to Talk
 # TODO: translate titles for all feeds analogous to talks
 # TODO: Write an integration test for all feeds with an exported
