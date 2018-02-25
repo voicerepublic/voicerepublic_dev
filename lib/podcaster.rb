@@ -14,6 +14,20 @@ class Podcaster
     self.class.url_helpers
   end
 
+  def save_podcast_for(model, metadata)
+    podcast_str = @template.render metadata
+
+    # `Talk` -> `talks`
+    folder_name = model.class.to_s.pluralize.downcase
+
+    File.open(Rails.root.join("public/feeds/#{folder_name}", "#{model.id}.rss"), 'wb') do |f|
+      f << podcast_str
+    end
+
+    Rails.logger.info "Rendered podcast feed for #{model.class} ID #{model.id}"
+  end
+
+
   def render_for_talk(id)
     talk = Talk.find(id)
 
@@ -37,17 +51,11 @@ class Podcaster
                               rss_url:     url_helpers.talk_url(talk, format: :rss),
                               image:       talk.image)
 
-    podcast_str = @template.render metadata
-    File.open(Rails.root.join('public/feeds/talks', "#{id}.rss"), 'wb') do |f|
-      f << podcast_str
-    end
-
-    Rails.logger.info "Rendered podcast feed for Talk ID #{id}"
+    save_podcast_for(talk, metadata)
   end
 
   def render_for_series(id)
     series = Series.find(id)
-
 
     metadata = OpenStruct.new(talks: series.talks.archived.ordered,
 
@@ -55,7 +63,6 @@ class Podcaster
                               category:    'Society & Culture',
 
                               # translations
-                              # TODO: translate titles analogous to talks above
                               title:       I18n.t('series.podcast.title', title: series.title),
                               image_title: I18n.t('series.podcast.title', title: series.title),
 
@@ -70,15 +77,31 @@ class Podcaster
                               rss_url:     url_helpers.series_url(series, format: :rss),
                               image:       series.image)
 
-
-    podcast_str = @template.render metadata
-    File.open(Rails.root.join('public/feeds/series', "#{id}.rss"), 'wb') do |f|
-      f << podcast_str
-    end
-
-    Rails.logger.info "Rendered podcast feed for Series ID #{id}"
+    save_podcast_for(series, metadata)
   end
 
+  def render_for_user_published(id)
+    user = User.find(id)
+
+    metadata = OpenStruct.new(talks: user.talks.archived.order('updated_at DESC'),
+                              # TODO
+                              category:    'Society & Culture',
+
+                              # translations
+                              title:        I18n.t('users.podcast.title', username: user.name),
+                              image_title:  I18n.t('users.podcast.title', username: user.name),
+                              subtitle:     I18n.t('users.podcast.subtitle'),
+
+                              # misc
+                              description:  user.about_as_text,
+                              author:       user.name,
+
+                              # urls
+                              url:          url_helpers.user_url(user),
+                              image_link:   url_helpers.user_url(user),
+                              image:        user.avatar)
+    save_podcast_for(user, metadata)
+  end
 
   def self.itunes_image_url(image)
     image.thumb('1400x1400#', format: 'png').url(name: 'image.png')
@@ -102,7 +125,7 @@ end
 # t = Talk.find(3)
 # t.update_attribute :title, '2'
 
-# s = Series.find(2)
-# s.update_attribute :title, '3'
+# u = User.find(2)
+# u.update_attribute :firstname, '8'
 
-# Emitter.render_feed(:series, id: 2)
+# Emitter.render_feed(:user_published, id: 2)

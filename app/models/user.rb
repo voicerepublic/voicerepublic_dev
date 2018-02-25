@@ -46,6 +46,9 @@ class User < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name, use: [:slugged, :finders]
 
+  # See `emit_render_feed` in Talk model
+  attr_accessor :emit_render_feed
+
   # TODO discuss if destroing these makes sense
   # we might end up with half of a dialog.
   has_many :messages, dependent: :destroy
@@ -112,6 +115,9 @@ class User < ActiveRecord::Base
   after_create :add_default_pins
   after_create :create_first_organization
   after_commit :create_defaults!, on: :create
+
+  after_save :remember_to_render_feed
+  after_commit :render_feed!, if: :emit_render_feed
 
   before_save :normalize_website, if: :website_changed?
   before_save :normalize_twitter, if: :twitter_changed?
@@ -293,6 +299,17 @@ class User < ActiveRecord::Base
 
   def create_first_organization
     organizations.any? or organizations.create name: name
+  end
+
+  def remember_to_render_feed
+    should_render_feed = firstname_changed? || lastname_changed? ||
+                         about_as_text_changed? || avatar_changed?
+
+    self.emit_render_feed = should_render_feed
+  end
+
+  def render_feed!
+    Emitter.render_feed(:user_published, id: id)
   end
 
   protected

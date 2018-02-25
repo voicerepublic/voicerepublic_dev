@@ -1,5 +1,8 @@
 en:
   users:
+    podcast:
+      title: "%{username}"
+      subtitle: "Podcast provided by Voice Republic"
     welcome:
       welcome: Welcome
       subtitle: Thank you for signing up. You are now part of a global community of listeners and speakers.
@@ -102,9 +105,6 @@ en:
         other:
           You have %{count} credits left.
       purchase_more_credits: Buy credits
-      podcast:
-        title: "%{username}"
-        subtitle: "Podcast provided by Voice Republic"
       feed_title: "%{username}"
       listen_later_feed_title: "VR - Listen Later by %{username}"
       title: "%{username} - Voice Republic"

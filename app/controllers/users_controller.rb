@@ -70,8 +70,7 @@ class UsersController < BaseController
 
       end
       format.rss do
-        talks = @user.talks.archived.order('updated_at DESC')
-        @podcast = OpenStruct.new(talks: talks)
+        render file: Rails.root.join('public/feeds/users', "#{@user.id}.rss")
       end
       format.js do
         @talks =

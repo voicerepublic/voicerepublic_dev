@@ -24,11 +24,11 @@ require File.expand_path(File.join(%w[.. .. .. config environment]), __FILE__)
 # Logic:
 # Talk.save -> Render Talk, Series, TODO UsersPublished, TODO UsersPinned, TODO Featured
 # Series.save -> Render Series
-# User.save -> Render TODO User, TODO Series, TODO Talks
-# TODO: Write Series.save hooks analogous to Talk
+# User.save -> Render UserPublished, TODO UserPinned, TODO Series, TODO Talks
 # TODO: translate titles for all feeds analogous to talks
 # TODO: Write an integration test for all feeds with an exported
 #       example from the old code and test it against the new code
+# TODO: Rake job to run after deploy to generate all Podcast feeds
 
 # Service worker connected to RMQ handling rendering of RSS Podcast
 # feeds
@@ -38,8 +38,8 @@ class FeedRenderer
 
   subscribe x: 'render_feed_for_talk' # (1)
   subscribe x: 'render_feed_for_series' # (2)
-  subscribe x: 'render_feed_for_users_published' # (3)
-  subscribe x: 'render_feed_for_users_pinned' # (4)
+  subscribe x: 'render_feed_for_user_published' # (3)
+  subscribe x: 'render_feed_for_user_pinned' # (4)
   subscribe x: 'render_feed_for_featured' # (5)
 
   def initialize
@@ -82,7 +82,7 @@ class FeedRenderer
     Podcaster.new.render_for_talk(id)
 
     talk = Talk.find(id)
-    Podcaster.new.render_for_series(talk.series.id)
+    Emitter.render_feed(:series, id: talk.series.id)
 
     publish x: 'feed_rendered',
             any_further: 'details'
@@ -100,9 +100,14 @@ class FeedRenderer
             any_further: 'details'
   end
 
-  def render_feed_for_users_published(*args)
+  def render_feed_for_user_published(*args)
     opts = args.shift
-    # TODO: render & store the feed
+    id = opts['id']
+
+    Rails.logger.info "Received render_feed_for_user_published with id #{id} (find me in #{__FILE__}:#{__LINE__})"
+
+    Podcaster.new.render_for_user_published(id)
+
     publish x: 'feed_rendered',
             any_further: 'details'
   end
@@ -125,7 +130,7 @@ end
 # SERVICE FeedRenderer
 # render_feed_for_talk ->
 # render_feed_for_series ->
-# render_feed_for_users_published ->
-# render_feed_for_users_pinned ->
+# render_feed_for_user_published ->
+# render_feed_for_user_pinned ->
 # render_feed_for_featured ->
 # -> feed_rendered
