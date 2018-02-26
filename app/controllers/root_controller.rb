@@ -17,7 +17,7 @@ class RootController < BaseController
         @talks_upcoming = Talk.upcoming.limit(12)
       end
       format.rss do
-        @podcast = OpenStruct.new(talks: Talk.recent.limit(10))
+        render file: Rails.root.join('public/feeds/featured/index.rss')
       end
       format.xml
     end

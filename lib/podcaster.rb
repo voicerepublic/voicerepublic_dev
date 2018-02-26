@@ -2,6 +2,8 @@ require 'tilt/builder'
 
 # Renders and persists RSS Podcast feeds
 class Podcaster
+  include ActionView::Helpers::AssetUrlHelper
+
   def initialize
     @template = Tilt.new('app/views/shared/_podcast.rss.builder')
   end
@@ -103,6 +105,37 @@ class Podcaster
     save_podcast_for(user, metadata)
   end
 
+  def render_for_featured
+    # TODO: DISCUSS during Code review:
+    # Previously, in the RootController, `Talk.recent.limit(10)` was
+    # used. However, this doesn't seem to be useful as a "Featured
+    # Talks" Podcast.
+    metadata = OpenStruct.new(talks: Talk.promoted,
+                              # TODO
+                              category:    'Society & Culture',
+
+                              # translations
+                              title:       I18n.t('root.podcast.title'),
+                              description: I18n.t('root.podcast.description',
+                                                  url: url_helpers.root_url).chomp,
+                              image_title: I18n.t('root.podcast.title'),
+                              author:      I18n.t('root.podcast.author'),
+                              subtitle:    I18n.t('root.podcast.subtitle'),
+
+                              # urls
+                              url:         url_helpers.root_url,
+                              image_link:  url_helpers.root_url,
+                              image_url:   image_url('vr_logo_1400.png'))
+
+    podcast_str = @template.render metadata
+
+    File.open(Rails.root.join('public/feeds/featured', 'index.rss'), 'wb') do |f|
+      f << podcast_str
+    end
+
+    Rails.logger.info "Rendered podcast feed 'Featured'."
+  end
+
   def self.itunes_image_url(image)
     image.thumb('1400x1400#', format: 'png').url(name: 'image.png')
   end
@@ -128,4 +161,4 @@ end
 # u = User.find(2)
 # u.update_attribute :firstname, '8'
 
-# Emitter.render_feed(:user_published, id: 2)
+Emitter.render_feed(:featured)

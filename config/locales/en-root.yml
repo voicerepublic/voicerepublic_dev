@@ -1,6 +1,11 @@
 # these will move into config/sections.yml
 en:
   root:
+    podcast:
+      author: "Voice Republic"
+      title: "Featured Talks"
+      description: "Listen to the most popular talks!"
+      subtitle: "Podcast provided by Voice Republic"
     index:
       lead: "Take part in the most up-to-date conversations happening today. Exclusive lectures and discussions with thought leaders in the fields of"
       we_specialize: |

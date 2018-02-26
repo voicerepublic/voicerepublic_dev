@@ -963,7 +963,7 @@ class Talk < ActiveRecord::Base
     # Not super readable, but logic could be extracted out to
     # ActiveRecord::Base
     should_render_feed = changed_attributes.keys.map do |attr|
-      %w[title description teaser image].include?(attr)
+      %w[title description teaser image featured_from].include?(attr)
     end.include?(true)
 
     self.emit_render_feed = should_render_feed
@@ -971,6 +971,8 @@ class Talk < ActiveRecord::Base
 
   def render_feed!
     Emitter.render_feed(:talk, id: id)
+
+    Emitter.render_feed(:featured) unless featured_from.nil?
   end
 
   def generate_flyer?

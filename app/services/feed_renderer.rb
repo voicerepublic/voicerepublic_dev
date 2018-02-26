@@ -22,13 +22,14 @@ require File.expand_path(File.join(%w[.. .. .. lib services]), __FILE__)
 require File.expand_path(File.join(%w[.. .. .. config environment]), __FILE__)
 
 # Logic:
-# Talk.save -> Render Talk, Series, TODO UsersPublished, TODO UsersPinned, TODO Featured
+# Talk.save -> Render Talk, Series, TODO UsersPublished, TODO UsersPinned (Reminders), TODO Featured (RootPage)
 # Series.save -> Render Series
-# User.save -> Render UserPublished, TODO UserPinned, TODO Series, TODO Talks
-# TODO: translate titles for all feeds analogous to talks
+# User.save -> Render UserPublished, TODO UserPinned (Reminders), TODO Series, TODO Talks
 # TODO: Write an integration test for all feeds with an exported
 #       example from the old code and test it against the new code
 # TODO: Rake job to run after deploy to generate all Podcast feeds
+# TODO: Save files in `system` so that they belong to shared
+# TODO: Trigger the events from BO App (especially Featured)
 
 # Service worker connected to RMQ handling rendering of RSS Podcast
 # feeds
@@ -120,8 +121,10 @@ class FeedRenderer
   end
 
   def render_feed_for_featured(*args)
-    opts = args.shift
-    # TODO: render & store the feed
+    Rails.logger.info "Received render_feed_for_featured (find me in #{__FILE__}:#{__LINE__})"
+
+    Podcaster.new.render_for_featured
+
     publish x: 'feed_rendered',
             any_further: 'details'
   end
