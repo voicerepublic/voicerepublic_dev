@@ -22,7 +22,7 @@ require File.expand_path(File.join(%w[.. .. .. lib services]), __FILE__)
 require File.expand_path(File.join(%w[.. .. .. config environment]), __FILE__)
 
 # Logic:
-# Talk.save -> Render Talk, Series, TODO UsersPublished, TODO UsersPinned (Reminders), TODO Featured (RootPage)
+# Talk.save -> Render Talk, Series, UsersPublished, TODO UsersPinned (Reminders), Featured (RootPage)
 # Series.save -> Render Series
 # User.save -> Render UserPublished, TODO UserPinned (Reminders), TODO Series, TODO Talks
 # TODO: Write an integration test for all feeds with an exported

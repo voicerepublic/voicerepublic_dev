@@ -971,6 +971,7 @@ class Talk < ActiveRecord::Base
 
   def render_feed!
     Emitter.render_feed(:talk, id: id)
+    Emitter.render_feed(:user_published, id: user.id)
 
     Emitter.render_feed(:featured) unless featured_from.nil?
   end
