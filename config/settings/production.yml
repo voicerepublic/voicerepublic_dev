@@ -16,6 +16,6 @@ paths:
   # the mountpoint of the bucket
   recordings: /data
 errbit:
-  enabled: true
+  enabled: false
 simon:
   enabled: true
