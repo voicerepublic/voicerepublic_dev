@@ -91,8 +91,6 @@ namespace :deploy do
       monit_restart 'flux_capacitor',
                     'dj-trigger-0',
                     'dj-mail-0',
-                    'dj-audio-0',
-                    'dj-audio-1',
                     'mediator',
                     'slacker'
 
