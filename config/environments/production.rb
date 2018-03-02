@@ -67,7 +67,8 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :mailgun
   config.action_mailer.mailgun_settings = {
     api_key: 'key-6f7dabba8890f6d7d361a1503b8a1d51',
-    domain: 'mg.voicerepublic.com'
+    domain: 'mg.voicerepublic.com',
+    verify_ssl: false
   }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
