@@ -136,12 +136,13 @@
           %p.nothing-notice
             = t('.nothing_scheduled')
 
-      #archived.tabs-panel{class: @tab_archived_class}
-        - if @archived_talks.empty? && current_user
-          %p.nothing-notice= t(".#{@who}.archived_empty", link: link_to(t('.create_one_now'), new_talk_path), class: 'button hollow tiny').html_safe
-        = render partial: 'shared/talk_card',  collection: @archived_talks
+      #archived
+        .tabs-panel{class: @tab_archived_class}
+          - if @archived_talks.empty? && current_user
+            %p.nothing-notice= t(".#{@who}.archived_empty", link: link_to(t('.create_one_now'), new_talk_path), class: 'button hollow tiny').html_safe
+          = render partial: 'shared/talk_card',  collection: @archived_talks
         - if @archived_talks_count > 12
-          = link_to t('.more', count: human_count(@archived_talks_count)), explore_path(filter: {publisher: @user.id})
+          .more= link_to t('.more', count: human_count(@archived_talks_count)), explore_path(filter: {publisher: @user.id})
 
       #series.tabs-panel
         - if @series.count == 0

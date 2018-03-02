@@ -77,7 +77,7 @@
         }
         .button {
             margin: 0;
-       
+
         }
     }
     h3 {
@@ -132,7 +132,7 @@
                 height: 24px;
                 fill: currentColor;
             }
-            
+
             .label {
                 background:none;
                 color:$vr-light-blue;
@@ -162,7 +162,7 @@
         // margin-top: 24px;
         text-transform: normal;
         // font-family: $header-font-family;
-   
+
     }
 
     @include breakpoint(medium) {
@@ -214,7 +214,7 @@
                 text-transform: uppercase;
                 // color:$talk-dark;
             }
-            
+
             hr {
                 border-color: $vr-yellow;
             }
@@ -421,7 +421,7 @@
         height: 66px;
         min-height: 66px;
         // margin-right: 12px;
-   
+
     }
     .date {
         color: rgba(white, 0.5);
@@ -436,6 +436,9 @@
     #main {
         padding: 0;
         max-width: none;
+    }
+    .more {
+	margin: 10px;
     }
 }
 
@@ -508,7 +511,7 @@
         background: rgba($almost-black, 0.2);
         // background: rgba(#3d404d, .5);
         // background: $vr-blue;
-   
+
     }
     .profile-date,
     .speaker {
