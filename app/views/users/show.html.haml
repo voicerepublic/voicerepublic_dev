@@ -102,7 +102,7 @@
 
       %li.tabs-title{role: "presentation", class: @tab_archived_class}
         %a#archived-label{"aria-controls" => "archived", "aria-selected" => "true", :href => "#archived", :role => "tab"}
-          = t('.archived_talks', count: @archived_talks.count)
+          = t('.archived_talks', count: @archived_talks_count)
 
       - unless @upcoming_talks.empty?
         %li.tabs-title{:role => "presentation"}
