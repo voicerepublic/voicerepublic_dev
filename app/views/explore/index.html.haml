@@ -16,8 +16,9 @@
   = form_for :filter, html: opts do |f|
     .filters.clearfix
       %ul.category-buttons.menu.vertical.medium-horizontal.expanded
-        = render partial: 'category', locals: { category:@all_categories, f: f }
+        = render partial: 'category', locals: { category: @all_categories, f: f }
         = render partial: 'category', collection: @categories, locals: { f: f }
       = f.select :language, @languages, prompt: t('.language')
+      = f.hidden :publisher, params[:filter][:publisher]
     #results.clearfix
       = render 'results'
