@@ -10,13 +10,15 @@
   %link{href: "/stylesheets/nprogress.css", rel: "stylesheet", type: "text/css"}/
 
 #main
-  %h2 The Voice Republic Archive
+  %h2= t('.the_voice_republic_archive')
   - opts = { 'data-infinite-scroll' => '#spy|#more|#pager' }
   - opts.merge! 'data-ajax-filters' => '#results'
   = form_for :filter, html: opts do |f|
+    - publisher = params[:filter] && params[:filter][:publisher]
+    = f.hidden_field :publisher, value: publisher
     .filters.clearfix
       %ul.category-buttons.menu.vertical.medium-horizontal.expanded
-        = render partial: 'category', locals: { category:@all_categories, f: f }
+        = render partial: 'category', locals: { category: @all_categories, f: f }
         = render partial: 'category', collection: @categories, locals: { f: f }
       = f.select :language, @languages, prompt: t('.language')
     #results.clearfix

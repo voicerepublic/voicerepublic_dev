@@ -20,7 +20,6 @@ class ExploreController < ApplicationController
       unless (language = filter[:language]).blank?
         @talks = @talks.where(language: language)
       end
-      # TODO publisher might actually be tagged on users
       unless (publisher = filter[:publisher]).blank?
         @talks = @talks.joins(:series).where('series.user_id = ?', publisher.to_i)
       end

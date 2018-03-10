@@ -148,3 +148,8 @@
         - if @series.count == 0
           %p.nothing-notice= t(".#{@who}.series_empty", link: link_to(t('.create_one_now'), new_talk_path), class: 'button hollow tiny').html_safe
         = render partial: 'shared/series_card',  collection: @series
+
+-# a little easter egg for our most precious customers
+- if @user.slug == 'friedemann-krispin' && rand < 0.1
+  %div{ style: 'top: 100px; right: 100px; position: absolute' }
+    = image_tag 'approved.png', size: '300x300'
