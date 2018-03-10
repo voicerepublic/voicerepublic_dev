@@ -25,9 +25,6 @@ require File.expand_path(File.join(%w[.. .. .. config environment]), __FILE__)
 # Talk.save -> Render Talk, Series, UsersPublished, TODO UsersPinned (Reminders), Featured (RootPage)
 # Series.save -> Render Series
 # User.save -> Render UserPublished, TODO UserPinned (Reminders), TODO Series, TODO Talks
-# TODO: Write an integration test for all feeds with an exported
-#       example from the old code and test it against the new code
-# TODO: Rake job to run after deploy to generate all Podcast feeds
 # TODO: Save files in `system` so that they belong to shared
 # TODO: Trigger the events from BO App (especially Featured)
 

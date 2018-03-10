@@ -33,6 +33,14 @@ namespace :cleanup do
     end
   end
 
+  desc 'Recreate all podcast feeds'
+  task :recreate_podcast_feeds => :environment do
+    Talk.find_each do |t|
+      puts "Scheduled rendering of podcast feed for Talk #{t.id}"
+      Emitter.render_feed(:talk, id: t.id)
+    end
+  end
+
   # When a talk has been created, but the host never shows, the talk will never
   # proceed to further states. For the time being, this is corrected here.
   desc 'Set abandoned talks to state postlive'

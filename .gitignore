@@ -73,3 +73,4 @@ Thumbs.db
 /userdata_audio_worker.sh
 /userdata_icebox.sh
 /userdata_jumphost.sh
+/app/assets/javascripts/.tern-port
