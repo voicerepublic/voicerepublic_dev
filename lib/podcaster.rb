@@ -6,6 +6,7 @@ class Podcaster
 
   def initialize
     @template = Tilt.new('app/views/shared/_podcast.rss.builder')
+    @feeds_path = Settings.feeds.path
   end
 
   def self.url_helpers
@@ -22,7 +23,7 @@ class Podcaster
     # `Talk` -> `talks`
     folder_name = model.class.to_s.pluralize.downcase
 
-    File.open(Rails.root.join("public/feeds/#{folder_name}", "#{model.id}.rss"), 'wb') do |f|
+    File.open(Rails.root.join(@feeds_path, folder_name, "#{model.id}.rss"), 'wb') do |f|
       f << podcast_str
     end
 
@@ -129,7 +130,7 @@ class Podcaster
 
     podcast_str = @template.render metadata
 
-    File.open(Rails.root.join('public/feeds/featured', 'index.rss'), 'wb') do |f|
+    File.open(Rails.root.join(@feeds_path, 'featured', 'index.rss'), 'wb') do |f|
       f << podcast_str
     end
 

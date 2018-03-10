@@ -28,7 +28,7 @@ class SeriesController < BaseController
       format.json { render json: @series }
 
       format.rss do
-        render file: Rails.root.join('public/feeds/series', "#{@series.id}.rss")
+        render file: Rails.root.join(Settings.feeds.path, 'series', "#{@series.id}.rss")
       end
 
       format.ics

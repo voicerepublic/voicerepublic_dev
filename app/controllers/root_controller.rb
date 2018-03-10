@@ -17,7 +17,7 @@ class RootController < BaseController
         @talks_upcoming = Talk.upcoming.limit(12)
       end
       format.rss do
-        render file: Rails.root.join('public/feeds/featured/index.rss')
+        render file: Rails.root.join(Settings.feeds.path, 'featured/index.rss')
       end
       format.xml
     end

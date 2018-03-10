@@ -25,7 +25,6 @@ require File.expand_path(File.join(%w[.. .. .. config environment]), __FILE__)
 # Talk.save -> Render Talk, Series, UsersPublished, TODO UsersPinned (Reminders), Featured (RootPage)
 # Series.save -> Render Series
 # User.save -> Render UserPublished, TODO UserPinned (Reminders), TODO Series, TODO Talks
-# TODO: Save files in `system` so that they belong to shared
 # TODO: Trigger the events from BO App (especially Featured)
 
 # Service worker connected to RMQ handling rendering of RSS Podcast

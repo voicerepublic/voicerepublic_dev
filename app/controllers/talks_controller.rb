@@ -21,7 +21,7 @@ class TalksController < BaseController
       format.png { send_file @talk.flyer.path(true) }
       format.ics
       format.rss do
-        render file: Rails.root.join('public/feeds/talks', "#{@talk.id}.rss")
+        render file: Rails.root.join(Settings.feeds.path, 'talks', "#{@talk.id}.rss")
       end
     end
   end

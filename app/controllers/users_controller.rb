@@ -70,7 +70,7 @@ class UsersController < BaseController
 
       end
       format.rss do
-        render file: Rails.root.join('public/feeds/users', "#{@user.id}.rss")
+        render file: Rails.root.join(Settings.feeds.path, 'users', "#{@user.id}.rss")
       end
       format.js do
         @talks =
