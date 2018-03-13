@@ -6,8 +6,17 @@ class RemindersController < BaseController
   # GET /users/:user_id/reminders
   def index
     @user = User.find(params[:user_id])
-    talks = Talk.remembered_by(@user)
-    @podcast = OpenStruct.new(talks: talks)
+
+    respond_to do |format|
+      # TODO: Discuss during Code Review
+      # `format.html` probably is not needed, because there's no view
+      # templates. I put it here in case I'm missing something and the
+      # index action is not only used to render podcast feeds.
+      format.html
+      format.rss do
+        render file: Rails.root.join(Settings.feeds.path, 'user_pinned', "#{@user.id}.rss")
+      end
+    end
   end
 
   # POST /talks/:talk_id/reminders

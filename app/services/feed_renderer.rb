@@ -109,9 +109,12 @@ class FeedRenderer
             any_further: 'details'
   end
 
-  def render_feed_for_users_pinned(*args)
+  def render_feed_for_user_pinned(*args)
     opts = args.shift
-    # TODO: render & store the feed
+    id = opts['id']
+
+    Podcaster.new.render_for_user_pinned(id)
+
     publish x: 'feed_rendered',
             any_further: 'details'
   end

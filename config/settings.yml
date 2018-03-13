@@ -85,8 +85,10 @@ mail_domain: 'localhost'
 flyer:
   location: /system/flyer
   path: public/system/flyer
+
 feeds:
   path: public/system/feeds
+
 # S3 upload bucket for talks. For S3 uploads we are using CORS.
 # Therefore, we have three S3 buckets - each for a specific FQDN:
 #

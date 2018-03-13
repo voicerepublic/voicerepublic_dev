@@ -6,7 +6,11 @@ class Podcaster
 
   def initialize
     @template = Tilt.new('app/views/shared/_podcast.rss.builder')
-    @feeds_path = Settings.feeds.path
+    # TODO: Why is `feeds` not visible within Settings in Podcaster?
+    # It works for other settings.yml entries here and the feeds
+    # config works within Controllers.
+    # @feeds_path = Settings.feeds.path
+    @feeds_path = 'public/system/feeds'
   end
 
   def self.url_helpers
@@ -137,6 +141,33 @@ class Podcaster
     Rails.logger.info "Rendered podcast feed 'Featured'."
   end
 
+  def render_for_user_pinned(user_id)
+    user = User.find user_id
+    metadata = OpenStruct.new(talks: Talk.remembered_by(user),
+
+                              category:    'Society & Culture',
+
+                              # translations
+                              title:       I18n.t('reminders.index.podcast.title', username: user.name),
+                              description: user.about,
+                              image_title: I18n.t('reminders.index.podcast.title', username: user.name),
+                              author:      user.name,
+                              subtitle:    I18n.t('reminders.index.podcast.subtitle', username: user.name),
+
+                              # urls
+                              url:         url_helpers.user_url(user),
+                              image_link:  url_helpers.user_url(user),
+                              image:       user.avatar)
+
+    podcast_str = @template.render metadata
+
+    File.open(Rails.root.join(@feeds_path, 'user_pinned', "#{user.id}.rss"), 'wb') do |f|
+      f << podcast_str
+    end
+
+    Rails.logger.info "Rendered podcast feed 'UsersPinned'."
+  end
+
   def self.itunes_image_url(image)
     image.thumb('1400x1400#', format: 'png').url(name: 'image.png')
   end
@@ -152,9 +183,10 @@ class Podcaster
 end
 
 # podcaster = Podcaster.new
-# podcaster.render_for_talk(2)
+# podcaster.render_for_user_pinned(1)
+# Setting.get('feeds')
 
-# Emitter.render_feed(:talk, id: 2)
+# Emitter.render_feed(:user_pinned, id: 2)
 
 # t = Talk.find(3)
 # t.update_attribute :title, '2'
@@ -162,4 +194,4 @@ end
 # u = User.find(2)
 # u.update_attribute :firstname, '8'
 
-Emitter.render_feed(:featured)
+# Emitter.render_feed(:featured)
