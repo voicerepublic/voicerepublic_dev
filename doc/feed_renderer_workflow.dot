@@ -1,0 +1,13 @@
+digraph g {
+  "Talk.save" -> "Talk"
+  "Talk.save" -> "Series"
+  "Talk.save" -> "UsersPublished"
+  "Talk.save" -> "UsersPinned"
+  "Talk.save" -> "Featured (RootPage)"
+  "Series.save" -> "Series"
+  "User.save" -> "UsersPublished"
+  "User.save" -> "UserPinned" [label="todo"]
+  "User.save" -> "Series" [label="todo"]
+  "User.save" -> "Talk" [label="todo"]
+
+}
