@@ -45,7 +45,8 @@ describe SeriesController do
       get :show, {:id => series.to_param}
       expect(assigns(:series)).to eq(series)
     end
-    it "returns http success with format rss" do
+    it 'returns http success with format rss' do
+      Podcaster.new.render_for_series(series.id)
       get :show, id: series.to_param, format: 'rss'
       expect(response).to be_success
     end
