@@ -69,3 +69,7 @@ end
 every 24.hours, at: '3:03 am', roles: [:app] do
   runner 'DeviceReport.disaggregate_missing!'
 end
+
+every 5.minutes, roles: [:app] do
+  runner 'Podcaster.new.render_for_featured'
+end
