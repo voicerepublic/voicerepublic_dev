@@ -16,6 +16,7 @@ describe UsersController do
     end
 
     it "returns http success with format rss" do
+      Podcaster.new.render_for_user_published(user.id)
       get :show, id: user.to_param, format: 'rss'
       expect(response).to be_success
     end
