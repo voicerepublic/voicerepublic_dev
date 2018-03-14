@@ -318,7 +318,7 @@ If you don't have it already you realy should install `tree`.
     % sudo apt-get install tree
 
 To stream locally, build the docker container:
-    
+
     docker build -t branch14/icecast2 lib/icebox
 
 Open two browser windows (with different sessions, one should be the
@@ -617,6 +617,16 @@ talk.update_attribute :state, 'postlive'
 talk.reload
 talk.archive_from_dump!
 
+```
+
+Massupload of an Image
+----------------------
+
+```
+user.talks.upcoming.each do |t|
+  t.image = Dragonfly.app.fetch_url('https://voicerepublic.com/Talk_Bild_LBM18.jpg')
+  t.save
+end
 ```
 
 Troubleshooting Audio Processing
