@@ -1,7 +1,7 @@
 class ProcessOverride < MonitoredJob
 
   def perform
-    Talk.find(opts[:id]).send(:process_override!)
+    Talk.find(opts[:id]).send(:schedule_override)
   end
 
 end

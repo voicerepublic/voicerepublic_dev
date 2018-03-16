@@ -994,14 +994,16 @@ class Talk < ActiveRecord::Base
   end
 
   def schedule_user_override
-    # Delayed::Job.enqueue(UserOverride.new(id: id), queue: 'audio')
-
-    chain = venue.opts.override_chain || Settings.audio.override_chain
-    prepare_manifest_file! chain
-
     url = 'https://s3.amazonaws.com/%s/%s' %
           [ Settings.storage.upload_audio.split('@').first,
             user_override_uuid ]
+
+    schedule_override(url)
+  end
+
+  def schedule_override(url=recording_override)
+    chain = venue.opts.override_chain || Settings.audio.override_chain
+    prepare_manifest_file! chain
 
     details = job_details.merge(upload_url: url)
     Job::ProcessUpload.create(context: self,
