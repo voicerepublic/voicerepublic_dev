@@ -18,14 +18,14 @@ cat >$RUN_SH <<EOF
 NAME=<%= base_class_name %>
 
 # check if container with name exists and delete it
-if [ "$(docker ps -q -f name=$NAME)" ]; then
-    docker rm $NAME
+if [ "\$(docker ps -q -f name=\$NAME)" ]; then
+    docker rm \$NAME
 fi
 
 mkdir -p /data
 
 docker run \
-       --name=$NAME \
+       --name=\$NAME \
        --env-file=$ENV_LIST \
        --volume /data:. \
        branch14/audio_worker
