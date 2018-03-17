@@ -48,6 +48,21 @@ Done.
 
 Pull an AMI, add reference to AMI to `settings.yml`, deploy, test.
 
+## Debugging
+
+AudioWorkers inherit the authorized keys from the application
+server. So you should be able to login with you regular key.
+
+The AudioWorkers IP is announced on Slack or can be retrieved from the
+AWS Web Console.
+
+Once logged in you will find the env.list file and the run script in
+/tmp.
+
+Unfortunatley the volume isn't set up proberly so no acces to the logs
+yet.
+
+
 ## Cheat Sheet
 
 ```
