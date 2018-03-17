@@ -15,9 +15,15 @@ EOF
 RUN_SH=$(mktemp --tmpdir run.sh.XXXXX)
 
 cat >$RUN_SH <<EOF
-# TODO check if container with name exists and delete it
+NAME=<%= base_class_name %>
+
+# check if container with name exists and delete it
+if [ "$(docker ps -q -f name=$NAME)" ]; then
+    docker rm $NAME
+fi
+
 docker run \
-       --name=<%= base_class_name %> \
+       --name=$NAME \
        --env-file=$ENV_LIST \
        branch14/audio_worker
 EOF
