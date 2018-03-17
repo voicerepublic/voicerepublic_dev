@@ -27,7 +27,7 @@ mkdir -p /data
 docker run \
        --name=\$NAME \
        --env-file=$ENV_LIST \
-       --volume /data:. \
+       --volume /:/data \
        branch14/audio_worker
 EOF
 
