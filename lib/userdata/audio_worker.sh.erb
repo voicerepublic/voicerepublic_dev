@@ -9,6 +9,7 @@ AWS_SECRET_KEY=<%= aws_secret_key %>
 INSTANCE=<%= client_token %>
 INSTANCE_ENDPOINT=<%= instance_endpoint %>
 QUEUE_ENDPOINT=<%= queue_endpoint %>
+SLACK_CHANNEL=<%= slack_channel %>
 EOF
 
 RUN_SH=$(mktemp --tmpdir run.sh.XXXXX)
