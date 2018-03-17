@@ -5,6 +5,29 @@ require 'json'
 require 'tmpdir'
 require 'fileutils'
 require 'yaml'
+require 'logger'
+
+log_path = File.join(ENV['HOME'], 'job.log')
+LOGGER = Logger.new(log_path)
+
+SLACKLEVELS = [:error, :fatal, :info]
+
+LEVELMAP = {
+  debug: Logger::Severity::DEBUG,
+  error: Logger::Severity::ERROR,
+  fatal: Logger::Severity::FATAL,
+  info: Logger::Severity::INFO,
+  warn: Logger::Severity::WARN
+  # unknown: Logger::Severity::UNKNOWN
+}
+
+def log(arg1, arg2)
+  level, msg = LEVELMAP.keys.include?(arg1) ? [arg1, arg2] : [:info, arg1]
+  LOGGER.log(LEVELMAP[level] || 0, msg)
+  msg = '[%s] %s' % [level, msg]
+  puts msg
+  slack(msg) if SLACKLEVELS.include?(level)
+end
 
 # make it autoflush
 STDOUT.sync = true
@@ -12,13 +35,14 @@ STDOUT.sync = true
 INSTANCE_ENDPOINT = ENV['INSTANCE_ENDPOINT']
 QUEUE_ENDPOINT = ENV['QUEUE_ENDPOINT']
 INSTANCE = ENV['INSTANCE']
+SLACK_CHANNEL = ENV['SLACK_CHANNEL'] || '#simon'
 
 # terminate if there is nothing to do for 6 hours
 MAX_WAIT_COUNT = 60 * 6
 
 def faraday
   @faraday ||= Faraday.new(url: QUEUE_ENDPOINT) do |f|
-    puts "Setup Faraday with endpoint #{QUEUE_ENDPOINT}"
+    log :debug, "Setup Faraday with endpoint #{QUEUE_ENDPOINT}"
     uri = URI.parse(QUEUE_ENDPOINT)
     f.basic_auth(uri.user, uri.password)
     f.request :url_encoded
@@ -32,13 +56,13 @@ def die(response)
 end
 
 def job_list
-  puts "Retrieving job list..."
+  log :debug, "Retrieving job list..."
   response = faraday.get
   while response.status != 200 do
-    puts "Response Status #{response.status}, endpoint unavailable?"
-    puts "Waiting for 10 seconds then retry..."
+    log :error, "Response Status #{response.status}, endpoint unavailable?"
+    log :debug, "Waiting for 10 seconds then retry..."
     sleep 10
-    puts "Retrying..."
+    log :debug, "Retrying..."
     response = faraday.get
   end
   JSON.parse(response.body)
@@ -46,7 +70,7 @@ end
 
 def terminate
   faraday.put(instance_url, instance: { event: 'terminate' })
-  puts "Terminate!"
+  log :info, "`#{INSTANCE}` terminating."
   exit 0
 end
 
@@ -55,24 +79,24 @@ def queue_url(job)
 end
 
 def claim(job)
-  puts "Claiming job #{job['id']}..."
+  log :debug, "Claiming job #{job['id']}..."
   response = faraday.put(queue_url(job), job: {event: 'start', locked_by: INSTANCE})
   response.status == 200
 end
 
 def fidelity(path)
-  puts "Running fidelity..."
-  puts %x[./fidelity/bin/fidelity run #{path}/manifest.yml]
+  log :debug, "Running fidelity..."
+  log :debug, %x[./fidelity/bin/fidelity run #{path}/manifest.yml]
 end
 
 def wav2json(path, file)
-  puts "Running wav2json..."
-  puts %x[./wav2json.sh #{path}/#{file}]
+  log :debug, "Running wav2json..."
+  log :debug, %x[./wav2json.sh #{path}/#{file}]
 end
 
 # find the first mp3 in path, convert it to wav and return its name
 def prepare_wave(path)
-  puts "Preparing wave file..."
+  log :debug, "Preparing wave file..."
   wav = nil
   Dir.chdir(path) do
     mp3 = Dir.glob('*.mp3').first
@@ -84,26 +108,23 @@ def prepare_wave(path)
 end
 
 def complete(job)
-  puts "Marking job #{job['id']} as complete."
+  log :debug, "Marking job #{job['id']} as complete."
   faraday.put(queue_url(job), job: {event: 'complete'})
-
-  File.open(File.join(ENV['HOME'], 'job.log'), 'a') do |f|
-    f.puts "Marked job #{job['id']} as completed."
-  end
+  log :info, "Marked job #{job['id']} as completed."
 end
 
 def s3_cp(source, target, region=nil)
   cmd = "aws s3 cp #{source} #{target}"
   cmd += " --region #{region}" unless region.nil?
-  puts cmd
-  puts %x[#{cmd}]
+  log :debug, cmd
+  log :debug, %x[#{cmd}]
 end
 
 def s3_sync(source, target, region=nil)
   cmd = "aws s3 sync #{source} #{target}"
   cmd += " --region #{region}" unless region.nil?
-  puts cmd
-  puts %x[#{cmd}]
+  log :debug, cmd
+  log :debug, %x[#{cmd}]
 end
 
 def probe_duration(path)
@@ -140,11 +161,7 @@ def whatever2ogg(path)
 end
 
 def run(job)
-  puts "Running job #{job['id']}..."
-
-  File.open(File.join(ENV['HOME'], 'job.log'), 'a') do |f|
-    f.puts "Claimed job #{job['id']}."
-  end
+  log :info, "Claimed job #{job['id']} on #{public_ip_address}. Processing..."
 
   tmp_prefix = "job_#{job['id']}_"
 
@@ -162,10 +179,10 @@ def run(job)
 
   type = job['type']
 
-  puts "Working directory: #{path}"
-  puts "Source bucket:     #{source_bucket}"
-  puts "Target bucket:     #{target_bucket}"
-  puts "Job Type:          #{type}"
+  log :debug, "Working directory: #{path}"
+  log :debug, "Source bucket:     #{source_bucket}"
+  log :debug, "Target bucket:     #{target_bucket}"
+  log :debug, "Job Type:          #{type}"
 
   # pull manifest file
   manifest_url = "#{target_bucket}/manifest.yml"
@@ -187,26 +204,26 @@ def run(job)
   when "Job::ProcessUpload"
 
     url = job['details']['upload_url']
-    puts "Upload URL:        #{url}"
+    log :info, "Upload URL: `#{url}`"
 
     filename = url.split('/').last
-    puts "Filename:          #{filename}"
+    log :info, "Filename: `#{filename}`"
 
     if url.match(/^s3:\/\//)
-      puts "Copy from S3..."
+      log :debug, "Copy from S3..."
       s3_cp(url, path, source_region)
     else
       cmd = "cd #{path}; wget --no-check-certificate -q '#{url}'"
-      puts cmd
+      log :debug, cmd
       %x[#{cmd}]
     end
 
     upload = File.join(path, filename)
-    puts "Source:            #{upload}"
+    log :info, "Source: `#{upload}`"
 
     wav, ogg = whatever2ogg(upload)
-    puts "Wav file:          #{wav}"
-    puts "Ogg File:          #{ogg}"
+    log :debug, "Wav file:          #{wav}"
+    log :debug, "Ogg File:          #{ogg}"
 
     File.unlink(upload)
     File.rename(ogg, "#{path}/override.ogg")
@@ -219,12 +236,12 @@ def run(job)
     name = manifest[:id]
 
     expected = "#{path}/#{name}.wav"
-    puts "Expected wav:      #{expected}"
+    log :debug, "Expected wav:      #{expected}"
     File.rename(wav, expected)
 
   else
 
-    slack "Unknown job type: `#{type}`, job: `#{job.inspect}`"
+    log :fatal, "Unknown job type: `#{type}`, job: `#{job.inspect}`"
     terminate
 
   end
@@ -251,17 +268,17 @@ def run(job)
 
   # write index file
   index_yaml = File.join(path, 'index.yml')
-  puts "Writing #{index_yaml}"
+  log :debug, "Writing #{index_yaml}"
   File.open(index_yaml, 'w') do |f|
     f.write(YAML.dump(index))
   end
 
   # upload all files from path to target_bucket
-  puts "Syncing to #{target_bucket} in region #{target_region}..."
+  log :info, "Syncing to #{target_bucket} in region #{target_region}..."
   s3_sync(path, target_bucket+'/', target_region)
 
   # cleanup: delete everything
-  puts "Cleaning up..."
+  log :debug, "Cleaning up..."
   FileUtils.rm_rf(path)
 
   # mark job as completed
@@ -269,7 +286,7 @@ def run(job)
 end
 
 def wait
-  puts 'Sleeping for 1 min. Then poll queue again...'
+  log :debug, 'Sleeping for 1 min. Then poll queue again...'
   sleep 60
 end
 
@@ -297,10 +314,10 @@ def slack(message)
   url = "https://voicerepublic.slack.com/services/hooks/incoming-webhook"+
         "?token=VtybT1KujQ6EKstsIEjfZ4AX"
   payload = {
-    channel: '#voicerepublic_tech',
-    username: 'audio_worker',
+    channel: SLACK_CHANNEL,
+    username: 'AudioWorker',
     text: message,
-    icon_emoji: ':zombie:'
+    icon_emoji: ':cloud:'
   }
   json = JSON.unparse(payload)
   cmd = "curl -X POST --data-urlencode 'payload=#{json}' '#{url}' 2>&1"
@@ -311,7 +328,7 @@ job_count = 0
 wait_count = 0
 
 # this is just a test
-slack "`#{INSTANCE}` up and running..."
+log :info, "`#{INSTANCE}` up and running on #{public_ip_address}..."
 
 # with a region given this should always work
 %x[aws configure set default.s3.signature_version s3v4]
@@ -322,12 +339,12 @@ begin
   while true
     jobs = job_list
     if jobs.empty?
-      puts "Job list empty."
+      log :debug, "Job list empty."
       if job_count > 0
         terminate
       end
       if wait_count >= MAX_WAIT_COUNT
-        slack "`#{INSTANCE}` terminating after 6 hours idle time."
+        log :fatal, "`#{INSTANCE}` terminating after 6 hours idle time. But that's ok."
         terminate
       end
       wait
@@ -339,30 +356,24 @@ begin
         job_count += 1
         wait_count = 0
       else
-        puts "Failed to claim job #{job['id']}"
+        log :error, "Failed to claim job #{job['id']}. Maybe it has been snatched already. Retry in 5s."
         sleep 5
       end
     end
   end
 rescue => e
   report_failure
-  case e.message
-  when "no inputs?"
-    slack "Something went wrong: `#{e.message}`"
-    slack "`#{INSTANCE}` terminated."
-    exit 0
-  else
-    slack "Something went wrong: `#{e.message}`"
-    # NOTE ideally this would not terminate the worker to keep it
-    # running for inspection
-    #
-    # slack "`#{INSTANCE}` on `#{public_ip_address}`" +
-    #       " NOT terminating. Action required!"
-    # exit 1
-    #
-    # But since VR is not developed actively anymore, this will result
-    # in a lot of orphaned servers running on EC2, so instead we will
-    # return exit code 0, to make the server shut down.
-    exit 0
-  end
+  log :fatal, "Something went wrong: `#{e.message}`"
+  terminate
+  exit 0
+  # NOTE ideally this would not terminate the worker to keep it
+  # running for inspection
+  #
+  # slack "`#{INSTANCE}` on `#{public_ip_address}`" +
+  #       " NOT terminating. Action required!"
+  # exit 1
+  #
+  # But since VR is not developed actively anymore, this will result
+  # in a lot of orphaned servers running on EC2, so instead we will
+  # return exit code 0, to make the server shut down.
 end
