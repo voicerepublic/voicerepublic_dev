@@ -220,6 +220,7 @@ def run(job)
 
     upload = File.join(path, filename)
     log :info, "Source: `#{upload}`"
+    log :info, "Data in "+%x[file #{upload}]
 
     wav, ogg = whatever2ogg(upload)
     log :debug, "Wav file:          #{wav}"
