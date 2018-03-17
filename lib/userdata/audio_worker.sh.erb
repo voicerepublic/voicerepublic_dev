@@ -22,9 +22,12 @@ if [ "$(docker ps -q -f name=$NAME)" ]; then
     docker rm $NAME
 fi
 
+mkdir -p /data
+
 docker run \
        --name=$NAME \
        --env-file=$ENV_LIST \
+       --volume /data:. \
        branch14/audio_worker
 EOF
 
