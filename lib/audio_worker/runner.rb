@@ -206,14 +206,14 @@ def run(job)
     url = job['details']['upload_url']
     log :info, "Upload URL: `#{url}`"
 
-    filename = url.split('/').last
+    filename = url.split('/').last.split('?').first
     log :info, "Filename: `#{filename}`"
 
     if url.match(/^s3:\/\//)
       log :debug, "Copy from S3..."
       s3_cp(url, path, source_region)
     else
-      cmd = "cd #{path}; wget --no-check-certificate -q '#{url}'"
+      cmd = "cd #{path}; wget -O '#{filename}' --no-check-certificate -q '#{url}'"
       log :debug, cmd
       %x[#{cmd}]
     end
