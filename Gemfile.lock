@@ -37,7 +37,7 @@ GIT
 
 GIT
   remote: git://github.com/voicerepublic/faye.git
-  revision: e785457
+  revision: e785457710c24ea5828bde16ef5145fc005e9931
   specs:
     faye (1.2.4)
       cookiejar (>= 0.3.0)
