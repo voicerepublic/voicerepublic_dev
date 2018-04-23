@@ -6,7 +6,7 @@ GIT
 
 GIT
   remote: git://github.com/branch14/faye-authentication.git
-  revision: 33dcf8bb47604bc739485fecc5eba551b0c0190a
+  revision: d2ab72e942d10861e24a24a7316785f8380334c6
   specs:
     faye-authentication (1.8.0)
       faye (>= 1.0)
