@@ -29,7 +29,7 @@ end
 # INSTANCIATE
 
 Faye::WebSocket.load_adapter('thin')
-faye = Faye::RackAdapter.new(mount: '/faye', timeout: 15, curl_options: '-k')
+faye = Faye::RackAdapter.new(mount: '/faye', timeout: 15)
 
 
 # AUTHENTICATION

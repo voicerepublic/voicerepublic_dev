@@ -54,7 +54,6 @@ gem 'fog'
 gem 'excon', '~> 0.45.4'           # http client
 gem 'mailgun_rails', '~> 0.9.0'
 gem 'activemerchant'
-gem 'faye', github: 'voicerepublic/faye'
 gem 'faye-authentication', github: 'branch14/faye-authentication'
 gem 'term-ansicolor'
 gem 'redcarpet'                    # markdown parser & renderer
