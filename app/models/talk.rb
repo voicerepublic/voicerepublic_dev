@@ -96,6 +96,8 @@ class Talk < ActiveRecord::Base
       transitions from: :prelive, to: :archived
       # or which failed while processing and got suspended
       transitions from: :suspended, to: :archived
+      # or it was overridden
+      transitions from: :archived, to: :archived
     end
     event :reset do
       transitions from: :processing, to: :queued
