@@ -16,4 +16,8 @@ class Instance::AudioWorker < Instance
     Settings.fog.storage.aws_secret_access_key
   end
 
+  def slack_channel
+    Settings.slack.channel
+  end
+
 end
