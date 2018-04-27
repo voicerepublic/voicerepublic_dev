@@ -106,7 +106,13 @@ group :test do
   gem 'ci_reporter'
   gem 'database_cleaner', github: 'bmabey/database_cleaner'
 
-  #gem 'guard-rspec'
+  # BEGIN guard deps
+  gem 'guard-rspec', require: false
+  gem 'ruby_dep', '1.3.1' # newer versions require ruby 2.2+
+  gem 'listen', '3.0.8' # newer versions require ruby 2.2+
+  # END guard deps
+
+
   gem 'launchy'
   gem 'poltergeist'
   gem 'selenium-webdriver'
