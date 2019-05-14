@@ -349,8 +349,8 @@ crontab -l
 
 cat .aws/credentials
 [default]
-aws_secret_access_key = 3ODDCm1Q0n0AT9IFWhFEq7zjZ4hle+rxTzD15uFU
-aws_access_key_id = AKIAIGKSA6ESEFZV4DQA
+aws_secret_access_key = ''
+aws_access_key_id = ''
 region = eu-central-1
 s3 =
     signature_version = s3v4
@@ -422,8 +422,8 @@ crontab -l
 
 cat .aws/credentials
 [default]
-aws_secret_access_key = 3ODDCm1Q0n0AT9IFWhFEq7zjZ4hle+rxTzD15uFU
-aws_access_key_id = AKIAIGKSA6ESEFZV4DQA
+aws_secret_access_key = ''
+aws_access_key_id = ''
 region = eu-central-1
 s3 =
     signature_version = s3v4
