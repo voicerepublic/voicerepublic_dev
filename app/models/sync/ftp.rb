@@ -36,8 +36,8 @@ module Sync
         # query
         options = {
           provider: 'AWS',
-          aws_access_key_id: 'AKIAIGKSA6ESEFZV4DQA',
-          aws_secret_access_key: '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',
+          aws_access_key_id: '',
+          aws_secret_access_key: '',
           region: 'eu-central-1'
         }
         storage = Fog::Storage.new(options)

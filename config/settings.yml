@@ -215,13 +215,13 @@ icecast:
 fog:
   compute:
     provider: AWS
-    aws_access_key_id: needs to be set
-    aws_secret_access_key: needs to be set
+    aws_access_key_id: should be overridden via settings.local.yml
+    aws_secret_access_key: should be overridden via settings.local.yml
     region: eu-central-1
   storage:
     provider: AWS
-    aws_access_key_id: AKIAIGKSA6ESEFZV4DQA
-    aws_secret_access_key: 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
+    aws_access_key_id: should be overridden via settings.local.yml
+    aws_secret_access_key: should be overridden via settings.local.yml
 
 devices:
   endpoint:
@@ -235,5 +235,5 @@ devices:
   storage:
     bucket: vr-euc1-dev-backup-recordings@eu-central-1
     # user: device
-    aws_access_key_id: AKIAI7HSKHN3FBT2KAZQ
-    aws_secret_access_key: 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
+    aws_access_key_id: should be overridden via settings.local.yml
+    aws_secret_access_key: should be overridden via settings.local.yml
