@@ -136,13 +136,6 @@ Sidenote: This is also automatically done by `rake db:create`.
 
 Repeat for vr_test
 
-### nginx/rtmp server (Debian 7 & optional)
-
-Make sure `libpcre++-dev` is installed. Run `rake rtmp:build`. The
-config file is located here `config/rtmp.conf.erb`. See
-`lib/tasks/rtmp.rake` for more details.
-
-
 Run App
 -------
 
