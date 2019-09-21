@@ -1,9 +1,9 @@
-if Settings.errbit.enabled && false
+if Settings.errbit.enabled
   Airbrake.configure do |config|
     config.project_key = Settings.errbit.api_key
     config.project_id = true
     config.host = Settings.errbit.host
-    config.ignore_environments = %w(development test)
+    config.ignore_environments = %w(development test live)
     config.environment = Settings.errbit.environment
   end
 end
