@@ -69,7 +69,11 @@ default_pins:
   - willkommen-bei-voice-republic
 
 errbit:
-  enabled: false
+  # needs to be enabled otherwise airbrake <5.? bug will just throw because not
+  # configured.
+  # Airbrake::Error: the 'default' notifier isn't configured
+  # Disabing is done then by its own internal blacklist config.ignore_environments
+  enabled: true
   api_key: 'this will be set on the stages in app/shared/config/settings.local.yml'
   environment: 'development'
 devise:
