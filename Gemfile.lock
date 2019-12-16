@@ -183,7 +183,7 @@ GEM
       eventmachine (>= 1.0.0.beta.4)
     erubis (2.7.0)
     eventmachine (1.0.9.1)
-    excon (0.45.4)
+    excon (0.71.0)
     execjs (2.6.0)
     factory_girl (4.5.0)
       activesupport (>= 3.0.0)
@@ -671,7 +671,7 @@ DEPENDENCIES
   delayed_job_active_record
   devise (~> 3.4.0)
   dragonfly (= 1.0.12)
-  excon (~> 0.45.4)
+  excon (~> 0.71.0)
   factory_girl_rails (~> 4.0)
   faker
   faye-authentication!
