@@ -468,7 +468,7 @@ GEM
       slop (~> 3.4)
     pry-rails (0.3.4)
       pry (>= 0.9.10)
-    rack (1.6.4)
+    rack (1.6.12)
     rack-affiliates (0.4.0)
       rack
     rack-cache (1.6.1)
