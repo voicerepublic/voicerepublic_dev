@@ -3517,8 +3517,7 @@ h1, h2 {
   .registrations .facebook, .sessions .facebook, .confirmations .facebook, .passwords .facebook {
     background: #3B5998;
     color: white;
-    font-weight: 500;
-    display: none !important;  }
+    font-weight: 500;  }
     .registrations .facebook span, .sessions .facebook span, .confirmations .facebook span, .passwords .facebook span {
       line-height: 48px; }
     .registrations .facebook .svg-icon, .sessions .facebook .svg-icon, .confirmations .facebook .svg-icon, .passwords .facebook .svg-icon {
