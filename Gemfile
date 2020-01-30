@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.2.0'
+gem 'rails', '4.2.11.1'
 # gem 'svgeez'
 
 #gem 'turbolinks'
@@ -11,7 +11,7 @@ gem "daemons"                      # delayed job wants daemons
 gem 'delayed_job'
 gem 'delayed_job_active_record'
 
-gem 'sass-rails'
+gem 'sass-rails', '~> 5.0.2'
 gem 'coffee-rails', '~> 4.1.0'
 gem 'uglifier'#, '>= 1.0.3'
 
