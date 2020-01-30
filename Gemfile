@@ -32,7 +32,7 @@ gem 'omniauth-google-oauth2'
 gem 'friendly_id'                  # make urls more friendly
 gem 'will_paginate'                # pagination-extension to active-record
 gem 'dragonfly', '1.0.12'           # used for images
-gem 'angularjs-file-upload-rails', '~> 1.1.0'
+gem 'angularjs-file-upload-rails', '~> 2.4.1'
 gem 'acts-as-taggable-on', '3.4.2' # tag-system
 gem 'cancan'                       # authorization/privileges
 gem 'thin'                         # faster development-server
@@ -84,7 +84,7 @@ group :development do
   gem 'capistrano-rbenv', '~> 2.0'
   gem 'meta_request'
   gem 'pry-rails'
-  gem 'rspec-rails', '3.2.1'
+  gem 'rspec-rails', '3.9.0'
   #gem 'rspec-retry'
   # TODO: Upgradming to Rails 4.1 introduces a built in mechanism:
   #       http://api.rubyonrails.org/classes/ActiveSupport/Testing/TimeHelpers.html
