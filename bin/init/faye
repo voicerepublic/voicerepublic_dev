@@ -13,8 +13,8 @@ __abs_myname="$__abs_mydir/$__myname"
 
 export RAILS_ENV=production
 
-bundle='/home/app/.rbenv/shims/bundle'
-pidfile="/home/app/app/shared/pids/faye.pid"
+bundle="$HOME/.rbenv/shims/bundle"
+pidfile="$HOME/app/shared/pids/faye.pid"
 # faye="${bundle} exec rackup faye.ru -E production -D -P ${pidfile}"
 faye="${bundle} exec thin -C config/faye_thin.yml start -P ${pidfile} -d"
 
