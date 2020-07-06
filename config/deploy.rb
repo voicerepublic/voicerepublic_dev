@@ -1,17 +1,17 @@
 require 'json'
 
 # config valid only for Capistrano 3.1
-lock '3.1.0'
+lock '3.4.1'
 
 set :rbenv_type, :user # or :system, depends on your rbenv setup
-set :rbenv_ruby, '2.1.2'
+set :rbenv_ruby, '2.4.9'
 #set :rbenv_prefix, "RBENV_ROOT=#{fetch(:rbenv_path)} RBENV_VERSION=#{fetch(:rbenv_ruby)} #{fetch(:rbenv_path)}/bin/rbenv exec"
 #set :rbenv_map_bins, %w{rake gem bundle ruby rails}
 #set :rbenv_roles, :all # default value
 #set :rbenv_custom_path, '/home/app/.rbenv'
 
 set :application, 'voice_republic'
-set :repo_url, 'git@github.com:munen/voicerepublic_dev.git'
+set :repo_url, 'git@github.com:voicerepublic/vr-backoffice.git'
 
 set :ssh_options, { forward_agent: true }
 
@@ -76,8 +76,8 @@ namespace :deploy do
     on release_roles(fetch(:assets_roles)) do
       path = release_path + 'lib/vrng'
       # requires java & leinigen
-      execute "cd #{path} && /home/app/bin/lein clean"
-      execute "cd #{path} && /home/app/bin/lein cljsbuild once min"
+      execute "cd #{path} && $HOME/bin/lein clean"
+      execute "cd #{path} && $HOME/bin/lein cljsbuild once min"
     end
   end
   before :compile_assets, :cljsbuild
