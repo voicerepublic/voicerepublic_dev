@@ -13,7 +13,7 @@ __abs_myname="$__abs_mydir/$__myname"
 
 export RAILS_ENV=production
 
-bundle='/home/app/.rbenv/shims/bundle'
+bundle=$HOME/.rbenv/shims/bundle
 service="${bundle} exec bin/service ${@}"
 
 # Rails is always located below ~/app/current

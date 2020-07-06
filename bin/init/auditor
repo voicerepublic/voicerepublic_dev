@@ -13,8 +13,8 @@ __abs_myname="$__abs_mydir/$__myname"
 
 export RAILS_ENV=production
 
-bundle='/home/app/.rbenv/shims/bundle'
-pidfile="/home/app/app/shared/tmp/pids/auditor.pid"
+bundle="$HOME/.rbenv/shims/bundle"
+pidfile="$HOME/app/shared/tmp/pids/auditor.pid"
 auditor="${bundle} exec lib/auditor.rb start -- config/auditor.yml"
 
 # Rails is always located below ~/app/current

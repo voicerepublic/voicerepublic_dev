@@ -13,8 +13,8 @@ __abs_myname="$__abs_mydir/$__myname"
 
 export RAILS_ENV=production
 
-bundle='/home/app/.rbenv/shims/bundle'
-pidfile="/home/app/app/shared/tmp/pids/delayed_job.$2-$3.pid"
+bundle="$HOME/.rbenv/shims/bundle"
+pidfile="$HOME/app/shared/tmp/pids/delayed_job.$2-$3.pid"
 cmd="${bundle} exec bin/delayed_job --queue=$2 -i $2-$3 start"
 
 # Rails is always located below ~/app/current
