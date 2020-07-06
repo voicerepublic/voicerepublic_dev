@@ -11,7 +11,7 @@ set :rbenv_ruby, '2.4.9'
 #set :rbenv_custom_path, '/home/app/.rbenv'
 
 set :application, 'voice_republic'
-set :repo_url, 'git@github.com:voicerepublic/vr-backoffice.git'
+set :repo_url, 'git@github.com:voicerepublic/voicerepublic_dev.git'
 
 set :ssh_options, { forward_agent: true }
 
