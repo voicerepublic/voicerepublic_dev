@@ -30,6 +30,8 @@ end
 
 Faye::WebSocket.load_adapter('thin')
 faye = Faye::RackAdapter.new(mount: '/faye', timeout: 15)
+# for debugging, output goes to log/thin.log
+# Faye.logger = Logger.new(STDOUT)
 
 
 # AUTHENTICATION
