@@ -1,10 +1,8 @@
 Welcome to VoiceRepublic
 ========================
 
-#### Integration [![Circle CI](https://circleci.com/gh/voicerepublic/voicerepublic_dev.svg?style=svg&circle-token=f4b46938bc8855216230b287208fcc76062cc0a6)](https://circleci.com/gh/voicerepublic/voicerepublic_dev), Master [![Circle CI](https://circleci.com/gh/voicerepublic/voicerepublic_dev/tree/master.svg?style=svg&circle-token=f4b46938bc8855216230b287208fcc76062cc0a6)](https://circleci.com/gh/voicerepublic/voicerepublic_dev/tree/master)
+Development (Integration Branch) [![Circle CI](https://circleci.com/gh/voicerepublic/voicerepublic_dev.svg?style=svg&circle-token=f4b46938bc8855216230b287208fcc76062cc0a6)](https://circleci.com/gh/voicerepublic/voicerepublic_dev), Master [![Circle CI](https://circleci.com/gh/voicerepublic/voicerepublic_dev/tree/master.svg?style=svg&circle-token=f4b46938bc8855216230b287208fcc76062cc0a6)](https://circleci.com/gh/voicerepublic/voicerepublic_dev/tree/master)
 [![Gitter](https://img.shields.io/badge/chat-on%20gitter-ff006f.svg?style=flat-square)](https://gitter.im/voicerepublic/voicerepublic)
-
-![One does not simply...](http://www.memecreator.org/static/images/memes/809494.jpg)
 
 ### Platforms
 
