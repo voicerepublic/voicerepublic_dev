@@ -3,6 +3,8 @@ Welcome to VoiceRepublic
 
 Development (Integration Branch) [![Circle CI](https://circleci.com/gh/voicerepublic/voicerepublic_dev.svg?style=svg&circle-token=f4b46938bc8855216230b287208fcc76062cc0a6)](https://circleci.com/gh/voicerepublic/voicerepublic_dev), Master [![Circle CI](https://circleci.com/gh/voicerepublic/voicerepublic_dev/tree/master.svg?style=svg&circle-token=f4b46938bc8855216230b287208fcc76062cc0a6)](https://circleci.com/gh/voicerepublic/voicerepublic_dev/tree/master)
 [![Gitter](https://img.shields.io/badge/chat-on%20gitter-ff006f.svg?style=flat-square)](https://gitter.im/voicerepublic/voicerepublic)
+[![Twitter Follow](https://img.shields.io/twitter/follow/VoiceRepublic_.svg?style=social&label=Follow&maxAge=2592000?style=flat-square)](https://twitter.com/pslabio)
+
 
 ### Platforms
 
@@ -661,31 +663,3 @@ need to create a symlink in `app/views/pages`
 Here we use the template `__basic.html.haml` which currently is the
 only template. Instances of sections to fill this page will be created
 after the new pages as been vistited at least once.
-
-
-Repo Mapping (Github -> Gitlab)
--------------------------------
-
-```
-| git@github.com:munen/        | git@gitlab.com:voicerepublic/ |
-|------------------------------+-------------------------------|
-| fidelity.git                 | fidelity.git                  |
-| pdf-viewer.git               | pdf-viewer.git                |
-| voicerepublic_backoffice.git | backoffice.git                |
-| voicerepublic_mobile.git     | mobile.git                    |
-| voicerepublic_dev.git        | (still on github)             |
-```
-
-### Transition to Gitlab
-
-```
-REPO=fidelity.git
-
-git remote rm origin
-git remote add origin git@gitlab.com:voicerepublic/$REPO
-git branch --set-upstream-to=origin/master master
-git branch --set-upstream-to=origin/integration integration
-git pull
-git push
-
-```
