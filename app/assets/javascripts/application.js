@@ -48,3 +48,5 @@
 //= require shame
 //= require browser
 //= require topbar
+
+$(function(){ $(document).foundation(); });

@@ -1,4 +1,4 @@
-class RemoveMoreOldTables < ActiveRecord::Migration
+class RemoveMoreOldTables < ActiveRecord::Migration[6.0]
   def change
     drop_table :articles                        if exists? :articles
     drop_table :balance_accounts                if exists? :balance_accounts

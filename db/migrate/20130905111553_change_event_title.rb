@@ -1,6 +1,6 @@
 # encoding : utf-8
 
-class ChangeEventTitle < ActiveRecord::Migration
+class ChangeEventTitle < ActiveRecord::Migration[6.0]
   def up
     # TODO this is bad
     # Event.where("events.title IS NULL OR events.title = ''").find_each do |event|

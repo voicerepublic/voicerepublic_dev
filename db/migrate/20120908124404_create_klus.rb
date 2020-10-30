@@ -1,4 +1,4 @@
-class CreateKlus < ActiveRecord::Migration
+class CreateKlus < ActiveRecord::Migration[6.0]
   def change
     create_table :klus do |t|
       t.string :title

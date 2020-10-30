@@ -1,4 +1,4 @@
-class AddPgSearchAssociatedAgainstSupportFunctions < ActiveRecord::Migration
+class AddPgSearchAssociatedAgainstSupportFunctions < ActiveRecord::Migration[6.0]
   def self.up
     say_with_time("Adding support functions for pg_search :associated_against") do
       if ActiveRecord::Base.connection.send(:postgresql_version) < 80400

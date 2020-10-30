@@ -1,4 +1,4 @@
-class Cleanup < ActiveRecord::Migration
+class Cleanup < ActiveRecord::Migration[6.0]
   def change
     remove_column :users, :conference
     remove_column :users, :publisher_type

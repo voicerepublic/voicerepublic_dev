@@ -1,4 +1,4 @@
-class CreateVideoSessions < ActiveRecord::Migration
+class CreateVideoSessions < ActiveRecord::Migration[6.0]
   def change
     create_table :video_sessions do |t|
       t.integer :offer_id

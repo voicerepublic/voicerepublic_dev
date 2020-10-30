@@ -1,4 +1,4 @@
-class MigrateArticlesToComments < ActiveRecord::Migration
+class MigrateArticlesToComments < ActiveRecord::Migration[6.0]
   def change
 
     remove_column :comments, :article_id

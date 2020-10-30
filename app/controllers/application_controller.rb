@@ -10,11 +10,11 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_user
 
-  before_filter :set_last_request
+  before_action :set_last_request
   #before_filter :set_locale
 
-  around_filter :user_time_zone, :if => :current_user
-  after_filter :set_csrf_cookie_for_ng
+  around_action :user_time_zone, :if => :current_user
+  after_action :set_csrf_cookie_for_ng
 
   # TODO: We do we not have this in the app, yet?
   #rescue_from CanCan::AccessDenied do |exception|
@@ -51,7 +51,7 @@ class ApplicationController < ActionController::Base
     session[:return_to] = request.fullpath
   end
 
-  before_filter :update_sanitized_params, if: :devise_controller?
+  before_action :update_sanitized_params, if: :devise_controller?
 
   # strong parameters for devise
   def update_sanitized_params

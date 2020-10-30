@@ -1,4 +1,4 @@
-class AddDisaggregatedFieldsToDeviceReports < ActiveRecord::Migration
+class AddDisaggregatedFieldsToDeviceReports < ActiveRecord::Migration[6.0]
   def change
     add_column :device_reports, :uptime, :integer
     add_column :device_reports, :users, :integer

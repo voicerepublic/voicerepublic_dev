@@ -1,4 +1,4 @@
-class AddDeletedFieldsToMessages < ActiveRecord::Migration
+class AddDeletedFieldsToMessages < ActiveRecord::Migration[6.0]
   def change
     add_column :messages, :sender_deleted, :boolean, :default => false
     add_column :messages, :receiver_deleted, :boolean, :default => false

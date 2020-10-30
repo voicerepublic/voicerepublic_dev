@@ -1,4 +1,4 @@
-class ChangeColumnDefaultValuesForParticipantBases < ActiveRecord::Migration
+class ChangeColumnDefaultValuesForParticipantBases < ActiveRecord::Migration[6.0]
   def up
     change_column :participant_bases, :pay_tick_counter, :integer, :default => 0
     change_column :participant_bases, :seconds_online, :integer, :default => 0
