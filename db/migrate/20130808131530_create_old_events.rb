@@ -1,4 +1,4 @@
-class CreateOldEvents < ActiveRecord::Migration
+class CreateOldEvents < ActiveRecord::Migration[6.0]
   def change
     create_table :events do |t|
       t.datetime :start_time
@@ -8,6 +8,6 @@ class CreateOldEvents < ActiveRecord::Migration
       t.timestamps
     end
     add_index :events, :start_time
-    add_index :events, :venue_id
+    # add_index :events, :venue_id
   end
 end

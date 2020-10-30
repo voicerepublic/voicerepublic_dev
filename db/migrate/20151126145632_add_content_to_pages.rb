@@ -1,4 +1,4 @@
-class AddContentToPages < ActiveRecord::Migration
+class AddContentToPages < ActiveRecord::Migration[6.0]
   def change
     add_column :pages, :content, :text
   end

@@ -1,4 +1,4 @@
-class CreateStatusUpdates < ActiveRecord::Migration
+class CreateStatusUpdates < ActiveRecord::Migration[6.0]
   def change
     create_table :status_updates do |t|
       t.text :content

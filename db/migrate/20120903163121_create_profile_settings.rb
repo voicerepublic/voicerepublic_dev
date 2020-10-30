@@ -1,4 +1,4 @@
-class CreateProfileSettings < ActiveRecord::Migration
+class CreateProfileSettings < ActiveRecord::Migration[6.0]
   def change
     create_table :profile_settings do |t|
       t.string :timezone

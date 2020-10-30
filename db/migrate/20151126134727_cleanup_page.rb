@@ -1,4 +1,4 @@
-class CleanupPage < ActiveRecord::Migration
+class CleanupPage < ActiveRecord::Migration[6.0]
   def change
 
     change_column :pages, :type, :string, default: 'default'

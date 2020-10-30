@@ -1,4 +1,4 @@
-class CreateAppearances < ActiveRecord::Migration
+class CreateAppearances < ActiveRecord::Migration[6.0]
   def change
     create_table :appearances do |t|
       t.references :user, index: true

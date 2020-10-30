@@ -1,4 +1,4 @@
-class AddAsTextFields < ActiveRecord::Migration
+class AddAsTextFields < ActiveRecord::Migration[6.0]
   def change
 
     add_column :talks, :description_as_text, :text, default: ''

@@ -1,4 +1,4 @@
-class CreateUserRoles < ActiveRecord::Migration
+class CreateUserRoles < ActiveRecord::Migration[6.0]
   def up
     create_table :roles do |t|
       t.string :name

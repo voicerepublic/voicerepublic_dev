@@ -1,6 +1,10 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.2.11.1'
+# gem 'rails', '4.2.11.1'
+# ruby '2.7.1'
+ruby '2.6.3'
+
+gem 'rails', '~> 6.0.3', '>= 6.0.3.4'
 # gem 'svgeez'
 
 #gem 'turbolinks'
@@ -11,29 +15,30 @@ gem "daemons"                      # delayed job wants daemons
 gem 'delayed_job'
 gem 'delayed_job_active_record'
 
-gem 'sass-rails', '~> 5.0.2'
-gem 'coffee-rails', '~> 4.1.0'
+gem 'sass-rails'#, '~> 5.0.2'
+gem 'coffee-rails'#, '~> 4.1.0'
 gem 'uglifier'#, '>= 1.0.3'
 
 # gem 'jbuilder', '~> 2.0'
 # gem 'bcrypt', '~> 3.1.7'
-gem 'sdoc', '~> 0.4.0', group: :doc
+# gem 'sdoc', '~> 0.4.0', group: :doc
+gem 'sdoc', group: :doc
 
 gem 'bunny'                        # rmq client
 gem 'faker'                        # mock data
 gem 'rack-affiliates'
 gem 'config'                       # THE rails settings solution
-gem 'foundation-rails', '6.2.0.1'
+gem 'foundation-rails', '6.6.2.0'
 gem 'jquery-rails'
-gem 'devise', '~> 3.4.0'           # authentication/iam lib for rails
-gem 'simple_token_authentication', github: 'branch14/simple_token_authentication'
+gem 'devise'#, '~> 3.4.0'           # authentication/iam lib for rails
+gem 'simple_token_authentication'#, github: 'branch14/simple_token_authentication'
 gem 'omniauth-facebook', '4.0.0'
 gem 'omniauth-google-oauth2'
 gem 'friendly_id'                  # make urls more friendly
 gem 'will_paginate'                # pagination-extension to active-record
 gem 'dragonfly', '1.0.12'           # used for images
 gem 'angularjs-file-upload-rails', '~> 1.1.0'
-gem 'acts-as-taggable-on', '3.4.2' # tag-system
+gem 'acts-as-taggable-on'#, '3.4.2' # tag-system
 gem 'cancan'                       # authorization/privileges
 gem 'thin'                         # faster development-server
 gem 'whenever'                     # rubyesque interface to cron jobs
@@ -46,12 +51,13 @@ gem "transitions", github: 'troessner/transitions',
 #gem 'fidelity', git: 'git@github.com:munen/fidelity.git'
 #gem 'fidelity', path: '../fidelity'
 gem 'pg_search'
-gem 'jquery-ui-rails'
+# gem 'jquery-ui-rails'
+gem 'jquery-ui-rails', '5.0.5'
 gem 'browser'
 gem 'fog'
 #gem 'fog-aws'
 #gem 'fog-local'
-gem 'excon', '~> 0.45.4'           # http client
+gem 'excon'#, '~> 0.45.4'           # http client
 gem 'mailgun_rails', '~> 0.9.0'
 gem 'activemerchant'
 gem 'faye-authentication', github: 'branch14/faye-authentication'
@@ -78,13 +84,13 @@ group :development do
   gem 'annotator'
   gem 'better_errors'
   gem 'binding_of_caller'
-  gem 'capistrano',         '~> 3.4.0'
+  gem 'capistrano'#,         '~> 3.4.0'
   gem 'capistrano-bundler', '~> 1.6.0'
   gem 'capistrano-rails',   '~> 1.5.0'
   gem 'capistrano-rbenv', '~> 2.1.0'
   gem 'meta_request'
   gem 'pry-rails'
-  gem 'rspec-rails', '3.2.1'
+  gem 'rspec-rails'#, '3.2.1'
   #gem 'rspec-retry'
   # TODO: Upgradming to Rails 4.1 introduces a built in mechanism:
   #       http://api.rubyonrails.org/classes/ActiveSupport/Testing/TimeHelpers.html
@@ -102,14 +108,14 @@ group :test do
   gem 'factory_girl_rails', '~> 4.0'
   gem 'timecop'
 
-  gem 'capybara', '2.4.4'
+  gem 'capybara'#, '2.4.4'
   gem 'ci_reporter'
   gem 'database_cleaner', github: 'bmabey/database_cleaner'
 
   # BEGIN guard deps
   gem 'guard-rspec', require: false
   gem 'ruby_dep', '1.3.1' # newer versions require ruby 2.2+
-  gem 'listen', '3.0.8' # newer versions require ruby 2.2+
+  gem 'listen'#, '3.0.8' # newer versions require ruby 2.2+
   # END guard deps
 
 
@@ -127,3 +133,6 @@ group :production do
   gem 'rack-cache', require: 'rack/cache'
   gem 'airbrake', '~> 5.0'
 end
+
+gem 'mini_racer'
+gem 'webpacker'

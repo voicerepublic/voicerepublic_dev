@@ -1,4 +1,4 @@
-class MigrateRestFromAccountToUser < ActiveRecord::Migration
+class MigrateRestFromAccountToUser < ActiveRecord::Migration[6.0]
   def change
 
     add_column :users, :timezone, :string

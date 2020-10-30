@@ -1,4 +1,4 @@
-class InstallContribPackages < ActiveRecord::Migration
+class InstallContribPackages < ActiveRecord::Migration[6.0]
   def up
     #execute "CREATE EXTENSION pg_trgm;"
     #execute "CREATE EXTENSION unaccent;"

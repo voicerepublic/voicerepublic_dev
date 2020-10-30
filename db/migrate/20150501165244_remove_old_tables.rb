@@ -1,4 +1,4 @@
-class RemoveOldTables < ActiveRecord::Migration
+class RemoveOldTables < ActiveRecord::Migration[6.0]
   def change
     drop_table :bookmarks      if exists? :bookmarks
     drop_table :roles          if exists? :roles

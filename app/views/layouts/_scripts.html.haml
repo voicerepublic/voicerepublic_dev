@@ -11,6 +11,8 @@
       var insider = false;
 
   = javascript_include_tag :application unless params[:noapp]
+  // = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
+
   = content_for :javascripts unless params[:nocfjs]
 
   - if Rails.env.production?

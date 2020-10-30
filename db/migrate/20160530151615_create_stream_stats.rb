@@ -1,4 +1,4 @@
-class CreateStreamStats < ActiveRecord::Migration
+class CreateStreamStats < ActiveRecord::Migration[6.0]
   def change
     create_table :stream_stats do |t|
       t.references :venue, index: true
