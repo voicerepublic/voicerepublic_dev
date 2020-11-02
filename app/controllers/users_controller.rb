@@ -18,7 +18,7 @@ class UsersController < BaseController
                         referrer )
 
 
-  before_filter :authenticate_user!, :only => [:edit,:update,:destroy]
+  before_action :authenticate_user!, :only => [:edit,:update,:destroy]
 
   layout "velvet"
 

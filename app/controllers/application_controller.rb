@@ -55,9 +55,12 @@ class ApplicationController < ActionController::Base
 
   # strong parameters for devise
   def update_sanitized_params
-    devise_parameter_sanitizer.for(:sign_up) do |u|
-      u.permit(UsersController::PERMITTED_ATTRS)
-    end
+    # devise_parameter_sanitizer.for(:sign_up) do |u|
+    #   u.permit(UsersController::PERMITTED_ATTRS)
+    # end
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:firstname, :lastname, :accept_terms_of_use, :slug, :email, :avatar, :header, :timezone, :facebook, :twitter, :website, :summary, :about, :password, :password_confirmation, :referrer])
+
+    # devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:firstname, :lastname, :accept_terms_of_use, :slug, :email, :avatar, :header, :timezone, :facebook, :twitter, :website, :summary, :about, :password, :password_confirmation, :referrer) }
   end
 
   # === Better Exception Handling ===

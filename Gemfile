@@ -136,3 +136,4 @@ end
 
 gem 'mini_racer'
 gem 'webpacker'
+gem "recaptcha"
