@@ -73,3 +73,10 @@ Thumbs.db
 /userdata_jumphost.sh
 **/.tern-port
 public/feeds
+
+/public/packs
+/public/packs-test
+/node_modules
+/yarn-error.log
+yarn-debug.log*
+.yarn-integrity
