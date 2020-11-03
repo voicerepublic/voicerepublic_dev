@@ -136,4 +136,4 @@ end
 
 gem 'mini_racer'
 gem 'webpacker'
-gem "recaptcha"
+gem "recaptcha", require: "recaptcha/rails"
