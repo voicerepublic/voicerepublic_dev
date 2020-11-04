@@ -95,9 +95,10 @@ GEM
       activerecord (>= 5.0, < 6.1)
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
-    airbrake (5.8.1)
-      airbrake-ruby (~> 1.8)
-    airbrake-ruby (1.8.0)
+    airbrake (10.0.6)
+      airbrake-ruby (~> 4.13)
+    airbrake-ruby (4.15.0)
+      rbtree3 (~> 0.5)
     airbrussh (1.4.0)
       sshkit (>= 1.6.1, != 1.7.0)
     aliyun-sdk (0.8.0)
@@ -107,7 +108,7 @@ GEM
     angularjs-file-upload-rails (1.1.6)
     annotator (0.0.10)
       activerecord (>= 3.0)
-    autoprefixer-rails (10.0.1.0)
+    autoprefixer-rails (10.0.1.2)
       execjs
     babel-source (5.8.35)
     babel-transpiler (0.7.0)
@@ -125,7 +126,7 @@ GEM
     bunny (2.17.0)
       amq-protocol (~> 2.3, >= 2.3.1)
     byebug (11.1.3)
-    cancan (1.6.10)
+    cancancan (3.1.0)
     capistrano (3.14.1)
       airbrussh (>= 1.0.0)
       i18n
@@ -634,6 +635,7 @@ GEM
     rbovirt (0.1.7)
       nokogiri
       rest-client (> 1.7.0)
+    rbtree3 (0.6.0)
     rbvmomi (2.4.1)
       builder (~> 3.0)
       json (>= 1.8)
@@ -657,18 +659,18 @@ GEM
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
     retriable (3.1.2)
-    rspec (3.9.0)
-      rspec-core (~> 3.9.0)
-      rspec-expectations (~> 3.9.0)
-      rspec-mocks (~> 3.9.0)
-    rspec-core (3.9.3)
-      rspec-support (~> 3.9.3)
-    rspec-expectations (3.9.4)
+    rspec (3.10.0)
+      rspec-core (~> 3.10.0)
+      rspec-expectations (~> 3.10.0)
+      rspec-mocks (~> 3.10.0)
+    rspec-core (3.10.0)
+      rspec-support (~> 3.10.0)
+    rspec-expectations (3.10.0)
       diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.9.0)
-    rspec-mocks (3.9.1)
+      rspec-support (~> 3.10.0)
+    rspec-mocks (3.10.0)
       diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.9.0)
+      rspec-support (~> 3.10.0)
     rspec-rails (4.0.1)
       actionpack (>= 4.2)
       activesupport (>= 4.2)
@@ -677,7 +679,7 @@ GEM
       rspec-expectations (~> 3.9)
       rspec-mocks (~> 3.9)
       rspec-support (~> 3.9)
-    rspec-support (3.9.4)
+    rspec-support (3.10.0)
     ruby_dep (1.3.1)
     ruby_parser (3.15.0)
       sexp_processor (~> 4.9)
@@ -697,7 +699,7 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
-    sdoc (1.1.0)
+    sdoc (2.0.0)
       rdoc (>= 5.0)
     selectize-rails (0.12.6)
     selenium-webdriver (3.142.7)
@@ -759,7 +761,7 @@ GEM
     tzinfo (1.2.7)
       thread_safe (~> 0.1)
     uber (0.1.0)
-    uglifier (4.2.0)
+    uglifier (4.1.19)
       execjs (>= 0.3.0, < 3)
     unf (0.1.4)
       unf_ext
@@ -801,7 +803,7 @@ PLATFORMS
 DEPENDENCIES
   activemerchant
   acts-as-taggable-on
-  airbrake (~> 5.0)
+  airbrake (~> 10.0.3)
   angularjs-file-upload-rails (~> 1.1.0)
   annotator
   autoprefixer-rails
@@ -810,7 +812,7 @@ DEPENDENCIES
   browser
   bunny
   byebug
-  cancan
+  cancancan
   capistrano
   capistrano-bundler (~> 1.6.0)
   capistrano-rails (~> 1.5.0)
@@ -888,4 +890,4 @@ RUBY VERSION
    ruby 2.6.3p62
 
 BUNDLED WITH
-   2.1.4
+   2.0.2

@@ -39,7 +39,8 @@ gem 'will_paginate'                # pagination-extension to active-record
 gem 'dragonfly', '1.0.12'           # used for images
 gem 'angularjs-file-upload-rails', '~> 1.1.0'
 gem 'acts-as-taggable-on'#, '3.4.2' # tag-system
-gem 'cancan'                       # authorization/privileges
+# gem 'cancan'
+gem 'cancancan'                       # authorization/privileges
 gem 'thin'                         # faster development-server
 gem 'whenever'                     # rubyesque interface to cron jobs
 gem 'haml-rails'
@@ -131,7 +132,7 @@ end
 
 group :production do
   gem 'rack-cache', require: 'rack/cache'
-  gem 'airbrake', '~> 5.0'
+  gem 'airbrake', '~> 10.0.3'
 end
 
 gem 'mini_racer'

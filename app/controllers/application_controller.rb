@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
 
   before_action :set_last_request
-  #before_filter :set_locale
+  #before_action :set_locale
 
   around_action :user_time_zone, :if => :current_user
   after_action :set_csrf_cookie_for_ng
@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
   #end
 
   # # TODO move to trickery
-  # before_filter :log_callback_chain
+  # after_action :log_callback_chain
   # def log_callback_chain
   #   fmt = "  %-14s %-6s %-22s %s"
   #   logger.debug 'Callback chain'
