@@ -1,10 +1,10 @@
 class ParticipationsController < BaseController
 
-  before_filter :store_location
-  before_filter :authenticate_user!
+  before_action :store_location
+  before_action :authenticate_user!
 
   # nested under series
-  before_filter :set_series
+  before_action :set_series
 
   # FIXME: This is somewhat f*ckd! Devise might redirect here if a currently
   # not signed in user clicks on a participate now button. For now we'll simpy

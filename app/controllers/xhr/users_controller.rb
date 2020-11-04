@@ -1,6 +1,6 @@
 class Xhr::UsersController < Xhr::BaseController
   
-  before_filter :authenticate_user!, :only => [:edit,:update,:destroy]
+  before_action :authenticate_user!, :only => [:edit,:update,:destroy]
   
   def index
     users = User.search(params[:q]).paginate(page: params[:page],
