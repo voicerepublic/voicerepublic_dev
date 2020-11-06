@@ -69,7 +69,7 @@ class User < ActiveRecord::Base
   acts_as_taggable
 
   dragonfly_accessor :header do
-    default Rails.root.join('app/assets/images/defaults/user-header.jpg')
+    default Rails.root.join('app/assets/images/defaults/user-avatar.jpg')
   end
   dragonfly_accessor :avatar do
     default Rails.root.join('app/assets/images/defaults/user-avatar.jpg')
@@ -119,7 +119,7 @@ class User < ActiveRecord::Base
   before_save :normalize_twitter, if: :twitter_changed?
   before_save :normalize_facebook, if: :facebook_changed?
 
-  include PgSearch
+  include PgSearch::Model
   multisearchable against: [:firstname, :lastname]
   pg_search_scope :search, against: [:firstname, :lastname],
     using: { tsearch: { prefix: true } },

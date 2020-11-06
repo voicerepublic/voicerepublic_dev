@@ -1,5 +1,6 @@
 require File.expand_path('../boot', __FILE__)
-
+require 'fog/core'
+Fog::Logger[:deprecation] = nil
 require 'rails/all'
 
 require File.expand_path('../../lib/core_ext', __FILE__)
