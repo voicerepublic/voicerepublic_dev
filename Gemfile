@@ -1,8 +1,8 @@
 source 'https://rubygems.org'
 
 # gem 'rails', '4.2.11.1'
-# ruby '2.7.1'
-ruby '2.6.3'
+ruby '2.7.1'
+# ruby '2.6.3'
 
 gem 'rails', '~> 6.0.3', '>= 6.0.3.4'
 # gem 'svgeez'
