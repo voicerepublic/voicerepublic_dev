@@ -42,11 +42,11 @@
         .row
           .medium-12.columns.medium-text-left
             = f.button :submit, t('.continue').html_safe, id: "check_recaptch", class: 'button large secondary small-expanded medium-float-right qa-signup'
-        %hr/
-        %p.text-center.divider-title
-          = t('.registration_or')
-        = render partial: 'devise/shared/social_network_connects',
-                 locals: { action: 'register' }
+        / %hr/
+        / %p.text-center.divider-title
+        /   = t('.registration_or')
+        / = render partial: 'devise/shared/social_network_connects',
+        /          locals: { action: 'register' }
         .clearfix
         %hr/
         %p.login-ask
