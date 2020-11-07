@@ -49,4 +49,6 @@
 //= require browser
 //= require topbar
 
+// --- Recaptcha
+//= require recaptcha/api
 $(function(){ $(document).foundation(); });
