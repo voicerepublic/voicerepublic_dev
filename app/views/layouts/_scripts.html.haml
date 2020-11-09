@@ -15,8 +15,8 @@
 
   = content_for :javascripts unless params[:nocfjs]
 
-  - if Rails.env.production?
-    = render 'shared/tawk' unless params[:nott]
-    - unless @current_user.try(:insider?) or params[:noga]
-      = render 'shared/google_analytics'
-      = render 'shared/google_remarketing'
+  /- if Rails.env.production?
+  /  = render 'shared/tawk' unless params[:nott]
+  /  - unless @current_user.try(:insider?) or params[:noga]
+  /    = render 'shared/google_analytics'
+  /    = render 'shared/google_remarketing'
