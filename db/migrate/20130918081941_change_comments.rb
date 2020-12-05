@@ -1,4 +1,4 @@
-class ChangeComments < ActiveRecord::Migration
+class ChangeComments < ActiveRecord::Migration[6.0]
   def up
     # TODO another really bad one
     # Comment.delete_all

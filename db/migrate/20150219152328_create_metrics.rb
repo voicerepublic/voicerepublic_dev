@@ -1,4 +1,4 @@
-class CreateMetrics < ActiveRecord::Migration
+class CreateMetrics < ActiveRecord::Migration[6.0]
   def change
     create_table :metrics do |t|
       t.string :key, index: true

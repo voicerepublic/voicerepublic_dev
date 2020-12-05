@@ -1,4 +1,4 @@
-class CreateSections < ActiveRecord::Migration
+class CreateSections < ActiveRecord::Migration[6.0]
   def change
     create_table :sections do |t|
       t.references :page
@@ -10,7 +10,7 @@ class CreateSections < ActiveRecord::Migration
 
       t.timestamps null: false
     end
-    add_index :sections, :page_id
+    # add_index :sections, :page_id
     add_index :sections, :locale
     add_index :sections, :key
   end

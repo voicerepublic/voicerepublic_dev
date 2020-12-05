@@ -1,3 +1,5 @@
+@import 'settings';
+@import 'foundation';
 .uploads-new,
 .uploads-create,
 .talks-new,
@@ -331,10 +333,10 @@
   #modal-info{
     background: black;
     color: white;
-    @include responsive(desktop){
-      width: 700px;
-      margin-left: -350px;
-    }
+    //@include responsive(desktop){
+    //  width: 700px;
+    //  margin-left: -350px;
+    //}
     .talk-title{
       color:white;
       margin-bottom: 0;
@@ -359,10 +361,10 @@
 
   #modal-embed{
     background: black;
-    @include responsive(desktop){
-      width: 700px;
-      margin-left: -350px;
-    }
+    // @include responsive(desktop){
+    //   width: 700px;
+    //   margin-left: -350px;
+    // }
     .embed-help-text{
       font-family: $brand-font-light;
       font-size: rem-calc(15);
@@ -565,10 +567,10 @@
           line-height: 1;
           padding: 13px 20px 7px 20px;
           border-radius: 12px;
-          @include box-shadow(0, 0, 10px, rgba(0,0,0,0.5));
+          //@include box-shadow(0, 0, 10px, rgba(0,0,0,0.5));
           text-shadow: 1px 1px 2px rgba(0,0,0,0.5), -1px 1px -2px rgba(0,0,0,0.5);
           &:hover{
-            @include box-shadow(0, 0, 10px, rgba(0,0,0,0.8));
+            //@include box-shadow(0, 0, 10px, rgba(0,0,0,0.8));
             text-shadow: 1px 1px 2px rgba(0,0,0,0.5), -1px 1px -2px rgba(0,0,0,0.5);
           }
         }
@@ -675,7 +677,7 @@
         display: inline-block;
         font-size: rem-calc(15);
         font-family: $brand-font-bold;
-        @include transition(color 1s);
+        //@include transition(color 1s);
         h3{
           font-size: rem-calc(12);
           color: black;
@@ -689,7 +691,7 @@
         }
         &.bad{
           color: $brand-color-red;
-          @include transition(color 4s);
+          //@include transition(color 4s);
         }
       }
     }
@@ -700,8 +702,8 @@
       width: 325px;
       height: 26px;
       background: rgba(0,0,0,0.6);
-      @include transition('width 0.5s linear 0, background 0.5s linear 0');
-      @include box-shadow (0, 0, 5px, rgba(0,0,0,0.2));
+      //@include transition('width 0.5s linear 0, background 0.5s linear 0');
+      //@include box-shadow (0, 0, 5px, rgba(0,0,0,0.2));
       border-radius: 5px;
 
       .avatar{
@@ -736,7 +738,7 @@
           font-size: rem-calc(24);
         }
         .icon-mute{
-          @include opacity(0);
+          //@include opacity(0);
         }
         .yellow{
           color: $brand-color-yellow;
@@ -786,7 +788,7 @@
           color: white;
           border: 1px solid #ddd;
           border-bottom-color: #aaa;
-          @include box-shadow(0,0,12px,rgba(0,0,0,1));
+          //@include box-shadow(0,0,12px,rgba(0,0,0,1));
         }
       }
 
@@ -800,7 +802,7 @@
           text-shadow: 1px 1px 2px rgba(255,255,255,0.3), -1px -1px 2px rgba(255,255,255,0.3);
           border: 1px solid #000;
           border-bottom-color: #666;
-          @include box-shadow(0,0,12px,rgba(0,0,0,0));
+          //@include box-shadow(0,0,12px,rgba(0,0,0,0));
           cursor: default;
           .cancel-link{
             position: absolute;
@@ -818,7 +820,7 @@
           }
         }
         .arrow{
-          @include rotate(180);
+          //@include rotate(180);
         }
       }
 
@@ -855,7 +857,7 @@
           color: white;
           border: 1px solid #ddd;
           border-bottom-color: #aaa;
-          @include box-shadow(0,0,12px,rgba(0,0,0,1));
+          //@include box-shadow(0,0,12px,rgba(0,0,0,1));
           font-size: rem-calc(13);
           line-height: 1;
           padding:2px 0 0 0;
@@ -877,7 +879,7 @@
         background: $brand-color-green;
         padding-right: 20px;
         .avatar{
-          @include opacity(0);
+          //@include opacity(0);
         }
         .mic-sign-box{
           .icon-octagon,
@@ -894,7 +896,7 @@
         background: $brand-color-red;
         padding-right: 20px;
         .avatar{
-          @include opacity(0);
+          //@include opacity(0);
         }
         .mic-sign-box{
           .icon-octagon,
@@ -905,20 +907,20 @@
         &:hover,
         &.state-muted-mic{
           border: 2px solid $brand-color-green;
-          @include transition(all 0.05s linear 0);
+          //@include transition(all 0.05s linear 0);
           background: white;
           .mic-sign-box{
             .icon-octagon,
             .icon-mute{
-              @include opacity(1);
+              //@include opacity(1);
               color:$brand-color-green;
             }
             .icon-unmute{
-              @include opacity(0)
+              //@include opacity(0)
             }
           }
           .mute-box{
-            @include opacity(1);
+            //@include opacity(1);
           }
         }
       }
@@ -937,7 +939,7 @@
         }
         .mute-box{
           position: absolute;
-          @include opacity(0);
+          //@include opacity(0);
           width: 200px;
           height: 50px;
           top:-12px;
@@ -1001,12 +1003,12 @@
     height: 0;
     width: 0;
     overflow: hidden;
-    @include opacity(0);
-    @include transition('opacity 0.2s');
+    //@include opacity(0);
+    //@include transition('opacity 0.2s');
     &.state-on{
       height: 100%;
       width: 100%;
-      @include opacity(1);
+      //@include opacity(1);
     }
     .flash-box{
       position: absolute;
@@ -1066,7 +1068,7 @@
       top:0px;
       height: 106%;
       width: 100%;
-      @include box-sizing(padding-box);
+      //@include box-sizing(padding-box);
     }
     .need-help{
       position: absolute;
@@ -1094,7 +1096,7 @@
     position: relative;
     overflow: hidden;
     .description-content{
-      @include transition('max-height 0.4s linear, padding 0.4s ease, opacity 0.4s ease 0.4s');
+      //@include transition('max-height 0.4s linear, padding 0.4s ease, opacity 0.4s ease 0.4s');
       opacity: 1;
       padding-top: 30px;
       padding-bottom: 30px;
@@ -1122,7 +1124,7 @@
 
         &:before{
           content: '';
-          @include vertical-gradient(rgba(254,241,222, 0),$brand-color-creme);
+          //@include vertical-gradient(rgba(254,241,222, 0),$brand-color-creme);
           position: absolute;
           top:-10px;
           left:0;
@@ -1176,16 +1178,16 @@
     position: relative;
     padding:20px 0 0 0;
     min-height: 400px;
-    @include transition(padding 0.8s linear 1.6s);
+    //@include transition(padding 0.8s linear 1.6s);
 
     /* DISCUSSION - CHAT */
     .discussion-block{
       position: relative;
       background:white;
       padding: 16px 20px;
-      @include box-shadow(0px, 0px, 10px, rgba(0,0,0,0.05));
+      //@include box-shadow(0px, 0px, 10px, rgba(0,0,0,0.05));
       .title-discussion{
-        @include transition(height 0.4s linear 0.8s);
+        //@include transition(height 0.4s linear 0.8s);
         margin:0;
         padding:0;
         height: 20px;
@@ -1265,7 +1267,7 @@
       top:20px;
       background: white;
       overflow: hidden;
-      @include box-shadow(0px, 0px, 10px, rgba(0,0,0,0.05));
+      //@include box-shadow(0px, 0px, 10px, rgba(0,0,0,0.05));
 
       .promotion-counter-box{
         position: absolute;
@@ -1310,11 +1312,11 @@
       /* state transition */
       width:0;
       padding:0;
-      @include transition("padding 0.8s linear 1.6s, width 0.8s linear 1.6s");
+      //@include transition("padding 0.8s linear 1.6s, width 0.8s linear 1.6s");
 
       .participants-content{
-        @include opacity(0);
-        @include transition(opacity 0.8s linear 0.8s);
+        //@include opacity(0);
+        //@include transition(opacity 0.8s linear 0.8s);
         overflow: hidden;
         width: 176px;
         h3{
@@ -1367,7 +1369,7 @@
         .empty-box{
           height:80px;
           overflow: hidden;
-          @include transition(all 0.1s linear);
+          //@include transition(all 0.1s linear);
           &.state-hidden{
             height:0px;
           }
@@ -1381,7 +1383,7 @@
           .host-actions{
             .give-mic-link{
               background: $interaction-green;
-              @include box-shadow(0,0,10px,rgba(0,0,0,0.15));
+              //@include box-shadow(0,0,10px,rgba(0,0,0,0.15));
               border: 2px solid white;
               padding:3px 0px 2px 0px;
               margin-bottom: 5px;
@@ -1391,7 +1393,7 @@
               display: inline-block;
               width: 175px;
               border-radius:2px;
-              @include transition(all 0.05s linear);
+              //@include transition(all 0.05s linear);
               &:hover{
                 background: darken($interaction-green,5%);
               }
@@ -1415,7 +1417,7 @@
               top:6px;
               left:17px;
               background: $brand-color-green;
-              @include box-shadow(0,0,10px,rgba(0,0,0,0.15));
+              //@include box-shadow(0,0,10px,rgba(0,0,0,0.15));
               border: 2px solid white;
               padding:3px 0px 2px 0px;
               color: white;
@@ -1424,12 +1426,12 @@
               display: inline-block;
               width: 140px;
               border-radius:2px;
-              @include opacity(0);
-              @include transition(opacity 0.05s linear);
+              //@include opacity(0);
+              //@include transition(opacity 0.05s linear);
             }
             &:hover{
               .guest-promote-link{
-                @include opacity(1);
+                //@include opacity(1);
               }
             }
           }
@@ -1444,24 +1446,24 @@
       max-height:0 !important;
       padding:0;
       opacity: 0;
-      @include transition('opacity 0.4s linear, max-height 0.4s ease 0.4s, padding 0.4s ease 0.4s');
+      //@include transition('opacity 0.4s linear, max-height 0.4s ease 0.4s, padding 0.4s ease 0.4s');
     }
     .participants-and-discussion{
       padding-left: 220px;
-      @include transition(padding 0.8s linear 0.8s);
+      //@include transition(padding 0.8s linear 0.8s);
       .title-discussion{
         height:0 !important;
       }
     }
     .participants-box{
-      @include transition("width 0.8s linear 0.8s, padding 0.8s linear 0.8s");
-      @include opacity(1);
+      //@include transition("width 0.8s linear 0.8s, padding 0.8s linear 0.8s");
+      //@include opacity(1);
       width: 200px;
       padding: 0 12px 11px 12px;
       overflow: visible;
       .participants-content{
-        @include opacity(1);
-        @include transition(opacity 0.8s linear 1.6s);
+        //@include opacity(1);
+        //@include transition(opacity 0.8s linear 1.6s);
       }
     }
   }
@@ -1523,11 +1525,11 @@
       padding: 16px 19px 20px 19px;
       margin-bottom: 15px;
       background: $brand-color-red;
-      @include box-shadow(2px, 2px, 2px, rgba(0,0,0,0.2));
-      @include transition(all 0.1s ease-in-out);
+      //@include box-shadow(2px, 2px, 2px, rgba(0,0,0,0.2));
+      //@include transition(all 0.1s ease-in-out);
       text-shadow: 1px 1px 2px rgba(0,0,0,0.2),-1px -1px 2px rgba(0,0,0,0.2);
       &:hover{
-        @include box-shadow(2px, 2px, 16px, rgba(0,0,0,0.8));
+        //@include box-shadow(2px, 2px, 16px, rgba(0,0,0,0.8));
         text-shadow: 1px 1px 2px rgba(0,0,0,0.4),-1px -1px 2px rgba(0,0,0,0.4);
       }
       a{

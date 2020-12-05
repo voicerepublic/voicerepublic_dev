@@ -1,4 +1,4 @@
-class AddAttachmentToVenues < ActiveRecord::Migration
+class AddAttachmentToVenues < ActiveRecord::Migration[6.0]
   def up
     #add_attachment :venues, :image
   end

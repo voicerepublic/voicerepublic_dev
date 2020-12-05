@@ -1,4 +1,4 @@
-class AddCommentReferences < ActiveRecord::Migration
+class AddCommentReferences < ActiveRecord::Migration[6.0]
   def up
     change_table :comments do |t|
       t.references :commentable, :polymorphic => true

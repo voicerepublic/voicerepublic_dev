@@ -104,7 +104,7 @@ Rails.application.configure do
     end
   end
 
-  config.assets.js_compressor = BypassableUglifier
+  # config.assets.js_compressor = BypassableUglifier
 
 
   # Optionally disable Javascript/CSS compression
@@ -122,7 +122,7 @@ Rails.application.configure do
   end
 
 
-  config.middleware.use 'Raindrops::Middleware' unless Settings.no_raindrops
+  config.middleware.use Raindrops::Middleware unless Settings.no_raindrops
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false

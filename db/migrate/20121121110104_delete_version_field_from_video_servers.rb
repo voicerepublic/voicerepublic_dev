@@ -1,4 +1,4 @@
-class DeleteVersionFieldFromVideoServers < ActiveRecord::Migration
+class DeleteVersionFieldFromVideoServers < ActiveRecord::Migration[6.0]
   def up
     remove_column :video_servers, :version
   end

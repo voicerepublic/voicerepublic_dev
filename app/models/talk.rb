@@ -214,7 +214,7 @@ class Talk < ActiveRecord::Base
     tagged_with(bundle.tag_list, any: true)
   }
 
-  include PgSearch
+  include PgSearch::Model
   multisearchable against: [:tag_list, :title, :teaser, :description, :speakers]
   pg_search_scope :search,
                   ignoring: :accents,

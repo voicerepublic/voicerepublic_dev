@@ -1,4 +1,4 @@
-class CreateBalanceAccounts < ActiveRecord::Migration
+class CreateBalanceAccounts < ActiveRecord::Migration[6.0]
   def change
     create_table :balance_accounts do |t|
       t.string :currency

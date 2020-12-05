@@ -1,4 +1,4 @@
-class CreateMessagesOld < ActiveRecord::Migration
+class CreateMessagesOld < ActiveRecord::Migration[6.0]
   def change
     create_table :messages do |t|
       t.integer :receiver_id

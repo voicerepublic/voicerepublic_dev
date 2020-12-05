@@ -1,4 +1,4 @@
-class RemoveStatusFromKluuu < ActiveRecord::Migration
+class RemoveStatusFromKluuu < ActiveRecord::Migration[6.0]
   def up
     remove_column :klus, :uses_status
   end
