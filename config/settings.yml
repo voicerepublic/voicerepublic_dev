@@ -244,6 +244,3 @@ devices:
 # recapcha:
 #   site_key: 6LfpkN4ZAAAAAHkHFAbtd1p6uNkK7mISiVfx1YDh
 
-recaptcha:
-  site_key: 6LfKJt4ZAAAAAKmwBpl9NLj5xTCjnvPBnmmmRI61
-  secret_key: 6LfKJt4ZAAAAAJDRUvE8j0O7NGNeHjk-jAVFwS9K
