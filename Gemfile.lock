@@ -477,6 +477,8 @@ GEM
       html2haml (>= 1.0.1)
       railties (>= 5.1)
     hashie (4.1.0)
+    hcaptcha (7.1.0)
+      json
     html2haml (2.2.0)
       erubis (~> 2.7.0)
       haml (>= 4.0, < 6)
@@ -840,6 +842,7 @@ DEPENDENCIES
   greensock-rails
   guard-rspec
   haml-rails
+  hcaptcha
   inifile
   jquery-rails
   jquery-ui-rails (= 5.0.5)

@@ -139,3 +139,4 @@ gem 'mini_racer'
 gem 'webpacker'
 gem "recaptcha", require: "recaptcha/rails"
 gem 'figaro'
+gem "hcaptcha"
