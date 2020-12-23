@@ -72,7 +72,7 @@ xml.urlset(namespaces.merge(total: total)) do |urlset|
     urlset.url do |url|
       url.loc '%s/users/%s' % [Settings.root_url, user.slug]
       url.image(:image) do |image|
-        image.image(:loc, user.avatar.url)
+        image.image(:loc, user.avatar_image_url)
       end
       date = user.updated_at || user.created_at
       url.lastmod date.strftime(iso8601)

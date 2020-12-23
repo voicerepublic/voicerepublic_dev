@@ -71,9 +71,11 @@ class User < ActiveRecord::Base
   dragonfly_accessor :header do
     default Rails.root.join('app/assets/images/defaults/user-avatar.jpg')
   end
-  dragonfly_accessor :avatar do
-    default Rails.root.join('app/assets/images/defaults/user-avatar.jpg')
-  end
+  has_one_attached :avatar
+  # validates :avatar, presence: true
+  # dragonfly_accessor :avatar do
+  #   default Rails.root.join('app/assets/images/defaults/user-avatar.jpg')
+  # end
 
   acts_as_token_authenticatable
 
@@ -125,6 +127,12 @@ class User < ActiveRecord::Base
     using: { tsearch: { prefix: true } },
     ignoring: :accents
 
+  def avatar_image_url
+    if self.avatar.attachment
+      self.avatar.attachment.service_url
+    end
+  end
+
   def create_defaults!
     unless default_series.present?
       attrs = Settings.default_series_defaults[I18n.locale].to_hash
@@ -168,7 +176,7 @@ class User < ActiveRecord::Base
     {
       name: name,
       url: self_url,
-      image_url: avatar.thumb('36x36').url,
+      image_url: avatar.attachment.service_url,
       image_alt: image_alt
     }
   end

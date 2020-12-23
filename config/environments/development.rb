@@ -19,7 +19,7 @@ Rails.application.configure do
   config.action_mailer.raise_delivery_errors = false
   #config.action_mailer.delivery_method = :file
   config.action_mailer.delivery_method = :letter_opener_web
-
+  config.active_storage.service = :backblaze
   ActionMailer::Base.file_settings = { :location => Rails.root.join('tmp/mail') }
   #config.action_mailer.smtp_settings = {
   #                                        :address              => "smtp.gmail.com",
