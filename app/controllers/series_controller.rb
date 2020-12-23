@@ -1,8 +1,8 @@
 class SeriesController < BaseController
 
-  before_filter :store_location
-  before_filter :authenticate_user!, :except => [:show, :tags]
-  before_filter :set_series, only: [:show, :edit, :update, :destroy]
+  before_action :store_location
+  before_action :authenticate_user!, :except => [:show, :tags]
+  before_action :set_series, only: [:show, :edit, :update, :destroy]
 
   layout 'velvet'
 

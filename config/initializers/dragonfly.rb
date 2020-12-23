@@ -5,7 +5,7 @@ Dragonfly.app.configure do
   plugin :imagemagick
 
   protect_from_dos_attacks true
-  secret "b374766651e5f0c4e88c158b5ad298e094ef3a495ac42f17d6aeb6be62cbe1f5"
+  secret ENV['dragnofly_secret']
 
   url_format "/media/:job/:name"
 

@@ -16,6 +16,16 @@
     "grunt": "~0.4.5",
     "grunt-contrib-watch": "~0.6.1",
     "grunt-svgstore": "^0.5.0",
-    "load-grunt-tasks": "~3.1.0"
+    "load-grunt-tasks": "~3.1.0",
+    "webpack-dev-server": "^3.11.0"
+  },
+  "dependencies": {
+    "@rails/activestorage": "^6.0.3-4",
+    "@rails/ujs": "^6.0.3-4",
+    "@rails/webpacker": "5.2.1",
+    "channels": "^0.0.4",
+    "colors": "^1.4.0",
+    "foundation": "^4.2.1-1",
+    "turbolinks": "^5.2.0"
   }
 }

@@ -1,4 +1,4 @@
-class ChangeAvailablitiyTableKlus < ActiveRecord::Migration
+class ChangeAvailablitiyTableKlus < ActiveRecord::Migration[6.0]
   
   def up
     change_column(:klus, :available_at_times, :string)

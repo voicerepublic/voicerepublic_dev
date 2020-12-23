@@ -1,4 +1,4 @@
-class RemoveDeprecatedFields < ActiveRecord::Migration
+class RemoveDeprecatedFields < ActiveRecord::Migration[6.0]
   def change
     drop_table :accounts
     drop_table :follows

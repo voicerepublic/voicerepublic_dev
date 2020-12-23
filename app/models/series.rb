@@ -61,7 +61,7 @@ class Series < ActiveRecord::Base
     default Rails.root.join('app/assets/images/defaults/series-image.jpg')
   end
 
-  include PgSearch
+  include PgSearch::Model
   multisearchable against: [:tag_list, :title, :teaser, :description]
 
   # provides easier access to options

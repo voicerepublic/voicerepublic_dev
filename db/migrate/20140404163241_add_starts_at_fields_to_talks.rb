@@ -1,4 +1,4 @@
-class AddStartsAtFieldsToTalks < ActiveRecord::Migration
+class AddStartsAtFieldsToTalks < ActiveRecord::Migration[6.0]
   def change
     add_column :talks, :starts_at_date, :string
     add_column :talks, :starts_at_time, :string

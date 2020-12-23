@@ -1,4 +1,4 @@
-class ChangeTableBookmarks < ActiveRecord::Migration
+class ChangeTableBookmarks < ActiveRecord::Migration[6.0]
   
   def change
     change_table :bookmarks do |t|

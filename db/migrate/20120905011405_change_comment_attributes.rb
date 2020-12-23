@@ -1,4 +1,4 @@
-class ChangeCommentAttributes < ActiveRecord::Migration
+class ChangeCommentAttributes < ActiveRecord::Migration[6.0]
   def up
     change_table :comments do |t|
       t.rename :comment, :content

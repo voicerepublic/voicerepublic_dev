@@ -1,4 +1,4 @@
-class ChangeChargeAmountColumnNameInKluuuTable < ActiveRecord::Migration
+class ChangeChargeAmountColumnNameInKluuuTable < ActiveRecord::Migration[6.0]
   def up
     remove_column :klus, :charge_amount
     add_column :klus, :charge_cents, :integer, :default => 0

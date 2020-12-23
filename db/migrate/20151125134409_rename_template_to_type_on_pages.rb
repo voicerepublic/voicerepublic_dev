@@ -1,4 +1,4 @@
-class RenameTemplateToTypeOnPages < ActiveRecord::Migration
+class RenameTemplateToTypeOnPages < ActiveRecord::Migration[6.0]
   def up
     rename_column :pages, :template, :type
     change_column :pages, :type, :string, default: 'Pages::Default'

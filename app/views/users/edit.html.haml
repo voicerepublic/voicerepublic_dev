@@ -16,7 +16,7 @@
   = simple_form_for(@user) do |f|
     .row
       .small-12.medium-3.medium-offset-4.columns.profile-avatar.text-left
-        - avatar_url = @user.avatar.thumb('180x180#nw').url
+        - avatar_url = @user.avatar_image_url
         #avatar-img.preview-img(style="background-image:url(#{avatar_url})")
         = f.input :avatar, as: :file, wrapper_html: { class: 'inputfile' }, label: icon_tag("photo") + t('.change_photo').html_safe, label_html: {class: 'button hollow tiny btn-hover-yellow', id: 'avatar-label'}, input_html: {'data-instant-image'=> '#avatar-img | #avatar-label'}
       %hr

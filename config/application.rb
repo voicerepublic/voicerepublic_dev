@@ -1,8 +1,22 @@
 require File.expand_path('../boot', __FILE__)
-
+require 'fog/core'
+Fog::Logger[:deprecation] = nil
 require 'rails/all'
 
 require File.expand_path('../../lib/core_ext', __FILE__)
+
+require_relative '../app/middlewares/faye_auth'
+require_relative '../app/middlewares/enforce_robots_txt'
+require_relative '../app/middlewares/tts'
+require_relative '../app/middlewares/media_tracker'
+require_relative '../app/middlewares/slides'
+require_relative '../app/middlewares/backup'
+require_relative '../app/middlewares/icebox_endpoint'
+require_relative '../app/middlewares/streamboxx_endpoint'
+require_relative '../app/middlewares/php_responder'
+
+
+
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -45,30 +59,30 @@ module VoiceRepublic
       g.fixture_replacement :factory_girl, :dir => "spec/factories"
     end
 
-    config.middleware.use 'EnforceRobotsTxt',
+    config.middleware.use EnforceRobotsTxt,
                           source: Rails.root.join('public/robots.txt')
 
-    config.middleware.use 'Tts'
+    config.middleware.use Tts
 
     # has to be wrapped in `config.before_initialize` in order to use Settings
     config.before_initialize do
-      config.middleware.use 'FayeAuth', secret: Settings.faye.secret_token
+      config.middleware.use FayeAuth, secret: Settings.faye.secret_token
     end
 
     # increases Talk#play_count and redirects to Talk#generate_ephemeral_path!
-    config.middleware.use 'MediaTracker'
+    config.middleware.use MediaTracker
 
-    config.middleware.use 'Slides'
+    config.middleware.use Slides
 
-    config.middleware.use 'Backup'
+    config.middleware.use Backup
 
-    config.middleware.use 'IceboxEndpoint'
+    config.middleware.use IceboxEndpoint
 
-    config.middleware.use 'StreamboxxEndpoint'
+    config.middleware.use StreamboxxEndpoint
 
-    config.middleware.use 'Rack::Affiliates'
+    config.middleware.use Rack::Affiliates
 
-    config.middleware.use 'PhpResponder'
+    config.middleware.use PhpResponder
 
     config.assets.initialize_on_precompile = false
 
@@ -87,7 +101,7 @@ module VoiceRepublic
     config.exceptions_app = self.routes
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
-    config.active_record.raise_in_transactional_callbacks = true
+    # config.active_record.raise_in_transactional_callbacks = true
   end
 end
 

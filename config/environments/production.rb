@@ -60,7 +60,7 @@ Rails.application.configure do
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
   # config.action_controller.asset_host = "http://assets.example.com"
-
+  config.active_storage.service = :backblaze
   # Disable delivery errors, bad email addresses will be ignored
   config.action_mailer.raise_delivery_errors = true
 
@@ -104,7 +104,7 @@ Rails.application.configure do
     end
   end
 
-  config.assets.js_compressor = BypassableUglifier
+  # config.assets.js_compressor = BypassableUglifier
 
 
   # Optionally disable Javascript/CSS compression
@@ -122,7 +122,7 @@ Rails.application.configure do
   end
 
 
-  config.middleware.use 'Raindrops::Middleware' unless Settings.no_raindrops
+  config.middleware.use Raindrops::Middleware unless Settings.no_raindrops
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false

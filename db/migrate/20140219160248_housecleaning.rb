@@ -1,4 +1,4 @@
-class Housecleaning < ActiveRecord::Migration
+class Housecleaning < ActiveRecord::Migration[6.0]
 
   def change
 

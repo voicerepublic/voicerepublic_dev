@@ -1,4 +1,4 @@
-class AddLotsOfFieldsToVenues < ActiveRecord::Migration
+class AddLotsOfFieldsToVenues < ActiveRecord::Migration[6.0]
   def change
 
     # string ephemeral

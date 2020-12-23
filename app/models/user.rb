@@ -69,11 +69,13 @@ class User < ActiveRecord::Base
   acts_as_taggable
 
   dragonfly_accessor :header do
-    default Rails.root.join('app/assets/images/defaults/user-header.jpg')
-  end
-  dragonfly_accessor :avatar do
     default Rails.root.join('app/assets/images/defaults/user-avatar.jpg')
   end
+  has_one_attached :avatar
+  # validates :avatar, presence: true
+  # dragonfly_accessor :avatar do
+  #   default Rails.root.join('app/assets/images/defaults/user-avatar.jpg')
+  # end
 
   acts_as_token_authenticatable
 
@@ -96,8 +98,10 @@ class User < ActiveRecord::Base
 
   validates_acceptance_of :accept_terms_of_use
   # TODO check if this works, especcialy the allow_nil, and does allow_nil make sense?
-  validates :timezone, inclusion: { in: ActiveSupport::TimeZone.zones_map.keys },
-            allow_nil: true
+  # validates :timezone, inclusion: { in: ActiveSupport::TimeZone.zones_map.keys },
+  #           allow_nil: true
+  validates :timezone, inclusion: { in: ActiveSupport::TimeZone.send(:zones_map).keys },
+            allow_nil: true          
 
   # WARNING: Do not use after_save hooks in the 'user' model that will
   # save the model. The reason is that the Devise confirmable_token
@@ -117,11 +121,17 @@ class User < ActiveRecord::Base
   before_save :normalize_twitter, if: :twitter_changed?
   before_save :normalize_facebook, if: :facebook_changed?
 
-  include PgSearch
+  include PgSearch::Model
   multisearchable against: [:firstname, :lastname]
   pg_search_scope :search, against: [:firstname, :lastname],
     using: { tsearch: { prefix: true } },
     ignoring: :accents
+
+  def avatar_image_url
+    if self.avatar.attachment
+      self.avatar.attachment.service_url
+    end
+  end
 
   def create_defaults!
     unless default_series.present?
@@ -166,7 +176,7 @@ class User < ActiveRecord::Base
     {
       name: name,
       url: self_url,
-      image_url: avatar.thumb('36x36').url,
+      image_url: avatar.attachment.service_url,
       image_alt: image_alt
     }
   end

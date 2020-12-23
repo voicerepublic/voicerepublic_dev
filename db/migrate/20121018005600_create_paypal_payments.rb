@@ -1,4 +1,4 @@
-class CreatePaypalPayments < ActiveRecord::Migration
+class CreatePaypalPayments < ActiveRecord::Migration[6.0]
   def change
     create_table :paypal_payments do |t|
       t.text :params

@@ -1,4 +1,4 @@
-class FixChangingMigrations < ActiveRecord::Migration
+class FixChangingMigrations < ActiveRecord::Migration[6.0]
   def change
     change_column :sections, :content_as_html, :text, default: ''
     change_column :series, :description_as_html, :text, default: ''

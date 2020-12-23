@@ -10,11 +10,11 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_user
 
-  before_filter :set_last_request
-  #before_filter :set_locale
+  before_action :set_last_request
+  #before_action :set_locale
 
-  around_filter :user_time_zone, :if => :current_user
-  after_filter :set_csrf_cookie_for_ng
+  around_action :user_time_zone, :if => :current_user
+  after_action :set_csrf_cookie_for_ng
 
   # TODO: We do we not have this in the app, yet?
   #rescue_from CanCan::AccessDenied do |exception|
@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
   #end
 
   # # TODO move to trickery
-  # before_filter :log_callback_chain
+  # after_action :log_callback_chain
   # def log_callback_chain
   #   fmt = "  %-14s %-6s %-22s %s"
   #   logger.debug 'Callback chain'
@@ -51,13 +51,16 @@ class ApplicationController < ActionController::Base
     session[:return_to] = request.fullpath
   end
 
-  before_filter :update_sanitized_params, if: :devise_controller?
+  before_action :update_sanitized_params, if: :devise_controller?
 
   # strong parameters for devise
   def update_sanitized_params
-    devise_parameter_sanitizer.for(:sign_up) do |u|
-      u.permit(UsersController::PERMITTED_ATTRS)
-    end
+    # devise_parameter_sanitizer.for(:sign_up) do |u|
+    #   u.permit(UsersController::PERMITTED_ATTRS)
+    # end
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:firstname, :lastname, :accept_terms_of_use, :slug, :email, :avatar, :header, :timezone, :facebook, :twitter, :website, :summary, :about, :password, :password_confirmation, :referrer])
+
+    # devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:firstname, :lastname, :accept_terms_of_use, :slug, :email, :avatar, :header, :timezone, :facebook, :twitter, :website, :summary, :about, :password, :password_confirmation, :referrer) }
   end
 
   # === Better Exception Handling ===
