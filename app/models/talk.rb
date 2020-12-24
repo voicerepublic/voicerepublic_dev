@@ -178,10 +178,10 @@ class Talk < ActiveRecord::Base
   serialize :storage
   serialize :social_links
   # serialize :peaks # it's json
-
-  dragonfly_accessor :image do
-    default Rails.root.join('app/assets/images/defaults/talk-image.jpg')
-  end
+  has_one_attached :image
+  # dragonfly_accessor :image do
+  #   default Rails.root.join('app/assets/images/defaults/talk-image.jpg')
+  # end
 
   scope :no_penalty, -> { where(penalty: 1) }
   scope :nodryrun, -> { where(dryrun: false) }
@@ -229,6 +229,23 @@ class Talk < ActiveRecord::Base
     return ends_in if live?
     0
   end
+
+  def talk_image_url
+    if self.image.attachment
+      self.image.attachment.service_url
+    end
+  end
+
+  # def self.sizes
+  #   {
+  #     thumbnail: { resize: "100x100" },
+  #     hero1:     { resize: "1000x500" }
+  #   }
+  # end
+
+  # def sized(size)
+  #   self.image.variant(Talk.sizes[size]).processed
+  # end
 
   def starts_in # remaining seconds in state prelive
     starts_at.to_i - Time.now.to_i
@@ -376,7 +393,7 @@ class Talk < ActiveRecord::Base
 
   # used for mobile app
   def image_url
-    image.url
+    talk_image_url
   end
 
   def self_url
@@ -441,8 +458,8 @@ class Talk < ActiveRecord::Base
         media_links: media_links,
         edit_url: edit_self_url,
         create_message_url: create_message_url,
-        image_url: image.url,
-        thumb_url: image.thumb('116x116#').url, # for embed
+        image_url: talk_image_url,
+        thumb_url: talk_image_url, # for embed
         url: self_url, # for embed
         channel: channel,
         venue: {
@@ -461,7 +478,7 @@ class Talk < ActiveRecord::Base
 
   def venue_user_attributes
     venue.user.details.tap do |attrs|
-      attrs[:image_url] = venue.user.avatar.thumb("60x60#").url
+      attrs[:image_url] = venue.user.avatar_image_url
     end
   end
 

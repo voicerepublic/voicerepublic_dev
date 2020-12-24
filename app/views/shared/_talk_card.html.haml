@@ -14,7 +14,10 @@
 
     = link_to talk, class: "image-box-holder clearfix" do
       .image-box
-        = image_tag talk.image.thumb("600x338#").url, alt: talk.image_alt
+        - if talk.talk_image_url.present?
+          = image_tag talk.talk_image_url, alt: talk.image_alt, size: '600x338'
+        - else
+          = image_tag("defaults/talk-image.jpg", alt: talk.image_alt)
         .hover-info
           .meta-data.clearfix
             .running-time.float-right

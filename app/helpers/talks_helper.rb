@@ -15,7 +15,7 @@ module TalksHelper
       description: @talk.description_as_text.empty? ?
         @talk.teaser : @talk.description_as_text,
       title:    @talk.title,
-      image:    @talk.image.url,
+      image:    @talk.talk_image_url,
       keywords: @talk.try(:tag_list),
       author:   author,
       url:      talk_url(@talk),

@@ -130,6 +130,8 @@ class User < ActiveRecord::Base
   def avatar_image_url
     if self.avatar.attachment
       self.avatar.attachment.service_url
+    else
+      '/assets/defaults/user-avatar-9e142d0d1016adf894ff6764dd0c5633f6bc970ac03d3b9066ce297069a9e5ef.jpg'
     end
   end
 

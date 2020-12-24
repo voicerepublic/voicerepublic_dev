@@ -46,7 +46,7 @@ xml.urlset(namespaces.merge(total: total)) do |urlset|
       # Do not use the url_for helper here, because it will be slow as hell!
       url.loc '%s/talks/%s' % [Settings.root_url, talk.slug]
       url.image(:image) do |image|
-        image.image(:loc, talk.image.url)
+        image.image(:loc, talk.talk_image_url)
       end
       date = talk.processed_at || talk.updated_at
       url.lastmod date.strftime(iso8601)
