@@ -125,7 +125,7 @@ Make sure `postgresql-contrib-9.1` is installed.
 
 ### Create Postgres Extensions
 
-Sidenote: This is also automatically done by `rake db:create`.
+Side Note: This is also automatically done by `rake db:create`.
 
     # su - postgres
     $ psql vr_development
@@ -303,7 +303,7 @@ Deploy a specific branch to staging, e.g.
     REVISION=feature/65463494/subscribe_podcast cap staging deploy
 
 
-HOWTO Manual Acceptance Tests (UAT)
+HOW TO Manual Acceptance Tests (UAT)
 -----------------------------------
 
 If you don't have it already you realy should install `tree`.
@@ -470,8 +470,8 @@ Rails Console Cheat Sheet
     puts *Talk.where("uri like 'lt%'").order(:id).map { |t| '% 4s % 5s % 5s %s' % [t.id, t.storage.values.select { |f| f[:ext]=='.flv' }.inject(0) {|r,s| r + s[:seconds].to_i }, t.recording_override?, t.teaser ] }
 
 
-Embed player to Facebook
-------------------------
+Embed player to Facebook(FB)
+----------------------------
 
 FB uses the OpenGraph Protocol to assess how to embed content to the FB
 timeline. The protocol is described here:
