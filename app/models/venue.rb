@@ -2,7 +2,7 @@
 #
 # Fog::Storage.new(Settings.fog.storage.to_hash.merge region: "eu-central-1").directories.get("vr-staging-recordings", prefix: 'venue-of-lino-von-burg/').files.count
 #
-class Venue < ActiveRecord::Base
+class Venue < ApplicationRecord
 
   include PasswordGenerator
 

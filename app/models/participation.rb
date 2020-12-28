@@ -4,7 +4,7 @@
 # * updated_at [datetime, not null] - last update time
 # * user_id [integer] - belongs to :user
 # * series_id [integer] - belongs to :series
-class Participation < ActiveRecord::Base
+class Participation < ApplicationRecord
 
   belongs_to :series
   belongs_to :user

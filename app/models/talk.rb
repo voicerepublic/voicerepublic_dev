@@ -35,7 +35,7 @@
 # * uri [string] - TODO: document me
 # * user_override_uuid [string] - TODO: document me
 # * series_id [integer] - belongs to :series
-class Talk < ActiveRecord::Base
+class Talk < ApplicationRecord
 
   extend FriendlyId
   friendly_id :slug_candidates, use: [:slugged, :finders]

@@ -5,7 +5,7 @@
 # If a disappeared device is coming back online, it makes sense to
 # check for an interrupted upload or display a warning message.
 #
-class Device < ActiveRecord::Base
+class Device < ApplicationRecord
 
   self.inheritance_column = false
 

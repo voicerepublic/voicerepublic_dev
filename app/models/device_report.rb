@@ -1,4 +1,4 @@
-class DeviceReport < ActiveRecord::Base
+class DeviceReport < ApplicationRecord
 
   belongs_to :device
   has_many :artifacts, as: :context

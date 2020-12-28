@@ -5,7 +5,7 @@
 # * talk_id [integer] - belongs to :talk
 # * updated_at [datetime] - last update time
 # * user_id [integer] - belongs to :user
-class Message < ActiveRecord::Base
+class Message < ApplicationRecord
 
   include LifecycleEmitter
 

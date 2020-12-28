@@ -8,7 +8,7 @@
 # * updated_at [datetime] - last update time
 # * user_agent [string] - TODO: document me
 # * user_id [integer] - TODO: document me
-class SocialShare < ActiveRecord::Base
+class SocialShare < ApplicationRecord
 
   belongs_to :shareable, polymorphic: true
 

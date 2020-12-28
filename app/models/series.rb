@@ -11,7 +11,7 @@
 # * updated_at [datetime, not null] - last update time
 # * uri [string] - TODO: document me
 # * user_id [integer] - belongs to :user
-class Series < ActiveRecord::Base
+class Series < ApplicationRecord
 
   extend FriendlyId
   friendly_id :slug_candidates, use: [:slugged, :finders]

@@ -1,4 +1,4 @@
-class Event < ActiveRecord::Base
+class Event < ApplicationRecord
 
   belongs_to :source, polymorphic: true
 

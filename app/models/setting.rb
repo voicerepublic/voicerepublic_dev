@@ -18,7 +18,7 @@
 # * key [string] - TODO: document me
 # * updated_at [datetime] - last update time
 # * value [string] - TODO: document me
-class Setting < ActiveRecord::Base
+class Setting < ApplicationRecord
 
   validates :key, :value, presence: true
 

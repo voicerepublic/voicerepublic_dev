@@ -31,7 +31,7 @@
 # * unconfirmed_email [string] - Devise Confirmable module
 # * updated_at [datetime, not null] - last update time
 # * website [string] - TODO: document me
-class User < ActiveRecord::Base
+class User < ApplicationRecord
 
   include LifecycleEmitter
 

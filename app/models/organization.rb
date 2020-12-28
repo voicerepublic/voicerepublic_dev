@@ -1,4 +1,4 @@
-class Organization < ActiveRecord::Base
+class Organization < ApplicationRecord
 
   DEVICE_NAMING_SCHEMA =
     YAML.load(File.read(Rails.root.join('config/device_naming_schema.yml')))
