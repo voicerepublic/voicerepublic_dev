@@ -72,7 +72,8 @@
 .series-grid.row.clearfix.collapse
   .medium-4.large-3.columns.float-left.series-left-column
     %h3.about= t('.description')
-    = image_tag @series.image.thumb("900x600#").url, class: 'image', alt: @series.image_alt
+    // = image_tag @series.image.thumb("900x600#").url, class: 'image', alt: @series.image_alt
+    = image_tag @series.series_image_url, class: 'image', alt: @series.image_alt
     #series-about
       = @series.description_as_html.html_safe
       - if can? :manage, @series

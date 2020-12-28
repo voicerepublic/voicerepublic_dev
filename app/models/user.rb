@@ -178,7 +178,7 @@ class User < ActiveRecord::Base
     {
       name: name,
       url: self_url,
-      image_url: avatar.attachment.service_url,
+      image_url: avatar_image_url,
       image_alt: image_alt
     }
   end
@@ -191,7 +191,7 @@ class User < ActiveRecord::Base
 
   # we'll use `text` here, which plays nice with select2
   def for_select
-    { id: id, text: name, img: avatar.thumb('50x50#nw').url }
+    { id: id, text: name, img: avatar_image_url }
   end
 
   def insider?

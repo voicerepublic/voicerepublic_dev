@@ -21,7 +21,7 @@ module SeriesHelper
       description: @series.description_as_text.empty? ?
         @series.teaser : @series.description_as_text,
       title:    @series.title,
-      image:    @series.image.url,
+      image:    @series.series_image_url,
       keywords: @series.try(:tag_list),
       author:   @series.user.name,
       url:      series_url(@series),

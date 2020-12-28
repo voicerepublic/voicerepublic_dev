@@ -58,7 +58,7 @@ xml.urlset(namespaces.merge(total: total)) do |urlset|
     urlset.url do |url|
       url.loc '%s/series/%s' % [Settings.root_url, series.slug]
       url.image(:image) do |image|
-        image.image(:loc, series.image.url)
+        image.image(:loc, series.series_image_url)
       end
       processed_at = series.talks.pluck(:processed_at).compact.max
       date = processed_at || series.updated_at || series.created_at

@@ -33,7 +33,7 @@ class Message < ActiveRecord::Base
       created_at: created_at,
       # extended
       user_name: user.name,
-      user_image_url: user.avatar.thumb('42x42#').url,
+      user_image_url: user.avatar_image_url,
       user_image_alt: user.image_alt
     }
   end

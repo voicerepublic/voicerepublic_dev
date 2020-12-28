@@ -6,7 +6,7 @@
 
     .row
       .medium-12.columns
-        #series-image.preview-img(style="background-image:url(#{@series.image.url})")
+        #series-image.preview-img(style="background-image:url(#{@series.series_image_url})")
         = f.input :image, as: :file, wrapper_html: { class: 'inputfile text-center' }, label: icon_tag("photo") + t('.change_photo').html_safe, label_html: {class: 'button hollow tiny btn-hover-yellow', id: 'series-label'}, input_html: {'data-instant-image'=> '#series-image | #series-label'}
 
         = f.input :title
