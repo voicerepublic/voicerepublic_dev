@@ -8,7 +8,14 @@ module ApplicationHelper
   end
 
   def itunes_image_url(image)
-    image.thumb('1400x1400#', format: 'png').url(name: 'image.png')
+    # image.thumb('1400x1400#', format: 'png').url(name: 'image.png')
+    if params[:controller]['users'] == 'users'
+      image.record.avatar_image_url
+    elsif params[:controller]['series'] == 'series'
+      image.record.series_image_url
+    elsif params[:controller]['talks'] == 'talks'
+      image.record.talk_image_url
+    end
   end
 
   def default_content(locale, key)

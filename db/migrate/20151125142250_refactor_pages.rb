@@ -1,4 +1,4 @@
-class RefactorPages < ActiveRecord::Migration
+class RefactorPages < ActiveRecord::Migration[6.0]
   def up
     remove_column :pages, :title_de
     remove_column :pages, :content_de

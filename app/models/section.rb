@@ -1,4 +1,4 @@
-class Section < ActiveRecord::Base
+class Section < ApplicationRecord
 
   before_save :set_content_as_html, if: :content_changed?
 

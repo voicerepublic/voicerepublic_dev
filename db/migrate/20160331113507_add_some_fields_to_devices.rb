@@ -1,4 +1,4 @@
-class AddSomeFieldsToDevices < ActiveRecord::Migration
+class AddSomeFieldsToDevices < ActiveRecord::Migration[6.0]
   def change
     add_column :devices, :loglevel, :integer, default: Logger::INFO
     add_column :devices, :report_interval, :integer, default: 60

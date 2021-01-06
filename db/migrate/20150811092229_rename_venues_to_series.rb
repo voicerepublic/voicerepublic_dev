@@ -1,4 +1,4 @@
-class RenameVenuesToSeries < ActiveRecord::Migration
+class RenameVenuesToSeries < ActiveRecord::Migration[6.0]
   def change
 
     # TABLE

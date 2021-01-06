@@ -1,4 +1,4 @@
-class AddEndAtToEvents < ActiveRecord::Migration
+class AddEndAtToEvents < ActiveRecord::Migration[6.0]
   def up
     add_column :events, :end_at, :datetime
 

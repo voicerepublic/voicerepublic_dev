@@ -1,4 +1,4 @@
-class MoveRecordingToEvent < ActiveRecord::Migration
+class MoveRecordingToEvent < ActiveRecord::Migration[6.0]
   def up
     add_column :events, :recording, :string
     remove_column :venues, :recording

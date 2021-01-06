@@ -1,4 +1,4 @@
-class CreateTagBundles < ActiveRecord::Migration
+class CreateTagBundles < ActiveRecord::Migration[6.0]
   def change
     create_table :tag_bundles do |t|
       t.string :title_en

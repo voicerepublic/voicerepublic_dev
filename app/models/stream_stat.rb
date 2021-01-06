@@ -17,7 +17,7 @@
 # "subtype"=>"Vorbis",
 # "dummy"=>nil}
 #
-class StreamStat < ActiveRecord::Base
+class StreamStat < ApplicationRecord
   belongs_to :venue
 
   def values

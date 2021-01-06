@@ -66,7 +66,7 @@
     .hint= t('.ill_and_desc_text')
   .row
     .text-center
-      .image-box(style="background-image: url(#{f.object.image.url})")
+      .image-box(style="background-image: url(#{f.object.talk_image_url})")
       = f.input :image, as: :file, wrapper_html: { class: 'inputfile' }, label: icon_tag("photo") + t('.change_photo').html_safe, input_html: {'data-instant-image' => '.image-box | .image-label'}, label_html: {class: 'image-label button hollow tiny btn-hover-yellow'}
 
   .row.pickers

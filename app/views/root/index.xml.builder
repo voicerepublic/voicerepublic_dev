@@ -46,7 +46,7 @@ xml.urlset(namespaces.merge(total: total)) do |urlset|
       # Do not use the url_for helper here, because it will be slow as hell!
       url.loc '%s/talks/%s' % [Settings.root_url, talk.slug]
       url.image(:image) do |image|
-        image.image(:loc, talk.image.url)
+        image.image(:loc, talk.talk_image_url)
       end
       date = talk.processed_at || talk.updated_at
       url.lastmod date.strftime(iso8601)
@@ -58,7 +58,7 @@ xml.urlset(namespaces.merge(total: total)) do |urlset|
     urlset.url do |url|
       url.loc '%s/series/%s' % [Settings.root_url, series.slug]
       url.image(:image) do |image|
-        image.image(:loc, series.image.url)
+        image.image(:loc, series.series_image_url)
       end
       processed_at = series.talks.pluck(:processed_at).compact.max
       date = processed_at || series.updated_at || series.created_at
@@ -72,7 +72,7 @@ xml.urlset(namespaces.merge(total: total)) do |urlset|
     urlset.url do |url|
       url.loc '%s/users/%s' % [Settings.root_url, user.slug]
       url.image(:image) do |image|
-        image.image(:loc, user.avatar.url)
+        image.image(:loc, user.avatar_image_url)
       end
       date = user.updated_at || user.created_at
       url.lastmod date.strftime(iso8601)

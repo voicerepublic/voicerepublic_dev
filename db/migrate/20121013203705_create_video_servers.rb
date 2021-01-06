@@ -1,4 +1,4 @@
-class CreateVideoServers < ActiveRecord::Migration
+class CreateVideoServers < ActiveRecord::Migration[6.0]
   def change
     create_table :video_servers do |t|
       t.string :name

@@ -35,7 +35,7 @@
 # * uri [string] - TODO: document me
 # * user_override_uuid [string] - TODO: document me
 # * series_id [integer] - belongs to :series
-class Talk < ActiveRecord::Base
+class Talk < ApplicationRecord
 
   extend FriendlyId
   friendly_id :slug_candidates, use: [:slugged, :finders]
@@ -178,10 +178,10 @@ class Talk < ActiveRecord::Base
   serialize :storage
   serialize :social_links
   # serialize :peaks # it's json
-
-  dragonfly_accessor :image do
-    default Rails.root.join('app/assets/images/defaults/talk-image.jpg')
-  end
+  has_one_attached :image
+  # dragonfly_accessor :image do
+  #   default Rails.root.join('app/assets/images/defaults/talk-image.jpg')
+  # end
 
   scope :no_penalty, -> { where(penalty: 1) }
   scope :nodryrun, -> { where(dryrun: false) }
@@ -214,7 +214,7 @@ class Talk < ActiveRecord::Base
     tagged_with(bundle.tag_list, any: true)
   }
 
-  include PgSearch
+  include PgSearch::Model
   multisearchable against: [:tag_list, :title, :teaser, :description, :speakers]
   pg_search_scope :search,
                   ignoring: :accents,
@@ -229,6 +229,25 @@ class Talk < ActiveRecord::Base
     return ends_in if live?
     0
   end
+
+  def talk_image_url
+    if self.image.attachment
+      self.image.attachment.service_url
+    else
+      '/assets/defaults/talk-image-a8f7b7353dcb14a287b371ae16fb7ddcf3c6898251e0e0774c08758c84fe73f5.jpg'
+    end
+  end
+
+  # def self.sizes
+  #   {
+  #     thumbnail: { resize: "100x100" },
+  #     hero1:     { resize: "1000x500" }
+  #   }
+  # end
+
+  # def sized(size)
+  #   self.image.variant(Talk.sizes[size]).processed
+  # end
 
   def starts_in # remaining seconds in state prelive
     starts_at.to_i - Time.now.to_i
@@ -376,7 +395,7 @@ class Talk < ActiveRecord::Base
 
   # used for mobile app
   def image_url
-    image.url
+    talk_image_url
   end
 
   def self_url
@@ -441,8 +460,8 @@ class Talk < ActiveRecord::Base
         media_links: media_links,
         edit_url: edit_self_url,
         create_message_url: create_message_url,
-        image_url: image.url,
-        thumb_url: image.thumb('116x116#').url, # for embed
+        image_url: talk_image_url,
+        thumb_url: talk_image_url, # for embed
         url: self_url, # for embed
         channel: channel,
         venue: {
@@ -461,7 +480,7 @@ class Talk < ActiveRecord::Base
 
   def venue_user_attributes
     venue.user.details.tap do |attrs|
-      attrs[:image_url] = venue.user.avatar.thumb("60x60#").url
+      attrs[:image_url] = venue.user.avatar_image_url
     end
   end
 

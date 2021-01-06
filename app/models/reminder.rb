@@ -5,7 +5,7 @@
 # * rememberable_type [string] - belongs to :rememberable (polymorphic)
 # * updated_at [datetime] - last update time
 # * user_id [integer] - belongs to :user
-class Reminder < ActiveRecord::Base
+class Reminder < ApplicationRecord
   belongs_to :user
   belongs_to :rememberable, polymorphic: true
 

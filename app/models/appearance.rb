@@ -4,7 +4,7 @@
 # * talk_id [integer] - belongs to :talk
 # * updated_at [datetime] - last update time
 # * user_id [integer] - belongs to :user
-class Appearance < ActiveRecord::Base
+class Appearance < ApplicationRecord
 
   validates :user, :talk, presence: true
 

@@ -12,6 +12,8 @@
         %hr
         %p.text-center.divider-title
           = t('.via_email')
+
+        = flash[:recaptcha_error]
         .row
           .medium-6.columns
             = f.input :firstname
@@ -29,19 +31,40 @@
           .medium-12.columns
             = f.input :timezone, as: :time_zone, priority: User::PRIOTZ
         .row
-          .medium-6.columns.medium-text-left
+          .medium-12.columns.medium-text-left
             = f.input :accept_terms_of_use, as: :boolean, boolean_style: :inline,
                       label: t('simple_form.labels.user.accept_terms_of_use').html_safe
-          .medium-6.columns.medium-text-right
-            = f.button :submit, t('.continue').html_safe, class: 'button large secondary small-expanded medium-float-right qa-signup'
-        %hr/
-        %p.text-center.divider-title
-          = t('.registration_or')
-        = render partial: 'devise/shared/social_network_connects',
-                 locals: { action: 'register' }
+        .row
+          .medium-12.columns
+            /= recaptcha_tags
+            / .h-captcha{"data-sitekey" => "#{ENV['RECAPTCHA_SITE_KEY']}"}
+            / = hcaptcha_tags
+
+            .g-recaptcha{"data-sitekey" => "#{ENV['site_key']}"}
+        .row
+          .medium-12.columns.medium-text-left
+            = f.button :submit, t('.continue').html_safe, id: "check_recaptch", class: 'button large secondary small-expanded medium-float-right qa-signup'
+        / %hr/
+        / %p.text-center.divider-title
+        /   = t('.registration_or')
+        / = render partial: 'devise/shared/social_network_connects',
+        /          locals: { action: 'register' }
         .clearfix
         %hr/
         %p.login-ask
           = t('.already_have_account')
           = link_to new_session_path(resource_name) do
             = t('.login')
+/ :javascript
+/   $(window).load(function(){
+/     $('#check_recaptch').attr("disabled", true);
+/     $('#user_email').val("")
+/     $('#user_password').val("")
+/   });
+
+/   function recaptchaCallback() {
+/     $('#check_recaptch').attr("disabled", false);  }
+:javascript
+  var onloadCallback = function() {
+    alert("grecaptcha is ready!");
+  };

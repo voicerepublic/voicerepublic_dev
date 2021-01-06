@@ -11,10 +11,12 @@
       var insider = false;
 
   = javascript_include_tag :application unless params[:noapp]
+  // = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
+
   = content_for :javascripts unless params[:nocfjs]
 
-  - if Rails.env.production?
-    = render 'shared/tawk' unless params[:nott]
-    - unless @current_user.try(:insider?) or params[:noga]
-      = render 'shared/google_analytics'
-      = render 'shared/google_remarketing'
+  /- if Rails.env.production?
+  /  = render 'shared/tawk' unless params[:nott]
+  /  - unless @current_user.try(:insider?) or params[:noga]
+  /    = render 'shared/google_analytics'
+  /    = render 'shared/google_remarketing'

@@ -12,7 +12,7 @@
 # * updated_at [datetime] - last update time
 # encoding: UTF-8
 
-class Purchase < ActiveRecord::Base
+class Purchase < ApplicationRecord
 
   include Pricing
 

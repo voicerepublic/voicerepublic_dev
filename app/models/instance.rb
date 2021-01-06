@@ -1,4 +1,4 @@
-class Instance < ActiveRecord::Base
+class Instance < ApplicationRecord
 
   EPHEMERAL_FIELDS = [
     :ec2_type,

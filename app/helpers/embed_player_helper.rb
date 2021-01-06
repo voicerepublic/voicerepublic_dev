@@ -1,7 +1,11 @@
 module EmbedPlayerHelper
 
   def background_picture(talk)
-    talk.image.thumb('445x144#nw').url
+    if talk.talk_image_url.present?
+      talk.talk_image_url
+    else
+      'assets/images/defaults/talk-image.jpg'
+    end
   end
 
   # This URL is used to embed a player onto a FB timeline. It is complete with

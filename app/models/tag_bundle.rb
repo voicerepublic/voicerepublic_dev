@@ -1,4 +1,4 @@
-class TagBundle < ActiveRecord::Base
+class TagBundle < ApplicationRecord
 
   GROUPS = %w( category publisher format profession )
 

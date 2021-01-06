@@ -1,3 +1,5 @@
+@import 'settings';
+@import 'foundation';
 body {
     background: $talk-dark;
     height: auto;
@@ -176,7 +178,7 @@ audio {
     }
     small.error {
         @include form-error;
-        @extend .is-visible;
+        //@extend .is-visible;
     }
 }
 

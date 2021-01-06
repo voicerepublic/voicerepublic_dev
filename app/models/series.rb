@@ -11,7 +11,7 @@
 # * updated_at [datetime, not null] - last update time
 # * uri [string] - TODO: document me
 # * user_id [integer] - belongs to :user
-class Series < ActiveRecord::Base
+class Series < ApplicationRecord
 
   extend FriendlyId
   friendly_id :slug_candidates, use: [:slugged, :finders]
@@ -57,17 +57,26 @@ class Series < ActiveRecord::Base
   scope :featured, proc { where('featured_from <= ?', Time.now.in_time_zone).
                           order('featured_from DESC') }
 
-  dragonfly_accessor :image do
-    default Rails.root.join('app/assets/images/defaults/series-image.jpg')
-  end
+  # dragonfly_accessor :image do
+  #   default Rails.root.join('app/assets/images/defaults/series-image.jpg')
+  # end
+  has_one_attached :image
 
-  include PgSearch
+  include PgSearch::Model
   multisearchable against: [:tag_list, :title, :teaser, :description]
 
   # provides easier access to options
   # and allows strings as keys in yaml
   def opts
     OpenStruct.new(options)
+  end
+
+  def series_image_url
+    if self.image.attachment
+      self.image.attachment.service_url
+    else
+      '/assets/defaults/talk-image-a8f7b7353dcb14a287b371ae16fb7ddcf3c6898251e0e0774c08758c84fe73f5.jpg'
+    end
   end
 
   def set_penalty!(penalty, deep=true)

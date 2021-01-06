@@ -9,7 +9,7 @@
 # * state [string] - TODO: document me
 # * type [string] - TODO: document me
 # * updated_at [datetime] - last update time
-class Transaction < ActiveRecord::Base
+class Transaction < ApplicationRecord
 
   include ActiveModel::Transitions
 
