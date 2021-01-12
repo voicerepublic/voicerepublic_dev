@@ -15,7 +15,7 @@
 # something that quacks like a hash can be used to set
 # extended properties on the server.
 server '49.12.97.210', user: 'vr-app', roles: %w{web app db}
-set :branch, 'buster'
+set :branch, 'arvind-updates'
 set :deploy_to, '/home/vr-app/app'
 #set :branch, ENV['REVISION'] || 'integration'
 
