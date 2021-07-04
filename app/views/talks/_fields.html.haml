@@ -13,7 +13,7 @@
   - unless f.object.new_record?
     = f.input :user_override_uuid, as: :hidden
     = render partial: 'shared/upload',
-             locals: { f: f, ns: 'audio', init: init_audio_uploader }
+             locals: { id: 'audio-app' }
 
   .row
     = f.input :title
@@ -84,4 +84,4 @@
 
     = f.input :slides_uuid, as: :hidden
     = render partial: 'shared/upload',
-      locals: { f: f, ns: 'slides', init: init_slides_uploader }
+      locals: { id: 'slides-app' }

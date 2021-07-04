@@ -1,3 +1,6 @@
+- content_for :javascripts do
+  = javascript_include_tag('cljs') unless params[:nocljs]
+
 - content_for :title do
   = t('.title', title: @talk.title)
 

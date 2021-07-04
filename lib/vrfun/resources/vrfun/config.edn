@@ -1,0 +1,21 @@
+{:duct.core/project-ns  vrfun
+ :duct.core/environment :production
+
+ :duct.server.http/jetty
+ {:port    3002}
+
+ :duct.module/logging {}
+ :duct.module.web/api {}
+
+ :duct.module/ataraxy
+ {[:get "/sign" {params :params}] [:sign params]
+ :options [:options]} 
+
+
+ :duct.core/handler
+ {:middleware [#ig/ref :vrfun.middleware/cors]}
+
+ :vrfun.middleware/cors {}
+ 
+ :vrfun.handler/sign {}
+ :vrfun.handler/options {}}

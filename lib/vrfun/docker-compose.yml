@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  vr-signing:
+    container_name: vr-signing
+    image: jerben/vrfun:latest
+    environment:
+      BUCKET: vr-euc1-dev-audio-uploads
+      AWS_ZONE: eu-central-1
+      ACCESS_KEY: AKIAI7HSKHN3FBT2KAZQ
+      SECRET_KEY: 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
+    ports:
+      - '3002:3002'
+

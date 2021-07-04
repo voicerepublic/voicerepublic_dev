@@ -14,7 +14,7 @@
                  [secretary "1.2.3"]
                  [figwheel-sidecar "0.5.4-7"]
                  [org.clojure/core.incubator "0.1.3"]
-                 [cljs-ajax "0.5.4"]
+                 [cljs-ajax "0.7.2"]
                  [cljsjs/moment "2.10.6-4"]
                  [cljsjs/selectize "0.12.1-1"]
                  [reanimated "0.5.0"]]
