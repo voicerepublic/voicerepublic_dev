@@ -42,7 +42,21 @@ openssl req -new -newkey rsa:2048 -days 365 -nodes -x509 \
 ENV_LIST=$HOME/env.list
 
 cat >$ENV_LIST <<EOF
-<%= env_list %>
+ICECAST_SOURCE_PASSWORD=<%= source_password %>
+ICECAST_ADMIN_PASSWORD=<%= admin_password %>
+ICECAST_LIMIT_SOURCES=12
+
+CALLBACK_URL=<%= icecast_callback_url %>
+TRANSCODING_SCRIPT_URL=<%= transcoding_script_url %>
+CLIENT_TOKEN=<%= client_token %>
+
+STATS_INTERVAL=4
+
+AWS_STORAGE=<%= storage_url %>
+AWS_ACCESS_KEY=<%= aws_access_key %>
+AWS_SECRET_KEY=<%= aws_secret_key %>
+AWS_REGION=<%= aws_region %>
+
 PUBLIC_IP=$PUBLIC_IP
 EOF
 

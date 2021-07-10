@@ -1,3 +1,20 @@
+# string   "type"
+# string   "state"
+# string   "context_type"
+# integer  "context_id"
+# string   "ec2_type"
+# string   "image"
+# string   "security_group"
+# string   "key_name"
+# string   "client_token"
+# string   "name"
+# string   "userdata_template_path"
+# text     "userdata"
+# string   "identifier"
+# string   "public_ip_address"
+# datetime "created_at",             null: false
+# datetime "updated_at",             null: false
+#
 class Instance < ActiveRecord::Base
 
   EPHEMERAL_FIELDS = [
@@ -26,7 +43,7 @@ class Instance < ActiveRecord::Base
       transitions from: :created, to: :pending, on_transition: :prepare
     end
     event :complete do
-      transitions from: :pending, to: :running
+      transitions from: :pending, to: :running, on_transition: :on_complete
     end
     event :terminate do
       transitions from: :running, to: :terminated
@@ -40,6 +57,9 @@ class Instance < ActiveRecord::Base
   private
 
   # stm callbacks
+
+  def on_complete
+  end
 
   def on_reset
     unprovision
