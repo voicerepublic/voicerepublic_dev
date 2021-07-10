@@ -4,11 +4,29 @@ require 'redcarpet/render_strip'
 
 class Redcarpet::Render::VRHTML < Redcarpet::Render::HTML
 
+  def preprocess(doc)
+    detect_youtube_link(doc)
+  end
+
   def postprocess(doc)
-    youtubify(doc)
+    render_youtube_embed(doc)
   end
 
   private
+
+  def detect_youtube_link(doc)
+    patterns = [ /https?:\/\/www\.youtube\.com\/watch\?v=([^'"< ]+)/,
+                 /https?:\/\/youtu\.be\/([^'"< ]+)/ ]
+
+    patterns.map do |pattern|
+      if md = doc.match(pattern)
+        md.to_a[1..-1].each do |key|
+          @youtube_keys ||= []
+          @youtube_keys << key
+        end
+      end
+    end
+  end
 
   # adds iframes for youtube links
   #
@@ -21,23 +39,16 @@ class Redcarpet::Render::VRHTML < Redcarpet::Render::HTML
   #   <iframe width="560" height="315" frameborder="0" allowfullscreen
   #     src="//www.youtube.com/embed/F0G0YNHINwY"></iframe>
   #
-  def youtubify(txt)
+  def render_youtube_embed(txt)
+    return txt if @youtube_keys.nil?
+
     template = "\n\n<iframe width='640' height='480' " +
                "src='//www.youtube.com/embed/%s' " +
                "frameborder='0' allowfullscreen></iframe>"
 
-    patterns = [ /https?:\/\/www\.youtube\.com\/watch\?v=([^'"< ]+)/,
-                 /https?:\/\/youtu\.be\/([^'"< ]+)/ ]
-
-    patterns.map do |pattern|
-      if md = txt.match(pattern)
-        md.to_a[1..-1].each do |key|
-          txt += template % key
-        end
-      end
-    end
-
-    txt
+   result = @youtube_keys.reduce(txt) { |doc, key| doc + (template % key) }
+   @youtube_keys = nil
+   result
   end
 
 end
