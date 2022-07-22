@@ -758,7 +758,7 @@ GEM
       sync
     trickery (0.0.8)
       systemu
-    tzinfo (1.2.7)
+    tzinfo (1.2.10)
       thread_safe (~> 0.1)
     uber (0.1.0)
     uglifier (4.1.19)
