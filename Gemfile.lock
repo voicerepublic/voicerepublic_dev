@@ -161,7 +161,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.12.2)
-    concurrent-ruby (1.1.7)
+    concurrent-ruby (1.1.10)
     config (2.2.1)
       deep_merge (~> 1.2, >= 1.2.1)
       dry-validation (~> 1.0, >= 1.0.0)
@@ -433,8 +433,8 @@ GEM
       sprockets-es6 (>= 0.9.0)
     friendly_id (5.4.0)
       activerecord (>= 4.0.0)
-    globalid (0.4.2)
-      activesupport (>= 4.2.0)
+    globalid (1.0.1)
+      activesupport (>= 5.0)
     google-api-client (0.23.9)
       addressable (~> 2.5, >= 2.5.1)
       googleauth (>= 0.5, < 0.7.0)
@@ -485,7 +485,7 @@ GEM
       domain_name (~> 0.5)
     http_parser.rb (0.6.0)
     httpclient (2.8.3)
-    i18n (1.8.5)
+    i18n (1.12.0)
       concurrent-ruby (~> 1.0)
     inifile (3.0.0)
     ipaddress (0.8.3)
@@ -534,7 +534,7 @@ GEM
     mini_portile2 (2.4.0)
     mini_racer (0.3.1)
       libv8 (~> 8.4.255)
-    minitest (5.14.2)
+    minitest (5.17.0)
     multi_json (1.15.0)
     multi_xml (0.6.0)
     multipart-post (2.1.1)
@@ -758,7 +758,7 @@ GEM
       sync
     trickery (0.0.8)
       systemu
-    tzinfo (1.2.7)
+    tzinfo (1.2.10)
       thread_safe (~> 0.1)
     uber (0.1.0)
     uglifier (4.1.19)
@@ -795,7 +795,7 @@ GEM
     xmlrpc (0.3.0)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    zeitwerk (2.4.1)
+    zeitwerk (2.6.6)
 
 PLATFORMS
   ruby
